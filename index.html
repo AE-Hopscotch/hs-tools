@@ -4,9 +4,10 @@
 <title>Hopscotch Help Guide</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://awesome-e.github.io/hs-help-guide/style.css">
+<link rel="stylesheet" href="/hs-help-guide/style.css">
 <link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
-</head><body>
+</head>
+<body>
 
 <span style="position: fixed; display:block; left: 0px; top: 0px; background-color: white; width: 100%; height:60px; z-index: 1;">
 <img style="z-index: 2; position: fixed; top: 8px; left: 8px;" src="https://images.squarespace-cdn.com/content/v1/5980df7bebbd1ad69ea06814/1516660464375-LDGRQ25T19JGOIEGZIIP/ke17ZwdGBToddI8pDm48kIKJKud3ACMWAXXRSNwXFtoUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dkRPkJJtNjaHVp8McvnMvuILGNVaSfp754vIN05UFk9xCjLISwBs8eEdxAxTptZAUg/Hopscotch+Logo.png" width="340px" height="auto">
@@ -177,8 +178,8 @@
 
 <span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 
-  <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 45px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index: 9;"></a>
-  <input type="text" id="blockSearchBox" onkeyup="myFunction()" placeholder="Search for blocks..." title="Type in a block name">
+  <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 45px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
+  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name">
   <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
   
       <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
@@ -219,7 +220,7 @@
 
     <varblocks>
       <li onclick="display(45)"><a href="#%0">Set Variable <i class="ps fa fa-sliders"></i> to <i class="ps fa fa-hashtag"></i> </a></li>
-      <li onclick="display(44)"><a href="#%0">Incrase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(44)"><a href="#%0">Increase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i> </a></li>
     </varblocks>
 
     <ctrlblocks>
@@ -248,7 +249,7 @@
 
 
 <script>
-function myFunction() {
+function searchBlocks() {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("blockSearchBox");
     filter = input.value.toUpperCase();
@@ -265,9 +266,21 @@ function myFunction() {
     }
 }
 
+var search_open = false;
 function blockSearch(open){
-	setTimeout(function(){ var search = document.getElementById('blockSearch'); search.hidden = !open; if (search.hidden == true){document.getElementById('blockSearchSpan').style.backgroundColor = 'rgba(0,0,0,0)';} else {document.getElementById('blockSearchSpan').style.backgroundColor = 'rgba(255,255,255,1)';} }, 10);
-	
+	search_open = open;
+	if (!open) {
+		setTimeout(function(){
+			var search = document.getElementById('blockSearch');
+			search.hidden = !search_open;
+			searchBlocks();
+		}, 20);
+	} else {
+		var search = document.getElementById('blockSearch');
+		search.hidden = false;
+		searchBlocks();
+	}
+	console.log(Date.now());
 }
 
 function hi(){
@@ -279,8 +292,9 @@ function display(index){
     for (var i = 0; i < elements.length; i++){
         elements[i].hidden = true;
     }
-    document.getElementById("info"+String(index)).hidden = false;
     blockSearch(false);
+    document.getElementById("info"+String(index)).hidden = false;
+	document.getElementById("blockSearchBox").value = "";
 }
 </script>
 
