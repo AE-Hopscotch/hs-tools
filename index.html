@@ -268,19 +268,27 @@ function searchBlocks() {
 
 var search_open = false;
 function blockSearch(open){
+	var search = document.getElementById('blockSearch');
 	search_open = open;
+	
 	if (!open) {
-		setTimeout(function(){
-			var search = document.getElementById('blockSearch');
-			search.hidden = !search_open;
-			searchBlocks();
-		}, 20);
+		if (!document.getElementById('blockSearch').hidden){
+			setTimeout(function(){
+				var search = document.getElementById('blockSearch');
+				if (!search.hidden) search.hidden = !search_open;
+				if (search.hidden){
+					console.log("Search Closed at " + String(Date.now()));
+				}
+				searchBlocks();
+			}, 20);
+		}
 	} else {
-		var search = document.getElementById('blockSearch');
-		search.hidden = false;
-		searchBlocks();
+		if (document.getElementById('blockSearch').hidden){
+			search.hidden = false;
+			searchBlocks();
+			console.log("Search Opened at " + String(Date.now()));
+		}
 	}
-	console.log(Date.now());
 }
 
 function hi(){
@@ -293,8 +301,17 @@ function display(index){
         elements[i].hidden = true;
     }
     blockSearch(false);
-    document.getElementById("info"+String(index)).hidden = false;
-	document.getElementById("blockSearchBox").value = "";
+	
+	try {
+	  document.getElementById("info"+String(index)).hidden = false;
+		console.log("Displayed Block " + String(index) + " at " + String(Date.now()));
+		document.getElementById("blockSearchBox").value = "";
+	}
+	catch(TypeError) {
+		console.log("Block ID " + String(index) + " does not exist");
+		
+	}
+
 }
 </script>
 
