@@ -45,6 +45,11 @@ display: none;
   margin: 0;
 }
 
+.searchItems li {
+  display: block;
+  background-color: white;
+}
+
 .searchItems li a {
   border: 1px solid #ddd;
   margin-top: -1px; /* Prevent double borders */
