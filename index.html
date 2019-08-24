@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://awesome-e.github.io/hs-help-guide/style.css">
 <link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 </head>
+
 <body>
 
 <span style="position: fixed; display:block; left: 0px; top: 0px; background-color: white; width: 100%; height:60px; z-index: 1;">
@@ -178,7 +179,7 @@
 
 <span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 
-  <input type="text" id="blockSearchBox" onkeyup="myFunction()" placeholder="Search for blocks..." title="Type in a block name">
+  <span style="display:block; padding: 0; background-color: yellow;"><input type="text" id="blockSearchBox" onkeyup="myFunction()" placeholder="Search for blocks..." title="Type in a block name"></span>
   <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
   
       <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
