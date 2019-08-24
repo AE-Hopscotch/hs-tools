@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hopscotch Help Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+h {
+  display: none;
+}
+
+a {
+  color: #50D8BB;
+  text-decoration: none;
+}
+
+.search {
+  position: fixed;
+  top: 8px;
+  width: 500px;
+  max-width: 80%;
+  height: 50%;
+  right: 8px;
+  overflow: auto;
+}
+
+.search::-webkit-scrollbar {
+display: none;
+}
+
+#blockSearchBox {
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 500px;
+  max-width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 0px;
+  position: fixed;
+  z-index: 10;
+}
+
+.searchItems {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.searchItems li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  background-color: #bbb;
+}
+
+.searchItems li a:hover:not(.header) {
+  opacity: 0.8;
+}
+
+.searchItems moveblocks li a, bl[type=move] {
+  background-color: #d73e1e;
+}
+
+.searchItems lookblocks li a, bl[type=looks] {
+  background-color: #63ae1e;
+}
+
+.searchItems drawblocks li a, bl[type=draw] {
+  background-color: #a6006e;
+}
+
+.searchItems varblocks li a, bl[type=var] {
+  background-color: #e7b601;
+}
+
+.searchItems ctrlblocks li a, bl[type=ctrl] {
+  background-color: #3e83be;
+}
+
+.searchItems oldblocks li a, bl[type=old] {
+  background-color: #647f96;
+}
+
+bl {
+  margin-top: 20px;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: inline-block;
+  background-color: #bbb;
+  border-radius: 10px;
+  font-weight: normal;
+  letter-spacing: 0.3px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ps {
+  background: white;
+  margin: -10px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 20px;
+  min-width: 50px;
+  height: 30px;
+  display: inline-block;
+  color: black;
+  text-align: center;
+  line-height: 28px;
+  padding: 0px 6px;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.info{
+  position: relative;
+  top: -16px;
+}
+
+.info p, .info b, .info li {
+  margin-left: 4px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 16px;
+}
+
+</style>
+</head>
+<body>
+
+<span style="position: fixed; display:block; left: 0px; top: 0px; background-color: white; width: 100%; height:60px; z-index: 1;">
+<img style="z-index: 2; position: fixed; top: 8px; left: 8px;" src="https://images.squarespace-cdn.com/content/v1/5980df7bebbd1ad69ea06814/1516660464375-LDGRQ25T19JGOIEGZIIP/ke17ZwdGBToddI8pDm48kIKJKud3ACMWAXXRSNwXFtoUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dkRPkJJtNjaHVp8McvnMvuILGNVaSfp754vIN05UFk9xCjLISwBs8eEdxAxTptZAUg/Hopscotch+Logo.png" width="340px" height="auto">
+</span>
+<br><p style="color:white; margin-top: 30px; font-size: 0px;">---</p>
+
+<span id="info">
+
+	<span hidden class="info" id="info123">
+	<bl type="">Custom Block / Ability </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
+		<p><b style="font-size: 120%;">Description</b></p>
+		<p style="text-indent: 40px;">A Rainbow Block in the editor that allows you to put blocks inside it and reuse the code </p>
+		<p><b style="font-size: 120%;">Parameters</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>There are no parameters for Custom Blocks at the moment. However, you can rename them by tapping and holding on the editor block.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Useful For</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Making While Loops by putting a nested ability inside a conditional</li>
+			<li>Condensing and reusing code templates; they act as a closed, global folder.</li>
+			<li>Code Organization; they can be named and seen at all times.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Other Info</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Hopscotch Description: There is no description, but there are example names such as jump, fly, and run.</li>
+			<li>Block ID: 123</li>
+			<li>This block is available should be available for everyone to use</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Community Links</b></p>
+		<p><ul style="font-size: 100%; margin-bottom: -10px;">
+			<li>Under Construction</li>
+		</ul></p>
+	</span>
+	<span hidden class="info" id="info23">
+	<bl type="move">Move Forward <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
+		<p><b style="font-size: 120%;">Description</b></p>
+		<p style="text-indent: 40px;">Moves the object in their forward direction by the specified distance (pixels) </p>
+		<p><b style="font-size: 120%;">Parameters</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Distance – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Useful For</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Animating Characters and Moving Things Around in Projects</li>
+			<li>Drawing Intricate / Complex Shapes; they adapt to the object's rotation</li>
+			<li>Making Puzzle Games</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Other Info</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Hopscotch Description: Moves your object forward* by the number of pixels specified. Negative numbers will move you robject backwards.<br/>*Forward means the angle your object is facing. All objects face to the right by default - 0 degrees. You can turn or flip an object to change the direction of Move Forward.</li>
+			<li>Block ID: 23</li>
+			<li>This block is available should be available for everyone to use</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Community Links</b></p>
+		<p><ul style="font-size: 100%; margin-bottom: -10px;">
+			<li>Under Construction</li>
+		</ul></p>
+	</span>
+	<span hidden class="info" id="info24">
+	<bl type="move">Turn degrees <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
+		<p><b style="font-size: 120%;">Description</b></p>
+		<p style="text-indent: 40px;">Turns the object by the number of degrees specified.</p>
+		<p><b style="font-size: 120%;">Parameters</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Degrees – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Useful For</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Animating Loading Screens</li>
+			<li>Drawing Intricate / Complex Shapes; they change the direction of move forward</li>
+			<li>Making Rescue Games where your character changes direction</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Other Info</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Hopscotch Description: Changes the direction the object is facing by a certain number of degrees. Use a shape like heart to see how it works. Rotating 180 degrees will place the heart upside down with the top edges facing down. Rotating 360 degrees will make the heart turn a full circle!<br/>For an example, search the community for Helicopter Rescue. It uses the block to rotate the helicopter as you rescue the people.</li>
+			<li>Block ID: 24</li>
+			<li>This block is available should be available for everyone to use</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Community Links</b></p>
+		<p><ul style="font-size: 100%; margin-bottom: -10px;">
+			<li>Under Construction</li>
+		</ul></p>
+	</span>
+	
+	<span hidden class="info" id="info34">
+	<bl type="move">Set Speed to <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix, GameCodingCrazy123, Mathgirl</p><br/>
+		<p><b style="font-size: 120%;">Description</b></p>
+		<p style="text-indent: 40px;">Changes execution speed of change x, change y, turn, and move forward blocks for the current object</p>
+		<p><b style="font-size: 120%;">Parameters</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Speed – Determines how quickly movement blocks run. Higher speed means faster execution, and negative speed will make objects move the opposite direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Useful For</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Speeding up trail art</li>
+			<li>Slowing down or speeding up obstacles in your game</li>
+			<li>Timings of overlapping objects</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Other Info</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Hopscotch Description: Sets the speed for this object. The default setting is 400. Small numbers make it slower and big numbers make it faster.</li>
+			<li>Block ID: 34</li>
+			<li>This block is available should be available for everyone to use</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Community Links</b></p>
+		<p><ul style="font-size: 100%; margin-bottom: -10px;">
+			<li><a href="https://c.gethopscotch.com/p/10dp4yohyt">CNN Logo Trail Art</a> – The Straight Segments in this trail art can be done quickly because the object's speed is set to a high number.</li>
+			<li><a href="https://c.gethopscotch.com/p/zcs38n565">Hatsune Miku Trail Art</a> – This is another trail art that would have taken ages to load if it were not for the set speed block.</li>
+			<li>Under Construction</li>
+		</ul></p>
+	</span>
+
+	<span hidden class="info" id="info52">
+	<bl type="looks">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
+	<p><b style="font-size: 120%;">Description</b></p>
+	<p style="text-indent: 40px;">Plays a Sound during your project and triggers a delay</p>
+	<p><b style="font-size: 120%;">Parameters</b></p>
+	<p><ol style="font-size: 100%;">
+		<li>Sound – This parameter allows you to choose from various preset sounds, including music notes, nature, people, and objects.</li>
+		<li>Wait – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+	</ol></p>
+	<p><b style="font-size: 120%;">Useful For</b></p>
+	<p><ul style="font-size: 100%;">
+		<li>Making Music Projects (that should be self-explanatory)</li>
+		<li>Adding Sound Effects to give life to your project to your game</li>
+		<li>Debugging Projects; the only way they can avoid running is by muting the project or a conditional not being true. It cannot be overridden and can help you see if another nearby action is running or not.</li>
+	</ul></p>
+	<p><b style="font-size: 120%;">Other Info</b></p>
+	<p><ul style="font-size: 100%;">
+		<li>Hopscotch Description: Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.</li>
+		<li>Block ID: 52</li>
+		<li>This block is available should be available for everyone to use</li>
+	</ul></p>
+	<p><b style="font-size: 120%;">Community Links</b></p>
+	<p><ul style="font-size: 100%; margin-bottom: -10px;">
+		<li>Under Construction</li>
+	</ul></p>
+	</span>
+
+	<span hidden class="info" id="info55">
+	<bl type="ctrl">Destroy</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, GameCodingCrazy123</p><br/>
+		<p><b style="font-size: 120%;">Description</b></p>
+		<p style="text-indent: 40px;">Destroys the current instance of an object.</p>
+		<p><b style="font-size: 120%;">Parameters</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>There are no parameters for this block.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Useful For</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Clearing Several Clones just used for drawing a background</li>
+			<li>Lowering the object count overall for performance</li>
+			<li>Potential Debug Purposes; however, it is somewhat buggy at the moment</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Other Info</b></p>
+		<p><ul style="font-size: 100%;">
+			<li>Hopscotch Description: Remove this object from your game. This is useful if you made a lot of clones to quickly draw a background but no longer need them any more. Also can be used if you want to get rid of a character that got knocked out in your game.</li>
+			<li>Block ID: 55</li>
+			<li>This block was previously only obtainable by JSON editing or copied code. It is now available in the beta editor for subscribers to test.</li>
+		</ul></p>
+		<p><b style="font-size: 120%;">Community Links</b></p>
+		<p><ul style="font-size: 100%; margin-bottom: -10px;">
+			<li><a href="https://c.gethopscotch.com/projects/zwofn3guf">Snowman Stacker</a> – This project would have otherwise been very laggy if background-drawing objects had not been destroyed.</li>
+			<li>Under Construction</li>
+		</ul></p>
+	</span>
+
+</span>
+
+<span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
+
+  <input type="text" id="blockSearchBox" onkeyup="myFunction()" placeholder="Search for blocks..." title="Type in a block name">
+  <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
+  
+      <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
+	  
+    <moveblocks>
+      <li onclick="display(23)"><a href="#%0">Move Forward <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(24)"><a href="#%0">Turn degrees <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(41)"><a href="#%0">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(50)"><a href="#%0">Flip</a></li>
+      <li onclick="display(27)"><a href="#%0">Change X by <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(28)"><a href="#%0">Change Y by <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(34)"><a href="#%0">Set Speed to <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(39)"><a href="#%0">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
+    </moveblocks>
+	
+    <lookblocks>
+      <li onclick="display(54)"><a href="#%0">Set Color <i class="ps fa fa-eyedropper"></i> </a></li>
+      <li onclick="display(56)"><a href="#%0">Set Image <i class="ps fa fa-picture-o"></i> </a></li>
+      <li onclick="display(40)"><a href="#%0">Set Text to <i class="ps fa fa-i-cursor"></i> color <i class="ps fa fa-eyedropper"></i>  </a></li>
+      <li onclick="display(51)"><a href="#%0">Set Size percent <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(57)"><a href="#%0">Set width <i class="ps fa fa-hashtag"></i> height <i class="ps fa fa-hashtag"></i><h>Set width and height</h> </a></li>
+      <li onclick="display(48)"><a href="#%0">Grow by percent <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(49)"><a href="#%0">Shrink by percent <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(52)"><a href="#%0">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(47)"><a href="#%0">Set Invisibility percent <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(43)"><a href="#%0">Bring to Front</a></li>
+      <li onclick="display(42)"><a href="#%0">Send to Back</a></li>
+      <li onclick="display(33)"><a href="#%0">Change Pose</a></li>
+      <li onclick="display(58)"><a href="#%0">Set Z Index <i class="ps fa fa-hashtag"></i> </a></li>
+    </lookblocks>
+
+    <drawblocks>
+      <li onclick="display(26)"><a href="#%0">Draw a Trail color <i class="ps fa fa-eyedropper"></i> width <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(32)"><a href="#%0">Set Trail Color to <i class="ps fa fa-eyedropper"></i> </a></li>
+      <li onclick="display(31)"><a href="#%0">Set Trail Width to <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(30)"><a href="#%0">Clear</a></li>
+    </drawblocks>
+
+    <varblocks>
+      <li onclick="display(45)"><a href="#%0">Set Variable <i class="ps fa fa-sliders"></i> to <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(44)"><a href="#%0">Incrase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i> </a></li>
+    </varblocks>
+
+    <ctrlblocks>
+      <li onclick="display(122)"><a href="#%0">Check Once If <i class="ps fa fa-question-circle"></i> </a></li>
+      <li onclick="display(120)"><a href="#%0">Repeat <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(124)"><a href="#%0">Check If Else <i class="ps fa fa-question-circle"></i> </a></li>
+      <li onclick="display(121)"><a href="#%0">Repeat Forever</a></li>
+      <li onclick="display(35)"><a href="#%0">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(53)"><a href="#%0">Create a Clone of This Object</a></li>
+      <li onclick="display(55)"><a href="#%0">Destroy <h>Destroy Object</h><h>Destroy Clone</h></a></li>
+      <li onclick="display(125)"><a href="#%0">Change Scene <i class="ps fa fa-file-photo-o"></i> </a></li>
+    </ctrlblocks>
+	
+	<oldblocks>
+      <li onclick="display(29)"><a href="#%0">Scale by percent <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(36)"><a href="#%0">Set Opacity <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display(37)"><a href="#%0">Pen Down</a></li>
+      <li onclick="display(38)"><a href="#%0">Pen Up</a></li>
+      <li onclick="display(46)"><a href="#%0">Move With Trail distance <i class="ps fa fa-hashtag"></i> </a></li>
+      <li onclick="display()"><a href="#%0">Wait Until Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait until Unix Timestamp</h></a></li>
+	</oldblocks>
+
+  </ul>
+
+</span>
+
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("blockSearchBox");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("blockSearch");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function blockSearch(open){
+	setTimeout(function(){ var search = document.getElementById('blockSearch'); search.hidden = !open; if (search.hidden == true){document.getElementById('blockSearchSpan').style.backgroundColor = 'rgba(0,0,0,0)';} else {document.getElementById('blockSearchSpan').style.backgroundColor = 'rgba(255,255,255,1)';} }, 10);
+	
+}
+
+function hi(){
+	alert("hi");
+}
+
+function display(index){
+    var elements = document.getElementsByClassName('info');
+    for (var i = 0; i < elements.length; i++){
+        elements[i].hidden = true;
+    }
+    document.getElementById("info"+String(index)).hidden = false;
+    blockSearch(false);
+}
+
+function scrollList() {
+  var list = document.getElementById('blockSearch'); // targets the <ul>
+  var first = list.firstChild; // targets the first <li>
+  var maininput = document.getElementById('blockSearchBox');  // targets the input, which triggers the functions populating the list
+  document.onkeydown = function(e) { // listen to keyboard events
+	switch (e.keyCode) {
+	  case 38: // if the UP key is pressed
+		if (document.activeElement == (maininput || first)) { break; } // stop the script if the focus is on the input or first element
+		else { document.activeElement.parentNode.previousSibling.firstChild.focus(); } // select the element before the current, and focus it
+		break;
+	  case 40: // if the DOWN key is pressed
+		if (document.activeElement == maininput) { first.firstChild.focus(); } // if the currently focused element is the main input --> focus the first <li>
+		else { document.activeElement.parentNode.nextSibling.firstChild.focus(); } // target the currently focused element -> <a>, go up a node -> <li>, select the next node, go down a node and focus it
+	  break;
+	}
+  }
+}
+</script>
+
+</body>
+</html>
