@@ -423,6 +423,17 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	//Keep Popout Expanded
 	document.getElementById("linksPopout").setAttribute("m", "true");
 }
+
+//Manage Popup
+document.getElementById('linksPopout').onclick = function() {
+	document.getElementById('linksPopout').style.right = "0px";
+};
+document.getElementById('linksPopout').onmouseenter = function() {
+	document.getElementById('linksPopout').style.right = "0px";
+};
+document.getElementById('linksPopout').onmouseleave = function() {
+	document.getElementById('linksPopout').style.right = "-120px";
+};
 </script>
    
 </body>
