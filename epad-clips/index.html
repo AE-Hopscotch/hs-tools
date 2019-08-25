@@ -1,0 +1,102 @@
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."></input>
+	<div hidden id="main">
+		<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
+			<a style="text-align: center; margin-left:-15px; display:none;" href="# ">Navigation</a><br>
+			<a href="#" onclick="video('1')"><i class="fa fa-fw fa-film"> </i> Navigation 3/30/19</a>
+			<a title="April 2, 2019" href="#" onclick="video('2')"><i class="fa fa-fw fa-film"> </i> App Download Sim</a>
+			<a title="June 26, 2019" href="#" onclick="video('3')"><i class="fa fa-fw fa-film"> </i> General Options</a>
+			<a title="July 1, 2019" href="#" onclick="video('4')"><i class="fa fa-fw fa-film"> </i> Background Select</a>
+			<a title="July 3, 2019" href="#" onclick="video('5')"><i class="fa fa-fw fa-film"> </i> Navigation 7/3/19</a>
+			<a title="July 6, 2019" href="#" onclick="video('6')"><i class="fa fa-fw fa-film"> </i> Fullscreen & No Pin</a>
+			<a title="July 12, 2019" href="#" onclick="video('7')"><i class="fa fa-fw fa-film"> </i> Navigation 7/12/19</a>
+			<a title="July 18, 2019" href="#" onclick="video('8')"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
+			<a title="July 20, 2019" href="#" onclick="video('9')"><i class="fa fa-fw fa-film"> </i> Settings Comparison</a>
+			<a title="August 9, 2019" href="#" onclick="video('10')"><i class="fa fa-fw fa-film"> </i> Popup Boxes</a>
+			<!-- Sub Section Test
+			<a href="#%20" onclick="sub('1')" style="display:no;"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Features</a>
+				<div id="g1" style="margin-left:30px;" hidden>
+					<a href="#"><i class="fa fa-fw fa-empty"> </i> Nothing</a>
+				</div>
+			></!-->
+		</div>
+
+		<span style="width: 640px; position: fixed; left: 350px;">
+			<div id="v0" style="text-align: center; font-size: 200%; position: fixed; left: 50%; top: 30%;">No Video Selected<p id="i0"></p></div>
+			<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></p></div>
+			<div hidden id="v2" class="displayVid"><iframe id="i2" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v3" class="displayVid"><iframe id="i3" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v4" class="displayVid"><iframe id="i4" src="" frameborder="0" width="20%" height="35%" allowfullscreen scrolling="no"></iframe></div>
+			<div hidden id="v5" class="displayVid"><iframe id="i5" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
+			<div hidden id="v6" class="displayVid"><iframe id="i6" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v7" class="displayVid"><iframe id="i7" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v8" class="displayVid"><iframe id="i8" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v9" class="displayVid"><iframe id="i9" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v10" class="displayVid"><iframe id="i10" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+		</span>
+	</div>
+	<script>
+		var keyPresses = 0;
+		function checkPass(){
+			var pass = document.getElementById("pin1");
+			keyPresses += 1;
+			if (pass.value == window.atob("RS1QYWQyMDE5LjguOA==") && keyPresses > -5*Math.cos(Number(window.atob("Ni4yODMxODUzMQ==")))*-2){
+				pass.style.backgroundColor = "#cfc";
+				setTimeout(function(){
+					if (pass.value == window.atob("RS1QYWQyMDE5LjguOC4=")){
+						pass.hidden = true;
+						document.getElementById("main").hidden = false;
+					} else {
+						pass.style.backgroundColor = "#fcc";
+					}
+					pass.value = "";
+					keyPresses = 0;
+				},1000);
+			} else {
+				if (pass.value != window.atob("RS1QYWQyMDE5LjguOC4=")) pass.style.backgroundColor = "#fcc";
+			}
+			if (pass.value == "") keyPresses = 0;
+			console.log(keyPresses);
+		}
+		
+		var activeDiv = "v0";
+		var activeFr = "i0";
+
+		function sub(id){
+		  var cid = "c" + id;
+		  var gid = "g" + id;
+		  var caret = document.getElementById(cid);
+		  var group = document.getElementById(gid);
+		  if (group.hidden){
+			group.hidden = false;
+			caret.classList.add('fa-caret-down');
+			caret.classList.remove('fa-caret-right');
+		  } else {
+			group.hidden = true;
+			caret.classList.add('fa-caret-right');
+			caret.classList.remove('fa-caret-down');
+		  }
+		}
+
+		function video(id){
+		  
+		  var urlList = ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"];
+		  
+		  var newURL = urlList[id];
+		  
+		  var divID = String("v"+id);
+		  var frID = String("i"+id);
+		  
+		  document.getElementById(activeDiv).hidden = true;
+		  document.getElementById(activeFr).src = "";
+		  document.getElementById(divID).hidden = false;
+		  document.getElementById(frID).src = newURL;
+		  
+		  activeDiv = divID;
+		  activeFr = frID;
+		}
+	</script>
+</body>
