@@ -28,16 +28,7 @@
 
 		<span style="width: 640px; position: fixed; left: 350px;">
 			<div id="v0" style="text-align: center; font-size: 200%; position: fixed; left: 50%; top: 30%;">No Video Selected<p id="i0"></p></div>
-			<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></p></div>
-			<div hidden id="v2" class="displayVid"><iframe id="i2" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v3" class="displayVid"><iframe id="i3" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v4" class="displayVid"><iframe id="i4" src="" frameborder="0" width="20%" height="35%" allowfullscreen scrolling="no"></iframe></div>
-			<div hidden id="v5" class="displayVid"><iframe id="i5" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
-			<div hidden id="v6" class="displayVid"><iframe id="i6" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v7" class="displayVid"><iframe id="i7" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v8" class="displayVid"><iframe id="i8" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v9" class="displayVid"><iframe id="i9" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
-			<div hidden id="v10" class="displayVid"><iframe id="i10" src="" frameborder="0" width="100%" height="100%" allowfullscreen></iframe></div>
+			<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
 		</span>
 	</div>
 	<script>
@@ -84,21 +75,12 @@
 		}
 
 		function video(id){
-		  
 		  var urlList = ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"];
 		  
-		  var newURL = urlList[id];
+		  document.getElementById("v0").hidden = true;
+		  document.getElementById("v1").hidden = false;
+		  document.getElementById("i1").src = urlList[id];
 		  
-		  var divID = String("v"+id);
-		  var frID = String("i"+id);
-		  
-		  document.getElementById(activeDiv).hidden = true;
-		  document.getElementById(activeFr).src = "";
-		  document.getElementById(divID).hidden = false;
-		  document.getElementById(frID).src = newURL;
-		  
-		  activeDiv = divID;
-		  activeFr = frID;
 		}
 	</script>
 </body>
