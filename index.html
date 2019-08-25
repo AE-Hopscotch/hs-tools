@@ -342,24 +342,20 @@ function scrollList() {
 }
 */
 
-console.log("Hello, World 13:08:23");
+//Log Site Update Time and Device
+console.log("Hello, World 13:12:34");
 console.log(navigator.userAgent);
 
+//Keep Popout Expanded when on Mobile
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-	//Keep Popout Expanded
 	document.getElementById("linksPopout").setAttribute("m", "true");
 }
 
-if (window.innerWidth < 875){
-	document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
-}
+//Change Logos to Screen Size
 
+if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.jpg"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 window.onresize = function(){
-	if (window.innerWidth < 875){
-		document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
-	} else {
-		document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
-	}
+	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.jpg"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 }
 
 </script>
