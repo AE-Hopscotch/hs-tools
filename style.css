@@ -147,7 +147,8 @@ bl {
 	right: 0px;
 	width: 120px;
 	height: 72px;
-	transition: 0.5s
+	transition: 0.5s;
+	z-index: 15;
 }
 .popout:hover {
 	top: 0px;
