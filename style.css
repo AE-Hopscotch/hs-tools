@@ -131,7 +131,7 @@ bl {
 	justify-content: space-around;
 }
 
-.info{
+.info {
   position: relative;
   top: -16px;
 }
@@ -153,10 +153,10 @@ bl {
 	transition: 0.5s;
 	z-index: 15;
 }
-.popout:hover, .popout:focus {
+.popout:hover, {
 	bottom: 0px;
 }
-.popout[m=123] {
+.popout[m=true] {
 	bottom: 0px;
 }
 .popout .popout-content {
