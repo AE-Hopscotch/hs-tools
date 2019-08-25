@@ -350,9 +350,17 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	document.getElementById("linksPopout").setAttribute("m", "true");
 }
 
-if (window.innerWidth < 840){
+if (window.innerWidth < 875){
 	document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
 }
+
+$(window).resize(function() {
+	if (window.innerWidth < 875){
+		document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
+	} else {
+		document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+	}
+});
 
 </script>
 
