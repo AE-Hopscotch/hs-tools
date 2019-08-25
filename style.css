@@ -156,6 +156,9 @@ bl {
 .popout:hover {
 	bottom: 0px;
 }
+.popout[m=true] {
+	bottom: 0px;
+}
 .popout .popout-content {
 	position: absolute;
 	color: red;
