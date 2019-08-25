@@ -153,10 +153,10 @@ bl {
 	transition: 0.5s;
 	z-index: 15;
 }
-.popout:hover {
+.popout:hover, .popout:focus {
 	bottom: 0px;
 }
-.popout[m=true] {
+.popout[m=123] {
 	bottom: 0px;
 }
 .popout .popout-content {
