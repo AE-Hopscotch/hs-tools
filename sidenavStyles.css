@@ -105,9 +105,9 @@ a {
 .displayVid {
   width:580px;
   top:8px;
-  left:280px;
+  left: 0px;
   height:590px;
-  position:fixed;
+  position:absolute;
   padding-bottom:75%;
   overflow:hidden;
 }
