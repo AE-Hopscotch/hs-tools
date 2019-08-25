@@ -1,5 +1,5 @@
-.sidenav::-webkit-scrollbar {
-display: none;
+.sidenav::-webkit-scrollbar, .nobar::-webkit-scrollbar {
+  display: none;
 }
 
 body {
