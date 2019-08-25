@@ -9,11 +9,12 @@
 </head>
 <body>
 
-<div class="popout">
+<div class="popout" m="false">
 	<span class="popout-content arrow"></span>
 	<span class="popout-content c2">
 		<a href="https://codepen.io/Awesome_E/full/JQpXQj" target="_blank"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/3e/52/07/3e520776-0908-893c-2248-6c9d29a03cc7/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg" width="40" height="40"/></a>
-		<a href="https://codepen.io/Awesome_E/full/mZvzpe" target="_blank"><img src="https://storage.needpix.com/rsynced_images/youtube-1718976_1280.png" width="40" height="40"/></a>		
+		<a href="https://codepen.io/Awesome_E/full/mZvzpe" target="_blank"><img src="https://storage.needpix.com/rsynced_images/youtube-1718976_1280.png" width="40" height="40"/></a>
+		
 	</span>
 </div>
 
@@ -322,7 +323,33 @@ function display(index){
 
 }
 
+/* NOT IN USE
+function scrollList() {
+  var list = document.getElementById('blockSearch'); // targets the <ul>
+  var first = list.firstChild; // targets the first <li>
+  var maininput = document.getElementById('blockSearchBox');  // targets the input, which triggers the functions populating the list
+  document.onkeydown = function(e) { // listen to keyboard events
+	switch (e.keyCode) {
+	  case 38: // if the UP key is pressed
+		if (document.activeElement == (maininput || first)) { break; } // stop the script if the focus is on the input or first element
+		else { document.activeElement.parentNode.previousSibling.firstChild.focus(); } // select the element before the current, and focus it
+		break;
+	  case 40: // if the DOWN key is pressed
+		if (document.activeElement == maininput) { first.firstChild.focus(); } // if the currently focused element is the main input --> focus the first <li>
+		else { document.activeElement.parentNode.nextSibling.firstChild.focus(); } // target the currently focused element -> <a>, go up a node -> <li>, select the next node, go down a node and focus it
+	  break;
+	}
+  }
+}
+*/
+
 console.log("Hello, World 00:32:37");
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	//Keep Popout Expanded
+	document.getElementById("popout").mobile = "true";
+}
+
 </script>
 
 </body>
