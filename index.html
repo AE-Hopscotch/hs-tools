@@ -342,7 +342,7 @@ function scrollList() {
 }
 */
 
-console.log("Hello, World 01:06:03");
+console.log("Hello, World 13:04:41");
 console.log(navigator.userAgent);
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -352,6 +352,10 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 if (window.innerWidth < 875){
 	document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
+}
+
+window.onresize = function(){
+	alert("resize event detected!");
 }
 
 $(window).resize(function() {
