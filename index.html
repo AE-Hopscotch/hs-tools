@@ -348,10 +348,8 @@ console.log(navigator.userAgent);
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	//Keep Popout Expanded
-	console.log("mobile device");
-	document.getElementById("linksPopout").m = "true";
-	console.log(document.getElementById("linksPopout").m);
-	document.getElementById("linksPopout").style.backgroundColor = red;
+	document.getElementById("linksPopout").setAttribute("m", "true");
+}
 }
 
 </script>
