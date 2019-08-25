@@ -9,12 +9,14 @@
 </head>
 <body>
 
-<div id="linksPopout" class="popout" m="false">
+<div id="linksPopout" class="popout">
 	<span class="popout-content arrow"></span>
 	<span class="popout-content c2">
 		<a href="shortcut-help-guide/" title="Siri Shortcut Help Guide"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/3e/52/07/3e520776-0908-893c-2248-6c9d29a03cc7/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg" width="40" height="40"/></a>
 		<a href="https://codepen.io/Awesome_E/full/mZvzpe" title="Hold my Data" target="_blank"><img src="https://storage.needpix.com/rsynced_images/youtube-1718976_1280.png" width="40" height="40"/></a>
 	</span>
+	<span id="open" class="popout-content c3"></span>
+	<span class="popout-content c4"></span>
 </div>
 
 <span style="position: fixed; display:block; left: 0px; top: 0px; background-color: white; width: 100%; height:60px; z-index: 1;">
@@ -358,6 +360,16 @@ window.onresize = function(){
 	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.jpg"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 }
 
+//Manage Popup
+document.getElementById('linksPopout').onclick = function() {
+	document.getElementById('linksPopout').style.right = "0px";
+};
+document.getElementById('linksPopout').onmouseenter = function() {
+	document.getElementById('linksPopout').style.right = "0px";
+};
+document.getElementById('linksPopout').onmouseleave = function() {
+	document.getElementById('linksPopout').style.right = "-120px";
+};
 </script>
 
 </body>
