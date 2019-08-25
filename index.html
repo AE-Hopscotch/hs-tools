@@ -355,16 +355,12 @@ if (window.innerWidth < 875){
 }
 
 window.onresize = function(){
-	alert("resize event detected!");
-}
-
-$(window).resize(function() {
 	if (window.innerWidth < 875){
 		document.getElementById("hs-logo").src = "images/hs-logo-h.jpg";
 	} else {
 		document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 	}
-});
+}
 
 </script>
 
