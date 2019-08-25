@@ -413,6 +413,12 @@ function theme(){
 
 //Remove Legacy "Open Full" Button
 document.getElementById('openfull').hidden = true;
+
+console.log(navigator.userAgent);
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	//Keep Popout Expanded
+	document.getElementById("linksPopout").setAttribute("m", "true");
+}
 </script>
    
 </body>
