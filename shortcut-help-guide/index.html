@@ -87,7 +87,6 @@
   <a></a>
 </div>
 
-<a href="" id="openfull" style="position:fixed;right:10px;" class="openbtn" target="_blank" onclick="">Open Full</a>
 <button class="openbtn" onclick="openNav()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
 <button class="openbtn" onclick="theme()" id="themebtn" style="left:186px;"><i class="fa fa-fw fa-moon-o"> </i></button>
 
@@ -414,9 +413,6 @@ function theme(){
   }
   document.getElementById('themebtn2').innerHTML = document.getElementById('themebtn').innerHTML;
 }
-
-//Remove Legacy "Open Full" Button
-document.getElementById('openfull').hidden = true;
 
 console.log(navigator.userAgent);
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
