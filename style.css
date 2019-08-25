@@ -11,6 +11,8 @@ a {
   text-decoration: none;
 }
 
+/*Search Menu and Info*/
+
 .search {
   position: fixed;
   top: 8px;
@@ -126,7 +128,7 @@ bl {
 	justify-content: space-around;
 }
 
-.info{
+.info {
   position: relative;
   top: -16px;
 }
@@ -135,4 +137,54 @@ bl {
   margin-left: 4px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 16px;
+}
+
+/*Popouts*/
+
+.popout {
+	position: fixed;
+	top: -64px;
+	right: 0px;
+	width: 120px;
+	height: 72px;
+	transition: 0.5s
+}
+.popout:hover {
+	top: 0px;
+}
+.popout .popout-content {
+	position: absolute;
+	color: red;
+}
+.popout .arrow {
+	background-image: 
+		linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 100%);
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	color: white;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 12px;
+	line-height: 2px;
+}
+.popout-content.c2{
+	right: 0px;
+	display: flex;
+	flex-direction: rows;
+	text-align: center;
+	align-content: space-around;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+	height: 60px;
+	box-sizing: border-box;
+	background-color: rgba(0,0,0,0.7);
+	padding: 2px;
+}
+.popout-content.c2 img {
+	border-radius: 10px;
+	margin: 2px;
 }
