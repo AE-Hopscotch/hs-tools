@@ -6,6 +6,46 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<link rel="manifest" href="icons/site.webmanifest">
+<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+<meta name="application-name" content="Hopscotch Tools">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<script src="sidenav.min.js"></script>
+
+<style>
+body, .topBar, #blockSearchBox {
+	transition: background-color 0.5s ease;
+}
+.topBar {
+	position: fixed;
+	display:block;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height:60px;
+	z-index: 1;
+	background-color: white;
+}
+
+#themebtn {
+	position: fixed;
+	left: 8px;
+	bottom: 8px;
+	font-size: 18px;
+	cursor: pointer;
+	background-color: #0d6f62;
+	color: white;
+	padding: 8px 12px;
+	border: none;
+}
+</style>
 </head>
 <body>
 
@@ -19,7 +59,7 @@
 	<span class="popout-content c4"></span>
 </div>
 
-<span style="position: fixed; display:block; left: 0px; top: 0px; background-color: white; width: 100%; height:60px; z-index: 1;">
+<span id="topBar" class="topBar">
 <img id="hs-logo" style="z-index: 2; position: fixed; top: 8px; left: 8px;" src="" width="auto" height="45">
 </span>
 <br><p style="color:white; margin-top: 30px; font-size: 0px;">---</p>
@@ -188,8 +228,8 @@
 
 <span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 
-  <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 45px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
-  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name">
+  <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
+  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('images/searchicon.png');">
   <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
   
       <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
@@ -257,6 +297,7 @@
 
 </span>
 
+<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 
 <script>
 function searchBlocks() {
@@ -324,6 +365,48 @@ function display(index){
 
 }
 
+function theme(t){
+	t = t || 0; //0 = Toggle; 1 = Light; 2 = Dark
+	
+	switch (t) {
+		case 0:
+			break;
+		case 1:
+			document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
+			break;
+		case 2:
+			document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
+			break;
+	}
+	
+	if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
+		//Set Dark Mode
+		document.body.style.backgroundColor = "#000";
+		document.body.style.color = "#8c8c8c";
+		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
+		
+		document.getElementById('topBar').style.backgroundColor = 'black';
+		document.getElementById('blockSearchBox').style.backgroundColor = 'black';
+		document.getElementById('blockSearchBox').style.borderColor = '#666';
+		document.getElementById('blockSearchBox').style.borderBottomColor = '#666';
+		document.getElementById("linksPopout").classList.add("dark");
+		
+		setCookie("dark_mode", "true", 30);
+	} else {
+		//Set Light Mode
+		document.body.style.backgroundColor = "#fff";
+		document.body.style.color = "#000";
+		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
+		
+		document.getElementById('topBar').style.backgroundColor = 'white';
+		document.getElementById('blockSearchBox').style.backgroundColor = 'white';
+		document.getElementById('blockSearchBox').style.borderColor = '#ddd';
+		document.getElementById("linksPopout").classList.remove("dark");
+		
+		setCookie("dark_mode", "true", 30);
+	}
+}
+
 /* NOT IN USE
 function scrollList() {
   var list = document.getElementById('blockSearch'); // targets the <ul>
@@ -355,9 +438,9 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 //Change Logos to Screen Size
 
-if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.jpg"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 window.onresize = function(){
-	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.jpg"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 }
 
 //Manage Popup
