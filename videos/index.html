@@ -82,7 +82,7 @@
 			<button class="openbtn" onclick="openNav()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
 			<button class="openbtn" onclick="theme()" id="themebtn" style="left:186px; display: none;"><i class="fa fa-fw fa-moon-o"> </i></button>
 			
-			<div id="main"><span id="mainSpan" class="nobar" style="width: 640px; max-width:80%; height: 90%; position: fixed; left: 0px; overflow-x: auto; overflow-y: hidden; top: 10%;">
+			<div id="main"><span id="mainSpan" class="nobar" style="width: 640px; height: 90%; position: fixed; left: 8px; overflow-x: auto; overflow-y: hidden; top: 10%;">
 				<div id="v0" style="text-align: center; font-size: 200%; position: fixed; left: 50%; top: 30%;">No Video Selected<p id="i0"></p></div>
 				<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
 			</span></div>
@@ -213,7 +213,7 @@
 					document.getElementById("mainSpan").style.top = "0px";
 					openNav();
 				} else {
-					document.getElementsByClassName("nobar")[0].style.left = "0px";
+					document.getElementsByClassName("nobar")[0].style.left = "8px";
 					document.getElementById("topSideNavBar").removeAttribute("hidden");
 					document.getElementById("NavHead").style.marginTop = "0px";
 					document.getElementById("mainSpan").style.top = "10%";
