@@ -4,9 +4,21 @@
 
 <link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/hs-tools/style.css">
-<link rel="stylesheet" href="/hs-tools/sidenavStyles.css">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../sidenavStyles.css">
 <link rel="icon" href="https://help.apple.com/assets/5BD750C1094622A9114E3435/5BD750CA094622A9114E3445/en_GB/18c714c61bfdebca44fe6989f0a2511d.png">
+<script src="../sidenav.min.js"></script>
+
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<link rel="manifest" href="../icons/site.webmanifest">
+<link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+<meta name="application-name" content="Hopscotch Tools">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hopscotch JSON Shortcut</title>
@@ -27,7 +39,6 @@
 	<span id="open" class="popout-content c3"></span>
 	<span class="popout-content c4"></span>
 </div>
-	
 	
 <div id="mySidenav" class="sidenav" style="padding-top: 0px;">
   
@@ -94,7 +105,7 @@
   
   <h1 style="font-family: 'Dancing Script'; text-align: center;"><big><big>Hopscotch JSON Siri Shortcut Help Guide</big></big></h1>
   
-  <img class="center" src="/hs-tools/images/shortcut_banner.png" width="65%" height="auto">
+  <img class="center" src="../images/shortcut_banner.png" width="65%" height="auto">
   
   <h2 id="about">About</h2>
   <p class="text" style="text-indent: 50px;">The Awesome_E Hopscotch JSON Siri Shortcut is the <b>ultimate shortcut</b> for viewing and editing your Hopscotch JSON files. It contains <b>over 900</b> actions and can mod just about <i>any</i> aspect of your project. It's already come quite a long way, and it will continue to evolve. It all started when I looked into the get file, save file, and Set Dictionary Value blocks. I realized the potential for the Hopscotch Shortcuts combo. Now, I've even come as far as transferring code. It's quite amazing and I really suggest you try it if you have not already!</p>
@@ -327,93 +338,6 @@
 </div>
 
 <script>
-function openNav() {
-  document.getElementById("mySidenav").style.left = "0px";
-  document.getElementById("topSideNavBar").style.left = "0px";
-  if (window.outerWidth > 960){
-    document.getElementById('themebtn2').style.opacity = "1";
-	document.getElementById('main').style.marginLeft = "250px";
-  } else {
-    document.getElementById('themebtn2').style.opacity = "0.99";
-	  for (link of document.getElementsByClassName('link')){
-	    link.style.backgroundColor = "#0b5b51";
-	    link.style.color = "gray";
-	  }
-	if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-	  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-	} else {
-	  document.body.style.backgroundColor = "rgba(0,0,0,0.7)";
-	}
-  }
-}
-
-function closeNav() {
-  document.getElementById('main').style.marginLeft = "0px";
-  document.getElementById("mySidenav").style.left = "-250px";
-  document.getElementById("topSideNavBar").style.left = "-250px";  
-  for (link of document.getElementsByClassName('link')){
-	link.style.backgroundColor = "#0d6f62";
-	link.style.color = "white";
-  }
-  if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-	document.body.style.backgroundColor = "white";
-  } else {
-	document.body.style.backgroundColor = "black";
-  }
-}
-
-function testclose(){
-  if (document.getElementById('themebtn2').style.opacity == "0.99"){
-    var myElements = document.querySelectorAll("h2");
-    for (var i = 0; i < myElements.length; i++) {
-      myElements[i].style.paddingTop = "60px";
-    }
-    closeNav();
-  } else {
-    var myElements = document.querySelectorAll("h2");
-    for (var i = 0; i < myElements.length; i++) {
-      myElements[i].style.paddingTop = "10px";
-    }
-  }
-}
-
-function sub(id){
-  var cid = "c" + id;
-  var gid = "g" + id;
-  var caret = document.getElementById(cid);
-  var group = document.getElementById(gid);
-  if (group.hidden){
-    group.hidden = false;
-    caret.classList.add('fa-caret-down');
-    caret.classList.remove('fa-caret-right');
-  } else {
-    group.hidden = true;
-    caret.classList.add('fa-caret-right');
-    caret.classList.remove('fa-caret-down');
-  }
-}
-
-function theme(){
-  if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-	if (document.getElementById("mySidenav").style.left == "0px" && document.getElementById('themebtn2').style.opacity == "0.99"){ /* If sidebar is open */
-	  document.body.style.backgroundColor = "rgba(0,0,0,0.7)";
-	} else {
-	  document.body.style.backgroundColor = "#000";
-	}
-	document.body.style.color = "#8c8c8c";
-	document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-  } else {
-	if (document.getElementById("mySidenav").style.left == "0px" && document.getElementById('themebtn2').style.opacity == "0.99"){
-	  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-	} else {
-	  document.body.style.backgroundColor = "#fff";
-	}
-	document.body.style.color = "#000";
-	document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-  }
-  document.getElementById('themebtn2').innerHTML = document.getElementById('themebtn').innerHTML;
-}
-
 console.log(navigator.userAgent);
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	//Keep Popout Expanded
