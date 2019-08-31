@@ -50,13 +50,13 @@
 		<div hidden id="page">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
 				
-				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px;">
-					<button class="openbtn" style="position: absolute; left: 200px; top: 2.5px; z-index: 2;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
+				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px; margin-bottom: -50px;">
+					<button class="openbtn" style="position: absolute; left: 200px; top: 2.5px; z-index: 2; display: none;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
 					<span style="position: absolute; top: 0px; width: 150px; display: inline-block; background-color: #0d6f62; width: 250px; height: 40px; z-index: 1;"></span>
 					<a href="javascript:void(0);" onclick="closeNav()" style="position: absolute; top: 7px; width: 160px; margin-top: -4px;  z-index: 10;" id="closebtn"><i class="fa fa-fw fa-remove"> </i> Close Menu</a>
 				</div>
 				
-				<p style="text-align: center; margin-left:-15px; display:block; opacity: 0; margin-top: 0px;" href="# ">Navigation</p>
+				<p id="NavHead" style="text-align: center; margin-left:-15px; display:block; opacity: 0; margin-top: 0px;" href="# ">Navigation</p>
 				
 				<a title="March 30, 2019" href="#" onclick="video('1')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Navigation 3/30/19</a>
 				<a title="April 2, 2019" href="#" onclick="video('2')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> App Download Sim</a>
@@ -80,21 +80,30 @@
 			</div>
 			
 			<button class="openbtn" onclick="openNav()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
-			<button class="openbtn" onclick="theme()" id="themebtn" style="left:186px;"><i class="fa fa-fw fa-moon-o"> </i></button>
+			<button class="openbtn" onclick="theme()" id="themebtn" style="left:186px; display: none;"><i class="fa fa-fw fa-moon-o"> </i></button>
 			
-			<div id="main"><span class="nobar" style="width: 640px; max-width:60%; height: 90%; position: fixed; left: 280px; overflow-x: auto; overflow-y: hidden;">
+			<div id="main"><span id="mainSpan" class="nobar" style="width: 640px; max-width:80%; height: 90%; position: fixed; left: 0px; overflow-x: auto; overflow-y: hidden; top: 10%;">
 				<div id="v0" style="text-align: center; font-size: 200%; position: fixed; left: 50%; top: 30%;">No Video Selected<p id="i0"></p></div>
 				<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
 			</span></div>
 		</div>
 		<script>
+			
+			//This open nav will not recolor main
+			function openNav() {
+				document.getElementById("mySidenav").style.left = "0px";
+				document.getElementById("topSideNavBar").style.left = "0px";
+				if (window.outerWidth > 880){
+					document.getElementById('themebtn').style.opacity = "1";
+				} else {
+					document.getElementById('themebtn').style.opacity = "0.99";
+				}
+			}
 		
-		
-    document.getElementById('i1').onload = function() {
+			document.getElementById('i1').onload = function() {
 		console.log('frame loaded');
     }
-	
-	
+			
 			var keyPresses = 0;
 			function checkPass(){
 				var pass = document.getElementById("pin1");
@@ -139,6 +148,8 @@
 				//console.log(doc);
 				
 				//document.getElementById('v1').getElementsByTag('html')[0].getElementsByTag('body')[0].innerHTML = "hi";
+				
+				if (document.getElementsByClassName("nobar")[0].style.left != "280px") closeNav();
 				
 			}
 			//Manage Popout
@@ -185,6 +196,30 @@
 			}
 			
 			document.getElementById("closebtn").style.display = "block";
+			
+			//Format Navigation if Needed
+			if (window.outerWidth > 880){
+				document.getElementsByClassName("nobar")[0].style.left = "280px";
+				document.getElementById("topSideNavBar").hidden = "true";
+				document.getElementById("NavHead").style.marginTop = "-30px";
+				document.getElementById("mainSpan").style.top = "0px";
+			}
+			
+			window.onresize = function(event){
+				if (window.outerWidth > 880){
+					document.getElementsByClassName("nobar")[0].style.left = "280px";
+					document.getElementById("topSideNavBar").hidden = "true";
+					document.getElementById("NavHead").style.marginTop = "-30px";
+					document.getElementById("mainSpan").style.top = "0px";
+					openNav();
+				} else {
+					document.getElementsByClassName("nobar")[0].style.left = "0px";
+					document.getElementById("topSideNavBar").removeAttribute("hidden");
+					document.getElementById("NavHead").style.marginTop = "0px";
+					document.getElementById("mainSpan").style.top = "10%";
+				}
+			};
+			openNav();
 		</script>
 	</body>
 </html>
