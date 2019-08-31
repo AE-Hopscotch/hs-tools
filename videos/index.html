@@ -71,6 +71,8 @@
 				
 				<a title="July 18, 2019" href="#" onclick="video('1')" class="_"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
 				
+				<a title="August 31, 2019" href="#" onclick="video('1')" class="aeMD_"><i class="fa fa-fw fa-film"> </i> Potential Text Editor</a>
+				
 				<!-- Sub Section Test> <!--
 				<a href="#%20" onclick="sub('1')" style="display:no;"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Features</a>
 					<div id="g1" style="margin-left:30px;" hidden>
@@ -178,7 +180,9 @@
 			
 			var titles = {
 				"": "Video Clips",
-				"ePC2019": "E-Pad Clips"
+				"ePC2019": "E-Pad Clips",
+				"bugCh": "Bug Clips",
+				"aeMD": "Modding Clips"
 			};
 			
 			document.title = titles[vidSet];
@@ -186,8 +190,10 @@
 			//Video List
 			
 			var videoURLS = {
+				"": ["","https://streamable.com/2lxis"],
 				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
-				"": ["","https://streamable.com/2lxis"]
+				"bugCh": [""],
+				"aeMD": ["","https://streamable.com/gstvf"]
 			};
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
