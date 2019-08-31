@@ -37,7 +37,6 @@ display: none;
 }
 
 #blockSearchBox {
-  background-image: url('https://www.w3schools.com/css/searchicon.png');
   background-position: 10px 12px;
   background-repeat: no-repeat;
   width: 500px;
@@ -48,6 +47,9 @@ display: none;
   margin-bottom: 0px;
   position: fixed;
   z-index: 10;
+  transition: 
+	border 0.5s ease,
+	background-color 0.5s ease;
 }
 
 .searchItems {
@@ -156,7 +158,8 @@ bl {
 }
 .popout .popout-content {
 	position: absolute;
-	color: red;
+	transition: background-color 0.5s ease;
+	transition: background-image 0.5s ease;
 }
 .popout .arrow {
 	background-image: 
@@ -171,6 +174,10 @@ bl {
 	width: 100%;
 	height: 20px;
 	line-height: 2px;
+}
+.popout.dark .arrow {
+	background-image: 
+		linear-gradient(180deg, rgba(120,120,120,0) 0%, rgba(120,120,120,0) 50%, rgba(120,120,120,0.7) 100%);
 }
 .popout-content.c2{
 	bottom: 0px;
@@ -187,6 +194,9 @@ bl {
 	background-color: rgba(0,0,0,0.7);
 	padding: 2px;
 }
+.popout.dark .popout-content.c2{
+	background-color: rgba(120,120,120,0.7);
+}
 .popout-content.c2 img {
 	border-radius: 10px;
 	margin: 2px;
@@ -200,6 +210,10 @@ bl {
 	width: 20px;
 	height: 100%;
 }
+.popout.dark .popout-content.c3 {
+	background-image: 
+		linear-gradient(90deg, rgba(120,120,120,0) 0%, rgba(120,120,120,0) 50%, rgba(120,120,120,0.7) 100%);
+}
 .popout-content.c4 {
 	background-image:
 		radial-gradient(farthest-corner at 20px 20px, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 100%);
@@ -208,4 +222,8 @@ bl {
 	top: 0px;
 	width: 20px;
 	height: 20px;
+}
+.popout.dark .popout-content.c4 {
+	background-image:
+		radial-gradient(farthest-corner at 20px 20px, rgba(120,120,120,0.7) 0%, rgba(120,120,120,0) 35%, rgba(120,120,120,0) 100%);
 }
