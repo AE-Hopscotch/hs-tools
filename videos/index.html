@@ -47,7 +47,7 @@
 			<span class="popout-content c4"></span>
 		</div>
 		<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."></input>
-		<div hidden id="page">
+		<div hidden id="page" style="width: 100%; height: 100%;">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
 				
 				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px; margin-bottom: -50px;">
@@ -93,7 +93,7 @@
 			function openNav() {
 				document.getElementById("mySidenav").style.left = "0px";
 				document.getElementById("topSideNavBar").style.left = "0px";
-				if (window.outerWidth > 880){
+				if (window.outerWidth > 640){
 					document.getElementById('themebtn').style.opacity = "1";
 				} else {
 					document.getElementById('themebtn').style.opacity = "0.99";
@@ -198,7 +198,7 @@
 			document.getElementById("closebtn").style.display = "block";
 			
 			//Format Navigation if Needed
-			if (window.outerWidth > 880){
+			if (window.outerWidth > 640){
 				document.getElementsByClassName("nobar")[0].style.left = "280px";
 				document.getElementById("topSideNavBar").hidden = "true";
 				document.getElementById("NavHead").style.marginTop = "-30px";
@@ -206,7 +206,7 @@
 			}
 			
 			window.onresize = function(event){
-				if (window.outerWidth > 880){
+				if (window.outerWidth > 640){
 					document.getElementsByClassName("nobar")[0].style.left = "280px";
 					document.getElementById("topSideNavBar").hidden = "true";
 					document.getElementById("NavHead").style.marginTop = "-30px";
