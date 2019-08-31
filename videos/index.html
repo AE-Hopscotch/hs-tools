@@ -63,7 +63,12 @@
 				<a title="July 20, 2019" href="#" onclick="video('9')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Settings Comparison</a>
 				<a title="August 9, 2019" href="#" onclick="video('10')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Popup Boxes</a>
 				
-				<a title="July 18, 2019" href="#" onclick="video('1')" class="_"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
+				<a title="July 18, 2019" href="#" onclick="video('1')" class="_"><i class="fa fa-fw fa-globe"> </i> E-Pad News Flash!</a>
+				<a title="August 9, 2019" href="#" onclick="video('2')" class="_"><i class="fa fa-fw fa-bug"> </i> Publish Buttons</a>
+				<a title="August 9, 2019" href="#" onclick="video('3')" class="_"><i class="fa fa-fw fa-bug"> </i> Editor Color Slot</a>
+				<a title="August 9, 2019" href="#" onclick="video('4')" class="_"><i class="fa fa-fw fa-wrench"> </i> Secret Blocks (66s)</a>
+				<a title="August 9, 2019" href="#" onclick="video('5')" class="_"><i class="fa fa-fw fa-wrench"> </i> Hidden Abilities</a>
+				<a title="August 31, 2019" href="#" onclick="video('6')" class="_"><i class="fa fa-fw fa-wrench"> </i> Potential Text Editor</a>
 				
 				<a title="August 9, 2019" href="#" onclick="video('1')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Publish Buttons</a>
 				<a title="August 9, 2019" href="#" onclick="video('2')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Editor Color Slot</a>
@@ -103,8 +108,8 @@
 			}
 		
 			document.getElementById('i1').onload = function() {
-		console.log('frame loaded');
-    }
+				console.log('frame loaded');
+			}
 			
 			var keyPresses = 0;
 			function checkPass(){
@@ -139,14 +144,14 @@
 				//document.getElementById('v1').contentWindow.function(){var darkMode = getCookie('dark_mode') ;if ('true' == 'true') {  document.body.style.backgroundColor = "black";  document.body.className = "dark";}};
 				
 				
-				setTimeout(function(){
+				/*setTimeout(function(){
 					var doc = document.getElementById('i1').contentWindow.document;
 					console.log(doc);
 					var node = doc.createElement("script");
 					node.appendChild(document.createTextNode("var darkMode = 'true'; if (darkMode == 'true') {document.body.style.backgroundColor = 'black'; document.body.className = 'dark';}"));
 					doc.body.appendChild(node);
 					console.log(doc);
-				}, 500);
+				}, 500);/**/
 				//console.log(doc);
 				
 				//document.getElementById('v1').getElementsByTag('html')[0].getElementsByTag('body')[0].innerHTML = "hi";
@@ -165,31 +170,47 @@
 				document.getElementById('linksPopout').style.right = "-120px";
 			};
 			
+			//Remove Elements
+			Element.prototype.remove = function() {
+				this.parentElement.removeChild(this);
+			}
+			NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+				for(var i = this.length - 1; i >= 0; i--) {
+					if(this[i] && this[i].parentElement) {
+						this[i].parentElement.removeChild(this[i]);
+					}
+				}
+			}
+			
 			//Read and Apply the URL Modifier "Video Set"
 			
 			var url = new URL(window.location.href);
 			var vidSet = url.searchParams.get("video-set")||"";
 			console.log("Video Set ID: " + vidSet);
 			console.log(vidSet+"_");
-			
-			if (window.btoa(vidSet) != "ZVBDMjAxOQ=="){
-				document.getElementById("pin1").hidden = true;
-				document.getElementById("page").hidden = false;
-			}
-			
 			var titles = {
 				"": "Video Clips",
 				"ePC2019": "E-Pad Clips",
 				"bugCh": "Bug Clips",
 				"aeMD": "Modding Clips"
 			};
-			
 			document.title = titles[vidSet];
+			
+			if (window.btoa(vidSet) != "ZVBDMjAxOQ=="){
+				document.getElementById("pin1").hidden = true;
+				document.getElementById("page").hidden = false;
+				document.getElementsByClassName(window.atob("ZVBDMjAxOV8=")).remove();
+			}
+			
+			var vidID = Number(url.searchParams.get("id"))||0;
+			setTimeout(function(){
+				if (vidID) video(vidID);
+			}, 200);
 			
 			//Video List
 			
 			var videoURLS = {
-				"": ["","https://streamable.com/2lxis"],
+				"": ["","https://streamable.com/2lxis", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"],
 				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
 				"bugCh": ["", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8"],
 				"aeMD": ["", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"]
