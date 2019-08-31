@@ -4,8 +4,20 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="../sidenavStyles.css">
-		<title>E-Pad Clips</title>
+		<script src="../sidenav.min.js"></script>
+		<title>Video Clips</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+		<link rel="manifest" href="../icons/site.webmanifest">
+		<link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		
 		<style>
 			.popout {
 				width: 180px;
@@ -17,6 +29,9 @@
 			}
 			#mySidenav a {
 				display: none;
+			}
+			.sidenav {
+				left: -250px;
 			}
 		</style>
 	</head>
@@ -32,9 +47,17 @@
 			<span class="popout-content c4"></span>
 		</div>
 		<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."></input>
-		<div hidden id="main">
+		<div hidden id="page">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
-				<a style="text-align: center; margin-left:-15px; display:none;" href="# ">Navigation</a><br>
+				
+				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px;">
+					<button class="openbtn" style="position: absolute; left: 200px; top: 2.5px; z-index: 2;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
+					<span style="position: absolute; top: 0px; width: 150px; display: inline-block; background-color: #0d6f62; width: 250px; height: 40px; z-index: 1;"></span>
+					<a href="javascript:void(0);" onclick="closeNav()" style="position: absolute; top: 7px; width: 160px; margin-top: -4px;  z-index: 10;" id="closebtn"><i class="fa fa-fw fa-remove"> </i> Close Menu</a>
+				</div>
+				
+				<p style="text-align: center; margin-left:-15px; display:block; opacity: 0; margin-top: 0px;" href="# ">Navigation</p>
+				
 				<a title="March 30, 2019" href="#" onclick="video('1')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Navigation 3/30/19</a>
 				<a title="April 2, 2019" href="#" onclick="video('2')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> App Download Sim</a>
 				<a title="June 26, 2019" href="#" onclick="video('3')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> General Options</a>
@@ -45,6 +68,9 @@
 				<a title="July 18, 2019" href="#" onclick="video('8')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
 				<a title="July 20, 2019" href="#" onclick="video('9')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Settings Comparison</a>
 				<a title="August 9, 2019" href="#" onclick="video('10')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Popup Boxes</a>
+				
+				<a title="July 18, 2019" href="#" onclick="video('1')" class="_"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
+				
 				<!-- Sub Section Test> <!--
 				<a href="#%20" onclick="sub('1')" style="display:no;"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Features</a>
 					<div id="g1" style="margin-left:30px;" hidden>
@@ -52,13 +78,23 @@
 					</div>
 				></!-->
 			</div>
-
-			<span class="nobar" style="width: 640px; max-width:60%; height: 90%; position: fixed; left: 280px; overflow-x: auto; overflow-y: hidden;">
+			
+			<button class="openbtn" onclick="openNav()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
+			<button class="openbtn" onclick="theme()" id="themebtn" style="left:186px;"><i class="fa fa-fw fa-moon-o"> </i></button>
+			
+			<div id="main"><span class="nobar" style="width: 640px; max-width:60%; height: 90%; position: fixed; left: 280px; overflow-x: auto; overflow-y: hidden;">
 				<div id="v0" style="text-align: center; font-size: 200%; position: fixed; left: 50%; top: 30%;">No Video Selected<p id="i0"></p></div>
 				<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
-			</span>
+			</span></div>
 		</div>
 		<script>
+		
+		
+    document.getElementById('i1').onload = function() {
+		console.log('frame loaded');
+    }
+	
+	
 			var keyPresses = 0;
 			function checkPass(){
 				var pass = document.getElementById("pin1");
@@ -68,7 +104,7 @@
 					setTimeout(function(){
 						if (pass.value == window.atob("RS1QYWQyMDE5LjguOC4=")){
 							pass.hidden = true;
-							document.getElementById("main").hidden = false;
+							document.getElementById("page").hidden = false;
 						} else {
 							pass.style.backgroundColor = "#fcc";
 						}
@@ -80,35 +116,32 @@
 				}
 				if (pass.value == "") keyPresses = 0;
 			}
-			
-			var activeDiv = "v0";
-			var activeFr = "i0";
-
-			function sub(id){
-			  var cid = "c" + id;
-			  var gid = "g" + id;
-			  var caret = document.getElementById(cid);
-			  var group = document.getElementById(gid);
-			  if (group.hidden){
-				group.hidden = false;
-				caret.classList.add('fa-caret-down');
-				caret.classList.remove('fa-caret-right');
-			  } else {
-				group.hidden = true;
-				caret.classList.add('fa-caret-right');
-				caret.classList.remove('fa-caret-down');
-			  }
-			}
 
 			function video(id){
-			  var urlList = videoURLS[vidSet];
-			  
-			  document.getElementById("v0").hidden = true;
-			  document.getElementById("v1").hidden = false;
-			  document.getElementById("i1").src = urlList[id];
-			  
+				var urlList = videoURLS[vidSet];
+				
+				document.getElementById("v0").hidden = true;
+				document.getElementById("v1").hidden = false;
+				document.getElementById("i1").src = "";
+				document.getElementById("i1").src = urlList[id];
+				
+				//document.getElementById('v1').contentWindow.function(){var darkMode = getCookie('dark_mode') ;if ('true' == 'true') {  document.body.style.backgroundColor = "black";  document.body.className = "dark";}};
+				
+				
+				setTimeout(function(){
+					var doc = document.getElementById('i1').contentWindow.document;
+					console.log(doc);
+					var node = doc.createElement("script");
+					node.appendChild(document.createTextNode("var darkMode = 'true'; if (darkMode == 'true') {document.body.style.backgroundColor = 'black'; document.body.className = 'dark';}"));
+					doc.body.appendChild(node);
+					console.log(doc);
+				}, 500);
+				//console.log(doc);
+				
+				//document.getElementById('v1').getElementsByTag('html')[0].getElementsByTag('body')[0].innerHTML = "hi";
+				
 			}
-			//Manage Popup
+			//Manage Popout
 			document.getElementById('linksPopout').onclick = function() {
 				document.getElementById('linksPopout').style.right = "0px";
 			};
@@ -122,19 +155,27 @@
 			//Read and Apply the URL Modifier "Video Set"
 			
 			var url = new URL(window.location.href);
-			var vidSet = url.searchParams.get("video-set");
+			var vidSet = url.searchParams.get("video-set")||"";
 			console.log("Video Set ID: " + vidSet);
 			console.log(vidSet+"_");
 			
 			if (window.btoa(vidSet) != "ZVBDMjAxOQ=="){
 				document.getElementById("pin1").hidden = true;
-				document.getElementById("main").hidden = false;
+				document.getElementById("page").hidden = false;
 			}
+			
+			var titles = {
+				"": "Video Clips",
+				"ePC2019": "E-Pad Clips"
+			};
+			
+			document.title = titles[vidSet];
 			
 			//Video List
 			
 			var videoURLS = {
-				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"]
+				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
+				"": ["","https://streamable.com/2lxis"]
 			};
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
@@ -142,6 +183,8 @@
 			for (var i = 0; i < navElements.length; i++) {
 				navElements[i].style.display = "block";
 			}
+			
+			document.getElementById("closebtn").style.display = "block";
 		</script>
 	</body>
 </html>
