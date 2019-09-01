@@ -29,6 +29,11 @@ a {
   text-decoration: none;
 }
 
+.cover{
+  display: block;
+  transition: 0.5s;
+}
+
 .text{
   padding: 3px;
   font-size: 130%;
@@ -47,6 +52,7 @@ a {
   transition: 0.5s;
   padding-top: 10px;
   width: 250px;
+  z-index: 2;
 }
 
 .sidenav a {
@@ -73,7 +79,6 @@ a {
 	color: var(--closeBtnColor, white);
 }
 
-
 #main {
   transition: margin-left .5s;
   padding: 16px;
@@ -89,6 +94,7 @@ a {
   color: white;
   padding: 8px 12px;
   border: none;
+  z-index: 1;
 }
 
 .openbtn:hover {
