@@ -52,8 +52,8 @@ body, .topBar, #blockSearchBox {
 <div id="linksPopout" class="popout">
 	<span class="popout-content arrow"></span>
 	<span class="popout-content c2">
-		<a href="shortcut-help-guide/" title="Siri Shortcut Help Guide"><img src="images/shortcuts-logo.png" width="40" height="40"/></a>
-		<a href="videos/" title="Video Clips"><img src="images/videos-logo.png" width="40" height="40"/></a>
+		<a href="shortcut-help-guide/" title="Siri Shortcut Help Guide"><img src="../images/shortcuts-logo.png" width="40" height="40"/></a>
+		<a href="videos/" title="Video Clips"><img src="../images/videos-logo.png" width="40" height="40"/></a>
 	</span>
 	<span id="open" class="popout-content c3"></span>
 	<span class="popout-content c4"></span>
@@ -229,7 +229,7 @@ body, .topBar, #blockSearchBox {
 <span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 
   <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
-  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('images/searchicon.png'); transition: 0.5s;">
+  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
   <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
   
       <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
@@ -467,13 +467,13 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 //Change Logos to Screen Size
 
-if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+if (window.innerWidth < 875) document.getElementById("hs-logo").src = "../images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "../images/hs-logo-full.PNG";
 window.onresize = function(){
-	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "../images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "../images/hs-logo-full.PNG";
 }
 
 window.addEventListener("orientationchange", function() {
-	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "../images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "../images/hs-logo-full.PNG";
 });
 
 //Manage Popup
