@@ -16,8 +16,12 @@
 		<meta name="application-name" content="Hopscotch Tools">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
-		
 		<style>
+			:root {
+				--closeBtnIdle: 0.6;
+				--closeBtnColor: #ddd;
+				--navCloseable: true;
+			}
 			body {
 				overflow: auto;
 			}
@@ -46,7 +50,7 @@
 				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px; margin-bottom: -50px;">
 					<button class="openbtn" style="position: absolute; left: 200px; top: 2.5px; z-index: 2; display: none;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
 					<span style="position: absolute; top: 0px; width: 150px; display: inline-block; background-color: #0d6f62; width: 250px; height: 40px; z-index: 1;"></span>
-					<a href="javascript:void(0);" onclick="closeNav()" style="position: absolute; top: 7px; width: 160px; margin-top: -4px;  z-index: 10;" id="closebtn"><i class="fa fa-fw fa-remove"> </i> Close Menu</a>
+					<a href="javascript:void(0);" onclick="testclose(v)" style="position: absolute; top: 7px; width: 160px; margin-top: -4px;  z-index: 10;" id="closebtn"><i class="fa fa-fw fa-remove"> </i> Close Menu</a>
 				</div>
 				
 				<p id="NavHead" style="text-align: center; margin-left:-15px; display:block; opacity: 0; margin-top: 0px;" href="# ">Navigation</p>
@@ -84,7 +88,7 @@
 				></!-->
 			</div>
 			
-			<button class="openbtn" onclick="openNav()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
+			<button class="openbtn" onclick="openNav_()"><i class="fa fa-fw fa-bars"> </i> Show Contents</button>
 			<button class="openbtn" onclick="theme()" id="themebtn" style="left:186px; display: none;"><i class="fa fa-fw fa-moon-o"> </i></button>
 			
 			<div id="main">
@@ -97,16 +101,16 @@
 		<script>
 			
 			//This open nav will not recolor main
-			function openNav() {
+			function openNav_() {
 				document.getElementById("mySidenav").style.left = "0px";
 				document.getElementById("topSideNavBar").style.left = "0px";
-				if (window.innerWidth > 880){
+				/*if (window.innerWidth > 880){
 					document.getElementById('themebtn').style.opacity = "1";
 				} else {
 					document.getElementById('themebtn').style.opacity = "0.99";
-				}
+				}/**/
 			}
-		
+			
 			document.getElementById('i1').onload = function() {
 				console.log('frame loaded');
 			}
@@ -133,6 +137,7 @@
 				if (pass.value == "") keyPresses = 0;
 			}
 
+			var v;
 			function video(id){
 				var urlList = videoURLS[vidSet];
 				
@@ -141,6 +146,11 @@
 				document.getElementById("i1").src = "";
 				document.getElementById("i1").src = urlList[id];
 				
+				v = id;
+				
+				root.style.setProperty("--navCloseable", "true");
+				root.style.setProperty("--closeBtnColor", "white");
+				root.style.setProperty("--closeBtnIdle", "1");
 				//document.getElementById('v1').contentWindow.function(){var darkMode = getCookie('dark_mode') ;if ('true' == 'true') {  document.body.style.backgroundColor = "black";  document.body.className = "dark";}};
 				
 				
@@ -159,6 +169,7 @@
 				if (document.getElementsByClassName("nobar")[0].style.left != "280px") closeNav();
 				
 			}
+			
 			//Manage Popout
 			document.getElementById('linksPopout').onclick = function() {
 				document.getElementById('linksPopout').style.right = "0px";
@@ -240,7 +251,7 @@
 					document.getElementById("topSideNavBar").hidden = "true";
 					document.getElementById("NavHead").style.marginTop = "-30px";
 					document.getElementById("mainSpan").style.top = "0px";
-					openNav();
+					openNav_();
 				} else {
 					document.getElementsByClassName("nobar")[0].style.left = "8px";
 					document.getElementById("topSideNavBar").removeAttribute("hidden");
@@ -248,10 +259,11 @@
 					document.getElementById("mainSpan").style.top = "10%";
 				}
 			};
-			openNav();
-			console.log("Width: " + String(window.innerWidth));
 			
-			theme(0);
+			theme(1);
+			
+			openNav_();
+			console.log("Width: " + String(window.innerWidth));
 		</script>
 	</body>
 </html>
