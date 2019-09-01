@@ -392,6 +392,7 @@ function theme(t){
 		document.getElementById("linksPopout").classList.add("dark");
 		
 		setCookie("dark_mode", "true", 30);
+		console.log("Saved Dark Mode");
 	} else {
 		//Set Light Mode
 		document.body.style.backgroundColor = "#fff";
@@ -403,7 +404,8 @@ function theme(t){
 		document.getElementById('blockSearchBox').style.borderColor = '#ddd';
 		document.getElementById("linksPopout").classList.remove("dark");
 		
-		setCookie("dark_mode", "true", 30);
+		setCookie("dark_mode", "false", 30);
+		console.log("Saved Light Mode");
 	}
 }
 
