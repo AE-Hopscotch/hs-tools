@@ -455,53 +455,6 @@ document.getElementById('linksPopout').onmouseleave = function() {
 };
 
 //Theme
-function theme(t){
-	t = t || 0; //0 = Toggle; 1 = Light; 2 = Dark
-	
-	switch (t) {
-		case 0:
-			break;
-		case 1:
-			document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-			break;
-		case 2:
-			document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-			break;
-	}
-	
-	if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-		//Set Dark Mode
-		if (document.getElementById("mySidenav").style.left == "0px" && document.getElementById('themebtn').style.opacity == "0.99"){ /* If sidebar is open */
-			document.body.style.backgroundColor = "rgba(0,0,0,0.7)";
-		} else {
-			document.body.style.backgroundColor = "#000";
-		}
-		document.body.style.color = "#8c8c8c";
-		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-		document.getElementById("linksPopout").classList.add("dark");
-		setCookie("dark_mode", "true", 30);
-		
-		setTimeout(function(){
-			var doc = document.getElementById('i1').contentWindow.document;
-			console.log(doc);
-			doc.body.style.backgroundColor = "black"; console.log("hi");
-		}, 10);
-		
-	} else {
-		//Set Light Mode
-		if (document.getElementById("mySidenav").style.left == "0px" && document.getElementById('themebtn').style.opacity == "0.99"){
-			document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-		} else {
-			document.body.style.backgroundColor = "#fff";
-		}
-		document.body.style.color = "#000";
-		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-		document.getElementById("linksPopout").classList.remove("dark");
-		setCookie("dark_mode", "true", 30);
-	}
-	document.getElementById('themebtn2').innerHTML = document.getElementById('themebtn').innerHTML;
-}
-
 function setCookie(cname,cvalue,exdays) {
 	var d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
