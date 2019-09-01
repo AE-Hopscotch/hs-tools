@@ -227,7 +227,7 @@ body, .topBar, #blockSearchBox {
 <span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 
   <a id="blockSearchLayer" style="display: block; width: 500px;  max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
-  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('images/searchicon.png');">
+  <input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('images/searchicon.png'); transition: 0.5s;">
   <ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
   
       <li onclick="display(123)"><a href="#%0">Custom Block / Ability </a></li>
@@ -386,8 +386,21 @@ function theme(t){
 		document.getElementById('topBar').style.backgroundColor = 'black';
 		document.getElementById('blockSearchBox').style.backgroundColor = 'black';
 		document.getElementById('blockSearchBox').style.borderColor = '#666';
-		document.getElementById('blockSearchBox').style.borderBottomColor = '#666';
+		document.getElementById('blockSearchLayer').style.backgroundColor = 'black';
 		document.getElementById("linksPopout").classList.add("dark");
+		
+		var a = document.getElementById('blockSearch');
+		
+		b = a.getElementsByTagName('li');
+		console.log(b);
+		
+		var i;
+		for (i = 0; i < b.length; i++) {
+			a = b[i].getElementsByTagName('a')[0];
+			console.log(i);
+			a.transition = "0.5s";
+			a.style.borderColor = '#666';
+		}
 		
 		setCookie("dark_mode", "true", 30);
 		console.log("Saved Dark Mode");
@@ -400,7 +413,21 @@ function theme(t){
 		document.getElementById('topBar').style.backgroundColor = 'white';
 		document.getElementById('blockSearchBox').style.backgroundColor = 'white';
 		document.getElementById('blockSearchBox').style.borderColor = '#ddd';
+		document.getElementById('blockSearchLayer').style.backgroundColor = 'white';
 		document.getElementById("linksPopout").classList.remove("dark");
+		
+		var a = document.getElementById('blockSearch');
+		
+		b = a.getElementsByTagName('li');
+		console.log(b);
+		
+		var i;
+		for (i = 0; i < b.length; i++) {
+			a = b[i].getElementsByTagName('a')[0];
+			console.log(i);
+			a.transition = "0.5s";
+			a.style.borderColor = '#ddd';
+		}
 		
 		setCookie("dark_mode", "false", 30);
 		console.log("Saved Light Mode");
