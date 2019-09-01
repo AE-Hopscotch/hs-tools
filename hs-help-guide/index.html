@@ -454,11 +454,6 @@ function scrollList() {
 console.log("Hello, World 00:58:20");
 console.log(navigator.userAgent);
 
-//Keep Popout Expanded when on Mobile
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-	document.getElementById("linksPopout").setAttribute("m", "true");
-}
-
 //Change Logos to Screen Size
 
 if (window.innerWidth < 875) document.getElementById("hs-logo").src = "../images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "../images/hs-logo-full.png";
@@ -469,7 +464,6 @@ window.onresize = function(){
 window.addEventListener("orientationchange", function() {
 	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "../images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "../images/hs-logo-full.png";
 });
-
 
 //Theme
 function setCookie(cname,cvalue,exdays) {
