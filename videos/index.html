@@ -248,7 +248,7 @@
 				document.getElementById("mainSpan").style.top = "0px";
 			}
 			
-			window.onresize = function(event){
+			window.onresize = function(event) {
 				if (window.innerWidth > 880){
 					document.getElementsByClassName("nobar")[0].style.left = "280px";
 					document.getElementById("topSideNavBar").hidden = "true";
@@ -262,6 +262,21 @@
 					document.getElementById("mainSpan").style.top = "10%";
 				}
 			};
+			
+			window.addEventListener("orientationchange", function(event) {
+				if (window.innerWidth > 880){
+					document.getElementsByClassName("nobar")[0].style.left = "280px";
+					document.getElementById("topSideNavBar").hidden = "true";
+					document.getElementById("NavHead").style.marginTop = "-30px";
+					document.getElementById("mainSpan").style.top = "0px";
+					openNav_();
+				} else {
+					document.getElementsByClassName("nobar")[0].style.left = "8px";
+					document.getElementById("topSideNavBar").removeAttribute("hidden");
+					document.getElementById("NavHead").style.marginTop = "0px";
+					document.getElementById("mainSpan").style.top = "10%";
+				}
+			});
 			
 			theme(1);
 			
