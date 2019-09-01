@@ -24,6 +24,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hopscotch JSON Shortcut</title>
 <style>
+* {
+	box-sizing: border-box;
+}
+
 .sidenav {
   left: -250px;
 }
@@ -55,17 +59,17 @@
   <a href="#view" onclick="testclose()"><i class="fa fa-fw fa-search"> </i> Viewing Projects</a>
   <a href="#%20" onclick="sub('1')"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Editing Projects</a>
   <div id="g1" style="margin-left:30px;" hidden>
-    <a href="#edit01"><i class="fa fa-fw fa-arrows"> </i> Stage Size</a>
-    <a href="#edit02"><i class="fa fa-fw fa-history"> </i> Version</a>
-    <a href="#edit03"><i class="fa fa-fw fa-hashtag"> </i> Player Version</a>
-    <a href="#edit04"><i class="fa fa-fw fa-text-height"> </i> Font Size</a>
-    <a href="#edit05"><i class="fa fa-fw fa-pencil"> </i> Edited At</a>
-    <a href="#edit06"><i class="fa fa-fw fa-arrows-alt"> </i> Object Scale</a>
+    <a href="#edit01" onclick="testclose()"><i class="fa fa-fw fa-arrows"> </i> Stage Size</a>
+    <a href="#edit02" onclick="testclose()"><i class="fa fa-fw fa-history"> </i> Version</a>
+    <a href="#edit03" onclick="testclose()"><i class="fa fa-fw fa-hashtag"> </i> Player Version</a>
+    <a href="#edit04" onclick="testclose()"><i class="fa fa-fw fa-pencil"> </i> Edited At</a>
+    <a href="#edit05" onclick="testclose()"><i class="fa fa-fw fa-arrows-alt"> </i> Object Scale</a>
+    <a href="#edit06" onclick="testclose()"><i class="fa fa-fw fa-text-height"> </i> Font Size</a>
     <a href="#edit07"><i class="fa fa-fw fa-photo"> </i> Scenes</a>
     <a href="#edit08"><i class="fa fa-fw fa-cubes"> </i> Objects</a>
     <a href="#edit09"><i class="fa fa-fw fa-sliders"> </i> Variables</a>
-    <a href="#edit10"><i class="fa fa-fw fa-list"> </i> Rules</a>
-    <a href="#edit11"><i class="fa fa-fw fa-list-alt"> </i> Custom Rules</a>
+    <a href="#edit10"><i class="fa fa-fw fa-list-alt"> </i> Custom Rules</a>
+    <a href="#edit11"><i class="fa fa-fw fa-list"> </i> Rules</a>
     <a href="#edit12"><i class="fa fa-fw fa-bolt"> </i> Abilities</a>
     <a href="#edit13"><i class="fa fa-fw fa-clone"> </i> Presets</a>
     <a href="#edit14"><i class="fa fa-fw fa-magic"> </i> Optimization</a>
@@ -147,8 +151,46 @@
   
   <h2 id="view">Editing Projects</h2>
   
-  <p
+  <h2 id="edit01">Stage Size</h2>
+  <div class="flex" r="760" reverse>
+	<p>Stage Size was my first step in JSON editing, and it might be yours too, who knows? To edit this using my shortcut, simply change the values on the right-side column (shown in example popup). All tables follow this rule: The trait name on the left side should not be changed, and the value on the right is free to mess with.</p>
+	<span style="position: relative;"><img src="../images/sc-menu1.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 103.8px; position: absolute; top: 0px"></span><br><a0>text</a0></span>
+  </div>
+  <p class="belowFlex" r="760" reverse>Stage Size has some interesting traits. It can be negative (thanks MISSION_IMPOSSIBLE), and it also has a upwards limit where trail drawing stops working. Besides its quirks, stage size is actually really useful sometimes. If you want to make your game feel like it has more room or you just want to give it a different aspect ratio (width:height), stage size does that perfectly.</p>
   
+  <h2 id="edit02">Editor Version</h2>
+  <div class="flex" r="760">
+	<span style="position: relative;"><img src="../images/sc-menu2.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 80.8px; position: absolute; top: 0px"></span><br>Table Showing Version Modifier<br><a0>text</a0></span>
+	<p>This is one of the two version traits you can modify. Once again, only change the value in the right side column of the table. Version 26 and up gives you the latest editor, 25 gives you the webplayer with the old editor, and 24 gives you old the editor mechanics (object variables and alphabetized variables, not the old UI), and projects are not played using the webplayer.</p>
+  </div>
+  <p class="belowFlex" r="760">There are advantages of all three versions! Versions 26-30 (30 is the newest) have access to all of the newer blocks (such as destroy), custom rules, and self variables. Version 25 allows you to run secret blocks, but self variables and custom rules do not exist. Version 24 is the legacy project version, and it has many different traits about it. For example, objects do not lose quality when scaled up, deprecated blocks such as "move with trail" and "set opacity" work only in versions 24 and below, and text rendering is far superior to the current engine (no 40-line limit, all unicode works properly, higher quality). Unfortunately, projects with player version 24 run the webplayer when played in Safari, which means text renders as it does now and deprecated blocks will only work in the app.</p>
+  
+  <h2 id="edit03">Player Version</h2>
+  <div class="flex" r="760" reverse>
+	<p>Player Version, ah yes. This is the cause of so many current bugs in Hopscotch because of how new it is. It's recommended that you keep projects up to date, which you can do with easily with <a href="#edit14">this</a> [optimize] feature in my shortcut. That is mainly due to the fact that the web browsers currently use only the latest version, causing inconsistent gameplay.</p>
+	<span style="position: relative;"><img src="../images/sc-menu3.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 81.2px; position: absolute; top: 0px"></span><br><a0>text</a0></span>
+  </div>
+  <p class="belowFlex" r="760" reverse>Basically, each project has a specific version of the webplayer tied to it, and it uses the latest minor release of that version (1.0.0 uses 1.0.4, 1.1.0 uses 1.1.6, etc.). Newer webplayers usually have a major difference. For example, 1.2.0 and above makes it so variables no longer take a frame to execute. There are some bugs with it, but it is definitely something that everyone should get used to. The webplayer is versioned here so that existing projects do not break, but new projects will follow the new variable methods. If you are on version 1.0.x, update to 1.1.x. Otherwise, stay where you are.</p>
+  
+  <h2 id="edit04">Edited At Date</h2>
+  <div class="flex" r="760">
+	<span style="position: relative;"><img src="../images/sc-menu4.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 85.9px; position: absolute; top: 0px"></span><br></span>
+	<p>The Edited At Date won't really have an effect on your project. As you can probably tell, it changes the date the draft was edited on, which will also affect the order of your drafts. This trait is edited very easily, as you can type a date into several formats, and Shortcuts will also tell you the exact date and time that you are inputting (see the gray text). I haven't tested this yet, but with this method it may be possible to pin a draft that you are not using.</p>
+  </div>
+  
+  <h2 id="edit05">Base Object Scale</h2>
+  <div class="flex" r="760" reverse>
+	<p>Finally, we have something that isn't the same when made on different devices. Base Object Scale is the scale factor used to determine the sizes of characters and only characters (shapes and text are not affected by this modification). Just like the other traits, change the value on the right and observe the effects. The iPhone generates a project with a default "BaseObjectScale" of 0.5, whilst the iPad's new project has a "BaseObjectScale" of 1.</p>
+	<span style="position: relative;"><img src="../images/sc-menu5.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 79.3px; position: absolute; top: 0px"></span><br><a0>text</a0></span>
+  </div>
+  <p class="belowFlex" r="760" reverse>There aren't that many use cases for this modification because you already have set size, but you may want to use it if you want the shape size to character size ratio to be different. <b>Base</b>ically, if you have a custom rule to initiate something 3D, but you want to use the same percent in set size for different-sized characters, you could use this to make sure that the characters always appear smaller. Not really an every-project thing, I know, but you might be able to find a use for it.</p>
+  
+  <h2 id="edit06">Font Size</h2>
+  <div class="flex" r="760">
+	<span style="position: relative;"><img src="../images/sc-menu6.png" width="350" height="auto"><span class="cover" style="width: 350px; height: 81.1px; position: absolute; top: 0px"></span><br></span>
+	<p>This is useful because of Hopscotch's characters per line limit. Normally, each line has room for about 15 emojis in a 1024x768 editor, which ends up being about 600 pixels. In a smaller editor such as the 375x667 editor, text will max out at the width of the editor. When the font size is smaller, you can fit more characters onto one line. But ig it is bigger, text will lose less quality when upscaling (increasing the size of) it.</p>
+  </div>
+  <p class="belowFlex" r="760">By changing this, you can make 16-bit emoji text-arts, something MagmaPOP always wished for. It's too bad that MagmaPOP wasn't here for my shortcut (and the removal of my game changer lol). You can also make larger labels that look nearly as clear as editor version 24's text, but at the cost of some line space.</p>
   
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   
