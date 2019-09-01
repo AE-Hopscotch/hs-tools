@@ -396,12 +396,10 @@ function theme(t){
 		var a = document.getElementById('blockSearch');
 		
 		b = a.getElementsByTagName('li');
-		console.log(b);
 		
 		var i;
 		for (i = 0; i < b.length; i++) {
 			a = b[i].getElementsByTagName('a')[0];
-			console.log(i);
 			a.transition = "0.5s";
 			a.style.borderColor = '#666';
 		}
@@ -425,12 +423,10 @@ function theme(t){
 		var a = document.getElementById('blockSearch');
 		
 		b = a.getElementsByTagName('li');
-		console.log(b);
 		
 		var i;
 		for (i = 0; i < b.length; i++) {
 			a = b[i].getElementsByTagName('a')[0];
-			console.log(i);
 			a.transition = "0.5s";
 			a.style.borderColor = '#ddd';
 		}
@@ -461,7 +457,7 @@ function scrollList() {
 */
 
 //Log Site Update Time and Device
-console.log("Hello, World 13:12:34");
+console.log("Hello, World 00:58:20");
 console.log(navigator.userAgent);
 
 //Keep Popout Expanded when on Mobile
@@ -475,6 +471,10 @@ if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs
 window.onresize = function(){
 	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
 }
+
+window.addEventListener("orientationchange", function() {
+	if (window.innerWidth < 875) document.getElementById("hs-logo").src = "images/hs-logo-h.png"; else document.getElementById("hs-logo").src = "images/hs-logo-full.PNG";
+});
 
 //Manage Popup
 document.getElementById('linksPopout').onclick = function() {
