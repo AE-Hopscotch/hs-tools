@@ -1,3 +1,8 @@
+:root {
+	--closeBtnIdle: 1;
+	--navCloseable: true;
+}
+
 .sidenav::-webkit-scrollbar, .nobar::-webkit-scrollbar {
   display: none;
 }
@@ -58,6 +63,17 @@ a {
   opacity: 0.6;
 }
 
+#closebtn:not(:hover) {
+	opacity: var(--closeBtnIdle);
+	color: var(--closeBtnColor, white);
+}
+
+#closebtn:hover {
+	opacity: 0.6;
+	color: var(--closeBtnColor, white);
+}
+
+
 #main {
   transition: margin-left .5s;
   padding: 16px;
@@ -105,13 +121,13 @@ a {
 }
 
 .displayVid {
-  width:580px;
-  top:8px;
+  width: 580px;
+  top: 8px;
   left: 0px;
-  height:590px;
-  position:absolute;
-  padding-bottom:75%;
-  overflow:hidden;
+  height: 590px;
+  position: absolute;
+  padding-bottom: 75%;
+  overflow: hidden;
 }
 
 iframe {
