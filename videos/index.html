@@ -133,7 +133,7 @@
 			}
 
 			var v;
-			function video(id){
+			function video(id) {
 				var urlList = videoURLS[vidSet];
 				
 				document.getElementById("v0").hidden = true;
@@ -163,6 +163,8 @@
 				
 				if (document.getElementsByClassName("nobar")[0].style.left != "280px") closeNav();
 				
+				vidSet = url.searchParams.get("video-set")||"";
+				setCookie('lastPage', "https://awesome-e.github.io/hs-tools/videos/?video-set=" + vidSet + "&id=" + id, 30);
 			}
 			
 			//Remove Elements
