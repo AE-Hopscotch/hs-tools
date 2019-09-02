@@ -147,7 +147,6 @@
 		setTimeout(function(){document.getElementById('contents').style.opacity = '1';}, 50);
 		if (window.navigator.standalone == true) {
 			var lastPage = getCookie("lastPage");
-			alert("test: " + lastPage);
 			if (lastPage != "" && lastPage != window.location.href){
 				window.location.href = lastPage;
 			}
