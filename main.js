@@ -65,7 +65,7 @@ function home(){
 	window.location.href = '../';
 };
 
-if (window.location.href != "/hs-tools/") setCookie('lastPage', window.location.href, 30);
+if (window.location.href != "https://awesome-e.github.io/hs-tools/") setCookie('lastPage', window.location.href, 30);
 
 //Define Scroll End Function
 $.fn.scrollEnd = function(callback, timeout) {          
