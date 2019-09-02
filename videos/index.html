@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="../sidenavStyles.css">
 		<title>Video Clips</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
 		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
@@ -68,6 +69,7 @@
 				<a title="August 9, 2019" href="#" onclick="video('4')" class="_"><i class="fa fa-fw fa-wrench"> </i> Secret Blocks (66s)</a>
 				<a title="August 9, 2019" href="#" onclick="video('5')" class="_"><i class="fa fa-fw fa-wrench"> </i> Hidden Abilities</a>
 				<a title="August 31, 2019" href="#" onclick="video('6')" class="_"><i class="fa fa-fw fa-wrench"> </i> Potential Text Editor</a>
+				<a title="July 18, 2019" href="#" onclick="video('7')" class="_"><i class="fa fa-fw fa-globe"> </i> Main Page Menu</a>
 				
 				<a title="August 9, 2019" href="#" onclick="video('1')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Publish Buttons</a>
 				<a title="August 9, 2019" href="#" onclick="video('2')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Editor Color Slot</a>
@@ -93,6 +95,7 @@
 				<div hidden id="v1" class="displayVid"><iframe id="i1" src="" frameborder="0" width="100%" height="100%" allowfullscreen scrolling="no"></iframe></div>
 			</span></div>
 		</div>
+		<script src="../main.js"></script>
 		<script src="../sidenav.min.js"></script>
 		<script>
 			
@@ -163,20 +166,9 @@
 				//document.getElementById('v1').getElementsByTag('html')[0].getElementsByTag('body')[0].innerHTML = "hi";
 				
 				if (document.getElementsByClassName("nobar")[0].style.left != "280px") closeNav();
-				setCookie('lastPage', "https://awesome-e.github.io/hs-tools/videos/?video-set=" + vidSet + "&id=" + id, 30);
+				setLocation('?video-set=' + vidSet + '&id=' + id);
+				setCookie('lastPage', 'https://awesome-e.github.io/hs-tools/videos/?video-set=' + vidSet + '&id=' + id, 30);
 				
-			}
-			
-			//Remove Elements
-			Element.prototype.remove = function() {
-				this.parentElement.removeChild(this);
-			}
-			NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-				for(var i = this.length - 1; i >= 0; i--) {
-					if(this[i] && this[i].parentElement) {
-						this[i].parentElement.removeChild(this[i]);
-					}
-				}
 			}
 			
 			//Read and Apply the URL Modifier "Video Set"
@@ -207,13 +199,11 @@
 			//Video List
 			
 			var videoURLS = {
-				"": ["","https://streamable.com/2lxis", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"],
+				"": ["","https://streamable.com/2lxis", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf", "https://streamable.com/i9wo9"],
 				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
 				"bugCh": ["", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8"],
 				"aeMD": ["", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"]
 			};
-			
-			// NOTE TO SELF: AUTOMATICALLY SHOW VIDEO ID IN BY URL MODIFIER
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
 			console.log(navElements);
@@ -265,13 +255,6 @@
 			
 			openNav_();
 			console.log("Width: " + String(window.innerWidth));
-			
-			function home(){
-				setCookie('lastPage','',30);
-				window.location.href = '../';
-			};
-
-			setCookie('lastPage', window.location.href, 30);
 		</script>
 	</body>
 </html>
