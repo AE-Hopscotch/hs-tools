@@ -128,7 +128,16 @@
 				color: #787878;
 				font-weight: 400;
 			}
-
+			
+			#indList li {
+				color: orange;
+				font-weight: 600;
+			}
+			
+			#indList t {
+				font-weight: 400;
+				color: black;
+			}
 		</style>
 	</head>
 	<body>
@@ -140,53 +149,53 @@
 			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for commonly filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
 			<ul id="filterSearchUL" class="searchItems noselect" style="margin-top:44px;">
 				
-				<li>Trigger <gray>(I use this with “Clone Trigger”)</gray></li>
-				<li>Fingering <gray>(from the Ukelele project)</gray></li>
-				<li>Chest <gray>(as in Treasure Chest)</gray></li>
-				<li>RP, Roleplay<sub> 1</sub></li>
-				<li>Loser <gray>(If you say P1 lost and P2 won)</gray></li>
-				<li>Bully <gray>(if you are saying don’t bully others, the project will get stuck)</gray><sub> 3</sub></li>
-				<li>Email, Address<sub> 1</sub></li>
-				<li>Phone Number<sub> 2</sub></li>
-				<li>Phone is Dead<sub> 2</sub></li>
-				<li>Hopscotch Closing<sub> 2</sub></li>
-				<li>Leaving Hopscotch<sub> 2</sub></li>
-				<li>“Girls rule”, “Girls drool”, “Boys rule”, and “Boys drool”<sub> 1</sub></li>
-				<li>Real Name<sub> 2</sub></li>
-				<li>Jerky <gray>(as in laggy and inconsistent or as in beef jerky)</gray></li>
-				<li>Massage</li>
-				<li>Negro <gray>(Spanish color translation though sometimes offensive)</gray></li>
-				<li>Instagram</li>
-				<li>Blood</li>
-				<li>Pants <gray>(although underwear, garments, and shirt are all ok)</gray></li>
-				<li>Burned<sub> 3</sub></li>
-				<li>Chat, chatting<sub> 1, 3</sub></li>
-				<li>Copying<sub> 3</sub></li>
-				<li>Shooting <gray>(as in “shooting the basketball”)</gray><sub> 3</sub></li>
-				<li>Orphan <gray>(you might use this in a story plot)</gray><sub> 3</sub></li>
-				<li>Hump <gray>(“&#x1F42A; This camel has one hump”)</gray></li>
-				<li>Hoe <gray>(As in “diamond hoe” – Minecraft makers might use this)</gray></li>
-				<li>Weed <gray>(As in “weed the lawn”)</gray></li>
-				<li>Drunk <gray>(You probably meant to put the word “drank” if this got your project stuck)</gray></li>
-				<li>Depression<sub> 3</sub></li>
-				<li>Whiteboard<sub> 4</sub></li>
-				<li>Obviously, any profane language <gray>(However, this you may not know why it gets stuck because it only has to get embedded)</gray><sub> 4</sub></li>
+				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
+				<li><t>Fingering</t> <gray>(from the Ukelele project)</gray></li>
+				<li><t>Chest</t> <gray>(as in Treasure Chest)</gray></li>
+				<li><t>RP, Roleplay</t><sub> 1</sub></li>
+				<li><t>Loser</t> <gray>(If you say P1 lost and P2 won)</gray><sub> 3</sub></li>
+				<li><t>Bully</t> <gray>(if you are saying don’t bully others, the project will get stuck)</gray><sub> 3</sub></li>
+				<li><t>Email, Address</t><sub> 1</sub></li>
+				<li><t>Phone Number</t><sub> 2</sub></li>
+				<li><t>Phone is Dead</t><sub> 2</sub></li>
+				<li><t>Hopscotch Closing</t><sub> 2</sub></li>
+				<li><t>Leaving Hopscotch</t><sub> 2</sub></li>
+				<li><t>“Girls rule”, “Girls drool”, “Boys rule”, and “Boys drool”</t><sub> 1</sub></li>
+				<li><t>“Real Name”, “Full Name”, “Last Name”</t><sub> 1</sub></li>
+				<li><t>Jerky</t> <gray>(as in laggy and inconsistent or as in beef jerky)</gray></li>
+				<li><t>Massage</t></li>
+				<li><t>Negro</t> <gray>(Spanish color translation though sometimes offensive)</gray></li>
+				<li><t>Instagram</t></li>
+				<li><t>Blood</t></li>
+				<li><t>Pants</t> <gray>(although underwear, garments, and shirt are all ok)</gray></li>
+				<li><t>Burned</t><sub> 3</sub></li>
+				<li><t>Chat, chatting</t><sub> 1, 3</sub></li>
+				<li><t>Copying</t><sub> 3</sub></li>
+				<li><t>Shooting</t> <gray>(as in “shooting the basketball”)</gray><sub> 3</sub></li>
+				<li><t>Orphan</t> <gray>(you might use this in a story plot)</gray><sub> 3</sub></li>
+				<li><t>Hump</t> <gray>(“&#x1F42A; This camel has one hump”)</gray></li>
+				<li><t>Hoe</t> <gray>(As in “diamond hoe” – Minecraft makers might use this)</gray></li>
+				<li><t>Weed</t> <gray>(As in “weed the lawn”)</gray></li>
+				<li><t>Drunk</t> <gray>(You probably meant to put the word “drank” if this got your project stuck)</gray></li>
+				<li><t>Depression</t><sub> 3</sub></li>
+				<li><t>Whiteboard</t><sub> 4</sub></li>
+				<li><t>Obviously, any profane language</t> <gray>(However, this you may not know why it gets stuck because it only has to get embedded)</gray><sub> 4</sub></li>
 				
 			</ul>
 
 		</span>
-		<div style="position:fixed; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow-x: auto;">
+		<div style="position:fixed; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow-x: auto; z-index: 2;">
 			<b style="bottom: 120px; text-align: center; position: fixed; display: inline-block; width: 100%; max-width: 620px;">Orange Indicator Rules:</b>
-			<ol style="min-width: 650px; left: -16px; position: relative;">
-				<li>Every word or phrase separated by commas get caught in the filter. Quotes indicate phrases.</li>
-				<li>This item works as a phrase only; it only gets caught when the whole phrase is present.</li>
-				<li>Alternate forms of the word do not get stuck (example: if burned gets stuck, burn does not).</li>
-				<li>Any word containing the word listed (example: pot &xrarr; abcpot, potabc, abpotcd get stuck)</li>
+			<ol style="min-width: 650px; left: -16px; position: relative;" id="indList">
+				<li><t>Every word or phrase separated by commas get caught in the filter. Quotes indicate phrases.</t></li>
+				<li><t>This item works as a phrase only; it only gets caught when the whole phrase is present.</t></li>
+				<li><t>Alternate forms of the word do not get stuck (example: if burned gets stuck, burn does not).</t></li>
+				<li><t>Any word containing the word listed (example: pot &xrarr; abcpot, potabc, abpotcd get stuck)</t></li>
 			</ol>
 		</div>
 		
 		<div style="position: fixed; width: calc(50% - 8px); right: 8px; top: 8px;">
-			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID"></span>
+			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or ID, &#9166; to search"></span>
 			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px;"></span>
 			
 			<br>
@@ -293,7 +302,7 @@
 				ul = document.getElementById("filterSearchUL");
 				li = ul.getElementsByTagName("li");
 				for (i = 0; i < li.length; i++) {
-					a = li[i];
+					a = li[i].getElementsByTagName("t")[0];
 					txtValue = a.textContent || a.innerText;
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
 						li[i].style.display = "";
@@ -375,6 +384,15 @@
 						a.style.borderColor = '#666';
 					}
 					
+					var a = document.getElementById('indList');
+					b = a.getElementsByTagName('t');
+					var i;
+					for (i = 0; i < b.length; i++) {
+						a = b[i];
+						a.style.transition = "0.5s";
+						a.style.color = '#888';
+					}
+					
 					setCookie("dark_mode", "true", 30);
 					console.log("Saved Dark Mode");
 				} else {
@@ -402,6 +420,15 @@
 						a.style.transition = "0.5s";
 						a.style.color = 'black';
 						a.style.borderColor = '#ddd';
+					}
+					
+					var a = document.getElementById('indList');
+					b = a.getElementsByTagName('t');
+					var i;
+					for (i = 0; i < b.length; i++) {
+						a = b[i];
+						a.style.transition = "0.5s";
+						a.style.color = 'black';
 					}
 					
 					setCookie("dark_mode", "false", 30);
