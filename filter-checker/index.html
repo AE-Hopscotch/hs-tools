@@ -252,6 +252,7 @@
 							var value = JSON.stringify(JSON.parse(text));
 							testFilter(text);
 						} catch (SyntaxError) {
+							target.value = "Invalid File";
 							console.log('Invalid File');
 						}
 					}).catch(error => console.log(error))
