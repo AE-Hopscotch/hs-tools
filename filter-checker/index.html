@@ -187,8 +187,8 @@
 		</div>
 		
 		<div style="position: fixed; width: calc(50% - 8px); right: 8px; top: 8px;">
-			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" checked>By URL <input id="input-url" placeholder="URL or Project ID"></span>
-			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file">File Upload &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px;"></span>
+			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID"></span>
+			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px;"></span>
 			
 			<br>
 			<textarea style="resize: none; width: 100%; height: 300px; background: none; color: #888" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
@@ -202,7 +202,9 @@
 			function testFilter(data) {
 				var target = document.getElementById('content-target');
 				target.value = "Searching...";
-				var matches = data.match(/\btrigger\b|\bfingering\b|\bchest\b|\brp\b|\broleplay\b|\bloser\b|\bbully\b|\bemail\b|\bphone is dead\b|\bhopscotch closing\b|\bleaving hopscotch\b|(\b(girls|boys) (rule|drool)\b)|\b\w+jerk\w*\b|\bjerk\w+\b|\b\w+shit\w*\b|\bshit\w+\b|\bmassage\b|\bnegro\b|\binstagram\b|\bblood\b|\bpants\b|\bburned\b|\bchat(ting)?\b|\bc(\.)?hat\b|\bch(\.)?at\b|\bcha(\.)?t\b|\bcopying\b|\bshooting\b|\borphan\b|\bterrorist\b|\b\w+dick\w*|dick\w+\b|\bsucks\b|\bstrangle\b|\bdrunk\b|\baddress\b|\bphone number\b|\bhoe\b|\bhump(ing)?\b|\bstupid\b|\b(real|full|last) name\b|\b\w+whiteboard\w*\b|\bwhiteboard\w+\b|\bweed\b|\bdepression\b/gi);
+				//Does contain some degree of bad words, therefore it is included. However, theses are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
+				var regex = RegExp(window.atob("XGJ0cmlnZ2VyXGJ8XGJmaW5nZXJpbmdcYnxcYmNoZXN0XGJ8XGJycFxifFxicm9sZXBsYXlcYnxcYmxvc2VyXGJ8XGJidWxseVxifFxiZW1haWxcYnxcYnBob25lIGlzIGRlYWRcYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJsZWF2aW5nIGhvcHNjb3RjaFxifChcYihnaXJsc3xib3lzKSAocnVsZXxkcm9vbClcYil8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJtYXNzYWdlXGJ8XGJuZWdyb1xifFxiaW5zdGFncmFtXGJ8XGJibG9vZFxifFxicGFudHNcYnxcYmJ1cm5lZFxifFxiY2hhdCh0aW5nKT9cYnxcYmMoXC4pP2hhdFxifFxiY2goXC4pP2F0XGJ8XGJjaGEoXC4pP3RcYnxcYmNvcHlpbmdcYnxcYnNob290aW5nXGJ8XGJvcnBoYW5cYnxcYnRlcnJvcmlzdFxifFxiXHcrZGlja1x3KnxkaWNrXHcrXGJ8XGJzdWNrc1xifFxic3RyYW5nbGVcYnxcYmRydW5rXGJ8XGJhZGRyZXNzXGJ8XGJwaG9uZSBudW1iZXJcYnxcYmhvZVxifFxiaHVtcChpbmcpP1xifFxic3R1cGlkXGJ8XGIocmVhbHxmdWxsfGxhc3QpIG5hbWVcYnxcYlx3K3doaXRlYm9hcmRcdypcYnxcYndoaXRlYm9hcmRcdytcYnxcYndlZWRcYnxcYmRlcHJlc3Npb25cYnxcYlx3K3NsdXRcdypcYnxcYnNsdXRcdytcYg=="), "gi");
+				var matches = data.match(regex);
 				try {
 					target.value = matches.join(", ");
 				} catch (TypeError) {
