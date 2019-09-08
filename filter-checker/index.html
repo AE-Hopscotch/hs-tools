@@ -241,11 +241,10 @@
 					document.getElementById('content-target').value = "Filtered words in your project will show up here...";
 					return;
 				}
-				
+				var target = document.getElementById('content-target'), file = input.files[0];
 				if ('files' in input && input.files.length > 0 && ext.match(/^(hopscotch|hspre|json|txt)$/gi)) {
 					//placeFileContent(document.getElementById('content-target'), input.files[0]);
 					
-					var target = document.getElementById('content-target'), file = input.files[0];
 					readFileContent(file).then(content => {
 						var text = (ext=="hspre")? window.atob(window.atob(content)) : content;
 						try {
@@ -257,6 +256,11 @@
 						}
 					}).catch(error => console.log(error))
 					
+				} else {
+					if ('files' in input && input.files.length > 0) {
+						target.value = "Invalid File";
+						console.log('Invalid File');
+					}
 				}
 			}
 
