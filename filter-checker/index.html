@@ -105,14 +105,14 @@
 			
 			#filterSearchBG {
 				display: block;
-				width: calc(50% - 20px);
+				width: calc(50% - 12px);
 				height: 44px;
 				background-color: white;
-				border: 3px solid white
+				border: 3px solid white;
 				position: relative;
 				top: 2px;
 				left: 2px;
-				z-index:9;
+				z-index: 10;
 			}
 
 			.searchItems {
@@ -190,11 +190,8 @@
 				top: 8px;
 			}
 			
-			.searchBar {
-				display: block;
-				position: fixed;
-				width: 90%;
-				left: 10px;
+			#searchBar {
+				z-index: 10;
 			}
 			
 			#indCnt {
@@ -218,17 +215,20 @@
 					position: relative;
 					margin-bottom: -52px;
 					display: block;
-					width: 100%
+					width: calc(100% - 2px);
+					z-index: 4;
 				}
 				
 				#filterSearchBox {
-					width: calc(100% - 4px);
+					width: calc(100% - 2px);
 					top: 2px;
 				}
 				
 				#filterSearchBG {
-					width: 100%;
-					top: 46px;
+					width: calc(100% - 2px);
+					top: 0px;
+					left: 2px;
+					position: relative;
 					margin-top: 4px;
 					margin-bottom: -46px;
 				}
@@ -505,7 +505,7 @@
 					document.getElementById('filterSearchBox').style.backgroundColor = 'black';
 					document.getElementById('filterSearchBox').style.borderColor = '#666';
 					document.getElementById('filterSearchBox').style.color = '#ddd';
-					document.getElementById('filterSearchBG').style.borderColor = 'black';
+					document.getElementById('filterSearchBG').style.background = 'black';
 					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "#8c8c8c";
 					//document.getElementById("linksPopout").classList.add("dark");
@@ -543,7 +543,7 @@
 					document.getElementById('filterSearchBox').style.backgroundColor = 'white';
 					document.getElementById('filterSearchBox').style.borderColor = '#ddd';
 					document.getElementById('filterSearchBox').style.color = 'black';
-					document.getElementById('filterSearchBG').style.borderColor = 'white';
+					document.getElementById('filterSearchBG').style.background = 'white';
 					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "black";
 					//document.getElementById("linksPopout").classList.remove("dark");
