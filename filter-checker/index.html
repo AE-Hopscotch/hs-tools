@@ -28,6 +28,7 @@
 					color 0.5s ease;
 				
 			}
+			
 			.topBar {
 				position: fixed;
 				display:block;
@@ -75,7 +76,7 @@
 			  position: fixed;
 			  top: 8px;
 			  width: calc(50% - 16px);
-			  height: 70%;
+			  height: calc(100% - 145px);
 			  left: 8px;
 			  overflow: auto;
 			  border: 2px solid gray;
@@ -88,16 +89,30 @@
 			#filterSearchBox {
 			  background-position: 10px 12px;
 			  background-repeat: no-repeat;
-			  width: calc(50% - 20px);
+			  width: calc(50% - 12px);
+			  top: -42px;
+			  left: 2px;
 			  font-size: 16px;
 			  padding: 12px 20px 12px 40px;
 			  border: 1px solid #ddd;
 			  margin-bottom: 0px;
-			  position: fixed;
+			  position: relative;
 			  z-index: 10;
 			  transition: 
 				border 0.5s ease,
 				background-color 0.5s ease;
+			}
+			
+			#filterSearchBG {
+				display: block;
+				width: calc(50% - 20px);
+				height: 44px;
+				background-color: white;
+				border: 3px solid white
+				position: relative;
+				top: 2px;
+				left: 2px;
+				z-index:9;
 			}
 
 			.searchItems {
@@ -138,15 +153,130 @@
 				font-weight: 400;
 				color: black;
 			}
+			
+			.flex {
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				align-content: space-around;
+				min-width: 100%;
+				margin-bottom: -5px;
+				position: relative;
+				user-select: normal;
+			}
+
+			.flex[reverse] {
+				flex-wrap: wrap-reverse;
+			}
+			
+			.flex img {
+				max-width: 100%;
+				padding: 10px 0px 0px 0px;
+				min-width: 30%;
+			}
+			
+			.flex span {
+				text-align: left;
+				pointer-events: auto;
+			}
+			
+			#urlChecker {
+				position: absolute;
+				width: calc(50% - 8px);
+				height: calc(100% - 145px);
+				right: 8px;
+				top: 8px;
+			}
+			
+			.searchBar {
+				display: block;
+				position: fixed;
+				width: 90%;
+				left: 10px;
+			}
+			
+			#indCnt {
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+				width: 100%;
+			}
+			
+			@media only screen and (max-width: 666px){
+				#filterSearch {
+					position: relative;
+					display: block;
+					width: 100%;
+					height: 300px;
+					margin: 0px;
+					left: 0px;
+				}
+				
+				#searchBar {
+					position: relative;
+					margin-bottom: -52px;
+					display: block;
+					width: 100%
+				}
+				
+				#filterSearchBox {
+					width: calc(100% - 4px);
+					top: 2px;
+				}
+				
+				#filterSearchBG {
+					width: 100%;
+					top: 46px;
+					margin-top: 4px;
+					margin-bottom: -46px;
+				}
+				
+				.search {
+					max-width: 100%;
+				}
+				
+				#urlChecker {
+					position: static;
+					width: calc(100% - 0px);
+					height: 150px;
+					margin-bottom: 8px;
+					overflow: hidden;
+				}
+				
+				#indCnt {
+					display: block;
+					position: static;
+					margin-top: 20px;
+				}
+			}
+			
+			@media only screen and (max-width: 352px){
+				#urlChecker {
+					border-bottom: 1px solid #a9a9a9;
+				}
+			}
+
 		</style>
 	</head>
 	<body>
-		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 2;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 100;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		
+		<div id="urlChecker" style="">
+			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID" type="url"><button id="input-url2" onclick="checkFilterUrl()" style="display: inline-block; background-color: #ddf3e6; padding: 2px 6px; margin-left: 2px; margin-right: 38px;">Go</button></span>
+			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px; outline: 0; width: 215px;"></span>
+			
+			<br>
+			<textarea style="resize: none; width: 100%; height: calc(100% - 56px); 348px; background: none; color: #888" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
+		</div>
+		
+		<span id="searchBar">
+			<a id="filterSearchBG"></a>
+			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for commonly filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png');">
+		</span>
 		
 		<span style="z-index: 3;" id="filterSearch" class="search">
-		
-			<a id="filterSearchBG" style="display: block; width: calc(50% - 20px); height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 10px; z-index:9;"></a>
-			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for commonly filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
 			<ul id="filterSearchUL" class="searchItems noselect" style="margin-top:44px;">
 				
 				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
@@ -184,23 +314,18 @@
 			</ul>
 
 		</span>
-			<b style="bottom: 120px; text-align: center; position: fixed; display: inline-block; width: 100%; max-width: 600px;">Orange Indicator Rules:</b>
-		<div style="position:fixed; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow: visible; overflow-x: auto; z-index: 20;">
-			<ol style="min-width: 650px; left: -16px; position: relative;" id="indList">
-				<li><t>Every word or phrase separated by commas get caught in the filter. Quotes indicate phrases.</t></li>
-				<li><t>This item works as a phrase only; it only gets caught when the whole phrase is present.</t></li>
-				<li><t>Alternate forms of the word do not get stuck (example: if burned gets stuck, burn does not).</t></li>
-				<li><t>Any word containing the word listed (example: pot &xrarr; abcpot, potabc, abpotcd get stuck)</t></li>
-			</ol>
-		</div>
 		
-		<div style="position: fixed; width: calc(50% - 8px); right: 8px; top: 8px;">
-			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID" type="url"><button onclick="checkFilterUrl()" style="display: inline-block; background-color: #ddf3e6; padding: 2px 6px; margin-left: 2px;">Go</button></span>
-			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px;"></span>
-			
-			<br>
-			<textarea style="resize: none; width: 100%; height: 300px; background: none; color: #888" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
-		</div>
+		<span id="indCnt">
+			<b style="top: 8px; text-align: center; display: inline-block; width: 100%; max-width: 620px;">Orange Indicator Rules:</b>
+			<div style="display: block; position: relative; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow: visible; overflow-x: auto; z-index: 20;">
+				<ol style="width: 100%; left: -16px; position: relative;" id="indList">
+					<li><t>Every word or phrase separated by commas get caught in the filter. Quotes indicate phrases.</t></li>
+					<li><t>This item works as a phrase only; it only gets caught when the whole phrase is present.</t></li>
+					<li><t>Alternate forms of the word do not get stuck (example: if burned gets stuck, burn does not).</t></li>
+					<li><t>Any word containing the word listed (example: pot &xrarr; abcpot, potabc, abpotcd get stuck)</t></li>
+				</ol>
+			</div>
+		</span>
 		
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 		
@@ -295,14 +420,15 @@
 			var inputSelection = "url";
 			function changeInputSelect() {
 				var radios = document.getElementsByName('inputs');
-
-				for (var i = 0, length = radios.length; i < length; i++) {
-					if (radios[i].checked) {
-						// do whatever you want with the checked radio
-						document.getElementById("input-" + radios[i].value).removeAttribute('disabled');
-					} else {
-						document.getElementById("input-" + radios[i].value).setAttribute('disabled', 'true');
-					}
+				if (radios[0].checked) {
+					// do whatever you want with the checked radio
+					document.getElementById("input-" + radios[0].value + "2").removeAttribute('disabled');
+					document.getElementById("input-" + radios[0].value).removeAttribute('disabled');
+					document.getElementById("input-" + radios[1].value).setAttribute('disabled', 'true');
+				} else {
+					document.getElementById("input-" + radios[0].value).setAttribute('disabled', 'true');
+					document.getElementById("input-" + radios[0].value + "2").setAttribute('disabled', 'true');
+					document.getElementById("input-" + radios[1].value).removeAttribute('disabled');
 				}
 			}
 			
@@ -380,7 +506,7 @@
 					document.getElementById('filterSearchBox').style.borderColor = '#666';
 					document.getElementById('filterSearchBox').style.color = '#ddd';
 					document.getElementById('filterSearchBG').style.borderColor = 'black';
-					document.getElementById('filterSearchBG').style.transition = '0.5s';
+					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "#8c8c8c";
 					//document.getElementById("linksPopout").classList.add("dark");
 					
@@ -418,7 +544,7 @@
 					document.getElementById('filterSearchBox').style.borderColor = '#ddd';
 					document.getElementById('filterSearchBox').style.color = 'black';
 					document.getElementById('filterSearchBG').style.borderColor = 'white';
-					document.getElementById('filterSearchBG').style.transition = '0.5s';
+					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "black";
 					//document.getElementById("linksPopout").classList.remove("dark");
 					
@@ -498,12 +624,6 @@
 
 			if (getCookie("dark_mode") == 'true'){
 				theme(2);
-			}
-			
-			//Small Screen Alert
-			
-			if(window.innerWidth < 448) {
-				alert("This is not fully supported for smaller screens yet");
 			}
 		</script>
 	</body>
