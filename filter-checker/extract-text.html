@@ -28,7 +28,7 @@
 					color 0.5s ease;
 			}
 
-			#themebtn {
+			#themebtn, .btn {
 				position: fixed;
 				right: 8px;
 				top: 8px;
@@ -93,7 +93,7 @@
 			
 			<br>
 			<textarea style="resize: none; width: 100%; background: none; color: #888" id="content-target" readonly>Project text will show up here...</textarea>
-			<span style="display: flex; justify-content: flex-end;"><button onclick="copyText()" id="themebtn" style="position: relative; top: calc(80%); top: -38px; left: 0px; padding: 8px 6px;"><i class="fa fa-fw fa-copy"> </i></button></span>
+			<span style="display: flex; justify-content: flex-end;"><button onclick="copyText()" class="btn" style="position: relative; top: calc(80%); top: -38px; left: 0px; padding: 8px 6px;"><i class="fa fa-fw fa-copy"> </i></button></span>
 		</div>
 		
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
