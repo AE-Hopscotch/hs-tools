@@ -93,7 +93,7 @@
 			
 			<br>
 			<textarea style="resize: none; width: 100%; background: none; color: #888" id="content-target" readonly>Project text will show up here...</textarea>
-			<span style="display: flex; justify-content: flex-end;"><button onclick="copyText()" class="btn" style="position: relative; top: calc(80%); top: -38px; left: 0px; padding: 8px 6px;"><i class="fa fa-fw fa-copy"> </i></button></span>
+			<span style="display: flex; justify-content: flex-end;"><button onclick="copyText()" class="btn" style="position: relative; top: calc(80%); top: -39px; left: -1px; padding: 8px 6px;"><i class="fa fa-fw fa-copy"> </i></button></span>
 		</div>
 		
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
@@ -300,36 +300,7 @@
 					document.body.style.backgroundColor = "#000";
 					document.body.style.color = "#8c8c8c";
 					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-					
-					//document.getElementById('topBar').style.backgroundColor = 'black';
-					document.getElementById('filterSearchBox').style.backgroundColor = 'black';
-					document.getElementById('filterSearchBox').style.borderColor = '#666';
-					document.getElementById('filterSearchBox').style.color = '#ddd';
-					document.getElementById('filterSearchBG').style.borderColor = 'black';
-					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "#8c8c8c";
-					//document.getElementById("linksPopout").classList.add("dark");
-					
-					var a = document.getElementById('filterSearchUL');
-					
-					b = a.getElementsByTagName('li');
-					
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = '#888';
-						a.style.borderColor = '#666';
-					}
-					
-					var a = document.getElementById('indList');
-					b = a.getElementsByTagName('t');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = '#888';
-					}
 					
 					setCookie("dark_mode", "true", 30);
 					console.log("Saved Dark Mode");
@@ -338,36 +309,7 @@
 					document.body.style.backgroundColor = "#fff";
 					document.body.style.color = "#000";
 					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-					
-					//document.getElementById('').style.backgroundColor = 'white';
-					document.getElementById('filterSearchBox').style.backgroundColor = 'white';
-					document.getElementById('filterSearchBox').style.borderColor = '#ddd';
-					document.getElementById('filterSearchBox').style.color = 'black';
-					document.getElementById('filterSearchBG').style.borderColor = 'white';
-					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
 					document.getElementById("homeSvg").style.fill = "black";
-					//document.getElementById("linksPopout").classList.remove("dark");
-					
-					var a = document.getElementById('filterSearchUL');
-					
-					b = a.getElementsByTagName('li');
-					
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = 'black';
-						a.style.borderColor = '#ddd';
-					}
-					
-					var a = document.getElementById('indList');
-					b = a.getElementsByTagName('t');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = 'black';
-					}
 					
 					setCookie("dark_mode", "false", 30);
 					console.log("Saved Light Mode");
