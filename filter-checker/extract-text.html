@@ -220,6 +220,7 @@
 					readFileContent(file).then(content => {
 						var text = (ext=="hspre")? window.atob(window.atob(content)) : content;
 						try {
+							hasContent = false;
 							var value = JSON.stringify(JSON.parse(text));
 							extractText(text);
 						} catch (SyntaxError) {
