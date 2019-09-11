@@ -96,7 +96,13 @@
 			  padding: 12px 20px 12px 40px;
 			  border: 1px solid #ddd;
 			  margin-bottom: 0px;
-			  position: relative;
+			  position: fixed;
+			  
+			  top: 10px;
+			  left: 10px;
+			  width: calc(50% - 20px);
+			  
+			  
 			  z-index: 10;
 			  transition: 
 				border 0.5s ease,
@@ -233,7 +239,9 @@
 				}
 				
 				#filterSearchBox {
+					position: relative;
 					width: calc(100% - 2px);
+					left: 2px;
 					top: 2px;
 				}
 				
@@ -694,6 +702,12 @@
 			}
 			*/
 
+			//Text Down if on iOS
+			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+				document.getElementById("indCnt").style.bottom = "-10px";
+			}
+			
+			
 			//Log Site Update Time and Device
 			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
