@@ -122,16 +122,29 @@
 			}
 
 			.searchItems li {
-			  display: block;
-			  border: 1px solid #ddd;
-			  margin-top: -1px; /* Prevent double borders */
-			  padding: 12px;
-			  text-decoration: none;
-			  font-size: 18px;
-			  color: black;
-			  display: block;
-			  font-weight: 600;
-			  background: none;
+				display: block;
+				border: 1px solid #ddd;
+				margin-top: -1px; /* Prevent double borders */
+				padding: 12px;
+				text-decoration: none;
+				font-size: 18px;
+				color: black;
+				display: block;
+				font-weight: 500;
+				background: none;
+			}
+			
+			.searchItems lb {
+				display: block;
+				border: 1px solid #ddd;
+				margin-top: -1px; /* Prevent double borders */
+				padding: 3px 12px;
+				text-decoration: none;
+				font-size: 18px;
+				color: #50a9f7;
+				display: block;
+				font-weight: 600;
+				background: none;
 			}
 			
 			.searchItems li sub {
@@ -183,7 +196,7 @@
 			}
 			
 			#urlChecker {
-				position: absolute;
+				position: fixed;
 				width: calc(50% - 8px);
 				height: calc(100% - 155px);
 				right: 8px;
@@ -248,13 +261,22 @@
 				#indCnt {
 					display: block;
 					position: static;
-					margin-top: 20px;
+					margin-top: 0px;
 				}
+				
+				#urlChecker {
+					border-bottom: 1px solid #a9a9a9;
+				}
+				
+				textarea {
+					border: 2px solid #a9a9a9;
+				}
+				
 			}
 			
 			@media only screen and (max-width: 352px){
 				#urlChecker {
-					border-bottom: 1px solid #a9a9a9;
+					border-bottom: 2px solid #a9a9a9;
 				}
 			}
 
@@ -273,51 +295,101 @@
 		
 		<span id="searchBar">
 			<a id="filterSearchBG"></a>
-			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for commonly filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png');">
+			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for known filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png');">
 		</span>
 		
 		<span style="z-index: 3;" id="filterSearch" class="search">
-			<ul id="filterSearchUL" class="searchItems noselect" style="margin-top:44px;">
+			<ul id="filterSearchUL" class="searchItems noselect" style="margin-top:44px;">	
 				
-				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
-				<li><t>Fingering</t> <gray>(from the Ukelele project)</gray></li>
-				<li><t>Chest</t> <gray>(as in Treasure Chest)</gray></li>
-				<li><t>RP, Roleplay</t><sub> 1</sub></li>
-				<li><t>Loser</t> <gray>(If you say P1 lost and P2 won)</gray><sub> 3</sub></li>
-				<li><t>Bully</t> <gray>(if you are saying don’t bully others, the project will get stuck)</gray><sub> 3</sub></li>
-				<li><t>Email, Address</t><sub> 1</sub></li>
-				<li><t>Phone Number</t><sub> 2</sub></li>
-				<li><t>Phone is Dead</t><sub> 2</sub></li>
-				<li><t>Hopscotch Closing</t><sub> 2</sub></li>
-				<li><t>Leaving Hopscotch</t><sub> 2</sub></li>
-				<li><t>“Girls rule”, “Girls drool”, “Boys rule”, and “Boys drool”</t><sub> 1</sub></li>
-				<li><t>“Real Name”, “Full Name”, “Last Name”</t><sub> 1</sub></li>
-				<li><t>Jerky</t> <gray>(as in laggy and inconsistent or as in beef jerky)</gray></li>
-				<li><t>Massage</t></li>
-				<li><t>Negro</t> <gray>(Spanish color translation though sometimes offensive)</gray></li>
-				<li><t>Instagram</t></li>
+				<lb>A <t style="display: none;">address</t></lb>
+				<li><t>Address</t><sub> 1, 3</sub></li>
+				
+				<lb>B<t style="display: none;">blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
 				<li><t>Blood</t></li>
-				<li><t>Pants</t> <gray>(although underwear, garments, and shirt are all ok)</gray></li>
+				<li><t>“Boys rule”, “Boys drool”</t><sub> 1</sub></li>
+				<li><t>Bully</t> <gray>(if you say not to bully others, the project will get stuck)</gray><sub> 3</sub></li>
 				<li><t>Burned</t><sub> 3</sub></li>
-				<li><t>Chat, chatting</t><sub> 1, 3</sub></li>
-				<li><t>Copying</t><sub> 3</sub></li>
-				<li><t>Shooting</t> <gray>(as in “shooting the basketball”)</gray><sub> 3</sub></li>
-				<li><t>Orphan</t> <gray>(you might use this in a story plot)</gray><sub> 3</sub></li>
-				<li><t>Hump</t> <gray>(“&#x1F42A; This camel has one hump”)</gray></li>
-				<li><t>Hoe</t> <gray>(As in “diamond hoe” – Minecraft makers might use this)</gray></li>
-				<li><t>Weed</t> <gray>(As in “weed the lawn”)</gray></li>
-				<li><t>Drunk</t> <gray>(You probably meant to put the word “drank” if this got your project stuck)</gray></li>
-				<li><t>Depression</t><sub> 3</sub></li>
-				<li><t>Whiteboard</t><sub> 4</sub></li>
-				<li><t>Obviously, any profane language</t> <gray>(However, this you may not know why it gets stuck because it only has to get embedded)</gray><sub> 4</sub></li>
+				</lb>
 				
+				<lb>C<t style="display: none;">chat, chatting--chest--copying</t></lb>
+				<li><t>Chat, chatting</t><sub> 1, 3</sub></li>
+				<li><t>Chest</t> <gray>(as in Treasure Chest)</gray></li>
+				<li><t>Copying</t><sub> 3</sub></li>
+				
+				<lb>D<t style="display: none;">depression--drunk</t></lb>
+				<li><t>Depression</t><sub> 3</sub></li>
+				<li><t>Drunk</t> <gray>(You probably meant to put the word “drank” if this got your project stuck)</gray></li>
+				
+				<lb>E<t style="display: none;">email</t></lb>
+				<li><t>Email</t></li>
+				
+				<lb>F<t style="display: none;">fingering</t></lb>
+				<li><t>Fingering</t> <gray>(from the Ukelele project)</gray></li>
+				
+				<lb>G<t style="display: none;">“Girls rule”, “Girls drool”</t></lb>
+				<li><t>“Girls rule”, “Girls drool”</t><sub> 1</sub></li>
+				
+				<lb>H<t style="display: none;">hoe--hump--hopscotch closing</t></lb>
+				<li><t>Hoe</t> <gray>(As in “diamond hoe” – Minecraft makers might use this)</gray></li>
+				<li><t>Hump</t> <gray>(“&#x1F42A; This camel has one hump”)</gray></li>
+				<li><t>Hopscotch Closing</t><sub> 2</sub></li>
+				
+				<lb>I<t style="display: none;">instagram--idiot</t></lb>
+				<li><t>Instagram</t></li>
+				<li><t>Idiot</t> <sub> 4</sub></li>
+				
+				<lb>J<t style="display: none;">jerk</t></lb>
+				<li><t>Jerk</t> <gray>(beef jerky will be filtered, for example)</gray><sub> 4</sub></li>
+				
+				<lb>K<t style="display: none;">kiss</t></lb>
+				<li><t>Kiss</t></li>
+				
+				<lb>L<t style="display: none;">leaving hopscotch--loser</t></lb>
+				<li><t>Leaving Hopscotch</t><sub> 2</sub></li>
+				<li><t>Loser</t> <gray>(If you say P1 lost and P2 won)</gray><sub> 3</sub></li>
+				
+				<lb>M<t style="display: none;">massage</t></lb>
+				<li><t>Massage</t></li>
+				
+				<lb>N<t style="display: none;">“Real Name”, “Full Name”, “Last Name”--negro</t></lb>
+				<li><t>“Real Name”, “Full Name”, “Last Name”</t><sub> 1</sub></li>
+				<li><t>Negro</t> <gray>(Spanish color translation though sometimes offensive)</gray></li>
+				
+				<lb>O<t style="display: none;">orphan</t></lb>
+				<li><t>Orphan</t> <gray>(you might use this in a story plot)</gray><sub> 3</sub></li>
+				
+				<lb>P<t style="display: none;">pants--phone is dead--phone number</t></lb>
+				<li><t>Pants</t> <gray>(although underwear, garments, and shirt are all ok)</gray></li>
+				<li><t>Phone is Dead</t><sub> 2</sub></li>
+				<li><t>Phone Number</t><sub> 2</sub></li>
+				
+				<lb>R<t style="display: none;">rp, roleplay</t></lb>
+				<li><t>RP, Roleplay</t><sub> 1</sub></li>
+				
+				<lb>S<t style="display: none;">shooting--stupid--sucks</t></lb>
+				<li><t>Shooting</t> <gray>(as in “shooting the basketball”)</gray><sub> 3</sub></li>
+				<li><t>Strangle</t></li>
+				<li><t>Stupid</t> <sub> 4</sub></li>
+				<li><t>Sucks</t> <sub> 3</sub></li>
+				
+				<lb>T<t style="display: none;">trigger</t></lb>
+				<li><t>Terrorist</t></li>
+				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
+				
+				<lb>W<t style="display: none;">weed--whiteboard</t></lb>
+				<li><t>Weed</t> <gray>(As in “weed the lawn”)</gray></li>
+				<li><t>Whiteboard</t><sub> 4</sub></li>
+				
+				<lb>OTHER<t style="display: none;">obviously, any profane language</t></lb>
+				<li><t>Obviously, any profane language</t> <gray>(However, you may not know why it gets stuck because it only has to get embedded)</gray><sub> 4</sub></li>
 			</ul>
-
 		</span>
 		
 		<span id="indCnt">
-			<b style="top: 8px; text-align: center; display: inline-block; width: 100%; max-width: 620px;">Orange Indicator Rules:</b>
-			<div style="display: block; position: relative; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow: visible; overflow-x: auto; z-index: 20;">
+			<span style="position: relative; left: 10px; margin-right: 10px; display: block; bottom: -12px;">To extract all text from a project, use the <a href="extract-text.html">Text Extractor Tool</a>.</span><br>
+			
+			<b style="top: 8px; text-align: center; display: inline-block; width: 100%; max-width: 620px; margin-top: -6px;">Orange Indicator Rules:</b>
+			<div style="display: block; position: relative; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow: visible; overflow-x: auto; z-index: 20; margin-top: -4px;">
 				<ol style="width: 100%; left: -16px; position: relative;" id="indList">
 					<li><t>Every word or phrase separated by commas get caught in the filter. Quotes indicate phrases.</t></li>
 					<li><t>This item works as a phrase only; it only gets caught when the whole phrase is present.</t></li>
@@ -337,6 +409,7 @@
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is included. However, theses are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
 				var regex = RegExp(window.atob("XGJ0cmlnZ2VyXGJ8XGJmaW5nZXJpbmdcYnxcYmNoZXN0XGJ8XGJycFxifFxicm9sZXBsYXlcYnxcYmxvc2VyXGJ8XGJidWxseVxifFxiZW1haWxcYnxcYnBob25lIGlzIGRlYWRcYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJsZWF2aW5nIGhvcHNjb3RjaFxifChcYihnaXJsc3xib3lzKSAocnVsZXxkcm9vbClcYil8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJtYXNzYWdlXGJ8XGJuZWdyb1xifFxiaW5zdGFncmFtXGJ8XGJibG9vZFxifFxicGFudHNcYnxcYmJ1cm5lZFxifFxiY2hhdCh0aW5nKT9cYnxcYmMoXC4pP2hhdFxifFxiY2goXC4pP2F0XGJ8XGJjaGEoXC4pP3RcYnxcYmNvcHlpbmdcYnxcYnNob290aW5nXGJ8XGJvcnBoYW5cYnxcYnRlcnJvcmlzdFxifFxiXHcrZGlja1x3KnxkaWNrXHcrXGJ8XGJzdWNrc1xifFxic3RyYW5nbGVcYnxcYmRydW5rXGJ8XGJhZGRyZXNzXGJ8XGJwaG9uZSBudW1iZXJcYnxcYmhvZVxifFxiaHVtcChpbmcpP1xifFxic3R1cGlkXGJ8XGIocmVhbHxmdWxsfGxhc3QpIG5hbWVcYnxcYlx3K3doaXRlYm9hcmRcdypcYnxcYndoaXRlYm9hcmRcdytcYnxcYndlZWRcYnxcYmRlcHJlc3Npb25cYnxcYlx3K3NsdXRcdypcYnxcYnNsdXRcdytcYg=="), "gi");
+				var regex = RegExp(window.atob("XGJhZGRyZXNzXGJ8XGJibG9vZFxifChcYihnaXJsc3xib3lzKSAocnVsZXxkcm9vbClcYil8XGJidWxseVxifFxiYnVybmVkXGJ8XGJjaGF0KHRpbmcpP1xifFxiYyhcLik/aGF0XGJ8XGJjaChcLik/YXRcYnxcYmNoYShcLik/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmRlcHJlc3Npb25cYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZmluZ2VyaW5nXGJ8XGJob2VcYnxcYmh1bXAoaW5nKT9cYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYlx3KmlkaW90XHcqXGJ8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJraXNzXGJ8XGJsZWF2aW5nIGhvcHNjb3RjaFxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIocmVhbHxmdWxsfGxhc3QpIG5hbWVcYnxcYm5lZ3JvXGJ8XGJvcnBoYW5cYnxcYnBhbnRzXGJ8XGJwaG9uZSAoaXMgZGVhZHxudW1iZXIpXGJ8XGJycFxifFxicm9sZXBsYXlcYnxcYnNob290aW5nXGJ8XGJzdHJhbmdsZVxifFxiXHcqc3R1cGlkXHcqXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ3ZWVkXGJ8XGJcdyp3aGl0ZWJvYXJkXHcqXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytkaWNrXHcqfGRpY2tcdytcYnxcfHxcYlx3K3NsdXRcdypcYnxcYnNsdXRcdytcYg=="), "gi");
 				var matches = data.match(regex);
 				try {
 					target.value = matches.join(", ");
@@ -438,10 +511,23 @@
 				input = document.getElementById("filterSearchBox");
 				filter = input.value.toUpperCase();
 				ul = document.getElementById("filterSearchUL");
+				//Search Words
 				li = ul.getElementsByTagName("li");
 				for (i = 0; i < li.length; i++) {
 					a = li[i].getElementsByTagName("t")[0];
 					txtValue = a.textContent || a.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						li[i].style.display = "";
+					} else {
+						li[i].style.display = "none";
+					}
+				}
+				//Hide Unused Letter Indexes
+				li = document.getElementsByTagName("lb");
+				for (i = 0; i < li.length; i++) {
+					a = li[i].getElementsByTagName("t")[0];
+					txtValue = a.textContent || a.innerText;
+					txtValue = txtValue.replace(/--/g, "\t");
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
 						li[i].style.display = "";
 					} else {
@@ -513,12 +599,19 @@
 					var a = document.getElementById('filterSearchUL');
 					
 					b = a.getElementsByTagName('li');
-					
 					var i;
 					for (i = 0; i < b.length; i++) {
 						a = b[i];
 						a.style.transition = "0.5s";
 						a.style.color = '#888';
+						a.style.borderColor = '#666';
+					}
+					
+					b = document.getElementsByTagName('lb');
+					var i;
+					for (i = 0; i < b.length; i++) {
+						a = b[i];
+						a.style.transition = "0.5s";
 						a.style.borderColor = '#666';
 					}
 					
@@ -551,12 +644,19 @@
 					var a = document.getElementById('filterSearchUL');
 					
 					b = a.getElementsByTagName('li');
-					
 					var i;
 					for (i = 0; i < b.length; i++) {
 						a = b[i];
 						a.style.transition = "0.5s";
 						a.style.color = 'black';
+						a.style.borderColor = '#ddd';
+					}
+					
+					b = document.getElementsByTagName('lb');
+					var i;
+					for (i = 0; i < b.length; i++) {
+						a = b[i];
+						a.style.transition = "0.5s";
 						a.style.borderColor = '#ddd';
 					}
 					
