@@ -25,6 +25,9 @@
 			body, .topBar, #blockSearchBox {
 				transition: background-color 0.5s ease;
 			}
+			.searchKeySelected {
+				border: 2px solid blue;
+			}
 			.topBar {
 				position: fixed;
 				display:block;
@@ -50,6 +53,7 @@
 		</style>
 	</head>
 	<body>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="petrichor" style="position: fixed; bottom: 8px; right: 8px; font-family:comic sans ms;z-index:014;color:blue;display:none;"><i class="fa fa-rebel" style="color:red"></i>Petrichor was here<i class="fa fa-rebel" style="color:red"></i></a>
 		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 2;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
 
 		<span id="topBar" class="topBar">
@@ -58,112 +62,8 @@
 		<br><p style="color:white; margin-top: 30px; font-size: 0px;">---</p>
 
 		<span id="info">
-
-			<span hidden class="info" id="info123">
-			<bl type="">Custom Block / Ability </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
-				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="text-indent: 40px;">A Rainbow Block in the editor that allows you to put blocks inside it and reuse the code </p>
-				<p><b style="font-size: 120%;">Parameters</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>There are no parameters for Custom Blocks at the moment. However, you can rename them by tapping and holding on the editor block.</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Useful For</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Making While Loops by putting a nested ability inside a conditional</li>
-					<li>Condensing and reusing code templates; they act as a closed, global folder.</li>
-					<li>Code Organization; they can be named and seen at all times.</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Other Info</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: There is no description, but there are example names such as jump, fly, and run.</li>
-					<li>Block ID: 123</li>
-					<li>This block is available should be available for everyone to use</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Community Links</b></p>
-				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li><a href="https://forum.gethopscotch.com/t/tip-of-the-week/52636/69">Loops Using Abilities</a> – This is a tutorial I (Awesome_E) made, and it teaches you how to use abilities to make a "do while" or "do until" loop, neither of which we have normally in Hopscotch. It also showcases hidden abilities, which do not show up as a custom block.</li>
-					<li>Under Construction</li>
-				</ul></p>
-			</span>
-			<span hidden class="info" id="info23">
-			<bl type="move">Move Forward <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
-				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="text-indent: 40px;">Moves the object in their forward direction by the specified distance (pixels) </p>
-				<p><b style="font-size: 120%;">Parameters</b></p>
-				<p><ol style="font-size: 100%;">
-					<li>Distance – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
-				</ol></p>
-				<p><b style="font-size: 120%;">Useful For</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Animating Characters and Moving Things Around in Projects</li>
-					<li>Drawing Intricate / Complex Shapes; they adapt to the object's rotation</li>
-					<li>Making Puzzle Games</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Other Info</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: Moves your object forward* by the number of pixels specified. Negative numbers will move you robject backwards.<br/>*Forward means the angle your object is facing. All objects face to the right by default - 0 degrees. You can turn or flip an object to change the direction of Move Forward.</li>
-					<li>Block ID: 23</li>
-					<li>This block is available should be available for everyone to use</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Community Links</b></p>
-				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li>Under Construction</li>
-				</ul></p>
-			</span>
-			<span hidden class="info" id="info24">
-			<bl type="move">Turn degrees <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
-				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="text-indent: 40px;">Turns the object by the number of degrees specified.</p>
-				<p><b style="font-size: 120%;">Parameters</b></p>
-				<p><ol style="font-size: 100%;">
-					<li>Degrees – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
-				</ol></p>
-				<p><b style="font-size: 120%;">Useful For</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Animating Loading Screens</li>
-					<li>Drawing Intricate / Complex Shapes; they change the direction of move forward</li>
-					<li>Making Rescue Games where your character changes direction</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Other Info</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: Changes the direction the object is facing by a certain number of degrees. Use a shape like heart to see how it works. Rotating 180 degrees will place the heart upside down with the top edges facing down. Rotating 360 degrees will make the heart turn a full circle!<br/>For an example, search the community for Helicopter Rescue. It uses the block to rotate the helicopter as you rescue the people.</li>
-					<li>Block ID: 24</li>
-					<li>This block is available should be available for everyone to use</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Community Links</b></p>
-				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li>Under Construction</li>
-				</ul></p>
-			</span>
 			
-			<span hidden class="info" id="info34">
-			<bl type="move">Set Speed to <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix, GameCodingCrazy123, Mathgirl</p><br/>
-				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="text-indent: 40px;">Changes execution speed of change x, change y, turn, and move forward blocks for the current object</p>
-				<p><b style="font-size: 120%;">Parameters</b></p>
-				<p><ol style="font-size: 100%;">
-					<li>Speed – Determines how quickly movement blocks run. Higher speed means faster execution, and negative speed will make objects move the opposite direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
-				</ol></p>
-				<p><b style="font-size: 120%;">Useful For</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Speeding up trail art</li>
-					<li>Slowing down or speeding up obstacles in your game</li>
-					<li>Timings of overlapping objects</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Other Info</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: Sets the speed for this object. The default setting is 400. Small numbers make it slower and big numbers make it faster.</li>
-					<li>Block ID: 34</li>
-					<li>This block is available should be available for everyone to use</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Community Links</b></p>
-				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li><a href="https://c.gethopscotch.com/p/10dp4yohyt">CNN Logo Trail Art</a> – The Straight Segments in this trail art can be done quickly because the object's speed is set to a high number.</li>
-					<li><a href="https://c.gethopscotch.com/p/zcs38n565">Hatsune Miku Trail Art</a> – This is another trail art that would have taken ages to load if it were not for the set speed block.</li>
-					<li>Under Construction</li>
-				</ul></p>
-			</span>
-
+			
 			<span hidden class="info" id="info52">
 			<bl type="looks">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
 			<p><b style="font-size: 120%;">Description</b></p>
@@ -194,35 +94,7 @@
 			</ul></p>
 			</span>
 
-			<span hidden class="info" id="info55">
-			<bl type="ctrl">Destroy</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, GameCodingCrazy123</p><br/>
-				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="text-indent: 40px;">Destroys the current instance of an object.</p>
-				<p><b style="font-size: 120%;">Parameters</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>There are no parameters for this block.</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Useful For</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Clearing Several Clones just used for drawing a background</li>
-					<li>Lowering the object count overall for performance</li>
-					<li>Potential Debug Purposes; however, it is somewhat buggy at the moment</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Other Info</b></p>
-				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: Remove this object from your game. This is useful if you made a lot of clones to quickly draw a background but no longer need them any more. Also can be used if you want to get rid of a character that got knocked out in your game.</li>
-					<li>Block ID: 55</li>
-					<li>This block was previously only obtainable by JSON editing or copied code. It is now available in the beta editor for subscribers to test.</li>
-				</ul></p>
-				<p><b style="font-size: 120%;">Community Links</b></p>
-				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li><a href="https://c.gethopscotch.com/projects/zwofn3guf">Snowman Stacker</a> – This project would have otherwise been very laggy if background-drawing objects had not been destroyed.</li>
-					<li>Under Construction</li>
-				</ul></p>
-			</span>
-
-		</span>
-
+			
 		<br>
 		
 		<span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
@@ -230,18 +102,13 @@
 			<a id="blockSearchLayer" style="display: block; width: 500px; max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
 			<input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
 			<ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
-		
-				<li onclick="display(123)"><a href="#">Custom Block / Ability </a></li>
-				
+						
 			<moveblocks>
-				<li onclick="display(23)"><a href="#">Move Forward <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(24)"><a href="#">Turn degrees <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(41)"><a href="#">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </a></li>
+												<li onclick="display(41)"><a href="#">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(50)"><a href="#">Flip</a></li>
 				<li onclick="display(27)"><a href="#">Change X by <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(28)"><a href="#">Change Y by <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(34)"><a href="#">Set Speed to <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(39)"><a href="#">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
+								<li onclick="display(39)"><a href="#">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
 			</moveblocks>
 			
 			<lookblocks>
@@ -279,7 +146,7 @@
 				<li onclick="display(121)"><a href="#">Repeat Forever</a></li>
 				<li onclick="display(35)"><a href="#">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(53)"><a href="#">Create a Clone of This Object</a></li>
-				<li onclick="display(55)"><a href="#">Destroy <h>Destroy Object</h><h>Destroy Clone</h></a></li>
+				
 				<li onclick="display(125)"><a href="#">Change Scene <i class="ps fa fa-file-photo-o"></i> </a></li>
 			</ctrlblocks>
 			
@@ -298,9 +165,13 @@
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
+		<script src="blocks.js"></script>
+		<script src="displayBlocks.js"></script>
+		<script src="SearchKeyController.js"></script>
+		<script src="search keys.js"></script>
 		<script>
 			function searchBlocks() {
-				var input, filter, ul, li, a, i, txtValue;
+				var input, filter, ul, li, a, i, txtValue,searchList = [];
 				input = document.getElementById("blockSearchBox");
 				filter = input.value.toUpperCase();
 				ul = document.getElementById("blockSearch");
@@ -310,10 +181,12 @@
 					txtValue = a.textContent || a.innerText;
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
 						li[i].style.display = "";
+						searchList.push(li[i]);
 					} else {
 						li[i].style.display = "none";
 					}
 				}
+				skc.newElementList(searchList);
 			}
 
 			var search_open = false;
@@ -360,7 +233,7 @@
 					console.log("Block ID " + String(index) + " does not exist");
 				}
 				
-				setCookie('lastPage', "https://awesome-e.github.io/hs-tools/hs-help-guide/?id=" + index, 30);
+				setCookie('lastPage', "https://awesome-e.github.io/hs-tools/videos/?id=" + index, 30);
 				document.getElementById("blockSearchBox").value = "";
 				setLocation('?id=' + index);
 				window.scrollTo(0, 0);
