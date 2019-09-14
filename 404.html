@@ -27,10 +27,9 @@
 	<script src="main.js">
 	</script>
 	<script>
-	if (getCookie("dark_mode") !== "true") {
+	if (getCookie("dark_mode") == "true") {
 		document.getElementsByTagName("html")[0].style.cssText = "background-color: black; color: #666;";
 	}
-
 	setTimeout(function(){window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";}, 800);
 	</script>
 </body>
