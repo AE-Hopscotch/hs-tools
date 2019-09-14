@@ -2,9 +2,10 @@ function SearchKeyController(searchList) {
 this.elementList = searchList.querySelectorAll('li');
 }
 SearchKeyController.prototype.moveSelection = function(down) {
-if (!this.selectedElement) {
+if (this.selectedElement === undefined) {
 	this.selectedElement = this.elementList[0];
 	this.selectedElement.classList.add('searchKeySelected');
+console.log(this.elementList);
 	return this;
 }
 this.selectedElement.className = this.selectedElement.className.replace(/searchKeySelected/g,'');
@@ -39,6 +40,16 @@ this.selectedElement.click();
 return this;
 }
 
+SearchKeyController.prototype.undefineSelectedElement = function() {
+this.selectedElement.className = this.selectedElement.className.replace(/searchKeySelected/g,'');
+this.selectedElement = undefined;
+return this;
+}
+
 SearchKeyController.prototype.newElementList = function(list) {
 this.elementList = list;
+if (Array.from(this.elementList).indexOf(this.selectedElement) == -1) {
+	this.undefineSelectedElement();
+}
+return this;
 }
