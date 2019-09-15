@@ -172,12 +172,11 @@
 					}
 					
 					//Split by New Lines after replacing odd number of backslashes + n with new lines
-					var matches = match.replace(/((?:^|[^\\\n])\\(?:\\{2})*(?![0-4](?:\.\d*)?\b)n/g, "\n").split("\n");
+					var matches = match.replace(/\\n/g"\\n|").replace(/(?:^|[^\\\n])\\(?:\\{2})*(?![0-4]\b)n/g, "\n").split("\n");
 					
 					values = [];
 					//Remove Sound Parameters
 					
-					/**/
 					for (m in matches) {
 						if (matches[m] == undefined || matches[m] == "") continue;
 						values.push(matches[m].replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
