@@ -47,6 +47,11 @@
 				padding: 8px 12px;
 				border: none;
 			}
+			
+			li a:focus {
+				opacity: 0.5;
+				outline: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -228,81 +233,111 @@
 		<span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
 		
 			<a id="blockSearchLayer" style="display: block; width: 500px; max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
-			<input type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
-			<ul hidden id="blockSearch" class="searchItems" style="margin-top:45px;">
+			<input class="plus-as-tab no-reverse" data-scroll="40"  type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
+			<ul  class="" style="margin-bottom:10px;"><li><a href="javascript:void(0);" class="plus-as-tab tab-skip" style="font-size: 0px;">hi</a></li></ul>
+			<ul hidden id="blockSearch" class="searchItems" style="">
 		
-				<li onclick="display(123)"><a href="javascript:show()">Custom Block / Ability </a></li>
+				<li onclick="display(123)"><a href="javascript:show()" class="plus-as-tab">Custom Block / Ability </a></li>
 				
 			<moveblocks>
-				<li onclick="display(23)"><a href="javascript:show()">Move Forward <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(24)"><a href="javascript:show()">Turn degrees <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(41)"><a href="javascript:show()">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(50)"><a href="javascript:show()">Flip</a></li>
-				<li onclick="display(27)"><a href="javascript:show()">Change X by <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(28)"><a href="javascript:show()">Change Y by <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(34)"><a href="javascript:show()">Set Speed to <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(39)"><a href="javascript:show()">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(23)"><a href="javascript:show()" class="plus-as-tab">Move Forward <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(24)"><a href="javascript:show()" class="plus-as-tab">Turn degrees <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(41)"><a href="javascript:show()" class="plus-as-tab">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(50)"><a href="javascript:show()" class="plus-as-tab">Flip</a></li>
+				<li onclick="display(27)"><a href="javascript:show()" class="plus-as-tab">Change X by <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(28)"><a href="javascript:show()" class="plus-as-tab">Change Y by <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(34)"><a href="javascript:show()" class="plus-as-tab">Set Speed to <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(39)"><a href="javascript:show()" class="plus-as-tab">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
 			</moveblocks>
 			
 			<lookblocks>
-				<li onclick="display(54)"><a href="javascript:show()">Set Color <i class="ps fa fa-eyedropper"></i> </a></li>
-				<li onclick="display(56)"><a href="javascript:show()">Set Image <i class="ps fa fa-picture-o"></i> </a></li>
-				<li onclick="display(40)"><a href="javascript:show()">Set Text to <i class="ps fa fa-i-cursor"></i> color <i class="ps fa fa-eyedropper"></i>	</a></li>
-				<li onclick="display(51)"><a href="javascript:show()">Set Size percent <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(57)"><a href="javascript:show()">Set width <i class="ps fa fa-hashtag"></i> height <i class="ps fa fa-hashtag"></i><h>Set width and height</h> </a></li>
-				<li onclick="display(48)"><a href="javascript:show()">Grow by percent <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(49)"><a href="javascript:show()">Shrink by percent <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(52)"><a href="javascript:show()">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(47)"><a href="javascript:show()">Set Invisibility percent <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(43)"><a href="javascript:show()">Bring to Front</a></li>
-				<li onclick="display(42)"><a href="javascript:show()">Send to Back</a></li>
-				<li onclick="display(33)"><a href="javascript:show()">Change Pose</a></li>
-				<li onclick="display(58)"><a href="javascript:show()">Set Z Index <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(54)"><a href="javascript:show()" class="plus-as-tab">Set Color <i class="ps fa fa-eyedropper"></i> </a></li>
+				<li onclick="display(56)"><a href="javascript:show()" class="plus-as-tab">Set Image <i class="ps fa fa-picture-o"></i> </a></li>
+				<li onclick="display(40)"><a href="javascript:show()" class="plus-as-tab">Set Text to <i class="ps fa fa-i-cursor"></i> color <i class="ps fa fa-eyedropper"></i>	</a></li>
+				<li onclick="display(51)"><a href="javascript:show()" class="plus-as-tab">Set Size percent <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(57)"><a href="javascript:show()" class="plus-as-tab">Set width <i class="ps fa fa-hashtag"></i> height <i class="ps fa fa-hashtag"></i><h>Set width and height</h> </a></li>
+				<li onclick="display(48)"><a href="javascript:show()" class="plus-as-tab">Grow by percent <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(49)"><a href="javascript:show()" class="plus-as-tab">Shrink by percent <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(52)"><a href="javascript:show()" class="plus-as-tab">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(47)"><a href="javascript:show()" class="plus-as-tab">Set Invisibility percent <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(43)"><a href="javascript:show()" class="plus-as-tab">Bring to Front</a></li>
+				<li onclick="display(42)"><a href="javascript:show()" class="plus-as-tab">Send to Back</a></li>
+				<li onclick="display(33)"><a href="javascript:show()" class="plus-as-tab">Change Pose</a></li>
+				<li onclick="display(58)"><a href="javascript:show()" class="plus-as-tab">Set Z Index <i class="ps fa fa-hashtag"></i> </a></li>
 			</lookblocks>
 
 			<drawblocks>
-				<li onclick="display(26)"><a href="javascript:show()">Draw a Trail color <i class="ps fa fa-eyedropper"></i> width <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(32)"><a href="javascript:show()">Set Trail Color to <i class="ps fa fa-eyedropper"></i> </a></li>
-				<li onclick="display(31)"><a href="javascript:show()">Set Trail Width to <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(30)"><a href="javascript:show()">Clear</a></li>
+				<li onclick="display(26)"><a href="javascript:show()" class="plus-as-tab">Draw a Trail color <i class="ps fa fa-eyedropper"></i> width <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(32)"><a href="javascript:show()" class="plus-as-tab">Set Trail Color to <i class="ps fa fa-eyedropper"></i> </a></li>
+				<li onclick="display(31)"><a href="javascript:show()" class="plus-as-tab">Set Trail Width to <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(30)"><a href="javascript:show()" class="plus-as-tab">Clear</a></li>
 			</drawblocks>
 
 			<varblocks>
-				<li onclick="display(45)"><a href="javascript:show()">Set Variable <i class="ps fa fa-sliders"></i> to <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(44)"><a href="javascript:show()">Increase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(45)"><a href="javascript:show()" class="plus-as-tab">Set Variable <i class="ps fa fa-sliders"></i> to <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(44)"><a href="javascript:show()" class="plus-as-tab">Increase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i> </a></li>
 			</varblocks>
 
 			<ctrlblocks>
-				<li onclick="display(122)"><a href="javascript:show()">Check Once If <i class="ps fa fa-question-circle"></i> </a></li>
-				<li onclick="display(120)"><a href="javascript:show()">Repeat <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(124)"><a href="javascript:show()">Check If Else <i class="ps fa fa-question-circle"></i> </a></li>
-				<li onclick="display(121)"><a href="javascript:show()">Repeat Forever</a></li>
-				<li onclick="display(35)"><a href="javascript:show()">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(53)"><a href="javascript:show()">Create a Clone of This Object</a></li>
-				<li onclick="display(55)"><a href="javascript:show()">Destroy <h>Destroy Object</h><h>Destroy Clone</h></a></li>
-				<li onclick="display(125)"><a href="javascript:show()">Change Scene <i class="ps fa fa-file-photo-o"></i> </a></li>
+				<li onclick="display(122)"><a href="javascript:show()" class="plus-as-tab">Check Once If <i class="ps fa fa-question-circle"></i> </a></li>
+				<li onclick="display(120)"><a href="javascript:show()" class="plus-as-tab">Repeat <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(124)"><a href="javascript:show()" class="plus-as-tab">Check If Else <i class="ps fa fa-question-circle"></i> </a></li>
+				<li onclick="display(121)"><a href="javascript:show()" class="plus-as-tab">Repeat Forever</a></li>
+				<li onclick="display(35)"><a href="javascript:show()" class="plus-as-tab">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(53)"><a href="javascript:show()" class="plus-as-tab">Create a Clone of This Object</a></li>
+				<li onclick="display(55)"><a href="javascript:show()" class="plus-as-tab">Destroy <h>Destroy Object</h><h>Destroy Clone</h></a></li>
+				<li onclick="display(125)"><a href="javascript:show()" class="plus-as-tab">Change Scene <i class="ps fa fa-file-photo-o"></i> </a></li>
 			</ctrlblocks>
 			
 			<oldblocks>
-				<li onclick="display(29)"><a href="javascript:show()">Scale by percent <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(36)"><a href="javascript:show()">Set Opacity <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(37)"><a href="javascript:show()">Pen Down</a></li>
-				<li onclick="display(38)"><a href="javascript:show()">Pen Up</a></li>
-				<li onclick="display(46)"><a href="javascript:show()">Move With Trail distance <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display()"><a href="javascript:show()">Wait Until Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait until Unix Timestamp</h></a></li>
+				<li onclick="display(29)"><a href="javascript:show()" class="plus-as-tab">Scale by percent <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(36)"><a href="javascript:show()" class="plus-as-tab">Set Opacity <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(37)"><a href="javascript:show()" class="plus-as-tab">Pen Down</a></li>
+				<li onclick="display(38)"><a href="javascript:show()" class="plus-as-tab">Pen Up</a></li>
+				<li onclick="display(46)"><a href="javascript:show()" class="plus-as-tab">Move With Trail distance <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display()"><a href="javascript:show()" class="plus-as-tab">Wait Until Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait until Unix Timestamp</h></a></li>
 			</oldblocks>
-
+				
+				<a href="javascript:void(0);" class="plus-as-tab tab-go-back" style="position: fixed; font-size: 0px;">hi</a>
 			</ul>
-
 		</span>
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
+		<script src='../plusastab.joelpurra.js' type='text/javascript'></script>
+		<script src='../emulatetab.joelpurra.js' type='text/javascript'></script>
 		<script>
 			
+			//Global Key Press
+			$(document).keydown(function(e){
+				switch (e.keyCode) {
+					case 9: //Tab
+						e.preventDefault();
+						break;
+					case 13: //Enter
+						if (!search_open) document.querySelector("#blockSearchBox").focus();
+						blockSearch(true);
+						break;
+					case 27: //Escape
+						if (search_open) {
+							document.querySelector("#blockSearchBox").blur();
+							blockSearch(false);
+						}
+						break;
+					case 38: //Up Arrow
+						if (!search_open) document.querySelector("#blockSearchBox").focus();
+						blockSearch(true);
+						break;
+					case 40: //Down Arrow
+						if (!search_open) document.querySelector("#blockSearchBox").focus();
+						blockSearch(true);
+						break;	
+				}
+			});
+			
+			//On click or back, load block
 			(function() {
 				if (window.history && window.history.pushState) {
-
 					$(window).on('popstate', function() {
 						show();
 					});
