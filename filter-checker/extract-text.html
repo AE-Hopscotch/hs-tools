@@ -172,7 +172,7 @@
 					}
 					
 					//Split by New Lines after replacing odd number of backslashes + n with new lines
-					var matches = match.replace(/\\n/g, "\\n|").replace(/(?:^|[^\\\n])\\(?:\\{2})*(?![0-4]\b)n/g, "\n").split("\n");
+					var matches = match.replace(/\\n/g, "|\\n").replace(/(?:^|[^\\\n])\\(?:\\{2})*(?![0-4]\b)n/g, "\n").split("\n");
 					
 					values = [];
 					//Remove Sound Parameters
