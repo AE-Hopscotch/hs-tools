@@ -89,7 +89,7 @@
 		
 		<div id="urlChecker" style="overflow: visible;">
 			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID" type="url"><button id="input-url2" onclick="checkFilterUrl()" style="display: inline-block; background-color: #ddf3e6; padding: 2px 6px; margin-left: 2px; margin-right: 38px;">Go</button></span>
-			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 10px 0px; outline: 0; width: 215px;"></span>
+			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 2px 0px; margin-bottom: 4px; width: 215px;"></span>
 			
 			<br>
 			<textarea style="resize: none; width: 100%; background: none; color: #888" id="content-target" readonly>Project text will show up here...</textarea>
@@ -112,7 +112,6 @@
 			//Extract Text
 			function extractText(data) {
 				copyButton(false);
-				
 				
 				var target = document.getElementById('content-target');
 				target.value = "Extracting Text...";
@@ -166,12 +165,23 @@
 					//Get Values of Parameters
 					var values = JSON.stringify(abilities[a]).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ")
 					var regex = /"value":"(.*?)"/g;
-					var match = regex.exec(values)||"";
+					try {
+						var match = values.match(regex).join("\n").replace(/"value":"/g,"").replace(/"($|\n)/g,"\n");//regex.exec(values)||"";
+					} catch (Error) {
+						var match = "";
+					}
 					
-					values = match[1]||"";
+					//Split by New Lines after replacing odd number of backslashes + n with new lines
+					var matches = match.replace(/(?<!\\)\\(?:\\{2})*(?!\\)n/g, "\n").split("\n");
 					
+					values = [];
 					//Remove Sound Parameters
-					values = values.replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, "");
+					for (m in matches) {
+						if (matches[m] == undefined || matches[m] == "") continue;
+						values.push(matches[m].replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
+					}
+					
+					values = values.join("\n") || "";
 					
 					content += values;
 				}
@@ -219,7 +229,7 @@
 				try {
 					var ext = input.files[0].name.split(".")[input.files[0].name.split(".").length-1];
 				} catch (TypeError) {
-					document.getElementById('content-target').value = "Filtered words in your project will show up here...";
+					document.getElementById('content-target').value = "Project text will show up here...";
 					return;
 				}
 				var target = document.getElementById('content-target'), file = input.files[0];
