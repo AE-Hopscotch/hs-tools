@@ -155,6 +155,7 @@
 					content += JSON.stringify(customRules[c]['name']).replace(/^/,"\n").replace(/"/g, "");
 				}
 				
+				/*
 				//Get Ability Values
 				var abilities = data['abilities'];
 				for (a in abilities) {
@@ -187,7 +188,7 @@
 					content += values;
 				}
 				
-				
+				/**/
 				
 				content = content.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
 								 .replace(/ +/g, " ")			//Reduce Spaces to One
@@ -213,7 +214,7 @@
 			}
 			
 			
-			alert("hi3");/*
+			alert("hi3");
 			
 			//Extract text when given a URL
 			function filterUrl(url){
