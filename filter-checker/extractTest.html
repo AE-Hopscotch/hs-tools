@@ -102,7 +102,7 @@
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
-		<script>alert("hi 6");</script>
+		<script>alert("hi5");</script>
 		<script>
 			var hasContent = false;
 			function copyButton(e) {
@@ -155,7 +155,6 @@
 					content += JSON.stringify(customRules[c]['name']).replace(/^/,"\n").replace(/"/g, "");
 				}
 				
-				/*
 				//Get Ability Values
 				var abilities = data['abilities'];
 				for (a in abilities) {
@@ -165,7 +164,7 @@
 					content += "\n";
 					
 					//Get Values of Parameters
-					var values = JSON.stringify(abilities[a]).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ")
+					var values = JSON.stringify(abilities[a]).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ");
 					var regex = /"value":"(.*?)"/g;
 					try {
 						var match = values.match(regex).join("\n").replace(/"value":"/g,"").replace(/"($|\n)/g,"\n");//regex.exec(values)||"";
@@ -187,8 +186,6 @@
 					
 					content += values;
 				}
-				
-				/**/
 				
 				content = content.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
 								 .replace(/ +/g, " ")			//Reduce Spaces to One
@@ -214,7 +211,7 @@
 			}
 			
 			
-			alert("hi3");
+			alert("hi 4");
 			
 			//Extract text when given a URL
 			function filterUrl(url){
