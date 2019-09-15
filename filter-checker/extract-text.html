@@ -109,6 +109,7 @@
 				(e) ? document.getElementById("copybtn").removeAttribute("hidden") : document.getElementById("copybtn").hidden = "true";
 			}
 			
+			alert("hi");
 			//Extract Text
 			function extractText(data) {
 				copyButton(false);
@@ -221,6 +222,7 @@
 				});
 			}
 			
+			alert("hi");
 			//Upload and Read File	
 			document.getElementById('input-file').addEventListener('change', getFile);
 			function getFile(event) {
@@ -265,6 +267,7 @@
 			  })
 			}
 			
+			alert("hi");
 			//URL Enter is Pressed or Button Clicked
 			document.getElementById('input-url').addEventListener("keyup", function(event) {
 				// Number 13 is the "Enter" key on the keyboard
@@ -281,6 +284,7 @@
 				filterUrl(projectID);
 			}
 			
+			alert("hi");
 			//Radio Buttons
 			var inputSelection = "url";
 			function changeInputSelect() {
@@ -349,6 +353,8 @@
 				}
 			}
 			
+			
+			hi();
 			//Log Site Update Time and Device
 			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
