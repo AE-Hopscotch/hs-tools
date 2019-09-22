@@ -97,7 +97,7 @@
 				<p style="margin-left: 45px;">Moves the object in their forward direction by the specified distance (pixels)</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
-					<li>Distance – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Distance – The number of pixels to move in the forward direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
@@ -123,7 +123,7 @@
 				<p style="margin-left: 45px;">Turns the object by the number of degrees specified.</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
-					<li>Degrees – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Degrees – The number of degrees for the object to turn, different with negative speed and flipped objects. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
@@ -140,6 +140,110 @@
 				<p><b style="font-size: 120%;">Community Links</b></p>
 				<p><ul style="font-size: 100%; margin-bottom: -10px;">
 					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Turn%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info41">
+			<bl type="move">Set Position to x <i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Sets the position of the current object to the specified coordinates.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>X-Coordinate – Determines how far to the left or right your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Y-Coordinate – Determines how far up or down your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Moving objects instantly</li>
+					<li>Setting objects to positions in a non-linear fashion. Sine and cosine use this technique to draw rings.</li>
+					<li>Positioning objects relative to an anchor point.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Sets the x and y location of an object to a specific point on the screen. Setting both x and y to 0 is the bottom-left corner of the screen. As you increase the x-value, the object will appear farther right on the screen. As you increase the y-value, the object will appear father up the screen.<br/>For an example, search the community for Square Jump, it uses this block to start the squares at the top of the screen so they can drop down as you press play</li>
+					<li>Block ID: 41</li>
+					<li>This block is available for everyone to use</li>
+					<li>This block is looking be replaced soon by <a href="?id=60">Set Center</a>, which has the same function as Set Position but has a different label because of a new block, Set Origin, which you can read more about <a href="?id=59">here</a></li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://c.gethopscotch.com/p/zq0f4uiyf">Smooth BG Generator</a> – My tool uses set position to draw the smooth background and it shows how you can use the same method to draw a smooth background.</li>
+					<li><a href="https://c.gethopscotch.com/p/108b82ofps">Electroman Adventures</a> – The trail art portion of this showcases a different technique to move lines diagonally, specifically so they can travel off-screen. They set values to their X and Y and set position according to their angle. The set variables are used because set position cannot keep track of decimals, for whatever reason.</li>
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Position%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info50">
+			<bl type="move">Flip</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Mirrors the object horizontally. This means that a character facing to the right will now face to the left.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>There are no parameters for this block.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Changing the object&rsquo;s facing direction. This will cause move forward and turn to behave differently.</li>
+					<li>Changing the appearance of an object or text. Maybe it just somehow looks better the other way.</li>
+					<li>Creating a mirror or reflection effect. A vertical flip or reflection of an object can be made by setting the angle (or rotation) of the object to 180&deg; and using the flip block.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Changes the object to be the mirror image of itself and changes the objects direction to be turned 180 degrees. After ‘Flip’, ‘Move Forward’ will move the object left instead of right.<br/>Try pacing back and forth. Add a ‘Repeat Forever’ and then put a ‘Move Forward’ and ‘Flip’ inside it.</li>
+					<li>Block ID: 50</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=Thinking%20Differently%20With%20the%20Flip%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info27">
+			<bl type="move">Change X by <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Moves the object by a specified amount along the X-axis (horizontally)</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Distance – Specifies how many pixels the object will move to the right; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Moves the object left or right. The bigger the number, the father right on the screen the object will go. Want to move your object to the left? Use a negative number.<br/>For an example, search the community for Taco Fighter 2, it uses this block inside a Repeat block to make the character go back and forth across the screen</li>
+					<li>Block ID: 27</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=Using%20the%20Change%20X%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info28">
+			<bl type="move">Change Y by <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Moves the object by a specified amount along the Y-axis (vertically)</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Distance – Specifies how many pixels the object will move upwards; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Moves the object up or down. The bigger the number, the farther up the screen the object will go. Want to move your object down? Use a negative number.<br/>For an example, search the community for Jelly Jump. It uses this block to make the porings jump over obstacles.</li>
+					<li>Block ID: 28</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=Using%20the%20Change%20Y%20Block&category=open-source-code&tags=howto">create one</a>?</li>
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
@@ -172,15 +276,15 @@
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
-
+			
 			<span hidden class="info" id="info52">
 			<bl type="looks">Start Sound <i class="ps fa fa-volume-up"></i> wait <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
 			<p><b style="font-size: 120%;">Description</b></p>
 			<p style="margin-left: 45px;">Plays a Sound during your project and triggers a delay</p>
 			<p><b style="font-size: 120%;">Parameters</b></p>
 			<p><ol style="font-size: 100%;">
-				<li>Sound – This parameter allows you to choose from various preset sounds, including music notes, nature, people, and objects.</li>
-				<li>Wait – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				<li>Sound – The selected sound to play. This parameter allows you to choose from various preset sounds, including music notes, nature, people, and objects.</li>
+				<li>Wait – How much the project should wait before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
 			</ol></p>
 			<p><b style="font-size: 120%;">Useful For</b></p>
 			<p><ul style="font-size: 100%;">
@@ -198,7 +302,7 @@
 			<p><ul style="font-size: 100%; margin-bottom: -10px;">
 				<li><a href="https://c.gethopscotch.com/p/108dfufat7">90&rsquo;s Mashup</a> – A nice collection of pieces showcasing how music is made in Hopscotch</li>
 				<li><a href="https://c.gethopscotch.com/p/xudmhnv2v">Flight of the Bumblebee</a> – A phenomenal recreation of the original song using only Hopscotch&rsquo;s notes</li>
-				<li><a href="https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204">Hopscotch MIDI Hack</a> – This is a mind-blowing tool by MR.GAM3R that allows you to input a file and receive Hopscotch JSON code as an output. My Hopscotch JSON <a href="https://awesome-e.github.io/hs-tools/shortcut-help-guide/#v1.0">Siri Shortcut</a> has also integrated this tool as a feature in Release Version 1.0</li>
+				<li><a href="https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204">Hopscotch MIDI Hack</a> – This is a mind-blowing tool by MR.GAM3R that allows you to input a file and receive Hopscotch JSON code as an output. My Hopscotch JSON <a href="https://awesome-e.github.io/hs-tools/shortcut-help-guide/#v1.0">Siri Shortcut</a> has also integrated this tool as a feature in Release Version 1.0. See examples on the MIDI Hack topic or see <a href="https://c.gethopscotch.com/p/108b82ofps">this trail art</a> that I made.</li>
 				<li><a href="https://forum.gethopscotch.com/t/gwetvs-guide-to-coding-music/53322">Coding Music</a> – GweTV made a great and easy-to-follow guide on how to recreate songs in Hopscotch. Go give it a read!</li>
 				<li>Under Construction</li>
 			</ul></p>
@@ -238,7 +342,7 @@
 				<p style="margin-left: 45px;">Waits until the <a href="https://en.wikipedia.org/wiki/Unix_time">Unix Timestamp</a> specified (in milliseconds) before continuing the code.</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
-					<li>Timestamp (in milliseconds) – This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Timestamp (in milliseconds) – the set timestamp that the project will wait until before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
@@ -248,7 +352,7 @@
 				</ul></p>
 				<p><b style="font-size: 120%;">Other Info</b></p>
 				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: This block has not yet been implemented into Hopscotch</li>
+					<li>Hopscotch Description: N/A – This block has not yet been implemented into Hopscotch.</li>
 					<li>Block ID: 19</li>
 					<li>This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/zyhoqlcqp">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/shortcut-help-guide/#download">Siri Shortcut</a></li>
 				</ul></p>
