@@ -537,7 +537,7 @@
 				document.getElementById(id + "content").toggleAttribute("data-closed");
 				document.getElementById(id + "content").style.transition = "0.5s ease";
 				setTimeout(function(){
-					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+50) + "px");
+					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+500) + "px");
 				}, 500);
 			};
 			
