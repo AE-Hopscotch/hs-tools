@@ -28,7 +28,7 @@
 			}
 			
 			.sidenav {
-			  left: -250px;
+				left: -250px;
 			}
 			
 			/* vietnamese */
@@ -80,7 +80,43 @@
 			  src: local('Dancing Script Regular'), local('DancingScript-Regular'), url(https://fonts.gstatic.com/s/dancingscript/v11/If2RXTr6YS-zF4S-kcSWSVi_szLgiuE.woff2) format('woff2');
 			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 			}
-
+			
+			:root {
+				--elementHeight: 800px;
+			}
+			
+			.accordion {
+				max-height: var(--elementHeight);
+				overflow: hidden;
+				background-color: #f8f8f8;
+				display: block;
+				margin: 0px;
+			}
+			
+			.accordion[data-closed] {
+				max-height: 0px;
+			}
+			
+			.accordControls {
+				margin-bottom: 0px;
+				background-color: #eee;
+				position: relative;
+				cursor: pointer;
+			}
+						
+			.accordControls::after {
+				position: absolute;
+				top: 3px;
+				right: 8px;
+				font-weight: 600;
+				content: "−";
+				color: #a44;
+			}
+			
+			.accordControls[data-closed]::after {
+				content:"+";
+				color: #4a4;
+			}
 		</style>
 	</head>
 	<body>
@@ -167,27 +203,36 @@
 
 			<h2 id="download">Download</h2>
 			<p class="text center">This shortcut is open-sourced, which means that you are free to use it, tinker with it, and remix it!
-				<br>This shortcut is compatible with iOS 11 Workflow and iOS 12 Shortcuts.</p>
-			<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/4c1ab1a91c3b4518b59b3e46b3c21e1d">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/91fc645294f64be88ea67c8fb7dfd2a9">Hopscotch JSON</a></span>
-			<p class="text center"><b>iOS 12 Download Instructions:</b></p>
-			<ol style="font-size: 120%;">
-				<p>Skip numbers 1 through 3 if you already have the Shortcuts App</p>
+				<br>This shortcut is compatible with iOS11 Workflow, iOS12+ Shortcuts, and iPadOS Shortcuts.</p>
+			<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/5a7bc89ab76d4b779c4159071ffcdf57">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/91fc645294f64be88ea67c8fb7dfd2a9">Hopscotch JSON</a> <a class="link" style="width: 175px;" href="https://www.icloud.com/shortcuts/cad74683ceea4c31a80d850890b9f6ae">Stand-Alone</a></span>
+			<p class="text center accordControls" id="a1"><b id="a1l">iOS13 and iPadOS Download Instructions</b></p>
+			<span class="accordion" id="a1content"><ol style="font-size: 120%;">
+				<p>The Shortcuts app is installed by default on iOS13 and iPadOS</p>
+				<li>Go to Settings and scroll down to "Shortcuts". Tap "Shortcuts" and turn on "Allow Untrusted Shortcuts". This will allow you to run my shortcut.</li>
+				<li>Now that you have the app and its proper settings, head back here and find the download links.</li>
+				<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Add Untrusted Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
+				<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
+			</ol></span>
+			<p class="text center accordControls" style="margin-top: 5px;" id="a2"><b id="a2l">iOS12 Download Instructions</b></p>
+			<span class="accordion" id="a2content"><ol style="font-size: 120%;">
+				<p>Skip numbers 1 through 3 if you already have the Shortcuts app</p>
 				<li>Go to the App Store, and search for "Shortcuts". Tap on "Shortcuts" by Apple. This is the app you need to install if not installed already.</li>
 				<li>Tap on "GET", then tap "INSTALL". Enter your AppleID password or ask a parent. Then, allow the app to download.</li>
 				<li>Great! Now you have the Shortcuts App. Head back here and find the download section again, as that is where the link can be found.</li>
-				<li>Tap the Download Links <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Get Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
+				<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Get Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
 				<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
-			</ol>
-			<p class="text center"><b>iOS 11 Download Instructions:</b></p>
-			<ol style="font-size: 120%;">
+			</ol></span>
+			<p class="text center accordControls" style="margin-top: 5px;" id="a3"><b id="a3l">iOS11 Download Instructions</b></p>
+			<span class="accordion" id="a3content"><ol style="font-size: 120%;">
 				<p>Skip numbers 1 through 4 if you already have the Workflow App</p>
-				<li>You will need a second device on iOS for this, but it does not have to be yours. Login to your parent's or your Apple ID on the second device, and go to the App Store.</li>
-				<li>Download the Shortcuts App on that device. You do this to put it in the cloud, which is how you can download an older version for iOS 11. You can delete it after if necessary.</li>
-				<li>Go back to your iOS 11 device and make sure you are using the same Apple ID. Open the App Store there, and go to your purchases. To do this, tap your profile icon, then tap purchases.</li>
+				<li>You will need a second device on iOS12+ for this, but it does not have to be yours. Login to your parent's or your Apple ID on the second device, and go to the App Store.</li>
+				<li>Download the Shortcuts app on that device. You do this to put it in the cloud, which is how you can download an older version for iOS11. You can delete it after if necessary.</li>
+				<li>Go back to your iOS11 device and make sure you are using the same Apple ID. Open the App Store there, and go to your purchases. To do this, tap your profile icon, then tap purchases.</li>
 				<li>Find "Shortcuts", and tap the cloud. Apple will give you a dialog box to download an older version. Click "OK". The download should finish and the app should magically morph into Workflow.</li>
 				<li>Come back to this page and find the download links. Tap them <b>in order from left to right</b>, and you should be redirected to the Workflow App. Congrats, you now have the Hopscotch JSON Shortcut!</li>
-				<li>Give the shortcut a run! You can now mod any Hopscotch project.</li>
-			</ol>
+				<li>Give the stand-alone shortcut a run! You can now mod any Hopscotch project.</li>
+			</ol></span>
+			<p>The stand-alone shortcut is used to run it from the share sheet or on iOS11. It is used to remove the need for Shortcuts to render all 1400+ actions.</p>
 
 			<h2 id="view">Viewing Projects</h2>
 
@@ -401,7 +446,7 @@
 			<p style='text-align:center'>Minor Update</p>
 			<ul style='text-align:justify'>
 				<li>Added Player Version to traits you can modify. This means that you can now change which version of the webplayer you use for the project. Tag me for more info.</li>
-				<li>iOS 11 users, sorry to keep you waiting (I'm probably the only one anyways). If projects were going corrupt or other unwanted things were happening, it was probably because of the way Replace Text imports. Instead of replacing a phrase with
+				<li>iOS11 users, sorry to keep you waiting (I'm probably the only one anyways). If projects were going corrupt or other unwanted things were happening, it was probably because of the way Replace Text imports. Instead of replacing a phrase with
 					a blank string, it replaces the string with "world". I moved the blank text so that it will work as intended.</li>
 			</ul>
 
@@ -459,7 +504,7 @@
 			<p style='text-align:center;'>Bug Fix we Shall</p>
 			<ul style='text-align:justify;'>
 				<li>Now uses a stand-alone shortcut to run from the share sheet because the main shortcut literally got too big. Download the separate shortcut from the link above, and run the blue "Run HS JSON" shortcut from the share sheet from now on.</li>
-				<li>If I'm not mistaken, all error points should be fixed and the Shortcut should be able to run on iOS 13. Big thanks to @TheCMStudios for helping me test that out</li>
+				<li>If I'm not mistaken, all error points should be fixed and the Shortcut should be able to run on iOS13. Big thanks to @TheCMStudios for helping me test that out</li>
 				<li>Allows Variables to Use Raw JSON Code now. Tip: If you want to use a JSON editor to read this, just find a replace text site or program that can replace two line breaks with a comma. (\n\n = ,)</li>
 				<li>New Variable Editing Disclaimer</li>
 				<li>Fixed a bug with Edited At which used to add the player version trait to the edited at date</li>
@@ -485,5 +530,26 @@
 
 		<script src="../main.js"></script>
 		<script src="../sidenav.min.js"></script>
+		<script>
+			var accordion = function(event) {
+				var id = event["toElement"].id.replace(/[l]/,"");
+				document.getElementById(id).toggleAttribute("data-closed");
+				document.getElementById(id + "content").toggleAttribute("data-closed");
+				document.getElementById(id + "content").style.transition = "0.5s ease";
+				setTimeout(function(){
+					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight) + "px");
+				}, 500);
+			};
+			
+			var accordions = document.getElementsByClassName("accordControls");
+
+			for (var i = 0; i < accordions.length; i++) {
+				accordions[i].addEventListener('click', accordion, false);
+				accordions[i].toggleAttribute("data-closed");
+				var content = document.getElementById(accordions[i].id + "content");
+				content.style.setProperty('--elementHeight', String(content.clientHeight) + "px");
+				content.toggleAttribute("data-closed");
+			}
+		</script>
 	</body>
 </html>
