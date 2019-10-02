@@ -93,12 +93,14 @@ $(window).scrollEnd(function(){
 		function closest(arr,val){
 			return Math.max.apply(null, arr.filter(function(v){return v <= val}))
 		}
-		var hash = headingPositions[String(closest(Object.keys(headingPositions), Math.abs(document.body.getBoundingClientRect().top)))];
-		
-		setLocation('#' + hash);
-		
-		setCookie('lastPage', window.location.href, 30);
-		console.log(window.location.href);
+		var hash = headingPositions[String(closest(Object.keys(headingPositions), Math.abs(document.body.getBoundingClientRect().top)))]||"";
+		//(String(window.location.href.match(RegExp("#" + hash))) != "null")
+		if (window.location.href.replace(/.*?#/,"") != hash){
+			//Set Hash if Different
+			setLocation('#' + hash);
+			setCookie('lastPage', window.location.href, 30);
+		}
+		//console.log(window.location.href);
 	}
 	
 }, 100);
