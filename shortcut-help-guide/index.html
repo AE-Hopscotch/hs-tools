@@ -188,7 +188,7 @@
 		<button class="openbtn border" onclick="theme()" id="themebtn" style="left:186px;"><i class="fa fa-fw fa-moon-o"> </i></button>
 
 		<div id="main" class="save-scroll" onclick="testclose()" style="font-family: 'Times New Roman';">
-
+			
 			<h1 style="font-family: 'Dancing Script'; text-align: center;"><big><big>Hopscotch JSON Siri Shortcut Help Guide</big></big></h1>
 
 			<img class="center" src="../images/shortcut_banner.png" width="65%" height="auto">
@@ -534,20 +534,33 @@
 		<script src="../main.js"></script>
 		<script src="../sidenav.min.js"></script>
 		<script>
-			var accordion = function(event) {
-				var id = event["toElement"].id.replace(/[l]/,"");
-				document.getElementById(id).toggleAttribute("data-closed");
-				document.getElementById(id + "content").toggleAttribute("data-closed");
-				document.getElementById(id + "content").style.transition = "0.5s ease";
+			function accordion(id) {
+				//var id = event["toElement"].id.replace(/[l]/,"");
+				if (!(document.getElementById(id).getAttribute("data-closed")=="")) {
+					document.getElementById(id + "content").style.transition = "0s";
+					document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight) + "px");
+					console.log(document.getElementById(id + "content").style.getPropertyValue("--elementHeight"));
+				}/**/
+				setTimeout(function(){
+					document.getElementById(id).toggleAttribute("data-closed");
+					document.getElementById(id + "content").toggleAttribute("data-closed");
+					document.getElementById(id + "content").style.transition = "0.5s ease";
+				}, 10);
 				setTimeout(function(){
 					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+500) + "px");
-				}, 500);
+				}, 510);
 			};
+			
+			$(document).ready(function() {
+				$(".accordControls").click(function(event) {
+					accordion(event.target.id.replace(/[l]/,""));
+				});
+			});
 			
 			var accordions = document.getElementsByClassName("accordControls");
 
 			for (var i = 0; i < accordions.length; i++) {
-				accordions[i].addEventListener('click', accordion, false);
+				//accordions[i].addEventListener('click', accordion, false);
 				accordions[i].toggleAttribute("data-closed");
 				var content = document.getElementById(accordions[i].id + "content");
 				content.style.setProperty('--elementHeight', String(content.clientHeight) + "px");
