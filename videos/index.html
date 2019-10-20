@@ -156,7 +156,7 @@
 
 			var v;
 			function video(id) {
-				setLocation('?video-set=' + vidSet + '&id=' + id);
+				(betaView) ? setLocation('?beta-view&video-set=' + vidSet + '&id=' + id) : setLocation('?video-set=' + vidSet + '&id=' + id);
 				setCookie('lastPage', 'https://awesome-e.github.io/hs-tools/videos/?video-set=' + vidSet + '&id=' + id, 30);
 				setTimeout(show(), 20);
 			}
@@ -173,16 +173,31 @@
 				document.getElementById("v0").hidden = true;
 				document.getElementById("v1").hidden = false;
 				
+				
+				//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
+				//-=-=-=-=-=-=-=-=-=-=-=-=-= BETA VIEW =-=-=-=-=-=-=-=-=-=-=-=-=-\\
+				//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
+				
 				//Replace the iFrame
 				var original = document.getElementById("i1");
-				var newFrame = document.createElement("iframe");
-				newFrame.id = "i1";
-				newFrame.src = urlList[id];
-				newFrame.width = "100%";
-				newFrame.height = "100%";
-				newFrame.allowfullscreen = "";
-				newFrame.scrolling = "no";
-				newFrame.setAttribute("frameborder", "0");
+				if (!betaView||urlList[id].includes("streamable")) {
+					var newFrame = document.createElement("iframe");
+					newFrame.id = "i1";
+					newFrame.src = urlList[id];
+					newFrame.width = "100%";
+					newFrame.height = "100%";
+					newFrame.allowfullscreen = "";
+					newFrame.scrolling = "no";
+					newFrame.setAttribute("frameborder", "0");
+				} else {
+					var newFrame = document.createElement("video");
+					newFrame.id = "i1";
+					newFrame.src = urlList[id];
+					newFrame.autoplay = true;
+					newFrame.controls = true;
+					newFrame.style.maxWidth = "580px";
+					newFrame.style.maxHeight = String(window.innerHeight - 40) + "px";
+				}
 				var parent = original.parentNode;
 				parent.replaceChild(newFrame, original);
 				
@@ -212,6 +227,7 @@
 			//Read and Apply the URL Modifier "Video Set"
 			
 			var url = new URL(window.location.href);
+			var betaView = !(url.searchParams.get("beta-view") == null);
 			var vidSet = url.searchParams.get("video-set")||"";
 			console.log("Video Set ID: " + vidSet);
 			console.log(vidSet+"_");
@@ -230,6 +246,7 @@
 				document.getElementsByClassName(window.atob("ZVBDMjAxOV8=")).remove();
 			}
 			
+			//Show Video
 			var vidID = Number(url.searchParams.get("id"))||0;
 			setTimeout(function(){
 				if (vidID) show(vidID);
@@ -244,6 +261,20 @@
 				"aeMD": ["", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"],
 				"prjUpd": ["", "https://streamable.com/2lxis", "https://streamable.com/jcmk2"]
 			};
+			
+			//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
+			//-=-=-=-=-=-=-=-=-=-=-=-=-= BETA VIEW =-=-=-=-=-=-=-=-=-=-=-=-=-\\
+			//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
+			
+			if (betaView) {
+				videoURLS = {
+					"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
+					"": ["","https://s.put.re/Kcrohvyc.mp4", "https://s.put.re/GBbwbT26.mp4", "https://s.put.re/943dVcqM.mp4", "https://s.put.re/LQcZTBz1.mp4","https://s.put.re/Ke7kzunP.mp4", "https://s.put.re/7KBZPZrB.mp4", "https://s.put.re/KyHcy3a7.mp4", "https://s.put.re/6yBBSvzg.mp4"],
+					"bugCh": ["", "https://s.put.re/GBbwbT26.mp4", "https://s.put.re/943dVcqM.mp4"],
+					"aeMD": ["", "https://s.put.re/LQcZTBz1.mp4","https://s.put.re/Ke7kzunP.mp4", "https://s.put.re/7KBZPZrB.mp4"],
+					"prjUpd": ["", "https://s.put.re/Kcrohvyc.mp4", "https://s.put.re/6yBBSvzg.mp4"]
+				}
+			}
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
 			//console.log(navElements);
