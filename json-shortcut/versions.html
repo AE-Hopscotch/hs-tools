@@ -1,14 +1,4 @@
-
-<head><meta name="apple-mobile-web-app-capable" content="yes"></head><body>
-<pre>
-var req = new XMLHttpRequest();
-req.open('GET', "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", false);
-req.send(null);
-var headers = req.getAllResponseHeaders();
-console.log(headers);
-</pre>
-<pre id="test"></pre>
+<pre id="output"></pre>
 <script>
-  document.getElementById("test").innerHTML = "Referrer: " + document.referrer + "<br>Navigator: " + JSON.stringify(window.navigator) + "<br>Agent: " + window.navigator.userAgent;
+	document.getElementById("output").innerHTML = "iOS: " (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) + "<br>Safari: " + /Safari/.test(navigator.userAgent);
 </script>
-</body>
