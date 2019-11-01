@@ -7,6 +7,7 @@
 	//alert((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))));
 	
 	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
+		output.innerHTML = "inc2";
 		// 1. Create a new XMLHttpRequest object
 		let xhr = new XMLHttpRequest();
 		// 2. Configure it: GET-request for the URL /article/.../load
@@ -28,5 +29,7 @@
 	} else {
 		output.innerHTML = "error.platform";
 	}
+	
+	output.innerHTML = "incomplete";
 </script>
 
