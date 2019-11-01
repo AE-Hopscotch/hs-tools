@@ -1,13 +1,12 @@
 <head><meta name="apple-mobile-web-app-capable" content="yes"></head>
 <pre id="output">incomplete</pre>
 <div w3-include-html="versions.json"></div>
-<script>
+<script id="script">
 	var val;
 	var output = document.getElementById("output");
+	var url = new URL(window.location.href);
 	
-	//alert((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))));
-	
-	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
+	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))) && (url.searchParams.get("a") == "wkfw")) {
 		output.innerHTML = "inc2";
 		let request = new XMLHttpRequest();
 		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", false);
@@ -15,6 +14,14 @@
 		request.send();
 	} else {
 		output.innerHTML = "error.platform";
+		removeElement("script");
+		
+	}
+	
+	function removeElement(elementId) {
+		// Removes an element from the document
+		var element = document.getElementById(elementId);
+		element.parentNode.removeChild(element);
 	}
 </script>
 
