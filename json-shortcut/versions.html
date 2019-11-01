@@ -3,7 +3,10 @@
 <script>
 	var val;
 	var output = document.getElementById("output");
-	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
+	
+	alert((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))));
+	
+	if (true) {
 		// 1. Create a new XMLHttpRequest object
 		let xhr = new XMLHttpRequest();
 		// 2. Configure it: GET-request for the URL /article/.../load
