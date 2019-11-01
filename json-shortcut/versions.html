@@ -12,7 +12,7 @@
 		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", true);
 		request.onload = () => {output.innerHTML = request.responseText;}
 		request.send();
-		setTimeout(function(){var x = 0;},200);
+		setTimeout(function(){output.innerHTML = "still o";},200);
 	} else {
 		output.innerHTML = "error.platform";
 	}
