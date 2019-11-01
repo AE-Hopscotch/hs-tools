@@ -1,5 +1,5 @@
 <head><meta name="apple-mobile-web-app-capable" content="yes"></head>
-<pre id="output" style="width: calc(100% - 0px); height: 400px;"></pre>
+<textarea id="output" style="width: calc(100% - 0px); height: 400px;"></textarea>
 <script>
 	var output = document.getElementById("output");
 	//document.getElementById("output").innerHTML = "iOS: " + (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) + "<br>Safari: " + (/Safari/.test(navigator.userAgent));
@@ -29,5 +29,14 @@
 	} else {
 		output.value = "error.platform";
 	}
+	
+	var e = document.getElementsByTagName('textarea')[0];
+
+	var d = document.createElement('pre');
+	d.innerHTML = e.value;
+
+	e.parentNode.insertBefore(d, e);
+	e.parentNode.removeChild(e);
+
 	
 </script>
