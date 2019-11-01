@@ -1,12 +1,18 @@
-<p>var myImage = document.querySelector('img');
+<pre>
+var output = document.getElementById('1');
 
 var myRequest = new Request('https://awesome-e.github.io/hs-tools/json-shortcut/versions.json');
 
 fetch(myRequest).then(function(response) {
-  console.log(response.headers);
+  var headers = response.headers["__proto__"];
+  output.innerHTML = JSON.stringify(headers["get"]);
+  console.log(response.headers["__proto__"]);
+  console.log(headers.get.name);
   // returns a Headers{} object
   response.blob().then(function(myBlob) {
     var objectURL = URL.createObjectURL(myBlob);
     console.log(objectURL);
+
   });
-});</p>
+});
+</pre>
