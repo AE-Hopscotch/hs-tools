@@ -1,5 +1,6 @@
 <head><meta name="apple-mobile-web-app-capable" content="yes"></head>
 <pre id="output">incomplete</pre>
+<div w3-include-html="versions.json"></div>
 <script>
 	var val;
 	var output = document.getElementById("output");
@@ -9,11 +10,9 @@
 	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
 		output.innerHTML = "inc2";
 		let request = new XMLHttpRequest();
-		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", true);
+		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", false);
 		request.onload = () => {output.innerHTML = request.responseText;}
 		request.send();
-		window.location.href = "versions.json";
-		//setTimeout(function(){output.innerHTML = "still o";},200);
 	} else {
 		output.innerHTML = "error.platform";
 	}
