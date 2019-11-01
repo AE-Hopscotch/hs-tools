@@ -1,9 +1,9 @@
 <head><meta name="apple-mobile-web-app-capable" content="yes"></head>
-<textarea id="output"></textarea>
+<textarea id="output" style="width: calc(100% - 8px); height: 400px;"></textarea>
 <script>
 	var output = document.getElementById("output");
 	//document.getElementById("output").innerHTML = "iOS: " + (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) + "<br>Safari: " + (/Safari/.test(navigator.userAgent));
-	if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))) {
+	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
 		// 1. Create a new XMLHttpRequest object
 		let xhr = new XMLHttpRequest();
 
@@ -27,7 +27,7 @@
 			output.value = "Request failed";
 		};
 	} else {
-		output.value = "error.platform"
+		output.value = "error.platform";
 	}
 	
 </script>
