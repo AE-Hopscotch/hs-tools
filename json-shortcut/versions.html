@@ -5,3 +5,7 @@ req.send(null);
 var headers = req.getAllResponseHeaders();
 console.log(headers);
 </pre>
+<pre id="test"></pre>
+<script>
+  document.getElementById("test").innerHTML = "Referrer: " + document.referrer + "<br>Navigator: " + JSON.stringify(window.navigator);
+</script>
