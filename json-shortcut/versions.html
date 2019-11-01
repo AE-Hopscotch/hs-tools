@@ -11,7 +11,7 @@
 		output.innerHTML = "inc2";
 		let request = new XMLHttpRequest();
 		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", false);
-		request.onload = () => {output.innerHTML = request.responseText;}
+		request.onload = () => {output.innerHTML = request.responseText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");}
 		request.send();
 	} else {
 		output.innerHTML = "error.platform";
