@@ -13,10 +13,6 @@
 		request.onload = () => {output.innerHTML = request.responseText;}
 		request.send();
 		setTimeout(function(){var x = 0;},200);
-		};
-		xhr.onerror = function() {
-			output.innerHTML = "Request failed";
-		};
 	} else {
 		output.innerHTML = "error.platform";
 	}
