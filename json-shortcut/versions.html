@@ -1,42 +1,29 @@
 <head><meta name="apple-mobile-web-app-capable" content="yes"></head>
-<textarea id="output" style="width: calc(100% - 0px); height: 400px;"></textarea>
+<pre id="output" style="width: calc(100% - 0px); height: 400px;"></pre>
 <script>
+	var val;
 	var output = document.getElementById("output");
-	//document.getElementById("output").innerHTML = "iOS: " + (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) + "<br>Safari: " + (/Safari/.test(navigator.userAgent));
 	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent)))) {
 		// 1. Create a new XMLHttpRequest object
 		let xhr = new XMLHttpRequest();
-
 		// 2. Configure it: GET-request for the URL /article/.../load
 		xhr.open('GET', 'https://awesome-e.github.io/hs-tools/json-shortcut/versions.json');
-
 		xhr.responseType = 'json';
 		// 3. Send the request over the network
 		xhr.send();
-
 		// 4. This will be called after the response is received
 		xhr.onload = function() {
 		  if (xhr.status != 200) { // analyze HTTP status of the response
 			document.write(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
 		  } else { // show the result
-			output.value =  JSON.stringify(xhr.response); // responseText is the server
+			output.innerHTML =  JSON.stringify(xhr.response).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); // responseText is the server
 		  }
 		};
-
 		xhr.onerror = function() {
-			output.value = "Request failed";
+			output.innerHTML = "Request failed";
 		};
 	} else {
-		output.value = "error.platform";
+		output.innerHTML = "error.platform";
 	}
-	
-	var e = document.getElementsByTagName('textarea')[0];
-
-	var d = document.createElement('pre');
-	d.innerHTML = e.value;
-
-	e.parentNode.insertBefore(d, e);
-	e.parentNode.removeChild(e);
-
-	
 </script>
+
