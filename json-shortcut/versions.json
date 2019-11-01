@@ -1,0 +1,9 @@
+{
+	"latest_version": "1.5",
+	"latest_vdecimal": 1.5,
+	"1.5": {
+		"url": "https://www.icloud.com/shortcuts/29d5472a9d7447e0bef8e98c50a79d21",
+		"version_decimal": 1.5,
+		"changelog": "<p style='text-align:center; margin: 5%; font-size: 100%; color: #0B5E9D;'>ok fine here is an update</p><ul style='text-align:justify; font-size:100%; margin: 1%; margin-right: 3%; color: #0B5E9D;'><li>Added a word to the filter list after the longest time</li><li>Objects will now update when their UUID is changed</li><li>You can now edit traits of an ability, such as the name, date of creation, etc.</li><li>Variables will now transfer in presets. However, try to avoid duplicate imports, as duplicate variables will not be removed yet. I will work on that in the future.</li><li>Color Optimization has been adjusted so that your new colors will not be affected by Hopscotch's conversion error</li><li>Your player version can automatically update now. Do note that many complex projects will break through this process though, as there is a timing bug at this moment in time.</li><li>You can now choose to fill blank conditionals, as older player versions still have the blank conditional freeze issue.</li><li>Secret Blocks got some label changing for destroy to adjust to the new update.</li></ul><p style='text-align:center; font-size:150%; margin: 2%; color: #0B5E9D;'></p><br>"
+	}
+}
