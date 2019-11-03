@@ -113,6 +113,25 @@
 			function extractText(data) {
 				copyButton(false);
 				
+				function AddContent(){
+					content += subcontent;
+					subcontent = "";
+				}
+				
+				function removeExtraText(text) {
+					 text = text.split("\n").sort().join("\n");
+					 return text.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
+								.replace(/ +/g, " ")		//Reduce Spaces to One
+								.replace(/ ,/g, ",")		//Remove Spaces Before Commas
+								.replace(/HSB\(,, \)/g, "")	//Remove Colors
+								.replace(/^ | $/gm, "")		//Remove Leading & Trailing Spaces
+								.replace(/^\s+$/gm, "")		//Remove Whitespace-Only Lines
+								.replace(/^\n|\n$/g,"")		//Remove Gaps at Beginning & End
+								.replace(/\n+/g, "\n")		//Reduce Line Feeds
+								.replace(/\n/g, "\n  ")		//Indentation
+								.replace(/^/, "  ");		//Indentation
+				}
+				
 				var target = document.getElementById('content-target');
 				target.value = "Extracting Text...";
 				
@@ -122,45 +141,68 @@
 					console.log("Invalid File");
 				}
 				
+				var content = "";
+				
 				//Sets the content to project title and user if available
 				try {
-					var content = JSON.stringify(data['title'] + '\n' + data['user']['nickname'] + '\n' + (data['original_user']['nickname'] || "") ).replace(/\\n/g,"\n").replace(/"/g, "");
+					var subcontent = JSON.stringify(data['title'] + '\n' + data['user']['nickname'] + '\n' + (data['original_user']['nickname'] || "") ).replace(/\\n/g,"\n").replace(/"/g, "");
 				} catch (TypeError) {
-					var content = "";
+					var subcontent = "";
 				}
 				
+				subcontent = "Title and Author:\n" + removeExtraText(subcontent);
+				AddContent();
 				
 				//Get Scene Names
 				var scenes = data['scenes'];
+				
 				for (s in scenes) {
-					content += JSON.stringify(scenes[s]['name']).replace(/^/,"\n").replace(/"/g, "");
+					subcontent += JSON.stringify(scenes[s]['name']).replace(/^/,"\n").replace(/"/g, "");
 				}
+				
+				subcontent = "\nScene Names:\n" + removeExtraText(subcontent);
+				AddContent();
 				
 				//Get Object Names and Texts
 				var objects = data['objects'];
 				for (o in objects) {
-					content += JSON.stringify(objects[o]['name'] + "\nScene\n" + objects[o]['text']).replace(/^|\\n/g, "\n").replace(/"|^ /gm, "");
+					subcontent += JSON.stringify(objects[o]['name'] + "\n" + objects[o]['text']).replace(/^|\\n/g, "\n").replace(/"|^ /gm, "");
 				}
+				
+				subcontent = "\nObject Names:\n" + removeExtraText(subcontent);
+				AddContent();
 				
 				//Get Variable Names
 				var variables = data['variables'];
 				for (v in variables) {
-					content += JSON.stringify(variables[v]['name']).replace(/^/,"\n").replace(/"/g, "");
+					subcontent += JSON.stringify(variables[v]['name']).replace(/^/,"\n").replace(/"/g, "");
 				}
+				
+				subcontent = "\nVariable Names:\n" + removeExtraText(subcontent);
+				AddContent();
 				
 				//Get Custom Rule Names
 				var customRules = data['customRules'];
 				for (c in customRules) {
-					content += JSON.stringify(customRules[c]['name']).replace(/^/,"\n").replace(/"/g, "");
+					subcontent += JSON.stringify(customRules[c]['name']).replace(/^/,"\n").replace(/"/g, "");
 				}
+				
+				subcontent = "\nCustom Rules:\n" + removeExtraText(subcontent);
+				AddContent();
 				
 				//Get Ability Values
 				var abilities = data['abilities'];
 				for (a in abilities) {
 					//Add the Name of the Ability if it Exists
-					content += JSON.stringify(abilities[a]['name']||"").replace(/^/,"\n").replace(/"/g, "");
-					
-					content += "\n";
+					subcontent += JSON.stringify(abilities[a]['name']||"").replace(/^/,"\n").replace(/"/g, "");
+				}
+				
+				subcontent = "\nAbility Names:\n" + removeExtraText(subcontent);
+				AddContent();
+				
+				var abilities = data['abilities'];
+				for (a in abilities) {
+					subcontent += "\n";
 					
 					//Get Values of Parameters
 					var values = JSON.stringify(abilities[a]).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ");
@@ -184,17 +226,20 @@
 					
 					values = values.join("\n") || "";
 					
-					content += values;
+					subcontent += values;
 				}
 				
-				content = content.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
+				subcontent = "\nAbility Values:\n" + removeExtraText(subcontent);
+				AddContent();
+				
+				/*content = content.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
 								 .replace(/ +/g, " ")			//Reduce Spaces to One
 								 .replace(/ ,/g, ",")			//Remove Spaces Before Commas
 								 .replace(/HSB\(,, \)/g, "")	//Remove Colors
 								 .replace(/^ | $/gm, "")		//Remove Leading & Trailing Spaces
 								 .replace(/^\s+$/gm, "")		//Remove Whitespace-Only Lines
 								 .replace(/^\n|\n$/g,"")		//Remove Gaps at Beginning & End
-								 .replace(/\n+/g, "\n");		//Remove Double Line Breaks
+								 .replace(/\n+/g, "\n");		//Remove Double Line Breaks*/
 				
 				//Remove Duplicates
 				content = content.split("\n");
@@ -205,8 +250,9 @@
 				}
 				
 				content = Object.keys(dict).join("\n");
-				target.value = content || "This project does not exist";
-				copyButton(content != "");
+				content = content.replace(/\n  \n/gi, "\n");
+				target.value = (content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:") ? content || "This project does not exist" : "This project does not exist";
+				copyButton(content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:");
 				console.log("Has Content: " + hasContent);
 			}
 			
@@ -214,10 +260,38 @@
 			function filterUrl(url){
 				var target = document.getElementById('content-target');
 				target.value = "Downloading...";
-				//$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
+				/*$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
 				$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fc.gethopscotch.com%2Fapi%2Fv1%2Fprojects%2F" + url , function(data, status){ 
 					extractText(data);
-				});
+				});/**/
+				
+				function doCORSRequest(options, printResult) {
+					var x = new XMLHttpRequest();
+					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+					x.onload = x.onerror = function() {
+						printResult(
+							//options.method + ' ' + options.url + '\n' +
+							//x.status + ' ' + x.statusText + '\n\n' +
+							(x.responseText || '')
+						);
+					};
+					if (/^POST/i.test(options.method)) {
+						x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+					}
+					x.send(options.data);
+				}
+				
+				function request(input_url) {
+					doCORSRequest({
+						method: 'GET',
+						url: input_url,
+						//data: dataField.value
+					}, function printResult(result) {
+						extractText(result);
+					});
+				};
+				
+				request('https://c.gethopscotch.com/api/v1/projects/'+ url);/**/
 			}
 			
 			//Upload and Read File	
