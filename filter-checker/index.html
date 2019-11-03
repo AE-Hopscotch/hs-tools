@@ -306,7 +306,8 @@
 				<lb>A <t style="display: none;">address</t></lb>
 				<li><t>Address</t><sub> 1, 3</sub></li>
 				
-				<lb>B<t style="display: none;">blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
+				<lb>B<t style="display: none;">beer--blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
+				<li><t>Beer</t> <gray>(as in Root Beer)</gray></li>
 				<li><t>Blood</t></li>
 				<li><t>“Boys rule”, “Boys drool”</t><sub> 1</sub></li>
 				<li><t>Bully</t> <gray>(if you say not to bully others, the project will get stuck)</gray><sub> 3</sub></li>
@@ -420,9 +421,9 @@
 				}
 				
 				target.value = "Searching...";
-				//Does contain some degree of bad words, therefore it is included. However, theses are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("XGJhZGRyZXNzXGJ8XGJibG9vZFxifChcYihnaXJsc3xib3lzKSAocnVsZXxkcm9vbClcYil8XGJidWxseVxifFxiYnVybmVkXGJ8XGJjaGF0KHRpbmcpP1xifFxiYyhcLik/aGF0XGJ8XGJjaChcLik/YXRcYnxcYmNoYShcLik/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmRlcHJlc3Npb25cYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoaW5nKT9cYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYlx3KmlkaW90XHcqXGJ8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJraXNzXGJ8XGJsZWF2aW5nIGhvcHNjb3RjaFxifFxibG9uZXJcYnxcYmxvc2VyXGJ8XGJtYXNzYWdlfFxiKHJlYWx8ZnVsbHxsYXN0KSBuYW1lXGJ8XGJuZWdyb1xifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKGlzIGRlYWR8bnVtYmVyKVxifFxicnBcYnxcYnJvbGVwbGF5XGJ8XGJzaG9vdGluZ1xifFxic3RyYW5nbGVcYnxcYlx3KnN0dXBpZFx3KlxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxidHJpZ2dlclxifFxid2VlZFxifFxiXHcqd2hpdGVib2FyZFx3KlxifFxiXHcrc2hpdFx3KlxifFxic2hpdFx3K1xifFxiXHcrZGlja1x3KnxkaWNrXHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGI="), "gi");
-				var matches = data.match(regex);
+				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
+				var regex = RegExp(window.atob("XGJhZGRyZXNzXGJ8XGJiZWVyXGJ8XGJibG9vZFxifChcYihnaXJsc3xib3lzKSAocnVsZXxkcm9vbClcYil8XGJidWxseVxifFxiYnVybmVkXGJ8XGJjaGF0KHRpbmcpP1xifFxiYyhcLik/aGF0XGJ8XGJjaChcLik/YXRcYnxcYmNoYShcLik/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmRlcHJlc3Npb25cYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoaW5nKT9cYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYlx3KmlkaW90XHcqXGJ8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJraXNzXGJ8XGJsZWF2aW5nIGhvcHNjb3RjaFxifFxibG9uZXJcYnxcYmxvc2VyXGJ8XGJtYXNzYWdlfFxiKHJlYWx8ZnVsbHxsYXN0KSBuYW1lXGJ8XGJuZWdyb1xifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKGlzIGRlYWR8bnVtYmVyKVxifFxicnBcYnxcYnJvbGVwbGF5XGJ8XGJzaG9vdGluZ1xifFxic3RyYW5nbGVcYnxcYlx3KnN0dXBpZFx3KlxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxidHJpZ2dlclxifFxid2VlZFxifFxiXHcqd2hpdGVib2FyZFx3KlxifFxiXHcrc2hpdFx3KlxifFxic2hpdFx3K1xifFxiXHcrZGlja1x3KnxkaWNrXHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGI="), "gi");
+				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
 				} catch (TypeError) {
@@ -434,9 +435,37 @@
 			function filterUrl(url){
 				var target = document.getElementById('content-target');
 				target.value = "Downloading...";
-				$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
+				/*$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
 					testFilter(data);
-				});
+				});*/
+				
+				function doCORSRequest(options, printResult) {
+					var x = new XMLHttpRequest();
+					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+					x.onload = x.onerror = function() {
+						printResult(
+							//options.method + ' ' + options.url + '\n' +
+							//x.status + ' ' + x.statusText + '\n\n' +
+							(x.responseText || '')
+						);
+					};
+					if (/^POST/i.test(options.method)) {
+						x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+					}
+					x.send(options.data);
+				}
+				
+				function request(input_url) {
+					doCORSRequest({
+						method: 'GET',
+						url: input_url,
+						//data: dataField.value
+					}, function printResult(result) {
+						testFilter(result);
+					});
+				};
+				
+				request('https://c.gethopscotch.com/api/v1/projects/'+ url);
 			}
 			
 			//Upload and Read File
