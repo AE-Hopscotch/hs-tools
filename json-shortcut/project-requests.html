@@ -67,176 +67,171 @@
 			
 		</style>
 	</head>
-<body>
-
-<a id="project-link" href=""></a>
-
-<div class="flex">
-
-<form name="gform" id="gform" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSezAB-RWAg-Tbe4fm0lcbVe8Suu1YDHIGPjt5x_urgeZNezQQ/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
-	<span>
-		<h2 style="text-align: center; margin: 0px;">Request Modding of Project</h2><br>
-		<span>Project URL:</span><br>
-		<input type="url" name="entry.497324041" id="entry.497324041" placeholder="https://c.gethopscotch.com/p/project-id" oninput="testInput()"><br>
-		<span>Reason for Modding:</span><br>
-		<select name="entry.1972740109" id="entry.1972740109">
-	    	<option value="secret-blocks">Add Secret Blocks to the project</option>
-			<option value="filter-check">Project is filtered by an unknown word</option>
-			<option value="freeze-issue">The project does not load</option>
-			<!-- DISABLE OTHER option value="__other_option__">Other</option -->
-		</select>
-		<br>
+	<body>
+		<a id="project-link" href=""></a>
 		
-		<span hidden id="r2">
-		<textarea type="text" name="entry.1972740109.other_option_response" id="entry.1972740109.other_option_response" style="width:312px; height: 80px; position:relative; left:2px;"></textarea><br>
-		</span>
+		<div class="flex">
+		<form name="gform" id="gform" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSezAB-RWAg-Tbe4fm0lcbVe8Suu1YDHIGPjt5x_urgeZNezQQ/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+			<span>
+				<h2 style="text-align: center; margin: 0px;">Request Modding of Project</h2><br>
+				<span>Project URL:</span><br>
+				<input type="url" name="entry.497324041" id="entry.497324041" placeholder="https://c.gethopscotch.com/p/project-id" oninput="testInput()"><br>
+				<span>Reason for Modding:</span><br>
+				<select name="entry.1972740109" id="entry.1972740109">
+			    	<option value="secret-blocks">Add Secret Blocks to the project</option>
+					<option value="filter-check">Project is filtered by an unknown word</option>
+					<option value="freeze-issue">The project does not load</option>
+					<!-- DISABLE OTHER option value="__other_option__">Other</option -->
+				</select><br>
+				<span hidden id="r2">
+				<textarea type="text" name="entry.1972740109.other_option_response" id="entry.1972740109.other_option_response" style="width:312px; height: 80px; position:relative; left:2px;"></textarea><br>
+				</span>
+				<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50">
+				<input id="submit-btn" type="submit" value="Request Project Mod" waiting="" disabled>
+			</span>
+		</form>
+		</div>
+
+		<script type="text/javascript">var submitted=false;</script>
+		<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
+
+		<br><br>
+		<input id="yourid">
+		<button id="go" onclick="makereq()">Get Project</button>
 		
-		<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50">
-		
-		<input id="submit-btn" type="submit" value="Request Project Mod" waiting="" disabled>
-	</span>
-</form>
-
-</div>
-
-<script type="text/javascript">var submitted=false;</script>
-
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
-
-<br><br>
-
-<input id="yourid">
-<button id="go" onclick="makereq()">Get Project</button>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-	var submitBtn = document.getElementById('submit-btn');
-	
-	$('#gform').on('submit', function(e) {
-		$('#gform *').fadeOut(0);
-		//$('#gform').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
-		$('#gform').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
-	});
-	
-	$('#gform').on('change', function() {
-			if ($('select')[0].value == "__other_option__"){
-				$('#r2')[0].removeAttribute("hidden");
-			} else {
-				$('#r2')[0].hidden = "true";
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			var submitBtn = document.getElementById('submit-btn');
+			
+			$('#gform').on('submit', function(e) {
+				$('#gform *').fadeOut(0);
+				//$('#gform').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
+				$('#gform').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+			});
+			
+			$('#gform').on('change', function() {
+					if ($('select')[0].value == "__other_option__"){
+						$('#r2')[0].removeAttribute("hidden");
+					} else {
+						$('#r2')[0].hidden = "true";
+					}
+			});
+			
+			function setFormState(s) {
+				submitBtn.disabled = (s!=2);
+				submitBtn.setAttribute("waiting", (s==0));
 			}
-	});
-	
-	function setFormState(s) {
-		submitBtn.disabled = (s!=2);
-		submitBtn.setAttribute("waiting", (s==0));
-	}
-	
-	var projectTestTimeout;
-	function testInput() {
-		setFormState(0);
-		var urlSlot = document.getElementById('entry.497324041');
-		projectTestTimeout = setTimeout(function(){
-			if (!/https:\/\/c(ommunity)?.gethopscotch.com\/p\//.test(urlSlot.value)) {
-				urlSlot.style.backgroundColor = "#fdd";
-				setFormState(1);
-				return false;
-			}
-			request('https://c.gethopscotch.com/api/v1/projects/' + urlSlot.value.replace(/^.*\/p\//, ""),
-				function(output){
-					try {
-						JSON.parse(output);
-						urlSlot.style.backgroundColor = "#fff";
-						setFormState(2);
-						return true;
-					} catch (SyntaxError) {
+			
+			var projectTestTimeout;
+			function testInput() {
+				setFormState(0);
+				var urlSlot = document.getElementById('entry.497324041');
+				projectTestTimeout = setTimeout(function(){
+					if (!/https:\/\/c(ommunity)?.gethopscotch.com\/p\//.test(urlSlot.value)) {
 						urlSlot.style.backgroundColor = "#fdd";
 						setFormState(1);
 						return false;
 					}
-				},true
-			);
-		},200);
-	}
-		
-	function uuidv4() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-			return v.toString(16);
-		});
-	}
-	document.getElementById("entry.1712427894").value = uuidv4();
-	
-	//Below Handles Requests
-	
-	function doCORSRequest(options, printResult, c) {
-		c = (!!c);
-		var x = new XMLHttpRequest();
-		if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
-		
-		x.onload = x.onerror = function() {
-			printResult(
-				//options.method + ' ' + options.url + '\n' +
-				//x.status + ' ' + x.statusText + '\n\n' +
-				(x.responseText || '')
-			);
-		};
-		if (/^POST/i.test(options.method)) {
-			x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		}
-		x.send(options.data);
-	}
-	
-	function request(input_url, fn, c) {
-		c = (!!c);
-		doCORSRequest({
-			method: 'GET',
-			url: input_url,
-			//data: dataField.value
-		}, function printResult(result) {
-				fn(result);
-		}, c);
-	};
+					request('https://c.gethopscotch.com/api/v1/projects/' + urlSlot.value.replace(/^.*\/p\//, ""),
+						function(output){
+							try {
+								JSON.parse(output);
+								urlSlot.style.backgroundColor = "#fff";
+								setFormState(2);
+								return true;
+							} catch (SyntaxError) {
+								urlSlot.style.backgroundColor = "#fdd";
+								setFormState(1);
+								return false;
+							}
+						},true
+					);
+				},200);
+			}
 				
-	function makereq() {
-		var input = document.getElementById("yourid");
-		var go_btn = document.getElementById("go");
-		input.disabled = "true";
-		go.disabled = "true";
-		
-		request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
-			var row = JSON.parse(o).values[3].indexOf(input.value);
-			request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
-				var l = JSON.parse(o).values[row]||['404'];
-				console.log(l);
-				if (l[4] == "complete") {
-					/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
-					var link = document.getElementById('project-link');
-					link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
-					//alert(link.href);
-					link.click();			
-				} else {
-					(l[0] != "404") ? alert("Mod Request is still in progress") : alert("There is no such submitted project");
+			function uuidv4() {
+				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+					var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+					return v.toString(16);
+				});
+			}
+			document.getElementById("entry.1712427894").value = uuidv4();
+			
+			//Below Handles Requests
+			
+			function doCORSRequest(options, printResult, c) {
+				c = (!!c);
+				var x = new XMLHttpRequest();
+				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
+				
+				x.onload = x.onerror = function() {
+					printResult(
+						//options.method + ' ' + options.url + '\n' +
+						//x.status + ' ' + x.statusText + '\n\n' +
+						(x.responseText || '')
+					);
+				};
+				if (/^POST/i.test(options.method)) {
+					x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				}
-				input.removeAttribute("disabled");
-				go.removeAttribute("disabled");
+				x.send(options.data);
+			}
+			
+			function request(input_url, fn, c) {
+				c = (!!c);
+				doCORSRequest({
+					method: 'GET',
+					url: input_url,
+					//data: dataField.value
+				}, function printResult(result) {
+						fn(result);
+				}, c);
+			};
+						
+			function makereq() {
+				var input = document.getElementById("yourid");
+				var go_btn = document.getElementById("go");
+				input.disabled = "true";
+				go.disabled = "true";
+				
+				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
+					var row = JSON.parse(o).values[3].indexOf(input.value);
+					request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
+						var l = JSON.parse(o).values[row]||['404'];
+						console.log(l);
+						if (l[4] == "complete") {
+							/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
+							var link = document.getElementById('project-link');
+							link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
+							//alert(link.href);
+							link.click();			
+						} else {
+							(l[0] != "404") ? alert("Mod Request is still in progress") : alert("There is no such submitted project");
+						}
+						input.removeAttribute("disabled");
+						go.removeAttribute("disabled");
+					});
+				});
+			}
+			
+			function copyText(event) {
+				var copyText = document.getElementById("id-copybox");
+				
+				event.preventDefault();
+				
+				copyText.select();
+				copyText.setSelectionRange(0, 9999999); //Mobile
+
+				document.execCommand("copy");
+				
+				window.getSelection().removeAllRanges();
+			}
+			
+			$(window).bind("pageshow", function(event) {
+				if (event.originalEvent.persisted) {
+					window.location.reload(); 
+				}
 			});
-		});
-	}
-	
-	function copyText(event) {
-		var copyText = document.getElementById("id-copybox");
-		
-		event.preventDefault();
-		
-		copyText.select();
-		copyText.setSelectionRange(0, 9999999); //Mobile
-
-		document.execCommand("copy");
-		
-		window.getSelection().removeAllRanges();
-	}
-</script>
-
-</body>
+		</script>
+	</body>
 </html>
