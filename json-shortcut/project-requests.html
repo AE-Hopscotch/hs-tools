@@ -212,8 +212,8 @@
 				if (l[4] == "complete") {
 					/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
 					var link = document.getElementById('project-link');
-					link.href = l[5];
-					alert(link.href);
+					link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
+					//alert(link.href);
 					link.click();			
 				} else {
 					(l[0] != "404") ? alert("Mod Request is still in progress") : alert("There is no such submitted project");
