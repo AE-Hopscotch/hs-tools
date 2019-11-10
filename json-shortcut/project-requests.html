@@ -204,8 +204,11 @@
 							var link = document.getElementById('project-link');
 							link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
 							//alert(link.href);
-							link.click();		
-							location.replace('data:text/html;base64,' + window.btoa('<script>location.replace("' + l[5] + '");</script>'));
+							//link.click();	
+							location.replace(l[5]);
+							location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
+							
+							
 						} else {
 							(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
 						}
