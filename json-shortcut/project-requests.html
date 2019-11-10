@@ -21,8 +21,35 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		
+		<link href='https://fonts.googleapis.com/css?family=Francois%20One' rel='stylesheet'>
+		
 		<style>
-			#gform input[type=url], #gform select {
+			html {
+				background-image: url("../images/hs-shapes-bg.png");
+				background-size: 375px;
+				background-height: 255px;
+			}
+			h1 {
+				font-family: 'Francois One'; font-size: 300%;
+			}
+			
+			.flex {
+				justify-content: space-around;
+				height: 100%;
+			}
+			
+			.flex form {
+				border: 4px solid #0d6f62;
+				background-color: #eee;
+				padding: 8px 24px 24px 24px;
+				width: 360px;
+				height: 280px;
+				margin:8px;
+			}
+			.flex span {
+				pointer-events: all;
+			}
+			.flex form input[type=url], .flex form input[type=text], .flex form select {
 				background-color: #fff;
 				border: 1px solid #ccc;
 				padding: 6px;
@@ -30,84 +57,142 @@
 				width: 300px;
 				display: block;
 			}
-			#gform input[type=url]::placeholder {
+			.flex form input::placeholder {
 				opacity: 0.6;
 			}
-			#gform [type=submit], #gform button {
+			.flex form [type=submit], .flex form button {
 				background-color: #42981f;
 				padding: 6px 8px;
 				color: white;
 				font-size: 16px;
 				border: 1px solid #ccc;
 				cursor: pointer;
+				display: block;
+				margin: auto;
 			}
-			#gform input[type=submit]:hover:enabled, #gform button:hover:enabled {
+			.flex form input[type=submit]:hover:enabled, .flex form button:hover:enabled {
 				opacity: 0.8;
 			}
-			#gform input[type=submit][disabled] {
+			.flex form input[type=submit][disabled], .flex form button[disabled] {
 				background-color: #9a5347;
 				background-color: #656e7b;
 				cursor: not-allowed;
 			}
-			#gform input[type=submit][disabled][waiting=true]{
+			.flex form input[type=submit][disabled][waiting=true], .flex form button[disabled][waiting=true] {
 				background-color: #656e7b;
 				cursor: progress;
 			}
 			
-			.flex #gform {
-				border: 4px solid #0d6f62;
-				background-color: #f0f0f0;
-				padding: 8px 24px 24px 24px;
-				width: 360px;
-				height: 280px;
-			}
-			.flex span {
-				pointer-events: all;
+			sq {
+				display:block;
+				transition: 0.5s;
+				position: fixed;
+				bottom: 0px; right: 0px;
+				z-index: 100;
+				background-color: rgba(0,0,0,0.5);
+				padding:8px;
+				border-radius: 8px;
 			}
 			
+			.attr {
+				color:white;
+				position:fixed;
+				bottom: 2px;
+				left: 2px;
+				font-size: 10px;
+			}
+			@media only screen and (min-width: 500px) {
+				sq {
+					background-color: rgba(0,0,0,0);
+				}
+			}
 		</style>
 	</head>
 	<body>
+		<sq>
+			<a href="javascript:home()"><svg id="homeSvg" style="fill:#eee;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		</sq>
+		<span class="attr">Original Background by Steelhooves</span>
+		<div>
+			<h1 style="color: white; text-align: center;">Make a Project Modding Request</h1>
+		</div>
 		<div class="flex">
-		<form name="gform" id="gform" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSezAB-RWAg-Tbe4fm0lcbVe8Suu1YDHIGPjt5x_urgeZNezQQ/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+		<form class="flex-item" name="git-form" id="git-form" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSezAB-RWAg-Tbe4fm0lcbVe8Suu1YDHIGPjt5x_urgeZNezQQ/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
 			<span>
 				<h2 style="text-align: center; margin: 0px;">Request Modding of Project</h2><br>
-				<span>Project URL:</span><br>
-				<input type="url" name="entry.497324041" id="entry.497324041" placeholder="https://c.gethopscotch.com/p/project-id" oninput="testInput()"><br>
-				<span>Reason for Modding:</span><br>
+				<span>Project URL</span><br>
+				<input type="url" name="entry.497324041" id="entry.497324041" placeholder="https://c.gethopscotch.com/p/project-id" oninput="testInput()" spellcheck="false"><br>
+				<span>Reason for Modding <a href="javascript:void(0);"><i class="fa fa-fw fa-question-circle" style="font-size: 90%; color:black;"> </i></a></span><br>
 				<select name="entry.1972740109" id="entry.1972740109">
 			    	<option value="secret-blocks">Add Secret Blocks to the project</option>
 					<option value="filter-check">Project is filtered by an unknown word</option>
 					<option value="freeze-issue">The project does not load</option>
+					<option value="clean-code">Reduce Lag and Optimize Performance</option>
+					<option value="toggle-beta-editor">Enable or Disable the Beta Editor</option>
+					<option value="upgrade-player">Update the player without breaking anything</option>
+					<option value="lock-project">Make the project uneditable</option>
 					<!-- DISABLE OTHER option value="__other_option__">Other</option -->
 				</select><br>
 				<span hidden id="r2">
 				<textarea type="text" name="entry.1972740109.other_option_response" id="entry.1972740109.other_option_response" style="width:312px; height: 80px; position:relative; left:2px;"></textarea><br>
 				</span>
-				<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50">
-				<input id="submit-btn" type="submit" value="Request Project Mod" waiting="" disabled>
+				<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50" style="display: none;">
+				<input id="submit-btn" type="submit" value="Request Project Mod" waiting="false" disabled>
+			</span>
+		</form>
+		<form name="get-project" id="get-project" enctype="text/plain" action="" target="" onsubmit="preventDefault()">
+			<span>
+				<h2 style="text-align: center; margin: 0px;">Retrieve a Project</h2><br>
+				<span style="text-align:center; display:block;">Retrieving a project is super simple. Simply enter in your project ID you were given when you submit the project. If it is complete, you will be redirected to Hopscotch.</span><br>
+				<input spellcheck="false" type="text" id="yourid" placeholder="abcd1234-5678-efef-9090-abcdef123456" oninput="isEmpty(this)"><br>
+				<button id="go" onclick="makereq()" disabled>Retrieve Project</button>
 			</span>
 		</form>
 		</div>
 
 		<script type="text/javascript">var submitted=false;</script>
-		<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){}"></iframe>
+		<h name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if (submitted) replace_iframe();" src=""></h>
 
-		<br><br>
-		<input id="yourid">
-		<button id="go" onclick="makereq()">Get Project</button>
 		
+		<script src="../main.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript">
-			var submitBtn = document.getElementById('submit-btn');
+			function isEmpty(elm) {
+				var getBtn = document.getElementById('go');
+				(elm.value != "") ? setFormState('go', 2) : setFormState('go', 1);
+			}
+			function replace_iframe() {
+				var original = document.getElementById("hidden_iframe");
+				original.src = "about:blank";
+				var newFrame = document.createElement("iframe");
+				newFrame.id = "hidden_iframe";
+				newFrame.src = "about:blank";
+				newFrame.style = "display: none;";
+				var parent = original.parentNode;
+				parent.replaceChild(newFrame, original);
+			}
 			
-			$('#gform').on('submit', function(e) {
-				$('#gform *').fadeOut(0);
-				//$('#gform').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
-				$('#gform').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+			window.onload = function() {
+				var original = document.getElementById("hidden_iframe");
+				var newFrame = document.createElement("iframe");
+				newFrame.id = "hidden_iframe";
+				newFrame.name = "hidden_iframe";
+				newFrame.src = "about:blank";
+				newFrame.style = "display: none;";
+				newFrame.setAttribute("onload", "if (submitted) replace_iframe();");
+				var parent = original.parentNode;
+				parent.replaceChild(newFrame, original);
+			}
+			
+			//var submitBtn = document.getElementById('submit-btn');
+			
+			$('#git-form').on('submit', function(e) {
+				$('#git-form *').fadeOut(0);
+				//$('#git-form').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
+				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
 			});
 			
-			$('#gform').on('change', function() {
+			$('#git-form').on('change', function() {
 					if ($('select')[0].value == "__other_option__"){
 						$('#r2')[0].removeAttribute("hidden");
 					} else {
@@ -115,19 +200,20 @@
 					}
 			});
 			
-			function setFormState(s) {
+			function setFormState(id, s) {
+				var submitBtn = document.getElementById(id);
 				submitBtn.disabled = (s!=2);
 				submitBtn.setAttribute("waiting", (s==0));
 			}
 			
 			var projectTestTimeout;
 			function testInput() {
-				setFormState(0);
+				setFormState('submit-btn', 0);
 				var urlSlot = document.getElementById('entry.497324041');
 				projectTestTimeout = setTimeout(function(){
 					if (!/https:\/\/c(ommunity)?.gethopscotch.com\/p\//.test(urlSlot.value)) {
 						urlSlot.style.backgroundColor = "#fdd";
-						setFormState(1);
+						setFormState('submit-btn', 1);
 						return false;
 					}
 					request('https://c.gethopscotch.com/api/v1/projects/' + urlSlot.value.replace(/^.*\/p\//, ""),
@@ -135,7 +221,7 @@
 							try {
 								JSON.parse(output);
 								urlSlot.style.backgroundColor = "#fff";
-								setFormState(2);
+								setFormState('submit-btn', 2);
 								return true;
 							} catch (SyntaxError) {
 								urlSlot.style.backgroundColor = "#fdd";
@@ -197,10 +283,9 @@
 			
 					console.log("12:30");
 			function makereq() {
-				var input = document.getElementById("yourid");
+				//var input = document.getElementById("yourid");
 				var go_btn = document.getElementById("go");
-				input.disabled = "true";
-				go.disabled = "true";
+				setFormState('go', 0);
 				
 				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
 				/*request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", function(o){
@@ -245,7 +330,7 @@
 					(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
 				}
 				input.removeAttribute("disabled");
-				go.removeAttribute("disabled");
+				setFormState('go', 2);
 			}/**/
 			
 			
@@ -267,6 +352,16 @@
 					window.location.reload(); 
 				}
 			});
+			
+			//RELOAD ON BACK
+			/*if(performance.navigation.type == 2){
+			   location.reload(true);
+			}
+			
+			window.onunload = function(){
+				alert("SDF");
+				return 'Are you sure you want to leave?';
+			};*/
 		</script>
 	</body>
 </html>
