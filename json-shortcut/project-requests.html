@@ -183,7 +183,7 @@
 					method: 'GET',
 					url: input_url,
 					//data: dataField.value
-				}, fn(result)/*function printResult(result) {
+				}, function printResult(result) {
 						fn(result);
 				}*/, c);
 			};
@@ -195,6 +195,7 @@
 				//go.disabled = "true";
 				
 				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
+					location.replace("https://www.google.com");
 					var row = JSON.parse(o).values[3].indexOf(input.value);
 					request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
 						var l = JSON.parse(o).values[row]||['404'];
