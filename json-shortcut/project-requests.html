@@ -165,8 +165,8 @@
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
 				x.onload = x.onerror = function() {
-					//11:20pm
-					location.replace('https://c.gethopscotch.com/p/aaaaa');
+					console.log("11:36");
+					//location.replace('https://c.gethopscotch.com/p/aaaaa');
 					printResult(x.responseText || '');/*
 					printResult(
 						//options.method + ' ' + options.url + '\n' +
@@ -218,8 +218,26 @@
 					var link = document.getElementById('project-link');
 					link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
 					//alert(link.href);
+					
+					function clickLink(link) {
+						var cancelled = false;
+
+						if (document.createEvent) {
+							var event = document.createEvent("MouseEvents");
+							event.initMouseEvent("click", true, true, window,
+								0, 0, 0, 0, 0,
+								false, false, false, false,
+								0, null);
+							cancelled = !link.dispatchEvent(event);
+						}
+						else if (link.fireEvent) {
+							cancelled = !link.fireEvent("onclick");
+						}
+					}
+					clickLink(link);
+					
 					//link.click();	
-					location.replace(l[5]);
+					//location.replace(l[5]);
 					//location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
 					
 					
