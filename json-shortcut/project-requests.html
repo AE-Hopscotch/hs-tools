@@ -137,7 +137,7 @@
 				<textarea type="text" name="entry.1972740109.other_option_response" id="entry.1972740109.other_option_response" style="width:312px; height: 80px; position:relative; left:2px;"></textarea><br>
 				</span>
 				<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50" style="display: none;">
-				<input id="submit-btn" type="submit" value="Request Project Mod" waiting="false" disabled>
+				<button id="submit-btn" waiting="false" disabled>Request Project Mod</button>
 			</span>
 		</form>
 		<form name="get-project" id="get-project" enctype="text/plain" action="" target="" onsubmit="preventDefault()">
@@ -210,6 +210,7 @@
 			function testInput() {
 				setFormState('submit-btn', 0);
 				var urlSlot = document.getElementById('entry.497324041');
+				urlSlot.style.backgroundColor = "#e9e2b9";
 				projectTestTimeout = setTimeout(function(){
 					if (!/https:\/\/c(ommunity)?.gethopscotch.com\/p\//.test(urlSlot.value)) {
 						urlSlot.style.backgroundColor = "#fdd";
