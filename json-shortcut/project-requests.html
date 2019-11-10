@@ -68,8 +68,6 @@
 		</style>
 	</head>
 	<body>
-		<a id="project-link" href=""></a>
-		
 		<div class="flex">
 		<form name="gform" id="gform" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSezAB-RWAg-Tbe4fm0lcbVe8Suu1YDHIGPjt5x_urgeZNezQQ/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
 			<span>
@@ -171,7 +169,6 @@
 				
 				x.onload = x.onerror = function() {
 					output = (x.responseText||"");
-					
 					/*
 					//location.replace('https://c.gethopscotch.com/p/aaaaa');
 					printResult(x.responseText || '');/*
@@ -223,15 +220,7 @@
 				console.log(l);
 				if (l[4] == "complete") {
 					/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
-					var link = document.getElementById('project-link');
-					link.href = l[5];//"https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
-					//alert(link.href);
-					
-					//link.click();	
 					location.replace(l[5]);
-					//location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
-					
-					
 				} else {
 					(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
 				}
