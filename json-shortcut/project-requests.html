@@ -165,11 +165,12 @@
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
 				x.onload = x.onerror = function() {
+					fn(x.responseText || '');/*
 					printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
 						(x.responseText || '')
-					);
+					);/**/
 				};
 				if (/^POST/i.test(options.method)) {
 					x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -183,9 +184,9 @@
 					method: 'GET',
 					url: input_url,
 					//data: dataField.value
-				}, function printResult(result) {
+				}, fn /*function printResult(result) {
 						fn(result);
-				}, c);
+				} /**/, c);
 			};
 						
 			function makereq() {
@@ -195,7 +196,6 @@
 				//go.disabled = "true";
 				
 				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
-					location.replace("https://c.gethopscotch.com/p/test");
 					var row = JSON.parse(o).values[3].indexOf(input.value);
 					request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
 						var l = JSON.parse(o).values[row]||['404'];
