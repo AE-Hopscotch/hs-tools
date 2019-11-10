@@ -188,36 +188,46 @@
 						fn(result);
 				} /**/, c);
 			};
-						
+			
 			function makereq() {
 				var input = document.getElementById("yourid");
 				var go_btn = document.getElementById("go");
 				input.disabled = "true";
 				//go.disabled = "true";
 				
-				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
-					var row = JSON.parse(o).values[3].indexOf(input.value);
-					request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
-						var l = JSON.parse(o).values[row]||['404'];
-						console.log(l);
-						if (l[4] == "complete") {
-							/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
-							var link = document.getElementById('project-link');
-							link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
-							//alert(link.href);
-							//link.click();	
-							location.replace(l[5]);
-							//location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
-							
-							
-						} else {
-							(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
-						}
-						input.removeAttribute("disabled");
-						go.removeAttribute("disabled");
-					});
-				});
+				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
 			}
+			
+				var row = {};
+			function fc1(o){
+				var input = document.getElementById("yourid");
+				var go_btn = document.getElementById("go");
+				row = JSON.parse(o).values[3].indexOf(input.value);
+				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc2);
+			}
+			
+			function fc2(o){	
+				var input = document.getElementById("yourid");
+				var go_btn = document.getElementById("go");	
+				var l = JSON.parse(o).values[row]||['404'];
+				console.log(l);
+				if (l[4] == "complete") {
+					/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
+					var link = document.getElementById('project-link');
+					link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
+					//alert(link.href);
+					//link.click();	
+					location.replace(l[5]);
+					//location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
+					
+					
+				} else {
+					(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
+				}
+				input.removeAttribute("disabled");
+				go.removeAttribute("disabled");
+			}
+			
 			
 			function copyText(event) {
 				var copyText = document.getElementById("id-copybox");
