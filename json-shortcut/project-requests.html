@@ -93,7 +93,7 @@
 		</div>
 
 		<script type="text/javascript">var submitted=false;</script>
-		<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
+		<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){}"></iframe>
 
 		<br><br>
 		<input id="yourid">
@@ -204,9 +204,10 @@
 							var link = document.getElementById('project-link');
 							link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
 							//alert(link.href);
-							link.click();			
+							link.click();		
+							location.replace(l[5]);
 						} else {
-							(l[0] != "404") ? alert("Mod Request is still in progress") : alert("There is no such submitted project");
+							(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
 						}
 						input.removeAttribute("disabled");
 						go.removeAttribute("disabled");
