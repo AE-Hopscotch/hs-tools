@@ -164,7 +164,19 @@
 				var x = new XMLHttpRequest();
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
+				let output = undefined;
+				async function waitOutput(){
+				   while (true){
+						if (output != undefined) { printResult(output); return };
+						await null; // prevents app from hanging
+				   }
+				}
+				waitOutput();
+				
 				x.onload = x.onerror = function() {
+					output = (x.responseText||"");
+					
+					/*
 					//location.replace('https://c.gethopscotch.com/p/aaaaa');
 					printResult(x.responseText || '');/*
 					printResult(
@@ -218,23 +230,6 @@
 					var link = document.getElementById('project-link');
 					link.href = l[5];//"https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
 					//alert(link.href);
-					
-					function clickLink(link) {
-						var cancelled = false;
-
-						if (document.createEvent) {
-							var event = document.createEvent("MouseEvents");
-							event.initMouseEvent("click", true, true, window,
-								0, 0, 0, 0, 0,
-								false, false, false, false,
-								0, null);
-							cancelled = !link.dispatchEvent(event);
-						}
-						else if (link.fireEvent) {
-							cancelled = !link.fireEvent("onclick");
-						}
-					}
-					clickLink(link);
 					
 					//link.click();	
 					//location.replace(l[5]);
