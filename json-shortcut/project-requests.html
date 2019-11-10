@@ -165,13 +165,9 @@
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
 				let output = undefined;
-				async function waitOutput(){
-				   while (true){
-						if (output != undefined) { printResult(output); return };
-						await null; // prevents app from hanging
-				   }
-				}
-				waitOutput();
+				var waitOutput = setInterval(function(){
+					if (output != undefined) { printResult(output); clearInterval(waitOutput); }
+				}, 250);
 				
 				x.onload = x.onerror = function() {
 					output = (x.responseText||"");
