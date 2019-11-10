@@ -192,7 +192,7 @@
 				var input = document.getElementById("yourid");
 				var go_btn = document.getElementById("go");
 				input.disabled = "true";
-				go.disabled = "true";
+				//go.disabled = "true";
 				
 				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(o){
 					var row = JSON.parse(o).values[3].indexOf(input.value);
@@ -205,8 +205,8 @@
 							link.href = "https://www.google.com/url?q="+ encodeURI(l[5]); //Used for redirect or user click. This allows the project to open the app instead of a 404 page in Safari.
 							//alert(link.href);
 							//link.click();	
-							//location.replace(l[5]);
-							location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
+							location.replace(l[5]);
+							//location.replace('data:text/html;base64,' + window.btoa('<body onload="location.replace(' + "'" + l[5] + "'" + ');"</body>'));
 							
 							
 						} else {
