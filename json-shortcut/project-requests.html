@@ -165,7 +165,7 @@
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
 				
 				x.onload = x.onerror = function() {
-					fn(x.responseText || '');/*
+					printResult(x.responseText || '');/*
 					printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
