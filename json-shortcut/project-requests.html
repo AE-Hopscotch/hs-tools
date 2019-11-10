@@ -202,9 +202,29 @@
 				input.disabled = "true";
 				//go.disabled = "true";
 				
-				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
+				//request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
+				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", function(o){
+					var input = document.getElementById("yourid");
+					var go_btn = document.getElementById("go");
+					var row = JSON.parse(o).values[3].indexOf(input.value);
+					request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=rows&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", function(o){
+						var input = document.getElementById("yourid");
+						var go_btn = document.getElementById("go");	
+						var l = JSON.parse(o).values[row]||['404'];
+						console.log(l);
+						if (l[4] == "complete") {
+							//document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")
+							location.replace(l[5]);
+						} else {
+							(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
+						}
+						input.removeAttribute("disabled");
+						go.removeAttribute("disabled");
+					});
+				});
 			}
 			
+			/*
 				var row = {};
 			function fc1(o){
 				var input = document.getElementById("yourid");
@@ -219,14 +239,14 @@
 				var l = JSON.parse(o).values[row]||['404'];
 				console.log(l);
 				if (l[4] == "complete") {
-					/*document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")*/ 
+					//document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")
 					location.replace(l[5]);
 				} else {
 					(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
 				}
 				input.removeAttribute("disabled");
 				go.removeAttribute("disabled");
-			}
+			}/**/
 			
 			
 			function copyText(event) {
