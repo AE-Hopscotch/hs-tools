@@ -195,15 +195,15 @@
 				} /**/, c);
 			};
 			
-					console.log("11:40");
+					console.log("12:30");
 			function makereq() {
 				var input = document.getElementById("yourid");
 				var go_btn = document.getElementById("go");
 				input.disabled = "true";
-				//go.disabled = "true";
+				go.disabled = "true";
 				
-				//request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
-				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", function(o){
+				request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", fc1);
+				/*request("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'Project%20Submissions'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4", function(o){
 					var input = document.getElementById("yourid");
 					var go_btn = document.getElementById("go");
 					var row = JSON.parse(o).values[3].indexOf(input.value);
@@ -221,10 +221,10 @@
 						input.removeAttribute("disabled");
 						go.removeAttribute("disabled");
 					});
-				});
+				});/**/
 			}
 			
-			/*
+			//*
 				var row = {};
 			function fc1(o){
 				var input = document.getElementById("yourid");
