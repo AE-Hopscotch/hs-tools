@@ -1,378 +1,406 @@
-<!doctype HTML>
+<!doctype html>
 <html>
-<head>
-	<title>Create Dictionary Ability</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style>
-		:root {
-			--btn-color: black;
-		}		
-		* {
-			box-sizing: border-box;
-		}
-		::placeholder {
-			opacity: 0.5;
-		}
-		.input-settings {
-			display: flex;
-			width: 610px;
-			min-width: 336px;
-			max-width: calc(100% - 8px);
-			min-height: 40px;
-			background-color: #eee;
-			margin: 12px 4px;
-			padding: 4px 2px;
-		}
-		
-		.input-settings select, .input-settings input {
-			width: calc(100% - 4px);
-			margin: 0 2px;
-		}
-		
-		.input-settings input {
-			padding: 6px;
-		}
-		
-		
-		
-		.list-container {
-			padding: 0;
-			width: 618px;
-			max-width: 100%;
-			min-width: 344px;
-			height: 400px;
-		}
-		.list-container li {
-			display: flex;
-			width: calc(100% - 8px);
-			min-height: 40px;
-			background-color: #eee;
-			margin: 12px 4px;
-			padding: 4px;
-		}
-		
-		.column-label {
-			display: inline-block;
-			margin: 0 0 -10px 6px;
-		}
-		
-		
-		.list-container input.numberIn {
-			width: 72px;
-			height: 32px;
-			display: inline-block;
-			margin-left: 2px;
-			text-align: center;
-		}
-		
-		.list-container i.color, .list-container select {
-			color: var(--btn-color);
-			display: inline-flex;
-			width: 30px; height: 30px;
-			justify-content: center;
-			align-items: center;
-			margin: 1px 0;
-		}
-		
-		.list-container li div {
-			display: inline-flex;
-			width: calc(100% - 200px);
-			margin-left: 4px;
-			padding: 0;
-			min-height: 32px;
-			position: relative;
-		}
-		.list-container li div textarea, .list-container li div input {
-			width: 100%;
-			min-height: 32px;
-			left: -2px; position: relative;
-			display: inline-block;
-			margin-left: 2px;
-			padding: 6px;
-			resize: none;
-		}
-		
-		.output-actions {
-			display: inline-flex;
-			width: 60px;
-			height: 26px;
-			margin: 3px 4px;
-			justify-content: space-around;
-			align-items: center;
-		}
-		.oac:hover, .oac:focus, .oac:active {
-			cursor: pointer;
-			--btn-color: #0d6f62;
-			color: var(--btn-color);
-		}
-		.oac.fa-trash:hover, .oac.fa-trash:focus, .oac.fa-trash:active {
-			--btn-color: #aa3109;
-		}
-		
-		#add-controls {
-			display: flex;
-			width: calc(100% - 8px);
-			background-color: #eee;
-			margin: 12px 4px;
-		}
-		#add-controls .addbtn {
-			background-color: var(--btn-color);
-			margin: 4px;
-			padding: 0;
-			color: white;
-			outline: none;
-			border: none;
-			cursor: pointer;
-		}
-		#add-controls .addbtn > .btn-content {
-			padding: 8px;
-			display: inline-block;
-		}
-		#add-controls button:hover {
-			opacity: 0.7;
-		}
-		#add-controls button:active {
-			opacity: 0.5;
-		}
-		#add-controls button > .btn-content:focus {
-			outline: none;
-		}
-		/* Fixing the Safari bug for button overflow */
-		.btn-content {
-			position: relative;
-		}
-		/* All the states on the inner element */
-		#add-controls button:focus > .btn-content  {
-			color: #86f9e9;
-		}
-		
-		#add-controls .flex {
-			padding: 0;
-			justify-content: center;
-			align-items: center;
-			margin-right: 0;
-			--btn-color: rgba(0,0,0,0);
-			color: black;
-			cursor: default;
-		}
-		@media only screen and (max-width: 474px) {
-			.bigscreen {
-				display: none;
+	<head>
+		<title>Create Dictionary Ability</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="../hs-tools/jscolor.js"></script>
+		<style>
+			:root {
+				--btn-color: black;
+			}		
+			* {
+				box-sizing: border-box;
+			}
+			::placeholder {
+				opacity: 0.5;
+			}
+			.input-settings {
+				display: flex;
+				width: 610px;
+				min-width: 336px;
+				max-width: calc(100% - 8px);
+				min-height: 40px;
+				background-color: #eee;
+				margin: 12px 4px;
+				padding: 4px 2px;
+			}
+			
+			div.input-settings select, div.input-settings input {
+				width: calc(100% - 4px);
+				margin: 0 2px;
+			}
+			
+			div.input-settings input {
+				padding: 6px;
+			}
+			
+			
+			
+			.list-container {
+				padding: 0;
+				width: 618px;
+				max-width: 100%;
+				min-width: 344px;
+				height: 400px;
+			}
+			.list-container li {
+				display: flex;
+				width: calc(100% - 8px);
+				min-height: 40px;
+				background-color: #eee;
+				margin: 12px 4px;
+				padding: 4px;
+			}
+			
+			.column-label {
+				display: inline-block;
+				margin: 0 0 -10px 6px;
+			}
+			
+			
+			.list-container input.numberIn {
+				width: 72px;
+				height: 34px;
+				display: inline-block;
+				margin: 2px;
+				text-align: center;
+			}
+			
+			.list-container i.color, .list-container select {
+				color: var(--btn-color);
+				display: inline-flex;
+				width: 30px; height: 30px;
+				justify-content: center;
+				align-items: center;
+				margin: 4px 0;
+			}
+			
+			.list-container li div {
+				display: inline-flex;
+				width: calc(100% - 200px);
+				margin: 0 -2px 0 4px;
+				padding: 0;
+				min-height: 34px;
+				position: relative;
+			}
+			.list-container li div textarea, .list-container li div input {
+				width: 100%;
+				min-height: 34px;
+				left: -2px; position: relative;
+				display: inline-block;
+				margin: 2px;
+				padding: 6px;
+				resize: none;
+			}
+			.jscolor {
+				position: relative;
+				top: 2px;
+				right: 4px;
+				display: inline-block;
+				width: 12px;
+				height: calc(100% - 4px);
+				border: 0 solid rgb(169,169,169);
+				outline: none;
+			}
+			.jscolor i {
+				pointer-events: none;
+			}
+			
+			.output-actions {
+				display: inline-flex;
+				width: 60px;
+				height: 32px;
+				margin: 3px 4px;
+				justify-content: space-around;
+				align-items: center;
+			}
+			.oac:hover, .oac:focus, .oac:active {
+				cursor: pointer;
+				--btn-color: #0d6f62;
+				color: var(--btn-color);
+			}
+			.oac.fa-trash:hover, .oac.fa-trash:focus, .oac.fa-trash:active {
+				--btn-color: #aa3109;
+			}
+			
+			#add-controls {
+				display: flex;
+				width: calc(100% - 8px);
+				background-color: #eee;
+				margin: 12px 4px;
 			}
 			#add-controls .addbtn {
+				background-color: var(--btn-color);
+				margin: 4px;
+				padding: 0;
+				color: white;
+				outline: none;
+				border: none;
+				cursor: pointer;
+			}
+			#add-controls .addbtn > .btn-content {
+				padding: 8px;
 				display: inline-block;
-				min-width: 60px;
-				height: 60px;
 			}
+			#add-controls button:hover {
+				opacity: 0.7;
+			}
+			#add-controls button:active {
+				opacity: 0.5;
+			}
+			#add-controls button > .btn-content:focus {
+				outline: none;
+			}
+			/* Fixing the Safari bug for button overflow */
+			.btn-content {
+				position: relative;
+			}
+			/* All the states on the inner element */
+			#add-controls button:focus > .btn-content  {
+				color: #86f9e9;
+			}
+			
 			#add-controls .flex {
-				display: inline-flex;
+				padding: 0;
+				justify-content: center;
+				align-items: center;
+				margin-right: 0;
+				--btn-color: rgba(0,0,0,0);
+				color: black;
+				cursor: default;
 			}
-		}
-		@media only screen and (min-width: 475px) {
-			.smallscreen {
-				display: none;
+			@media only screen and (max-width: 474px) {
+				.bigscreen {
+					display: none;
+				}
+				#add-controls .addbtn {
+					display: inline-block;
+					min-width: 60px;
+					height: 60px;
+				}
+				#add-controls .flex {
+					display: inline-flex;
+				}
 			}
-		}
-		
-		
-	</style>
-</head>
-<body>
-	<div class="input-settings">
-		<input placeholder="Ability Name"></input>
-		<select id="input-var-select">
-			<option id="in-var-def" value="" hidden selected>Select Input Variable...</option>
-		</select>
-	</div>
-	<ul class="list-container">
-		<li id="output-item-1"><input id="in1" class="numberIn" type="number" placeholder="Input #"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o1t" placeholder="Hello, World!"></textarea></div><span id="oa1" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(1)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(1)"></i><i class="fa fa-trash oac" onclick="deleteItem(1)"></i></span></li>
-		<li id="output-item-2"><input id="in2" class="numberIn" type="number" placeholder="Input #"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o2t" type="text" placeholder="Star Girl"></textarea></div><span id="oa2" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(2)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(2)"></i><i class="fa fa-trash oac" onclick="deleteItem(2)"></i></span></li>
-		<li id="output-item-3"><input id="in3" class="numberIn" type="number" placeholder="Input #"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o3t" type="text" placeholder="Variable Name..."><input id="o3t_" type="number" style="width: 40%;" placeholder="#"></div><span id="oa3" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(3)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(3)"></i><i class="fa fa-trash oac" onclick="deleteItem(3)"></i></span></li>
-		<li id="output-item-4"><input id="in4" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o4t" placeholder='{"block_class": "method", "type": 50}'></textarea></div><span id="oa4" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(4)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(4)"></i><i class="fa fa-trash oac" onclick="deleteItem(4)"></i></span></li>
-		<span id="add-controls">
-			<span class="smallscreen addbtn flex" style=""><i style="font-size: 36px;" class="fa fa-plus"></i></span>
-			<button onclick="addRow(0)" class="addbtn" style="--btn-color: limegreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;" class="fa fa-text-height smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Text Output</span></span></button>
-			<button onclick="addRow(1)" class="addbtn" style="--btn-color: mediumseagreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-picture-o smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Image Output</span></span></button>
-			<button onclick="addRow(2)" class="addbtn" style="--btn-color: goldenrod;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-sliders smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Variable Output</span></span></button>
-			<button onclick="addRow(3)" class="addbtn" style="--btn-color: steelblue;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-code smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Raw JSON Code Output</span></span></button>
-		</span>
-	</ul>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script>
-		//Load Project Variables 
-		
-		var projectVariables = [
-			{
-				"name": "Vertical Velocity",
-				"objectIdString": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
-				"type": 8000
-			},
-			{
-			  "name": "Horizontal velocity",
-			  "objectIdString": "89D03D97-E01E-4549-B98E-53048BED86C1-34757-00036ADE79BC8B7A",
-			  "type": 8000
-			},
-			{
-			  "name": "Bounce height",
-			  "objectIdString": "28D46291-73DB-4BCC-923B-E9CC70C5BDA3-34757-00036ADE79BCA35F",
-			  "type": 8000
+			@media only screen and (min-width: 475px) {
+				.smallscreen {
+					display: none;
+				}
 			}
-		]
-		for (i = 0; i < projectVariables.length; i ++){
-			console.log("Added Variable " + projectVariables[i].name);
-			var sel = document.getElementById("in-var-def");
-			var opt = document.createElement("option");
-			var output = projectVariables[i].name;
-			opt.innerHTML = output;
-			opt.setAttribute("value", output);
-			sel.parentNode.insertBefore(opt, sel);
-		}
-		
-		/* STRUCTURE OF SET VARIABLE
-		{
-			"block_class": "method",
-			"type": 45,
-			"description": "Set",
-			"parameters": [
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="input-settings" style="position: relative; z-index: 1;">
+			<input placeholder="Ability Name"></input>
+			<select id="input-var-select">
+				<option id="in-var-def" value="" hidden selected>Select Input Variable...</option>
+				<option id="var-sel-hidden" hidden></option>
+			</select>
+		</div>
+			<span class="input-settings" style="display: block; position: relative; top: -16px; margin-bottom: -12px; min-height: 8px;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span>
+		<ul class="list-container">
+			<span id="add-controls">
+				<span class="smallscreen addbtn flex" style=""><i style="font-size: 36px;" class="fa fa-plus"></i></span>
+				<button onclick="addRow(0)" class="addbtn" style="--btn-color: limegreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;" class="fa fa-text-height smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Text Output</span></span></button>
+				<button onclick="addRow(1)" class="addbtn" style="--btn-color: mediumseagreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-picture-o smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Image Output</span></span></button>
+				<button onclick="addRow(2)" class="addbtn" style="--btn-color: goldenrod;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-sliders smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Variable Output</span></span></button>
+				<button onclick="addRow(3)" class="addbtn" style="--btn-color: steelblue;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-code smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Raw JSON Code Output</span></span></button>
+			</span>
+		</ul>
+		<script>
+			//Load Project Variables 
+			
+			var projectVariables = [
 				{
-					"defaultValue": "",
-					"value": "",
-					"key": "Output",
-					"datum": {
-						"type": 8004,
-						"variable": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
-						"description": "Variable"
-					},
-					"type": 47
+					"name": "Vertical Velocity",
+					"objectIdString": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
+					"type": 8000
 				},
 				{
-					"defaultValue": "10",
-					"value": "VALUE",
-					"key": "to",
-					"type": 48
+				  "name": "Horizontal velocity",
+				  "objectIdString": "89D03D97-E01E-4549-B98E-53048BED86C1-34757-00036ADE79BC8B7A",
+				  "type": 8000
+				},
+				{
+				  "name": "Bounce height",
+				  "objectIdString": "28D46291-73DB-4BCC-923B-E9CC70C5BDA3-34757-00036ADE79BCA35F",
+				  "type": 8000
 				}
 			]
-		}
-		*/
-		
-		
-		//Text Area Resize
-		var observe;
-		if (window.attachEvent) {
-			observe = function (element, event, handler) {
-				element.attachEvent('on' + event, handler);
-			};
-		}
-		else {
-			observe = function (element, event, handler) {
-				element.addEventListener(event, handler, false);
-			};
-		}
-				function resize(id) {
-					var elm = document.getElementById(id);
-					elm.style.height = 'auto';
-					elm.style.height = Math.min(String(elm.scrollHeight+3), 203) + 'px';
-					
-					//Test if text wraps
-					var wraps = false;
-					
-					function textWidth(txt, font,padding) {
-						$span = $('<span id="testText"></span>');
-						$span.css({
-							font:font,
-							position:'absolute',
-							top: -1000,
-							left:-1000,
-							padding:padding
-						}).text(txt);
-						$span.appendTo('body');
-						return $span.width();
-					}
-					
-					var $txt=$('#'+ id),i = 1;
-					//$('#result').html('');
-					var font = $txt.css('font');
-					var padding = $txt.css('padding');
-					var txtwidth = $txt.width();
-					var txt = $('#' + id).val().split('\n')[0];
-					var w = textWidth(txt,font,padding);
-					if(w>txtwidth){
-						wraps = true;   
-					}
-					$("#testText").remove();
-					
-					if (elm.style.height == "46px") {
-						elm.style.height = (/\n/.test(elm.value)||wraps) ? "46px" : "32px";
-					}
-				}
-				/* 0-timeout to get the already changed text */
-				function delayedResize (id) {
-					window.setTimeout(function(){resize(id);}, 0);
-				}
-		function init () {
-			var texts = document.getElementsByTagName('textarea');
-			for (i = 0; i < texts.length; i ++) {
-				var text = texts[i];
-				
-				function getFunction(delayed) {
-					var fn = (delayed) ? "function (){ delayedResize('" + text.id + "'); }" : "function (){ resize('" + text.id + "'); }";
-					return new Function("return ("+fn+")")();
-				}
-				
-				observe(text, 'change',  getFunction(false));
-				observe(text, 'cut',     getFunction(true));
-				observe(text, 'paste',   getFunction(true));
-				observe(text, 'drop',    getFunction(true));
-				observe(text, 'keydown', getFunction(true));
-				
-				resize(text.id);
+			for (i = 0; i < projectVariables.length; i ++){
+				console.log("Added Variable " + projectVariables[i].name);
+				var sel = document.getElementById("var-sel-hidden");
+				var opt = document.createElement("option");
+				var output = projectVariables[i].name;
+				opt.innerHTML = output;
+				opt.setAttribute("value", output);
+				sel.parentNode.insertBefore(opt, sel);
 			}
-		}
-		document.body.onload = init();
-		
-		//Add Dictionary Rows
-		var nextId = 5;
-		function addRow(type) {
-			console.log("Create key with type " + type);
-			var tray = document.getElementById("add-controls");
-			var li = document.createElement("li");
-			var output;
-			switch (type) {
-				case 0:
-					output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder="Hello, World!"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
-					break;
-				case 1:
-					output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o!x!t" type="text" placeholder="Star Girl"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
-					break;
-				case 2:
-					output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..."><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
-					break;
-				case 3:
-					output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'{"block_class": "method", "type": 50}\'></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
-					break;
+			
+			$('#var-sel-hidden').remove();
+			
+			/* STRUCTURE OF SET VARIABLE
+			{
+				"block_class": "method",
+				"type": 45,
+				"description": "Set",
+				"parameters": [
+					{
+						"defaultValue": "",
+						"value": "",
+						"key": "Output",
+						"datum": {
+							"type": 8004,
+							"variable": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
+							"description": "Variable"
+						},
+						"type": 47
+					},
+					{
+						"defaultValue": "10",
+						"value": "VALUE",
+						"key": "to",
+						"type": 48
+					}
+				]
 			}
-			li.innerHTML = output.replace(/!x!/g,nextId);
-			li.setAttribute("id", "output-item-" + nextId); // added line
-			tray.parentNode.insertBefore(li, tray);
-			init();
-			nextId += 1;
-		}
-		
-		//Item Actions
-		function deleteItem(rowId){
-			console.log("Deleted a row");
-			$("#output-item-" + rowId).remove();
-		}
-		
-		function moveDown(rowId) {
-			if($("#output-item-" + rowId).next("li")[0] != undefined)
-			$("#" + $("#output-item-" + rowId).next("li")[0].id).after($("#output-item-" + rowId));
-		}
-		
-		function moveUp(rowId) {
-			if($("#output-item-" + rowId).prev("li")[0] != undefined)
-			$("#" + $("#output-item-" + rowId).prev("li")[0].id).before($("#output-item-" + rowId));
-		}
-	</script>
-</body>
+			*/
+			
+			
+			//Text Area Resize
+			var observe;
+			if (window.attachEvent) {
+				observe = function (element, event, handler) {
+					element.attachEvent('on' + event, handler);
+				};
+			}
+			else {
+				observe = function (element, event, handler) {
+					element.addEventListener(event, handler, false);
+				};
+			}
+					function resize(id) {
+						var elm = document.getElementById(id);
+						elm.style.height = 'auto';
+						elm.style.height = Math.min(String(elm.scrollHeight+3), 203) + 'px';
+						
+						//Test if text wraps
+						var wraps = false;
+						
+						function textWidth(txt, font,padding) {
+							$span = $('<span id="testText"></span>');
+							$span.css({
+								font:font,
+								position:'absolute',
+								top: -1000,
+								left:-1000,
+								padding:padding
+							}).text(txt);
+							$span.appendTo('body');
+							return $span.width();
+						}
+						
+						var $txt=$('#'+ id),i = 1;
+						//$('#result').html('');
+						var font = $txt.css('font');
+						var padding = $txt.css('padding');
+						var txtwidth = $txt.width();
+						var txt = $('#' + id).val().split('\n')[0];
+						var w = textWidth(txt,font,padding);
+						if(w>txtwidth){
+							wraps = true;   
+						}
+						$("#testText").remove();
+						
+						if (elm.style.height == "46px") {
+							elm.style.height = (/\n/.test(elm.value)||wraps) ? "46px" : "32px";
+						}
+					}
+					/* 0-timeout to get the already changed text */
+					function delayedResize (id) {
+						window.setTimeout(function(){resize(id);}, 20);
+					}
+			function init () {
+				var texts = document.getElementsByTagName('textarea');
+				for (i = 0; i < texts.length; i ++) {
+					var text = texts[i];
+					
+					function getFunction(delayed) {
+						var fn = (delayed) ? "function (){ delayedResize('" + text.id + "'); }" : "function (){ resize('" + text.id + "'); }";
+						return new Function("return ("+fn+")")();
+					}
+					
+					observe(text, 'change',  getFunction(false));
+					observe(text, 'cut',     getFunction(true));
+					observe(text, 'paste',   getFunction(true));
+					observe(text, 'drop',    getFunction(true));
+					observe(text, 'keydown', getFunction(true));
+					observe(text, 'keyup',   getFunction(true));
+					
+					resize(text.id);
+				}
+			}
+			document.body.onload = init();
+			
+			//Add Dictionary Rows
+			var nextId = 5;
+			function addRow(type) {
+				console.log("Create key with type " + type);
+				var tray = document.getElementById("add-controls");
+				var li = document.createElement("li");
+				var output;
+				switch (type) {
+					case 0:
+						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder="Hello, World!"></textarea><span id="btn-container-!x!"></span></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						break;
+					case 1:
+						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o!x!t" type="text" placeholder="Star Girl"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						break;
+					case 2:
+						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..."><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						break;
+					case 3:
+						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'{"block_class": "method", "type": 50}\'></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						break;
+				}
+				li.innerHTML = output.replace(/!x!/g,nextId);
+				li.setAttribute("id", "output-item-" + nextId); // added line
+				tray.parentNode.insertBefore(li, tray);
+				init();
+				
+				if (type == 0) {
+					var input = document.createElement('button');
+					var picker = new jscolor(input, {closable: true, inI:true, closeText:'Close Color Picker',value:'1e151d'});
+					input.setAttribute("class", "jscolor");
+					input.style.textAlign = "right";
+					input.setAttribute("tabindex", "-1");
+					input.innerHTML = '<i style="position: relative; top: -1px; left: -5.5px; font-size: 11px;"  class="fa fa-eyedropper"></i>';
+					document.getElementById('btn-container-' + nextId).appendChild(input);
+				}
+				
+				nextId += 1;
+				
+			}
+			
+			//Item Actions
+			function deleteItem(rowId){
+				console.log("Deleted a row");
+				$("#output-item-" + rowId).remove();
+			}
+			
+			function moveDown(rowId) {
+				if($("#output-item-" + rowId).next("li")[0] != undefined)
+				$("#" + $("#output-item-" + rowId).next("li")[0].id).after($("#output-item-" + rowId));
+			}
+			
+			function moveUp(rowId) {
+				if($("#output-item-" + rowId).prev("li")[0] != undefined)
+				$("#" + $("#output-item-" + rowId).prev("li")[0].id).before($("#output-item-" + rowId));
+			}
+		</script>
+	</body>
 </html>
