@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="/hs-tools/jscolor.js"></script>
+		<script src="body-scroll-lock.js"></script>
+		<script src="../Site/jscolor.js"></script>
 		<style>
 			:root {
 				--btn-color: black;
@@ -20,11 +21,13 @@
 				display: flex;
 				width: 610px;
 				min-width: 336px;
-				max-width: calc(100% - 8px);
+				max-width: calc(100% - 24px);
 				min-height: 40px;
-				background-color: #eee;
-				margin: 12px 4px;
+				background-color: #d7eae7;
+				margin: 0px 4px;
 				padding: 4px 2px;
+				border: solid white;
+				border-width: 12px 0 0;
 			}
 			
 			div.input-settings select, div.input-settings input {
@@ -43,7 +46,7 @@
 				width: 618px;
 				max-width: 100%;
 				min-width: 344px;
-				height: 400px;
+				/*height: 400px;*/
 			}
 			.list-container li {
 				display: flex;
@@ -128,8 +131,8 @@
 			
 			#add-controls {
 				display: flex;
-				width: calc(100% - 8px);
-				background-color: #eee;
+				/*width: calc(100% - 8px);*/
+				background-color: #d7eae7;
 				margin: 12px 4px;
 			}
 			#add-controls .addbtn {
@@ -172,7 +175,7 @@
 				color: black;
 				cursor: default;
 			}
-			@media only screen and (max-width: 474px) {
+			/*@media only screen and (max-width: 474px) {*/
 				.bigscreen {
 					display: none;
 				}
@@ -184,10 +187,19 @@
 				#add-controls .flex {
 					display: inline-flex;
 				}
-			}
+			/*}*/
 			@media only screen and (min-width: 475px) {
 				.smallscreen {
-					display: none;
+					/*display: none;*/
+				}
+			}
+			@media only screen and (max-width: 995px) {
+			}
+			@media only screen and (min-width: 996px) {
+				#add-controls {
+					position: fixed;
+					right: 8px;
+					top: 0px;
 				}
 			}
 			
@@ -195,14 +207,15 @@
 		</style>
 	</head>
 	<body>
-		<div class="input-settings" style="position: relative; z-index: 1;">
-			<input placeholder="Ability Name"></input>
+		<div class="input-settings" style="position: fixed; top: 0; z-index: 10;">
+			<input placeholder="Ability Name">
 			<select id="input-var-select">
 				<option id="in-var-def" value="" hidden selected>Select Input Variable...</option>
 				<option id="var-sel-hidden" hidden></option>
 			</select>
 		</div>
-			<span class="input-settings" style="display: block; position: relative; top: -16px; margin-bottom: -12px; min-height: 8px;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span>
+			<span class="input-settings" style="display: block; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span>
+		<br><br><br><br>
 		<ul class="list-container">
 			<span id="add-controls">
 				<span class="smallscreen addbtn flex" style=""><i style="font-size: 36px;" class="fa fa-plus"></i></span>
@@ -372,6 +385,7 @@
 				li.setAttribute("id", "output-item-" + nextId); // added line
 				tray.parentNode.insertBefore(li, tray);
 				init();
+				window.scrollTo(0,document.body.scrollHeight);
 				
 				if (type == 0) {
 					var input = document.createElement('button');
