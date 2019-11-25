@@ -717,13 +717,29 @@
 				var varUUID = (JSON.parse(prjVarString.match(regex))||'')['objectIdString'];
 				var varType = (JSON.parse(prjVarString.match(regex))||'')['type'];
 				
-				if (document.getElementById("input-var-select").value == "") return console.error('Please select a variable first');
+				if (document.getElementById("input-var-select").value == "") {
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
+					return console.error('Please select a variable first');
+				}
 				
 				//Create the scripts
 				var keys = Object.keys(code);
 				keys.sort(function(a, b){return a-b});
 				
-				if (keys.length == 1) return console.error('Please select at least one input value besides other');
+				if (keys.length == 1) {
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
+					return console.error('Please select at least one input value besides other');
+				}
 				
 				for (i = 0; i < Object.keys(code).length; i++) {
 						var key = keys[i];
