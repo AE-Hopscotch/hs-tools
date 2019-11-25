@@ -284,6 +284,9 @@
 				  "type": 8000
 				}
 			];*/
+			
+			var createDate = Number(url.searchParams.get("pVars")) + 12.34567;
+			
 			for (i = 0; i < projectVariables.length; i ++){
 				console.log("Added Variable " + projectVariables[i].name);
 				var sel = document.getElementById("var-sel-hidden");
@@ -295,34 +298,6 @@
 			}
 			
 			$('#var-sel-hidden').remove();
-			
-			/* STRUCTURE OF SET VARIABLE
-			{
-				"block_class": "method",
-				"type": 45,
-				"description": "Set",
-				"parameters": [
-					{
-						"defaultValue": "",
-						"value": "",
-						"key": "Output",
-						"datum": {
-							"type": 8004,
-							"variable": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
-							"description": "Variable"
-						},
-						"type": 47
-					},
-					{
-						"defaultValue": "10",
-						"value": "VALUE",
-						"key": "to",
-						"type": 48
-					}
-				]
-			}
-			*/
-			
 			
 			//Text Area Resize
 			var observe;
@@ -667,7 +642,7 @@
 							document.getElementById(ids[0]).value = document.getElementById(ids[0]).value || document.getElementById("input-var-select").value;
 							var regex = new RegExp('\{.*"name":"'+document.getElementById(ids[0]).value+'".*\}', '');
 							
-							dictionary[String(inputNum)].push([2, (JSON.parse(prjVarString.match(regex))||'')['objectIdString'], (JSON.parse(prjVarString.match(regex))||'')['type'], document.getElementById(ids[1]).value]);
+							dictionary[String(inputNum)].push([2, (JSON.parse(prjVarString.match(regex))||'')['objectIdString'], (JSON.parse(prjVarString.match(regex))||'')['type'].replace('8000','8004'), document.getElementById(ids[1]).value]);
 							if (JSON.parse(prjVarString.match(regex)) == null) Red(ids[0]); else White(ids[0]);
 							break;
 						case 3:
@@ -684,13 +659,13 @@
 					
 					
 				}
-				console.log(JSON.stringify(dictionary));
+				
 				abilityJSON = dictionary;
 				
 				try {
 					hopscotchify(abilityJSON);
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 					console.log("Could not complete: check if you have any red text fields");
 					
 					document.getElementById('savebtn1').style.animationName = '';
@@ -715,7 +690,7 @@
 				
 				var regex = new RegExp('\{.*"name":"'+document.getElementById("input-var-select").value+'".*\}', '');
 				var varUUID = (JSON.parse(prjVarString.match(regex))||'')['objectIdString'];
-				var varType = (JSON.parse(prjVarString.match(regex))||'')['type'];
+				var varType = (JSON.parse(prjVarString.match(regex))||'')['type'].replace('8000','8004');
 				
 				if (document.getElementById("input-var-select").value == "") {
 					document.getElementById('savebtn1').style.animationName = '';
@@ -779,7 +754,7 @@
 										
 										return `HSB(${h},${s},${v})`;
 									}
-									//console.warn(block[1].replace(/"/gi,'\\"'));
+									
 									hsBlocksJSON[key].push( JSON.parse(`{
 										"block_class": "method",
 										"description": "Set Text",
@@ -878,7 +853,7 @@
 					hsAbilityList.push(JSON.parse(`
 					{
 						${(k==0) ? '"name": "' + document.getElementById('name-input').value + '",': ''}
-						"createdAt": "PLACEHOLDER",
+						"createdAt": "${createDate}",
 						"abilityID": "${uuids[2*k]}",
 						"blocks": [
 							{
@@ -931,7 +906,7 @@
 					var key = String(keys[k]);
 					hsAbilityList.push(JSON.parse(`
 					{
-						"createdAt": "PLACEHOLDER",
+						"createdAt": "${createDate}",
 						"abilityID": "${uuids[(k == keys.length-1) ? 2*k : 2*k + 1]}",
 						"blocks": [
 							${JSON.stringify(hsBlocksJSON[key]).replace(/^\[|\]$/gi,'')}
