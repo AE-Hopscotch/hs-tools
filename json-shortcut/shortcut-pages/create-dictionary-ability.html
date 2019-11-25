@@ -17,6 +17,7 @@
 			::placeholder {
 				opacity: 1;
 			}
+			
 			.input-settings {
 				display: flex;
 				width: 610px;
@@ -37,6 +38,10 @@
 			
 			div.input-settings input {
 				padding: 6px;
+			}
+			
+			#savebtn1 {
+				display: block;
 			}
 			
 			
@@ -134,7 +139,7 @@
 				background-color: #d7eae7;
 				margin: 12px 4px;
 			}
-			#add-controls .addbtn {
+			 .addbtn {
 				background-color: var(--btn-color);
 				margin: 4px;
 				padding: 0;
@@ -143,17 +148,17 @@
 				border: none;
 				cursor: pointer;
 			}
-			#add-controls .addbtn > .btn-content {
+			 .addbtn > .btn-content {
 				padding: 8px;
 				display: inline-block;
 			}
-			#add-controls button:hover {
+			 button.addbtn:hover {
 				opacity: 0.7;
 			}
-			#add-controls button:active {
+			 button.addbtn:active {
 				opacity: 0.5;
 			}
-			#add-controls button > .btn-content:focus {
+			 button.addbtn > .btn-content:focus {
 				outline: none;
 			}
 			/* Fixing the Safari bug for button overflow */
@@ -174,27 +179,39 @@
 				color: black;
 				cursor: default;
 			}
-			/*@media only screen and (max-width: 474px) {*/
+			 .addbtn {
+				display: inline-block;
+				min-width: 60px;
+				height: 60px;
+			}
+			#add-controls .flex {
+				display: inline-flex;
+			}	
+					
+			@media only screen and (max-width: 363px) {
 				.bigscreen {
 					display: none;
 				}
-				#add-controls .addbtn {
-					display: inline-block;
-					min-width: 60px;
-					height: 60px;
+				#add-controls #savebtn2 {
+					display: none;
 				}
-				#add-controls .flex {
-					display: inline-flex;
-				}
-			/*}*/
-			@media only screen and (min-width: 475px) {
-				.smallscreen {
-					/*display: none;*/
+				#topMargin {
+					display: block;
+					height: 96px;
 				}
 			}
-			@media only screen and (max-width: 995px) {
+			@media only screen and (min-width: 364px) {
+				.smallscreen, #savebtn1 {
+					display: none;
+				}
+				#topMargin {
+					display: block;
+					height: 64px;
+				}
 			}
-			@media only screen and (min-width: 996px) {
+			@media only screen and (max-width: 985px) {
+			}
+			@media only screen and (min-width: 986px) {
 				#add-controls {
 					position: fixed;
 					right: 8px;
@@ -206,26 +223,34 @@
 		</style>
 	</head>
 	<body>
+		<textarea hidden id="copytext"></textarea>
 		<div class="input-settings" style="position: fixed; top: 0; z-index: 10;">
-			<input placeholder="Ability Name">
+			<input id="name-input" placeholder="Ability Name">
 			<select id="input-var-select">
 				<option id="in-var-def" value="" hidden selected>Select Input Variable...</option>
 				<option id="var-sel-hidden" hidden></option>
 			</select>
 		</div>
-			<span class="input-settings" style="display: block; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span>
-		<br><br><br><br>
+		<span class="input-settings" style="display: block; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;">
+			<span style="display: inline-flex; justify-content: center; width: 100%;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span><br>
+			<button id="savebtn1" onclick="save()" class="smallscreen addbtn" style="width: auto; height: auto; margin: 4px auto; padding: 4px 8px; --btn-color: gray; position: ; right: 0;"><i class="fa fa-save"></i> Save Work</button>
+		</span>
+		<div id="topMargin" style=""></div>
 		<ul class="list-container">
+			<li id="output-item-0" type="3" style="display: none;"><input id="in0" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o0t" placeholder="[{&quot;block_class&quot;: &quot;method&quot;, &quot;type&quot;: 50}]" style="height: 3px;"></textarea></div><span id="oa0" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(0)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(0)"></i><i class="fa fa-trash oac" onclick="deleteItem(0)"></i></span></li>
 			<span id="add-controls">
-				<span class="smallscreen addbtn flex" style=""><i style="font-size: 36px;" class="fa fa-plus"></i></span>
-				<button onclick="addRow(0)" class="addbtn" style="--btn-color: limegreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;" class="fa fa-text-height smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Text Output</span></span></button>
-				<button onclick="addRow(1)" class="addbtn" style="--btn-color: mediumseagreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-picture-o smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Image Output</span></span></button>
-				<button onclick="addRow(2)" class="addbtn" style="--btn-color: goldenrod;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-sliders smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Set Variable Output</span></span></button>
-				<button onclick="addRow(3)" class="addbtn" style="--btn-color: steelblue;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-code smallscreen"></i><i class="fa fa-plus bigscreen"></i> <span class="bigscreen">Raw JSON Code Output</span></span></button>
+				<span class="smallscreen addbtn flex" style="display:none;"><i style="font-size: 36px;" class="fa fa-plus"></i></span>
+				<button onclick="addRow(0)" class="addbtn" style="--btn-color: limegreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;" class="fa fa-text-height "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Text Output</span></span></button>
+				<button onclick="addRow(1)" class="addbtn" style="--btn-color: mediumseagreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-picture-o "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Image Output</span></span></button>
+				<button onclick="addRow(2)" class="addbtn" style="--btn-color: goldenrod;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-sliders "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Variable Output</span></span></button>
+				<button onclick="addRow(3)" class="addbtn" style="--btn-color: steelblue;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-code "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Raw JSON Code Output</span></span></button>
+				<button id="savebtn2" onclick="save()" class="addbtn" style="--btn-color: gray;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-save"></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Raw JSON Code Output</span></span></button>
 			</span>
 		</ul>
 		<script>
 			//Load Project Variables 
+			var url = new URL(window.location.href);
+			var projectVariables = JSON.parse(url.searchParams.get("pVars"));
 			
 			var projectVariables = [
 				{
@@ -243,7 +268,7 @@
 				  "objectIdString": "28D46291-73DB-4BCC-923B-E9CC70C5BDA3-34757-00036ADE79BCA35F",
 				  "type": 8000
 				}
-			]
+			];
 			for (i = 0; i < projectVariables.length; i ++){
 				console.log("Added Variable " + projectVariables[i].name);
 				var sel = document.getElementById("var-sel-hidden");
@@ -360,7 +385,7 @@
 			document.body.onload = init();
 			
 			//Add Dictionary Rows
-			var nextId = 5;
+			var nextId = 1;
 			function addRow(type) {
 				console.log("Create key with type " + type);
 				var tray = document.getElementById("add-controls");
@@ -377,11 +402,12 @@
 						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..."><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
 						break;
 					case 3:
-						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'{"block_class": "method", "type": 50}\'></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'[{"block_class": "method", "type": 50}]\'></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
 						break;
 				}
 				li.innerHTML = output.replace(/!x!/g,nextId);
 				li.setAttribute("id", "output-item-" + nextId); // added line
+				li.setAttribute('type', type);
 				tray.parentNode.insertBefore(li, tray);
 				init();
 				window.scrollTo(0,document.body.scrollHeight);
@@ -392,6 +418,7 @@
 					input.setAttribute("class", "jscolor");
 					input.style.textAlign = "right";
 					input.setAttribute("tabindex", "-1");
+					input.id = "o" + nextId + "t_";
 					input.innerHTML = '<i style="position: relative; top: -1px; left: -5.5px; font-size: 11px;"  class="fa fa-eyedropper"></i>';
 					document.getElementById('btn-container-' + nextId).appendChild(input);
 				}
@@ -415,6 +442,482 @@
 				if($("#output-item-" + rowId).prev("li")[0] != undefined)
 				$("#" + $("#output-item-" + rowId).prev("li")[0].id).before($("#output-item-" + rowId));
 			}
+			
+			//Save the Code as JSON
+			function save() {
+				function Red(id) {
+					document.getElementById(id).style.backgroundColor = "rgba(255,0,0,0.1)";
+				}
+				function White(id) {
+					document.getElementById(id).style.backgroundColor = "white";
+				}
+				
+				var reference = {
+					"1": [0, "Hello", "#6E6"], //text: hello, color: lime
+					"2": [0, "World", "#000"], //text: world, color: black
+					"3": [1, 0], //set image, character: monkey
+					"4": [2, "var", 123] //output variable: number
+				};
+				
+				var actionsList = document.querySelectorAll(".list-container li");
+				var dictionary = {};
+				
+				for (a = 0; a < actionsList.length; a++) {
+					var action = actionsList[a];
+					var myId = action.id.replace("output-item-", "");
+					var inputNum = document.getElementById("in" + myId).value;
+					
+					var ids = [
+						"o" + myId + "t",
+						"o" + myId + "t_"
+					];
+					
+					dictionary[String(inputNum)] = dictionary[String(inputNum)] || [];
+					switch (Number(action.type)) {
+						case 0:
+							dictionary[String(inputNum)].push([0, document.getElementById(ids[0]).value, document.getElementById(ids[1]).style.backgroundColor]);
+							break;
+						case 1:
+							var characters = {
+								"monkey": 0,
+								"text": 1,
+								"octopus": 2,
+								"octo": 2,
+								"gorilla": 3,
+								"cupcake": 4,
+								"bear": 5,
+								"dino": 6,
+								"frog": 7,
+								"greenman": 8,
+								"jody": 8,
+								"mustache": 9,
+								"mrmustache": 9,
+								"mr.mustache": 9,
+								"spacepod": 10,
+								"zombiebear": 11,
+								"zombear": 11,
+								"ghoulopus": 12,
+								"bats": 13,
+								"frankenrilla": 14,
+								"jodywitch": 15,
+								"witchjody": 15,
+								"cauldron": 16,
+								"pumpkin": 17,
+								"broom": 18,
+								"lantern": 19,
+								"parrotflying": 20,
+								"parrot": 20,
+								"mandrill": 21,
+								"mosquito": 22,
+								"misschief": 23,
+								"venus": 24,
+								"jeepers": 25,
+								"banyan": 26,
+								"stargirl": 27,
+								"astro": 28,
+								"cosmiccody": 28,
+								"chillanna": 29,
+								"robo": 30,
+								"raccoon": 31,
+								"bird": 32,
+								"hs_end_of_characters": 33,
+								"square": 34,
+								"circle": 35,
+								"hexagon": 36,
+								"triangle": 37,
+								"righttriangle": 38,
+								"rectangle": 39,
+								"heart": 40,
+								"star": 41,
+								"arch": 42,
+								"parallelogram": 43,
+								"squiggle": 44,
+								"donut": 45,
+								"tetrisz": 46,
+								"z": 46,
+								"tetrist": 47,
+								"t": 47,
+								"tetrisl": 48,
+								"l": 48,
+								"corner": 49,
+								"flower": 50,
+								"threeprongedboomerang": 51,
+								"fanblade": 51,
+								"squishedbox": 52,
+								"bead": 53,
+								"chevron": 54,
+								"xshape": 55,
+								"x": 55,
+								"tetrisline": 56,
+								"platform": 56,
+								"hs_end_of_chapes": 57,
+								"toucan": 58,
+								"anteater": 59,
+								"crocodile": 60,
+								"sloth": 61,
+								"iguana": 62,
+								"hut": 63,
+								"penguin": 64,
+								"winterqueen": 65,
+								"queenana": 65,
+								"shyyeti": 66,
+								"yeti": 66,
+								"deer": 67,
+								"reindeer": 67,
+								"elf": 68,
+								"snowglobe": 69,
+								"polarbear": 70,
+								"sleigh": 71,
+								"mistletoe": 72,
+								"snowman": 73,
+								"gonzalo": 73,
+								"snowflake": 74,
+								"roundedsquarefullsize": 100,
+								"squarefullsize": 101,
+								"circlefullsize": 102,
+								"hexagonfullsize": 103,
+								"trianglefullsize": 104,
+								"righttrianglefullsize": 105,
+								"rectanglefullsize": 106,
+								"heartfullsize": 107,
+								"starfullsize": 108,
+								"archfullsize": 109,
+								"parallelogramtallfullsize": 110,
+								"tiltedrectangle": 110,
+								"squigglefullsize": 111,
+								"donutfullsize": 112,
+								"tetriszfullsize": 113,
+								"tetristfullsize": 114,
+								"tetrislfullsize": 115,
+								"zfullsize": 113,
+								"tfullsize": 114,
+								"lfullsize": 115,
+								"cornerfullsize": 116,
+								"flowerfullsize": 117,
+								"fanbladefullsize": 118,
+								"squishedboxfullsize": 119,
+								"roundedrighttrianglefullsize": 120,
+								"arrowroundedfullsize": 121,
+								"roundedarrow": 121,
+								"beadfullsize": 122,
+								"parallelogramwidefullsize": 123,
+								"chevronfullsize": 124,
+								"xfullsize": 125,
+								"tetrislinefullsize": 126,
+								"hexagonv3": 150,
+								"trianglev3": 151,
+								"rectanglev3": 152,
+								"heartv3": 153,
+								"starv3": 154,
+								"archv3": 155,
+								"squigglev3": 156,
+								"tetriszv3": 157,
+								"tetristv3": 158,
+								"tetrislv3": 159,
+								"zv3": 157,
+								"tv3": 158,
+								"lv3": 159,
+								"fanbladev3": 160,
+								"arrowroundedv3": 161,
+								"roundedarrowv3": 161,
+								"beadv3": 162,
+								"parallelogramwidev3": 163,
+								"parallelogramv3": 163,
+								"chevronv3": 164,
+								"hs_end_of_full_size_shapes": 165,
+								"hs_number_of_objects": 166,
+								"image": 2e3,
+								"hs_start_of_characters2": 3e3,
+								"crocodilejaws": 3001,
+								"lanternfullsize": 3002,
+								"hs_end_of_characters2": 3003,
+								"nil": 1e4,
+								"edgeofscreen": 3e4
+							};
+							
+							var chVal = document.getElementById(ids[0]).value || "";
+							if (characters[chVal.toLowerCase().replace(/\s/gi, "")] != null) {
+								dictionary[String(inputNum)].push([1, characters[chVal.toLowerCase().replace(/\s/gi, "")] ]);
+							} else {
+								dictionary[String(inputNum)].push([1, Number(chVal)||'' ]);
+							}
+							(characters[chVal.toLowerCase().replace(/\s/gi, "")] == null && (!/[0-9]/.test(chVal) || /[^0-9]/.test(chVal) )) ? Red(ids[0]) : White(ids[0]);
+							break;
+						case 2:
+							var prjVarString = "";
+							projectVariables.forEach(function (text) {
+								prjVarString += JSON.stringify(text) + "\n";
+							});
+							
+							document.getElementById(ids[0]).value = document.getElementById(ids[0]).value || document.getElementById("input-var-select").value;
+							var regex = new RegExp('\{.*"name":"'+document.getElementById(ids[0]).value+'".*\}', '');
+							
+							dictionary[String(inputNum)].push([2, (JSON.parse(prjVarString.match(regex))||'')['objectIdString'], (JSON.parse(prjVarString.match(regex))||'')['type'], document.getElementById(ids[1]).value]);
+							if (JSON.parse(prjVarString.match(regex)) == null) Red(ids[0]); else White(ids[0]);
+							break;
+						case 3:
+							document.getElementById(ids[0]).value = '[' + (document.getElementById(ids[0]).value||'').replace(/^\[+|\]+$/gi,'') + ']';
+							try {
+								dictionary[String(inputNum)].push([3, JSON.parse(document.getElementById(ids[0]).value)]);
+								White(ids[0]);
+							} catch (SyntaxError) {
+								Red(ids[0]);
+								dictionary[String(inputNum)].push([3,'']);
+							}
+							break;
+					}
+					
+					
+				}
+				console.log(JSON.stringify(dictionary));
+				abilityJSON = dictionary;
+				
+				try {
+					hopscotchify(abilityJSON);
+				} catch (e) {
+					console.log(e);
+					console.log("Could not complete: check if you have any red text fields");
+				}
+			
+			}	
+			
+			var abilityJSON = {};
+			var hsBlocksJSON = {};
+			//Get Hopscotch Code
+			function hopscotchify(code) {
+				//Check if Variable is selected					
+				var prjVarString = "";
+				projectVariables.forEach(function (text) {
+					prjVarString += JSON.stringify(text) + "\n";
+				});
+				
+				var regex = new RegExp('\{.*"name":"'+document.getElementById("input-var-select").value+'".*\}', '');
+				var varUUID = (JSON.parse(prjVarString.match(regex))||'')['objectIdString'];
+				var varType = (JSON.parse(prjVarString.match(regex))||'')['type'];
+				
+				if (document.getElementById("input-var-select").value == "") return console.error('Please select a variable first');
+				
+				//Create the scripts
+				var keys = Object.keys(code);
+				keys.sort(function(a, b){return a-b});
+				for (i = 0; i < Object.keys(code).length; i++) {
+						var key = keys[i];
+						hsBlocksJSON[key] = []; //Create empty list for each key
+						
+						var blocks = code[keys[i]]; //The value of that key
+						for (b = 0; b < blocks.length; b++) {
+							var block = blocks[b];
+							switch (block[0]) {
+								case 0:
+									function rgbToHsv(str) {
+										str = str.replace(/[rgb( )]/gi,'').split(',');
+										var r = str[0], g = str[1], b = str[2];
+										r /= 255, g /= 255, b /= 255;
+
+										var max = Math.max(r, g, b), min = Math.min(r, g, b);
+										var h, s, v = max;
+
+										var d = max - min;
+										s = max == 0 ? 0 : d / max;
+
+										if (max == min) {
+										h = 0; // achromatic
+										} else {
+										switch (max) {
+											case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+											case g: h = (b - r) / d + 2; break;
+											case b: h = (r - g) / d + 4; break;
+										}
+
+										h /= 6;
+										}
+										
+										h = Math.floor(h*36000)/100; s = Math.floor(s*10000)/100; v= Math.floor(v*10000)/100;
+										if (0<s&&s<=1) s == 1.01; 
+										if (0<v&&v<=1) v == 1.01;
+										
+										return `HSB(${h},${s},${v})`;
+									}
+									hsBlocksJSON[key].push( JSON.parse(`{
+										"block_class": "method",
+										"description": "Set Text",
+										"type": 40,
+										"parameters": [
+											{
+												"defaultValue": "",
+												"value": "${block[1]}",
+												"key": "to",
+												"type": 53
+											},
+											{
+												"defaultValue": "HSB(306,19,20)",
+												"value": "${rgbToHsv(block[2])}",
+												"key": "color",
+												"type": 44
+											}
+										]
+									}`) );	
+									break;
+								case 1:
+									hsBlocksJSON[key].push( JSON.parse(`{
+										"block_class":"method",
+										"description":"Set Image",
+										"type":56,
+										"parameters":[
+											{
+												"defaultValue":"",
+												"value":"",
+												"key":"",
+												"datum": {
+													"type":${block[1]},
+													"description":""
+												},
+												"type":54
+											}
+										]
+									}`) );
+									break;
+								case 2:
+									hsBlocksJSON[key].push( JSON.parse(`{
+										"block_class": "method",
+										"type": 45,
+										"description": "Set",
+										"parameters": [
+											{
+												"defaultValue": "",
+												"value": "",
+												"key": "",
+												"datum": {
+													"type": ${block[2]},
+													"variable": "${block[1]}",
+													"description": "Variable"
+												},
+												"type": 47
+											},
+											{
+												"defaultValue": "10",
+												"value": "${block[3]}",
+												"key": "to",
+												"type": 48
+											}
+										]
+									}`) );
+									break;
+								case 3:
+									block[1].forEach((c) => {
+										hsBlocksJSON[key].push(c);
+									});
+									break;
+							}
+						}
+				}
+				
+				var hsAbilityList = [];
+				
+				//Generate the check if else abilities
+				function uuidhs() {
+					return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx-xxxxx-xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+						var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+						return v.toString(16).toUpperCase();
+					});
+				}
+				
+				var uuids = [];
+				for (i = 0; i < keys.length * 2 - 1; i++) {
+					uuids.push(uuidhs());
+				}
+				
+				keys = keys.sort(function(a, b){return a-b});
+				keys.push(keys.splice(keys.indexOf(''), 1)[0]);
+				
+				for (k = 0; k < keys.length - 1; k++) {
+					var key = keys[k];
+					
+					hsAbilityList.push(JSON.parse(`
+					{
+						${(k==0) ? '"name": "' + document.getElementById('name-input').value + '",': ''}
+						"createdAt": "PLACEHOLDER",
+						"abilityID": "${uuids[2*k]}",
+						"blocks": [
+							{
+								"description": "Check If Else",
+								"controlFalseScript": {
+									"abilityID": "${uuids[2*k+2]}"
+								},
+								"block_class": "conditionalControl",
+								"type": 124,
+								"controlScript": {
+									"abilityID": "${uuids[2*k+1]}"
+								},
+								"parameters": [
+									{
+										"defaultValue": "",
+										"value": "",
+										"key": "",
+										"datum": {
+											"block_class": "conditionalOperator",
+											"type": 1000,
+											"description": "=",
+											"params": [
+												{
+													"defaultValue": "",
+													"value": "",
+													"key": "",
+													"datum": {
+														"type": ${varType},
+														"variable": "${varUUID}",
+														"description": "Variable"
+													},
+													"type": 42
+												},
+												{
+													"defaultValue": "7",
+													"value": "${key}",
+													"key": "=",
+													"type": 42
+												}
+											]
+										},
+										"type": 49
+									}
+								]
+							}
+						]
+					}`));
+				}
+				for (k = 0; k < keys.length; k++) {
+					var key = String(keys[k]);
+					console.log(hsBlocksJSON);
+					hsAbilityList.push(JSON.parse(`
+					{
+						"createdAt": "PLACEHOLDER",
+						"abilityID": "${uuids[2*k + (k == keys.length-1) ? 2 : 1 ]}",
+						"blocks": [
+							${JSON.stringify(hsBlocksJSON[key]).replace(/^\[|\]$/gi,'')}
+						]
+					}`));
+				}
+				
+				document.getElementById("copytext").value = JSON.stringify(hsAbilityList);
+				
+				function copyText(){
+					if (hasContent){
+						var copyText = document.getElementById("copytext");
+
+						copyText.select();
+						copyText.setSelectionRange(0, 9999999); //Mobile
+
+						document.execCommand("copy");
+						
+						window.getSelection().removeAllRanges();
+					}
+				}
+				
+				copyText();
+				
+				return console.log('Complete!');
+			}
+			
 		</script>
 	</body>
 </html>
