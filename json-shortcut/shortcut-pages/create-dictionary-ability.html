@@ -219,11 +219,26 @@
 				}
 			}
 			
+			#savebtn1, #savebtn2 {
+				animation-duration: 5s;
+			}
+			
+			@keyframes saveFail {
+				0%    {color: red;}
+				50%   {color: red;}
+				100%  {color: white;}
+			}
+			
+			@keyframes saveSuccess {
+				0%    {color: lime;}
+				50%   {color: lime;}
+				100%  {color: white;}
+			}
 			
 		</style>
 	</head>
 	<body>
-		<textarea id="copytext" style="position: fixed; left: -1000px; width: 200px;"></textarea>
+		<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 200px;"></textarea>
 		<div class="input-settings" style="position: fixed; top: 0; z-index: 10;">
 			<input id="name-input" placeholder="Ability Name">
 			<select id="input-var-select">
@@ -677,6 +692,13 @@
 				} catch (e) {
 					console.log(e);
 					console.log("Could not complete: check if you have any red text fields");
+					
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
 				}
 			
 			}	
@@ -700,6 +722,9 @@
 				//Create the scripts
 				var keys = Object.keys(code);
 				keys.sort(function(a, b){return a-b});
+				
+				if (keys.length == 1) return console.error('Please select at least one input value besides other');
+				
 				for (i = 0; i < Object.keys(code).length; i++) {
 						var key = keys[i];
 						hsBlocksJSON[key] = []; //Create empty list for each key
@@ -738,6 +763,7 @@
 										
 										return `HSB(${h},${s},${v})`;
 									}
+									//console.warn(block[1].replace(/"/gi,'\\"'));
 									hsBlocksJSON[key].push( JSON.parse(`{
 										"block_class": "method",
 										"description": "Set Text",
@@ -745,7 +771,7 @@
 										"parameters": [
 											{
 												"defaultValue": "",
-												"value": "${block[1]}",
+												"value": "${block[1].replace(/"/gi,'\\"')}",
 												"key": "to",
 												"type": 53
 											},
@@ -796,7 +822,7 @@
 											},
 											{
 												"defaultValue": "10",
-												"value": "${block[3]}",
+												"value": "${block[3].replace(/"/gi, '\\"')}",
 												"key": "to",
 												"type": 48
 											}
@@ -887,11 +913,10 @@
 				}
 				for (k = 0; k < keys.length; k++) {
 					var key = String(keys[k]);
-					console.log(hsBlocksJSON);
 					hsAbilityList.push(JSON.parse(`
 					{
 						"createdAt": "PLACEHOLDER",
-						"abilityID": "${uuids[2*k + (k == keys.length-1) ? 2 : 1 ]}",
+						"abilityID": "${uuids[(k == keys.length-1) ? 2*k : 2*k + 1]}",
 						"blocks": [
 							${JSON.stringify(hsBlocksJSON[key]).replace(/^\[|\]$/gi,'')}
 						]
@@ -899,6 +924,8 @@
 				}
 				
 				document.getElementById("copytext").value = JSON.stringify(hsAbilityList);
+				console.log(uuids);
+				console.log(hsAbilityList);
 				
 				function copyText(){
 					var copyText = document.getElementById("copytext");
@@ -912,7 +939,12 @@
 				}
 				
 				copyText();
-				
+				document.getElementById('savebtn1').style.animationName = '';
+				document.getElementById('savebtn2').style.animationName = '';
+				setTimeout(function(){
+					document.getElementById('savebtn1').style.animationName = 'saveSuccess';
+					document.getElementById('savebtn2').style.animationName = 'saveSuccess';
+				},10);
 				return console.log('Complete!');
 			}
 			
