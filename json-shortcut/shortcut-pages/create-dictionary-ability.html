@@ -266,6 +266,7 @@
 			//Load Project Variables 
 			var url = new URL(window.location.href);
 			var projectVariables = JSON.parse(url.searchParams.get("pVars"));
+			var createDate = Number(url.searchParams.get("createDate")) + 12.34567;
 			
 			/*var projectVariables = [
 				{
@@ -284,8 +285,6 @@
 				  "type": 8000
 				}
 			];*/
-			
-			var createDate = Number(url.searchParams.get("pVars")) + 12.34567;
 			
 			for (i = 0; i < projectVariables.length; i ++){
 				console.log("Added Variable " + projectVariables[i].name);
