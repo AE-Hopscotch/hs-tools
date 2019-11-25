@@ -223,7 +223,7 @@
 		</style>
 	</head>
 	<body>
-		<textarea hidden id="copytext"></textarea>
+		<textarea hidden id="copytext" style="position: fixed; left: -1000px; opacity: 0;"></textarea>
 		<div class="input-settings" style="position: fixed; top: 0; z-index: 10;">
 			<input id="name-input" placeholder="Ability Name">
 			<select id="input-var-select">
@@ -252,7 +252,7 @@
 			var url = new URL(window.location.href);
 			var projectVariables = JSON.parse(url.searchParams.get("pVars"));
 			
-			var projectVariables = [
+			/*var projectVariables = [
 				{
 					"name": "Vertical Velocity",
 					"objectIdString": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
@@ -268,7 +268,7 @@
 				  "objectIdString": "28D46291-73DB-4BCC-923B-E9CC70C5BDA3-34757-00036ADE79BCA35F",
 				  "type": 8000
 				}
-			];
+			];*/
 			for (i = 0; i < projectVariables.length; i ++){
 				console.log("Added Variable " + projectVariables[i].name);
 				var sel = document.getElementById("var-sel-hidden");
@@ -901,16 +901,14 @@
 				document.getElementById("copytext").value = JSON.stringify(hsAbilityList);
 				
 				function copyText(){
-					if (hasContent){
-						var copyText = document.getElementById("copytext");
+					var copyText = document.getElementById("copytext");
 
-						copyText.select();
-						copyText.setSelectionRange(0, 9999999); //Mobile
+					copyText.select();
+					copyText.setSelectionRange(0, 9999999); //Mobile
 
-						document.execCommand("copy");
-						
-						window.getSelection().removeAllRanges();
-					}
+					document.execCommand("copy");
+					
+					window.getSelection().removeAllRanges();
 				}
 				
 				copyText();
