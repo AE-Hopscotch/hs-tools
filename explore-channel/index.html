@@ -184,7 +184,7 @@
 				display:block;
 				transition: 0.5s;
 				position: fixed;
-				bottom: 0px; right: 0px;
+				bottom: 4px; right: 4px;
 				z-index: 100;
 				background-color: rgba(0,0,0,0.5);
 				padding:8px;
@@ -312,11 +312,12 @@
 				page += 1;
 			}
 			
-			document.addEventListener('scroll', function (event) {
-				if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
-					request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
-				}
+			$(window).scroll(function() {
+			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10) {
+				   request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+			   }
 			});
+			
 			
 			function copy(text){
 				var copyText = document.getElementById("copytext");
