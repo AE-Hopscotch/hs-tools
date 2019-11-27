@@ -144,7 +144,7 @@
 				position: relative;
 				top: -4px;
 			}
-			.info user {
+			.info div.user {
 				font-size: 14px;
 				font-family: Avenir;
 				text-align: right;
@@ -156,9 +156,8 @@
 				top: -2px;
 				line-height: 18px;
 			}
-			.info user:hover {
+			.info div.user:hover {
 				opacity: 0.7;
-				cursor: help;
 			}
 			.info stats {
 				display: flex;
@@ -217,7 +216,9 @@
 			<button onclick="showChannel('Random')">Random</button>
 			<button onclick="showChannel('Newest')">Newest</button>
 		</div><br><br><br>
+		<div class="flex"><div id="userInfo">User</div></div>
 		<div class="flex">
+
 			<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 100px;"></textarea>
 			<div h="example" class="project-card" id="10b385b55v">
 				<a href="https://c.gethopscotch.com/p/10b385b55v" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/10b385b55v.png');"></a>
@@ -262,6 +263,32 @@
 			setInterval(function(){animateLoader()}, 250);
 			animateLoader();
 			
+
+			function showUser(id) {
+				document.querySelector("#userInfo").style.display = 'initial'
+				$(".project-card").remove();
+				//Format the buttons
+				document.querySelectorAll(".topnav button").forEach(function(btn) {
+					btn.classList.remove('selected')
+				});
+				page = 1
+				path = "/users/" + id + "/published_projects"
+				document.getElementById("loadingBear").style.display = "";
+				document.body.scrollTop = 0; // For Safari
+				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+				request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				doCORSRequest({url: "http://c.gethopscotch.com/api/v2/users/" + id, method: "GET"}, result => {
+					let json = JSON.parse(result)
+					let specialMessages = {
+						670723: "OBEY ME, PUNY MORTALS!",
+						97077: 'Make sure to check out <a onclick="showUser(670723)">Petrichor</a>',
+						452673: '<h1 style="color: gold">He made this</h1>'
+					}
+					const special = specialMessages[id] || ""
+					document.querySelector('#userInfo').innerHTML = `<strong style="font-family:avenir">${json.nickname}</strong><br>${special}<br>`
+				})
+				setLocation('?user=' + id)
+			}
 			var path = "categories/best_of/featured";
 			function showChannel(channel) {
 				var names = {
@@ -290,7 +317,7 @@
 				
 				//Remove all existing project cards
 				$(".project-card").remove();
-				
+				document.querySelector('#userInfo').style.display = 'none'
 				page = 1;
 				document.getElementById("loadingBear").style.display = "";
 				document.body.scrollTop = 0; // For Safari
@@ -309,7 +336,7 @@
 					var hiddenElm = document.getElementById("ins-before");
 					var pCard = document.createElement("div");
 					pCard.setAttribute("class", "project-card");
-					pCard.innerHTML = `'<a href="https://c.gethopscotch.com/p/${p.uuid}" style="background-image: url('${p.screenshot_url}');"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><user>${p.user.nickname}</user><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+					pCard.innerHTML = `'<a href="https://c.gethopscotch.com/p/${p.uuid}" style="background-image: url('${p.screenshot_url}');"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><div class="user" onclick="showUser(${p.user.id})">${p.user.nickname}</div><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
 					pCard.setAttribute("id", p.uuid); // added line
 					hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
 				});
