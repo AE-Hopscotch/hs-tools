@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Web HS</title>
+		<title>AE Hopscotch Web</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,13 +36,15 @@
 				background-color: white;
 				display: flex;
 				width: 100%;
-				height: 50px;
+				height: 51px;
 				position: fixed;
 				top: 0px;
 				left: 0px;
 				overflow-x: auto;
+				overflow-y: visible;
 				padding-top: 6px;
 				z-index: 10;
+				border-bottom: 1px solid #ddd;
 			}
 			.topnav button {
 				background-color: white;
@@ -58,6 +60,7 @@
 				cursor: pointer;
 				color: #aaa;
 				border-bottom: 4px solid white;
+				z-index: 15;
 			}
 			.topnav button:hover {
 				opacity: 0.6;
@@ -94,7 +97,7 @@
 				overflow: hidden;
 			}
 			
-			.project-card a {
+			.project-card a.thumbnail {
 				width: 300px;
 				height: 300px;
 				overflow: hidden;
@@ -107,13 +110,38 @@
 				background-position: 50% 50%;
 			}
 			
-			.project-card a img {
+			.project-card a.thumbnail img {
 			/*width: 512px;
 				height: 300px;
 				padding: 0;
 				display:none;*/
 			}
 			
+			.remixbar:before {
+				content: url('../images/remix-icon.png');
+				width: 20px;
+				height: 20px;
+				position: relative;
+				top: -1px;
+				left: -3px;
+			}
+			.remixbar {
+				position: absolute;
+				padding: 6px 4px 4px 7px;
+				top: 8px;
+				right: 8px;
+				display: inline-flex;
+				max-width: 200px;
+				overflow: hidden;
+				white-space: nowrap;
+				height: 24px;
+				align-items: center;
+				font-family: Avenir;
+				background-color: #ddd;
+				color: #666;
+				border-radius: 2px;
+				opacity: 0.7;
+			}
 			.sharelinkbtn {
 				display: flex;
 				width: 60px;
@@ -144,7 +172,7 @@
 				position: relative;
 				top: -4px;
 			}
-			.info user {
+			.info a.user {
 				font-size: 14px;
 				font-family: Avenir;
 				text-align: right;
@@ -155,10 +183,10 @@
 				position: relative;
 				top: -2px;
 				line-height: 18px;
+				color: black;
 			}
-			.info user:hover {
+			.info a.user:hover {
 				opacity: 0.7;
-				cursor: help;
 			}
 			.info stats {
 				display: flex;
@@ -219,25 +247,28 @@
 		</div><br><br><br>
 		<div class="flex">
 			<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 100px;"></textarea>
-			<div h="example" class="project-card" id="10b385b55v">
-				<a href="https://c.gethopscotch.com/p/10b385b55v" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/10b385b55v.png');"></a>
-				<div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/10b385b55v')"></i></div>
+			<div hidden="example" class="project-card" id="10b385b55v">
+				<a class="thumbnail" href="https://c.gethopscotch.com/p/10b385b55v" id="img-10b385b55v" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/10b385b55v.png');"><img hidden="" src="https://s3.amazonaws.com/hopscotch-cover-images/production/10b385b55v.png" onerror="document.getElementById('img-10b385b55v').style='background-image: url(\'../images/no-thumbnail.png\');';"></a>
+				<div class="sharelinkbtn">
+					<i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/10b385b55v')"></i>
+				</div>
 				<div class="info">
-					<user>The Hopscotch Team</user>
-					<name>Getting started</name>
-					<stats><span><i class="fa fa-heart"></i> 1584</span><span><i class="fa fa-play"></i> 52258</span><span><i class="fa fa-clock-o"></i> 19w</span></stats>
+					<a class="user" href="user.html?id=665372&amp;cd=March 2015" title="Visit The Hopscotch Team’s Profile">The Hopscotch Team</a>
+					<name title="Getting started">Getting started</name>
+					<stats><span><i class="fa fa-heart"></i> 1601</span><span><i class="fa fa-play"></i> 52750</span><span><i class="fa fa-clock-o"></i> 19w</span></stats>
 				</div>
 			</div>
-			<div class="project-card" id="xii9vn8sh">
-				<a href="https://c.gethopscotch.com/p/xii9vn8sh" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/xii9vn8sh.png');"></a>
-				<div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/xii9vn8sh')"></i></div>
+			<div hidden="example" class="project-card" id="xii9vn8sh">
+				<a class="thumbnail" href="https://c.gethopscotch.com/p/xii9vn8sh" id="img-xii9vn8sh" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/xii9vn8sh.png');"><img hidden="" src="https://s3.amazonaws.com/hopscotch-cover-images/production/xii9vn8sh.png" onerror="document.getElementById('img-xii9vn8sh').style='background-image: url(\'../images/no-thumbnail.png\');';"></a>
+				<div class="sharelinkbtn">
+					<i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/xii9vn8sh')"></i>
+				</div>
 				<div class="info">
-					<user>Valgo⚡️⚡️⚡️</user>
-					<name>Kaleidocosmos</name>
-					<stats><span><i class="fa fa-heart"></i> 63473</span><span><i class="fa fa-play"></i> 1818499</span><span><i class="fa fa-clock-o"></i> 218w</span></stats>
+					<a class="user" href="user.html?id=721220&amp;cd=April 2015" title="Visit Valgo⚡️⚡️⚡️’s Profile">Valgo⚡️⚡️⚡️</a>
+					<name title="Kaleidocosmos">Kaleidocosmos</name>
+					<stats><span><i class="fa fa-heart"></i> 63510</span><span><i class="fa fa-play"></i> 1820665</span><span><i class="fa fa-clock-o"></i> 218w</span></stats>
 				</div>
 			</div>
-			
 			<span style="display:none;" id="ins-before"></span>
 		</div>
 
@@ -262,25 +293,25 @@
 			setInterval(function(){animateLoader()}, 250);
 			animateLoader();
 			
+			var names = {
+				"Featured": "categories/best_of/featured",
+				"Announcements": "categories/announcements/newest",
+				"Curated": "categories/newest_featured/newest",
+				"Halloween": "categories/hhc19/featured",
+				"Action": "categories/action/newest",
+				"Animation": "categories/animation/newest",
+				"Art": "categories/drawnart/newest",
+				"Build": "categories/build/newest",
+				"Education": "categories/science/newest",
+				"Ideas": "categories/hopscotch/newest",
+				"Puzzles": "categories/puzzles/newest",
+				"Simulation": "categories/simulations/newest",
+				"Random": "categories/other/newest",
+				"Newest": "projects/newest"
+			}
+				
 			var path = "categories/best_of/featured";
 			function showChannel(channel) {
-				var names = {
-					"Featured": "categories/best_of/featured",
-					"Announcements": "categories/announcements/newest",
-					"Curated": "categories/newest_featured/newest",
-					"Halloween": "categories/hhc19/featured",
-					"Action": "categories/action/newest",
-					"Animation": "categories/animation/newest",
-					"Art": "categories/drawnart/newest",
-					"Build": "categories/build/newest",
-					"Education": "categories/science/newest",
-					"Ideas": "categories/hopscotch/newest",
-					"Puzzles": "categories/puzzles/newest",
-					"Simulation": "categories/simulations/newest",
-					"Random": "categories/other/newest",
-					"Newest": "projects/newest"
-				}
-				
 				path = names[channel];
 				
 				//Format the buttons
@@ -301,27 +332,36 @@
 			}
 			
 			var page = 1;
+			var busy = false;
 			function showProjects(chProjects) {
 				chProjects = JSON.parse(chProjects);
 				chProjects.projects.forEach(function(p){
 					var d = p.correct_published_at.replace("Z",":00").replace(/[T:]/gi,"-").split('-');
-					
 					var hiddenElm = document.getElementById("ins-before");
 					var pCard = document.createElement("div");
 					pCard.setAttribute("class", "project-card");
-					pCard.innerHTML = `'<a href="https://c.gethopscotch.com/p/${p.uuid}" style="background-image: url('${p.screenshot_url}');"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><user>${p.user.nickname}</user><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+					var url = new URL(window.location.href);
+					var channel = url.searchParams.get("channel");
+					var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img hidden src="${p.screenshot_url}" onerror="document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?id=${p.user.id}&cd=${p.user.created_at}&prev=${channel}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+					if (p.original_user != undefined && p.original_user.nickname != p.user.nickname) {
+						pCard.innerHTML = `'<a href="user.html?id=${p.original_user.id}&cd=${p.original_user.created_at}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
+					} else {
+						pCard.innerHTML = baseCode;
+					}					
 					pCard.setAttribute("id", p.uuid); // added line
 					hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
 				});
-				
+				busy = false;
 				page += 1;
 			}
 			
 			$(window).scroll(function() {
-			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10) {
+			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy) {
 				   request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 			   }
 			});
+			
+			
 			
 			
 			function copy(text){
@@ -373,11 +413,14 @@
 				var x = new XMLHttpRequest();
 				x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
 				x.onload = x.onerror = function() {
-				printResult(
-					//options.method + ' ' + options.url + '\n' +
-					//x.status + ' ' + x.statusText + '\n\n' +
-					(x.responseText || '')
-				);
+					var url = new URL(window.location.href);
+					var channel = url.searchParams.get("channel");
+					console.log (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,''));
+					if (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'')) printResult(
+						//options.method + ' ' + options.url + '\n' +
+						//x.status + ' ' + x.statusText + '\n\n' +
+						(x.responseText || '')
+					);
 				};
 				if (/^POST/i.test(options.method)) {
 				x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -386,15 +429,15 @@
 			}
 
 			function request(input_url) {
-			console.log(input_url);
-			doCORSRequest({
-				method: 'GET',
-				url: input_url,
-				//data: dataField.value
-			}, function printResult(result) {
-				showProjects(result);
-				document.getElementById("loadingBear").style.display = "none";
-			});
+				busy = true;
+				doCORSRequest({
+					method: 'GET',
+					url: input_url,
+					//data: dataField.value
+				}, function printResult(result) {
+					showProjects(result);
+					document.getElementById("loadingBear").style.display = "none";
+				});
 			}
 			
 			var chProjects = {
