@@ -61,6 +61,8 @@
 				color: #aaa;
 				border-bottom: 4px solid white;
 				z-index: 15;
+				min-width: auto;
+				white-space: nowrap;
 			}
 			.topnav button:hover {
 				opacity: 0.6;
@@ -233,6 +235,7 @@
 			<button onclick="showChannel('Featured')">Featured</button>
 			<button onclick="showChannel('Announcements')">Announcements</button>
 			<button onclick="showChannel('Curated')">Curated</button>
+			<button onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button>
 			<button onclick="showChannel('Halloween')">Halloween</button>
 			<button onclick="showChannel('Action')">Action</button>
 			<button onclick="showChannel('Animation')">Animation</button>
@@ -297,6 +300,7 @@
 				"Featured": "categories/best_of/featured",
 				"Announcements": "categories/announcements/newest",
 				"Curated": "categories/newest_featured/newest",
+				"E’s Picks": "users/5757897/favorite_projects",
 				"Halloween": "categories/hhc19/featured",
 				"Action": "categories/action/newest",
 				"Animation": "categories/animation/newest",
@@ -517,7 +521,7 @@
 			
 			var url = new URL(window.location.href);
 			var channel = url.searchParams.get("channel");
-			if (/Featured|Announcements|Curated|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+			if (/Featured|Announcements|Curated|E’s Picks|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 				showChannel(channel);
 			} else {
 				showChannel("Featured");
@@ -526,7 +530,7 @@
 			if (window.history && window.history.pushState) {
 				$(window).on('popstate', function() {      
 					channel = url.searchParams.get("channel");
-					if (/Featured|Announcements|Curated|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 						showChannel(channel);
 					} else {
 						showChannel("Featured");
