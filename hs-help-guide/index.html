@@ -289,7 +289,9 @@
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
-					<li>Under Construction</li>
+					<li>Pointing at another object</li>
+					<li>Changing movement or appearance of an object</li>
+					<li>Better timings than set rotation (set angle is frame perfect; it occurs one time per frame)</li>
 				</ul></p>
 				<p><b style="font-size: 120%;">Other Info</b></p>
 				<p><ul style="font-size: 100%;">
@@ -303,13 +305,40 @@
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
+			<span hidden class="info" id="info59">
+			<bl type="move">Set Origin to x<i class="ps fa fa-hashtag"></i> y <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Sets the point at which the image of the object is drawn (the top left corner).</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>X-Coordinate – The x value at which the image starts drawing at (the left side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Y-Coordinate – The y value at which the image starts drawing at (the top side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Simplifying Calculations when resizing shapes and retaining position</li>
+					<li>Comprehending the exact size and absolute position of an object</li>
+					<li>Setting a fixed edge where set position would normally have to be between two integers</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: N/A – This block is missing a description. Would you like to <a href="https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Origin&category=bugs-in-editor">report the bug</a> and suggest a description?</li>
+					<li>Block ID: 59</li>
+					<li>This block is exclusively available in the beta editor for subscribers to test.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Origin%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
 			<span hidden class="info" id="info54">
 			<bl type="looks">Set Color <i class="ps fa fa-eyedropper"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix, William04GamerA</p><br/>
 				<p><b style="font-size: 120%;">Description</b></p>
 				<p style="margin-left: 45px;">Changes the color of an object</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
-					<li>Color – The color to set the object to. This applies to images, characters, and text, but only works for emojis if you add "Set Image to Blank Text" before it. This is a color parameter that allows you to pick a selection of default colors in addition to RGB and HSB operators, which allow you to specify custom colors using number parameters.</li>
+					<li>Color – The color to set the object to. This applies to images, characters, and text, but only works for emojis if you add "Set Image to Blank Text" before it. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters).</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
@@ -363,7 +392,7 @@
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
 					<li>Text – The text or value you would like the object to display. This is a text parameter that allows you to enter a text string, number, math operator, trait, or variable.</li>
-					<li>Color – The color you would like the text to be. This is a color parameter that allows you to pick a selection of default colors in addition to RGB and HSB operators, which allow you to specify custom colors using number parameters.</li>
+					<li>Color – The color you would like the text to be. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters).</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
@@ -630,7 +659,7 @@
 				</ul></p>
 			</span>
 			<span hidden class="info" id="info58">
-			<bl type="looks">Set Z Index (to)? <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+			<bl type="looks">Set Z Index <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
 				<p><b style="font-size: 120%;">Description</b></p>
 				<p style="margin-left: 45px;">Sets an index on layering priority. Objects with higher indexes are brought forward more.</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
@@ -647,7 +676,7 @@
 				<p><ul style="font-size: 100%;">
 					<li>Hopscotch Description: Set the depth layer, objects with the higest value will appear on top of the other objetcs.</li>
 					<li>Block ID: 58</li>
-					<li>This block is exclusively available in the beta editor for subscribers to test.</li>
+					<li>This block is available for everyone to use</li>
 				</ul></p>
 				<p><b style="font-size: 120%;">Community Links</b></p>
 				<p><ul style="font-size: 100%; margin-bottom: -10px;">
@@ -656,32 +685,318 @@
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
-			<span hidden class="info" id="info<!ID>"> <!TEMPLATE>
-			<bl type="looks"><!BLOCK_NAME> <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+			<span hidden class="info" id="info26">
+			<bl type="draw">Draw a Trail color <i class="ps fa fa-hashtag"></i> width <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
 				<p><b style="font-size: 120%;">Description</b></p>
-				<p style="margin-left: 45px;"><!DESCRIPTION></p>
+				<p style="margin-left: 45px;">Draws a trail with the object by following all movement blocks inside of it. Trails render behind all objects.</p>
 				<p><b style="font-size: 120%;">Parameters</b></p>
 				<p><ol style="font-size: 100%;">
-					<li><!PARAMETERS> – <!DESCRIPTION>. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+					<li>Color – Defines what color to use in the trail, which can be changed later using the <a href="?id=32">Set Trail Color Block</a>. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters).</li>
+					<li>Width – Determines the trail&rsquo;s width (diameter), which can be changed later using the <a href="?id=31">Set Trail Width Block</a>. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
 				</ol></p>
 				<p><b style="font-size: 120%;">Useful For</b></p>
 				<p><ul style="font-size: 100%;">
-					<li>Under Construction</li>
+					<li>Drawing Backgrounds</li>
+					<li>Pixel and shape arts</li>
+					<li>Making aesthetics without using objects</li>
 				</ul></p>
 				<p><b style="font-size: 120%;">Other Info</b></p>
 				<p><ul style="font-size: 100%;">
-					<li>Hopscotch Description: <!HS DESCRIPTION></li>
-					<li>Block ID: <!BLOCK_ID></li>
+					<li>Hopscotch Description: This block causes the object to draw a trail behind it whenever it moves. You can change the color and width. The bigger the number for Width, the thicker the trail.<br>Need to make a background? A thick trail with width 3000 and a Move Forward 1 block inside should do it!</li>
+					<li>Block ID: 26</li>
 					<li>This block is available for everyone to use</li>
 				</ul></p>
 				<p><b style="font-size: 120%;">Community Links</b></p>
 				<p><ul style="font-size: 100%; margin-bottom: -10px;">
-					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20<!NAMEHERE>%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li><a href="https://forum.gethopscotch.com/t/the-ultimate-guide-to-fast-pixel-art/53354">The Ultimate Guide to Fast Pixel Art</a> – This well-written tutorial by FearlessPhoenix explains the basics of using draw a trail blocks in order to create a super efficient pixel art method</li>
+					<li><a href="https://c.gethopscotch.com/p/zq0f4uiyf">Smooth Background Generator</a> – This project that I made can help you get started on making a custom gradient background for your project.</li>
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
-			
-			
+			<span hidden class="info" id="info32">
+			<bl type="draw">Set Trail Color to <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Changes the color of the trail currently being drawn</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Color – The new color of the trail. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters).</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Changing the Trail Color Without having to use another collapsible block</li>
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Sets the color of the line drawn.<br>Sequencing is key, so make sure to place this block inside the ‘Draw a Trail’ block and before the block that moves the character. (just like you would dip your paintbrush into a paint color before painting a line on your canvas).<br>Try using this block to make a ‘Draw a Rainbow’ ability. It’s also a helpful block if you’re making a drawing pad.</li>
+					<li>Block ID: 32</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=Using%20the%20Set%20Trail%20Color%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info31">
+			<bl type="draw">Set Trail Width to <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Changes the width of the current trail being drawn</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Width – The new width of the trail. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Changing the trail&rsquo;s width without using a new collapsible</li>
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Sets how wide the line will be drawn. Small numbers make a thin line while large numbers make a thick line. A line with width 3000 will take up the whole screen!<br>Try using this block to draw a background.</li>
+					<li>Block ID: 31</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=Hopscotch%E2%80%99s%20Set%20Trail%20Width%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info30">
+			<bl type="draw">Clear</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Clears every trail from the screen</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>There are no parameters for this block.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Clearing the screen</li>
+					<li>Using less editor space</li>
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Erases any lines or backgrounds that have been drawn.</li>
+					<li>Block ID: 30</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=The%20Purpose%20of%20the%20Clear%20Trails%20%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info45">
+			<bl type="var">Set Variable <i class="ps fa fa-sliders"></i> to <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Assigns a value to a variable/tracker.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Variable – Defines which variable should be assigned the value. This is a variable parameter that only lets you select yellow project or object variables that you have created.</li>
+					<li>Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Keeping score and other project statistics</li>
+					<li>Creating a Custom Event Trigger (e.g. clone communication, game event)</li>
+					<li>Storing numerical values that can be used later (for example, map spawn)</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Sets a special number for your project to remember. Give this number a unique name. Your new variable appears as an oval block that you can add to any number field, math operation or Set Text. This saved number can be changed later in your code by using the Increase block or using Set again.<br>Try using it to keep track of the score in your game.</li>
+					<li>Block ID: 45</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Hopscotch JSON Siri Shortcut</a> – My ultimate shortcut allows you to edit traits of variables that you normally would not be able to. You can delete and change the variable type whereas normally you can only rename variables.</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info44">
+			<bl type="var">Increase Variable <i class="ps fa fa-sliders"></i> by <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Increases the value of a variable/tracker.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Variable – Defines which variable should be increased or decreased. This is a variable parameter that only lets you select yellow project or object variables that you have created.</li>
+					<li>Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Creating a timer or lives counter</li>
+					<li>Keeping score that increases at a constant rate</li>
+					<li>Counting the number of times that something has happened</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Used with a variable to make it bigger. When the hero eats a pizza, increase her health by 1.<br>Making a lives counter that needs to decrease value when two objects bump? Use a negative number in the bubble.</li>
+					<li>Block ID: 44</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info122">
+			<bl type="ctrl">Check Once If <i class="ps fa fa-question-circle"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Runs the code inside if the condition is true.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Controlling when an action occurs if the event is run several times</li>
+					<li>Checking if a player has reached a certain point in the game before allowing them to proceed</li>
+					<li>Detecting or preventing glitches, exploits, or malicious code changes in your project</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: This allows you to only run blocks if a test is passed.<br>Define your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’.<br>Very important: The test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.</li>
+					<li>Block ID: 122</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://c.gethopscotch.com/p/10iu14ay37">Escape Hopscotch Headquarters (HHC19)</a> – Using a combination of JSON modding and Check Once If blocks, I can detect whether the project&rsquo;s code has been modified. If it has, the project does not start.</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info120">
+			<bl type="ctrl">Repeat <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Runs the actions inside it a set amount of times.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Repeat times – The number of times to run the code inside. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Automating certain processes</li>
+					<li>Making countdowns and timers</li>
+					<li>Waiting a set amount of frames</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Drag other blocks inside this block to repeat them a certain number of times. Very important: sequencing is key, so make sure to place the blocks in the exact order that they should be repeated.</li>
+					<li>Block ID: 120</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info124">
+			<bl type="ctrl">Check If Else <i class="ps fa fa-question-circle"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Runs the code inside the top half if the condition is true and runs the bottom half if the condition is false.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Managing actions for each specific clone or instance of an object</li>
+					<li>Creating two or more events that can happen on the same game rule based on the player&rsquo;s progress in the project</li>
+					<li>Making lists of actions or dictionaries. See the community links.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: This allows you to run one set of blocks if a test is passed and another set if it doesn’t pass.<br>Define your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’. If it’s greater than 10 do one thing, otherwise do something else.<br>Very important: the test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.</li>
+					<li>Block ID: 124</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://forum.gethopscotch.com/t/this-siri-shortcut-can-modify-your-projects/50533/1633">Custom Dictionary Abilities</a> – This is a modding tool that I made which allows you to input several types of actions corresponding to an input value. It uses a list of If Else blocks to create a list of outcomes based on the input variable.</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info121">
+			<bl type="ctrl">Repeat Forever</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Runs the actions inside it for the rest of the time the project is playing.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>There are no parameters for this block.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Looping actions indefinitely such as rain falling</li>
+					<li>Creating score and time counters</li>
+					<li>Constantly checking or updating variables.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Add blocks into the container to repeat them forever.<br>Very important: Any blocks that are added below and outside the ‘Repeat Forever’ block will NEVER be performed. This is because the repeat loop will continue forever.<br>If you want to add more blocks below ‘Repeat Forever’, create a new When for the character and add those blocks to that new When.</li>
+					<li>Block ID: 121</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info61">
+			<bl type="ctrl">Wait seconds <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Waits a specified amount of seconds</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Time (seconds) – The amount of time (in seconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Creating Timers</li>
+					<li>Timing sequences to make projects work smoothly</li>
+					<li>Animations</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Pauses for a certain amount of time in seconds. 1 second is equal to 1000 milliseconds. Try using decimals to get greater precision, for example: wait 0.5 seconds.<br>Try using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.</li>
+					<li>Block ID: 61</li>
+					<li>This block is available for everyone to use</li>
+					<li>This block replaced the old <a href="?id=35">Wait milliseconds</a> block in order to make things more clear for new users.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://forum.gethopscotch.com/t/how-hopscotch-works/53966">How Hopscotch Works</a> – CEO AwesomeOnion describes the timing of wait blocks, the way they work, and their precision.</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
+			<span hidden class="info" id="info53">
+			<bl type="ctrl">Create a Clone of This Object <i style="color: lightgray; font-style: normal;">times</i> <i class="ps fa fa-hashtag" style="background-color: lightgray;"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Creates another clone, or instance, of the current object.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li style="color: gray;">Number of clones – When a number parameter is added by JSON modding, it specifies the number of clones to create instantly. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Reducing the number of objects in your editor, freeing up stage space.</li>
+					<li>Creating pieces that fall under a base object. For instance, creating a draggable box with minor details on it as clones</li>
+					<li>Increasing efficiency within the project.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: This block creates an exact copy of the current character and makes that copy appear on the screen. The clone will appear right on top of the current character (so it might be hard to see).<br>For an example, search the community for Spiral Draw. In that project the trails you are drawing with are actually clones!</li>
+					<li>Block ID: 53</li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
 			<span hidden class="info" id="info55">
 			<bl type="ctrl">Destroy</bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, GameCodingCrazy123</p><br/>
 				<p><b style="font-size: 120%;">Description</b></p>
@@ -709,7 +1024,84 @@
 					<li>Under Construction</li>
 				</ul></p>
 			</span>
+			<span hidden class="info" id="info125">
+			<bl type="ctrl">Change Scene to <i class="ps fa fa-picture-o"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Changes the scene of the project when it is playing.</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Scene – Determines which scene to change to. This is a scene parameter that lets you select from the scenes that exist in your project.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Creating levels or rooms</li>
+					<li>Utilizing separate parts of a project</li>
+					<li>Creating a game with different modes</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Go to a different scene in the project. This will immediately change out all your objects, but won’t change the background.</li>
+					<li>Block ID: 125</li>
+					<li>This block is exclusively available in the beta editor for subscribers to test.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://forum.gethopscotch.com/t/this-siri-shortcut-can-modify-your-projects/50533">Hopscotch JSON Siri Shortcut Topic</a> – Here you can ask me things about the properties of the block as well as why the parameter works better as a number.</li>
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Change%20Scene%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span><span hidden class="info" id="info<!ID>"> <!TEMPLATE>
+			<bl type="ctrl"><!BLOCK_NAME> <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;"><!DESCRIPTION></p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li><!PARAMETERS> – <!DESCRIPTION>. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Under Construction</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: <!HS DESCRIPTION></li>
+					<li>Block ID: <!BLOCK_ID></li>
+					<li>This block is available for everyone to use</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li>There are no tutorials on this block yet. Why not <a href="https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20<!NAMEHERE>%20Block&category=open-source-code&tags=howto">create one</a>?</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
 			
+			<span hidden class="info" id="info35">
+			<bl type="old">Wait milliseconds <i class="ps fa fa-hashtag"></i></bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E, FearlessPhoenix</p><br/>
+				<p><b style="font-size: 120%;">Description</b></p>
+				<p style="margin-left: 45px;">Waits a specified amount of milliseconds</p>
+				<p><b style="font-size: 120%;">Parameters</b></p>
+				<p><ol style="font-size: 100%;">
+					<li>Time (milliseconds) – The amount of time (in milliseconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables.</li>
+				</ol></p>
+				<p><b style="font-size: 120%;">Useful For</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Creating Timers</li>
+					<li>Timing sequences to make projects work smoothly</li>
+					<li>Animations</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Other Info</b></p>
+				<p><ul style="font-size: 100%;">
+					<li>Hopscotch Description: Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.<br>Try using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.</li>
+					<li>Block ID: 35</li>
+					<li>This block is no longer in use. Functionality is not guaranteed for future versions, and the only way to obtain this block is from JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a></li>
+					<li>This block has been replaced by the new <a href="?id=61">Wait seconds</a> block, which serves the same purpose and is more friendly to beginners.</li>
+				</ul></p>
+				<p><b style="font-size: 120%;">Community Links</b></p>
+				<p><ul style="font-size: 100%; margin-bottom: -10px;">
+					<li><a href="https://forum.gethopscotch.com/t/how-hopscotch-works/53966">How Hopscotch Works</a> – CEO AwesomeOnion describes the timing of wait blocks, the way they work, and their precision.</li>
+					<li>Under Construction</li>
+				</ul></p>
+			</span>
 			<span hidden class="info" id="info19">
 			<bl type="old">Wait til Timestamp <i class="ps fa fa-hashtag"></i> </bl> <p style="display:inline; font-size:100%;"> Written by Awesome_E</p><br/>
 				<p><b style="font-size: 120%;">Description</b></p>
@@ -728,7 +1120,7 @@
 				<p><ul style="font-size: 100%;">
 					<li>Hopscotch Description: N/A – This block has not yet been implemented into Hopscotch.</li>
 					<li>Block ID: 19</li>
-					<li>This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/zyhoqlcqp">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/shortcut-help-guide/#download">Siri Shortcut</a></li>
+					<li>This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a></li>
 				</ul></p>
 				<p><b style="font-size: 120%;">Community Links</b></p>
 				<p><ul style="font-size: 100%; margin-bottom: -10px;">
@@ -761,6 +1153,7 @@
 				<li onclick="display(28)"><a href="javascript:show()" class="plus-as-tab">Change Y by <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(34)"><a href="javascript:show()" class="plus-as-tab">Set Speed to <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(39)"><a href="javascript:show()" class="plus-as-tab">Set Angle <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(59)"><a href="javascript:show()" class="plus-as-tab">Set Origin <i class="ps fa fa-hashtag"></i> </a></li>
 			</moveblocks>
 			
 			<lookblocks>
@@ -796,7 +1189,7 @@
 				<li onclick="display(120)"><a href="javascript:show()" class="plus-as-tab">Repeat <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(124)"><a href="javascript:show()" class="plus-as-tab">Check If Else <i class="ps fa fa-question-circle"></i> </a></li>
 				<li onclick="display(121)"><a href="javascript:show()" class="plus-as-tab">Repeat Forever</a></li>
-				<li onclick="display(35)"><a href="javascript:show()" class="plus-as-tab">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(61)"><a href="javascript:show()" class="plus-as-tab">Wait seconds <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(53)"><a href="javascript:show()" class="plus-as-tab">Create a Clone of This Object</a></li>
 				<li onclick="display(55)"><a href="javascript:show()" class="plus-as-tab">Destroy <h>Destroy Object</h><h>Destroy Clone</h></a></li>
 				<li onclick="display(125)"><a href="javascript:show()" class="plus-as-tab">Change Scene <i class="ps fa fa-file-photo-o"></i> </a></li>
@@ -808,6 +1201,7 @@
 				<li onclick="display(37)"><a href="javascript:show()" class="plus-as-tab">Pen Down</a></li>
 				<li onclick="display(38)"><a href="javascript:show()" class="plus-as-tab">Pen Up</a></li>
 				<li onclick="display(46)"><a href="javascript:show()" class="plus-as-tab">Move With Trail distance <i class="ps fa fa-hashtag"></i> </a></li>
+				<li onclick="display(35)"><a href="javascript:show()" class="plus-as-tab">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(19)"><a href="javascript:show()" class="plus-as-tab">Wait Until Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait until Unix Timestamp</h></a></li>
 			</oldblocks>
 				
