@@ -35,6 +35,10 @@ function setLocation(href){
 	history.pushState ? history.pushState(null, null, href) : location.hash = href;
 }
 
+function replaceLocation(href) {
+	history.replaceState ? history.replaceState(null, null, href) : location.hash = href;
+}
+
 //Access Cookies
 function setCookie(cname,cvalue,exdays) {
 	var d = new Date();
