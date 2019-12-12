@@ -23,10 +23,35 @@
 		
 		<link href='https://fonts.googleapis.com/css?family=Avenir' rel='stylesheet'>
 		
-		<style>
+		<style note="<!THIS IS NOT FINISHED YET>">
+			:root {
+				--col-bg-main: #F8F8F8; /* #F8F8F8 black */
+				--col-bg-toolbar: white; /* white #222 */
+				--col-low-border: 1px solid #ddd; /* #ddd #666 */
+				--col-label-text: black; /* black #ccc */
+				--img-opacity: 1; /* 0.4 1 */
+				--transition-time: 0s;
+			}
+			
 			html, body {
-				background-color: #F8F8F8;
+				background-color: var(--col-bg-main);
 				height: calc(100% - 8px);
+				transition: background-color var(--transition-time);
+			}
+			
+			#themebtn {
+				position: fixed;
+				bottom: 8px;
+				left: 8px;
+				font-size: 14px;
+				cursor: pointer;
+				background-color: #0d6f62;
+				color: white;
+				padding: 4px 6px;
+				margin: 6px;
+				border: none;
+				outline: none;
+				z-index: 10;
 			}
 			
 			.topSticky {
@@ -34,9 +59,11 @@
 				width: 100%;
 				top: 0;
 				left: 0;
-				background-color: white;
+				background-color: var(--col-bg-toolbar);
 				z-index: 15;
-				border-bottom: 1px solid #ddd;
+				border-bottom: var(--col-low-border);
+				color: var(--col-label-text);
+				transition: color var(--transition-time), background-color var(--transition-time), border-bottom var(--transition-time);
 			}
 			.topSticky h1 {
 				display: block;
@@ -52,9 +79,10 @@
 				margin: auto;
 				padding: 14px;
 				font-size: 24px;
-				background-color: white;
+				background-color: var(--col-bg-toolbar);
 				color: #999;
 				height: 100%;
+				transition: background-color var(--transition-time);
 			}
 			
 			@media only screen and (min-width: 512px) {
@@ -67,7 +95,7 @@
 				height: 0px;
 			}
 			.topnav {
-				background-color: white;
+				background-color: var(--col-bg-toolbar);
 				display: block;
 				width: calc(100% + 16px);
 				position: relative;
@@ -77,7 +105,9 @@
 				overflow-x: auto;
 				padding-top: 6px;
 				z-index: 10;
-				border-bottom: 1px solid #ddd;
+				border-bottom: var(--col-low-border);
+				color: var(--col-label-text);
+				transition: color var(--transition-time), background-color var(--transition-time), border-bottom var(--transition-time);
 			}
 			.topnav img {
 				display: block;
@@ -91,7 +121,7 @@
 				font-family: Avenir;
 			}
 			.topnav button {
-				background-color: white;
+				background-color: rgba(0,0,0,0);
 				display: inline-block;
 				width: calc(50% - 0px);
 				margin: 0;
@@ -103,7 +133,7 @@
 				outline: none;
 				cursor: pointer;
 				color: #aaa;
-				border-bottom: 4px solid white;
+				border-bottom: 4px solid rgba(0,0,0,0);
 			}
 			.topnav button:hover {
 				opacity: 0.6;
@@ -131,13 +161,15 @@
 				align-content: space-around;
 			}
 			.flex .project-card {
-				background-color: white;
+				background-color: var(--col-bg-toolbar);
 				width: 300px;
 				height: 375px;
 				margin: 16px;
 				position: relative;
 				border-radius: 8px;
 				overflow: hidden;
+				color: var(--col-label-text);
+				transition: color var(--transition-time), background-color var(--transition-time);
 			}
 			
 			.project-card a.thumbnail {
@@ -147,10 +179,11 @@
 				display: flex;
 				justify-content: space-around;
 				padding: 0;
-				
 				background-size: cover;
 				background-repeat: no-repeat;
 				background-position: 50% 50%;
+				opacity: var(--img-opacity);
+				transition: opacity var(--transition-time);
 			}
 			
 			.project-card a.thumbnail img {
@@ -184,6 +217,7 @@
 				color: #666;
 				border-radius: 2px;
 				opacity: 0.7;
+				z-index: 2;
 			}
 			.sharelinkbtn {
 				display: flex;
@@ -226,7 +260,8 @@
 				position: relative;
 				top: -2px;
 				line-height: 18px;
-				color: black;
+				color: var(--col-label-text);
+				transition: color var(--transition-time);
 			}
 			.info a.user:hover {
 				opacity: 0.7;
@@ -269,11 +304,12 @@
 		</style>
 	</head>
 	<body>
+		<button class="openbtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 2;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<sq>
-			<a href="javascript:home()"><svg id="homeSvg" style="fill:#eee;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+			<a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#eee;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
 		</sq>
 		<div class="topSticky">
-			<a class="back"><i class="fa fa-angle-left"></i></a>
+			<a class="back" href="javascript:back();"><i class="fa fa-angle-left"></i></a>
 			<h1>&ic;</h1>
 		</div><br><br><br>
 		<div class="topnav">
@@ -384,9 +420,6 @@
 			   }
 			});
 			
-			
-			
-			
 			function copy(text){
 				var copyText = document.getElementById("copytext");
 				
@@ -455,7 +488,6 @@
 
 			function request(input_url) {
 				busy = true;
-				console.warn('busy');
 				doCORSRequest({
 					method: 'GET',
 					url: input_url,
@@ -571,8 +603,41 @@
 				}, function printResult(result) {
 					document.querySelector(".topSticky h1").innerHTML = JSON.parse(result).nickname;
 				});
+			
 			document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + joinDate;
 			document.querySelector(".topSticky a").href = "../explore-channel/?channel=" + prev;
+			
+			console.log("Referrer: " + document.referrer);
+			
+			//User Theme Preference
+			if(getCookie("dark_mode") == 'true') {
+				theme_(2);
+			}
+			
+			var dark_mode = (getCookie("dark_mode") == 'true');
+			function theme_(t) {
+				//Sets Dark Mode Variable
+				if (t == -1) dark_mode = dark_mode; else if (t == 0 || t == undefined) dark_mode = !dark_mode; else dark_mode = (t == 2);
+				
+				if (dark_mode) {
+					document.documentElement.style.setProperty('--col-bg-main', 'black');
+					document.documentElement.style.setProperty('--col-bg-toolbar', '#222');
+					document.documentElement.style.setProperty('--col-low-border', '1px solid #666');
+					document.documentElement.style.setProperty('--col-label-text', '#ccc');
+					document.documentElement.style.setProperty('--img-opacity', '0.4');
+				} else {
+					document.documentElement.style.setProperty('--col-bg-main', '#F8F8F8');
+					document.documentElement.style.setProperty('--col-bg-toolbar', 'white');
+					document.documentElement.style.setProperty('--col-low-border', '1px solid #ddd');
+					document.documentElement.style.setProperty('--col-label-text', 'black');
+					document.documentElement.style.setProperty('--img-opacity', '1');
+				}
+				
+			}
+			
+			setTimeout(function(){
+				document.documentElement.style.setProperty('--transition-time', '0.5s');
+			},10);
 		</script>
 	</body>
 </html>
