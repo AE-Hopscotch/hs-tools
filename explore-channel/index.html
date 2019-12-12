@@ -269,7 +269,8 @@
 			<button onclick="showChannel('Announcements')">Announcements</button>
 			<button onclick="showChannel('Curated')">Curated</button>
 			<button onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button>
-			<button onclick="showChannel('Halloween')">Halloween</button>
+			<button onclick="showChannel('Halloween')" style="display:none;">Halloween</button>
+			<button onclick="showChannel('Christmas')">Christmas</button>
 			<button onclick="showChannel('Action')">Action</button>
 			<button onclick="showChannel('Animation')">Animation</button>
 			<button onclick="showChannel('Art')">Art</button>
@@ -335,6 +336,7 @@
 				"Curated": "categories/newest_featured/newest",
 				"E’s Picks": "users/5757897/favorite_projects",
 				"Halloween": "categories/hhc19/featured",
+				"Christmas": "categories/christmas/featured",
 				"Action": "categories/action/newest",
 				"Animation": "categories/animation/newest",
 				"Art": "categories/drawnart/newest",
@@ -353,7 +355,7 @@
 				
 				//Format the buttons
 				document.querySelectorAll(".topnav button").forEach(function(btn){
-					if (btn.innerHTML == channel) btn.setAttribute("class", "selected"); else btn.removeAttribute("class");
+					if (btn.innerHTML == channel) {btn.setAttribute("class", "selected"); btn.scrollIntoView();} else btn.removeAttribute("class");
 				});
 				
 				//Remove all existing project cards
@@ -379,9 +381,9 @@
 					pCard.setAttribute("class", "project-card");
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img hidden src="${p.screenshot_url}" onerror="document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?id=${p.user.id}&cd=${p.user.created_at}&prev=${channel}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+					var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img hidden src="${p.screenshot_url}" onerror="document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.user)))}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
 					if (p.original_user != undefined && p.original_user.id != p.user.id) {
-						pCard.innerHTML = `'<a href="user.html?id=${p.original_user.id}&cd=${p.original_user.created_at}&prev=${channel}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
+						pCard.innerHTML = `'<a href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
 					} else {
 						pCard.innerHTML = baseCode;
 					}					
@@ -411,8 +413,7 @@
 				window.getSelection().removeAllRanges();
 			}
 			
-			function timeDifference(current, previous) {
-				
+			function timeDifference(current, previous) {		
 				var msPerMinute = 60 * 1000;
 				var msPerHour = msPerMinute * 60;
 				var msPerDay = msPerHour * 24;
@@ -551,7 +552,7 @@
 			
 			var url = new URL(window.location.href);
 			var channel = url.searchParams.get("channel");
-			if (/Featured|Announcements|Curated|E’s Picks|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+			if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 				showChannel(channel, false);
 			} else {
 				showChannel("Featured", false);
@@ -560,7 +561,7 @@
 			if (window.history && window.history.pushState) {
 				$(window).on('popstate', function() {      
 					channel = url.searchParams.get("channel");
-					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 						showChannel(channel, false);
 					} else {
 						showChannel("Featured", false);
@@ -592,7 +593,7 @@
 					document.documentElement.style.setProperty('--col-low-border', '1px solid #ddd');
 					document.documentElement.style.setProperty('--col-label-text', 'black');
 					document.documentElement.style.setProperty('--img-opacity', '1');
-					setCookie("dark_mode", "true", 30);
+					setCookie("dark_mode", "false", 30);
 					console.log("Saved Light Mode");
 				}
 				
