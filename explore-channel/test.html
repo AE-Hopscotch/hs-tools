@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>AE Hopscotch Web</title>
+		<title>4:05pm</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -554,10 +554,8 @@
 			var channel = url.searchParams.get("channel");
 			if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 				showChannel(channel, false);
-        alert("defaultshow, " + channel + "<br>" + location.href);
 			} else {
 				showChannel("Featured", false);
-        alert("defaultshow, " + channel + " (featured) <br>" + location.href);
 			}
 			
 			if (window.history && window.history.pushState) {
@@ -565,13 +563,15 @@
 					channel = url.searchParams.get("channel");
 					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 						showChannel(channel, false);
-            alert("defaultshow, " + channel + "<br>" + location.href);
 					} else {
 						showChannel("Featured", false);
-            alert("Pop state, " + channel + "(featured) <br>" + location.href);
 					}
 				});
 			}
+			
+			$(function() {
+				alert("load");
+			});
 			
 			//User Theme Preference
 			if(getCookie("dark_mode") == 'true') {
@@ -602,7 +602,7 @@
 				}
 				
 			}
-      
+			
 			setTimeout(function(){
 				document.documentElement.style.setProperty('--transition-time', '0.5s');
 			},10);
