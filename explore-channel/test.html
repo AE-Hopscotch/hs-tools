@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>7p</title>
+		<title>10:10PM</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -348,7 +348,7 @@
 				"Random": "categories/other/newest",
 				"Newest": "projects/newest"
 			}
-				
+			
 			var path = "categories/best_of/featured";
 			function showChannel(channel, addHistoryEntry) {
 				path = names[channel];
@@ -369,9 +369,9 @@
 				
 				(addHistoryEntry != false) ? setLocation("?channel=" + encodeURI(channel)) : replaceLocation("?channel=" + encodeURI(channel));
 								
-				var url = new URL(window.location.href);
-				var channel = url.searchParams.get("channel");
+				channelName = channel;
 			}
+			var channelName = "Featured";
 			
 			var page = 1;
 			var busy = false;
@@ -586,7 +586,7 @@
 				if (iOS_show) {
 					checkIndex++;
 					if (checkIndex == 5) {
-						var url = new URL(window.location.href);
+						var url = new URL(window.location.href.replace(/?.*$/, "?channel=" + channelName));
 						alert(channel);
 						var channel = url.searchParams.get("channel");
 						alert("coming back with url " + location.href + "\nChannel: " + channel);
