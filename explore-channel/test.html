@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>6:52PM</title>
+		<title>6:57PM</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -580,19 +580,23 @@
 			function iOS_leave() {
 				iOS_show = true;
 			}
-			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) var checkLoop = setInterval(function(){checkShowChannel();},600);
+			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) var checkLoop = setInterval(function(){checkShowChannel();}, 200);
 			function checkShowChannel() {
 				if (iOS_show) {
-					var url = new URL(window.location.href);
-					alert(channel);
-					var channel = url.searchParams.get("channel");
-					alert("coming back with url " + location.href + "\nChannel: " + channel);
-					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
-						showChannel(channel, false);
-					} else {
-						showChannel("Featured", false);
+					i++;
+					if (i == 5) {
+						var url = new URL(window.location.href);
+						alert(channel);
+						var channel = url.searchParams.get("channel");
+						alert("coming back with url " + location.href + "\nChannel: " + channel);
+						if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+							showChannel(channel, false);
+						} else {
+							showChannel("Featured", false);
+						}
+						iOS_show = false;
+						i = 0;
 					}
-					iOS_show = false;
 				}
 			}
 			
