@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>420</title>
+		<title>4:24</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -368,6 +368,9 @@
 				request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
 				(addHistoryEntry != false) ? setLocation("?channel=" + encodeURI(channel)) : replaceLocation("?channel=" + encodeURI(channel));
+								
+				var url = new URL(window.location.href);
+				var channel = url.searchParams.get("channel");
 			}
 			
 			var page = 1;
@@ -568,11 +571,6 @@
 					}
 				});
 			}
-			
-			$(window).on('load', function() {      
-				alert(channel);
-			});
-			alert(channel + " 2");
 			
 			//User Theme Preference
 			if(getCookie("dark_mode") == 'true') {
