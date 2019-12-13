@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>5:08</title>
+		<title> Web</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -582,8 +582,9 @@
 			}
 			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) var checkLoop = setInterval(function(){checkShowChannel();},200);
 			function checkShowChannel() {
-				document.body.style.backgroundColor = 'red';
+				document.body.style.backgroundColor = rgba(0,0,0,Math.random());
 				if (iOS_show) {
+					alert("dam");
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
 					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
@@ -591,8 +592,8 @@
 					} else {
 						showChannel("Featured", false);
 					}
-					clearInterval(checkLoop);
 					iOS_show = false;
+					clearInterval(checkLoop);
 				}
 			}
 			
