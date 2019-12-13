@@ -576,8 +576,8 @@
 			var checkLoop;
 			function iOS_leave() {
 				iOS_show = true;
-				var checkLoop = setInterval(function(){checkShowChannel();},100);
 			}
+			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) var checkLoop = setInterval(function(){checkShowChannel();},200);
 			function checkShowChannel() {
 				if (iOS_show) {
 					var url = new URL(window.location.href);
@@ -587,6 +587,7 @@
 					} else {
 						showChannel("Featured", false);
 					}
+					alert("DSFS");
 					clearInterval(checkLoop);
 					iOS_show = false;
 				}
