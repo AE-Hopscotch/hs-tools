@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>4:05pm</title>
+		<title>409pm</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -569,8 +569,8 @@
 				});
 			}
 			
-			$(function() {
-				alert("load");
+			$(window).on('hashchange', function() {      
+				alert("hash change");
 			});
 			
 			//User Theme Preference
