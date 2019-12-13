@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>4:50PM</title>
+		<title>AE Hopscotch Web</title>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -384,9 +384,9 @@
 					pCard.setAttribute("class", "project-card");
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img hidden src="${p.screenshot_url}" onerror="document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.user)))}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+					var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img hidden src="${p.screenshot_url}" onerror="document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" onclick="iOS_leave()" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.user)))}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
 					if (p.original_user != undefined && p.original_user.id != p.user.id) {
-						pCard.innerHTML = `'<a href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
+						pCard.innerHTML = `'<a onclick="iOS_leave()" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
 					} else {
 						pCard.innerHTML = baseCode;
 					}					
@@ -572,10 +572,25 @@
 				});
 			}
 			
-			$(document).ready(function() {
-				alert("YES!");
-				/* in the real situation: do something */
-			});
+			var iOS_show = false;
+			var checkLoop;
+			function iOS_leave() {
+				iOS_show = true;
+				var checkLoop = setInterval(function(){checkShowChannel();},100);
+			}
+			function checkShowChannel() {
+				if (iOS_show) {
+					var url = new URL(window.location.href);
+					var channel = url.searchParams.get("channel");
+					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+						showChannel(channel, false);
+					} else {
+						showChannel("Featured", false);
+					}
+					clearInterval(checkLoop);
+					iOS_show = false;
+				}
+			}
 			
 			//User Theme Preference
 			if(getCookie("dark_mode") == 'true') {
