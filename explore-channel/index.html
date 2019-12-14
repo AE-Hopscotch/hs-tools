@@ -348,7 +348,7 @@
 				"Random": "categories/other/newest",
 				"Newest": "projects/newest"
 			}
-				
+			
 			var path = "categories/best_of/featured";
 			function showChannel(channel, addHistoryEntry) {
 				path = names[channel];
@@ -367,8 +367,15 @@
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 				request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
-				(addHistoryEntry != false) ? setLocation("?channel=" + encodeURI(channel)) : replaceLocation("?channel=" + encodeURI(channel));
+				if (addHistoryEntry != false) {
+					(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) ? location.href = "?channel=" + encodeURI(channel) : setLocation("?channel=" + encodeURI(channel));
+				} else {
+					replaceLocation("?channel=" + encodeURI(channel));
+				}
+								
+				channelName = channel;
 			}
+			var channelName = "Featured";
 			
 			var page = 1;
 			var busy = false;
