@@ -1,0 +1,1 @@
+# Web Explorer – Hopscotch Avatars
