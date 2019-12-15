@@ -635,7 +635,7 @@
 			//NOTE TO SELF: In order to get latest PFP custom image, the user's most recent project will need to be checked. Also, outdated usernames need to auto-update.
 			document.querySelector(".topSticky h1").innerHTML = user.nickname;
 			document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + user.created_at;
-			(user.remote_avatar_url == undefined) ? document.querySelector(".topnav img").title = "Type " + user.avatar_type : document.querySelector(".topnav img").src = user.remote_avatar_url;
+			(user.remote_avatar_url == undefined) ? document.querySelector(".topnav img").src = "../images/webavatars/" + user.avatar_type + ".png" : document.querySelector(".topnav img").src = user.remote_avatar_url;
 			if (document.referrer != "") {
 				console.log("Referrer: " + document.referrer);
 			}
