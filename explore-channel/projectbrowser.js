@@ -43,7 +43,7 @@ function showProjects(chProjects) {
 		}
 		pCard.setAttribute("id", p.uuid); // added line
 		hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
-		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 		if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 		if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 		getColorPallet(p.screenshot_url, true); //Checks the color pallet of the thumbnail & maybe hide it
@@ -160,6 +160,9 @@ function getColorPallet(url, nomsg) {
 
 	img.addEventListener('load', function() {
 		if (!nomsg) console.groupCollapsed('Color Palette');
+		Tesseract.recognize(img).then(function(result){
+			console.log(result.text);
+		});
 		if (!nomsg) console.log(url.replace(/.*\/|\..*/gi,''));
 		var i = 0;
 		var showProject = [true, true];
@@ -180,9 +183,6 @@ function getColorPallet(url, nomsg) {
 		colors.forEach(function(x){
 			if (!previousColors.includes(String(x))){
 				var dist = Math.sqrt(Math.pow(214-x[0],2)+Math.pow(24-x[1],2)+Math.pow(103-x[2],2));
-				Tesseract.recognize(img).then(function(result){
-					console.log(result.text);
-				});
 				if (!nomsg) console.log("%c" + x + '%c %c' + Math.round(dist*10)/10, 'background-color: rgb(' + String(x.slice(0,3)) + ');' + ((x[0] > 150 && x[1] > 150 && x[2] > 150) ? '' : 'color: white;'), '' , ((i < 3 && dist < 20) ? 'color: white; background-color: salmon;' : 'color: rgb(214,24,103);') );
 				if (i < 3 && dist < 20) showProject[0] = false; //The "Pink" Rule
 				if (i < 3 && x[3] > 0.97) showProject[1] = false; // The "97% BG" Rule
