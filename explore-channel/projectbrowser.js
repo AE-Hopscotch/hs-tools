@@ -43,7 +43,7 @@ function showProjects(chProjects) {
 		}
 		pCard.setAttribute("id", p.uuid); // added line
 		hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
-		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Crossy|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Crossy|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 		if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 		if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 	});
