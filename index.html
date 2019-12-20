@@ -156,7 +156,7 @@
 		if (window.navigator.standalone == true) {
 			var lastPage = getCookie("lastPage");
 			if (lastPage != "" && lastPage != window.location.href){
-				window.location.href = lastPage;
+				window.location.href = lastPage.replace('/explore-channel/user.html','/explore-channel/');
 			}
 		}
 	</script>
