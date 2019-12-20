@@ -46,6 +46,7 @@ function showProjects(chProjects) {
 		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Crossy|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 		if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 		if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
+		getColorPallet(p.screenshot_url, true); //Checks the color pallet of the thumbnail & maybe hide it
 	});
 	busy = false;
 	page += 1;
@@ -152,12 +153,13 @@ function xray(action) {
 	}
 }
 
-function getColorPallet(url) {
+function getColorPallet(url, nomsg) {
+	if (nomsg == undefined) nomsg = false;
 	const colorThief = new ColorThief();
 	const img = new Image();
 
 	img.addEventListener('load', function() {
-		console.groupCollapsed('Color Palette');
+		if (!nomsg) console.groupCollapsed('Color Palette');
 		var i = 0;
 		var showProject = [true, true];
 		var previousColors = [];
@@ -177,13 +179,13 @@ function getColorPallet(url) {
 		colors.forEach(function(x){
 			if (!previousColors.includes(String(x))){
 				var dist = Math.sqrt(Math.pow(214-x[0],2)+Math.pow(24-x[1],2)+Math.pow(103-x[2],2));
-				console.log("%c" + x + '%c %c' + Math.round(dist*10)/10, 'background-color: rgb(' + String(x.slice(0,3)) + ');' + ((x[0] > 150 && x[1] > 150 && x[2] > 150) ? '' : 'color: white;'), '' , ((i < 3 && dist < 20) ? 'background-color: salmon;' : '') );
+				if (!nomsg) console.log("%c" + x + '%c %c' + Math.round(dist*10)/10, 'background-color: rgb(' + String(x.slice(0,3)) + ');' + ((x[0] > 150 && x[1] > 150 && x[2] > 150) ? '' : 'color: white;'), '' , ((i < 3 && dist < 20) ? 'background-color: salmon;' : '') );
 				if (i < 3 && dist < 20) showProject[0] = false; //The "Pink" Rule
 				if (i < 3 && x[3] > 0.97) showProject[1] = false; // The "97% BG" Rule
 				if (x[3] >= 0.005) previousColors.push(String(x)); // Don't include color if it represents less than 0.5% of thumbnail
 				i++;
 			} else {
-				console.log('%cDuplicate','color:orange');
+				if (!nomsg) console.log('%cDuplicate','color:orange');
 			}
 			/*
 			PRESET CONSOLE TESTING CODE
@@ -195,9 +197,9 @@ function getColorPallet(url) {
 			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mo66cdw3.png');
 			*/
 		});
-		console.groupEnd();
-		console.log(colors[0][3] + colors[1][3]); //"Strict 97" -- toggle?
-		console.log(`%cpink %c97% %c${previousColors.length}` , ((showProject[0]) ? 'color: green': 'color: red'), ((showProject[1]) ? 'color: green': 'color: red'), ((previousColors.length > 2) ? 'color: green': 'color: red'));
+		if (!nomsg) console.groupEnd();
+		if (!nomsg) console.log(colors[0][3] + colors[1][3]); //"Strict 97" -- toggle?
+		if (!nomsg) console.log(`%cpink %c97% %c${previousColors.length}` , ((showProject[0]) ? 'color: green': 'color: red'), ((showProject[1]) ? 'color: green': 'color: red'), ((previousColors.length > 2) ? 'color: green': 'color: red'));
 		if (previousColors.length < 3 || !showProject[0]) document.getElementById(url.replace(/.*\/|\..{2,5}$/gi,'')).setAttribute('data-show', 'false');
 	});
 
