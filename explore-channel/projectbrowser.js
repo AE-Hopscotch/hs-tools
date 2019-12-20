@@ -34,7 +34,7 @@ function showProjects(chProjects) {
 		var hiddenElm = document.getElementById("ins-before");
 		var pCard = document.createElement("div");
 		pCard.setAttribute("class", "project-card");
-		var baseCode = `'<a class="thumbnail" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false'))    );" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.user)))}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
+		var baseCode = `'<a class="thumbnail" onclick="getColorPallet('${p.screenshot_url}')" hrefNOTRN="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false'))    );" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a class="user" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.user)))}" title="Visit ${p.user.nickname}&rsquo;s Profile">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>'`.replace(/^'|'$/gi,''); //only for code mirror
 		if (p.original_user != undefined && p.original_user.id != p.user.id) {
 			pCard.innerHTML = `'<a href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
 			pCard.setAttribute('data-show', 'false');
@@ -43,7 +43,7 @@ function showProjects(chProjects) {
 		}
 		pCard.setAttribute("id", p.uuid); // added line
 		hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
-		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bremix\b|\bimpossible\b|\bomg\b|Crossy|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bplz\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/:|\|/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Crossy|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 		if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 		if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 	});
@@ -142,7 +142,7 @@ function xray(action) {
 	switch (action) {
 		case 'toggle-show':
 			var s = document.documentElement.style.getPropertyValue('--x-ray-show');
-			if (s == 'ignore') {
+			if (s == 'ignore' || s == '') {
 				document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
 				document.documentElement.style.setProperty('--x-ray-show', 'none');
 			} else {
@@ -150,4 +150,60 @@ function xray(action) {
 				document.documentElement.style.setProperty('--x-ray-show', 'ignore');
 			}
 	}
+}
+
+function getColorPallet(url) {
+	const colorThief = new ColorThief();
+	const img = new Image();
+
+	img.addEventListener('load', function() {
+		console.groupCollapsed('Color Palette');
+		var i = 0;
+		var showProject = [true, true];
+		var previousColors = [];
+		
+		//Sort by Percent of Image
+		var colors = {};
+		/*/JSON.parse('[['+/**/colorThief.getPalette(img)/*/+']]')/**/.forEach(function(x){
+			colors['['+x+']'] = x[5];
+		});
+		colors = Object.keys(colors).sort(function(a,b){return colors[a]-colors[b]});
+		var i = 0;
+		colors.forEach(function(x){
+			colors[i] = JSON.parse(x);
+			i++;
+		});
+		i = 0;
+		colors.forEach(function(x){
+			if (!previousColors.includes(String(x))){
+				var dist = Math.sqrt(Math.pow(214-x[0],2)+Math.pow(24-x[1],2)+Math.pow(103-x[2],2));
+				console.log("%c" + x + '%c %c' + Math.round(dist*10)/10, 'background-color: rgb(' + String(x.slice(0,3)) + ');' + ((x[0] > 150 && x[1] > 150 && x[2] > 150) ? '' : 'color: white;'), '' , ((i < 3 && dist < 20) ? 'background-color: salmon;' : '') );
+				if (i < 3 && dist < 20) showProject[0] = false; //The "Pink" Rule
+				if (i < 3 && x[3] > 0.97) showProject[1] = false; // The "97% BG" Rule
+				if (x[3] >= 0.005) previousColors.push(String(x)); // Don't include color if it represents less than 0.5% of thumbnail
+				i++;
+			} else {
+				console.log('%cDuplicate','color:orange');
+			}
+			/*
+			PRESET CONSOLE TESTING CODE
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mjhmqqzn.png');
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10moivzfh7.png');
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mop369bm.png');
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mocn8rsw.png');
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mo8uqz2f.png');
+			getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10mo66cdw3.png');
+			*/
+		});
+		console.groupEnd();
+		console.log(colors[0][3] + colors[1][3]); //"Strict 97" -- toggle?
+		console.log(`%cpink %c97% %c${previousColors.length}` , ((showProject[0]) ? 'color: green': 'color: red'), ((showProject[1]) ? 'color: green': 'color: red'), ((previousColors.length > 2) ? 'color: green': 'color: red'));
+		if (previousColors.length < 3 || !showProject[0]) document.getElementById(url.replace(/.*\/|\..{2,5}$/gi,'')).setAttribute('data-show', 'false');
+	});
+
+	let imageURL = url;
+	let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+
+	img.crossOrigin = 'Anonymous';
+	img.src = googleProxyURL + encodeURIComponent(imageURL);
 }
