@@ -160,8 +160,8 @@ function getColorPallet(url, nomsg) {
 
 	img.addEventListener('load', function() {
 		if (!nomsg) console.groupCollapsed('Color Palette');
-		Tesseract.recognize(img).then(function(result){
-			console.log(result.text);
+		if (/https:\/\//gi.test(location.href)) Tesseract.recognize(img).then(function(result){
+			if (!nomsg) console.log(result.text);
 		});
 		if (!nomsg) console.log(url.replace(/.*\/|\..*/gi,''));
 		var i = 0;
