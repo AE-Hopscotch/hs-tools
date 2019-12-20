@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
+		<link rel="stylesheet" href="browserstyle.css">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -24,83 +25,6 @@
 		<link href='https://fonts.googleapis.com/css?family=Avenir' rel='stylesheet'>
 		
 		<style>
-			:root {
-				--col-bg-main: #F8F8F8; /* #F8F8F8 black */
-				--col-bg-toolbar: white; /* white #222 */
-				--col-low-border: 1px solid #ddd; /* #ddd #666 */
-				--col-label-text: black; /* black #ccc */
-				--img-opacity: 1; /* 0.4 1 */
-				--transition-time: 0s;
-				--x-ray-show: ignore;
-				--x-ray-opacity: ignore;
-				--x-ray-zoom: 1;
-				--x-ray-elms: none;
-			}
-			
-			html, body {
-				background-color: var(--col-bg-main);
-				height: calc(100% - 8px);
-				transition: background-color var(--transition-time);
-			}
-			
-			.uiBtn {
-				position: fixed;
-				bottom: 8px;
-				left: 8px;
-				font-size: 14px;
-				cursor: pointer;
-				background-color: #0d6f62;
-				color: white;
-				padding: 4px 6px;
-				margin: 6px;
-				border: none;
-				outline: none;
-				z-index: 10;
-			}
-			
-			.topSticky {
-				position: fixed;
-				width: 100%;
-				top: 0;
-				left: 0;
-				background-color: var(--col-bg-toolbar);
-				z-index: 15;
-				border-bottom: var(--col-low-border);
-				color: var(--col-label-text);
-				transition: color var(--transition-time), background-color var(--transition-time), border-bottom var(--transition-time);
-			}
-			.topSticky h1 {
-				display: block;
-				text-align: center;
-				font-family: Avenir;
-				margin: auto;
-				padding: 8px;
-			}
-			.topSticky a {
-				position: absolute;
-				text-align: center;
-				font-family: Avenir;
-				margin: auto;
-				padding: 14px;
-				font-size: 24px;
-				background-color: var(--col-bg-toolbar);
-				color: #999;
-				height: 100%;
-				transition: background-color var(--transition-time);
-			}
-			.back {
-				cursor: pointer;
-			}
-			
-			@media only screen and (min-width: 512px) {
-				.topSticky a::after {
-					content: " Back";
-				}
-			}
-			
-			.topnav::-webkit-scrollbar {
-				height: 0px;
-			}
 			.topnav {
 				background-color: var(--col-bg-toolbar);
 				display: block;
@@ -128,218 +52,12 @@
 				font-family: Avenir;
 			}
 			.topnav button {
-				background-color: rgba(0,0,0,0);
-				display: inline-block;
 				width: calc(50% - 0px);
 				margin: 0;
-				height: 44px;
-				font-family: Avenir;
-				font-weight: 600;
-				font-size: 24px;
-				border: none;
-				outline: none;
-				cursor: pointer;
-				color: #aaa;
-				border-bottom: 4px solid rgba(0,0,0,0);
-			}
-			.topnav button:hover {
-				opacity: 0.6;
-			}
-			.topnav button.selected {
-				border-bottom: 4px solid #0b8e7d;
-				color: #0b8e7d;
 			}
 			
 			#loadingBear {
-				width: 80px;
-				height: 80px;
-				text-align: center;
-				position: fixed;
-				left: calc(50% - 40px);
 				top: calc(65% - 40px);
-			}
-			
-			
-			.flex {
-				display: flex;
-				justify-content: space-evenly;
-				max-width: 100%;
-				flex-wrap: wrap;
-				align-content: space-around;
-			}
-			.flex .project-card {
-				background-color: var(--col-bg-toolbar);
-				width: 300px;
-				height: 375px;
-				margin: 16px;
-				position: relative;
-				border-radius: 8px;
-				overflow: hidden;
-				color: var(--col-label-text);
-				transition: color var(--transition-time), background-color var(--transition-time);
-			}
-			
-			.project-card a.thumbnail {
-				width: 300px;
-				height: 300px;
-				overflow: hidden;
-				display: flex;
-				justify-content: space-around;
-				padding: 0;
-				background-size: cover;
-				background-repeat: no-repeat;
-				background-position: 50% 50%;
-				opacity: var(--img-opacity);
-				transition: opacity var(--transition-time);
-			}
-			
-			.project-card a.thumbnail img {
-			/*width: 512px;
-				height: 300px;
-				padding: 0;
-				display:none;*/
-			}
-			
-			.remixbar:before {
-				content: url('../images/remix-icon.png');
-				width: 20px;
-				height: 20px;
-				position: relative;
-				top: -1px;
-				left: -3px;
-			}
-			.remixbar {
-				position: absolute;
-				padding: 6px 4px 4px 7px;
-				top: 8px;
-				right: 8px;
-				display: inline-flex;
-				max-width: 200px;
-				overflow: hidden;
-				white-space: nowrap;
-				height: 24px;
-				align-items: center;
-				font-family: Avenir;
-				background-color: #ddd;
-				color: #666;
-				border-radius: 2px;
-				opacity: 0.7;
-				z-index: 2;
-			}
-			.sharelinkbtn {
-				display: flex;
-				width: 60px;
-				height: 75px;
-				margin: 0;
-				font-size: 36px;
-				justify-content: center;
-				align-items: center;
-				color: gray;
-			}
-			.info {
-				display: block;
-				width: 240px;
-				height: 75px;
-				margin: 0;
-				position: absolute;
-				top: 300px;
-				right: 0px;
-			}
-			.info name {
-				display: block;
-				margin: 4px 12px;
-				text-align: right;
-				font-size: 18px;
-				font-family: Avenir;
-				white-space: nowrap;
-				overflow: hidden;
-				position: relative;
-				top: -4px;
-			}
-			.info a.user {
-				font-size: 14px;
-				font-family: Avenir;
-				text-align: right;
-				display: block;
-				margin: 6px 12px 2px;
-				white-space: nowrap;
-				overflow: hidden;
-				position: relative;
-				top: -2px;
-				line-height: 18px;
-				color: var(--col-label-text);
-				transition: color var(--transition-time);
-			}
-			.info a.user:hover {
-				opacity: 0.7;
-			}
-			.info stats {
-				display: flex;
-				justify-content: flex-end;
-				position: absolute;
-				bottom: 4px;
-				right: 8px;
-				width: 100%;
-				color: gray;
-				font-family: Arial;
-				font-size: 13px;
-			}
-			.info stats span {
-				margin: 4px;
-			}
-			
-			.fa-link {
-				cursor: pointer;
-			}
-			.fa-link:hover {
-				opacity: 0.7;
-			}
-			.fa-link:active {
-				opacity: 0.5;
-			}
-			
-			sq {
-				display:block;
-				transition: 0.5s;
-				position: fixed;
-				bottom: 4px; right: 4px;
-				z-index: 100;
-				background-color: rgba(0,0,0,0.5);
-				padding:8px;
-				border-radius: 8px;
-			}
-			
-			*[data-show=false] {
-				display: var(--x-ray-show);
-				opacity: var(--x-ray-opacity);
-			}
-			
-			.xray-contents {
-				display: var(--x-ray-elms);
-				position: fixed;
-				padding: 2px;
-				bottom: 36px;
-				left: 6px;
-				width: 26px;
-				background-color: #0d6f62;
-				z-index: 3;
-				box-sizing: initial;
-			}
-			
-			.xray-contents input[orient=vertical] {
-				width: 22px;
-				height: 128px;
-				writing-mode: bt-lr; /* IE */
-				-webkit-appearance: slider-vertical;
-				outline: none;
-			}
-			.xray-contents span {
-				text-align: center;
-				color: white;
-				font-family: Helvetica;
-				display: block;
-				margin: auto;
-				font-size: 14px;
 			}
 		</style>
 	</head>
@@ -395,6 +113,8 @@
 
 		<script src="../main.js"></script>
 		<script src="projectbrowser.js"></script>
+		<!--script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script-->
+		<script src="color-thief.js"></script>
 		<script>
 			var names = {
 				"Published": "published_projects",
@@ -524,7 +244,6 @@
 			function back() {
 				window.history.back();
 			}
-			
 		</script>
 	</body>
 </html>
