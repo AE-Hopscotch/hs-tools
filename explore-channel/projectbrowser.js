@@ -1,4 +1,5 @@
 //Log Player Version
+console.clear();
 console.log('%cHopscotch Web Explorer, v1.1.1 r1%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 
 //Loading Bear
