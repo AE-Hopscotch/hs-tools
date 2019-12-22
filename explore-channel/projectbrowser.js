@@ -48,7 +48,7 @@ function showProjects(chProjects) {
 		pCard.setAttribute("id", p.uuid); // added line
 		hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
 		//Title Regex
-		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+		if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 		if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 		if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 		getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
@@ -167,7 +167,7 @@ function getColorPallet(url, nomsg, p) {
 		if (!nomsg) console.groupCollapsed('Color Palette');
 		if (/https:\/\//gi.test(location.href) && document.getElementById(p.uuid).getAttribute('data-show') != "false") Tesseract.recognize(img).then(function(result){
 			if (!nomsg) console.log(result.text);
-			var thumbnailRegex = /fan\s?art|\bimpossible\b|\bomg\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\blike for part\b|\bfor a? follow\b|\bremix\b|\blike for\b|[0-9] likes\b|\blike\sbutton\b|\bfidget\b|\bspinner\b|(read|see) (in |the )? code|\bsubscribe to\b/i;
+			var thumbnailRegex = /fan\s?art|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement\b|\bnew account\b|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\blike for part\b|\bfor a? follow\b|\bremix\b|\blike for\b|[0-9] likes\b|\blike\sbutton\b|\bfidget\b|\bspinner\b|(read|see) (in |the )? code|\bsubscribe to\b/i;
 			if (thumbnailRegex.test(result.text.replace(/\n/gi,' '))) {
 				document.getElementById(p.uuid).setAttribute('data-show','false');
 				console.log(`Project x-ray removal due to string match in thumbnail: ${result.text.replace(/\n/gi,' ').match(thumbnailRegex)}`);
