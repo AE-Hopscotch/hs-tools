@@ -84,9 +84,14 @@
 				width: 190px;
 			}
 			
-			.header bl {
+			.header a {
 				display: block;
 				margin: 12px;
+			}
+			
+			.header bl {
+				display: block;
+				margin: 0;
 				text-align: center;
 				font-family: Lato;
 				font-size: 18px;
@@ -108,7 +113,7 @@
 
 		<span id="info">
 			
-			<span hidden class="info header" id="info0"><br>
+			<span hidden class="info header" id="info0"><br/>
 				<div style="display: block; opacity: 0; transition: opacity 0.5s ease-in-out;">
 					<h1>Awesome_E&rsquo;s Guide to</h1>
 					<img src="../images/hs-logo-full.png" width="90%">
@@ -124,7 +129,7 @@
 							<h2>New to the Beta</h2>
 							<a href="?id=59"><bl class="fa" type="move">Set Origin</bl></a>
 							<a href="?id=125"><bl class="fa" type="ctrl">Set Scene</bl></a>
-							<bl type="dotted" title="No such help guide exists yet">When touch ends</bl>
+							<a><bl type="dotted" title="No such help guide exists yet">When touch ends</bl></a>
 						</div>
 						<div class="flex-container">
 							<h2>New to the Public</h2>
@@ -610,7 +615,8 @@
 				<ul style="font-size: 100%;">
 					<li>Hopscotch Description: Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.</li>
 					<li blockID></li>
-					<li bstat="all"></li>
+					<li bstat="old"></li>
+					<li>This block has been replaced by <a href="?id=62">Start Sound (wait seconds)</a> in order to keep consistency with the wait behavior.</li>
 				</ul>
 				<p><b style="font-size: 120%;">Community Links</b></p>
 				<ul style="font-size: 100%; margin-bottom: -10px;">
@@ -1316,10 +1322,9 @@
 			</span>
 		</span>
 
-		<br><br>
+		<span id="gap"><br><br></span>
 		
 		<span style="z-index: 3;" id="blockSearchSpan" class="search" onfocusin="blockSearch(true)" onfocusout="blockSearch(false)">
-		
 			<a id="blockSearchLayer" style="display: block; width: 500px; max-width: 80%; height: 44px; background-color: white; border: 3px solid white; position: fixed; top: 8px; z-index:9;"></a>
 			<input class="plus-as-tab no-reverse" data-scroll="40"  type="text" id="blockSearchBox" onkeyup="searchBlocks()" placeholder="Search for blocks..." title="Type in a block name" style="background-image: url('../images/searchicon.png'); transition: 0.5s;">
 			<ul class="" style="margin-bottom:10px;"><li><a href="javascript:void(0);" class="plus-as-tab tab-skip" style="font-size: 0px;">hi</a></li></ul>
@@ -1385,7 +1390,7 @@
 				<li onclick="display(38)"><a href="javascript:show()" class="plus-as-tab">Pen Up</a></li>
 				<li onclick="display(46)"><a href="javascript:show()" class="plus-as-tab">Move With Trail distance <i class="ps fa fa-hashtag"></i> </a></li>
 				<li onclick="display(35)"><a href="javascript:show()" class="plus-as-tab">Wait milliseconds <i class="ps fa fa-hashtag"></i> </a></li>
-				<li onclick="display(19)"><a href="javascript:show()" class="plus-as-tab">Wait Until Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait until Unix Timestamp</h></a></li>
+				<li onclick="display(19)"><a href="javascript:show()" class="plus-as-tab">Wait til Timestamp <i class="ps fa fa-hashtag"></i> <h>Wait Until Timestamp</h><h>Wait until Unix Timestamp</h></a></li>
 			</oldblocks>
 				
 				<a href="javascript:void(0);" class="plus-as-tab tab-go-back" style="position: fixed; font-size: 0px;">hi</a>
@@ -1463,7 +1468,7 @@
 							var search = document.getElementById('blockSearch');
 							if (!search.hidden) search.hidden = !search_open;
 							if (search.hidden){
-								document.querySelector("#blockSearchSpan").style.height = "0%";
+								document.querySelector("#blockSearchSpan").style.height = "50px";
 								console.log("Search Closed at " + String(Date.now()));
 							}
 							searchBlocks();
@@ -1499,6 +1504,8 @@
 					elements[i].hidden = true;
 				}
 				blockSearch(false);
+				
+				document.getElementById("gap").style.display = (index == 0) ? 'none' : '';
 				
 				try {
 					document.getElementById("info" + String(index)).hidden = false;
