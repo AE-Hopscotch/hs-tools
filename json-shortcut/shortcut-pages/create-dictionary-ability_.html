@@ -1,0 +1,961 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Create Dictionary Ability</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="../../jscolor.js"></script>
+		<style>
+			:root {
+				--btn-color: black;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			::placeholder {
+				opacity: 1;
+			}
+			
+			.input-settings {
+				display: flex;
+				width: 610px;
+				min-width: 336px;
+				max-width: calc(100% - 24px);
+				min-height: 40px;
+				background-color: #d7eae7;
+				margin: 0px 4px;
+				padding: 4px 2px;
+				border: solid white;
+				border-width: 12px 0 0;
+			}
+			
+			div.input-settings select, div.input-settings input {
+				width: calc(100% - 4px);
+				margin: 0 2px;
+			}
+			
+			div.input-settings input {
+				padding: 6px;
+			}
+			
+			#savebtn1 {
+				display: block;
+			}
+			
+			.list-container {
+				padding: 0;
+				width: 618px;
+				max-width: 100%;
+				min-width: 344px;
+				/*height: 400px;*/
+			}
+			.list-container li {
+				display: flex;
+				width: calc(100% - 8px);
+				min-height: 40px;
+				background-color: #eee;
+				margin: 12px 4px;
+				padding: 4px;
+			}
+			
+			.column-label {
+				display: inline-block;
+				margin: 0 0 -10px 6px;
+			}
+			
+			
+			.list-container input.numberIn {
+				width: 72px;
+				height: 34px;
+				display: inline-block;
+				margin: 2px;
+				text-align: center;
+			}
+			
+			.list-container i.color, .list-container select {
+				color: var(--btn-color);
+				display: inline-flex;
+				width: 30px; height: 30px;
+				justify-content: center;
+				align-items: center;
+				margin: 4px 0;
+			}
+			
+			.list-container li div {
+				display: inline-flex;
+				width: calc(100% - 200px);
+				margin: 0 -2px 0 4px;
+				padding: 0;
+				min-height: 34px;
+				position: relative;
+			}
+			.list-container li div textarea, .list-container li div input {
+				width: 100%;
+				min-height: 34px;
+				left: -2px; position: relative;
+				display: inline-block;
+				margin: 2px;
+				padding: 6px;
+				resize: none;
+			}
+			.jscolor {
+				position: relative;
+				top: 2px;
+				right: 4px;
+				display: inline-block;
+				width: 12px;
+				height: calc(100% - 4px);
+				border: 0 solid rgb(169,169,169);
+				outline: none;
+				border-radius: 2px;
+			}
+			.jscolor i {
+				pointer-events: none;
+			}
+			
+			.output-actions {
+				display: inline-flex;
+				width: 60px;
+				height: 32px;
+				margin: 3px 4px;
+				justify-content: space-around;
+				align-items: center;
+			}
+			.oac:hover, .oac:focus, .oac:active {
+				cursor: pointer;
+				--btn-color: #0d6f62;
+				color: var(--btn-color);
+			}
+			.oac.fa-trash:hover, .oac.fa-trash:focus, .oac.fa-trash:active {
+				--btn-color: #aa3109;
+			}
+			
+			#add-controls {
+				display: flex;
+				/*width: calc(100% - 8px);*/
+				background-color: #d7eae7;
+				margin: 12px 4px;
+			}
+			 .addbtn {
+				background-color: var(--btn-color);
+				margin: 4px;
+				padding: 0;
+				color: white;
+				outline: none;
+				border: none;
+				cursor: pointer;
+			}
+			 .addbtn > .btn-content {
+				padding: 8px;
+				display: inline-block;
+			}
+			 button.addbtn:hover {
+				opacity: 0.7;
+			}
+			 button.addbtn:active {
+				opacity: 0.5;
+			}
+			 button.addbtn > .btn-content:focus {
+				outline: none;
+			}
+			/* Fixing the Safari bug for button overflow */
+			.btn-content {
+				position: relative;
+			}
+			/* All the states on the inner element */
+			#add-controls button:focus > .btn-content  {
+				color: #86f9e9;
+			}
+			
+			#add-controls .flex {
+				padding: 0;
+				justify-content: center;
+				align-items: center;
+				margin-right: 0;
+				--btn-color: rgba(0,0,0,0);
+				color: black;
+				cursor: default;
+			}
+			 .addbtn {
+				display: inline-block;
+				min-width: 60px;
+				height: 60px;
+			}
+			#add-controls .flex {
+				display: inline-flex;
+			}	
+					
+			@media only screen and (max-width: 363px) {
+				.bigscreen {
+					display: none;
+				}
+				#add-controls #savebtn2 {
+					display: none;
+				}
+				#topMargin {
+					display: block;
+					height: 96px;
+				}
+			}
+			@media only screen and (min-width: 364px) {
+				.smallscreen, #savebtn1 {
+					display: none;
+				}
+				#topMargin {
+					display: block;
+					height: 72px;
+				}
+			}
+			@media only screen and (max-width: 985px) {
+			}
+			@media only screen and (min-width: 986px) {
+				#add-controls {
+					position: fixed;
+					right: 8px;
+					top: 0px;
+				}
+			}
+			
+			#savebtn1, #savebtn2, #loadbtn {
+				animation-duration: 5s;
+			}
+			
+			@keyframes saveFail {
+				0%    {color: red;}
+				50%   {color: red;}
+				100%  {color: white;}
+			}
+			
+			@keyframes saveSuccess {
+				0%    {color: lime;}
+				50%   {color: lime;}
+				100%  {color: white;}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 200px;"></textarea>
+		<div class="input-settings" style="position: fixed; top: 0; z-index: 10;">
+			<input id="name-input" placeholder="Ability Name">
+			<select id="input-var-select">
+				<option id="in-var-def" value="" hidden selected>Select Input Variable...</option>
+				<option id="var-sel-hidden" hidden></option>
+			</select>
+		</div>
+		<span class="input-settings" style="display: ; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;">
+			<span style="display: inline-flex; justify-content: center; align-items: center; text-align: center; flex-grow: 500; margin: 4px; max-width: 100%;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy"><i class="fa fa-download"></i> Save a JSON copy file</label></span><br>
+			<button id="savebtn1" onclick="save()" class="smallscreen addbtn" style="width: auto; height: auto; margin: 4px; padding: 4px 8px; --btn-color: gray; position: ; right: 0;"><i class="fa fa-save"></i> Save Work</button>
+			<button id="loadbtn" onclick="getFile()" class="addbtn" style="flex-shrink: 1; display:inline; width: auto; height: auto; margin: 4px 4px 4px auto; padding: 4px 8px; --btn-color: gray; right: 0;"><i class="fa fa-upload"></i> Load File</button>
+			<input id="loadfile" type="file" hidden>
+		</span>
+		<div id="topMargin" style=""></div>
+		<ul class="list-container">
+			<li id="output-item-0" type="3" style="display: none;"><input id="in0" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o0t" placeholder="[{&quot;block_class&quot;: &quot;method&quot;, &quot;type&quot;: 50}]" style="height: 3px;"></textarea></div><span id="oa0" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(0)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(0)"></i><i class="fa fa-trash oac" onclick="deleteItem(0)"></i></span></li>
+			<span id="add-controls">
+				<span class="smallscreen addbtn flex" style="display:none;"><i style="font-size: 36px;" class="fa fa-plus"></i></span>
+				<button onclick="addRow(0)" class="addbtn" style="--btn-color: limegreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;" class="fa fa-text-height "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Text Output</span></span></button>
+				<button onclick="addRow(1)" class="addbtn" style="--btn-color: mediumseagreen;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-picture-o "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Image Output</span></span></button>
+				<button onclick="addRow(2)" class="addbtn" style="--btn-color: goldenrod;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-sliders "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Set Variable Output</span></span></button>
+				<button onclick="addRow(3)" class="addbtn" style="--btn-color: steelblue;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-code "></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Raw JSON Code Output</span></span></button>
+				<button id="savebtn2" onclick="save()" class="addbtn" style="--btn-color: gray;"><span class="btn-content" tabindex="-1"><i style="font-weight: 600; font-size: 36px;"  class="fa fa-save"></i><i style="display:none;" class="fa fa-plus bigscreen"></i> <span hidden class="bigscreen">Raw JSON Code Output</span></span></button>
+			</span>
+		</ul>
+		<script>
+			//Load Project Variables 
+			var url = new URL(window.location.href);
+			var projectVariables = JSON.parse(url.searchParams.get("pVars")) || [];
+			var lessThanMode = (url.searchParams.get("ltm") != null);
+			var createDate = Number(url.searchParams.get("createDate")) + 12.34567;
+			
+			//Compatibility ID
+			if (url.searchParams.get("version-id") != "c83bf064") document.querySelector('html').innerHTML = '<span style="text-align: center; position: fixed; top: 35%; width: 100%;"><h1>Client is out of date. See the shortcut topic for more info.</h1>Check the first two posts or the most recent updates.';
+			
+			/*var projectVariables = [
+				{
+					"name": "Vertical Velocity",
+					"objectIdString": "5F3372E2-51AE-4949-A805-2E2C58BC6C4E-34757-00036ADE79BC4E3E",
+					"type": 8000
+				},
+				{
+				  "name": "Horizontal velocity",
+				  "objectIdString": "89D03D97-E01E-4549-B98E-53048BED86C1-34757-00036ADE79BC8B7A",
+				  "type": 8000
+				},
+				{
+				  "name": "Bounce height",
+				  "objectIdString": "28D46291-73DB-4BCC-923B-E9CC70C5BDA3-34757-00036ADE79BCA35F",
+				  "type": 8000
+				}
+			];*/
+			
+			for (i = 0; i < projectVariables.length; i ++){
+				console.log("Added Variable " + projectVariables[i].name);
+				var sel = document.getElementById("var-sel-hidden");
+				var opt = document.createElement("option");
+				var output = projectVariables[i].name;
+				opt.innerHTML = output;
+				opt.setAttribute("value", output);
+				sel.parentNode.insertBefore(opt, sel);
+			}
+			
+			$('#var-sel-hidden').remove();
+			
+			//Text Area Resize
+			var observe;
+			if (window.attachEvent) {
+				observe = function (element, event, handler) {
+					element.attachEvent('on' + event, handler);
+				};
+			}
+			else {
+				observe = function (element, event, handler) {
+					element.addEventListener(event, handler, false);
+				};
+			}
+					function resize(id) {
+						var elm = document.getElementById(id);
+						elm.style.height = 'auto';
+						elm.style.height = Math.min(String(elm.scrollHeight+3), 203) + 'px';
+						
+						//Test if text wraps
+						var wraps = false;
+						
+						function textWidth(txt, font,padding) {
+							$span = $('<span id="testText"></span>');
+							$span.css({
+								font:font,
+								position:'absolute',
+								top: -1000,
+								left:-1000,
+								padding:padding
+							}).text(txt);
+							$span.appendTo('body');
+							return $span.width();
+						}
+						
+						var $txt=$('#'+ id),i = 1;
+						//$('#result').html('');
+						var font = $txt.css('font');
+						var padding = $txt.css('padding');
+						var txtwidth = $txt.width();
+						var txt = $('#' + id).val().split('\n')[0];
+						var w = textWidth(txt,font,padding);
+						if(w>txtwidth){
+							wraps = true;   
+						}
+						$("#testText").remove();
+						
+						if (elm.style.height == "46px") {
+							elm.style.height = (/\n/.test(elm.value)||wraps) ? "46px" : "32px";
+						}
+					}
+					/* 0-timeout to get the already changed text */
+					function delayedResize (id) {
+						window.setTimeout(function(){resize(id);}, 20);
+					}
+			function init () {
+				var texts = document.getElementsByTagName('textarea');
+				for (i = 0; i < texts.length; i ++) {
+					var text = texts[i];
+					
+					function getFunction(delayed) {
+						var fn = (delayed) ? "function (){ delayedResize('" + text.id + "'); }" : "function (){ resize('" + text.id + "'); }";
+						return new Function("return ("+fn+")")();
+					}
+					
+					observe(text, 'change',  getFunction(false));
+					observe(text, 'cut',     getFunction(true));
+					observe(text, 'paste',   getFunction(true));
+					observe(text, 'drop',    getFunction(true));
+					observe(text, 'keydown', getFunction(true));
+					observe(text, 'keyup',   getFunction(true));
+					
+					resize(text.id);
+				}
+			}
+			document.body.onload = init();
+			
+			//Add Dictionary Rows
+			var nextId = 1;
+			function addRow(type, data) {
+				data = data || ['','',''];
+				console.log("Create key with type " + type);
+				var tray = document.getElementById("add-controls");
+				var li = document.createElement("li");
+				var output;
+				switch (type) {
+					case 0:
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder="Hello, World!" value="${data[1]}"></textarea><span id="btn-container-!x!"></span></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
+						break;
+					case 1:
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o!x!t" type="text" placeholder="Star Girl" value="${data[1]}"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
+						break;
+					case 2:
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..." value="${data[1]}"><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#" value="${data[2]}"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
+						break;
+					case 3:
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'[{"block_class": "method", "type": 50}]\' value="${data[1]}"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
+						break;
+				}
+				li.innerHTML = output.replace(/!x!/g,nextId).replace(/^'|'$/gi,'');
+				li.setAttribute("id", "output-item-" + nextId); // added line
+				li.setAttribute('type', type);
+				tray.parentNode.insertBefore(li, tray);
+				init();
+				window.scrollTo(0,document.body.scrollHeight);
+				
+				if (type == 0) {
+					var colorVal = data[2] || '1e151d';
+					var input = document.createElement('button');
+					var picker = new jscolor(input, {closable: true, inI: true, closeText: 'Close Color Picker', value: colorVal});
+					input.setAttribute("class", "jscolor");
+					input.style.textAlign = "right";
+					input.setAttribute("tabindex", "-1");
+					input.id = "o" + nextId + "t_";
+					input.innerHTML = '<i style="position: relative; top: -1px; left: -5.5px; font-size: 11px;"  class="fa fa-eyedropper"></i>';
+					document.getElementById('btn-container-' + nextId).appendChild(input);
+				}
+				
+				nextId += 1;
+				
+			}
+			
+			//Load Data from File
+			function load(data) {
+				var addCount = 0;
+				Object.keys(data).forEach(function(k){
+					for (i = 0; i < data[k].length; i++) {
+						var block = data[k][i];
+						if (JSON.stringify(block) != '[3,[]]') {
+							//Not Empty Custom Code
+							var type = data[k][i][0];
+							block.splice(0,1,k);
+							addRow(type,block);
+							addCount ++;
+						}
+					}
+				});
+				if (addCount == 0) {
+					console.log('Invalid File');
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveFail';
+					},10);
+				} else {
+					console.log('Successfully loaded ' + ((addCount == 1) ? '1 block': addCount + 'blocks') );
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveSuccess';
+					},10);
+				}
+			}
+			
+			//File Reader
+				//document.getElementById('loadfile').addEventListener('change', getFile);
+			function getFile(elm) {
+				document.getElementById('loadfile').click();
+			}
+			
+			document.getElementById('loadfile').addEventListener('change', function(){
+				function invalidFile() {
+					console.log('Invalid File');
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveFail';
+					},10);
+				}
+				var input = document.getElementById('loadfile');
+				var file = input.files[0];
+				try { var ext = file.name.split(".")[file.name.split(".").length-1]; } catch (TypeError) { /*No file was inputted*/ return; }
+				if ('files' in input && input.files.length > 0 && ext.match(/^(json|txt)$/gi)) {
+					//Read file if the extension is JSON or text
+					readFileContent(file).then(content => {
+						try {
+							load(JSON.parse(content));
+						} catch (SyntaxError) {
+							//Catches invalid files and failed imports
+							invalidFile();
+						}
+					}).catch(error => console.log(error))
+				} else if ('files' in input && input.files.length > 0) {
+					//Bad extension
+					invalidFile();
+				}
+			});
+			
+			function readFileContent(file) {
+				const reader = new FileReader()
+				return new Promise((resolve, reject) => {
+				reader.onload = event => resolve(event.target.result)
+				reader.onerror = error => reject(error)
+				reader.readAsText(file);
+			  })
+			}
+			
+			//Item Actions
+			function deleteItem(rowId){
+				console.log("Deleted a row");
+				$("#output-item-" + rowId).remove();
+			}
+			
+			function moveDown(rowId) {
+				if($("#output-item-" + rowId).next("li")[0] != undefined)
+				$("#" + $("#output-item-" + rowId).next("li")[0].id).after($("#output-item-" + rowId));
+			}
+			
+			function moveUp(rowId) {
+				if($("#output-item-" + rowId).prev("li")[0] != undefined)
+				$("#" + $("#output-item-" + rowId).prev("li")[0].id).before($("#output-item-" + rowId));
+			}
+			
+			//Save the Code as JSON
+			function save() {
+				function Red(id) {
+					document.getElementById(id).style.backgroundColor = "rgba(255,0,0,0.1)";
+				}
+				function White(id) {
+					document.getElementById(id).style.backgroundColor = "white";
+				}
+				
+				var reference = {
+					"1": [[0, "Hello", "#6E6"]], //text: hello, color: lime
+					"2": [[0, "World", "#000"]], //text: world, color: black
+					"3": [[1, 0]], //set image, character: monkey
+					"4": [[2, "var", 123]] //output variable: number
+				};
+				
+				var actionsList = document.querySelectorAll(".list-container li");
+				var dictionary = {};
+				
+				for (a = 0; a < actionsList.length; a++) {
+					var action = actionsList[a];
+					var myId = action.id.replace("output-item-", "");
+					var inputNum = document.getElementById("in" + myId).value;
+					
+					var ids = [
+						"o" + myId + "t",
+						"o" + myId + "t_"
+					];
+					
+					dictionary[String(inputNum)] = dictionary[String(inputNum)] || [];
+					switch (Number(action.type)) {
+						case 0:
+							dictionary[String(inputNum)].push([0, document.getElementById(ids[0]).value, document.getElementById(ids[1]).style.backgroundColor]);
+							break;
+						case 1:
+							var characters = {
+								"monkey": 0,
+								"text": 1,
+								"octopus": 2,
+								"octo": 2,
+								"gorilla": 3,
+								"cupcake": 4,
+								"bear": 5,
+								"dino": 6,
+								"frog": 7,
+								"greenman": 8,
+								"jody": 8,
+								"mustache": 9,
+								"mrmustache": 9,
+								"mr.mustache": 9,
+								"spacepod": 10,
+								"zombiebear": 11,
+								"zombear": 11,
+								"ghoulopus": 12,
+								"bats": 13,
+								"frankenrilla": 14,
+								"jodywitch": 15,
+								"witchjody": 15,
+								"cauldron": 16,
+								"pumpkin": 17,
+								"broom": 18,
+								"lantern": 19,
+								"parrotflying": 20,
+								"parrot": 20,
+								"mandrill": 21,
+								"mosquito": 22,
+								"misschief": 23,
+								"venus": 24,
+								"jeepers": 25,
+								"banyan": 26,
+								"stargirl": 27,
+								"astro": 28,
+								"cosmiccody": 28,
+								"chillanna": 29,
+								"robo": 30,
+								"raccoon": 31,
+								"bird": 32,
+								"hs_end_of_characters": 33,
+								"square": 34,
+								"circle": 35,
+								"hexagon": 36,
+								"triangle": 37,
+								"righttriangle": 38,
+								"rectangle": 39,
+								"heart": 40,
+								"star": 41,
+								"arch": 42,
+								"parallelogram": 43,
+								"squiggle": 44,
+								"donut": 45,
+								"tetrisz": 46,
+								"z": 46,
+								"tetrist": 47,
+								"t": 47,
+								"tetrisl": 48,
+								"l": 48,
+								"corner": 49,
+								"flower": 50,
+								"threeprongedboomerang": 51,
+								"fanblade": 51,
+								"squishedbox": 52,
+								"bead": 53,
+								"chevron": 54,
+								"xshape": 55,
+								"x": 55,
+								"tetrisline": 56,
+								"platform": 56,
+								"hs_end_of_chapes": 57,
+								"toucan": 58,
+								"anteater": 59,
+								"crocodile": 60,
+								"sloth": 61,
+								"iguana": 62,
+								"hut": 63,
+								"penguin": 64,
+								"winterqueen": 65,
+								"queenana": 65,
+								"shyyeti": 66,
+								"yeti": 66,
+								"deer": 67,
+								"reindeer": 67,
+								"elf": 68,
+								"snowglobe": 69,
+								"polarbear": 70,
+								"sleigh": 71,
+								"mistletoe": 72,
+								"snowman": 73,
+								"gonzalo": 73,
+								"snowflake": 74,
+								"roundedsquarefullsize": 100,
+								"squarefullsize": 101,
+								"circlefullsize": 102,
+								"hexagonfullsize": 103,
+								"trianglefullsize": 104,
+								"righttrianglefullsize": 105,
+								"rectanglefullsize": 106,
+								"heartfullsize": 107,
+								"starfullsize": 108,
+								"archfullsize": 109,
+								"parallelogramtallfullsize": 110,
+								"tiltedrectangle": 110,
+								"squigglefullsize": 111,
+								"donutfullsize": 112,
+								"tetriszfullsize": 113,
+								"tetristfullsize": 114,
+								"tetrislfullsize": 115,
+								"zfullsize": 113,
+								"tfullsize": 114,
+								"lfullsize": 115,
+								"cornerfullsize": 116,
+								"flowerfullsize": 117,
+								"fanbladefullsize": 118,
+								"squishedboxfullsize": 119,
+								"roundedrighttrianglefullsize": 120,
+								"arrowroundedfullsize": 121,
+								"roundedarrow": 121,
+								"beadfullsize": 122,
+								"parallelogramwidefullsize": 123,
+								"chevronfullsize": 124,
+								"xfullsize": 125,
+								"tetrislinefullsize": 126,
+								"hexagonv3": 150,
+								"trianglev3": 151,
+								"rectanglev3": 152,
+								"heartv3": 153,
+								"starv3": 154,
+								"archv3": 155,
+								"squigglev3": 156,
+								"tetriszv3": 157,
+								"tetristv3": 158,
+								"tetrislv3": 159,
+								"zv3": 157,
+								"tv3": 158,
+								"lv3": 159,
+								"fanbladev3": 160,
+								"arrowroundedv3": 161,
+								"roundedarrowv3": 161,
+								"beadv3": 162,
+								"parallelogramwidev3": 163,
+								"parallelogramv3": 163,
+								"chevronv3": 164,
+								"hs_end_of_full_size_shapes": 165,
+								"hs_number_of_objects": 166,
+								"image": 2e3,
+								"hs_start_of_characters2": 3e3,
+								"crocodilejaws": 3001,
+								"lanternfullsize": 3002,
+								"hs_end_of_characters2": 3003,
+								"nil": 1e4,
+								"edgeofscreen": 3e4
+							};
+							
+							var chVal = document.getElementById(ids[0]).value || "";
+							if (characters[chVal.toLowerCase().replace(/\s/gi, "")] != null) {
+								dictionary[String(inputNum)].push([1, characters[chVal.toLowerCase().replace(/\s/gi, "")] ]);
+							} else {
+								dictionary[String(inputNum)].push([1, Number(chVal)||'' ]);
+							}
+							(characters[chVal.toLowerCase().replace(/\s/gi, "")] == null && (!/[0-9]/.test(chVal) || /[^0-9]/.test(chVal) )) ? Red(ids[0]) : White(ids[0]);
+							break;
+						case 2:
+							var prjVarString = "";
+							projectVariables.forEach(function (text) {
+								prjVarString += JSON.stringify(text) + "\n";
+							});
+							
+							document.getElementById(ids[0]).value = document.getElementById(ids[0]).value || document.getElementById("input-var-select").value;
+							var regex = new RegExp('\{.*"name":"'+document.getElementById(ids[0]).value+'".*\}', '');
+							
+							dictionary[String(inputNum)].push([2, (JSON.parse(prjVarString.match(regex))||'')['objectIdString'], Number(String((JSON.parse(prjVarString.match(regex))||'')['type']).replace(/^8000$/,'8004')), document.getElementById(ids[1]).value]);
+							if (JSON.parse(prjVarString.match(regex)) == null) Red(ids[0]); else White(ids[0]);
+							break;
+						case 3:
+							document.getElementById(ids[0]).value = '[' + (document.getElementById(ids[0]).value||'').replace(/^\[+|\]+$/gi,'') + ']';
+							try {
+								dictionary[String(inputNum)].push([3, JSON.parse(document.getElementById(ids[0]).value)]);
+								White(ids[0]);
+							} catch (SyntaxError) {
+								Red(ids[0]);
+								dictionary[String(inputNum)].push([3,'']);
+							}
+							break;
+					}
+				}
+				
+				abilityJSON = dictionary;
+				
+				try {
+					hopscotchify(abilityJSON);
+				} catch (e) {
+					console.error(e);
+					console.log("Could not complete: check if you have any red text fields");
+					
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
+				}
+			
+			}	
+			
+			var abilityJSON = {};
+			var hsBlocksJSON = {};
+			//Get Hopscotch Code
+			function hopscotchify(code) {
+				//Check if Variable is selected					
+				var prjVarString = "";
+				projectVariables.forEach(function (text) {
+					prjVarString += JSON.stringify(text) + "\n";
+				});
+				
+				var regex = new RegExp('\{.*"name":"'+document.getElementById("input-var-select").value+'".*\}', '');
+				var varUUID = (JSON.parse(prjVarString.match(regex))||'')['objectIdString'];
+				var varType = Number(String((JSON.parse(prjVarString.match(regex))||'')['type']).replace(/^8000$/,'8004'));
+				
+				if (document.getElementById("input-var-select").value == "") {
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
+					return console.error('Please select a variable first');
+				}
+				
+				//Create the scripts
+				var keys = Object.keys(code);
+				keys.sort(function(a, b){return a-b});
+				
+				if (keys.length == 1) {
+					document.getElementById('savebtn1').style.animationName = '';
+					document.getElementById('savebtn2').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('savebtn1').style.animationName = 'saveFail';
+						document.getElementById('savebtn2').style.animationName = 'saveFail';
+					},10);
+					return console.error('Please select at least one input value besides other');
+				}
+				
+				for (i = 0; i < Object.keys(code).length; i++) {
+						var key = keys[i];
+						hsBlocksJSON[key] = []; //Create empty list for each key
+						
+						var blocks = code[keys[i]]; //The value of that key
+						for (b = 0; b < blocks.length; b++) {
+							var block = blocks[b];
+							switch (block[0]) {
+								case 0:
+									function rgbToHsv(str) {
+										str = str.replace(/[rgb( )]/gi,'').split(',');
+										var r = str[0], g = str[1], b = str[2];
+										r /= 255, g /= 255, b /= 255;
+
+										var max = Math.max(r, g, b), min = Math.min(r, g, b);
+										var h, s, v = max;
+
+										var d = max - min;
+										s = max == 0 ? 0 : d / max;
+
+										if (max == min) {
+										h = 0; // achromatic
+										} else {
+										switch (max) {
+											case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+											case g: h = (b - r) / d + 2; break;
+											case b: h = (r - g) / d + 4; break;
+										}
+
+										h /= 6;
+										}
+										
+										h = Math.floor(h*36000)/100; s = Math.floor(s*10000)/100; v= Math.floor(v*10000)/100;
+										if (0<s&&s<=1) s == 1.01; 
+										if (0<v&&v<=1) v == 1.01;
+										
+										return `HSB(${h},${s},${v})`;
+									}
+									
+									hsBlocksJSON[key].push( JSON.parse(`{  "block_class": "method", "description": "Set Text", "type": 40, "parameters": [ { "defaultValue": "", "value": "${block[1].replace(/"/gi,'\\"')}", "key": "to", "type": 53 }, { "defaultValue": "HSB(306,19,20)", "value": "${rgbToHsv(block[2])}", "key": "color", "type": 44 } ]
+									}`) );	
+									break;
+								case 1:
+									hsBlocksJSON[key].push( JSON.parse(`{ "block_class":"method", "description":"Set Image", "type":56, "parameters":[ { "defaultValue":"", "value":"", "key":"", "datum": { "type":${block[1]}, "description":"" }, "type":54 } ] }`) );
+									break;
+								case 2:
+									hsBlocksJSON[key].push( JSON.parse(`{ "block_class": "method", "type": 45, "description": "Set", "parameters": [ { "defaultValue": "", "value": "", "key": "", "datum": { "type": ${block[2]}, "variable": "${block[1]}", "description": "Variable" }, "type": 47 }, { "defaultValue": "10", "value": "${block[3].replace(/"/gi, '\\"')}", "key": "to", "type": 48 } ] }`) );
+									break;
+								case 3:
+									block[1].forEach((c) => {
+										hsBlocksJSON[key].push(c);
+									});
+									break;
+							}
+						}
+				}
+				
+				var hsAbilityList = [];
+				
+				//Generate the check if else abilities
+				function uuidhs() {
+					return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx-xxxxx-xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+						var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+						return v.toString(16).toUpperCase();
+					});
+				}
+				
+				var uuids = [];
+				for (i = 0; i < keys.length * 2 - 1; i++) {
+					uuids.push(uuidhs());
+				}
+				
+				keys = keys.sort(function(a, b){return a-b});
+				keys.push(keys.splice(keys.indexOf(''), 1)[0]);
+				
+				for (k = 0; k < keys.length - 1; k++) {
+					var key = keys[k];
+					
+					hsAbilityList.push(JSON.parse(`
+					{
+						${(k==0) ? '"name": "' + document.getElementById('name-input').value + '",': ''}
+						"createdAt": ${createDate},
+						"abilityID": "${uuids[2*k]}",
+						"blocks": [
+							{
+								"description": "Check If Else",
+								"controlFalseScript": {
+									"abilityID": "${uuids[2*k+2]}"
+								},
+								"block_class": "conditionalControl",
+								"type": 124,
+								"controlScript": {
+									"abilityID": "${uuids[2*k+1]}"
+								},
+								"parameters": [
+									{
+										"defaultValue": "",
+										"value": "",
+										"key": "",
+										"datum": {
+											"block_class": "conditionalOperator",
+											"type": ${(lessThanMode) ? 1002 : 1000},
+											"description": "${(lessThanMode) ? '＜' : '='}",
+											"params": [
+												{
+													"defaultValue": "",
+													"value": "",
+													"key": "",
+													"datum": {
+														"type": ${varType},
+														"variable": "${varUUID}",
+														"description": "Variable"
+													},
+													"type": 42
+												},
+												{
+													"defaultValue": "7",
+													"value": "${key}",
+													"key": "${(lessThanMode) ? '＜' : '='}",
+													"type": 42
+												}
+											]
+										},
+										"type": 49
+									}
+								]
+							}
+						]
+					}`));
+				}
+				for (k = 0; k < keys.length; k++) {
+					var key = String(keys[k]);
+					hsAbilityList.push(JSON.parse(`
+					{
+						"createdAt": ${createDate},
+						"abilityID": "${uuids[(k == keys.length-1) ? 2*k : 2*k + 1]}",
+						"blocks": [
+							${JSON.stringify(hsBlocksJSON[key]).replace(/^\[|\]$/gi,'')}
+						]
+					}`));
+				}
+				
+				document.getElementById("copytext").value = `{"abilities":${JSON.stringify(hsAbilityList)},"saveFile":${(document.querySelector('#save-json-copy').checked) ? JSON.stringify(code): '"noSave"'}}`;
+				
+				function copyText(){
+					var copyText = document.getElementById("copytext");
+
+					copyText.select();
+					copyText.setSelectionRange(0, 9999999); //Mobile
+
+					document.execCommand("copy");
+					
+					window.getSelection().removeAllRanges();
+				}
+				
+				copyText();
+				document.getElementById('savebtn1').style.animationName = '';
+				document.getElementById('savebtn2').style.animationName = '';
+				setTimeout(function(){
+					document.getElementById('savebtn1').style.animationName = 'saveSuccess';
+					document.getElementById('savebtn2').style.animationName = 'saveSuccess';
+				},10);
+				return console.log('Complete!');
+			}
+			
+		</script>
+	</body>
+</html>
