@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="body-scroll-lock.js"></script>
-		<script src="/hs-tools/lib/jscolor.js"></script>
+		<script src="../../lib/jscolor.js"></script>
 		<style>
 			:root {
 				--btn-color: black;
@@ -43,7 +42,6 @@
 			#savebtn1 {
 				display: block;
 			}
-			
 			
 			.list-container {
 				padding: 0;
@@ -206,7 +204,7 @@
 				}
 				#topMargin {
 					display: block;
-					height: 64px;
+					height: 72px;
 				}
 			}
 			@media only screen and (max-width: 985px) {
@@ -219,7 +217,7 @@
 				}
 			}
 			
-			#savebtn1, #savebtn2 {
+			#savebtn1, #savebtn2, #loadbtn {
 				animation-duration: 5s;
 			}
 			
@@ -246,9 +244,11 @@
 				<option id="var-sel-hidden" hidden></option>
 			</select>
 		</div>
-		<span class="input-settings" style="display: block; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;">
-			<span style="display: inline-flex; justify-content: center; width: 100%;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy">Save a copy of the dictionary for reuse later</label></span><br>
-			<button id="savebtn1" onclick="save()" class="smallscreen addbtn" style="width: auto; height: auto; margin: 4px auto; padding: 4px 8px; --btn-color: gray; position: ; right: 0;"><i class="fa fa-save"></i> Save Work</button>
+		<span class="input-settings" style="display: ; position: fixed; top: 36px; margin-bottom: -12px; min-height: 8px; z-index: 9;">
+			<span style="display: inline-flex; justify-content: center; align-items: center; text-align: center; flex-grow: 500; margin: 4px; max-width: 100%;"><input type="checkbox" id="save-json-copy" checked><label for="save-json-copy"><i class="fa fa-download"></i> Save a JSON copy file</label></span><br>
+			<button id="savebtn1" onclick="save()" class="smallscreen addbtn" style="width: auto; height: auto; margin: 4px; padding: 4px 8px; --btn-color: gray; position: ; right: 0;"><i class="fa fa-save"></i> Save Work</button>
+			<button id="loadbtn" onclick="getFile()" class="addbtn" style="flex-shrink: 1; display:inline; width: auto; height: auto; margin: 4px 4px 4px auto; padding: 4px 8px; --btn-color: gray; right: 0;"><i class="fa fa-upload"></i> Load File</button>
+			<input id="loadfile" type="file" hidden>
 		</span>
 		<div id="topMargin" style=""></div>
 		<ul class="list-container">
@@ -265,8 +265,12 @@
 		<script>
 			//Load Project Variables 
 			var url = new URL(window.location.href);
-			var projectVariables = JSON.parse(url.searchParams.get("pVars"));
+			var projectVariables = JSON.parse(url.searchParams.get("pVars")) || [];
+			var lessThanMode = (url.searchParams.get("ltm") != null);
 			var createDate = Number(url.searchParams.get("createDate")) + 12.34567;
+			
+			//Compatibility ID
+			if (url.searchParams.get("version-id") != "c83bf064") document.querySelector('html').innerHTML = '<span style="text-align: center; position: fixed; top: 35%; width: 100%;"><h1>Client is out of date. See the shortcut topic for more info.</h1>Check the first two posts or the most recent updates.';
 			
 			/*var projectVariables = [
 				{
@@ -375,26 +379,27 @@
 			
 			//Add Dictionary Rows
 			var nextId = 1;
-			function addRow(type) {
+			function addRow(type, data) {
+				data = data || ['','',''];
 				console.log("Create key with type " + type);
 				var tray = document.getElementById("add-controls");
 				var li = document.createElement("li");
 				var output;
 				switch (type) {
 					case 0:
-						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder="Hello, World!"></textarea><span id="btn-container-!x!"></span></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="0" class="fa fa-arrow-right color"></i><i class="fa fa-text-height color" style="--btn-color: limegreen; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder="Hello, World!" value="${data[1]}"></textarea><span id="btn-container-!x!"></span></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
 						break;
 					case 1:
-						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o!x!t" type="text" placeholder="Star Girl"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="1" class="fa fa-arrow-right color"></i><i class="fa fa-picture-o color" style="--btn-color: mediumseagreen; margin-left: -6px;"></i><div><input id="o!x!t" type="text" placeholder="Star Girl" value="${data[1]}"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
 						break;
 					case 2:
-						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..."><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="2" class="fa fa-arrow-right color"></i><i class="fa fa-sliders color" style="--btn-color: goldenrod; margin-left: -6px;"></i><div class="flex"><input id="o!x!t" type="text" placeholder="Variable Name..." value="${data[1]}"><input id="o!x!t_" type="number" style="width: 40%;" placeholder="#" value="${data[2]}"></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
 						break;
 					case 3:
-						output = '<input id="in!x!" class="numberIn" type="number" placeholder="Input #"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'[{"block_class": "method", "type": 50}]\'></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>';
+						output = `'<input id="in!x!" class="numberIn" type="number" placeholder="Input #" value="${data[0]}"><i value="3" class="fa fa-arrow-right color"></i><i class="fa fa-code color" style="--btn-color: steelblue; margin-left: -6px;"></i><div><textarea id="o!x!t" placeholder=\'[{"block_class": "method", "type": 50}]\' value="${data[1]}"></textarea></div><span id="oa!x!" class="output-actions"><i class="fa fa-arrow-down oac" onclick="moveDown(!x!)"></i><i class="fa fa-arrow-up oac" onclick="moveUp(!x!)"></i><i class="fa fa-trash oac" onclick="deleteItem(!x!)"></i></span>'`;
 						break;
 				}
-				li.innerHTML = output.replace(/!x!/g,nextId);
+				li.innerHTML = output.replace(/!x!/g,nextId).replace(/^'|'$/gi,'');
 				li.setAttribute("id", "output-item-" + nextId); // added line
 				li.setAttribute('type', type);
 				tray.parentNode.insertBefore(li, tray);
@@ -402,8 +407,9 @@
 				window.scrollTo(0,document.body.scrollHeight);
 				
 				if (type == 0) {
+					var colorVal = data[2] || '1e151d';
 					var input = document.createElement('button');
-					var picker = new jscolor(input, {closable: true, inI:true, closeText:'Close Color Picker',value:'1e151d'});
+					var picker = new jscolor(input, {closable: true, inI: true, closeText: 'Close Color Picker', value: colorVal});
 					input.setAttribute("class", "jscolor");
 					input.style.textAlign = "right";
 					input.setAttribute("tabindex", "-1");
@@ -414,6 +420,78 @@
 				
 				nextId += 1;
 				
+			}
+			
+			//Load Data from File
+			function load(data) {
+				var addCount = 0;
+				Object.keys(data).forEach(function(k){
+					for (i = 0; i < data[k].length; i++) {
+						var block = data[k][i];
+						if (JSON.stringify(block) != '[3,[]]') {
+							//Not Empty Custom Code
+							var type = data[k][i][0];
+							block.splice(0,1,k);
+							addRow(type,block);
+							addCount ++;
+						}
+					}
+				});
+				if (addCount == 0) {
+					console.log('Invalid File');
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveFail';
+					},10);
+				} else {
+					console.log('Successfully loaded ' + ((addCount == 1) ? '1 block': addCount + 'blocks') );
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveSuccess';
+					},10);
+				}
+			}
+			
+			//File Reader
+				//document.getElementById('loadfile').addEventListener('change', getFile);
+			function getFile(elm) {
+				document.getElementById('loadfile').click();
+			}
+			
+			document.getElementById('loadfile').addEventListener('change', function(){
+				function invalidFile() {
+					console.log('Invalid File');
+					document.getElementById('loadbtn').style.animationName = '';
+					setTimeout(function(){
+						document.getElementById('loadbtn').style.animationName = 'saveFail';
+					},10);
+				}
+				var input = document.getElementById('loadfile');
+				var file = input.files[0];
+				try { var ext = file.name.split(".")[file.name.split(".").length-1]; } catch (TypeError) { /*No file was inputted*/ return; }
+				if ('files' in input && input.files.length > 0 && ext.match(/^(json|txt)$/gi)) {
+					//Read file if the extension is JSON or text
+					readFileContent(file).then(content => {
+						try {
+							load(JSON.parse(content));
+						} catch (SyntaxError) {
+							//Catches invalid files and failed imports
+							invalidFile();
+						}
+					}).catch(error => console.log(error))
+				} else if ('files' in input && input.files.length > 0) {
+					//Bad extension
+					invalidFile();
+				}
+			});
+			
+			function readFileContent(file) {
+				const reader = new FileReader()
+				return new Promise((resolve, reject) => {
+				reader.onload = event => resolve(event.target.result)
+				reader.onerror = error => reject(error)
+				reader.readAsText(file);
+			  })
 			}
 			
 			//Item Actions
@@ -442,10 +520,10 @@
 				}
 				
 				var reference = {
-					"1": [0, "Hello", "#6E6"], //text: hello, color: lime
-					"2": [0, "World", "#000"], //text: world, color: black
-					"3": [1, 0], //set image, character: monkey
-					"4": [2, "var", 123] //output variable: number
+					"1": [[0, "Hello", "#6E6"]], //text: hello, color: lime
+					"2": [[0, "World", "#000"]], //text: world, color: black
+					"3": [[1, 0]], //set image, character: monkey
+					"4": [[2, "var", 123]] //output variable: number
 				};
 				
 				var actionsList = document.querySelectorAll(".list-container li");
@@ -655,8 +733,6 @@
 							}
 							break;
 					}
-					
-					
 				}
 				
 				abilityJSON = dictionary;
@@ -754,70 +830,14 @@
 										return `HSB(${h},${s},${v})`;
 									}
 									
-									hsBlocksJSON[key].push( JSON.parse(`{
-										"block_class": "method",
-										"description": "Set Text",
-										"type": 40,
-										"parameters": [
-											{
-												"defaultValue": "",
-												"value": "${block[1].replace(/"/gi,'\\"')}",
-												"key": "to",
-												"type": 53
-											},
-											{
-												"defaultValue": "HSB(306,19,20)",
-												"value": "${rgbToHsv(block[2])}",
-												"key": "color",
-												"type": 44
-											}
-										]
+									hsBlocksJSON[key].push( JSON.parse(`{  "block_class": "method", "description": "Set Text", "type": 40, "parameters": [ { "defaultValue": "", "value": "${block[1].replace(/"/gi,'\\"')}", "key": "to", "type": 53 }, { "defaultValue": "HSB(306,19,20)", "value": "${rgbToHsv(block[2])}", "key": "color", "type": 44 } ]
 									}`) );	
 									break;
 								case 1:
-									hsBlocksJSON[key].push( JSON.parse(`{
-										"block_class":"method",
-										"description":"Set Image",
-										"type":56,
-										"parameters":[
-											{
-												"defaultValue":"",
-												"value":"",
-												"key":"",
-												"datum": {
-													"type":${block[1]},
-													"description":""
-												},
-												"type":54
-											}
-										]
-									}`) );
+									hsBlocksJSON[key].push( JSON.parse(`{ "block_class":"method", "description":"Set Image", "type":56, "parameters":[ { "defaultValue":"", "value":"", "key":"", "datum": { "type":${block[1]}, "description":"" }, "type":54 } ] }`) );
 									break;
 								case 2:
-									hsBlocksJSON[key].push( JSON.parse(`{
-										"block_class": "method",
-										"type": 45,
-										"description": "Set",
-										"parameters": [
-											{
-												"defaultValue": "",
-												"value": "",
-												"key": "",
-												"datum": {
-													"type": ${block[2]},
-													"variable": "${block[1]}",
-													"description": "Variable"
-												},
-												"type": 47
-											},
-											{
-												"defaultValue": "10",
-												"value": "${block[3].replace(/"/gi, '\\"')}",
-												"key": "to",
-												"type": 48
-											}
-										]
-									}`) );
+									hsBlocksJSON[key].push( JSON.parse(`{ "block_class": "method", "type": 45, "description": "Set", "parameters": [ { "defaultValue": "", "value": "", "key": "", "datum": { "type": ${block[2]}, "variable": "${block[1]}", "description": "Variable" }, "type": 47 }, { "defaultValue": "10", "value": "${block[3].replace(/"/gi, '\\"')}", "key": "to", "type": 48 } ] }`) );
 									break;
 								case 3:
 									block[1].forEach((c) => {
@@ -872,8 +892,8 @@
 										"key": "",
 										"datum": {
 											"block_class": "conditionalOperator",
-											"type": 1000,
-											"description": "=",
+											"type": ${(lessThanMode) ? 1002 : 1000},
+											"description": "${(lessThanMode) ? '＜' : '='}",
 											"params": [
 												{
 													"defaultValue": "",
@@ -889,7 +909,7 @@
 												{
 													"defaultValue": "7",
 													"value": "${key}",
-													"key": "=",
+													"key": "${(lessThanMode) ? '＜' : '='}",
 													"type": 42
 												}
 											]
@@ -913,9 +933,7 @@
 					}`));
 				}
 				
-				document.getElementById("copytext").value = JSON.stringify(hsAbilityList);
-				console.log(uuids);
-				console.log(hsAbilityList);
+				document.getElementById("copytext").value = `{"abilities":${JSON.stringify(hsAbilityList)},"saveFile":${(document.querySelector('#save-json-copy').checked) ? JSON.stringify(code): '"noSave"'}}`;
 				
 				function copyText(){
 					var copyText = document.getElementById("copytext");
