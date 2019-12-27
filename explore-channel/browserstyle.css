@@ -9,6 +9,7 @@
 	--x-ray-opacity: ignore;
 	--x-ray-zoom: 1;
 	--x-ray-elms: none;
+	--tab-outline-style: none;
 }
 
 html, body {
@@ -76,6 +77,12 @@ sq {
 
 .topnav::-webkit-scrollbar {
 	height: 0px;
+}
+.topnav span {
+	outline: none;
+}
+.topnav span:focus button {
+	color: #50D8BB;
 }
 .topnav button {
 	background-color: rgba(0,0,0,0);
@@ -157,6 +164,8 @@ sq {
 	overflow: hidden;
 	color: var(--col-label-text);
 	transition: color var(--transition-time), background-color var(--transition-time);
+	outline: none;
+	border: 0px solid white;
 }
 .project-card a.thumbnail {
 	width: 300px;
@@ -170,6 +179,9 @@ sq {
 	background-position: 50% 50%;
 	opacity: var(--img-opacity);
 	transition: opacity var(--transition-time);
+}
+.project-card *:focus {
+	outline: var(--tab-outline-style);
 }
 .project-card a.thumbnail img {
 	/* CURRENTLY UNUSED
@@ -275,6 +287,161 @@ sq {
 }
 .fa-link:active {
 	opacity: 0.5;
+}
+
+/* User Cards */
+
+.user-card {
+	display: flex;
+	position: relative;
+	background-color: var(--col-bg-toolbar);
+	width: 320px;
+	height: 64px;
+	margin: 8px;
+	padding: 8px;
+	border-radius: 16px;
+	border: 0px solid white;
+	opacity: 1;
+	transition: opacity 0.5s, background-color var(--transition-time), color var(--transition-time), border 0.25s, padding 0.25s;
+}
+.user-card:hover {
+	padding: 6px;
+	border: 2px solid #50D8BB;
+}
+.user-card span.img-container {
+	display: inline-block;
+	position: relative;
+	width: 48px;
+	height: 48px;
+	padding: 0;
+	flex-shrink: 0;
+	pointer-events: all;
+}
+.user-card img {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
+.user-card name {
+	font-size: 16px;
+	color: var(--col-label-text);
+	font-family: Avenir;
+	display: inline-flex;
+	height: 100%;
+	align-items: center;
+	padding: 12px;
+}
+
+/* Search Controls */
+
+.proj-search-div {
+	background-color: var(--col-bg-toolbar);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 46px;
+	height: 51px;
+	z-index: 12;
+	border-bottom: var(--col-low-border);
+	transition: border-bottom var(--transition-time), background-color var(--transition-time);
+}
+.proj-search-div .fa {
+	background-color: rgba(0,0,0,0);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 51px;
+	font-weight: 200;
+	font-size: 24px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: #aaa;
+	border-bottom: 4px solid rgba(0,0,0,0);
+}
+.proj-search-div .fa-search:hover {
+	opacity: 0.7;
+}
+.proj-search-div > span:focus i {
+	color: #50D8BB;
+}
+.proj-search-div span {
+	outline: none;
+}
+
+.search-bar {
+	overflow: hidden;
+	display: block;
+	position: fixed;
+	z-index: 11;
+	width: calc(100% - 46px);
+	height: 50px;
+	top: -51px;
+	left: 46px;
+	padding: 4px 6px 6px 0;
+	background-color: var(--col-bg-toolbar);
+	/*border-bottom: var(--col-low-border);*/
+	transition: border-bottom var(--transition-time), background-color var(--transition-time), top 0.5s;
+}
+.search-bar input {
+	display: inline-block;
+	background-color: #444;
+	opacity: 0.8;
+	color: #ddd;
+	width: calc(100% - 64px);
+	top: -51px;
+	left: 51px;
+	font-size: 16px;
+	padding: 8px 8px 6px 14px;
+	border-radius: 25px;
+	outline: none;
+	border: 1px solid gray;
+	font-family: Avenir;
+}
+.search-bar input::-webkit-search-cancel-button {
+	position: relative;
+	top: -1px;
+	left: 2px;
+	color: #ddd;
+	webkit-appearance: none;
+	-webkit-appearance: none;
+	height: 16px;
+	width: 16px;
+	content: test;
+	background: url('../images/search-x.png');
+	display: block;
+}
+.search-bar span, .search-bar button {
+	display: inline-block;
+	padding: 0;
+	background-color: rgba(0,0,0,0);
+	color: #aaa;
+	width: 28px;
+	height: 32px;
+	font-size: 18px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	position: relative;
+	top: 1px;
+}
+.search-bar span {
+	margin: 4px auto;
+}
+.search-bar button:hover {
+	opacity: 0.7;
+}
+.search-bar span:focus button {
+	outline: 2px solid #50D8BB;
+}
+.search-bar button.selected {
+	color: #0b8e7d;
 }
 
 /* X-Ray */
