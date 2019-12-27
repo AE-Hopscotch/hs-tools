@@ -188,7 +188,10 @@ bl {
 	transition: opacity 0.5s;
 	border-radius: 8px;
 }
-img.dark {
+video[canBeDark] {
+	transition: opacity 0.5s;
+}
+img.dark, video.dark {
 	opacity: 0.4;
 }
 .belowFlex {
