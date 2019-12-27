@@ -188,7 +188,7 @@
 			try {
 				var user = JSON.parse(decodeURI(window.atob(userString)));
 				console.log(user);
-				if (user.id == 452673) document.querySelector('.topSticky h1').style = "font-family: Lilita One; font-weight: 400; color: #f30;";
+				if (user.id == 452673) document.querySelector('.topSticky h1').style = "font-family: Lilita One; font-size: 34px; font-weight: 400; color: #f30;";
 			} catch (SyntaxError) {
 				//Check to see if old URL parameters exist
 				if (url.searchParams.get("id")||'' != "" && url.searchParams.get("cd")||'' != ""){
