@@ -120,3 +120,13 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
 		}
 	}
 }
+
+//Space or Enter -> Click Child Element
+document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
+	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.querySelector('*').click();});
+});
+
+//Space or Enter -> Click Current Element
+document.querySelectorAll('*[AE-STSE]').forEach(function(elm){
+	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.click();});
+});
