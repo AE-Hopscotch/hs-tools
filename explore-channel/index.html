@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>AE Hopscotch Web</title>
-		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
@@ -26,11 +27,11 @@
 			.topnav {
 				background-color: var(--col-bg-toolbar);
 				display: flex;
-				width: 100%;
+				width: calc(100% - 46px);
 				height: 51px;
 				position: fixed;
 				top: 0px;
-				left: 0px;
+				left: 46px;
 				overflow-x: auto;
 				overflow-y: visible;
 				padding-top: 6px;
@@ -48,7 +49,7 @@
 		</style>
 	</head>
 	<body>
-		<button class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 2;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
+		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 2;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye-slash"> </i></button>
 		<div class="xray-contents">
 			<span id="zoom-display">100</span>
@@ -56,25 +57,33 @@
 		</div>
 		
 		<sq>
-			<a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#eee;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+			<a tabindex="1" href="javascript:home()" style="display:block; outline: none;"><svg id="homeSvg" style="fill:#eee;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
 		</sq>
-		<div class="topnav">
-			<button onclick="showChannel('Featured')">Featured</button>
-			<button onclick="showChannel('Announcements')">Announcements</button>
-			<button onclick="showChannel('Curated')">Curated</button>
-			<button onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button>
-			<button onclick="showChannel('Halloween')" style="display:none;">Halloween</button>
-			<button onclick="showChannel('Christmas')">Christmas</button>
-			<button onclick="showChannel('Action')">Action</button>
-			<button onclick="showChannel('Animation')">Animation</button>
-			<button onclick="showChannel('Art')">Art</button>
-			<button onclick="showChannel('Build')">Build</button>
-			<button onclick="showChannel('Education')">Education</button>
-			<button onclick="showChannel('Ideas')">Ideas</button>
-			<button onclick="showChannel('Puzzles')">Puzzles</button>
-			<button onclick="showChannel('Simulation')">Simulation</button>
-			<button onclick="showChannel('Random')">Random</button>
-			<button onclick="showChannel('Newest')">Newest</button>
+		<div class="proj-search-div">
+			<span AE-STCE tabindex="3"><i tabindex="-1" class="fa fa-search fa-flip-horizontal" title="Search for a project or Hopscotcher" onclick="toggleSearch()" onkeydown="if(event.keyCode == 13 || event.keyCode == 32) this.click();"></i></span>
+		</div>
+		<div class="search-bar">
+			<input tabindex="4" onfocusin="if(!search_open)toggleSearch()" type="search" id="projectSearchBox" placeholder="Search..." onsearch="searchForItems()">
+			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(0)" class="selected" title="Search for Projects"><i class="fa fa-file" title=""></i></button></span>
+			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(1)" class="" title="Search for Hopscotchers"><i class="fa fa-group" title=""></i></button></span>
+		</div>
+		<div class="topnav" onfocusin="if(search_open)toggleSearch();">
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Announcements')">Announcements</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Halloween')" style="display:none;">Halloween</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Christmas')">Christmas</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Action')">Action</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Animation')">Animation</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Art')">Art</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Build')">Build</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Education')">Education</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Ideas')">Ideas</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Puzzles')">Puzzles</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Simulation')">Simulation</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Random')">Random</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Newest')">Newest</button></span>
 		</div><br><br><br>
 		<div class="flex">
 			<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 100px;"></textarea>
@@ -133,27 +142,28 @@
 			}
 			
 			var path = "categories/best_of/featured";
-			function showChannel(channel, addHistoryEntry) {
-				path = names[channel];
+			function showChannel(channel, addHistoryEntry, customPath) {
+				path = customPath || names[channel];
 				
 				//Format the buttons
 				document.querySelectorAll(".topnav button").forEach(function(btn){
 					if (btn.innerHTML == channel) {btn.setAttribute("class", "selected"); btn.scrollIntoView();} else btn.removeAttribute("class");
 				});
 				
-				//Remove all existing project cards
+				//Remove all existing project and user cards
 				$(".project-card").remove();
+				$(".user-card").remove();
 				
 				page = 1;
 				document.getElementById("loadingBear").style.display = "";
 				document.body.scrollTop = 0; // For Safari
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-				request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				request(`http://community.gethopscotch.com/api/v2/${path}${(customPath != undefined) ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
 				if (addHistoryEntry != false) {
-					(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) ? location.href = "?channel=" + encodeURI(channel) : setLocation("?channel=" + encodeURI(channel));
+					(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) ? location.href = "?channel=" + encodeURIComponent(channel) : setLocation("?channel=" + encodeURIComponent(channel));
 				} else {
-					replaceLocation("?channel=" + encodeURI(channel));
+					replaceLocation("?channel=" + encodeURIComponent(channel));
 				}
 								
 				channelName = channel;
@@ -162,7 +172,7 @@
 			
 			$(window).scroll(function() {
 			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy) {
-				   request(`http://community.gethopscotch.com/api/v2/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				   request(`http://community.gethopscotch.com/api/v2/${path}${(channelName == 'Search' || channelName == 'Search_Users') ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 			   }
 			});
 			
@@ -173,7 +183,7 @@
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
 					console.log (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,''));
-					if (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'')) printResult(
+					if (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'') || /search\?(title|nickname)/.test(options.url)) printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
 						(x.responseText || '')
@@ -200,22 +210,72 @@
 			//Show the default or specified channel
 			var url = new URL(window.location.href);
 			var channel = url.searchParams.get("channel");
-			if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
-				showChannel(channel, false);
-			} else {
-				showChannel("Featured", false);
-			}	
-			if (window.history && window.history.pushState) {
-				$(window).on('popstate', function() {      
-					channel = url.searchParams.get("channel");
-					if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
-						showChannel(channel, false);
-					} else {
-						showChannel("Featured", false);
-					}
-				});
+			
+			setTimeout(function(){
+				showDefaultChannel();
+				if (window.history && window.history.pushState) {
+					$(window).on('popstate', function() {      
+						channel = url.searchParams.get("channel");
+						showDefaultChannel();
+					});
+				}
+			}, 100);
+			function showDefaultChannel() {
+				if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
+					showChannel(channel, false);
+				} else {
+					if (document.querySelector('.search-bar input').value != "") searchGroup(Number(/_Users/.test(channel)));
+					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchForItems() : showChannel("Featured", false);
+				}
 			}
 			
+			//Search Functions
+			var search_open = false;
+			var previousChannel = "";
+			function toggleSearch() {
+				var searchDiv = document.querySelector('.search-bar');
+				search_open = !search_open;
+				if (search_open) {
+					searchDiv.style.top = '0px';
+					searchDiv.querySelector('input').focus();
+					document.querySelector('.proj-search-div i').setAttribute('class', 'fa fa-chevron-left');
+					document.querySelector('.proj-search-div i').style.paddingTop = '6px';
+					document.querySelector('.proj-search-div i').title = 'Exit Search';
+					previousChannel = channelName;
+					$(".project-card").remove();
+					$(".user-card").remove();
+					searchForItems();
+				} else {
+					searchDiv.style.top = '-51px';
+					document.querySelector('.proj-search-div i').setAttribute('class', 'fa fa-search fa-flip-horizontal');
+					document.querySelector('.proj-search-div i').style.paddingTop = '0px';
+					document.querySelector('.proj-search-div i').title = 'Search for a project or Hopscotcher';
+					showChannel(previousChannel, false);
+				}
+			}
+			
+			var searchGroupType = 0;
+			function searchGroup(g) {
+				searchGroupType = g;
+				document.querySelectorAll('.search-bar button')[g].classList.add('selected');
+				document.querySelectorAll('.search-bar button')[1-g].classList.remove('selected');
+				searchForItems();
+			}
+			
+			function searchForItems() {
+				var searchText = document.querySelector('.search-bar input').value;
+				console.log(searchText);
+				if (searchText != "") {
+					if (!search_open) toggleSearch();
+					if (searchGroupType == 0) {
+						console.log('projects/search?title=' + encodeURIComponent(searchText));
+						showChannel('Search', false, 'projects/search?title=' + encodeURIComponent(searchText));
+					} else {
+						console.log('users/search?nickname=' + encodeURIComponent(searchText));
+						showChannel('Search_Users', false, 'users/search?nickname=' + encodeURIComponent(searchText));
+					}
+				}
+			}
 			</script>
 	</body>
 </html>
