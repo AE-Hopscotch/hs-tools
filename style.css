@@ -165,41 +165,54 @@ bl {
 .flex[reverse] {
 	flex-wrap: wrap-reverse;
 }
+.cover {
+	margin: 10px 0px;
+	pointer-events: none;
+}
+.flex.imgflex p {
+	padding: 10px 0px 10px 20px;
+	text-align: justify;
+}
+.flex[reverse].imgflex p {
+	padding: 10px 20px 10px 20px;
+	text-align: justify;
+
+}
+.flex.imgflex span {
+	text-align: center;
+}
+.flex.imgflex img {
+	max-width: 100%;
+	margin: 10px 0px 0px 0px;
+	min-width: 30%;
+	transition: opacity 0.5s;
+	border-radius: 8px;
+}
+img.dark {
+	opacity: 0.4;
+}
 .belowFlex {
 	margin-left: 20px;
 	margin-top: 0px;
 	text-align: justify;
 }
-.flex img {
-	max-width: 100%;
-	padding: 10px 0px 0px 0px;
-	min-width: 30%;
-}
-.cover {
-	margin: 10px 0px;
-	pointer-events: none;
-}
-.flex p {
-	padding: 10px 0px 10px 20px;
-	text-align: justify;
-}
-.flex[reverse] p {
-	padding: 10px 20px 10px 20px;
-	text-align: justify;
-
-}
-.flex span {
-	text-align: center;
-	pointer-events: none;
-}
 
 @media only all and (min-width: 640px){
 	.flex[r='640'] { justify-content: flex-end; }
-	.flex[r='640'] p { width: calc(100% - 375px); }
+	.flex[r='640'] p:not([cw]) { width: calc(100% - 375px); }
+	.flex[r='640'] *[cw] { width: calc(100% - var(--custom-width)); }
 	.belowFlex[r='640'] { margin-left: 0px; }
 }
 @media only all and (min-width: 760px){
 	.flex[r='760'] { justify-content: flex-end; }
-	.flex[r='760'] p { width: calc(100% - 375px); }
+	.flex[r='760'] p:not([cw]) { width: calc(100% - 375px); }
+	.flex[r='760'] *[cw] { width: calc(100% - var(--custom-width)); }
 	.flex[r='760'][reverse] p { padding-left: 0px; }
 }
+@media only all and (min-width: 896px){
+	.flex[r='896'] { justify-content: flex-end; }
+	.flex[r='896'] p:not([cw]) { width: calc(100% - 375px); }
+	.flex[r='896'] *[cw] { width: calc(100% - var(--custom-width)); }
+	.flex[r='896'][reverse] p { padding-left: 0px; }
+}
+
