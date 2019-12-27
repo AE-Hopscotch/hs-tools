@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>AE Hopscotch Web</title>
-		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
@@ -138,7 +139,7 @@
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 				request(`http://community.gethopscotch.com/api/v2/users/${user.id}/${path}?page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
-				replaceLocation(`?u=${userString}&channel=${encodeURI(channel)}`);
+				replaceLocation(`?u=${userString}&channel=${encodeURIComponent(channel)}`);
 			}
 			
 			$(window).scroll(function() {
@@ -153,7 +154,7 @@
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					console.log (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/users\/[0-9]*\/|\?.*/gi,''));
+					console.log(names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/users\/[0-9]*\/|\?.*/gi,''));
 					if (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/users\/[0-9]*\/|\?.*/gi,'')||!/projects/.test(options.url)) {
 						printResult(
 							//options.method + ' ' + options.url + '\n' +
@@ -187,6 +188,7 @@
 			try {
 				var user = JSON.parse(decodeURI(window.atob(userString)));
 				console.log(user);
+				if (user.id == 452673) document.querySelector('.topSticky h1').style = "font-family: Lilita One; font-weight: 400; color: #f30;";
 			} catch (SyntaxError) {
 				//Check to see if old URL parameters exist
 				if (url.searchParams.get("id")||'' != "" && url.searchParams.get("cd")||'' != ""){
