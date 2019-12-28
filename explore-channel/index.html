@@ -224,15 +224,15 @@
 				if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 					showChannel(channel, false);
 				} else {
-					if (document.querySelector('.search-bar input').value != "") searchGroup(Number(/_Users/.test(channel)));
-					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchForItems() : showChannel("Featured", false);
+					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchGroup(Number(/_Users/.test(channel))) : showChannel("Featured", false);
 				}
 			}
 			
 			//Search Functions
 			var search_open = false;
 			var previousChannel = "";
-			function toggleSearch() {
+			function toggleSearch(loadItems) {
+				if (loadItems == undefined) loadItems = true;
 				var searchDiv = document.querySelector('.search-bar');
 				search_open = !search_open;
 				if (search_open) {
@@ -244,7 +244,7 @@
 					previousChannel = channelName;
 					$(".project-card").remove();
 					$(".user-card").remove();
-					searchForItems();
+					if (loadItems) searchForItems();
 				} else {
 					searchDiv.style.top = '-51px';
 					document.querySelector('.proj-search-div i').setAttribute('class', 'fa fa-search fa-flip-horizontal');
@@ -264,9 +264,9 @@
 			
 			function searchForItems() {
 				var searchText = document.querySelector('.search-bar input').value;
-				console.log(searchText);
 				if (searchText != "") {
-					if (!search_open) toggleSearch();
+					console.log(searchText);
+					if (!search_open) toggleSearch(false);
 					if (searchGroupType == 0) {
 						console.log('projects/search?title=' + encodeURIComponent(searchText));
 						showChannel('Search', false, 'projects/search?title=' + encodeURIComponent(searchText));
@@ -276,6 +276,16 @@
 					}
 				}
 			}
+			
+			$(document).keydown(function(e){
+				switch (e.keyCode) {
+					case 27: //Escape
+						if (search_open) document.querySelector("#projectSearchBox").blur();
+						toggleSearch(); //Toggles the search bar; blurs it if search is currently open
+						break;
+				}
+			});
+			
 			</script>
 	</body>
 </html>
