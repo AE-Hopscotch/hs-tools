@@ -2,7 +2,11 @@
 	"19": {
 		"id": 19,
 		"type": "old",
-		"blockHTML": "Wait til Timestamp <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Wait til Timestamp",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Wait til Timestamp <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Waits until the <a href=\"https://en.wikipedia.org/wiki/Unix_time\">Unix Timestamp</a> specified (in milliseconds) before continuing the code.",
 		"app_description": "N/A – This block has not yet been implemented into Hopscotch.",
 		"collapsible": false,
@@ -10,7 +14,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Timestamp (in milliseconds) – the set timestamp that the project will wait until before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Timestamp (in milliseconds) – the set timestamp that the project will wait until before running the next action."
 			}
 		],
 		"useful_for": [
@@ -30,7 +34,11 @@
 	"23": {
 		"id": 23,
 		"type": "move",
-		"blockHTML": "Move Forward <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Move Forward",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Move Forward <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Moves the object in their forward direction by the specified distance (pixels)",
 		"app_description": "Moves your object forward* by the number of pixels specified. Negative numbers will move you robject backwards.\n*Forward means the angle your object is facing. All objects face to the right by default - 0 degrees. You can turn or flip an object to change the direction of Move Forward.",
 		"collapsible": false,
@@ -38,7 +46,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Distance – The number of pixels to move in the forward direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Distance – The number of pixels to move in the forward direction."
 			}
 		],
 		"useful_for": [
@@ -55,7 +63,11 @@
 	"24": {
 		"id": 24,
 		"type": "move",
-		"blockHTML": "Turn degrees <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Turn degrees",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Turn degrees <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Turns the object by the number of degrees specified.",
 		"app_description": "Changes the direction the object is facing by a certain number of degrees. Use a shape like heart to see how it works. Rotating 180 degrees will place the heart upside down with the top edges facing down. Rotating 360 degrees will make the heart turn a full circle!\nFor an example, search the community for Helicopter Rescue. It uses the block to rotate the helicopter as you rescue the people.",
 		"collapsible": false,
@@ -63,7 +75,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Degrees – The number of degrees for the object to turn, different with negative speed and flipped objects. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Degrees – The number of degrees for the object to turn, different with negative speed and flipped objects."
 			}
 		],
 		"useful_for": [
@@ -80,7 +92,12 @@
 	"26": {
 		"id": 26,
 		"type": "draw",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Draw a Trail color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> width <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Draw a Trail colorwidth",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Draw a Trail color <i class=\"ps fa fa-eyedropper\"></i> width <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Draws a trail with the object by following all movement blocks inside of it. Trails render behind all objects.",
 		"app_description": "This block causes the object to draw a trail behind it whenever it moves. You can change the color and width. The bigger the number for Width, the thicker the trail.\nNeed to make a background? A thick trail with width 3000 and a Move Forward 1 block inside should do it!",
 		"collapsible": true,
@@ -88,11 +105,11 @@
 		"parameters": [
 			{
 				"type": "clr",
-				"description": "Color – Defines what color to use in the trail, which can be changed later using the <a href=\"?id=32\">Set Trail Color Block</a>. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+				"description": "Color – Defines what color to use in the trail, which can be changed later using the <a href=\"?id=32\">Set Trail Color Block</a>."
 			},
 			{
 				"type": "num",
-				"description": "Width – Determines the trail’s width (diameter), which can be changed later using the <a href=\"?id=31\">Set Trail Width Block</a>. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Width – Determines the trail’s width (diameter), which can be changed later using the <a href=\"?id=31\">Set Trail Width Block</a>."
 			}
 		],
 		"useful_for": [
@@ -110,7 +127,12 @@
 	"27": {
 		"id": 27,
 		"type": "move",
-		"blockHTML": "Change X by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Change X",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Change X by <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Moves the object by a specified amount along the X-axis (horizontally)",
 		"app_description": "Moves the object left or right. The bigger the number, the father right on the screen the object will go. Want to move your object to the left? Use a negative number.\nFor an example, search the community for Taco Fighter 2, it uses this block inside a Repeat block to make the character go back and forth across the screen",
 		"collapsible": false,
@@ -118,7 +140,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Distance – Specifies how many pixels the object will move to the right; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Distance – Specifies how many pixels the object will move to the right; use negative numbers or have a negative speed to move left."
 			}
 		],
 		"useful_for": [
@@ -135,7 +157,12 @@
 	"28": {
 		"id": 28,
 		"type": "move",
-		"blockHTML": "Change Y by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Change Y",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Change Y by <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Moves the object by a specified amount along the Y-axis (vertically)",
 		"app_description": "Moves the object up or down. The bigger the number, the farther up the screen the object will go. Want to move your object down? Use a negative number.\nFor an example, search the community for Jelly Jump. It uses this block to make the porings jump over obstacles.",
 		"collapsible": false,
@@ -143,7 +170,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Distance – Specifies how many pixels the object will move upwards; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Distance – Specifies how many pixels the object will move upwards; use negative numbers or have a negative speed to move left."
 			}
 		],
 		"useful_for": [
@@ -160,7 +187,11 @@
 	"29": {
 		"id": 29,
 		"type": "old",
-		"blockHTML": "Scale by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Scale by",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Scale by percent <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Scales the object by said percent",
 		"app_description": "N/A – This block no longer exists in the editor.",
 		"collapsible": false,
@@ -168,7 +199,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Percent – The new size of the object. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Percent – The new size of the object."
 			}
 		],
 		"useful_for": [
@@ -186,7 +217,12 @@
 	"30": {
 		"id": 30,
 		"type": "draw",
-		"blockHTML": "Clear ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Clear",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Clear",
 		"about": "Clears every trail from the screen",
 		"app_description": "Erases any lines or backgrounds that have been drawn.",
 		"collapsible": false,
@@ -206,7 +242,12 @@
 	"31": {
 		"id": 31,
 		"type": "draw",
-		"blockHTML": "Set Trail Width to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Trail Width",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Trail Width to <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Changes the width of the current trail being drawn",
 		"app_description": "Sets how wide the line will be drawn. Small numbers make a thin line while large numbers make a thick line. A line with width 3000 will take up the whole screen!\nTry using this block to draw a background.",
 		"collapsible": false,
@@ -214,7 +255,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Width – The new width of the trail. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Width – The new width of the trail."
 			}
 		],
 		"useful_for": [
@@ -230,7 +271,12 @@
 	"32": {
 		"id": 32,
 		"type": "draw",
-		"blockHTML": "Set Trail Color to <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Trail Color",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Trail Color to <i class=\"ps fa fa-eyedropper\"></i>",
 		"about": "Changes the color of the trail currently being drawn",
 		"app_description": "Sets the color of the line drawn.\nSequencing is key, so make sure to place this block inside the ‘Draw a Trail’ block and before the block that moves the character. (just like you would dip your paintbrush into a paint color before painting a line on your canvas).\nTry using this block to make a ‘Draw a Rainbow’ ability. It’s also a helpful block if you’re making a drawing pad.",
 		"collapsible": false,
@@ -238,7 +284,7 @@
 		"parameters": [
 			{
 				"type": "clr",
-				"description": "Color – The new color of the trail. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+				"description": "Color – The new color of the trail."
 			}
 		],
 		"useful_for": [
@@ -254,7 +300,12 @@
 	"33": {
 		"id": 33,
 		"type": "looks",
-		"blockHTML": "Change Pose ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Change Pose",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Change Pose",
 		"about": "Changes the preset pose of a character and only a character",
 		"app_description": "Changes the character’s image so it looks like it’s dancing. Try using this block inside a Repeat Forever block to see your character animate!\nNote: this will only work for characters, not shapes and text.",
 		"collapsible": false,
@@ -274,7 +325,14 @@
 	"34": {
 		"id": 34,
 		"type": "move",
-		"blockHTML": "Set Speed to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Speed",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix",
+			"Nobody",
+			"Mathgirl"
+		],
+		"blockHTML": "Set Speed to <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Changes execution speed of change x, change y, turn, and move forward blocks for the current object",
 		"app_description": "Sets the speed for this object. The default setting is 400. Small numbers make it slower and big numbers make it faster.",
 		"collapsible": false,
@@ -282,7 +340,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Speed – Determines how quickly movement blocks run. Higher speed means faster execution, and negative speed will make objects move the opposite direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Speed – Determines how quickly movement blocks run. Higher speed means faster execution, and negative speed will make objects move the opposite direction."
 			}
 		],
 		"useful_for": [
@@ -301,7 +359,12 @@
 	"35": {
 		"id": 35,
 		"type": "old",
-		"blockHTML": "Wait milliseconds <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Wait milliseconds",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Wait milliseconds <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Waits a specified amount of milliseconds",
 		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
 		"collapsible": false,
@@ -309,7 +372,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Time (milliseconds) – The amount of time (in milliseconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Time (milliseconds) – The amount of time (in milliseconds) to wait."
 			}
 		],
 		"useful_for": [
@@ -328,7 +391,11 @@
 	"36": {
 		"id": 36,
 		"type": "old",
-		"blockHTML": "Set Opacity to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Opacity",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Set Opacity to <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Sets the opacity of an object. A value of 100% means fully opaque and a value of 0 means fully invisible.",
 		"app_description": "N/A – This block no longer exists in the editor.",
 		"collapsible": false,
@@ -336,7 +403,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Opacity – This number (as a percent) determines the opacity of an object. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Opacity – This number (as a percent) determines the opacity of an object."
 			}
 		],
 		"useful_for": [
@@ -355,7 +422,12 @@
 	"39": {
 		"id": 39,
 		"type": "move",
-		"blockHTML": "Set Angle <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Angle",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Angle <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Sets the rotation of an object, regardless of whether the object is flipped or not. Zero means facing right.",
 		"app_description": "Sets the object to face in a specific direction, no matter where it started from. Use a shape like heart to see how it works. Setting the rotation to 90 degrees will place the heart on its side with the top edges facing to the right. Setting the rotation to 180 degrees will place the heart upside down with the top edges facing down.\nFor an example, search the community for Poring Dodge, it uses this block to rotate the obstacles before the game starts.",
 		"collapsible": false,
@@ -363,7 +435,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Direction – Angle number in degrees determining which way the object should face. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Direction – Angle number in degrees determining which way the object should face."
 			}
 		],
 		"useful_for": [
@@ -380,7 +452,12 @@
 	"40": {
 		"id": 40,
 		"type": "looks",
-		"blockHTML": "Set Text to <i class=\"ps fa fa-i-cursor\" title=\"Text Parameter\"></i> color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Text",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Text to <i class=\"ps fa fa-i-cursor\"></i> color <i class=\"ps fa fa-eyedropper\"></i>",
 		"about": "Makes your object display a text or number value",
 		"app_description": "Changes the words that are displayed by a text object. Will also turn shapes and characters into text. Try using this block to make a ‘Tell a Story’ ability.",
 		"collapsible": false,
@@ -388,11 +465,11 @@
 		"parameters": [
 			{
 				"type": "txt",
-				"description": "Text – The text or value you would like the object to display. This is a text parameter that allows you to enter a text string, number, math operator, trait, or variable."
+				"description": "Text – The text or value you would like the object to display."
 			},
 			{
 				"type": "clr",
-				"description": "Color – The color you would like the text to be. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+				"description": "Color – The color you would like the text to be."
 			}
 		],
 		"useful_for": [
@@ -409,7 +486,12 @@
 	"41": {
 		"id": 41,
 		"type": "move",
-		"blockHTML": "Set Position to x <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> y <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Position to xy",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Position to x <i class=\"ps fa fa-hashtag\"></i> y <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Sets the position of the current object to the specified coordinates.",
 		"app_description": "Sets the x and y location of an object to a specific point on the screen. Setting both x and y to 0 is the bottom-left corner of the screen. As you increase the x-value, the object will appear farther right on the screen. As you increase the y-value, the object will appear father up the screen.\nFor an example, search the community for Square Jump, it uses this block to start the squares at the top of the screen so they can drop down as you press play",
 		"collapsible": false,
@@ -417,11 +499,11 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "X-Coordinate – Determines how far to the left or right your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "X-Coordinate – Determines how far to the left or right your object will be centered at."
 			},
 			{
 				"type": "num",
-				"description": "Y-Coordinate – Determines how far up or down your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Y-Coordinate – Determines how far up or down your object will be centered at."
 			}
 		],
 		"useful_for": [
@@ -440,7 +522,12 @@
 	"42": {
 		"id": 42,
 		"type": "looks",
-		"blockHTML": "Send to Back ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Send to Back",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Send to Back",
 		"about": "Sends an object behind everything else in the project",
 		"app_description": "Makes the object appear behind other objects. For example, if you have Cupcake and Gorilla standing in the same spot on the screen, you can use this block to make sure Cupcake stands behind Gorilla.",
 		"collapsible": false,
@@ -461,7 +548,12 @@
 	"43": {
 		"id": 43,
 		"type": "looks",
-		"blockHTML": "Bring to Front ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Bring to Front",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Bring to Front",
 		"about": "Brings an object in front of everything else",
 		"app_description": "Makes the object appear in front of other objects. For example, if you have Cupcake and Gorilla standing in the same spot on the screen, you can use this block to make sure Cupcake stands in front of Gorilla.",
 		"collapsible": false,
@@ -482,7 +574,12 @@
 	"44": {
 		"id": 44,
 		"type": "var",
-		"blockHTML": "Increase Variable <i class=\"ps fa fa-sliders\" title=\"Variable Parameter\"></i> by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Increase Variableby",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Increase Variable <i class=\"ps fa fa-sliders\"></i> by <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Increases the value of a variable/tracker.",
 		"app_description": "Used with a variable to make it bigger. When the hero eats a pizza, increase her health by 1.\nMaking a lives counter that needs to decrease value when two objects bump? Use a negative number in the bubble.",
 		"collapsible": false,
@@ -490,11 +587,11 @@
 		"parameters": [
 			{
 				"type": "var",
-				"description": "Variable – Defines which variable should be increased or decreased. This is a variable parameter that only lets you select yellow project or object variables that you have created."
+				"description": "Variable – Defines which variable should be increased or decreased."
 			},
 			{
 				"type": "num",
-				"description": "Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Value – The new value for the variable."
 			}
 		],
 		"useful_for": [
@@ -510,7 +607,12 @@
 	"45": {
 		"id": 45,
 		"type": "var",
-		"blockHTML": "Set Variable <i class=\"ps fa fa-sliders\" title=\"Variable Parameter\"></i> to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Variableto",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Variable <i class=\"ps fa fa-sliders\"></i> to <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Assigns a value to a variable/tracker.",
 		"app_description": "Sets a special number for your project to remember. Give this number a unique name. Your new variable appears as an oval block that you can add to any number field, math operation or Set Text. This saved number can be changed later in your code by using the Increase block or using Set again.\nTry using it to keep track of the score in your game.",
 		"collapsible": false,
@@ -518,11 +620,11 @@
 		"parameters": [
 			{
 				"type": "var",
-				"description": "Variable – Defines which variable should be assigned the value. This is a variable parameter that only lets you select yellow project or object variables that you have created."
+				"description": "Variable – Defines which variable should be assigned the value."
 			},
 			{
 				"type": "num",
-				"description": "Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Value – The new value for the variable."
 			}
 		],
 		"useful_for": [
@@ -539,7 +641,11 @@
 	"46": {
 		"id": 46,
 		"type": "old",
-		"blockHTML": "Move with trail distance <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Move with trail distance",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Move with trail distance <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "After a trail color and width have been set, this block moves the object forward by a certain distance while drawing that trail.",
 		"app_description": "N/A – This block no longer exists in the editor.",
 		"collapsible": false,
@@ -547,7 +653,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Distance – The number of pixels to travel forward. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Distance – The number of pixels to travel forward."
 			}
 		],
 		"useful_for": [
@@ -566,7 +672,12 @@
 	"47": {
 		"id": 47,
 		"type": "looks",
-		"blockHTML": "Set Invisibility percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Invisibility",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Invisibility percent <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Changes how see-through the object is. 100% means invisible, and it also means that collision and tap rules no longer occur.",
 		"app_description": "Sets how ‘see-through’ or transparent an object appears. 50% means it’s half transparent, and 100% means it’s completely invisible!",
 		"collapsible": false,
@@ -574,7 +685,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Invisibilty – How see-through you want your object to be, from 0% (fully visible) to 100% (fully invisible). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Invisibilty – How see-through you want your object to be, from 0% (fully visible) to 100% (fully invisible)."
 			}
 		],
 		"useful_for": [
@@ -583,7 +694,7 @@
 			"Layering Objects"
 		],
 		"other_info": [
-			"Also see: <a href=\"?id=36\">Set Opacity</a>"
+			"Also see: <a href=\"?id=36\">Set Opacity</a>."
 		],
 		"community_links": [
 			"There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Invisibility%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?",
@@ -593,7 +704,12 @@
 	"48": {
 		"id": 48,
 		"type": "looks",
-		"blockHTML": "Grow by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Grow by",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Grow by percent <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Grows an object by a percentage of its current (in-game) size.",
 		"app_description": "Increases the object’s size. 100% makes it twice as big. 500% makes it almost as big as the screen!\nTry using this block to make a ‘Giant-ize’ ability.",
 		"collapsible": false,
@@ -601,7 +717,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Growth Factor – The relative percentage to add to the character’s size. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Growth Factor – The relative percentage to add to the character’s size."
 			}
 		],
 		"useful_for": [
@@ -618,7 +734,12 @@
 	"49": {
 		"id": 49,
 		"type": "looks",
-		"blockHTML": "Shrink by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Shrink by",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Shrink by percent <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Shrinks an object by a percentage of its current (in-game) size.",
 		"app_description": "Decreases the object’s size. 50% makes it half size, and 100% makes it so tiny that it disappears!",
 		"collapsible": false,
@@ -626,7 +747,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Shrink Factor – The relative percentage to subtract from the character’s size. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Shrink Factor – The relative percentage to subtract from the character’s size."
 			}
 		],
 		"useful_for": [
@@ -643,7 +764,12 @@
 	"50": {
 		"id": 50,
 		"type": "move",
-		"blockHTML": "Flip ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Flip",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Flip",
 		"about": "Mirrors the object horizontally. This means that a character facing to the right will now face to the left.",
 		"app_description": "Changes the object to be the mirror image of itself and changes the objects direction to be turned 180 degrees. After ‘Flip’, ‘Move Forward’ will move the object left instead of right.\nTry pacing back and forth. Add a ‘Repeat Forever’ and then put a ‘Move Forward’ and ‘Flip’ inside it.",
 		"collapsible": false,
@@ -663,7 +789,12 @@
 	"51": {
 		"id": 51,
 		"type": "looks",
-		"blockHTML": "Set Size percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Size",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Size percent <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Sets the size of the object relative to its size in the editor.",
 		"app_description": "Sets the size of the current object to be some percentage of its original, default size. If you want to grow or shrink an object and then return the object to its original size, use ‘set size’ to 100%. For example grow 50% and then set size to 100% will return the object to its original size.",
 		"collapsible": false,
@@ -671,7 +802,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Size – The scale factor as a percent on how large you want your object to be (when compared to the editor object size). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Size – The scale factor as a percent on how large you want your object to be (when compared to the editor object size)."
 			}
 		],
 		"useful_for": [
@@ -688,7 +819,11 @@
 	"52": {
 		"id": 52,
 		"type": "looks",
-		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\" title=\"Sound Parameter\"></i> wait <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Start Soundwait",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\"></i> wait <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Plays a Sound during your project and triggers a delay",
 		"app_description": "Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.",
 		"collapsible": false,
@@ -696,11 +831,11 @@
 		"parameters": [
 			{
 				"type": "snd",
-				"description": "Sound – The selected sound to play. This is a sound parameter that allows you to choose from various preset sounds, including music notes, nature, people, and objects."
+				"description": "Sound – The selected sound to play."
 			},
 			{
 				"type": "num",
-				"description": "Wait – How much the project should wait (milliseconds) before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Wait – How much the project should wait (milliseconds) before running the next action."
 			}
 		],
 		"useful_for": [
@@ -722,7 +857,12 @@
 	"53": {
 		"id": 53,
 		"type": "ctrl",
-		"blockHTML": "Create a Clone of This Object <i style=\"color: lightgray; font-style: normal;\">times</i> <i class=\"ps fa fa-hashtag\" style=\"background-color: lightgray;\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Create a Clone of This Object",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Create a Clone of This Object <i style=\"color: lightgray; font-style: normal;\">times</i> <i class=\"ps fa fa-hashtag\" style=\"background-color: lightgray;\"></i>",
 		"about": "Creates another clone, or instance, of the current object.",
 		"app_description": "This block creates an exact copy of the current character and makes that copy appear on the screen. The clone will appear right on top of the current character (so it might be hard to see).\nFor an example, search the community for Spiral Draw. In that project the trails you are drawing with are actually clones!",
 		"collapsible": false,
@@ -730,7 +870,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Number of clones – When a number parameter is added by JSON modding, it specifies the number of clones to create instantly. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Number of clones – When a number parameter is added by JSON modding, it specifies the number of clones to create instantly."
 			}
 		],
 		"useful_for": [
@@ -746,7 +886,13 @@
 	"54": {
 		"id": 54,
 		"type": "looks",
-		"blockHTML": "Set Color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Color",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix",
+			"William04GamerA"
+		],
+		"blockHTML": "Set Color <i class=\"ps fa fa-eyedropper\"></i>",
 		"about": "Changes the color of an object",
 		"app_description": "Use this block to change the color of your object. For example, make your black square turquoise.",
 		"collapsible": false,
@@ -754,7 +900,7 @@
 		"parameters": [
 			{
 				"type": "clr",
-				"description": "Color – The color to set the object to. This applies to images, characters, and text, but only works for emojis if you add \"Set Image to Blank Text\" before it. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+				"description": "Color – The color to set the object to. This applies to images, characters, and text, but only works for emojis if you add \"Set Image to Blank Text\" before it."
 			}
 		],
 		"useful_for": [
@@ -772,7 +918,12 @@
 	"55": {
 		"id": 55,
 		"type": "ctrl",
-		"blockHTML": "Destroy ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Destroy",
+		"authors": [
+			"Awesome_E",
+			"Nobody"
+		],
+		"blockHTML": "Destroy",
 		"about": "Destroys the current instance of an object.",
 		"app_description": "Remove this object from your game. This is useful if you made a lot of clones to quickly draw a background but no longer need them any more. Also can be used if you want to get rid of a character that got knocked out in your game.",
 		"collapsible": false,
@@ -793,7 +944,12 @@
 	"56": {
 		"id": 56,
 		"type": "looks",
-		"blockHTML": "Set Image <i class=\"ps fa fa-picture-o\" title=\"Image Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Image",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Image <i class=\"ps fa fa-picture-o\"></i>",
 		"about": "Changes the appearance of an object; sets it to another text, shape or character.",
 		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Image&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
 		"collapsible": false,
@@ -801,7 +957,7 @@
 		"parameters": [
 			{
 				"type": "img",
-				"description": "Object Type – The character, shape, or image that you would like your new character to display as. This is a character parameter that allows you to choose from text, shapes, characters, and your project’s custom images."
+				"description": "Object Type – The character, shape, or image that you would like your new character to display as."
 			}
 		],
 		"useful_for": [
@@ -818,7 +974,12 @@
 	"57": {
 		"id": 57,
 		"type": "looks",
-		"blockHTML": "Set width <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> height <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set widthheight",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set width <i class=\"ps fa fa-hashtag\"></i> height <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Resizes your object to the exact size provided in pixels",
 		"app_description": "Set the exact width and height of your character in pixels. This is useful for when you want to fit pieces together or stretch out your image.",
 		"collapsible": false,
@@ -826,11 +987,11 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Width – The new width of your object in pixels. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Width – The new width of your object in pixels."
 			},
 			{
 				"type": "num",
-				"description": "Height – The new height of your object in pixels. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Height – The new height of your object in pixels."
 			}
 		],
 		"useful_for": [
@@ -851,7 +1012,12 @@
 	"58": {
 		"id": 58,
 		"type": "looks",
-		"blockHTML": "Set Z Index <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Z Index",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Z Index <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Sets an index on layering priority. Objects with higher indexes are brought forward more.",
 		"app_description": "Set the depth layer, objects with the higest value will appear on top of the other objetcs.",
 		"collapsible": false,
@@ -859,7 +1025,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Z Index – Determines how far forward an object is brought. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Z Index – Determines how far forward an object is brought."
 			}
 		],
 		"useful_for": [
@@ -877,7 +1043,12 @@
 	"59": {
 		"id": 59,
 		"type": "move",
-		"blockHTML": "Set Origin to x <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> y <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Set Origin to xy",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Set Origin to x <i class=\"ps fa fa-hashtag\"></i> y <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Sets the point at which the image of the object is drawn (the top left corner).",
 		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Origin&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
 		"collapsible": false,
@@ -885,11 +1056,11 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "X-Coordinate – The x value at which the image starts drawing at (the left side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "X-Coordinate – The x value at which the image starts drawing at (the left side)."
 			},
 			{
 				"type": "num",
-				"description": "Y-Coordinate – The y value at which the image starts drawing at (the top side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Y-Coordinate – The y value at which the image starts drawing at (the top side)."
 			}
 		],
 		"useful_for": [
@@ -906,7 +1077,12 @@
 	"61": {
 		"id": 61,
 		"type": "ctrl",
-		"blockHTML": "Wait seconds <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Wait seconds",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Wait seconds <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Waits a specified amount of seconds",
 		"app_description": "Pauses for a certain amount of time in seconds. 1 second is equal to 1000 milliseconds. Try using decimals to get greater precision, for example: wait 0.5 seconds.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
 		"collapsible": false,
@@ -914,7 +1090,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Time (seconds) – The amount of time (in seconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Time (seconds) – The amount of time (in seconds) to wait."
 			}
 		],
 		"useful_for": [
@@ -933,7 +1109,11 @@
 	"62": {
 		"id": 62,
 		"type": "looks",
-		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\" title=\"Sound Parameter\"></i> wait <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Start Soundwait",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\"></i> wait <i class=\"ps fa fa-hashtag\"></i> ",
 		"about": "Plays a Sound during your project and triggers a delay",
 		"app_description": "Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.",
 		"collapsible": false,
@@ -941,11 +1121,11 @@
 		"parameters": [
 			{
 				"type": "snd",
-				"description": "Sound – The selected sound to play. This is a sound parameter that allows you to choose from various preset sounds, including music notes, nature, people, and objects."
+				"description": "Sound – The selected sound to play."
 			},
 			{
 				"type": "num",
-				"description": "Wait – How many seconds the project should wait before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Wait – How many seconds the project should wait before running the next action."
 			}
 		],
 		"useful_for": [
@@ -965,7 +1145,12 @@
 	"120": {
 		"id": 120,
 		"type": "ctrl",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Repeat times <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": " Repeat times",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": " Repeat times <i class=\"ps fa fa-hashtag\"></i>",
 		"about": "Runs the actions inside it a set amount of times.",
 		"app_description": "Drag other blocks inside this block to repeat them a certain number of times. Very important: sequencing is key, so make sure to place the blocks in the exact order that they should be repeated.",
 		"collapsible": true,
@@ -973,7 +1158,7 @@
 		"parameters": [
 			{
 				"type": "num",
-				"description": "Repeat times – The number of times to run the code inside. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+				"description": "Repeat times – The number of times to run the code inside."
 			}
 		],
 		"useful_for": [
@@ -989,7 +1174,12 @@
 	"121": {
 		"id": 121,
 		"type": "ctrl",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Repeat Forever ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Repeat Forever",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Repeat Forever",
 		"about": "Runs the actions inside it for the rest of the time the project is playing.",
 		"app_description": "Add blocks into the container to repeat them forever.\nVery important: Any blocks that are added below and outside the ‘Repeat Forever’ block will NEVER be performed. This is because the repeat loop will continue forever.\nIf you want to add more blocks below ‘Repeat Forever’, create a new When for the character and add those blocks to that new When.",
 		"collapsible": true,
@@ -1008,7 +1198,12 @@
 	"122": {
 		"id": 122,
 		"type": "ctrl",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Check Once If <i class=\"ps fa fa-question-circle\" title=\"Conditional Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Check Once If",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Check Once If <i class=\"ps fa fa-question-circle\"></i>",
 		"about": "Runs the code inside if the condition is true.",
 		"app_description": "This allows you to only run blocks if a test is passed.\nDefine your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’.\nVery important: The test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.",
 		"collapsible": true,
@@ -1016,7 +1211,7 @@
 		"parameters": [
 			{
 				"type": "cnd",
-				"description": "Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals."
+				"description": "Condition – The statement to check."
 			}
 		],
 		"useful_for": [
@@ -1033,7 +1228,11 @@
 	"123": {
 		"id": 123,
 		"type": "",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Custom Block / Ability ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Custom Block / Ability",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Custom Block / Ability ",
 		"about": "A Rainbow Block in the editor that allows you to put blocks inside it and reuse the code ",
 		"app_description": "There is no description, but there are example names such as jump, fly, and run.",
 		"collapsible": true,
@@ -1053,7 +1252,12 @@
 	"124": {
 		"id": 124,
 		"type": "ctrl",
-		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Check If Else <i class=\"ps fa fa-question-circle\" title=\"Conditional Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Check If Else",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Check If Else <i class=\"ps fa fa-question-circle\"></i>",
 		"about": "Runs the code inside the top half if the condition is true and runs the bottom half if the condition is false.",
 		"app_description": "This allows you to run one set of blocks if a test is passed and another set if it doesn’t pass.\nDefine your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’. If it’s greater than 10 do one thing, otherwise do something else.\nVery important: the test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.",
 		"collapsible": true,
@@ -1061,7 +1265,7 @@
 		"parameters": [
 			{
 				"type": "cnd",
-				"description": "Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals."
+				"description": "Condition – The statement to check."
 			}
 		],
 		"useful_for": [
@@ -1078,7 +1282,12 @@
 	"125": {
 		"id": 125,
 		"type": "ctrl",
-		"blockHTML": "Change Scene to <i class=\"ps fa fa-file-photo-o\" title=\"Scene Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"name": "Change Scene",
+		"authors": [
+			"Awesome_E",
+			"FearlessPhoenix"
+		],
+		"blockHTML": "Change Scene to <i class=\"ps fa fa-file-photo-o\"></i>",
 		"about": "Changes the scene of the project when it is playing.",
 		"app_description": "Go to a different scene in the project. This will immediately change out all your objects, but won’t change the background.",
 		"collapsible": false,
@@ -1086,7 +1295,7 @@
 		"parameters": [
 			{
 				"type": "scn",
-				"description": "Scene – Determines which scene to change to. This is a scene parameter that lets you select from the scenes that exist in your project."
+				"description": "Scene – Determines which scene to change to."
 			}
 		],
 		"useful_for": [
