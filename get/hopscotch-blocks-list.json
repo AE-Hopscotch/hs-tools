@@ -1,0 +1,1226 @@
+[
+	{
+		"id": 123,
+		"type": "",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Custom Block / Ability ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "A Rainbow Block in the editor that allows you to put blocks inside it and reuse the code ",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Making While Loops by putting a nested ability inside a conditional</li>",
+			"<li>Condensing and reusing code templates; they act as a closed, global folder.</li>",
+			"<li>Code Organization; they can be named and seen at all times.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: There is no description, but there are example names such as jump, fly, and run.</li>",
+			"<li>Block ID: 123</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/tip-of-the-week/52636/69\">Loops Using Abilities</a> – This is a tutorial I (Awesome_E) made, and it teaches you how to use abilities to make a \"do while\" or \"do until\" loop, neither of which we have normally in Hopscotch. It also showcases hidden abilities, which do not show up as a custom block.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 23,
+		"type": "move",
+		"blockHTML": "Move Forward <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Moves the object in their forward direction by the specified distance (pixels)",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Distance – The number of pixels to move in the forward direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Animating Characters and Moving Things Around in Projects</li>",
+			"<li>Drawing Intricate / Complex Shapes; they adapt to the object's rotation</li>",
+			"<li>Making Puzzle Games</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Moves your object forward* by the number of pixels specified. Negative numbers will move you robject backwards.<br>*Forward means the angle your object is facing. All objects face to the right by default - 0 degrees. You can turn or flip an object to change the direction of Move Forward.</li>",
+			"<li>Block ID: 23</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Move%20Forward%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>? Actually, there probably is a tutorial. Linking it to my topic would be appreciated.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 24,
+		"type": "move",
+		"blockHTML": "Turn degrees <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Turns the object by the number of degrees specified.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Degrees – The number of degrees for the object to turn, different with negative speed and flipped objects. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Animating Loading Screens</li>",
+			"<li>Drawing Intricate / Complex Shapes; they change the direction of move forward</li>",
+			"<li>Making Rescue Games where your character changes direction</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Changes the direction the object is facing by a certain number of degrees. Use a shape like heart to see how it works. Rotating 180 degrees will place the heart upside down with the top edges facing down. Rotating 360 degrees will make the heart turn a full circle!<br>For an example, search the community for Helicopter Rescue. It uses the block to rotate the helicopter as you rescue the people.</li>",
+			"<li>Block ID: 24</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Turn%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 41,
+		"type": "move",
+		"blockHTML": "Set Position to x <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> y <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets the position of the current object to the specified coordinates.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "X-Coordinate – Determines how far to the left or right your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			},
+			{
+				"type": "num",
+				"description": "Y-Coordinate – Determines how far up or down your object will be centered at. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Moving objects instantly</li>",
+			"<li>Setting objects to positions in a non-linear fashion. Sine and cosine use this technique to draw rings.</li>",
+			"<li>Positioning objects relative to an anchor point.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets the x and y location of an object to a specific point on the screen. Setting both x and y to 0 is the bottom-left corner of the screen. As you increase the x-value, the object will appear farther right on the screen. As you increase the y-value, the object will appear father up the screen.<br>For an example, search the community for Square Jump, it uses this block to start the squares at the top of the screen so they can drop down as you press play</li>",
+			"<li>Block ID: 41</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/zq0f4uiyf\">Smooth BG Generator</a> – My tool uses set position to draw the smooth background and it shows how you can use the same method to draw a smooth background.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/108b82ofps\">Electroman Adventures</a> – The trail art portion of this showcases a different technique to move lines diagonally, specifically so they can travel off-screen. They set values to their X and Y and set position according to their angle. The set variables are used because set position cannot keep track of decimals, for whatever reason.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Position%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 50,
+		"type": "move",
+		"blockHTML": "Flip ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Mirrors the object horizontally. This means that a character facing to the right will now face to the left.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Changing the object’s facing direction. This will cause move forward and turn to behave differently.</li>",
+			"<li>Changing the appearance of an object or text. Maybe it just somehow looks better the other way.</li>",
+			"<li>Creating a mirror or reflection effect. A vertical flip or reflection of an object can be made by setting the angle (or rotation) of the object to 180° and using the flip block.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Changes the object to be the mirror image of itself and changes the objects direction to be turned 180 degrees. After ‘Flip’, ‘Move Forward’ will move the object left instead of right.<br>Try pacing back and forth. Add a ‘Repeat Forever’ and then put a ‘Move Forward’ and ‘Flip’ inside it.</li>",
+			"<li>Block ID: 50</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Thinking%20Differently%20With%20the%20Flip%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 27,
+		"type": "move",
+		"blockHTML": "Change X by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Moves the object by a specified amount along the X-axis (horizontally)",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Distance – Specifies how many pixels the object will move to the right; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Drawing Horizontal Lines even when the object is rotated</li>",
+			"<li>Creating on-screen enemies that move back and forth</li>",
+			"<li>Taking part in animations</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Moves the object left or right. The bigger the number, the father right on the screen the object will go. Want to move your object to the left? Use a negative number.<br>For an example, search the community for Taco Fighter 2, it uses this block inside a Repeat block to make the character go back and forth across the screen</li>",
+			"<li>Block ID: 27</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Using%20the%20Change%20X%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 28,
+		"type": "move",
+		"blockHTML": "Change Y by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Moves the object by a specified amount along the Y-axis (vertically)",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Distance – Specifies how many pixels the object will move upwards; use negative numbers or have a negative speed to move left. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Making characters jump or fly</li>",
+			"<li>Making visual effects such as falling rain</li>",
+			"<li>Dropping in an animation</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Moves the object up or down. The bigger the number, the farther up the screen the object will go. Want to move your object down? Use a negative number.<br>For an example, search the community for Jelly Jump. It uses this block to make the porings jump over obstacles.</li>",
+			"<li>Block ID: 28</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Using%20the%20Change%20Y%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 34,
+		"type": "move",
+		"blockHTML": "Set Speed to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes execution speed of change x, change y, turn, and move forward blocks for the current object",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Speed – Determines how quickly movement blocks run. Higher speed means faster execution, and negative speed will make objects move the opposite direction. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Speeding up trail art</li>",
+			"<li>Slowing down or speeding up obstacles in your game</li>",
+			"<li>Timings of overlapping objects</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets the speed for this object. The default setting is 400. Small numbers make it slower and big numbers make it faster.</li>",
+			"<li>Block ID: 34</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/10dp4yohyt\">CNN Logo Trail Art</a> – The Straight Segments in this trail art can be done quickly because the object's speed is set to a high number.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zcs38n565\">Hatsune Miku Trail Art</a> – This is another trail art that would have taken ages to load if it were not for the set speed block.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Speed%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 39,
+		"type": "move",
+		"blockHTML": "Set Angle <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets the rotation of an object, regardless of whether the object is flipped or not. Zero means facing right.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Direction – Angle number in degrees determining which way the object should face. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Pointing at another object</li>",
+			"<li>Changing movement or appearance of an object</li>",
+			"<li>Better timings than set rotation (set angle is frame perfect; it occurs one time per frame)</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets the object to face in a specific direction, no matter where it started from. Use a shape like heart to see how it works. Setting the rotation to 90 degrees will place the heart on its side with the top edges facing to the right. Setting the rotation to 180 degrees will place the heart upside down with the top edges facing down.<br>For an example, search the community for Poring Dodge, it uses this block to rotate the obstacles before the game starts.</li>",
+			"<li>Block ID: 39</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Angle%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 59,
+		"type": "move",
+		"blockHTML": "Set Origin to x <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> y <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets the point at which the image of the object is drawn (the top left corner).",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "X-Coordinate – The x value at which the image starts drawing at (the left side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			},
+			{
+				"type": "num",
+				"description": "Y-Coordinate – The y value at which the image starts drawing at (the top side). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Simplifying Calculations when resizing shapes and retaining position</li>",
+			"<li>Comprehending the exact size and absolute position of an object</li>",
+			"<li>Setting a fixed edge where set position would normally have to be between two integers</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Origin&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?</li>",
+			"<li>Block ID: 59</li>",
+			"<li>This block is exclusively available in the beta editor for subscribers to test.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Origin%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 54,
+		"type": "looks",
+		"blockHTML": "Set Color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the color of an object",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "clr",
+				"description": "Color – The color to set the object to. This applies to images, characters, and text, but only works for emojis if you add \"Set Image to Blank Text\" before it. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+			}
+		],
+		"useful_for": [
+			"<li>Changing the color of your text and shapes to spice up your project!</li>",
+			"<li>Creating Simple Animations</li>",
+			"<li>Art Pad Pallets. Great when used with the HSB operator and variables.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Use this block to change the color of your object. For example, make your black square turquoise.</li>",
+			"<li>Block ID: 54</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Using%20Colored%20Emojis%20to%20Enhance%20Your%20Projects&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>My <a href=\"https://awesome-e.github.io/hs-tools/shortcut-help-guide/#download\">has a feature under \"Optimize\" that allows you to change color parameters to custom color slots. For example, an \"HSB(100,100,100)\" color operator will turn into a neon green parameter bubble. Operators with traits, variables, or math are not changed.</a></li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 56,
+		"type": "looks",
+		"blockHTML": "Set Image <i class=\"ps fa fa-picture-o\" title=\"Image Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the appearance of an object; sets it to another text, shape or character.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "img",
+				"description": "Object Type – The character, shape, or image that you would like your new character to display as. This is a character parameter that allows you to choose from text, shapes, characters, and your project’s custom images."
+			}
+		],
+		"useful_for": [
+			"<li>Changing the sprite (visual appearance) of a character a player uses in a game.</li>",
+			"<li>Making colored emojis; set the image to a blank text and set a color afterwards. This will cause the game to \"unlock\" its color state for emojis, which act as if they are white by default.</li>",
+			"<li>Shape Selection</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Image&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?</li>",
+			"<li>Block ID: 56</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Pro%20Usage%20of%20the%20Set%20Image%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 40,
+		"type": "looks",
+		"blockHTML": "Set Text to <i class=\"ps fa fa-i-cursor\" title=\"Text Parameter\"></i> color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Makes your object display a text or number value",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "txt",
+				"description": "Text – The text or value you would like the object to display. This is a text parameter that allows you to enter a text string, number, math operator, trait, or variable."
+			},
+			{
+				"type": "clr",
+				"description": "Color – The color you would like the text to be. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+			}
+		],
+		"useful_for": [
+			"<li>Debugging code; it is currently the only practical way to display variables and traits.</li>",
+			"<li>Showing score in a game.</li>",
+			"<li>Adding descriptions and labels to your game.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Changes the words that are displayed by a text object. Will also turn shapes and characters into text. Try using this block to make a ‘Tell a Story’ ability.</li>",
+			"<li>Block ID: 40</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Applications%20of%20the%20Set%20Text%20%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 51,
+		"type": "looks",
+		"blockHTML": "Set Size percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets the size of the object relative to its size in the editor.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Size – The scale factor as a percent on how large you want your object to be (when compared to the editor object size). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Emphasizing certain objects in your project</li>",
+			"<li>Creating transition animations with repeated set size blocks</li>",
+			"<li>Making objects have a nice shrinking animation to fade them out</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets the size of the current object to be some percentage of its original, default size. If you want to grow or shrink an object and then return the object to its original size, use ‘set size’ to 100%. For example grow 50% and then set size to 100% will return the object to its original size.</li>",
+			"<li>Block ID: 51</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Animations%20with%20the%20Set%20Size%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 57,
+		"type": "looks",
+		"blockHTML": "Set width <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> height <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Resizes your object to the exact size provided in pixels",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Width – The new width of your object in pixels. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			},
+			{
+				"type": "num",
+				"description": "Height – The new height of your object in pixels. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Creating boxes of any size</li>",
+			"<li>Animating Objects</li>",
+			"<li>Working with 3D Rendering</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Set the exact width and height of your character in pixels. This is useful for when you want to fit pieces together or stretch out your image.</li>",
+			"<li>Block ID: 57</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/zy1kc67uu\">3D Rendering v1.14 by ThinBuffaloSr</a> – A complex but amazingly coded demonstration using set width and height to resize triangles to create the skewed (slanted) squares of a Rubik's Cube</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zxz3w0rzk\">Resizeable Window</a> – A basic demonstration of the set width and height block to create a resizeable window you might use in a computer simulation project</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/102uvwhv3u\">3D Character</a> – CreationsOfANoob makes a script that imports a 3D object into Hopscotch using the Set Width and Height block.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zxymqq7xy\">Spinning Effect</a> – A simple usage of variables and the set width and height block to create a spinning animation</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Width%20and%20Height%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 48,
+		"type": "looks",
+		"blockHTML": "Grow by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Grows an object by a percentage of its current (in-game) size.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Growth Factor – The relative percentage to add to the character’s size. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Transition animations that originate from a point</li>",
+			"<li>Making an object relatively bigger to itself</li>",
+			"<li>Slowly making an object bigger (or smaller with negative numbers)</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Increases the object’s size. 100% makes it twice as big. 500% makes it almost as big as the screen!<br>Try using this block to make a ‘Giant-ize’ ability.</li>",
+			"<li>Block ID: 48</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Grow%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 49,
+		"type": "looks",
+		"blockHTML": "Shrink by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Shrinks an object by a percentage of its current (in-game) size.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Shrink Factor – The relative percentage to subtract from the character’s size. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Shrinking Animations</li>",
+			"<li>Slow fade out animations</li>",
+			"<li>Transition Animations that shrink to a point</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Decreases the object’s size. 50% makes it half size, and 100% makes it so tiny that it disappears!</li>",
+			"<li>Block ID: 49</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Shrink%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 52,
+		"type": "looks",
+		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\" title=\"Sound Parameter\"></i> wait <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Plays a Sound during your project and triggers a delay",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "old",
+		"parameters": [
+			{
+				"type": "snd",
+				"description": "Sound – The selected sound to play. This is a sound parameter that allows you to choose from various preset sounds, including music notes, nature, people, and objects."
+			},
+			{
+				"type": "num",
+				"description": "Wait – How much the project should wait (milliseconds) before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Making Music Projects (that should be self-explanatory)</li>",
+			"<li>Adding Sound Effects to give life to your project to your game</li>",
+			"<li>Debugging Projects; the only way they can avoid running is by muting the project or a conditional not being true. It cannot be overridden and can help you see if another nearby action is running or not.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.</li>",
+			"<li>Block ID: 52</li>",
+			"<li>This block is no longer in use. Functionality is not guaranteed for future versions, and the only way to obtain this block is from JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>",
+			"<li>This block has been replaced by <a href=\"?id=62\">Start Sound (wait seconds)</a> in order to keep consistency with the wait behavior.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/108dfufat7\">90’s Mashup</a> – A nice collection of pieces showcasing how music is made in Hopscotch</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/xudmhnv2v\">Flight of the Bumblebee</a> – A phenomenal recreation of the original song using only Hopscotch’s notes</li>",
+			"<li><a href=\"https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204\">Hopscotch MIDI Hack</a> – This is a mind-blowing tool by MR.GAM3R that allows you to input a file and receive Hopscotch JSON code as an output. My Hopscotch JSON <a href=\"https://awesome-e.github.io/hs-tools/shortcut-help-guide/#v1.0\">Siri Shortcut</a> has also integrated this tool as a feature in Release Version 1.0. See examples on the MIDI Hack topic or see <a href=\"https://c.gethopscotch.com/p/108b82ofps\">this trail art</a> that I made.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/108b82ofps\">Electroman Adventures</a> – A demonstration of the MIDI Hack by MR.GAM3R</li>",
+			"<li><a href=\"https://forum.gethopscotch.com/t/gwetvs-guide-to-coding-music/53322\">Coding Music</a> – GweTV made a great and easy-to-follow guide on how to recreate songs in Hopscotch. Go give it a read!</li>"
+		]
+	},
+	{
+		"id": 62,
+		"type": "looks",
+		"blockHTML": "Start Sound <i class=\"ps fa fa-volume-up\" title=\"Sound Parameter\"></i> wait <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Plays a Sound during your project and triggers a delay",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "snd",
+				"description": "Sound – The selected sound to play. This is a sound parameter that allows you to choose from various preset sounds, including music notes, nature, people, and objects."
+			},
+			{
+				"type": "num",
+				"description": "Wait – How many seconds the project should wait before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Making Music Projects (that should be self-explanatory)</li>",
+			"<li>Adding Sound Effects to give life to your project to your game</li>",
+			"<li>Debugging Projects; the only way they can avoid running is by muting the project or a conditional not being true. It cannot be overridden and can help you see if another nearby action is running or not.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Used to play musical notes and sound effects. This block also has a Wait value, which is the time between two notes or sounds. Bigger numbers in the Wait bubble make the time between notes or sounds longer.</li>",
+			"<li>Block ID: 62</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/108dfufat7\">90’s Mashup</a> – A nice collection of pieces showcasing how music is made in Hopscotch</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/xudmhnv2v\">Flight of the Bumblebee</a> – A phenomenal recreation of the original song using only Hopscotch’s notes</li>",
+			"<li><a href=\"https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204\">Hopscotch MIDI Hack</a> – This is a mind-blowing tool by MR.GAM3R that allows you to input a file and receive Hopscotch JSON code as an output. My Hopscotch JSON <a href=\"https://awesome-e.github.io/hs-tools/shortcut-help-guide/#v1.0\">Siri Shortcut</a> has also integrated this tool as a feature in Release Version 1.0. See examples on the MIDI Hack topic or see <a href=\"https://c.gethopscotch.com/p/108b82ofps\">this trail art</a> that I made.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/108b82ofps\">Electroman Adventures</a> – A demonstration of the MIDI Hack by MR.GAM3R</li>",
+			"<li><a href=\"https://forum.gethopscotch.com/t/gwetvs-guide-to-coding-music/53322\">Coding Music</a> – GweTV made a great and easy-to-follow guide on how to recreate songs in Hopscotch. Go give it a read!</li>"
+		]
+	},
+	{
+		"id": 47,
+		"type": "looks",
+		"blockHTML": "Set Invisibility percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes how see-through the object is. 100% means invisible, and it also means that collision and tap rules no longer occur.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Invisibilty – How see-through you want your object to be, from 0% (fully visible) to 100% (fully invisible). This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Hiding Unused Objects</li>",
+			"<li>Fade Animations</li>",
+			"<li>Layering Objects</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets how ‘see-through’ or transparent an object appears. 50% means it’s half transparent, and 100% means it’s completely invisible!</li>",
+			"<li>Block ID: 47</li>",
+			"<li>This block is available for everyone to use.</li>",
+			"<li>Also see: <a href=\"?id=36\">Set Opacity</a>.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Invisibility%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 43,
+		"type": "looks",
+		"blockHTML": "Bring to Front ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Brings an object in front of everything else",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Bringing Objects into View</li>",
+			"<li>Partially showing objects</li>",
+			"<li>Working with 3D Rendering</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Makes the object appear in front of other objects. For example, if you have Cupcake and Gorilla standing in the same spot on the screen, you can use this block to make sure Cupcake stands in front of Gorilla.</li>",
+			"<li>Block ID: 43</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/zy1kc67uu\">3D Rendering v1.14 by ThinBuffaloSr</a> – In addition to resizing a bunch of triangles, this project uses bring to front in order to properly bring tiles into view.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Bring%20to%20Front%20Block%20in%203D%20Rendering&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 42,
+		"type": "looks",
+		"blockHTML": "Send to Back ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sends an object behind everything else in the project",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Drawing focus away from certain objects</li>",
+			"<li>Partially hiding objects</li>",
+			"<li>Working with 3D Rendering</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Makes the object appear behind other objects. For example, if you have Cupcake and Gorilla standing in the same spot on the screen, you can use this block to make sure Cupcake stands behind Gorilla.</li>",
+			"<li>Block ID: 42</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/zy1kc67uu\">3D Rendering v1.14 by ThinBuffaloSr</a> – In addition to resizing a bunch of triangles, this project uses send to back in order to properly hide tiles out of view.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Send%20Back%20Block%20in%203D%20Rendering&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 33,
+		"type": "looks",
+		"blockHTML": "Change Pose ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the preset pose of a character and only a character",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Creating loading animations</li>",
+			"<li>Animating characters walking or running</li>",
+			"<li>Adding background movement</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Changes the character’s image so it looks like it’s dancing. Try using this block inside a Repeat Forever block to see your character animate!<br>Note: this will only work for characters, not shapes and text.</li>",
+			"<li>Block ID: 33</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Advanced%20Uses%20for%20Change%20Pose&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 58,
+		"type": "looks",
+		"blockHTML": "Set Z Index <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets an index on layering priority. Objects with higher indexes are brought forward more.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Z Index – Determines how far forward an object is brought. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>3D Rendering</li>",
+			"<li>Easier Menu-Making (compared to frame-rule execution of bring to front)</li>",
+			"<li>Sending objects between other objects in the z-layer</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Set the depth layer, objects with the higest value will appear on top of the other objetcs.</li>",
+			"<li>Block ID: 58</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=3D%20Rendering%20Using%20Set%20Z%20Index&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>There are no community projects showcasing this. Be the first to make and nominate one!</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 26,
+		"type": "draw",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Draw a Trail color <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> width <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Draws a trail with the object by following all movement blocks inside of it. Trails render behind all objects.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "clr",
+				"description": "Color – Defines what color to use in the trail, which can be changed later using the <a href=\"?id=32\">Set Trail Color Block</a>. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+			},
+			{
+				"type": "num",
+				"description": "Width – Determines the trail’s width (diameter), which can be changed later using the <a href=\"?id=31\">Set Trail Width Block</a>. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Drawing Backgrounds</li>",
+			"<li>Pixel and shape arts</li>",
+			"<li>Making aesthetics without using objects</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: This block causes the object to draw a trail behind it whenever it moves. You can change the color and width. The bigger the number for Width, the thicker the trail.<br>Need to make a background? A thick trail with width 3000 and a Move Forward 1 block inside should do it!</li>",
+			"<li>Block ID: 26</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/the-ultimate-guide-to-fast-pixel-art/53354\">The Ultimate Guide to Fast Pixel Art</a> – This well-written tutorial by FearlessPhoenix explains the basics of using draw a trail blocks in order to create a super efficient pixel art method</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zq0f4uiyf\">Smooth Background Generator</a> – This project that I made can help you get started on making a custom gradient background for your project.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 32,
+		"type": "draw",
+		"blockHTML": "Set Trail Color to <i class=\"ps fa fa-eyedropper\" title=\"Color Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the color of the trail currently being drawn",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "clr",
+				"description": "Color – The new color of the trail. This is a color parameter that allows you to pick a selection of default colors and math blocks in addition to RGB and HSB operators (these allow you to specify custom colors using number parameters)."
+			}
+		],
+		"useful_for": [
+			"<li>Changing the Trail Color Without having to use another collapsible block</li>",
+			"<li>Under Construction</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets the color of the line drawn.<br>Sequencing is key, so make sure to place this block inside the ‘Draw a Trail’ block and before the block that moves the character. (just like you would dip your paintbrush into a paint color before painting a line on your canvas).<br>Try using this block to make a ‘Draw a Rainbow’ ability. It’s also a helpful block if you’re making a drawing pad.</li>",
+			"<li>Block ID: 32</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Using%20the%20Set%20Trail%20Color%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 31,
+		"type": "draw",
+		"blockHTML": "Set Trail Width to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the width of the current trail being drawn",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Width – The new width of the trail. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Changing the trail’s width without using a new collapsible</li>",
+			"<li>Under Construction</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets how wide the line will be drawn. Small numbers make a thin line while large numbers make a thick line. A line with width 3000 will take up the whole screen!<br>Try using this block to draw a background.</li>",
+			"<li>Block ID: 31</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Hopscotch%E2%80%99s%20Set%20Trail%20Width%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 30,
+		"type": "draw",
+		"blockHTML": "Clear ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Clears every trail from the screen",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Clearing the screen</li>",
+			"<li>Using less editor space</li>",
+			"<li>Under Construction</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Erases any lines or backgrounds that have been drawn.</li>",
+			"<li>Block ID: 30</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=The%20Purpose%20of%20the%20Clear%20Trails%20%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 45,
+		"type": "var",
+		"blockHTML": "Set Variable <i class=\"ps fa fa-sliders\" title=\"Variable Parameter\"></i> to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Assigns a value to a variable/tracker.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "var",
+				"description": "Variable – Defines which variable should be assigned the value. This is a variable parameter that only lets you select yellow project or object variables that you have created."
+			},
+			{
+				"type": "num",
+				"description": "Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Keeping score and other project statistics</li>",
+			"<li>Creating a Custom Event Trigger (e.g. clone communication, game event)</li>",
+			"<li>Storing numerical values that can be used later (for example, map spawn)</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Sets a special number for your project to remember. Give this number a unique name. Your new variable appears as an oval block that you can add to any number field, math operation or Set Text. This saved number can be changed later in your code by using the Increase block or using Set again.<br>Try using it to keep track of the score in your game.</li>",
+			"<li>Block ID: 45</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Hopscotch JSON Siri Shortcut</a> – My ultimate shortcut allows you to edit traits of variables that you normally would not be able to. You can delete and change the variable type whereas normally you can only rename variables.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 44,
+		"type": "var",
+		"blockHTML": "Increase Variable <i class=\"ps fa fa-sliders\" title=\"Variable Parameter\"></i> by <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Increases the value of a variable/tracker.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "var",
+				"description": "Variable – Defines which variable should be increased or decreased. This is a variable parameter that only lets you select yellow project or object variables that you have created."
+			},
+			{
+				"type": "num",
+				"description": "Value – The new value for the variable. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Creating a timer or lives counter</li>",
+			"<li>Keeping score that increases at a constant rate</li>",
+			"<li>Counting the number of times that something has happened</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Used with a variable to make it bigger. When the hero eats a pizza, increase her health by 1.<br>Making a lives counter that needs to decrease value when two objects bump? Use a negative number in the bubble.</li>",
+			"<li>Block ID: 44</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 122,
+		"type": "ctrl",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Check Once If <i class=\"ps fa fa-question-circle\" title=\"Conditional Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Runs the code inside if the condition is true.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "cnd",
+				"description": "Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals."
+			}
+		],
+		"useful_for": [
+			"<li>Controlling when an action occurs if the event is run several times</li>",
+			"<li>Checking if a player has reached a certain point in the game before allowing them to proceed</li>",
+			"<li>Detecting or preventing glitches, exploits, or malicious code changes in your project</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: This allows you to only run blocks if a test is passed.<br>Define your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’.<br>Very important: The test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.</li>",
+			"<li>Block ID: 122</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/10iu14ay37\">Escape Hopscotch Headquarters (HHC19)</a> – Using a combination of JSON modding and Check Once If blocks, I can detect whether the project’s code has been modified. If it has, the project does not start.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 120,
+		"type": "ctrl",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Repeat times <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Runs the actions inside it a set amount of times.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Repeat times – The number of times to run the code inside. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Automating certain processes</li>",
+			"<li>Making countdowns and timers</li>",
+			"<li>Waiting a set amount of frames</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Drag other blocks inside this block to repeat them a certain number of times. Very important: sequencing is key, so make sure to place the blocks in the exact order that they should be repeated.</li>",
+			"<li>Block ID: 120</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 124,
+		"type": "ctrl",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Check If Else <i class=\"ps fa fa-question-circle\" title=\"Conditional Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Runs the code inside the top half if the condition is true and runs the bottom half if the condition is false.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "cnd",
+				"description": "Condition – The statement to check. This is a conditional parameter that allows you to choose a condition that checks two numbers or conditionals."
+			}
+		],
+		"useful_for": [
+			"<li>Managing actions for each specific clone or instance of an object</li>",
+			"<li>Creating two or more events that can happen on the same game rule based on the player’s progress in the project</li>",
+			"<li>Making lists of actions or dictionaries. See the community links.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: This allows you to run one set of blocks if a test is passed and another set if it doesn’t pass.<br>Define your test in the blank beside ‘Check once if’ text. A test might be ‘Dino’s X position is greater than 10’. If it’s greater than 10 do one thing, otherwise do something else.<br>Very important: the test will only be checked once! To continually check your test, put your ‘Check Once If’ block within a ‘Repeat Forever’ block.</li>",
+			"<li>Block ID: 124</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/this-siri-shortcut-can-modify-your-projects/50533/1633\">Custom Dictionary Abilities</a> – This is a modding tool that I made which allows you to input several types of actions corresponding to an input value. It uses a list of If Else blocks to create a list of outcomes based on the input variable.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 121,
+		"type": "ctrl",
+		"blockHTML": "<i class=\"fa fa-chevron-right\" style=\"color: black; opacity: 0.4; font-size: 18px;\" title=\"This block holds blocks inside of it\"></i> Repeat Forever ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Runs the actions inside it for the rest of the time the project is playing.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Looping actions indefinitely such as rain falling</li>",
+			"<li>Creating score and time counters</li>",
+			"<li>Constantly checking or updating variables.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Add blocks into the container to repeat them forever.<br>Very important: Any blocks that are added below and outside the ‘Repeat Forever’ block will NEVER be performed. This is because the repeat loop will continue forever.<br>If you want to add more blocks below ‘Repeat Forever’, create a new When for the character and add those blocks to that new When.</li>",
+			"<li>Block ID: 121</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 61,
+		"type": "ctrl",
+		"blockHTML": "Wait seconds <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Waits a specified amount of seconds",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Time (seconds) – The amount of time (in seconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Creating Timers</li>",
+			"<li>Timing sequences to make projects work smoothly</li>",
+			"<li>Animations</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Pauses for a certain amount of time in seconds. 1 second is equal to 1000 milliseconds. Try using decimals to get greater precision, for example: wait 0.5 seconds.<br>Try using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.</li>",
+			"<li>Block ID: 61</li>",
+			"<li>This block is available for everyone to use.</li>",
+			"<li>This block replaced the old <a href=\"?id=35\">Wait milliseconds</a> block in order to make things more clear for new users.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/how-hopscotch-works/53966\">How Hopscotch Works</a> – CEO AwesomeOnion describes the timing of wait blocks, the way they work, and their precision.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 53,
+		"type": "ctrl",
+		"blockHTML": "Create a Clone of This Object <i style=\"color: lightgray; font-style: normal;\">times</i> <i class=\"ps fa fa-hashtag\" style=\"background-color: lightgray;\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Creates another clone, or instance, of the current object.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Number of clones – When a number parameter is added by JSON modding, it specifies the number of clones to create instantly. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Reducing the number of objects in your editor, freeing up stage space.</li>",
+			"<li>Creating pieces that fall under a base object. For instance, creating a draggable box with minor details on it as clones</li>",
+			"<li>Increasing efficiency within the project.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: This block creates an exact copy of the current character and makes that copy appear on the screen. The clone will appear right on top of the current character (so it might be hard to see).<br>For an example, search the community for Spiral Draw. In that project the trails you are drawing with are actually clones!</li>",
+			"<li>Block ID: 53</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 55,
+		"type": "ctrl",
+		"blockHTML": "Destroy ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Destroys the current instance of an object.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "all",
+		"parameters": [],
+		"useful_for": [
+			"<li>Clearing Several Clones just used for drawing a background</li>",
+			"<li>Lowering the object count overall for performance</li>",
+			"<li>Potential Debug Purposes; however, it is somewhat buggy at the moment</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Remove this object from your game. This is useful if you made a lot of clones to quickly draw a background but no longer need them any more. Also can be used if you want to get rid of a character that got knocked out in your game.</li>",
+			"<li>Block ID: 55</li>",
+			"<li>This block is available for everyone to use.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/projects/zwofn3guf\">Snowman Stacker</a> – This project would have otherwise been very laggy if background-drawing objects had not been destroyed.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=Using%20the%20Destroy%20Block%20to%20Optimize%20your%20Projects&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 125,
+		"type": "ctrl",
+		"blockHTML": "Change Scene to <i class=\"ps fa fa-file-photo-o\" title=\"Scene Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Changes the scene of the project when it is playing.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "scn",
+				"description": "Scene – Determines which scene to change to. This is a scene parameter that lets you select from the scenes that exist in your project."
+			}
+		],
+		"useful_for": [
+			"<li>Creating levels or rooms</li>",
+			"<li>Utilizing separate parts of a project</li>",
+			"<li>Creating a game with different modes</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Go to a different scene in the project. This will immediately change out all your objects, but won’t change the background.</li>",
+			"<li>Block ID: 125</li>",
+			"<li>This block is exclusively available in the beta editor for subscribers to test.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/this-siri-shortcut-can-modify-your-projects/50533\">Hopscotch JSON Siri Shortcut Topic</a> – Here you can ask me things about the properties of the block as well as why the parameter works better as a number.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Change%20Scene%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 29,
+		"type": "old",
+		"blockHTML": "Scale by percent <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Scales the object by said percent",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "gone",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Percent – The new size of the object. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Resizing objects relative to original size rather than current size</li>",
+			"<li>Enlarging or shrinking objects by a set amount</li>",
+			"<li>Anything that <a href=\"?id=51\">Set Size</a> is useful for</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block no longer exists in the editor.</li>",
+			"<li>Block ID: 29</li>",
+			"<li>This block is no longer in use and only functions in the old editor (editor version 24). The only way to obtain this block is by JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>",
+			"<li>This was a block that had the same purpose as <a href=\"?id=51\">Set Size</a> but was developed earlier and was eventually replaced.</li>"
+		],
+		"community_links": [
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 36,
+		"type": "old",
+		"blockHTML": "Set Opacity to <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Sets the opacity of an object. A value of 100% means fully opaque and a value of 0 means fully invisible.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "gone",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Opacity – This number (as a percent) determines the opacity of an object. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Making certain objects turn invisible and ignore collision</li>",
+			"<li>Creating animations</li>",
+			"<li>Anything else that you would use the <a href=\"?id=47\">Set Invisibility</a> block for</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block no longer exists in the editor.</li>",
+			"<li>Block ID: 36</li>",
+			"<li>This block is no longer in use and only functions in the old editor (editor version 24). The only way to obtain this block is by JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>",
+			"<li>This was a block that had the same purpose as <a href=\"?id=47\">Set Invisibility</a> but was developed earlier and was eventually replaced.</li>"
+		],
+		"community_links": [
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Opacity%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 46,
+		"type": "old",
+		"blockHTML": "Move with trail distance <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "After a trail color and width have been set, this block moves the object forward by a certain distance while drawing that trail.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "gone",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Distance – The number of pixels to travel forward. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Drawing pixel arts</li>",
+			"<li>Making backgrounds in games</li>",
+			"<li>Creating effects with moving objects</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block no longer exists in the editor.</li>",
+			"<li>Block ID: 46</li>",
+			"<li>This block is no longer in use and only functions in the old editor (editor version 24). The only way to obtain this block is by JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>",
+			"<li>This was a block that served a similar purpose as the collapsible <a href=\"?id=26\">Draw a Trail</a> block, but it was likely removed due to its redundancy.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://iamagoldfish.github.io/Hopscotch-png-hack/thing.html\">Hopscotch PNG Hack</a> – This is Petrichor’s png to pixel art tool, and it uses this block when inserting code into older project versions (if that option is selected).</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 35,
+		"type": "old",
+		"blockHTML": "Wait milliseconds <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Waits a specified amount of milliseconds",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "old",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Time (milliseconds) – The amount of time (in milliseconds) to wait. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Creating Timers</li>",
+			"<li>Timing sequences to make projects work smoothly</li>",
+			"<li>Animations</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.<br>Try using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.</li>",
+			"<li>Block ID: 35</li>",
+			"<li>This block is no longer in use. Functionality is not guaranteed for future versions, and the only way to obtain this block is from JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>",
+			"<li>This block has been replaced by the new <a href=\"?id=61\">Wait seconds</a> block, which serves the same purpose and is more friendly to beginners.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://forum.gethopscotch.com/t/how-hopscotch-works/53966\">How Hopscotch Works</a> – CEO AwesomeOnion describes the timing of wait blocks, the way they work, and their precision.</li>",
+			"<li>Under Construction</li>"
+		]
+	},
+	{
+		"id": 19,
+		"type": "old",
+		"blockHTML": "Wait til Timestamp <i class=\"ps fa fa-hashtag\" title=\"Number Parameter\"></i> ⁣ <i class=\"fa fa-bars\" style=\"color: black; opacity: 0.4;\"></i>",
+		"about": "Waits until the <a href=\"https://en.wikipedia.org/wiki/Unix_time\">Unix Timestamp</a> specified (in milliseconds) before continuing the code.",
+		"app_description": "Pauses for a certain amount of time in milliseconds. 1000 milliseconds is equal to 1 second.\nTry using this block with Change Pose or Set Text (if it’s a text object) to control how fast or slow your object changes.",
+		"availability": "json",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Timestamp (in milliseconds) – the set timestamp that the project will wait until before running the next action. This is a number parameter that allows you to input a number, use math operators, or input traits and variables."
+			}
+		],
+		"useful_for": [
+			"<li>Displaying the System Time</li>",
+			"<li>Creating Synchronized Projects that will show the same thing on all devices at any given time</li>",
+			"<li>Making Projects that play differently every day.</li>"
+		],
+		"other_info": [
+			"<li>Hopscotch Description: N/A – This block has not yet been implemented into Hopscotch.</li>",
+			"<li>Block ID: 19</li>",
+			"<li>This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href=\"https://c.gethopscotch.com/p/10kqiyz15e\">Secret Blocks</a> or insert them with my <a href=\"https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download\">Siri Shortcut</a>.</li>"
+		],
+		"community_links": [
+			"<li><a href=\"https://c.gethopscotch.com/p/10f6cqa6oq\">Multi-Device Bingo</a> – This project does a great job with the art of illusion to make it seem like everyone is connected to a server. It uses the timestamp block to determine when each character shows up, and each device’s grid is randomized.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zr0eu3mz5\">Time + Date Finder! 1.5</a> – CreationsOfANoob uses a super efficient method to calculate the current time and allows the user to view it and adjust it to their timezone.</li>",
+			"<li><a href=\"https://c.gethopscotch.com/p/zua3lmero\">Game Changer</a> – My terrible pun of a project. This uses the timestamp to cycle between each game in “Minigames 2”, resulting in a different game played each day.</li>",
+			"<li>There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Timestamp%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?</li>",
+			"<li>Under Construction</li>"
+		]
+	}
+]
