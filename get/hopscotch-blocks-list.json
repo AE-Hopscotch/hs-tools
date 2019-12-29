@@ -84,7 +84,7 @@
 	{
 		"id": 41,
 		"type": "move",
-		"name": "Set Position to xy",
+		"name": "Set Position",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -269,7 +269,7 @@
 	{
 		"id": 59,
 		"type": "move",
-		"name": "Set Origin to xy",
+		"name": "Set Origin",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -429,7 +429,7 @@
 	{
 		"id": 57,
 		"type": "looks",
-		"name": "Set widthheight",
+		"name": "Set Width and Height",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -527,7 +527,7 @@
 	{
 		"id": 52,
 		"type": "looks",
-		"name": "Start Soundwait",
+		"name": "Start Sound",
 		"authors": [
 			"Awesome_E"
 		],
@@ -565,7 +565,7 @@
 	{
 		"id": 62,
 		"type": "looks",
-		"name": "Start Soundwait",
+		"name": "Start Sound",
 		"authors": [
 			"Awesome_E"
 		],
@@ -741,7 +741,7 @@
 	{
 		"id": 26,
 		"type": "draw",
-		"name": "Draw a Trail colorwidth",
+		"name": "Draw a Trail",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -859,7 +859,7 @@
 	{
 		"id": 45,
 		"type": "var",
-		"name": "Set Variableto",
+		"name": "Set Variable",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -893,7 +893,7 @@
 	{
 		"id": 44,
 		"type": "var",
-		"name": "Increase Variableby",
+		"name": "Increase Variable",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
@@ -956,7 +956,7 @@
 	{
 		"id": 120,
 		"type": "ctrl",
-		"name": " Repeat times",
+		"name": "Repeat times",
 		"authors": [
 			"Awesome_E",
 			"FearlessPhoenix"
