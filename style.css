@@ -115,6 +115,7 @@ bl {
 	font-weight: normal;
 	letter-spacing: 0.3px;
 	position: relative;
+	white-space: nowrap;
 }
 .ps {
 	background: white;
