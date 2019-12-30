@@ -1,15 +1,16 @@
 <head>
+<script>
+	var url = new URL(window.location.href);
+	var id = url.searchParams.get("id");
+	document.querySelector('meta[property="og:description"]').setAttribute("content", id);
+</script>
+
 <meta property="og:title" content="European Travel Destinations">
 <meta property="og:description" content="Offering tour packages for individuals or groups.">
 <meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
 <meta property="og:url" content="http://euro-travel-example.com/index.htm">
-  <meta property="og:video" content="https://s.put.re/kf8Xf83T.MOV" />
+<meta property="og:video" content="https://s.put.re/kf8Xf83T.MOV" />
 </head>
 <body>
-testing the meta head tags - what does it do
+testing the meta head tags - what does it do 2
 </body>
-<script>
-			var url = new URL(window.location.href);
-			var id = url.searchParams.get("id");
-      document.querySelector('meta[property="og:description"]').setAttribute("content", id);
-</script>
