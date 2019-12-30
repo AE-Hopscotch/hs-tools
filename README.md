@@ -4,7 +4,7 @@ Find the site [here](https://awesome-e.github.io/hs-tools/). This is where I upl
 
 ### Hopscotch Help Guide
 
-A collab project about blocks in Hopscotch I am working on. Info collected about the blocks are put here. Anyone can contribute to the project, as help is highly appreciated.
+A collab project about blocks in Hopscotch I am working on. Info collected about the blocks are put here. Anyone can contribute to the project, as help is highly appreciated. Post any new info or community links [here](https://forum.gethopscotch.com/t/mega-collab-hopscotch-help-guide/53163).
 
 To use this help guide, read the recommended blocks or use the search bar.
 
