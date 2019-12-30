@@ -8,3 +8,8 @@
 <body>
 testing the meta head tags - what does it do
 </body>
+<script>
+			var url = new URL(window.location.href);
+			var id = url.searchParams.get("id");
+      document.querySelector('meta[property="og:description"]').setAttribute("content", id);
+</script>
