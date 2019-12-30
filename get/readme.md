@@ -1,4 +1,4 @@
-# Get Files from my GitHub pages
+# Get Files from my GitHub Pages
 
 ## About
 These are reference files regarding information that has to do with either my pages or Hopscotch itself. You are free to use them in any project you wish, whether that is a shortcut, web page, or application.
