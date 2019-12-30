@@ -251,7 +251,7 @@
 				//https://api.codetabs.com/v1/proxy?quest=https://c.gethopscotch.com/api/v1/projects/zuasmwksm 'https://cors-anywhere.herokuapp.com/'
 				let output = undefined;
 				var waitOutput = setInterval(function(){
-					try { if (output != undefined) { printResult(output); clearInterval(waitOutput); } }
+					try { if (output != undefined) { printResult(output); clearInterval(waitOutput); } } catch (Err) { console.log(Err) }
 				}, 250);
 				
 				x.onload = x.onerror = function() {
