@@ -137,7 +137,7 @@
 				<textarea type="text" name="entry.1972740109.other_option_response" id="entry.1972740109.other_option_response" style="width:312px; height: 80px; position:relative; left:2px;"></textarea><br>
 				</span>
 				<input hidden type="text" name="entry.1712427894" id="entry.1712427894" value="key" size="50" style="display: none;">
-				<button id="submit-btn" waiting="false" disabled>Request Project Mod</button>
+				<button id="submit-btn" waiting="false" disabled>Request Project Mod</button><button id="sb2" hidden disabled style="position: fixed; top: -100px; opacity: 0;"></button>
 			</span>
 		</form>
 		<form name="get-project" id="get-project" enctype="text/plain" action="" target="" onsubmit="preventDefault()">
@@ -170,6 +170,8 @@
 				newFrame.style = "display: none;";
 				var parent = original.parentNode;
 				parent.replaceChild(newFrame, original);
+				$('#git-form *').fadeOut(0);
+				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
 			}
 			
 			window.onload = function() {
@@ -187,9 +189,9 @@
 			//var submitBtn = document.getElementById('submit-btn');
 			
 			$('#git-form').on('submit', function(e) {
-				$('#git-form *').fadeOut(0);
+				//$('#git-form *').fadeOut(0);
 				//$('#git-form').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
-				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+				//$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
 			});
 			
 			$('#git-form').on('change', function() {
@@ -211,29 +213,48 @@
 				setFormState('submit-btn', 0);
 				var urlSlot = document.getElementById('entry.497324041');
 				if (/https:\/\/c(ommunity)?\.gethopscotch\.com\/p\//.test(urlSlot.value)) urlSlot.style.backgroundColor = "#fdf8db";
-				projectTestTimeout = setTimeout(function(){
+				//projectTestTimeout = setTimeout(function(){
 					if (!/https:\/\/c(ommunity)?\.gethopscotch\.com\/p\//.test(urlSlot.value)) {
 						urlSlot.style.backgroundColor = "#fdd";
 						setFormState('submit-btn', 1);
 						return false;
 					}
-					request('https://c.gethopscotch.com/api/v1/projects/' + urlSlot.value.replace(/^.*\/p\//, ""),
-						function(output){
-							try {
-								JSON.parse(output);
-								urlSlot.style.backgroundColor = "#fff";
-								setFormState('submit-btn', 2);
-								return true;
-							} catch (SyntaxError) {
-								urlSlot.style.backgroundColor = "#fdd";
-								setFormState('submit-btn', 1);
-								return false;
-							}
-						},true
-					);
-				},0);
+					setFormState('submit-btn', 2);
+				//},0);
 			}
-				
+			
+			function testURL() {
+				var urlSlot = document.getElementById('entry.497324041');
+				setFormState('submit-btn', 1);
+				request('https://c.gethopscotch.com/api/v1/projects/' + urlSlot.value.replace(/^.*\/p\//, ""),
+					function(output){
+						try {
+							JSON.parse(output);
+							//urlSlot.style.backgroundColor = "#fff";
+							var sb2 = document.getElementById("sb2");
+							sb2.removeAttribute('disabled');
+							sb2.removeAttribute('hidden');
+							sb2.click();
+							sb2.setAttribute('disabled','');
+							sb2.setAttribute('hidden','');
+							return;
+						} catch (SyntaxError) {
+							/*urlSlot.style.backgroundColor = "#fdd";
+							setFormState('submit-btn', 1);
+							return false;*/
+							alert("The project must exist");
+						}
+						setFormState('submit-btn', 2);
+					},true
+				);
+			}
+			
+			document.getElementById("submit-btn").onclick = function(event){
+				event.preventDefault();
+				testURL();
+			}
+			
+			
 			function uuidv4() {
 				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 					var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
