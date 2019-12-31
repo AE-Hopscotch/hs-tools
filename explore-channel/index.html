@@ -145,7 +145,9 @@
 				"Puzzles": "categories/puzzles/newest",
 				"Simulation": "categories/simulations/newest",
 				"Random": "categories/other/newest",
-				"Newest": "projects/newest"
+				"Newest": "projects/newest",
+				"Search": "projects/search",
+				"Search_Users": "users/search"
 			}
 			
 			var path = "categories/best_of/featured";
@@ -189,8 +191,8 @@
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					console.log (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,''));
-					if (names[url.searchParams.get("channel")] == options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'') || /search\?(title|nickname)/.test(options.url)) printResult(
+					console.log(options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||channel.includes("Search")));
+					if (options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||page==1||channel.includes("Search"))) printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
 						(x.responseText || '')
@@ -221,8 +223,9 @@
 			setTimeout(function(){
 				showDefaultChannel();
 				if (window.history && window.history.pushState) {
-					$(window).on('popstate', function() {      
-						channel = url.searchParams.get("channel");
+					$(window).on('popstate', function() {   
+						var url = new URL(window.location.href);
+						channel = url.searchParams.get("channel");   
 						showDefaultChannel();
 					});
 				}
@@ -231,6 +234,7 @@
 				if (/Featured|Announcements|Curated|E’s Picks|Halloween|Christmas|Action|Animation|Art|Build|Education|Ideas|Puzzles|Simulation|Random|Newest/.test(channel)) {
 					showChannel(channel, false);
 				} else {
+					if (!search_open) previousChannel = channel;
 					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchGroup(Number(/_Users/.test(channel))) : showChannel("Featured", false);
 				}
 			}
