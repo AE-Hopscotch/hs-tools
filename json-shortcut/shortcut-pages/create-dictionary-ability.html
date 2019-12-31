@@ -460,7 +460,7 @@
 			
 			document.getElementById('loadfile').addEventListener('change', function(){
 				function invalidFile() {
-					console.log('Invalid File');
+					console.error('Invalid File');
 					document.getElementById('loadbtn').style.animationName = '';
 					setTimeout(function(){
 						document.getElementById('loadbtn').style.animationName = 'saveFail';
@@ -483,6 +483,7 @@
 					//Bad extension
 					invalidFile();
 				}
+				input.value = "";
 			});
 			
 			function readFileContent(file) {
