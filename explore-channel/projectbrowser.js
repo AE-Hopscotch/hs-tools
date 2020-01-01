@@ -41,12 +41,14 @@ function showProjects(chProjects) {
 		if (JSON.stringify(chProjects.users||chProjects.projects) == '[]') {
 			//Space Pod on Empty
 			document.querySelector('#loadingBear').innerHTML = spacePodSvg;
+			busy = false;
 			return 'Error';
 		}
 	} catch (SyntaxError) {
 		//Dino on server down
 		console.error(SyntaxError);
 		document.querySelector('#loadingBear').innerHTML = dinoSvg;
+		busy = false;
 		return 'Error';
 	}
 	if (typeof(channelName) != 'undefined' && channelName == "Search_Users") {
