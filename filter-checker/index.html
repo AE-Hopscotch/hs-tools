@@ -22,6 +22,7 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		<meta name="description" content="Project stuck in filter? No worries! Search known filter words... upload a file, test a link, check filter rules."/>
+		<meta name="keywords" content="filter, stuck, project, hopscotch, words"/>
 		<meta property="og:title" content="Hopscotch Project Filter Checker">
 		<meta property="og:description" content="This tool will help you check your project for any filtered words and provides a list of known filtered words.">
 		<meta property="og:image" content="../images/hs-filter.png">
@@ -453,6 +454,7 @@
 					var x = new XMLHttpRequest();
 					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
 					x.onload = x.onerror = function() {
+						if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
 						printResult(
 							//options.method + ' ' + options.url + '\n' +
 							//x.status + ' ' + x.statusText + '\n\n' +
