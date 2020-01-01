@@ -275,7 +275,7 @@
 			
 			function searchForItems() {
 				var searchText = document.querySelector('.search-bar input').value;
-				if (searchText != "") {
+				if (searchText != "" && !busy) {
 					console.log(searchText);
 					if (!search_open) toggleSearch(false);
 					if (searchGroupType == 0) {
