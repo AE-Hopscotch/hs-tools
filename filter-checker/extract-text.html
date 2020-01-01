@@ -22,6 +22,7 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		<meta name="description" content="Extracts all text items from a project. This can be a file or link. Helpful for discovering filtered words."/>
+		<meta name="keywords" content="filter, extract, text, project, hopscotch"/>
 		<meta property="og:title" content="Hopscotch Project Text Extractor">
 		<meta property="og:description" content="This tool extracts all text from a project by looking at parameters and names of every part of it.">
 		<meta property="og:image" content="/hs-tools/images/hs-filter.png">
@@ -274,6 +275,7 @@
 					var x = new XMLHttpRequest();
 					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
 					x.onload = x.onerror = function() {
+						if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
 						printResult(
 							//options.method + ' ' + options.url + '\n' +
 							//x.status + ' ' + x.statusText + '\n\n' +
