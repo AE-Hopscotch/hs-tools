@@ -26,7 +26,7 @@
 	<body>
 		<h2 id="">Redirecting...</h2>
 		<script>
-			window.location.href = "../json-shortcut/help-guide.html" + window.location.href.replace(/.*\?/,'?');
+			window.location.href = "../json-shortcut/help-guide.html" + (window.location.href.includes('?') ? window.location.href.replace(/.*\?/,'?') : '');
 		</script>
 	</body>
 </html>
