@@ -129,6 +129,10 @@
 			h3 {
 				text-align: center;
 			}
+			
+			img {
+				transition: opacity 0.5s;
+			}
 		</style>
 	</head>
 	<body>
@@ -344,7 +348,7 @@
 				<br/>
 				</span>
 			</div>
-				<h3>Adding Scenes to the Project</h3>
+				<h3 id="edit07A">Adding Scenes to the Project</h3>
 				<div class="flex imgflex" r="760">
 					<span style="position: relative;">
 						<img src="../images/shortcut-menus/sc-menu8.png" width="300" height="auto"/><br/>
@@ -357,7 +361,7 @@
 					Input a number, then name each scene by editing the right side the following dialog boxes (they should be "dictionaries" where you edit the value of "name").
 					After you have done that, congrats, you have successfully added scenes to your project</p>
 				</div>
-				<h3>Rearranging Your Scenes</h3>
+				<h3 id="edit07B">Rearranging Your Scenes</h3>
 				<div class="flex imgflex" r="760" reverse>
 					<p cw style="--custom-width: 325px;">This one is a little menu-heavy, but easy to learn.
 					First, select how many times you would like to move a scene to the front/top. I suggest inputting the number of scenes that are in your project. This will
@@ -376,7 +380,7 @@
 						</video>
 					</p>
 				</div>
-				<h3>Deleting Scenes</h3>
+				<h3 id="edit07C">Deleting Scenes</h3>
 				<div class="flex imgflex" r="640" reverse>
 					<span cw style="--custom-width: 275px; position: relative; text-align: justify; margin: auto;">
 						This is as simple as it gets. You choose which scenes to delete, and they get deleted. The only important things to note are:
@@ -389,7 +393,7 @@
 						<img src="../images/shortcut-menus/sc-menu12.png" width="250" height="auto"/><br/><br/>
 					</span>
 				</div>
-				<h3>Choosing Objects</h3>
+				<h3 id="edit07D">Choosing Objects</h3>
 				<div class="flex imgflex" r="760">
 					<span style="position: relative;">
 						<img src="../images/shortcut-menus/sc-menu13.png" width="300" height="auto"/><br/>
@@ -442,12 +446,107 @@
 			<div class="flex imgflex" r="760" reverse>
 				<p cw style="--custom-width: 275px;">Next, you will be greeted with an input box showing the UUIDs of rules that are contained in each custom rule. Before going into this, you should preview the project and already have
 				a pretty good idea of what exact rules you want to modify. Delete, move, add, or copy any rules that you wish, and tap ok. Bam you're done editing custom rules. Do this for every custom rule
-				that you choose to modify.</p>
+				that you choose to modify. Also, note that custom rule UUIDs also appear as rules, as expected. You can use this to put the a custom rule inside of itself as well as to do other things that
+				Hopscotch wasn&rsquo;t meant for. However, that does crash the game upon playing it.</p>
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu21.png" width="250" height="auto"/><br/>
 				</span>
 			</div>
-
+			
+			<h2 id="edit11">Rules</h2>
+			<div class="flex imgflex" r="760">
+				<span style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu22.png" width="250" height="auto"/><br/>
+				</span>
+				<p cw style="--custom-width: 275px;">Rules are those pink blocks inside every object that tell it &ldquo;when&rdquo; to do something. Each object&rsquo;s rules are considered blocks,
+				and those describe the event that causes the actions inside to run. Examples include &ldquo;When Game Starts&rdquo;, &ldquo;When iPad is tapped&rdquo;, and &ldquo;When equals&rdquo;.
+				These can be modded only to a limited extent, but having access to these blocks also provides information on their ability (the blocks inside that rule – you can use this UUID to edit
+				that in the <a href="#edit12">abilities</a> part of the shortcut).</p>
+			</div>
+			<div class="flex imgflex" r="760" reverse>
+				<p cw style="--custom-width: 275px;">Upon selecting to modify rules in the shortcut, you will be asked how many sets of rules you would like to modify. The term &ldquo;rule set&rdquo;
+				refers to the entire object or custom rule that you are referencing. For example, if you wanted to edit 3 rules under &ldquo;Bounce&rdquo; and 1 rule under the object &ldquo;Chillanna&rdquo;, you would
+				need to modify 2 rule sets, one being the custom rule, &ldquo;Bounce,&rdquo; and the other one being the object, &ldquo;Chillanna&rdquo;. Basically, the &ldquo;rule set&rdquo; is the container
+				of the rules, which is always going to be the custom rules or objects that you want to modify. After that, you will need to choose (for each rule set) whether it is an object or custom rule, and
+				which object or custom rule you are looking for.</p>
+				<span style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu23.png" width="250" height="auto"/><br/>
+				</span>
+			</div>
+			<div class="flex imgflex" r="760">
+				<span style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu24.png" width="250" height="auto"/><br/>
+				</span>
+				<p cw style="--custom-width: 275px;">After you have chosen your object or custom rule, you will need to choose which rules you&rsquo;d like to view or edit inside of that. When choosing the rules,
+				they will show up like the pink rule block does in Hopscotch, along with its UUID. In the images below, the rules listed include the name of the pink block (e.g. Game Starts, equals, etc.) as well as
+				the UUID of the rule (this is what is used to identify it elsewhere). You can select multiple rules to modify, and for each one, another text box will pop up. This text box contains pure JSON code,
+				meaning that any syntax errors may result in project corruption. From this point, you have information on the following pieces of information: the rule block type (the actual pink bubble that tells what
+				type of rule it is), the ID (the same UUID is shown on the &ldquo;choose rules&rdquo; list), the ability ID (this is the UUID to the ability, which contains the code run inside the rule), and any other info
+				on the rule block itself (conditional parameters, event parameters such as &ldquo;self&rdquo;, etc.).</p>
+			</div>
+			<p class="belowFlex flex" r="760" style="justify-content: space-evenly; align-items: center; margin: auto;">
+				<span style="position:relative;"><br/><img src="../images/shortcut-menus/sc-menu25.png" width="350" height="auto" style="border-radius: 8px;"/><br/></span>
+				<span style="position:relative;"><br/><img src="../images/shortcut-menus/sc-menu26.png" width="350" height="auto" style="border-radius: 8px;"/><br/></span>
+			</p>
+			
+			<h2 id="edit12">Abilities</h2>
+			<p class="center">This is where the real fun starts :)</p>
+			<div class="flex imgflex" r="760" reverse>
+				<p cw style="--custom-width: 275px;">Before we begin discussing each one, let&rsquo;s summarize what abilities are and the functions of each one so that you know which one you need to choose.
+				Abilities are Hopscotch&rsquo;s way of storing every single block of code (whens/rules don&rsquo;t count) run by an object. Hopscotch stores each set of blocks under a collapsible within one
+				&ldquo;ability&rdquo;, <!-- TIP OF THE WEEK LINK --> and these all have a UUID that they are identified by. My shortcut currently has 3 ways of modifying abilities (soon to be 4 with Create Dictionary Ability), and those are
+				the ae_json_edit custom block, the MIDI hack, and find by UUID. The pre-named custom block is useful for quick access to code, the MIDI hack adds songs to your project, and find by UUID is how you
+				modify bits of code that are pointed to <!-- TIP OF THE WEEK LINK --> by other abilities or rules. When choosing to modify abilities, choose the ones you need (can be more than one).</p>
+				<span style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu27.png" width="250" height="auto"/><br/>
+				</span>
+			</div>
+				<h3 id="edit12A">The Prenamed Ability: &ldquo;ae_json_edit&rdquo;</h3>
+				<div class="flex imgflex" r="760">
+					<span style="position: relative;">
+						<img src="../images/shortcut-menus/sc-menu29.png" width="300" height="auto"/><br/>
+					</span>
+					<p cw style="--custom-width: 325px;">This is one of the easiest concepts to understand when it comes to JSON editing, and it is where I recommend starting. The ae_json_edit ability is just
+					an ordinary custom block/ability that you create in the project by tapping &ldquo;New Block&rdquo; (the shortcut can also create it if it does not exist). Selecting ae_json_edit when modifying
+					abilities simply shows you the JSON code for that ability, in what I like to call &ldquo;chunks&rdquo;. Basically, a chunk is one cluster of the JSON code, representing one item in a list.
+					You can use this format, or you can directly input a JSON list of blocks (without the brackets) you want to transfer. This option is great for transferring code from outside tools as well as getting
+					started with the JSON structure of a Hopscotch block. The pre-named ability is also super useful when testing just a couple of blocks and how they react to different parameters, which is my main use for it.</span></p>
+				</div>
+				<div class="flex imgflex" r="760" reverse>
+					<p cw style="--custom-width: 325px;">When you select this ability, the existing code of the ability is shown if that ability exists and is not empty. Otherwise, it creates the ability (rainbow block), and defaults
+					you to insert secret blocks. When editing this for the first time, pay attention to the &ldquo;key-value pair&rdquo; of JSON code (example – &ldquo;description&rdquo;:  &ldquo;move forward&rdquo;). Since the keys
+					are predetermined by Hopscotch, there is no point in modifying them. Instead, modify the values of them, such as the block&rsquo;s type, parameter values, etc. – stuff that you would notice a difference in when you
+					reopen the project in Hopscotch. This is a simple but powerful tool, as it allows you to mess around with just a couple of bloks or paste in code from other generators such as Petrichor&rsquo;s pixel art tool.
+					That choice is up to you. After you are done changing that code, tap done. You will also be given a screen to change other info about the ability if that&rsquo;s what you wish, but once you tap done on that, you
+					have successfully edited the pre-named ability, ae_json_edit.</p>
+					<span style="position: relative;">
+						<img src="../images/shortcut-menus/sc-menu30.png" width="300" height="auto"/><br/>
+					</span>
+				</div>
+				<h3 id="edit12B">The Hopscotch MIDI Hack</h3>
+				<div class="flex imgflex" r="760">
+					<span style="position: relative;">
+						<img src="../images/shortcut-menus/sc-menu31.png" width="250" height="auto"/><br/><br/>
+					</span>
+					<p cw style="--custom-width: 275px;">First, of all, credit goes where credit is due. The original creator of the Hopscotch MIDI Hack is MR.GAM3R, and it can be found <a href="https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204/88">here</a>.
+					Hopscotcher BuildASnowman created a MIDI Hack outside of Hopscotch, and MR.GAM3R, inspired, created a similar tool in the form of a web page with some help from MIDIConvert (more info and how to use the web page can be found <a href="https://mrxgam3r.github.io/Hopscotch-MIDI-Hack/">here</a>).
+					Due to the fact that it is written in HTML and JavaScript, it is extremely easy to integrate into shortcuts, as shortcuts allows me to take variable data and get the contents of HTML code, which I modified very slightly.<br/><br/>
+					Now, let&rsquo;s go into the very simple process of using it in my shortcut. When you get to the MIDI Hack, my shortcut will just prompt you to choose a MIDI file from your file browser (supported file extensions are .mid and .midi). Once you select
+					your MIDI file, the shortcut creates an ability with the same name as the MIDI file, and just like that the song is in your project. When using this, just remember that only the MIDI audio format is supported. MP3, M4A, WAV, and other common formats will not work.<br/><br/>
+					Personally, I added this to my shortcut to experiment and give others the chance to use it for adding songs to projects. I would not rely on the consistency, accuracy, or performance of it, but it is a great tool for demonstrating the possibilities of modding Hopscotch.
+					Keep in mind that I did not make the MIDI Hack and I am not sure entirely how it works (besides reading the notes and converting it to JSON), so if you need help with that specifically, ask MR.GAM3R.</p>
+				</div>
+				<h3 id="edit12C">Find by UUID</h3>
+				<div class="flex imgflex" r="760" reverse>
+					<p cw style="--custom-width: 325px;">Finding an ability by its UUID is the only way you can access every last bit of code in your project, and this is used for more advanced JSON editing. The main process of this goes through a process like this: think of the final ability, backtrack it
+					to a rule, object, or custom rule, then locate its UUID by searching through the rules and other IDs. It&rsquo;s no easy feat and is extremely hard to do without a note-taking app of some sort opened in multitasking. This method of JSON editing is not for the faint of heart, as it is heavily
+					based on text and short-term memory. But once you understand where to find the UUID of an ability you are looking for, this is the option that you use to modify the code inside of that. This is where you paste an ability ID from a rule, a control script ID from another block, etc. These are
+					the blocks of code that are being pointed to by other abilities. <!-- ONCE AGAIN, TIP OF THE WEEK --> If that was too much of a mouthful of word soup, I recommend gaining some more modding experience first. I am open for questions on the shortcut topic at any time.</p>
+					<span style="position: relative;">
+						<img src="../images/shortcut-menus/sc-menu32.png" width="300" height="auto"/><br/>
+					</span>
+				</div>
+			
 			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 			<h2 id="versions">Change Logs</h2>
