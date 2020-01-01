@@ -26,6 +26,7 @@
 	<body>
 		<p>Redirecting...</p>
 		<script>
+			if (getCookie("dark_mode") == "true") document.getElementsByTagName("html")[0].style.cssText = "background-color: black; color: #666;";
 			window.location.href = "../json-shortcut/help-guide.html" + location.hash;
 		</script>
 	</body>
