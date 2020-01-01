@@ -226,10 +226,12 @@ sq {
 	justify-content: center;
 	align-items: center;
 	color: gray;
+	z-index: 1;
+	position: relative;
 }
 .info {
 	display: block;
-	width: 240px;
+	width: 300px;
 	height: 75px;
 	margin: 0;
 	position: absolute;
