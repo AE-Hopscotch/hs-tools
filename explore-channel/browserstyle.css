@@ -246,8 +246,10 @@ sq {
 	font-family: Avenir;
 	white-space: nowrap;
 	overflow: hidden;
-	position: relative;
-	top: -4px;
+	position: absolute;
+	top: 20px;
+	right: 0;
+	width: 216px;
 }
 .info a.user {
 	font-size: 14px;
@@ -255,10 +257,12 @@ sq {
 	text-align: right;
 	display: block;
 	margin: 6px 12px 2px;
+	width: 216px;
 	white-space: nowrap;
 	overflow: hidden;
-	position: relative;
+	position: absolute;
 	top: -2px;
+	right: 0;
 	line-height: 18px;
 	color: var(--col-label-text);
 	transition: color var(--transition-time);
