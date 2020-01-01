@@ -805,24 +805,35 @@
 				}, 510);
 			};
 			
-			document.querySelectorAll(".accordControls").forEach(function(a){
+			/*document.querySelectorAll(".accordControls").forEach(function(a){
 				a.addEventListener('click', function(){
 					accordion(a.id.replace(/[l]/,''));
 				});
-			});
+			});*/
 			
-			/*$(document).ready(function() {
+			$(document).ready(function() {
 				$(".accordControls").click(function(event) {
 					accordion(event.target.id.replace(/[l]/,""));
 				});
-			});*/
+			});
+			
+			var hasToggle = (HTMLElement.prototype.toggleAttribute != undefined);
+			//Define Toggle Attribute for if it does not exist
+			if (!hasToggle) HTMLElement.prototype.toggleAttribute = function(attr){
+				(this.getAttribute(attr) == null) ? this.setAttribute(attr,'') : this.removeAttribute(attr);
+				return !(this.getAttribute(attr) == null);
+			}
+			
+			
 			
 			var accordions = document.getElementsByClassName("accordControls");
-
+			
 			for (var i = 0; i < accordions.length; i++) {
+				
 				//accordions[i].addEventListener('click', accordion, false);
 				accordions[i].toggleAttribute("data-closed");
 				var content = document.getElementById(accordions[i].id + "content");
+				
 				content.style.setProperty('--elementHeight', String(content.clientHeight) + "px");
 				content.toggleAttribute("data-closed");
 			}
