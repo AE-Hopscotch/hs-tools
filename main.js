@@ -86,7 +86,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 $(window).scrollEnd(function(){
 	var headings = document.querySelector(".save-scroll")
 	if (headings != undefined) {
-		headings = headings.getElementsByTagName('h2');
+		headings = headings.querySelectorAll('h2[id], h3[id]');
 		var headingPositions = {};
 		var offset = 302 - document.getElementById(headings[0].id).getBoundingClientRect().top;
 		for (var i = 0; i < headings.length; i++) {
@@ -101,7 +101,7 @@ $(window).scrollEnd(function(){
 		//(String(window.location.href.match(RegExp("#" + hash))) != "null")
 		if (window.location.href.replace(/.*?#/,"") != hash){
 			//Set Hash if Different
-			setLocation('#' + hash);
+			replaceLocation('#' + hash);
 			setCookie('lastPage', window.location.href, 30);
 		}
 		//console.log(window.location.href);
