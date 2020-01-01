@@ -805,11 +805,17 @@
 				}, 510);
 			};
 			
-			$(document).ready(function() {
+			document.querySelectorAll(".accordControls").forEach(function(a){
+				a.addEventListener('click', function(){
+					accordion(a.id.replace(/[l]/,''));
+				});
+			});
+			
+			/*$(document).ready(function() {
 				$(".accordControls").click(function(event) {
 					accordion(event.target.id.replace(/[l]/,""));
 				});
-			});
+			});*/
 			
 			var accordions = document.getElementsByClassName("accordControls");
 
