@@ -164,6 +164,7 @@
 				$(".user-card").remove();
 				
 				page = 1;
+				document.getElementById("loadingBear").innerHTML = bearSvg;
 				document.getElementById("loadingBear").style.display = "";
 				document.body.scrollTop = 0; // For Safari
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -211,8 +212,7 @@
 					url: input_url,
 					//data: dataField.value
 				}, function printResult(result) {
-					showProjects(result);
-					document.getElementById("loadingBear").style.display = "none";
+					if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 				});
 			}
 			
