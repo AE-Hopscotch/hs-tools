@@ -1,1 +1,3 @@
 # Shortcut Menu Images
+
+<img src="sc-menu1.png" height="72"> <img src="sc-menu2.png" height="72"> <img src="sc-menu3.png" height="72"> <img src="sc-menu4.png" height="72"> <img src="sc-menu5.png" height="72"> <img src="sc-menu6.png" height="72"> <img src="sc-menu7.png" height="72"> <img src="sc-menu8.png" height="72"> <img src="sc-menu9.png" height="72"> <img src="sc-menu10.png" height="72"> <img src="sc-menu11.png" height="72"> <img src="sc-menu12.png" height="72"> <img src="sc-menu13.png" height="72"> <img src="sc-menu14.png" height="72"> <img src="sc-menu15.png" height="72"> <img src="sc-menu16.png" height="72"> <img src="sc-menu17.png" height="72"> <img src="sc-menu18.png" height="72"> <img src="sc-menu19.png" height="72"> <img src="sc-menu20.png" height="72">
