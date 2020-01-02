@@ -199,11 +199,11 @@ $(document).keydown(function(e){
 			if (event.key == "+") {
 				xRay = !xRay;
 				if (xRay) {
-					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
 					document.documentElement.style.setProperty('--x-ray-elms', 'block');
-					document.documentElement.style.setProperty('--x-ray-opacity', '0.2');
+					(xRayView == 0) ? xRayView = 2 : xRayView --;
+					xray('toggle-show');
 				} else {
-					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye-slash"> </i>';
+					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
 					document.documentElement.style.setProperty('--x-ray-elms', 'none');
 					document.documentElement.style.setProperty('--x-ray-show', 'ignore');
 					document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
@@ -223,29 +223,38 @@ $(document).keydown(function(e){
 //X-Ray
 var xRay = false;
 var xRayClickAction = 0;
+var xRayView = 0;
 function xray(action, keyIn) {
 	keyIn = keyIn||false;
 	switch (action) {
 		case 'toggle-show':
-			var s = document.documentElement.style.getPropertyValue('--x-ray-show');
-			if (s == 'ignore' || s == '') {
-				document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye-slash"> </i>';
-				document.documentElement.style.setProperty('--x-ray-show', 'none');
-			} else {
-				document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
-				document.documentElement.style.setProperty('--x-ray-show', 'ignore');
+			(xRayView == 2) ? xRayView = 0 : xRayView ++;
+			//var s = document.documentElement.style.getPropertyValue('--x-ray-show');
+			switch (xRayView) {
+				case 0:
+					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
+					document.documentElement.style.setProperty('--x-ray-show', 'ignore');
+					document.documentElement.style.setProperty('--x-ray-opacity', '1');
+					break;
+				case 1:
+					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-low-vision fa-flip-horizontal"> </i>';
+					document.documentElement.style.setProperty('--x-ray-show', 'ignore');
+					document.documentElement.style.setProperty('--x-ray-opacity', '0.25');
+					break;
+				case 2:
+					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye-slash"> </i>';
+					document.documentElement.style.setProperty('--x-ray-show', 'none');
+					document.documentElement.style.setProperty('--x-ray-opacity', '0');
+					break;
 			}
 			break;
 		case 'click-action':
-			(xRayClickAction == 3) ? xRayClickAction = 0 : xRayClickAction ++;
+			(xRayClickAction == 4) ? xRayClickAction = 0 : xRayClickAction ++;
 			switch (xRayClickAction) {
 				case 0:
-					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-terminal"> </i>';
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-safari"> </i>';
 					break;
 				case 1:
-					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-remove"> </i>';
-					break;
-				case 2:
 					if (false /* SKIP */&& keyIn && prompt('Access Code') == 'GitCurating') {
 						document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-save"> </i>';
 					} else {
@@ -253,8 +262,14 @@ function xray(action, keyIn) {
 						xRayClickAction ++;
 					}
 					break;
-				case 3:
+				case 2:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-info-circle"> </i>';
+					break;
+				case 3:
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-remove"> </i>';
+					break;
+				case 4:
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-terminal"> </i>';
 					break;
 			}
 			break;
@@ -265,15 +280,12 @@ function xProjectAction(p) {
 	p = JSON.parse(p);
 	switch (xRayClickAction) {
 		case 0:
-			getColorPallet(p.screenshot_url, false, p);
+			location.href = "https://c.gethopscotch.com/p/" + p.uuid;
 			break;
 		case 1:
-			$('#' + p.uuid).remove();
-			break;
-		case 2:
 			alert('This action is not ready yet');
 			break;
-		case 3:
+		case 2:
 			customReq('http://c.gethopscotch.com/api/v1/projects/' + p.uuid, function(result){
 				p = JSON.parse(result);
 				var r = Math.round(result.length/10)/100;
@@ -300,6 +312,12 @@ function xProjectAction(p) {
 				});
 				if (!shown) alert(alertText);
 			});
+			break;
+		case 3:
+			$('#' + p.uuid).remove();
+			break;
+		case 4:
+			getColorPallet(p.screenshot_url, false, p);
 			break;
 	}
 }
