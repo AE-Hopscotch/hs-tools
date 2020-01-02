@@ -297,6 +297,7 @@
 				});
 			}
 			$(document).keyup(function(e){
+				if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) alert(e.KeyCode+ ' ' + lastKey + ' ' + e.keyCode||lastKey);
 				switch (e.keyCode||lastKey) {
 					case 27: //Escape
 						if (search_open) {
