@@ -56,8 +56,9 @@
 		</style>
 	</head>
 	<body>
-		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 2;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
-		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye-slash"> </i></button>
+		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 5;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
+		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye"> </i></button>
+		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"><i class="fa fa-fw fa-terminal"> </i></button>
 		<div class="xray-contents">
 			<span id="zoom-display">100</span>
 			<input oninput="document.querySelector('#zoom-display').innerHTML=Math.floor(this.value*100);document.documentElement.style.setProperty('--x-ray-zoom', this.value);" type="range" orient="vertical" step="0.02" value="1" min="0.1" max="2"/>
@@ -288,11 +289,18 @@
 				}
 			}
 			
-			$(document).keydown(function(e){
+			$(document).keyup(function(e){
 				switch (e.keyCode) {
 					case 27: //Escape
-						if (search_open) document.querySelector("#projectSearchBox").blur();
-						toggleSearch(); //Toggles the search bar; blurs it if search is currently open
+						if (search_open) {
+							document.querySelector("#projectSearchBox").blur();
+							toggleSearch(); //Blurs search if it is currently open
+						}
+						break;
+					case 191: //Slash Key
+						if (!search_open) {
+							toggleSearch(); //Open search if it is currently closed
+						}
 						break;
 				}
 			});
