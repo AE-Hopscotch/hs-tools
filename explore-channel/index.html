@@ -58,7 +58,7 @@
 	<body>
 		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 5;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye"> </i></button>
-		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"><i class="fa fa-fw fa-terminal"> </i></button>
+		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"><i class="fa fa-fw fa-safari"> </i></button>
 		<div class="xray-contents">
 			<span id="zoom-display">100</span>
 			<input oninput="document.querySelector('#zoom-display').innerHTML=Math.floor(this.value*100);document.documentElement.style.setProperty('--x-ray-zoom', this.value);" type="range" orient="vertical" step="0.02" value="1" min="0.1" max="2"/>
@@ -289,8 +289,15 @@
 				}
 			}
 			
+			var lastKey = 0;
+			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) {
+				//Map last key for iOS
+				$(document).keyup(function(e){
+					lastKey = e.keyCode;
+				});
+			}
 			$(document).keyup(function(e){
-				switch (e.keyCode) {
+				switch (e.keyCode||lastKey) {
 					case 27: //Escape
 						if (search_open) {
 							document.querySelector("#projectSearchBox").blur();
