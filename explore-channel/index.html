@@ -292,12 +292,11 @@
 			var lastKey = 0;
 			if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) {
 				//Map last key for iOS
-				$(document).keyup(function(e){
+				$(document).keydown(function(e){
 					lastKey = e.keyCode;
 				});
 			}
 			$(document).keyup(function(e){
-				if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) alert(e.KeyCode+ ' ' + lastKey + ' ' + e.keyCode||lastKey);
 				switch (e.keyCode||lastKey) {
 					case 27: //Escape
 						if (search_open) {
