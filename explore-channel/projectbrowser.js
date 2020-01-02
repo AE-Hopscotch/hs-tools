@@ -282,7 +282,7 @@ function xProjectAction(p) {
 								`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
 								((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 								"\nProject UUID: " + p.uuid +
-								"\nFile UUID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
+								"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
 								"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
 								"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
 								"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
