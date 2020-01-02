@@ -290,7 +290,7 @@ function xProjectAction(p) {
 								"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
 								"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
 								"\nNumber of Variables: " + p.variables.length + ", Custom Images: " + (p.customObjects||'').length +
-								"\nObject Scale: " + p.baseObjectScale + ", Font Size: " + p.fontSize + ", Stage Size: " + p.stageSize.width + "x" + p.stageSize.height;
+								"\nObject Scale: " + p.baseObjectScale + ", Font Size: " + p.fontSize + ", Stage Size: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768})).height;
 				var shown = false;
 				p.objects.forEach(function(o){
 					if (o.name == 'AE.webInfoText' && !shown) {
