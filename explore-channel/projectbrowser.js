@@ -277,7 +277,9 @@ function xProjectAction(p) {
 				p = JSON.parse(result);
 				var r = Math.round(result.length/10)/100;
 				var alertText = "Title: " + p.title +
-								"\nBy " + (p.user.nickname||p.author) +
+								`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
+								((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
+								"\nProject UUID: " + p.uuid +
 								"\nFile UUID: " + p.filename.replace(/\.hopscotch/,'') +
 								"\nFile Size: " + ((r < 1000) ? r + "KB" : Math.round(r/10)/100 + "MB") +
 								"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
