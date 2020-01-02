@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.2.1 r3";
+const explorerVersion = "1.2.1 r4";
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 
 //Loading Bear
@@ -277,28 +277,20 @@ function xProjectAction(p) {
 			customReq('http://c.gethopscotch.com/api/v1/projects/' + p.uuid, function(result){
 				p = JSON.parse(result);
 				var r = Math.round(result.length/10)/100;
-				var alertText = "Hopscotch Web Explorer Version: " + explorerVersion +
+				var alertText = "Hopscotch Web Explorer Version: v" + explorerVersion +
 								"\nTitle: " + p.title +
 								`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
 								((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 								"\nProject UUID: " + p.uuid +
-								"\nFile UUID: " + p.filename.replace(/\.hopscotch/,'') +
-								"\nFile Size: " + ((r < 1000) ? r + "KB" : Math.round(r/10)/100 + "MB") +
+								"\nFile UUID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
 								"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
 								"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
 								"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
-								"\nEditor Version: " + p.version +
-								"\nPlayer Version: " + p.playerVersion +
-								"\nPlayer Upgrades: " + Object.keys(p.playerUpgrades||{}).length +
-								"\nNumber of Scenes: " + (p.scenes||'_').length +
-								"\nNumber of Objects: " + p.objects.length +
-								"\nNumber of Rules: " + p.rules.length +
-								"\nNumber of Abilities: " + p.abilities.length +
-								"\nNumber of Variables: " + p.variables.length +
-								"\nNumber of Images: " + (p.customObjects||'').length +
-								"\nObject Scale: " + p.baseObjectScale +
-								"\nFont Size: " + p.fontSize +
-								"\nStage Size: " + p.stageSize.width + "x" + p.stageSize.height;
+								"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
+								"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
+								"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
+								"\nNumber of Variables: " + p.variables.length + ", Custom Images: " + (p.customObjects||'').length +
+								"\nObject Scale: " + p.baseObjectScale + ", Font Size: " + p.fontSize + ", Stage Size: " + p.stageSize.width + "x" + p.stageSize.height;
 				var shown = false;
 				p.objects.forEach(function(o){
 					if (o.name == 'AE.webInfoText' && !shown) {
