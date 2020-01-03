@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 44 44" enable-background="new 0 0 44 44" xml:space="preserve">
+<title>speaker</title>
+<desc>Created with Sketch.</desc>
+<g id="Symbols">
+	<g id="speaker">
+		<g transform="translate(8.000000, 11.000000)">
+			<polygon id="Fill-1" fill="#FFFFFF" points="14,2.346 7,6.902 7,14.9 14,19.457    "/>
+			<g id="Group-10" transform="translate(0.000000, 0.800800)">
+				<path id="Fill-2" fill="#FFFFFF" d="M2,14.101h7.956v-8H2c-1.105,0-2,0.895-2,2v4C0,13.206,0.895,14.101,2,14.101"/>
+				<path id="Stroke-4" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" d="M17.599,6.499      C18.521,7.42,19.09,8.694,19.09,10.1s-0.568,2.679-1.49,3.6"/>
+				<path id="Stroke-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" d="M23.897,0.199      C26.433,2.733,28,6.233,28,10.1s-1.567,7.367-4.101,9.9"/>
+				<path id="Stroke-8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" d="M20.748,3.35      c1.729,1.727,2.797,4.114,2.797,6.751c0,2.636-1.067,5.022-2.795,6.75"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

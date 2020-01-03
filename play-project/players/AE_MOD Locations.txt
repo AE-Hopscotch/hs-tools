@@ -1,0 +1,32 @@
+MATCH:
+   FIND:
+   emoji.base
+   REMOVE:
+   "/assets"
+   ADD:
+   "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/
+   
+MATCH:
+   FIND:
+   d83d-de0e.png
+   REMOVE:
+   "/assets/d83d-de0e.png"
+   ADD:
+   "http://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/
+   
+MATCH:
+   FIND:
+   document.getElementById("project_data")
+   COMMENT OUT:
+   , i = t.dataset.projectJson || u && u.getAttribute("data");
+   ADD:
+   var i = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
+   ***LETTERS MAY VARY***
+   
+MATCH:
+   FIND:
+   d2jeqdlsh5ay24.cloudfront.net
+   REMOVE:
+   "https://d2jeqdlsh5ay24.cloudfront.net/"
+   ADD:
+   "https://awesome-e.github.io/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/
