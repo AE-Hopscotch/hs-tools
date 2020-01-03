@@ -162,7 +162,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
     "use strict";
     Object.defineProperty(t, "__esModule", {
         value: !0
-    }), t.emoji = window.emoji, t.emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, t.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
+    }), t.emoji = window.emoji, t.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, t.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
     t.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
     var r = function() {
         function e() {}
@@ -2325,7 +2325,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
     var r = u(2), i = u(21), n = u(1), o = u(56), f = u(36), c = u(5), a = u(22), s = u(37), d = u(29), h = u(11), l = u(24), p = u(0), S = u(14);
     function g(e) {
         var t = new XMLHttpRequest();
-        t.open("GET", "http://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), t.onreadystatechange = function() {
+        t.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), t.onreadystatechange = function() {
             4 === t.readyState && e(200 === t.status);
         }, t.onerror = function() {
             e(!1);

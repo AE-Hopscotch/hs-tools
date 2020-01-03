@@ -219,7 +219,7 @@ function hsIsFullSizeShape(a) {
 
 function hsCanLoadEmojis(a) {
     var b = new XMLHttpRequest();
-    b.open("GET", "http://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), b.onreadystatechange = function() {
+    b.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), b.onreadystatechange = function() {
         4 == b.readyState && a(200 === b.status);
     }, b.onerror = function() {
         a(!1);
@@ -8139,7 +8139,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
 
 var HSTextNodeKind;
 
