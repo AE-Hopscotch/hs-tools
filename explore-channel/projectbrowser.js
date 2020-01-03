@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.2.1 r5";
+const explorerVersion = "1.2.1 r6";
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 
 //Loading Bear
@@ -301,7 +301,7 @@ function xProjectAction(p) {
 								"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
 								"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
 								"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
-								"\nNumber of Variables: " + p.variables.length + ", Custom Images: " + (p.customObjects||'').length +
+								"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
 								"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage Size: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height;
 				var shown = false;
 				p.objects.forEach(function(o){
