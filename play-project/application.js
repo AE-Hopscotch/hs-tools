@@ -35961,6 +35961,7 @@ $("#signup form").on("ajax:complete", function(data, status, xhr) {
   $("#signup input[type=text]").val("");
   return $('input').blur();
 });
+
 // track all clicks on outbound links using Google Analytics
 // so that we can track how many people we're sending to the app store
 //
@@ -35990,6 +35991,7 @@ $(function() {
     $(".project-link").attr("href", app_store_link);
   }
 });
+
 // Handle fullscreen change for various browsers
 document.addEventListener('webkitfullscreenchange', fullscreenExitHandler, false);
 document.addEventListener('mozfullscreenchange', fullscreenExitHandler, false);
@@ -36035,10 +36037,10 @@ function muteHandler(event) {
   if (!main || !muteButton) return false;
   if (main.isMuted()) {
     main.unmute();
-    muteButton.src = "assets/speaker.svg";
+    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
   } else {
     main.mute();
-    muteButton.src = "assets/speaker_mute.svg";
+    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
   }
   return false;
 }
@@ -36063,7 +36065,7 @@ function playHandler(event) {
     event.preventDefault();
   }
   if (!playContainer || !main) return false;
-  playContainer.remove();
+  playContainer.style.display = "none";//remove(); AE_MOD
   main.play();
   return false;
 }
@@ -36078,8 +36080,10 @@ window.webkit.messageHandlers = window.webkit.messageHandlers || {};
 window.webkit.messageHandlers.hopscotch = {
   postMessage: function (msg) {
     if (msg.playerState == 'loaded') {
-      play_container.style.display = 'block';
-      project_loading.style.display = 'none';
+      try {
+		  play_container.style.display = 'block';
+		  project_loading.style.display = 'none';
+	  } catch (ReferenceError) {console.error(ReferenceError);} // AE_MOD
     }
   }
 };
@@ -36146,7 +36150,7 @@ $('#google-plus-share-button').click(function (event) {
   window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=600,height=600');
 })
 ;
-(function() {
+//(function() {
     function loadFile(url, cb) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -36237,4 +36241,4 @@ $('#google-plus-share-button').click(function (event) {
           }
         }, 1000/30);
     //};
-  })();
+ // })(); AE_MOD [36157]
