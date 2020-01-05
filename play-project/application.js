@@ -36206,7 +36206,7 @@ $('#google-plus-share-button').click(function (event) {
       document.body.appendChild(playerScript);
       playerScript.onload = initWebplayer.bind(window, version);
       //playerScript.src = HS_INDEX_PATH + data.path; AE_MOD
-      playerScript.src = 'players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
+      playerScript.src = 'https://awesome-e.github.io/hs-tools/play-project/players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
     }
 
     //Legacy, this should go with the webplayer but we can't change old webplayers
@@ -36216,7 +36216,7 @@ $('#google-plus-share-button').click(function (event) {
 		  console.log(players);
       while (--i >= 0) {
           main = new HSMain(players[i]);
-          window.addEventListener("resize", () => HSApp.sendToApp("resize", "true"));
+          //window.addEventListener("resize", () => HSApp.sendToApp("resize", "true")); AE_MOD
       }
       console.log("Made with love by Hopscotch. (Webplayer: " + version + ")");
     }
