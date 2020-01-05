@@ -14,8 +14,8 @@ NREUM.info = {
     applicationTime: 329,
     agent: ""
 };
-</script-->
-<!--script>
+</script>
+<script>
 (window.NREUM || (NREUM = {})).loader_config = {
     licenseKey: "6ed25e26c6",
     applicationID: "2158965"
@@ -403,13 +403,38 @@ ga('send', 'pageview');
 
 <body class="project webplayer embedded"><div class="wrapper"><div class="content" id="body_content">
 
-<script id="svgInsert" src="html_svg.js"></script>
+<script id="svgInsert" src="https://awesome-e.github.io/hs-tools/play-project/html_svg.js"></script>
 
 <script>
+	var projectImport = projectImport || {};
 	var AE_MOD = {
 		"projectData": {},
 		"uuid": "",
 		"playerVersion": ""
+	};
+	
+	var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
+	var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
+	var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
+	function init() {
+		document.getElementById('hopscotch-link').href = "https://c.gethopscotch.com/p/" + AE_MOD.uuid;
+		BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
+		HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
+		HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
+		document.getElementById("appJs").src = "application.js";
+		var pTitle = AE_MOD.projectData.title||'Untitled';
+		var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
+		var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
+		document.title = pTitleFull;
+		if (!AE_MOD.isCustom) {
+			document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid + '.png';
+			document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid);
+		}
+		document.querySelector('meta[property="og:title"]').setAttribute('content', pTitle);
+		document.querySelector('meta[property="og:description"]').setAttribute('content', pTitleFull);
+		document.querySelector('meta[name="twitter:title"]').setAttribute('content', pTitle);
+		document.querySelector('meta[name="twitter:description"]').setAttribute('content', pTitleFull);
+		document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
 	}
 	
 	function doCORSRequest(options, printResult) {
@@ -428,7 +453,6 @@ ga('send', 'pageview');
 	}
 
 	function request(input_url) {
-		busy = true;
 		doCORSRequest({
 			method: 'GET',
 			url: input_url,
@@ -452,17 +476,16 @@ ga('send', 'pageview');
 	}
 	
 	var url = new URL(window.location.href);
-	var customData = url.searchParams.get("data");
 	var customUUID = url.searchParams.get("id");
 	
-	if (customData||'empty' != 'empty'){
+	if (JSON.stringify(projectImport) != '{}'){
 		try {
-			var p = JSON.parse(customData);
+			var p = projectImport;
 			AE_MOD.projectData = p;
 			AE_MOD.uuid = p.uuid;
 			AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 			AE_MOD.isCustom = true;
-			window.onload = function(){init()};
+			init();
 		} catch (SyntaxError) {
 			document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
 			console.error(SyntaxError);
@@ -492,30 +515,6 @@ setTimeout(function() {
 <div class="row content" id="play_container_row"><img id="project_loading" src="https://c.gethopscotch.com/assets/webplayer/loading_apple-05eb745176d79ec27d52d544582483fc4d0f6378c7ed2060be24dfc4e8990668.gif" /><div id="play_container" style="display:none"><div id="play_container_bg"></div><img id="project-image" /><a id="play" class="pos-abs" href="#"><div class="play-button teal-button"><span class="triangle"></span></div></a></div></div>
 </hopscotch-player></div></div>
 <!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
-<script>
-var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
-var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
-var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-function init() {
-	document.getElementById('hopscotch-link').href = "https://c.gethopscotch.com/p/" + AE_MOD.uuid;
-	BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
-	HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
-	HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-	document.getElementById("appJs").src = "application.js";
-	var pTitle = AE_MOD.projectData.title||'Untitled';
-	var pTitleFull = pTitle + ' by ' + (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
-	document.title = pTitleFull;
-	if (!AE_MOD.isCustom) {
-		document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid + '.png';
-		document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid);
-	}
-	document.querySelector('meta[property="og:title"]').setAttribute('content', pTitle);
-	document.querySelector('meta[property="og:description"]').setAttribute('content', pTitleFull);
-	document.querySelector('meta[name="twitter:title"]').setAttribute('content', pTitle);
-	document.querySelector('meta[name="twitter:description"]').setAttribute('content', pTitleFull);
-	document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
-}
-</script>
 <script id="appJs"></script>
 <script src="https://c.gethopscotch.com/assets/application/asset_urls-66c72ce90a1ca36d7740a48386256898e3581d114788b7da74cf032ce305c42e.js"></script>
 
