@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				/*  Set the width and height of the body to the full page */
+				position: absolute;
+				display: block;
+			}
+			#AE_MOD--play-project-div {
+				width: 133vmin;
+				max-width: 100vw;
+				height: 100vmin;
+				max-height: 75vw;
+				padding: 8px;
+				margin: 0;
+				/*  This CSS styling will make the div as large as it can
+				 *  in the body with a 4:3 aspect ratio (and 8px padding).
+				 *  The script will place the project player in that div.
+				 */
+				position: relative;
+				display: inline-block;
+				box-shadow: inset 0 0 0 4px gray;
+			}
+			#testBox {
+				padding: 9px;
+				width: 100%;
+				max-width: 480px;
+				display: inline-block;
+				position: relative;
+			}
+			textarea {
+				width: 100%;
+				height: 300px;
+			}
+			button {
+				background-color: steelblue;
+				color: white;
+				border: none;
+				outline: none;
+				padding: 4px 6px;
+				display: inline-block;
+				margin-top: 4px;
+			}
+			button:hover {
+				cursor: pointer;
+				opacity: 0.7;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="display: flex; flex-wrap: wrap; position: relative;">
+			<div id="AE_MOD--play-project-div"></div> <!-- Player gets inserted here -->
+			<span id="testBox"> <!-- Code Input Box -->
+				<textarea></textarea>
+				<button onclick="runcode()" style="background-color: green;">Run Code</button>
+				<!-- These buttons load a different player version -->
+				<span style="position:relative;top:-2px;">||</span>
+				<button onclick="loadPlayer('1.0.0')">1.0</button>
+				<button onclick="loadPlayer('1.1.0');">1.1</button>
+				<button onclick="loadPlayer('1.2.0');">1.2</button>
+				<button onclick="loadPlayer('1.3.0');">1.3</button>
+			</span>
+		</div>
+		<script>
+			var projectImport = {};
+			//You can put whatever code here when to preload the page
+			
+			var url = new URL(window.location.href);
+			var urlVersion = url.searchParams.get("playerVersion");
+			//Set the player version to the latest if it is not specified in the import
+			projectImport.playerVersion = projectImport.playerVersion || (urlVersion||"1.3.4");
+			
+		</script>
+		<script src="https://awesome-e.github.io/hs-tools/play-project/insert-to-div.js"></script>
+		<script src="../main.js"></script>
+		<script>
+			//Text area value
+			var textVal = document.querySelector("textarea");
+			
+			//Let the user know what player is used (text in button)
+			document.querySelector('button').innerHTML += ' (' + HS_WEBPLAYER_VERSION.replace(/\.[0-9]*$/,'.x') + ')';
+			
+			//Save a Cookie when loading another player to keep textarea value
+			function loadPlayer(player) {
+				//Save the code
+				setCookie("pCode", textVal.value, 0.1);
+				window.location.href = "?loadCode&playerVersion=" + player;
+			}
+			if (url.searchParams.get("loadCode") != null) {
+				//Load the code we just saved
+				textVal.value = getCookie("pCode");
+				//Erase cookie from memory
+				setCookie("pCode", "", 0.1);
+			}
+			
+			//This function re-initiates the webplayer
+			function runcode() {
+				try {
+					projectImport = JSON.parse(textVal.value);
+					var p = projectImport;
+					AE_MOD.projectData = p;
+					AE_MOD.uuid = p.uuid;
+					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+					AE_MOD.isCustom = true;
+					initWebplayer(HS_WEBPLAYER_VERSION);
+				} catch (e) {
+					console.log("invalid json");
+					console.error(e);
+				}
+			}
+		</script>
+	</body>
+</html>
