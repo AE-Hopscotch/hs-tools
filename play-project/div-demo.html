@@ -16,6 +16,11 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
+		<meta name="description" content="A Hopscotch project player that reads from custom JSON input."/>
+		<meta name="keywords" content="player, webplayer, modding, project, hopscotch"/>
+		<meta property="og:title" content="Hopscotch JSON Project Player">
+		<meta property="og:description" content="A Hopscotch project player that reads from custom JSON input.">
+		<meta property="og:image" content="/hs-tools/images/hs-logo-h.png">
 		<style>
 			body {
 				width: 100%;
@@ -123,7 +128,7 @@
 					AE_MOD.isCustom = true;
 					initWebplayer(HS_WEBPLAYER_VERSION);
 				} catch (e) {
-					console.log("invalid json");
+					alert("Invalid JSON data");
 					console.error(e);
 				}
 			}
