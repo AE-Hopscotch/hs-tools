@@ -171,7 +171,7 @@
 				var parent = original.parentNode;
 				parent.replaceChild(newFrame, original);
 				$('#git-form *').fadeOut(0);
-				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This may take a few days, depending on my availability.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
 			}
 			
 			window.onload = function() {
@@ -189,9 +189,7 @@
 			//var submitBtn = document.getElementById('submit-btn');
 			
 			$('#git-form').on('submit', function(e) {
-				//$('#git-form *').fadeOut(0);
-				//$('#git-form').prepend('Your submission has been processed. Please save your project key, as you will need that to claim the modded project.<br>Project Key: ' + document.getElementById("entry.1712427894").value);
-				//$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This should take a couple of days at most.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+				//Code
 			});
 			
 			$('#git-form').on('change', function() {
