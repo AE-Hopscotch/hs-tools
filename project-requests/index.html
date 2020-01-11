@@ -389,6 +389,11 @@
 				alert("SDF");
 				return 'Are you sure you want to leave?';
 			};*/
+			var formClosed = false;
+			if (formClosed) {
+				$('#git-form *').fadeOut(0);
+				$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Requests Closed</h2><br><div style="text-align: center;">Project Modding Requests are currently closed, and the form is not going to accept responses. When completed, you may still retrieve any requests that were already submitted, but you cannot make any new requests. Please check the page again later, and sorry for any inconvenience this might cause.<br><br><b style="display: block; margin-bottom: -16px;">Contact Awesome_E here:</b><br><a href="https://forum.gethopscotch.com/t/50533">Hopscotch JSON Siri Shortcut Topic</a></div>');
+			}
 		</script>
 	</body>
 </html>
