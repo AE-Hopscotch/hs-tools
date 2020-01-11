@@ -354,7 +354,7 @@
 					//document.write("Original Project: <a href='"+l[1]+"'>"+l[1]+"</a><br>Mod Reason: "+l[2]+"<br>Key: "+l[3]+"<br>Your Remix: <a href='"+l[5]+"'>"+l[5]+"</a>")
 					location.replace(l[5]);
 				} else {
-					(l[0] != "404") ? alert("The project request is still in progress") : alert("No such submitted project exists");
+					(l[0] != "404") ? alert((l[4].match(/^_/)) ? l[4].replace('_','') : "The project request is still in progress") : alert("No such submitted project exists");
 				}
 				input.removeAttribute("disabled");
 				setFormState('go', 2);
