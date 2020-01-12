@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.2.1 r6";
+const explorerVersion = "1.3.0 b1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 
 //Loading Bear
@@ -249,7 +249,7 @@ function xray(action, keyIn) {
 			}
 			break;
 		case 'click-action':
-			(xRayClickAction == 4) ? xRayClickAction = 0 : xRayClickAction ++;
+			(xRayClickAction == 5) ? xRayClickAction = 0 : xRayClickAction ++;
 			switch (xRayClickAction) {
 				case 0:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-safari"> </i>';
@@ -271,13 +271,16 @@ function xray(action, keyIn) {
 				case 4:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-terminal"> </i>';
 					break;
+				case 5:
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-window-maximize"> </i>';
+					break;
 			}
 			break;
 	}
 }
 
 function xProjectAction(p) {
-	p = JSON.parse(p);
+	p = JSON.parse(p.replace(/\t+|\s+|\f+|\n+/g,' '));
 	switch (xRayClickAction) {
 		case 0:
 			location.href = "https://c.gethopscotch.com/p/" + p.uuid;
@@ -318,6 +321,9 @@ function xProjectAction(p) {
 			break;
 		case 4:
 			getColorPallet(p.screenshot_url, false, p);
+			break;
+		case 5:
+			showEmbeddedPlayer(p.uuid);
 			break;
 	}
 }
@@ -388,6 +394,31 @@ function getColorPallet(url, nomsg, p) {
 
 	img.crossOrigin = 'Anonymous';
 	img.src = googleProxyURL + encodeURIComponent(imageURL);
+}
+
+function showEmbeddedPlayer(uuid) {
+	var playFrame = document.createElement('div');
+	playFrame.id = "embed-container";
+	playFrame.style = "display:block;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;";
+	playFrame.innerHTML = `<iframe id="project-player" src="../play-project/index.html?id=${uuid}&play=1" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>
+	<button onclick="removeEmbeddedPlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-close' style='color:white;font-size:32px;position:relative;top:-1px;'></i></button>`;
+	document.body.appendChild(playFrame);
+	setTimeout(function(){
+		document.getElementById('embed-container').style.bottom = '0';
+	},250);
+	//Prevent the user from scrolling
+	document.body.style.overflow = "hidden";
+	document.body.ontouchmove = (e) => { e.preventDefault(); return false; };
+}
+
+function removeEmbeddedPlayer() {
+	document.getElementById('embed-container').style.bottom = '-105%';
+	setTimeout(function(){
+		document.getElementById('embed-container').remove();
+	},500);
+	//Re-enable scrolling
+	document.body.style.overflow = "auto";
+	document.body.ontouchmove = (e) => { e.preventDefault(); return false; };
 }
 
 //Control Tab Styles
