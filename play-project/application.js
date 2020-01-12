@@ -36223,6 +36223,9 @@ $('#google-plus-share-button').click(function (event) {
           //window.addEventListener("resize", () => HSApp.sendToApp("resize", "true")); AE_MOD
       }
       console.log("Made with love by Hopscotch. (Webplayer: " + version + ")");
+	  //AE_MOD preplay project if specified in uuid
+	  var url = new URL(window.location.href);
+	  if (url.searchParams.get('play') == '1') playContainer.click();
     }
 
     
