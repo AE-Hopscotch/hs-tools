@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.3.0 r1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.3.1 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 
@@ -101,7 +101,7 @@ function showProjects(chProjects) {
 				};
 			}
 			pCard.setAttribute("class", "project-card");
-			var baseCode = `<a tabindex="7" class="thumbnail" onclick="if(xRay){event.preventDefault(); xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u='+window.btoa(encodeURI(JSON.stringify(p.user)))}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
+			var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div><div class="info"><a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u='+window.btoa(encodeURI(JSON.stringify(p.user)))}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
 			if (p.original_user != undefined && p.original_user.id != p.user.id) {
 				pCard.innerHTML = `'<a tabindex="7" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>'`.replace(/^'|'$/gi,'') + baseCode; //only for code mirror
 				pCard.setAttribute('data-show', 'false');
@@ -192,7 +192,7 @@ setTimeout(function(){
 //Global Key Press
 $(document).keydown(function(e){
 	switch (e.keyCode) {
-		case 187: //Plus key
+		case 187: //Plus key (Activate x-ray)
 			//Break if search box is focused
 			var searchInput = document.querySelector('input[type=search]');
 			if (searchInput != null && document.activeElement == searchInput) break;
@@ -213,11 +213,60 @@ $(document).keydown(function(e){
 				if (xRay) xray('click-action', true);
 			}
 			break;
-		case 189: //Minus Key
+		case 189: //Minus Key (Change x-ray view)
 			//Break if search box is focused
 			var searchInput = document.querySelector('input[type=search]');
 			if (searchInput != null && document.activeElement == searchInput) break;
 			if (event.key == "-" && xRay) xray('toggle-show');
+		case 46: //Delete Key (delete selected tiles)
+			document.querySelectorAll('.xSelected').forEach(function(s){
+				s.remove();
+			});
+			break;
+		case 65: //Letter A (Ctrl+a = select all tiles)
+			if (e.ctrlKey){
+				e.preventDefault();
+				document.querySelectorAll('.project-card').forEach(function(s){
+					s.classList.add('xSelected');
+				});
+			}
+			break;
+		case 67: //Letter C (Clear selection)
+			document.querySelectorAll('.xSelected').forEach(function(s){
+				s.classList.remove('xSelected');
+			});
+			break;
+		case 75: //Letter K (Alt+k = keep only the selected cards)
+			if (e.altKey) {
+				document.querySelectorAll('.project-card:not(.xSelected)').forEach(function(s){
+					s.remove();
+				});
+			}
+			break;
+		case 79: //Letter O (Alt+o = open all in new tabs)
+			if (e.altKey) {
+				var popupsBlocked = 0;
+				document.querySelectorAll('.xSelected').forEach(function(s){
+					var newWin = window.open('https://c.gethopscotch.com/p/' + s.id);
+					if(!newWin || newWin.closed || typeof newWin.closed=='undefined') { 
+						popupsBlocked ++;
+					}
+				});
+				if (popupsBlocked > 0) alert("In order for the open projects function to work properly, you must allow the site to open pop-ups.");
+			}
+			break;
+		case 80: //Letter P (Alt+p = open all code in new tabs)
+			if (e.altKey) {
+				var popupsBlocked = 0;
+				document.querySelectorAll('.xSelected').forEach(function(s){
+					var newWin = window.open('https://c.gethopscotch.com/api/v1/projects/' + s.id);
+					if(!newWin || newWin.closed || typeof newWin.closed=='undefined') { 
+						popupsBlocked ++;
+					}
+				});
+				if (popupsBlocked > 0) alert("In order for the open projects' code function to work properly, you must allow the site to open pop-ups.");
+			}
+			break;
 	}
 });
 
@@ -280,52 +329,99 @@ function xray(action, keyIn) {
 	}
 }
 
-function xProjectAction(p) {
+var xRaySelect = {
+	"start_uuid": null,
+	"end_uuid": null
+};
+
+function xProjectAction(p,e) {
 	p = JSON.parse(p.replace(/\t+|\s+|\f+|\n+/g,' '));
-	switch (xRayClickAction) {
-		case 0:
-			location.href = "https://c.gethopscotch.com/p/" + p.uuid;
-			break;
-		case 1:
-			alert('This action is not ready yet');
-			break;
-		case 2:
-			customReq('http://c.gethopscotch.com/api/v1/projects/' + p.uuid, function(result){
-				p = JSON.parse(result);
-				var r = Math.round(result.length/10)/100;
-				var alertText = "Hopscotch Web Explorer Version: v" + explorerVersion +
-								"\nTitle: " + p.title +
-								`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
-								((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
-								"\nProject UUID: " + p.uuid +
-								"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
-								"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
-								"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
-								"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
-								"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
-								"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
-								"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
-								"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
-								"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage Size: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height;
-				var shown = false;
-				p.objects.forEach(function(o){
-					if (o.name == 'AE.webInfoText' && !shown) {
-						alert(alertText + "\nCustom Description: " + o['text']);
-						shown = true;
-					}
+	if (e.ctrlKey) {
+		$('#' + p.uuid).toggleClass("xSelected");
+		xRaySelect.start_uuid = p.uuid;//($('#' + p.uuid).hasClass("xSelected")) ? p.uuid : '';
+		xRaySelect.end_uuid = null;
+	} else if (e.shiftKey) {
+		//$('#' + p.uuid).toggleClass("xSelected");
+		$.fn.isAfter = function(sel) {
+			return this.prevAll(sel).length !== 0;
+		}
+		$.fn.isBefore = function(sel) {
+			return this.nextAll(sel).length !== 0;
+		}
+		//Select the appropriate tiles
+		if (p.uuid != xRaySelect.start_uuid) {
+			if ($(".flex").find("#" + xRaySelect.start_uuid).hasClass("xSelected")) { //If the starting project is selected
+				//Remove Start to End
+				if ($(".flex").find("#" + xRaySelect.start_uuid).isBefore("#" + xRaySelect.end_uuid)) {
+					$(".flex").find("#" + xRaySelect.start_uuid).nextUntil("#" + xRaySelect.end_uuid).addBack().next().addBack().removeClass("xSelected");
+				} else {
+					$(".flex").find("#" + xRaySelect.end_uuid).nextUntil("#" + xRaySelect.start_uuid).addBack().next().addBack().removeClass("xSelected");
+				}
+				//Select Start to Current
+				if ($(".flex").find("#" + xRaySelect.start_uuid).isBefore("#" + p.uuid)) {
+					$(".flex").find("#" + xRaySelect.start_uuid).nextUntil("#" + p.uuid).addBack().next().addBack().addClass("xSelected");
+				} else {
+					$(".flex").find("#" + p.uuid).nextUntil("#" + xRaySelect.start_uuid).addBack().next().addBack().addClass("xSelected");
+				}
+			} else {
+				//Remove Start to Current
+				if ($(".flex").find("#" + xRaySelect.start_uuid).isBefore("#" + p.uuid)) {
+					$(".flex").find("#" + xRaySelect.start_uuid).nextUntil("#" + p.uuid).addBack().next().addBack().removeClass("xSelected");
+				} else {
+					$(".flex").find("#" + p.uuid).nextUntil("#" + xRaySelect.start_uuid).addBack().next().addBack().removeClass("xSelected");
+				}
+			}
+			//Set End UUID to current
+			xRaySelect.end_uuid = p.uuid;
+		}
+	} else if (e.altKey) {
+		$('#' + p.uuid).remove();
+	} else {
+		switch (xRayClickAction) {
+			case 0:
+				location.href = "https://c.gethopscotch.com/p/" + p.uuid;
+				break;
+			case 1:
+				alert('This action is not ready yet');
+				break;
+			case 2:
+				customReq('http://c.gethopscotch.com/api/v1/projects/' + p.uuid, function(result){
+					p = JSON.parse(result);
+					var r = Math.round(result.length/10)/100;
+					var alertText = "Hopscotch Web Explorer Version: v" + explorerVersion +
+									"\nTitle: " + p.title +
+									`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
+									((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
+									"\nProject UUID: " + p.uuid +
+									"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
+									"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
+									"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
+									"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
+									"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
+									"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
+									"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
+									"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
+									"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage Size: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height;
+					var shown = false;
+					p.objects.forEach(function(o){
+						if (o.name == 'AE.webInfoText' && !shown) {
+							alert(alertText + "\nCustom Description: " + o['text']);
+							shown = true;
+						}
+					});
+					if (!shown) alert(alertText);
 				});
-				if (!shown) alert(alertText);
-			});
-			break;
-		case 3:
-			$('#' + p.uuid).remove();
-			break;
-		case 4:
-			getColorPallet(p.screenshot_url, false, p);
-			break;
-		case 5:
-			showEmbeddedPlayer(p.uuid);
-			break;
+				break;
+			case 3:
+				$('#' + p.uuid).remove();
+				break;
+			case 4:
+				getColorPallet(p.screenshot_url, false, p);
+				break;
+			case 5:
+				showEmbeddedPlayer(p.uuid);
+				break;
+		}
 	}
 }
 
@@ -429,6 +525,20 @@ function removeEmbeddedPlayer() {
 function noDefault(data) {
 	alert(data);
 	e.preventDefault(); //Prevent Scrolling
+}
+
+if ((new URL(window.location.href)).searchParams.get('xRay') != null) {
+	xRay = !xRay;
+	if (xRay) {
+		document.documentElement.style.setProperty('--x-ray-elms', 'block');
+		(xRayView == 0) ? xRayView = 2 : xRayView --;
+		xray('toggle-show');
+	} else {
+		document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
+		document.documentElement.style.setProperty('--x-ray-elms', 'none');
+		document.documentElement.style.setProperty('--x-ray-show', 'ignore');
+		document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
+	}
 }
 
 //Control Tab Styles
