@@ -1,12 +1,16 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.3.0 b3"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.3.0 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 
 /* --------------------- *\
  *                       *
  *   MADE BY AWESOME_E   *
+ *                       *
+ *                       *
+ *                       *
+ *                       *
  *                       *
 \* --------------------- */
 
@@ -429,7 +433,7 @@ function removeEmbeddedPlayer() {
 	},500);
 	//Re-enable scrolling
 	document.body.style.overflow = "auto";
-	document.body.ontouchmove = (e) => {alert(e);};
+	document.body.ontouchmove = (e) => {void(0);};
 	//$('body').off('touchmove');
 }
 function noDefault(data) {
