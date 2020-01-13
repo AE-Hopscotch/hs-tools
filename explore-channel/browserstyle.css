@@ -483,3 +483,7 @@ sq {
 	margin: auto;
 	font-size: 14px;
 }
+
+.xSelected {
+	box-shadow: #0d6f62 0 0 4px 4px;
+}
