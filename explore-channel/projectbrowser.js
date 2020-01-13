@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.3.1 r1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.3.1 r2"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 
@@ -218,6 +218,7 @@ $(document).keydown(function(e){
 			var searchInput = document.querySelector('input[type=search]');
 			if (searchInput != null && document.activeElement == searchInput) break;
 			if (event.key == "-" && xRay) xray('toggle-show');
+			break;
 		case 46: //Delete Key (delete selected tiles)
 			document.querySelectorAll('.xSelected').forEach(function(s){
 				s.remove();
@@ -234,6 +235,11 @@ $(document).keydown(function(e){
 		case 67: //Letter C (Clear selection)
 			document.querySelectorAll('.xSelected').forEach(function(s){
 				s.classList.remove('xSelected');
+			});
+			break;
+		case 72: //Letter H (toggle hide status for selection)
+			document.querySelectorAll('.xSelected').forEach(function(s){
+				s.setAttribute('data-show', String(s.getAttribute('data-show') == 'false'));
 			});
 			break;
 		case 75: //Letter K (Alt+k = keep only the selected cards)
