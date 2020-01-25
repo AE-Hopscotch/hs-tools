@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.3.1 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.3.2 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 
@@ -20,6 +20,10 @@ function animateLoader() {
 setInterval(function(){animateLoader()}, 250);
 animateLoader();
 
+document.querySelector('#loadingBear').onclick = function(){
+	xray('toggle-status');
+}
+
 //Copy Text
 function copy(text){
 	var copyText = document.getElementById("copytext");
@@ -35,7 +39,6 @@ function copy(text){
 }
 
 //Custom Requests
-
 function sendCustomReq(options, printResult) {
 	var x = new XMLHttpRequest();
 	x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
@@ -198,17 +201,7 @@ $(document).keydown(function(e){
 			if (searchInput != null && document.activeElement == searchInput) break;
 			//Toggle the x-ray variables
 			if (event.key == "+") {
-				xRay = !xRay;
-				if (xRay) {
-					document.documentElement.style.setProperty('--x-ray-elms', 'block');
-					(xRayView == 0) ? xRayView = 2 : xRayView --;
-					xray('toggle-show');
-				} else {
-					document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
-					document.documentElement.style.setProperty('--x-ray-elms', 'none');
-					document.documentElement.style.setProperty('--x-ray-show', 'ignore');
-					document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
-				}
+				xray('toggle-status');
 			} else {
 				if (xRay) xray('click-action', true);
 			}
@@ -283,6 +276,18 @@ var xRayView = 0;
 function xray(action, keyIn) {
 	keyIn = keyIn||false;
 	switch (action) {
+		case 'toggle-status':
+			xRay = !xRay;
+			if (xRay) {
+				document.documentElement.style.setProperty('--x-ray-elms', 'block');
+				(xRayView == 0) ? xRayView = 2 : xRayView --;
+				xray('toggle-show');
+			} else {
+				document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
+				document.documentElement.style.setProperty('--x-ray-elms', 'none');
+				document.documentElement.style.setProperty('--x-ray-show', 'ignore');
+				document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
+			}
 		case 'toggle-show':
 			(xRayView == 2) ? xRayView = 0 : xRayView ++;
 			//var s = document.documentElement.style.getPropertyValue('--x-ray-show');
@@ -534,17 +539,7 @@ function noDefault(data) {
 }
 
 if ((new URL(window.location.href)).searchParams.get('xRay') != null) {
-	xRay = !xRay;
-	if (xRay) {
-		document.documentElement.style.setProperty('--x-ray-elms', 'block');
-		(xRayView == 0) ? xRayView = 2 : xRayView --;
-		xray('toggle-show');
-	} else {
-		document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
-		document.documentElement.style.setProperty('--x-ray-elms', 'none');
-		document.documentElement.style.setProperty('--x-ray-show', 'ignore');
-		document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
-	}
+	xray('toggle-status');
 }
 
 //Control Tab Styles
