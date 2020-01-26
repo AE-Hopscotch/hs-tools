@@ -1,0 +1,70 @@
+<style>
+	thead {
+		font-weight: 600;
+	}
+	td {
+		padding: 4px 6px;
+		min-width: 160px;
+		user-select: all;
+	}
+	tr:nth-child(2n+1), thead {
+		background-color: rgb(240,240,240);
+	}
+	tr:nth-child(2n) {
+		background-color: rgb(220,220,220);
+	}
+	td::selection {
+		background-color: red;
+		color: white;
+	}
+</style>
+
+<body>
+<table id="t">
+<thead>
+	<td>1</td>
+	<td>2</td>
+	<td>3</td>
+	<td>4</td>
+</thead>
+
+</table>
+<script>
+function doCORSRequest(options, printResult, ca) {
+	var x = new XMLHttpRequest();
+	x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'') + options.url);
+	x.onload = x.onerror = function() {
+		if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
+		printResult(
+			//options.method + ' ' + options.url + '\n' +
+			//x.status + ' ' + x.statusText + '\n\n' +
+			(x.responseText || '')
+		);
+	};
+	if (/^POST/i.test(options.method)) {
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	}
+	x.send(options.data);
+}
+
+function request(input_url, print, ca) {
+	console.log(input_url);
+	doCORSRequest({
+		method: 'GET',
+		url: input_url,
+		//data: dataField.value
+	}, print, ca);
+};
+request('http://c.gethopscotch.com/api/v2/nickname_words',function(x){
+	for (i = 0; i < 6; i++) {
+		var row = document.createElement('tr');
+		JSON.parse(x).nicknames.slice(4*i,4*i+4).forEach(function(i){row.innerHTML += '<td>' + i + '</td>';});
+		document.getElementById('t').appendChild(row);
+	}
+},true);
+
+document.getElementById('t').ondragstart = function(e){
+	return;
+};
+</script>
+</body>
