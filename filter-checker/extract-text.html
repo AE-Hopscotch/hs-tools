@@ -302,6 +302,12 @@
 			}
 			
 			//Upload and Read File	
+			
+			document.getElementById('input-file').addEventListener('click', function(){
+				document.getElementById('input-file').value = "";
+				getFile({'target': document.getElementById('input-file')});
+			});
+			
 			document.getElementById('input-file').addEventListener('change', getFile);
 			function getFile(event) {
 				const input = event.target;
