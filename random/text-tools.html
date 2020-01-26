@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Random Tools</title>
+		<style>
+		textarea {
+			border: 4px darkCyan double;
+			resize: none;
+			width: 80%;
+			height: 300px;
+			margin: 4px;
+		}
+		span[flex] {
+			display: flex;
+		}
+		span[flex] button {
+			margin: 2px;
+			width: calc(100% - 4px);
+			background-color: #0d6f62;
+			color: white;
+			padding: 2px;
+			border: 2px solid #444;
+			cursor: pointer;
+			outline: none;
+		}
+
+		span[flex] span {
+		}
+
+		span[flex] button:active {
+			opacity: 0.75;
+		}
+		span[flex] button:focus:not(:active) {
+			border: 2px solid cyan;
+		}
+
+		details, summary {
+			outline: none;
+			user-select: none;
+			background-color: #eee;
+		}
+
+		summary {
+			margin-left: 4px;
+			cursor: pointer;
+		}
+		</style>
+	</head>
+	<body>
+		
+		<details open><summary>Text Tools [9/20/19]</summary>
+		  <span flex>
+			<textarea id="content-target" placeholder="Type or paste text here..."></textarea><br>
+			<span style="margin: 2px 4px 0px 0px; width: calc(20% - 12px);">
+			  <button id="b1" onclick="fixText(this)">Remove Line Breaks</button><br>
+			  <button id="b2" onclick="fixText(this)">Base64 Encode</button><br>
+			  <button id="b3" onclick="fixText(this)">Base64 Decode</button><br>
+			  <button id="b4" onclick="fixText(this)">URL Encode</button><br>
+			  <button id="b5" onclick="fixText(this)">URL Decode</button><br>
+			</span>
+		  </span>
+		</details>
+		
+		<script src="../main.js"></script>
+		<script>
+		function fixText(e){
+			var n = Number(e.id.replace(/[a-zA-Z]/,""));
+			var text = document.getElementById("content-target");
+			switch (n) {
+				case 1:
+					text.value = text.value.replace(/\n/g," ").replace(/\s+/g," ");
+					break;
+				case 2:
+					text.value = Base64.encode(text.value);
+					break;
+				case 3:
+					text.value = Base64.decode(text.value);
+					break;
+				case 4:
+					text.value = encodeURI(text.value);
+					break;
+				case 5:
+					text.value = decodeURI(text.value);
+					break;
+			}
+			
+			//Copy the New Text
+			var copyText = document.getElementById("content-target");
+			copyText.select();
+			copyText.setSelectionRange(0, 9999999); //Mobile
+			document.execCommand("copy");
+			window.getSelection().removeAllRanges();
+			
+			e.focus();
+		}
+		</script>
+	</body>
+</html>
