@@ -71,43 +71,47 @@ function home(){
 
 if (window.location.href != "https://awesome-e.github.io/hs-tools/") setCookie('lastPage', window.location.href, 30);
 
-//Define Scroll End Function
-$.fn.scrollEnd = function(callback, timeout) {          
-  $(this).scroll(function(){
-    var $this = $(this);
-    if ($this.data('scrollTimeout')) {
-      clearTimeout($this.data('scrollTimeout'));
-    }
-    $this.data('scrollTimeout', setTimeout(callback,timeout));
-  });
-};
+try {
+	//Define Scroll End Function
+	$.fn.scrollEnd = function(callback, timeout) {          
+	  $(this).scroll(function(){
+		var $this = $(this);
+		if ($this.data('scrollTimeout')) {
+		  clearTimeout($this.data('scrollTimeout'));
+		}
+		$this.data('scrollTimeout', setTimeout(callback,timeout));
+	  });
+	};
 
-//If there is an element with class "save-scroll", then set the hash to the nearest element
-$(window).scrollEnd(function(){
-	var headings = document.querySelector(".save-scroll")
-	if (headings != undefined) {
-		headings = headings.querySelectorAll('h2[id], h3[id]');
-		var headingPositions = {};
-		var offset = 302 - document.getElementById(headings[0].id).getBoundingClientRect().top;
-		for (var i = 0; i < headings.length; i++) {
-			headingPositions[Math.floor((document.getElementById(headings[i].id).getBoundingClientRect().top + offset)/2)*2] = headings[i].id;
+	//If there is an element with class "save-scroll", then set the hash to the nearest element
+	$(window).scrollEnd(function(){
+		var headings = document.querySelector(".save-scroll")
+		if (headings != undefined) {
+			headings = headings.querySelectorAll('h2[id], h3[id]');
+			var headingPositions = {};
+			var offset = 302 - document.getElementById(headings[0].id).getBoundingClientRect().top;
+			for (var i = 0; i < headings.length; i++) {
+				headingPositions[Math.floor((document.getElementById(headings[i].id).getBoundingClientRect().top + offset)/2)*2] = headings[i].id;
+			}
+			
+			//When the Scroll Stops, set hash to the closest heading not passed yet
+			function closest(arr,val){
+				return Math.max.apply(null, arr.filter(function(v){return v <= val}))
+			}
+			var hash = headingPositions[String(closest(Object.keys(headingPositions), Math.abs(document.body.getBoundingClientRect().top)))]||"";
+			//(String(window.location.href.match(RegExp("#" + hash))) != "null")
+			if (window.location.href.replace(/.*?#/,"") != hash){
+				//Set Hash if Different
+				replaceLocation('#' + hash);
+				setCookie('lastPage', window.location.href, 30);
+			}
+			//console.log(window.location.href);
 		}
 		
-		//When the Scroll Stops, set hash to the closest heading not passed yet
-		function closest(arr,val){
-			return Math.max.apply(null, arr.filter(function(v){return v <= val}))
-		}
-		var hash = headingPositions[String(closest(Object.keys(headingPositions), Math.abs(document.body.getBoundingClientRect().top)))]||"";
-		//(String(window.location.href.match(RegExp("#" + hash))) != "null")
-		if (window.location.href.replace(/.*?#/,"") != hash){
-			//Set Hash if Different
-			replaceLocation('#' + hash);
-			setCookie('lastPage', window.location.href, 30);
-		}
-		//console.log(window.location.href);
-	}
-	
-}, 100);
+	}, 100);
+} catch (ReferenceError) {
+	console.warn('jQuery is not installed - scroll functions will not work');
+}
 
 //Remove Elements
 Element.prototype.remove = function() {
@@ -130,3 +134,95 @@ document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
 document.querySelectorAll('*[AE-STSE]').forEach(function(elm){
 	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.click();});
 });
+
+//Better Base 64
+var Base64 = {
+    _keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	encode: function(e) {
+		var t = "";
+		var n, r, i, s, o, u, a;
+		var f = 0;
+		e = Base64._utf8_encode(e);
+		while (f < e.length) {
+			n = e.charCodeAt(f++);
+			r = e.charCodeAt(f++);
+			i = e.charCodeAt(f++);
+			s = n >> 2;
+			o = (n & 3) << 4 | r >> 4;
+			u = (r & 15) << 2 | i >> 6;
+			a = i & 63;
+			if (isNaN(r)) {
+				u = a = 64;
+			} else if (isNaN(i)) {
+				a = 64;
+			}
+			t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a);
+		}
+		return t;
+	},
+    decode: function(e) {
+		var t = "";
+		var n, r, i;
+		var s, o, u, a;
+		var f = 0;
+		e = e.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+		while (f < e.length) {
+			s = this._keyStr.indexOf(e.charAt(f++));
+			o = this._keyStr.indexOf(e.charAt(f++));
+			u = this._keyStr.indexOf(e.charAt(f++));
+			a = this._keyStr.indexOf(e.charAt(f++));
+			n = s << 2 | o >> 4;
+			r = (o & 15) << 4 | u >> 2;
+			i = (u & 3) << 6 | a;
+			t = t + String.fromCharCode(n);
+			if (u != 64) {
+				t = t + String.fromCharCode(r);
+			}
+			if (a != 64) {
+				t = t + String.fromCharCode(i);
+			}
+		}
+		t = Base64._utf8_decode(t);
+		return t;
+	},
+    _utf8_encode: function(e) {
+		e = e.replace(/\r\n/g, "\n");
+		var t = "";
+		for (var n = 0; n < e.length; n++) {
+			var r = e.charCodeAt(n);
+			if (r < 128) {
+				t += String.fromCharCode(r);
+			} else if (r > 127 && r < 2048) {
+				t += String.fromCharCode(r >> 6 | 192);
+				t += String.fromCharCode(r & 63 | 128);
+			} else {
+				t += String.fromCharCode(r >> 12 | 224);
+				t += String.fromCharCode(r >> 6 & 63 | 128);
+				t += String.fromCharCode(r & 63 | 128);
+			}
+		}
+		return t;
+	},
+    _utf8_decode: function(e) {
+		var t = "";
+		var n = 0;
+		var r = c1 = c2 = 0;
+		while (n < e.length) {
+			r = e.charCodeAt(n);
+			if (r < 128) {
+				t += String.fromCharCode(r);
+				n++;
+			} else if (r > 191 && r < 224) {
+				c2 = e.charCodeAt(n + 1);
+				t += String.fromCharCode((r & 31) << 6 | c2 & 63);
+				n += 2;
+			} else {
+				c2 = e.charCodeAt(n + 1);
+				c3 = e.charCodeAt(n + 2);
+				t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+				n += 3;
+			}
+		}
+		return t;
+	}
+}
