@@ -1,0 +1,25 @@
+<script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div id="capture" style="padding: 10px; background: #f5da55">
+  <h1 style="color: #000; ">Hello world!</h1><h3>test</h3>
+</div>
+<button type="button" class="btnScreenShot" id="btnScreenShot">Take screenshot</button>
+<button type="button" class="btnScreenShot" id="del">remove</button>
+<div id="img-out"></div>
+<img>
+<script>
+var $btn = document.getElementById('btnScreenShot');
+$btn.addEventListener('mousedown', onScreenShotClick);
+document.querySelector('#del').addEventListener('click', function(){
+  $('img').attr('src',' ');
+});
+
+
+function onScreenShotClick(ev){
+  html2canvas(document.querySelector("#capture")).then(canvas => {
+    //document.getElementById('img-out').appendChild(canvas);
+    document.querySelector('img').src = canvas.toDataURL();
+    $('img').attr('width', canvas.style.width + 'px');
+  });
+}
+</script>
