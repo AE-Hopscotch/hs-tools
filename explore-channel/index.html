@@ -57,8 +57,9 @@
 	</head>
 	<body>
 		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 5;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
+		<button id="xray-toggle-btn" class="uiBtn" style="bottom: 30px; left: 0; z-index: 2;" onclick="xray('toggle-status')"><i class="fa fa-fw fa-crosshairs"> </i></button>
 		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye"> </i></button>
-		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"><i class="fa fa-fw fa-safari"> </i></button>
+		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"></button>
 		<div class="xray-contents">
 			<span id="zoom-display">100</span>
 			<input oninput="document.querySelector('#zoom-display').innerHTML=Math.floor(this.value*100);document.documentElement.style.setProperty('--x-ray-zoom', this.value);" type="range" orient="vertical" step="0.02" value="1" min="0.1" max="2"/>
@@ -79,7 +80,7 @@
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Announcements')">Announcements</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span>
-			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span>
+			<!-- span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span -->
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Halloween')" style="display:none;">Halloween</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Christmas')">Christmas</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Action')">Action</button></span>
