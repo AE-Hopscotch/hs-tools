@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="browserstyle.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -63,7 +64,7 @@
 	<body>
 		<button class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 5;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye"> </i></button>
-		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"><i class="fa fa-fw fa-safari"> </i></button>
+		<button id="xray-clickact-btn" class="uiBtn xray-contents" style="bottom: 218px; margin: 0" onclick="xray('click-action')"></button>
 		<div class="xray-contents">
 			<span id="zoom-display">100</span>
 			<input oninput="document.querySelector('#zoom-display').innerHTML=Math.floor(this.value*100);document.documentElement.style.setProperty('--x-ray-zoom', this.value);" type="range" orient="vertical" step="0.02" value="1" min="0.1" max="2"/>
