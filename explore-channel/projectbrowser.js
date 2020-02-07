@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.3.3"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.3.4"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 
@@ -69,7 +69,9 @@ function showProjects(chProjects) {
 			//Space Pod on Empty
 			document.querySelector('#loadingBear').innerHTML = spacePodSvg;
 			busy = false;
-			return 'Error';
+			return "410 Error: Resource is no longer available";
+		} else if (JSON.stringify(chProjects.users||chProjects.projects) == undefined) {
+			throw "404 Error: Not Found";
 		}
 	} catch (SyntaxError) {
 		//Dino on server down
