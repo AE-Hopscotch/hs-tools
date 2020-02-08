@@ -250,6 +250,7 @@ sq {
 	top: 20px;
 	right: 0;
 	width: 216px;
+	text-overflow: ellipsis;
 }
 .info .user-container {
 	display: block;
@@ -531,3 +532,4 @@ ae[badge='5'] {
 ae[badge='6'] {
 	background-image: url('../images/web-badges/creator.png');
 }
+
