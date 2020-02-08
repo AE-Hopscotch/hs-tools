@@ -238,6 +238,18 @@
 					document.querySelector(".topSticky h1").innerHTML = userReal.nickname;
 					document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + user.created_at;
 					if (user.remote_avatar_url == undefined) document.querySelector(".topnav img").src = "../images/webavatars/" + ((userReal.avatar_type == null) ? 0 : userReal.avatar_type) + ".png";
+					
+					var badgeHTML = (badges.users[user.id]||[]).repeatEach((b)=>{
+						return `'<ae badge="${b}" title="${badges.titles[b-1]}"></ae>'`.replace(/^'|'$/g,'');
+					}).join('');
+					
+					if (badgeHTML != "") {
+						var badgeDiv = document.createElement('div');
+						badgeDiv.style = "display: flex; justify-content: center; z-index: 2; position: relative; top: -4px;";
+						badgeDiv.innerHTML = badgeHTML;
+						document.querySelector(".topnav").style.paddingTop = "56px";
+						document.querySelector('h1').parentNode.appendChild(badgeDiv);
+					}
 				}
 			);
 			//NOTE TO SELF: In order to get latest PFP custom image, the user's most recent project will need to be checked. Also, outdated usernames need to auto-update.
