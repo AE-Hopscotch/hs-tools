@@ -251,10 +251,7 @@ sq {
 	right: 0;
 	width: 216px;
 }
-.info a.user {
-	font-size: 14px;
-	font-family: Avenir;
-	text-align: right;
+.info .user-container {
 	display: block;
 	margin: 6px 12px 2px;
 	width: 216px;
@@ -263,11 +260,17 @@ sq {
 	position: absolute;
 	top: -2px;
 	right: 0;
+	font-size: 14px;
+	font-family: Avenir;
+	text-align: right;text-overflow: ellipsis;
+}
+.info .user {
 	line-height: 18px;
 	color: var(--col-label-text);
 	transition: color var(--transition-time);
+	
 }
-.info a.user:hover {
+.info .user:hover {
 	opacity: 0.7;
 }
 .info stats {
@@ -486,4 +489,45 @@ sq {
 
 .xSelected {
 	box-shadow: #0d6f62 0 0 4px 4px;
+}
+
+/* AE Badges */
+
+.info ae[badge] {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	line-height: 12px;
+	/*background-image: url('../images/web-badges/birthday.png');*/
+	background-repeat: no-repeat; 
+	background-size: 16px 16px;
+	vertical-align:text-bottom;
+}
+div > ae[badge] {
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	line-height: 12px;
+	background-repeat: no-repeat; 
+	background-size: 48px 48px;
+	vertical-align:text-bottom;
+	margin: 4px;
+}
+ae[badge='1'] {
+	background-image: url('../images/web-badges/tht.png');
+}
+ae[badge='2'] {
+	background-image: url('../images/web-badges/robo.png');
+}
+ae[badge='3'] {
+	background-image: url('../images/web-badges/epoints.png');
+}
+ae[badge='4'] {
+	background-image: url('../images/web-badges/contributor.png');
+}
+ae[badge='5'] {
+	background-image: url('../images/web-badges/birthday.png');
+}
+ae[badge='6'] {
+	background-image: url('../images/web-badges/creator.png');
 }
