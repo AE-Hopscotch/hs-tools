@@ -273,7 +273,7 @@
 				}
 				
 				#urlChecker {
-					border-bottom: 1px solid #a9a9a9;
+					/*border-bottom: 1px solid #a9a9a9;*/
 				}
 				
 				textarea {
@@ -303,7 +303,7 @@
 		
 		<span id="searchBar">
 			<a id="filterSearchBG"></a>
-			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for known filtered words..." title="Type in a block name" style="background-image: url('../images/searchicon.png');">
+			<input type="text" id="filterSearchBox" onkeyup="searchWords()" placeholder="Search for known filtered words..." title="Type in a block name" style="height:44px; background-image: url('../images/searchicon.png');">
 		</span>
 		
 		<span style="z-index: 3;" id="filterSearch" class="search">
@@ -387,8 +387,10 @@
 				<li><t>Stupid</t> <sub> 4</sub></li>
 				<li><t>Sucks</t> <sub> 3</sub></li>
 				
-				<lb>T<t style="display: none;">terrorist--thrust--trigger--txt</t></lb>
+				<lb>T<t style="display: none;">terrorist--text me--text you--thrust--trigger--txt</t></lb>
 				<li><t>Terrorist</t></li>
+				<li><t>Text Me</t> <sub>4</sub></li>
+				<li><t>Text You</t></li>
 				<li><t>Thrust</t> <sub> 3</sub></li>
 				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
 				<li><t>txt</t></li>
@@ -422,7 +424,7 @@
 			</div>
 		</span>
 		
-		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
+		<button onclick="theme()" id="themebtn" style="z-index:20;"><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
 		<script>
@@ -440,7 +442,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("XGJhIHN0YWxrZXJcYnxcYmFkZHJlc3NcYnxcYmJhbmdlZFxifFxiYmVlclxifFxiYmxvb2RcYnwoXGIoZ2lybHN8Ym95cykgKHJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCh0aW5nKT9cYnxcYmMoXC4pP2hhdFxifFxiY2goXC4pP2F0XGJ8XGJjaGEoXC4pP3RcYnxcYmNoZXN0XGJ8XGJjb3B5aW5nXGJ8XGJjdXR0aW5nXGJ8XGJkZXByZXNzaW9uXGJ8XGJkcnVua1xifFxiZW1haWxcYnxcYmZpbmdlcmluZ1xifFxiaGVsbFxifFxiaG9lXGJ8XGJodW1wKGluZyk/XGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJcdyppZGlvdFx3KlxifFxiXHcramVya1x3KlxifFxiamVya1x3K1xifFxia2lzc1xifFxibGVhdmluZyBob3BzY290Y2hcYnxcYmxvbmVyXGJ8XGJsb3NlclxifFxibWFzc2FnZXxcYihyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxibmVncm9cYnxcYm9ycGhhblxifFxicGFudHNcYnxcYnBob25lIChpcyBkZWFkfG51bWJlcilcYnxcYnJwXGJ8XGJyb2xlcGxheVxifFxic2hvb3RpbmdcYnxcYnN0YWxraW5nXGJ8XGJzdHJhbmdsZVxifFxiXHcqc3R1cGlkXHcqXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJ0aHJ1c3RcYnxcYnRyaWdnZXJcYnxcYnVyIG1vbVxifFxid2VlZFxifFxiXHcqd2hpdGVib2FyZFx3KlxifFxieW91cm1vbVxifFxiXHcrZGlja1x3KlxifFxiZGlja1x3K1xifFxiXHcrcmFwaW5nXHcqXGJ8XGJyYXBpbmdcdytcYnxcYlx3K3NoaXRcdypcYnxcYnNoaXRcdytcYnxcYlx3K3NleFx3KlxifFxic2V4XHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGI="), "gi");
+				var regex = RegExp(window.atob("XGJhIHN0YWxrZXJcYnxcYmFkZHJlc3NcYnxcYmJhbmdlZFxifFxiYmVlclxifFxiYmxvb2RcYnwoXGIoZ2lybHN8Ym95cykgKHJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCh0aW5nKT9cYnxcYmMoXC4pP2hhdFxifFxiY2goXC4pP2F0XGJ8XGJjaGEoXC4pP3RcYnxcYmNoZXN0XGJ8XGJjb3B5aW5nXGJ8XGJjdXR0aW5nXGJ8XGJkZXByZXNzaW9uXGJ8XGJkcnVua1xifFxiZW1haWxcYnxcYmZpbmdlcmluZ1xifFxiaGVsbFxifFxiaG9lXGJ8XGJodW1wKGluZyk/XGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJcdyppZGlvdFx3KlxifFxiXHcramVya1x3KlxifFxiamVya1x3K1xifFxia2lzc1xifFxibGVhdmluZyBob3BzY290Y2hcYnxcYmxvbmVyXGJ8XGJsb3NlclxifFxibWFzc2FnZXxcYihyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxibmVncm9cYnxcYm9ycGhhblxifFxicGFudHNcYnxcYnBob25lIChpcyBkZWFkfG51bWJlcilcYnxcYnJwXGJ8XGJyb2xlcGxheVxifFxic2hvb3RpbmdcYnxcYnN0YWxraW5nXGJ8XGJzdHJhbmdsZVxifFxiXHcqc3R1cGlkXHcqXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJcdyp0ZXh0IG1lXHcqXGJ8XGJ0ZXh0IHlvdVxifFxidGhydXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYnxcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xi"), "gi");
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
