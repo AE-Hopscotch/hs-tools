@@ -69,7 +69,25 @@ function home(){
 	window.location.href = '../';
 };
 
+//Add site visit via counter
+function addSiteVisit(branch) {
+	branch = branch||'';
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log('Visit Added');
+		}
+	};
+	xhttp.open("GET", 'https://counter.websiteout.net/compte.php?S='+encodeURI('https://awesome-e.github.io/hs-tools/visits/'+branch)+'&C=6&D=0&N=0&M=0', true);
+	xhttp.send();
+}
+
 if (window.location.href != "https://awesome-e.github.io/hs-tools/") setCookie('lastPage', window.location.href, 30);
+if (getCookie('visitedWithinHour') != 'true' && /https:\/\/awesome-e.github.io\/hs-tools\//gi.test(location.href)) {
+	if (window.location.href != "https://awesome-e.github.io/hs-tools/") addSiteVisit(location.href.replace(/.*?hs-tools\//,''));
+	addSiteVisit();
+}
+setCookie('visitedWithinHour', 'true', 0.04);
 
 try {
 	//Define Scroll End Function
@@ -134,6 +152,22 @@ document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
 document.querySelectorAll('*[AE-STSE]').forEach(function(elm){
 	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.click();});
 });
+
+//For Each but with output
+Array.prototype.repeatEach = NodeList.prototype.repeatEach = HTMLCollection.prototype.repeatEach = function(fn) {
+	var outputs = [];
+	if (!(fn && typeof fn == 'function')) throw 'TypeError: ' + fn + ' is not a function';
+	for(var i = 0; i < this.length; i++) {
+		outputs.push( fn(this[i]) );
+	}
+	return outputs;
+}
+
+//Remove Duplicates
+function removeDuplicates(arr) {
+	arr.splice(0, arr.length, ...(new Set(arr)));
+	return arr;
+};
 
 //Better Base 64
 var Base64 = {
