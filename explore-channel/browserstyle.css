@@ -469,7 +469,7 @@ sq {
 	left: 6px;
 	width: 26px;
 	background-color: #0d6f62;
-	z-index: 3;
+	z-index: 12;
 	box-sizing: initial;
 }
 .xray-contents input[orient=vertical] {
