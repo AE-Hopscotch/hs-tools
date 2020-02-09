@@ -164,7 +164,7 @@
 				AddContent();
 				
 				//Get Scene Names
-				var scenes = data.scenes;
+				var scenes = data.scenes||[];
 				
 				scenes.forEach((s)=>{
 					subcontent += JSON.stringify(s.name).replace(/^/,"\n").replace(/"/g, "");
@@ -174,7 +174,7 @@
 				AddContent();
 				
 				//Get Object Names and Texts
-				var objects = data.objects;
+				var objects = data.objects||[];
 				objects.forEach((o)=>{
 					subcontent += JSON.stringify(o.name + "\n" + o.text).replace(/^|\\n/g, "\n").replace(/"|^ /gm, "");
 				});
@@ -183,7 +183,7 @@
 				AddContent();
 				
 				//Get Variable Names
-				var variables = data.variables;
+				var variables = data.variables||[];
 				variables.forEach((v)=>{
 					subcontent += JSON.stringify(v.name).replace(/^/,"\n").replace(/"/g, "");
 				});
@@ -192,7 +192,7 @@
 				AddContent();
 				
 				//Get Custom Rule Names
-				var customRules = data['customRules'];
+				var customRules = data.customRules||[];
 				customRules.forEach((c)=>{
 					subcontent += JSON.stringify(c.name).replace(/^/,"\n").replace(/"/g, "");
 				});
@@ -201,7 +201,7 @@
 				AddContent();
 				
 				//Get Ability Values
-				var abilities = data.abilities;
+				var abilities = data.abilities||[];
 				abilities.forEach((a)=>{
 					//Add the Name of the Ability if it Exists
 					subcontent += JSON.stringify(a.name||"").replace(/^/,"\n").replace(/"/g, "");
