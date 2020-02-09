@@ -13,6 +13,7 @@ const badges = {
 		"921282":	[6],	//Funky 63
 		"3165806":	[5],	//GweTV
 		"114466":	[4],	//Mathgirl
+		"1919603":	[5],	//MISSION_IMPOSSIBLE
 		"2150931":	[6],	//My_Pizza
 		"3944888":	[4],	//Nobody
 		"670723":	[4,5],	//Petrichor
