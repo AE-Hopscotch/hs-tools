@@ -1,22 +1,27 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.0 b"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.0 a2"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
 const badges = {
 	"users": {
-		"665372": [1],	//The Hopscotch Team
-		"452673": [2],	//Awesome_E
-		"913724": [4],	//William04GamerA
-		"1054930": [4],	//FearlessPhoenix
-		"3944888": [4],	//Nobody
-		"114466": [4],	//Mathgirl
-		"62265": [6],	//CreationsOfANoob
-		"2150931": [6],	//My_Pizza
-		"52351": [6],	//Pi Studios
-		"921282": [6],	//Funky 63
-		"670723": [4]	//Petrichor
+		"665372":	[1],	//The Hopscotch Team
+		"452673":	[2],	//Awesome_E
+		"62265":	[6],	//CreationsOfANoob
+		"1054930":	[4],	//FearlessPhoenix
+		"921282":	[6],	//Funky 63
+		"3165806":	[5],	//GweTV
+		"114466":	[4],	//Mathgirl
+		"2150931":	[6],	//My_Pizza
+		"3944888":	[4],	//Nobody
+		"670723":	[4],	//Petrichor
+		"52351":	[6],	//Pi Studios
+		"3707953":	[5],	//Sage
+		"3944888":	[5],	//SportyGeographer
+		"1452218":	[5],	//tankt2016
+		"1957086":	[5],	//tehgreatdoge
+		"913724":	[4] 	//William04GamerA
 	},
 	"titles": [
 		"The Official Hopscotch Team",
