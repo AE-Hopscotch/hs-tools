@@ -119,19 +119,23 @@
 			function extractText(data) {
 				copyButton(false);
 				
+				var emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udd94\udd96-\udfff]|\ud83e[\ud000-\udfff])/g;
+				
 				function AddContent(){
 					content += subcontent;
 					subcontent = "";
 				}
 				
 				function removeExtraText(text) {
-					 text = text.split("\n").sort().join("\n");
+					 text = text.split("\n").sort().repeatEach((t)=>{return t.replace(/^.$/,'').replace(emojiRegex,''); /*Remove emojis and one-character lines*/}).join("\n");
 					 return text.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
+								.replace(/\uFE0F/g," ") 	//Change to Spaces
 								.replace(/ +/g, " ")		//Reduce Spaces to One
 								.replace(/ ,/g, ",")		//Remove Spaces Before Commas
 								.replace(/HSB\(,, \)/g, "")	//Remove Colors
 								.replace(/^ | $/gm, "")		//Remove Leading & Trailing Spaces
 								.replace(/^\s+$/gm, "")		//Remove Whitespace-Only Lines
+								.replace(/[:!\.?]$/gm, "")	//Remove End Punctuation
 								.replace(/^\n|\n$/g,"")		//Remove Gaps at Beginning & End
 								.replace(/\n+/g, "\n")		//Reduce Line Feeds
 								.replace(/\n/g, "\n  ")		//Indentation
@@ -151,7 +155,7 @@
 				
 				//Sets the content to project title and user if available
 				try {
-					var subcontent = JSON.stringify(data['title'] + '\n' + data['user']['nickname'] + '\n' + (data['original_user']['nickname'] || "") ).replace(/\\n/g,"\n").replace(/"/g, "");
+					var subcontent = JSON.stringify(data.title + '\n' + data.user.nickname + '\n' + ((data.original_user||{}).nickname || "") ).replace(/\\n/g,"\n").replace(/"/g, "");
 				} catch (TypeError) {
 					var subcontent = "";
 				}
@@ -160,58 +164,57 @@
 				AddContent();
 				
 				//Get Scene Names
-				var scenes = data['scenes'];
+				var scenes = data.scenes;
 				
-				for (s in scenes) {
-					subcontent += JSON.stringify(scenes[s]['name']).replace(/^/,"\n").replace(/"/g, "");
-				}
+				scenes.forEach((s)=>{
+					subcontent += JSON.stringify(s.name).replace(/^/,"\n").replace(/"/g, "");
+				});
 				
 				subcontent = "\nScene Names:\n" + removeExtraText(subcontent);
 				AddContent();
 				
 				//Get Object Names and Texts
-				var objects = data['objects'];
-				for (o in objects) {
-					subcontent += JSON.stringify(objects[o]['name'] + "\n" + objects[o]['text']).replace(/^|\\n/g, "\n").replace(/"|^ /gm, "");
-				}
+				var objects = data.objects;
+				objects.forEach((o)=>{
+					subcontent += JSON.stringify(o.name + "\n" + o.text).replace(/^|\\n/g, "\n").replace(/"|^ /gm, "");
+				});
 				
 				subcontent = "\nObject Names:\n" + removeExtraText(subcontent);
 				AddContent();
 				
 				//Get Variable Names
-				var variables = data['variables'];
-				for (v in variables) {
-					subcontent += JSON.stringify(variables[v]['name']).replace(/^/,"\n").replace(/"/g, "");
-				}
+				var variables = data.variables;
+				variables.forEach((v)=>{
+					subcontent += JSON.stringify(v.name).replace(/^/,"\n").replace(/"/g, "");
+				});
 				
 				subcontent = "\nVariable Names:\n" + removeExtraText(subcontent);
 				AddContent();
 				
 				//Get Custom Rule Names
 				var customRules = data['customRules'];
-				for (c in customRules) {
-					subcontent += JSON.stringify(customRules[c]['name']).replace(/^/,"\n").replace(/"/g, "");
-				}
+				customRules.forEach((c)=>{
+					subcontent += JSON.stringify(c.name).replace(/^/,"\n").replace(/"/g, "");
+				});
 				
 				subcontent = "\nCustom Rules:\n" + removeExtraText(subcontent);
 				AddContent();
 				
 				//Get Ability Values
-				var abilities = data['abilities'];
-				for (a in abilities) {
+				var abilities = data.abilities;
+				abilities.forEach((a)=>{
 					//Add the Name of the Ability if it Exists
-					subcontent += JSON.stringify(abilities[a]['name']||"").replace(/^/,"\n").replace(/"/g, "");
-				}
+					subcontent += JSON.stringify(a.name||"").replace(/^/,"\n").replace(/"/g, "");
+				});
 				
 				subcontent = "\nAbility Names:\n" + removeExtraText(subcontent);
 				AddContent();
 				
-				var abilities = data['abilities'];
-				for (a in abilities) {
+				abilities.forEach((a)=>{
 					subcontent += "\n";
 					
 					//Get Values of Parameters
-					var values = JSON.stringify(abilities[a]).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ");
+					var values = JSON.stringify(a).replace(/^/,"\n").replace(/^"|"$/g, "").replace(/\\\\|\\"/g," ");
 					var regex = /"value":"(.*?)"/g;
 					try {
 						var match = values.match(regex).join("\n").replace(/"value":"/g,"").replace(/"($|\n)/g,"\n");//regex.exec(values)||"";
@@ -225,15 +228,15 @@
 					values = [];
 					//Remove Sound Parameters
 					
-					for (m in matches) {
-						if (matches[m] == undefined || matches[m] == "") continue;
-						values.push(matches[m].replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
-					}
+					//console.log(matches);
+					matches.forEach((m)=>{
+						if (m == undefined || m  == "") return;
+						values.push(m.replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
+					});
 					
 					values = values.join("\n") || "";
-					
 					subcontent += values;
-				}
+				});
 				
 				subcontent = "\nAbility Values:\n" + removeExtraText(subcontent);
 				AddContent();
@@ -251,12 +254,13 @@
 				content = content.split("\n");
 				var dict = {};
 				
-				for (c in content) {
-					dict[content[c]] = "";
-				}
+				content.forEach((c)=>{
+					dict[c] = "";
+				});
 				
 				content = Object.keys(dict).join("\n");
-				content = content.replace(/\n  \n/gi, "\n");
+				content = content.replace(/\n  \n|\n  $/gi, "\n");
+				console.log(content);
 				target.value = (content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:") ? content || "This project does not exist" : "This project does not exist";
 				copyButton(content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:");
 				console.log("Has Content: " + hasContent);
