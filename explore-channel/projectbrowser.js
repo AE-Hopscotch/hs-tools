@@ -15,7 +15,8 @@ const badges = {
 		"62265": [6],	//CreationsOfANoob
 		"2150931": [6],	//My_Pizza
 		"52351": [6],	//Pi Studios
-		"921282": [6]	//Funky 63
+		"921282": [6],	//Funky 63
+		"670723": [4]	//Petrichor
 	},
 	"titles": [
 		"The Official Hopscotch Team",
@@ -92,7 +93,7 @@ function showProjects(chProjects) {
 			//Space Pod on Empty
 			document.querySelector('#loadingBear').innerHTML = spacePodSvg;
 			busy = false;
-			return "410 Error: Resource is no longer available";
+			return "Error";
 		} else if (JSON.stringify(chProjects.users||chProjects.projects) == undefined) {
 			throw "404 Error: Not Found";
 		}
