@@ -380,9 +380,9 @@
 				<lb>R<t style="display: none;">rp, roleplay</t></lb>
 				<li><t>RP, Roleplay</t><sub> 1</sub></li>
 				
-				<lb>S<t style="display: none;">shooting--stalking--a stalker--strangle--stupid--sucks</t></lb>
+				<lb>S<t style="display: none;">shooting--stalking--stalker--strangle--stupid--sucks</t></lb>
 				<li><t>Shooting</t> <gray>(as in “shooting the basketball”)</gray><sub> 3</sub></li>
-				<li><t>Stalking, “A Stalker”</t><sub> 1, 3</sub></li>
+				<li><t>Stalking, Stalker</t></li>
 				<li><t>Strangle</t></li>
 				<li><t>Stupid</t> <sub> 4</sub></li>
 				<li><t>Sucks</t> <sub> 3</sub></li>
@@ -442,7 +442,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("XGJhIHN0YWxrZXJcYnxcYmFkZHJlc3NcYnxcYmJhbmdlZFxifFxiYmVlclxifFxiYmxvb2RcYnwoXGIoZ2lybHN8Ym95cykgKHJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCh0aW5nKT9cYnxcYmMoXC4pP2hhdFxifFxiY2goXC4pP2F0XGJ8XGJjaGEoXC4pP3RcYnxcYmNoZXN0XGJ8XGJjb3B5aW5nXGJ8XGJjdXR0aW5nXGJ8XGJkZXByZXNzaW9uXGJ8XGJkcnVua1xifFxiZW1haWxcYnxcYmZpbmdlcmluZ1xifFxiaGVsbFxifFxiaG9lXGJ8XGJodW1wKGluZyk/XGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJcdyppZGlvdFx3KlxifFxiXHcramVya1x3KlxifFxiamVya1x3K1xifFxia2lzc1xifFxibGVhdmluZyBob3BzY290Y2hcYnxcYmxvbmVyXGJ8XGJsb3NlclxifFxibWFzc2FnZXxcYihyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxibmVncm9cYnxcYm9ycGhhblxifFxicGFudHNcYnxcYnBob25lIChpcyBkZWFkfG51bWJlcilcYnxcYnJwXGJ8XGJyb2xlcGxheVxifFxic2hvb3RpbmdcYnxcYnN0YWxraW5nXGJ8XGJzdHJhbmdsZVxifFxiXHcqc3R1cGlkXHcqXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJcdyp0ZXh0IG1lXHcqXGJ8XGJ0ZXh0IHlvdVxifFxidGhydXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYnxcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xi"), "gi");
+				var regex = RegExp(window.atob("XGJhZGRyZXNzXGJ8XGJiYW5nZWRcYnxcYmJlZXJcYnxcYmJsb29kXGJ8KFxiKGdpcmxzfGJveXMpIChydWxlfGRyb29sKVxiKXxcYmJ1bGx5XGJ8XGJidXJuZWRcYnxcYmNoYXQodGluZyk/XGJ8XGJjKFwuKT9oYXRcYnxcYmNoKFwuKT9hdFxifFxiY2hhKFwuKT90XGJ8XGJjaGVzdFxifFxiY29weWluZ1xifFxiY3V0dGluZ1xifFxiZGVwcmVzc2lvblxifFxiZHJ1bmtcYnxcYmVtYWlsXGJ8XGJmaW5nZXJpbmdcYnxcYmhlbGxcYnxcYmhvZVxifFxiaHVtcChpbmcpP1xifFxiaG9wc2NvdGNoIGNsb3NpbmdcYnxcYmluc3RhZ3JhbVxifFxiXHcqaWRpb3RcdypcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIocmVhbHxmdWxsfGxhc3QpIG5hbWVcYnxcYm5lZ3JvXGJ8XGJvcnBoYW5cYnxcYnBhbnRzXGJ8XGJwaG9uZSAoaXMgZGVhZHxudW1iZXIpXGJ8XGJycFxifFxicm9sZXBsYXlcYnxcYnNob290aW5nXGJ8XGJzdGFsayhpbmd8ZXIpXGJ8XGJzdHJhbmdsZVxifFxiXHcqc3R1cGlkXHcqXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJcdyp0ZXh0IG1lXHcqXGJ8XGJ0ZXh0IHlvdVxifFxidGhydXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYnxcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xi"), "gi");
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
