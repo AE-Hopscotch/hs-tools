@@ -23,7 +23,7 @@ const badges = {
 		"3944888":	[5],	//SportyGeographer
 		"1452218":	[5],	//tankt2016
 		"1957086":	[5],	//tehgreatdoge
-		"913724":	[4] 	//William04GamerA
+		"913724":	[4,5]	//William04GamerA
 	},
 	"titles": [
 		"The Official Hopscotch Team",
