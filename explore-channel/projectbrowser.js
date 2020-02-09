@@ -17,6 +17,7 @@ const badges = {
 		"3944888":	[4],	//Nobody
 		"670723":	[4],	//Petrichor
 		"52351":	[6],	//Pi Studios
+		"282985":	[5],	//PumpkinPi
 		"3203804":	[5],	//Reffy
 		"3707953":	[5],	//Sage
 		"3944888":	[5],	//SportyGeographer
