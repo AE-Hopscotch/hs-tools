@@ -1216,6 +1216,56 @@
 		]
 	},
 	{
+		"id": 37,
+		"type": "old",
+		"name": "Pen Up",
+		"authors": [
+			"Awesome_E",
+			"Petrichor"
+		],
+		"blockHTML": "Pen Up",
+		"about": "Draws a trail using any movement blocks run after it. Acts like the beginning of the <a href=\"?id=26\">Draw a Trail</a> block",
+		"app_description": "N/A – This block no longer exists in the editor.",
+		"collapsible": false,
+		"availability": "gone",
+		"parameters": [],
+		"useful_for": [
+			"Avoiding collapsible blocks and achieving the same drawing",
+			"Being able to draw trails in different rules in the same object",
+			"Anything that requires trails to be drawn, such as backgrounds"
+		],
+		"other_info": [
+			"To change the trail color or width, the <a href=\"?id=32\">Set Trail Color</a> or <a href=\"?id=31\">Set Trail Width</a> block would be used after the pen down block."
+		],
+		"community_links": [
+			"Under Construction"
+		]
+	},
+	{
+		"id": 38,
+		"type": "old",
+		"name": "Pen Down",
+		"authors": [
+			"Awesome_E",
+			"Petrichor"
+		],
+		"blockHTML": "Pen Down",
+		"about": "Stops drawing a trail using movement blocks run after it. Acts like the end of the <a href=\"?id=26\">Draw a Trail</a> block",
+		"app_description": "N/A – This block no longer exists in the editor.",
+		"collapsible": false,
+		"availability": "gone",
+		"parameters": [],
+		"useful_for": [
+			"Avoiding collapsible blocks and achieving the same drawing",
+			"Being able to draw trails in different rules in the same object",
+			"Anything that requires trails to be drawn, such as backgrounds"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	},
+	{
 		"id": 46,
 		"type": "old",
 		"name": "Move with trail distance",
