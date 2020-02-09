@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.0 b"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.0 a2"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -15,11 +15,12 @@ const badges = {
 		"114466":	[4],	//Mathgirl
 		"2150931":	[6],	//My_Pizza
 		"3944888":	[4],	//Nobody
-		"670723":	[4],	//Petrichor
+		"670723":	[4,5],	//Petrichor
 		"52351":	[6],	//Pi Studios
 		"282985":	[5],	//PumpkinPi
 		"3203804":	[5],	//Reffy
 		"3707953":	[5],	//Sage
+		"1208670":	[5],	//Silver dolphin
 		"3944888":	[5],	//SportyGeographer
 		"1452218":	[5],	//tankt2016
 		"1957086":	[5],	//tehgreatdoge
