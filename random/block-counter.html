@@ -1,0 +1,38 @@
+<body>
+<script>
+function doCORSRequest(options, printResult) {
+	var x = new XMLHttpRequest();
+	x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+	x.onload = x.onerror = function() {
+		if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
+		printResult(
+			//options.method + ' ' + options.url + '\n' +
+			//x.status + ' ' + x.statusText + '\n\n' +
+			(x.responseText || '')
+		);
+	};
+	if (/^POST/i.test(options.method)) {
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	}
+	x.send(options.data);
+}
+
+function request(input_url) {
+	console.log(input_url);
+	doCORSRequest({
+		method: 'GET',
+		url: input_url,
+		//data: dataField.value
+	}, function printResult(result) {
+		var project = JSON.parse(result);
+		var blocks = 0;
+		project.abilities.forEach((x)=>{
+			blocks += (x.blocks||[]).length;
+		});
+		alert('Project has ' + blocks + ' blocks');
+	});
+};
+
+request("https://c.gethopscotch.com/api/v1/projects/" + prompt("Project URL or UUID").replace(/.*\/(p|e)\//,''));
+</script>
+</body>
