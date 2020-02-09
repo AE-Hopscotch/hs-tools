@@ -57,7 +57,7 @@
 			}
 			
 			#loadingBear {
-				top: calc(75% - 60px);
+				top: calc(50% + 80px);
 			}
 		</style>
 	</head>
@@ -245,10 +245,10 @@
 					
 					if (badgeHTML != "") {
 						var badgeDiv = document.createElement('div');
-						badgeDiv.style = "display: flex; justify-content: center; z-index: 2; position: relative; top: -4px;";
+						badgeDiv.style = "display: flex; justify-content: center; z-index: 2; position: relative;";
 						badgeDiv.innerHTML = badgeHTML;
-						document.querySelector(".topnav").style.paddingTop = "56px";
-						document.querySelector('h1').parentNode.appendChild(badgeDiv);
+						document.querySelector("#loadingBear").style.top = "calc(50% + 120px)";
+						document.querySelector('.topnav').insertBefore(badgeDiv, document.querySelector('.topnav img'));
 					}
 				}
 			);
@@ -261,7 +261,7 @@
 				console.log("Referrer: " + document.referrer);
 			}
 			function back() {
-				window.history.back();
+				if (/awesome-e.github.io/.test(document.referrer) || location.protocol != "https:") window.history.back(); else {console.warn("Cannot go back"); location.href = "index.html";}
 			}
 		</script>
 	</body>
