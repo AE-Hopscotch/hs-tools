@@ -30,3 +30,15 @@ MATCH:
    "https://d2jeqdlsh5ay24.cloudfront.net/"
    ADD:
    "https://awesome-e.github.io/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/
+
+MATCH:
+   FIND:
+   HSBlockType.SetWidthAndHeight
+   ADD: (after the last block)
+			break;
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
+			}
+			break;

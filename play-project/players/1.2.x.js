@@ -8911,7 +8911,7 @@ var HSMain = function() {
     }, a.prototype.createCanvas = function(a) {
         var b = document.createElement("canvas");
         return b.setAttribute("name", a), b.style.background = "transparent", b.style.position = "absolute", 
-        b.style.top = "0", b.style.left = "0", b.style.width = "100%", b.style.height = "100%", 
+        b.style.top = "0", b.style.left = "0", b.style.width = "100%", b.style.height = "100%",
         this.root.appendChild(b), b;
     }, a.prototype.toggleFullscreen = function() {
         isFullscreen() ? this.exitFullscreen() : this.enterFullscreen(window.innerWidth, window.innerHeight);
@@ -10351,6 +10351,13 @@ var HSPathDrawer = function() {
           case HSBlockType.SetZIndex:
             var l = d[0].computedValue(this);
             l !== this.zIndex && (this.zIndex = l, HSStageScene.dirtySort = !0);
+			break;
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
+			}
+			break;
         }
     }, a;
 }();
