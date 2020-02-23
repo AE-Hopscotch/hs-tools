@@ -10292,6 +10292,13 @@ var HSPathDrawer = function() {
 
           case HSBlockType.SetWidthAndHeight:
             this.setWidth(d[0].computedValue(this)), this.setHeight(d[1].computedValue(this));
+			break;
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
+			}
+			break;
         }
     }, a;
 }();

@@ -532,10 +532,11 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
     var n = u(1), o = u(21), f = u(3), c = u(49), a = u(52), s = u(0), d = function(e) {
         function t(u) {
             var r = e.call(this) || this;
+			alert("set stage");
             return r.scene = u, r.renderList = new a.HSLinkedList(), r.pointers = [], r.currentlyPressedObjects = [], 
             r.tickCount = 0, r.container = new PIXI.Container(), u.objects.forEach(function(e) {
                 e.rebuildStageObject(), r.addStageObject(e.stageObject());
-            }), r.lastTouchX = t.stageWidth / 2, r.lastTouchY = t.stageHeight / 2, r.name = u.name, 
+            }), r.lastTouchX = t.stageWidth / 2, r.lastTouchY = t.stageHeight / 2, r.name = u.name, AE_MOD.initialStage = r, //AE_MOD
             r;
         }
         return i(t, e), t.prototype.addStageObject = function(e) {
@@ -579,6 +580,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
             var u = e.point, r = u[0], i = u[1], n = this.stageObjectsToReceiveTouchInRange(r, i, t);
             this.activateAllRulesForEventWithObjects(s.HSBlockType.EventOperatorTap, n), this.activateAllRulesForEventWithObjects(s.HSBlockType.EventOperatorHold, n);
             var o = this.indexOfPointer(e.id);
+			console.warn(e.id);
             this.currentlyPressedObjects[o] = n;
         }, t.prototype.addPointer = function(e) {
             var t = this.indexOfPointer(e.id);
@@ -649,6 +651,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
             });
         }, t.prototype.stageObjectsToReceiveTouchInRange = function(e, t, u) {
             var r = this.firstStageObjectWithinRange(e, t, u);
+			console.warn(r);
             return r ? [ r, null ] : [ null ];
         }, t.prototype.bringToFront = function(e) {
             this.renderList.remove(e), this.renderList.push(e);
@@ -2477,6 +2480,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
                 pointerDown: function(t) {
                     e.stageProject && (e.stageProject.receiveClickEvent(t, e.visualContext.collisionContext), 
                     e.stageProject.receiveTouchDownEvent(t, e.visualContext.collisionContext));
+					console.log(e.stageProject); //AE_MOD
                 },
                 pointerUp: function(t) {
                     e.stageProject && e.stageProject.receiveTouchUpEvent(t, e.visualContext.collisionContext);
@@ -2486,7 +2490,12 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
                 },
                 pointerCancel: function(t) {
                     e.stageProject && e.stageProject.receiveTouchUpEvent(t, e.visualContext.collisionContext);
-                }
+                }/*,
+                keyboardKeyPress: function(t) {//MOD TEST AE_MOD
+                    e.stageProject && (e.stageProject.receiveClickEvent(t, e.visualContext.collisionContext), 
+                    e.stageProject.receiveTouchDownEvent(t, e.visualContext.collisionContext));
+					console.log(e.stageProject);
+                }*/
             });
         }, e.prototype.animationTick = function() {
             this.stageProject.animationTick(this.visualContext.collisionContext), this.renderer.render(this.stageProject.activeStageScene.container), 
@@ -3089,13 +3098,6 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
 
               case S.HSBlockType.SetCenterXY:
                 this.setPosition(c[0].computedValue(this), c[1].computedValue(this));
-				break;
-				
-			  case HSBlockType.None: //AE_MOD
-				if (/^_ae_webplayer_action:/g.test(d[0].value)){
-					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
-				}
-				break;
             }
         }, Object.defineProperty(e.prototype, "originX", {
             get: function() {
@@ -5495,6 +5497,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
         }, e.prototype.executeAllActiveRules = function() {
             for (var e = this.stageObjects, t = e.length, u = 0; u < t; ++u) void 0 !== e[u] && e[u].executeActiveRules();
         }, e.prototype.activateAllRulesForEventWithObjects = function(e, t) {
+			//console.log(this, e, t);
             var u = this.allStageRulesForEventType(e);
             t.forEach(function(e) {
                 u.forEach(function(t) {
@@ -5832,23 +5835,30 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
             });
         }
         function f(e, t, r) {
+			console.log(e,t,r);
             return u(e, t, function(e) {
                 return function(e, t) {
                     var u = e.target.getBoundingClientRect();
-                    Array.from(e.changedTouches).forEach(function(e) {
-                        t(new i(e, [ e.clientX - u.left, e.clientY - u.top ], e.identifier));
-                    });
+					try {
+						Array.from(e.changedTouches).forEach(function(e) {
+							t(new i(e, [ e.clientX - u.left, e.clientY - u.top ], e.identifier));
+						});
+					} catch (TypeError) {
+						//AE_MOD
+						console.log(u, "was keyboard");
+					}
                 }(e, r);
             });
         }
         var c = !1;
+		console.warn(e);
         return new n([ r(e, "mousedown", function(e) {
             c && t.pointerUp(e), c = !0, t.pointerDown(e);
         }), r(e, "mousemove", function(e) {
             c && t.pointerDrag(e);
         }), r(window, "mouseup", function(e) {
             t.pointerUp(e), c = !1;
-        }), f(e, "touchstart", t.pointerDown), f(e, "touchmove", t.pointerDrag), f(window, "touchend", t.pointerUp), f(window, "touchcancel", t.pointerCancel) ]);
+        }), f(e, "touchstart", t.pointerDown), f(e, "touchmove", t.pointerDrag), f(window, "touchend", t.pointerUp), f(window, "touchcancel", t.pointerCancel) /*AE_MOD*f(window, "keydown", t.keyboardKeyPress)*/ ]);
     }, window.UIPointerEvent = i, window.UIEventListeners = n, window.UIEventListener = o;
 }, function(e, t, u) {
     "use strict";

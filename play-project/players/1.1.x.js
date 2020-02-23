@@ -10336,6 +10336,13 @@ var HSPathDrawer = function() {
           case HSBlockType.SetZIndex:
             var l = d[0].computedValue(this);
             l !== this.zIndex && (this.zIndex = l, HSStageScene.dirtySort = !0);
+			break;
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
+			}
+			break;
         }
     }, a;
 }();
