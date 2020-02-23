@@ -26,6 +26,10 @@ You can browse the community with this new addition. Pick from Hopscotch's chann
 
 You can ask questions about this explorer and find updates on [this thread](https://forum.gethopscotch.com/t/hopscotch-web-explorer/53971).
 
+### Project Requests
+
+Here is the place where you can request modding of any project for many reasons. It saves you the work of manually modding the project and the only thing you have to do is submit a request and check back in a few days. You can submit projects to determine the filter word, add secret blocks, etc.
+
 ## Add to Home Screen
 
 On iOS, this can be made into a web app. To do this, navigate to [the main page](https://awesome-e.github.io/hs-tools/). Then, click on share, and scoll over. Tap "add to home screen" and tap add. It functions pretty much just like an app once added. Takes up zero storage but requires internet.
