@@ -440,7 +440,8 @@
 		var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
 		function init() {
 			document.getElementById('hopscotch-link').href = "javascript:showInfo();"//;"javascript:if(confirm('Are you sure you want to submit this screenshot?'))submitScreenshot();";//"https://c.gethopscotch.com/p/" + AE_MOD.uuid;
-			//document.getElementById('hopscotch-link').style.display = "none"; //remove button
+			document.getElementById('hopscotch-link').addEventListener('touchend',function(){showInfo()});
+			document.getElementById('hopscotch-link').style.display = "none"; //Hide until the run starts
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
@@ -547,12 +548,12 @@
 		
 		function showInfo(){
 			var infoList = [
-				"Die as quickly as possible",
-				"Score 100 one time",
-				"Enter '1397' three times",
-				"Win one game of Minesweeper",
-				"Complete the first level of the game",
-				"Escape Hopscotch Headquarters"
+				"Objective: Die as quickly as possible",
+				"Objective: Score 100 one time",
+				"Objective: Enter '1397' three times",
+				"Objective: Win one game of Minesweeper",
+				"Objective: Complete the first level of the game",
+				"Objective: Escape Hopscotch Headquarters"
 			];
 			alert(infoList[AE_div.speedrun.game_num]);
 		}
@@ -734,10 +735,14 @@
 	<script>
 		AE_div.speedrun.timer = "";
 		AE_div.speedrun.timer_time = AE_div.speedrun.timer_time||0;
-		document.getElementById('play_container').addEventListener('touchend',function(){if (AE_div.speedrun.timer_time == 0) beginTiming();});
-		document.getElementById('play_container').onclick = function(){
+		document.getElementById('play_container').addEventListener('touchend',function(){
+			document.getElementById('hopscotch-link').style.display = "";
 			if (AE_div.speedrun.timer_time == 0) beginTiming();
-		}
+		});
+		document.getElementById('play_container').onclick = function(){
+			document.getElementById('hopscotch-link').style.display = "";
+			if (AE_div.speedrun.timer_time == 0) beginTiming();
+		};
 		if (AE_div.speedrun.timer_time > 0) beginTiming();
 		function getTimeString(t) {
 			var hrs = Math.floor(t/3600);
