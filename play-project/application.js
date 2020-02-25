@@ -36245,3 +36245,11 @@ $('#google-plus-share-button').click(function (event) {
         }, 1000/30);
     //};
  // })(); AE_MOD [36157]
+	//AE_MOD Keep a list of keyboard keys
+	AE_MOD.keyboardKeys = [];
+	document.body.onkeydown = function(e){
+		if (AE_MOD.keyboardKeys.indexOf(e.keyCode) == -1) AE_MOD.keyboardKeys.push(e.keyCode);
+	}
+	document.body.onkeyup = function(e){
+		AE_MOD.keyboardKeys.splice(AE_MOD.keyboardKeys.indexOf(e.keyCode),1);
+	}
