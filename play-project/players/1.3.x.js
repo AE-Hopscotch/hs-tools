@@ -872,7 +872,13 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
                 var t = this.secondParameterValue(e), u = this.firstParameterValue(e);
                 return Math.floor(Math.random() * (t - u + 1)) + u;
 
-              case p.HSBlockType.MathOperatorAdd:
+			  case p.HSBlockType.None: //AE_MOD
+				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1]);
+				}
+				return 0;
+
+			  case p.HSBlockType.MathOperatorAdd:
                 return this.secondParameterValue(e) + this.firstParameterValue(e);
 
               case p.HSBlockType.MathOperatorSubtract:
