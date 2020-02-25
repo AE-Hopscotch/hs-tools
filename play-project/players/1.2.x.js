@@ -7899,10 +7899,16 @@ var __extends = this && this.__extends || function(a, b) {
           case HSBlockType.Random:
             var b = this.secondParameterValue(a), c = this.firstParameterValue(a);
             return Math.floor(Math.random() * (b - c + 1)) + c;
-
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
+				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1]);
+			}
+            return 0;
+			
           case HSBlockType.MathOperatorAdd:
             return this.secondParameterValue(a) + this.firstParameterValue(a);
-
+			
           case HSBlockType.MathOperatorSubtract:
             return this.firstParameterValue(a) - this.secondParameterValue(a);
 
