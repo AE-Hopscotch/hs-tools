@@ -874,7 +874,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
 
 			  case p.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1]);
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
 				}
 				return 0;
 
@@ -3099,7 +3099,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
 				
 			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(d[0].value)){
-					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1]);
+					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
 				}
 				break;
             }
