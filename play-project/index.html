@@ -62,12 +62,14 @@
 					case "restart":
 						document.getElementById("restart-button").click();
 						break;
-					case "console.log":
+					case "js-console-log":
 						console.log('%cAwesome_E’s Project Player%c' + b, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
 						break;
-					case "alert":
+					case "js-alert":
 						alert('Args:\n'+a.args+'\nData:'+b);
 						break;
+					case "js-prompt":
+						return Number(prompt(a.args[0]));
 					case "checkKey":
 						return Number(a.args.repeatEach(function(k){
 							return AE_MOD.keyboardKeys.includes(k);
