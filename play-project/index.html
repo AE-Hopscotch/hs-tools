@@ -51,7 +51,7 @@
 			"projectData": {},
 			"uuid": "",
 			"playerVersion": "",
-			"webplayer_action": function(a) {
+			"webplayer_action": function(a, b) {
 				try {
 					a = JSON.parse(a);
 				} catch (e) {
@@ -61,6 +61,12 @@
 				switch (a.name) {
 					case "restart":
 						document.getElementById("restart-button").click();
+						break;
+					case "console.log":
+						console.log('%cAwesome_E’s Project Player%c' + b, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
+						break;
+					case "alert":
+						alert('Args:\n'+a.args+'\nData:'+b);
 						break;
 					case "checkKey":
 						return Number(a.args.repeatEach(function(k){
