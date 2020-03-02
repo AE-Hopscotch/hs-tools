@@ -874,7 +874,7 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
 
 			  case p.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.parameters[1].computedValue(this):undefined));
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
 				}
 				return 0;
 
