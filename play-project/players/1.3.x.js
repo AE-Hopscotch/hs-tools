@@ -2388,7 +2388,9 @@ console.log("Webplayer v1.3.4 - 2019/12/09 (production)");
             return t.setAttribute("name", e), t.style.background = "transparent", t.style.position = "absolute", 
             t.style.top = "0", t.style.left = "0", t.style.width = "100%", t.style.height = "100%", 
             this.root.appendChild(t), t;
-        }, e.prototype.toggleFullscreen = function() {
+        }, e.prototype.resizeScreen = function() { //AE_MOD
+			main.resizeRoot(window.innerWidth, window.innerHeight);
+		}, e.prototype.toggleFullscreen = function() {
             this.isFullscreen() ? this.exitFullscreen() : this.enterFullscreen(window.innerWidth, window.innerHeight);
         }, e.prototype.isFullscreen = function() {
             return !!document.fullscreenElement || (!!document.webkitFullscreenElement || (!!document.mozFullScreenElement || (!!document.msFullScreenElement || this.isMaximized)));
