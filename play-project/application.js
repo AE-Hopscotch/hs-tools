@@ -36226,12 +36226,12 @@ $('#google-plus-share-button').click(function (event) {
 	  //AE_MOD preplay project if specified in uuid
 	  var url = new URL(window.location.href);
 	  if (url.searchParams.get('play') == '1') playContainer.click();
-	  //Resize the screen right away
-	  main.resizeScreen();
-	  //Update when screen size changes
-	  window.addEventListener('orientationchange', function(){main.resizeScreen();console.log("orientation change")});
-	  document.body.onorientationchange = function(){main.resizeScreen();};
-	  document.body.onresize = function(){main.resizeScreen();};
+	  if (window.innerWidth > 760) {
+		  //Resize the screen right away
+		  main.resizeScreen();
+		  //Update when screen size changes
+		  document.body.onresize = function(){main.resizeScreen();};
+	  }
     }
 
     
