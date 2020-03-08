@@ -36228,6 +36228,9 @@ $('#google-plus-share-button').click(function (event) {
 	  if (url.searchParams.get('play') == '1') playContainer.click();
 	  //Resize the screen right away
 	  main.resizeScreen();
+	  //Update when screen size changes
+	  window.addEventListener('orientationchange', function(){main.resizeScreen();});
+	  document.body.onresize = function(){main.resizeScreen();};
     }
 
     
