@@ -95,6 +95,15 @@ function customReq(input_url, fn) {
 //Render the Projects
 var page = 1;
 var busy = false;
+function generateUserLink(u) {
+	return hexaUID.uuidToAid(String(u.id)) + "-"
+		 + hexaUID.uuidToAid((function(str){
+			   var month = (["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]).indexOf(str.split(/\s/)[0].match(/.../)[0])+1;
+			   return str.split(/\s/)[1] + "_" + ((month<10) ? "0"+month : String(month));
+		   })(u.created_at))
+		 + ((u.remote_avatar_url)? "-"
+		 + u.remote_avatar_url.replace(/.*\//g,'').replace('-','').replace('-','').replace('-','').replace('-','').split('-').repeatEach((r)=>{return hexaUID.uuidToAid(r)}).join('!'):'');
+}
 function showProjects(chProjects) {
 	try {
 		chProjects = JSON.parse(chProjects);
@@ -118,7 +127,7 @@ function showProjects(chProjects) {
 			var hiddenElm = document.getElementById("ins-before");
 			var uCard = document.createElement("a");
 			uCard.setAttribute("class", "user-card");
-			uCard.href = `user.html?u=${window.btoa(encodeURI(JSON.stringify(u)))}`;
+			uCard.href = `user.html?u=${generateUserLink(u)}`;
 			uCard.innerHTML = `<span class="img-container"><img src="${(u.remote_avatar_url == undefined)?'../images/webavatars/'+u.avatar_type+'.png':u.remote_avatar_url}"/></span><name>${u.nickname}</name>`;
 			uCard.setAttribute("id", u.id); // added line
 			hiddenElm.parentNode.insertBefore(uCard, hiddenElm);
@@ -144,17 +153,13 @@ function showProjects(chProjects) {
 			
 			pCard.setAttribute("class", "project-card");
 			var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div>
-			
-			<div class="info">
-			
-			<span class="user-container">
-			${badgeHTML}
-			<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u='+window.btoa(encodeURI(JSON.stringify(p.user)))}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a>
-			
-			</span>
+			<div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
 			<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
-			if (p.original_user != undefined && p.original_user.id != p.user.id) {
-				pCard.innerHTML = `<a tabindex="7" href="user.html?u=${window.btoa(encodeURI(JSON.stringify(p.original_user)))}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>` + baseCode; //only for code mirror
+			
+			if (p.original_user != undefined && p.original_user.id != p.user.id) {	
+				pCard.innerHTML = `<a tabindex="7" href="user.html?u=${
+					generateUserLink(p.original_user)
+					}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>` + baseCode; //only for code mirror
 				pCard.setAttribute('data-show', 'false');
 			} else {
 				pCard.innerHTML = baseCode;
