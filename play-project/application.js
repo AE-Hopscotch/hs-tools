@@ -36053,7 +36053,7 @@ function restartHandler(event) {
     event.preventDefault();
   }
   if (!main || !restartButton) return false;
-  main.play();
+  if (playContainer.style.display == "none") /*AE_MOD*/ main.play();
   return false;
 }
 
@@ -36229,7 +36229,7 @@ $('#google-plus-share-button').click(function (event) {
 	  //Resize the screen right away
 	  main.resizeScreen();
 	  //Update when screen size changes
-	  window.addEventListener('orientationchange', function(){main.resizeScreen();});
+	  document.body.onorientationchange = function(){main.resizeScreen();};
 	  document.body.onresize = function(){main.resizeScreen();};
     }
 
