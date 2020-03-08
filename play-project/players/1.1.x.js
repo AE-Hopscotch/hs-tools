@@ -8908,6 +8908,8 @@ var HSMain = function() {
         return b.setAttribute("name", a), b.style.background = "transparent", b.style.position = "absolute", 
         b.style.top = "0", b.style.left = "0", b.style.width = "100%", b.style.height = "100%", 
         this.root.appendChild(b), b;
+    }, a.prototype.resizeScreen = function() { //AE_MOD
+		main.resizeRoot(window.innerWidth, window.innerHeight);
     }, a.prototype.toggleFullscreen = function() {
         isFullscreen() ? this.exitFullscreen() : this.enterFullscreen(window.innerWidth, window.innerHeight);
     }, a.prototype.enterFullscreen = function(a, b) {
