@@ -36229,6 +36229,7 @@ $('#google-plus-share-button').click(function (event) {
 	  //Resize the screen right away
 	  main.resizeScreen();
 	  //Update when screen size changes
+	  window.addEventListener('orientationchange', function(){main.resizeScreen();console.log("orientation change")});
 	  document.body.onorientationchange = function(){main.resizeScreen();};
 	  document.body.onresize = function(){main.resizeScreen();};
     }
