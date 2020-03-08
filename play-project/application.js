@@ -35969,7 +35969,7 @@ $("#signup form").on("ajax:complete", function(data, status, xhr) {
 // Outbound Link Tracking with Google Analytics
 // Wallace Sidhrée - http://dreamyguy.com/
 // Requires jQuery 1.7 or higher (use .live if using a lower version)
-$(function() {
+/*$(function() {
     $("a").on('click',function(e){
         var url = $(this).attr("href");
         if (e.currentTarget.host != window.location.host) {
@@ -35982,7 +35982,7 @@ $(function() {
             }
         }
     });
-});
+});  AE_MOD*/
 $(function() {
   var mobile_client_type = cssua.ua.mobile;
   var app_store_link = "http://hop.sc/get_hopscotch";
@@ -36023,7 +36023,7 @@ var fullscreenButton = document.getElementById("fullscreen-button");
 function fullscreenExitHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  fullscreenButton.src = isFullscreen() ? "/assets/webplayer/fullscreen_exit.svg" : "/assets/webplayer/fullscreen_button.svg";
+  fullscreenButton.src = isFullscreen() ? "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
   return false;
 };
 
@@ -36226,6 +36226,8 @@ $('#google-plus-share-button').click(function (event) {
 	  //AE_MOD preplay project if specified in uuid
 	  var url = new URL(window.location.href);
 	  if (url.searchParams.get('play') == '1') playContainer.click();
+	  //Resize the screen right away
+	  main.resizeScreen();
     }
 
     
