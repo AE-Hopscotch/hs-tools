@@ -412,7 +412,7 @@
 					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
 					document.getElementById("homeSvg").style.fill = "#8c8c8c";
 					
-					setCookie("dark_mode", "true", 30);
+					setPref("dark_mode", true);
 					console.log("Saved Dark Mode");
 				} else {
 					//Set Light Mode
@@ -421,7 +421,7 @@
 					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
 					document.getElementById("homeSvg").style.fill = "black";
 					
-					setCookie("dark_mode", "false", 30);
+					setPref("dark_mode", false);
 					console.log("Saved Light Mode");
 				}
 			}
@@ -473,7 +473,7 @@
 				return "";
 			}
 
-			if (getCookie("dark_mode") == 'true'){
+			if (getPref("dark_mode")){
 				theme(2);
 			}
 		</script>
