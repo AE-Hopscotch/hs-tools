@@ -21,6 +21,9 @@
 		<meta property="og:description" content="An unofficial site made by Awesome_E with various tools and videos to help you with your Hopscotch experience.">
 		<meta property="og:image" content="/hs-tools/icons/android-chrome-512x512.png">
 		<title>Awesome_E's Hopscotch Tools</title>
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
 		<style>
 			html {
 				background-color: #0b5b51;
@@ -44,7 +47,7 @@
 				overflow: hidden;
 			}
 
-			.flex img {
+			#contents img {
 				border-radius: 40px;
 				margin: 20px;
 				width: 130px;
@@ -56,18 +59,18 @@
 				transition: 0.6s;
 			}
 			
-			.flex span {
+			#contents span {
 				position: relative;
 			}
 			
-			.flex span:hover img {
+			#contents span:hover img {
 				border-radius: 30px;
 				width: 160px;
 				height: 160px;
 				padding: 0px;
 			}
 			
-			.flex a {
+			#contents a {
 				position: relative;
 				display: block;
 				width: 160px;
@@ -76,7 +79,7 @@
 				box-sizing: border-box;
 			}
 
-			.flex b {
+			#contents b {
 				position: relative;
 				top: -30px;
 				color: white;
@@ -91,7 +94,7 @@
 				user-select: none;
 			}
 
-			.flex span:hover b {
+			#contents span:hover b {
 				opacity: 1;
 				transition: 0.6s;
 			}
@@ -129,6 +132,82 @@
 			  src: local('Dancing Script Regular'), local('DancingScript-Regular'), url(https://fonts.gstatic.com/s/dancingscript/v11/If2RXTr6YS-zF4S-kcSWSVi_szLgiuE.woff2) format('woff2');
 			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 			}
+			
+			sq {
+				display:block;
+				transition: 0.5s;
+				position: fixed;
+				bottom: 4px; right: 4px;
+				z-index: 100;
+				background-color: rgba(0,0,0,0.5);
+				padding:8px;
+				border-radius: 8px;
+				width: 50px;
+				height: 50px;
+				padding: 0px;
+				cursor: pointer;
+			}
+			
+			#settings-panel {
+				z-index: 101;
+				display: block;
+				position: fixed;
+				top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				width: 500px;
+				max-width: calc(100% - 32px);
+				height: 384px;
+				max-height: calc(100% - 32px);
+				background: linear-gradient(180deg, rgba(240,240,240,0.9), rgba(210,210,210,0.9));
+				border-radius: 12px;
+				padding: 8px;
+				transition: opacity 0.5s;
+				opacity: 0;
+			}
+			
+			@media only screen and (max-width: 400px) {
+				#settings-panel {
+					width: calc(100% - 32px);
+					height: calc(100% - 32px);
+				}
+			}
+			
+			/*Sliders*/
+			.switch {position: relative;display: inline-block;width: 60px;height: 34px;}
+			.switch input {opacity: 0;width: 0;height: 0;}
+			.slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #888;-webkit-transition: .4s;transition: .4s;}
+			.slider:before {position: absolute;content: "";height: 26px;width: 26px;left: 4px;bottom: 4px;background-color: white;-webkit-transition: .4s;transition: .4s;}
+			input:checked + .slider {background-color: #168c7d;}
+			input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transform: translateX(26px);transform: translateX(26px);}
+
+			/* Rounded sliders */
+			.slider.round {border-radius: 34px;}
+			.slider.round:before {border-radius: 50%;}
+			
+			.settings {
+				flex-direction: column;
+				justify-content: flex-start;
+				position: relative;
+				height: calc(100% - 64px);
+			}
+			.settings div {
+				width: 100%;
+				font-size: 28px;
+				font-family: Lato, sans-serif;
+				font-weight: 600;
+				margin: 4px 0;
+			}
+			.settings table tr {
+				background-color: rgba(255,255,255,0.75);
+			}
+			.settings table {
+				border-spacing: 0 8px;
+			}
+			.settings td {
+				width: 100%;
+				text-align: left;
+				padding: 6px 8px;
+			}
 		</style>
 	</head>
 	<body><h1 style="font-family: 'Dancing Script'; text-align: center; color: white; font-size: 48px; font-weight: 500;">Awesome_E&rsquor;s Hopscotch Tools</h1>
@@ -162,6 +241,47 @@
 				<br/><b>Pi Run 2020</b>
 			</span>
 		</span>
+		<sq style="display:none;" onclick="openOptions()">
+			<img ondragstart="event.preventDefault();" width="50" src="images/gear-icon.png"/>
+		</sq>
+		<div id="settings-panel" style="display:none;opacity:0;">
+			<button onclick="closeOptions()" class="uiBtn" style="position:absolute;top:8px;right:8px;font-size:24px;cursor:pointer;background-color:rgba(150,150,150,0.4);color:white;padding:4px 8px;border:none;outline:none;border-radius:2px;"><i class="fa fa-close"></i></button>
+			<h2 style="margin:2px;text-align:center;padding:0;font-family:Lato,sans-serif;font-size:32px;">Settings</h2>
+			<div class="flex settings" style="opacity:1;">
+				<div>
+					<table>
+						<tr>
+							<td>Dark Mode</td>
+							<td><label class="switch">
+								<input type="checkbox" for="dark_mode">
+								<span class="slider round"></span>
+							</label></td>
+						</tr>
+						<tr>
+							<td>Enable X-Ray by Default</td>
+							<td><label class="switch">
+								<input type="checkbox" for="x-ray_default">
+								<span class="slider round"></span>
+							</label></td>
+						</tr>
+						<tr>
+							<td>Disable Rick Rolls</td>
+							<td><label class="switch">
+								<input type="checkbox" for="no_rick">
+								<span class="slider round"></span>
+							</label></td>
+						</tr>
+						<tr>
+							<td>Replace Fullscreen Button</td>
+							<td><label class="switch">
+								<input type="checkbox" for="replace_fullscreen">
+								<span class="slider round"></span>
+							</label></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script src="main.js"></script>
 	<script>
@@ -171,6 +291,29 @@
 			if (lastPage != "" && lastPage != window.location.href){
 				window.location.href = lastPage.replace('/explore-channel/user.html','/explore-channel/');
 			}
+		}
+		
+		const settingsPanel = document.getElementById("settings-panel")
+		function closeOptions() {
+			settingsPanel.style.opacity = 0;
+			setTimeout(function(){settingsPanel.style.display = "none";},500);
+		}
+		function openOptions() {
+			if (settingsPanel.style.opacity == "1") return closeOptions();
+			settingsPanel.style.display = "";
+			settingsPanel.style.opacity = 0;
+			setTimeout(function(){settingsPanel.style.opacity = 1;},50);
+		}
+		
+		var prefs = JSON.parse(localStorage.getItem("preferences"))||{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false};
+		Object.keys(prefs).forEach((k)=>{if(prefs[k])document.querySelector("input[for="+k+"]").setAttribute("checked","")});
+		if (location.hash == "#options") openOptions();
+		document.querySelector(".settings table").onclick = function(e) {
+			if (e.target.type == "checkbox") {
+				document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
+				console.log(prefs);
+			}
+			localStorage.setItem("preferences", JSON.stringify(prefs));
 		}
 	</script>
 </html>
