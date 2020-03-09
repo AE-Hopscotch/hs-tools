@@ -25,6 +25,12 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 		<style>
+			:root {
+				--col-body-text: black;
+				--col-popup-grad: rgba(220,220,220,0.9);
+				--col-popup-rect: rgba(255,255,255,0.75);
+			}
+			
 			html {
 				background-color: #0b5b51;
 			}
@@ -158,10 +164,11 @@
 				max-width: calc(100% - 32px);
 				height: 384px;
 				max-height: calc(100% - 32px);
-				background: linear-gradient(180deg, rgba(240,240,240,0.9), rgba(210,210,210,0.9));
+				background-color: var(--col-popup-grad);
+				color: var(--col-body-text);
+				transition: background-color 0.5s, opacity 0.5s, color 0.5s;
 				border-radius: 12px;
 				padding: 8px;
-				transition: opacity 0.5s;
 				opacity: 0;
 			}
 			
@@ -198,7 +205,8 @@
 				margin: 4px 0;
 			}
 			.settings table tr {
-				background-color: rgba(255,255,255,0.75);
+				background-color: var(--col-popup-rect);
+				transition: background-color 0.5s;
 			}
 			.settings table {
 				border-spacing: 0 8px;
@@ -207,6 +215,8 @@
 				width: 100%;
 				text-align: left;
 				padding: 6px 8px;
+				color: var(--col-body-text);
+				transition: color 0.5s;
 			}
 		</style>
 	</head>
@@ -305,14 +315,23 @@
 			setTimeout(function(){settingsPanel.style.opacity = 1;},50);
 		}
 		
+		function theme() {
+			var d = getPref("dark_mode");
+			document.documentElement.style.setProperty("--col-body-text", (!d) ? "black" : "#ccc");
+			document.documentElement.style.setProperty("--col-popup-grad", (!d) ? "rgba(220,220,220,0.9)" : "rgba(20,20,20,0.9)");
+			document.documentElement.style.setProperty("--col-popup-rect", (!d) ? "rgba(255,255,255,0.75)" : "rgba(60,60,60,0.75)");
+		}
+		
 		Object.keys(prefs).forEach((k)=>{if(prefs[k])document.querySelector("input[for="+k+"]").setAttribute("checked","")});
 		if (location.hash == "#options") openOptions();
 		document.querySelector(".settings table").onclick = function(e) {
 			if (e.target.type == "checkbox") {
 				document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 				console.log(prefs);
+				if (e.target.getAttribute("for") == "dark_mode") theme();
 			}
 			localStorage.setItem("preferences", JSON.stringify(prefs));
 		}
+		theme();
 	</script>
 </html>
