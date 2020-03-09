@@ -171,7 +171,9 @@
 				console.error(SyntaxError);
 			}
 		} else {
-			request('https://c.gethopscotch.com/api/v1/projects/' + (customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'')));
+			var req_uuid = customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'');
+			request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
+			replaceLocation((req_uuid) ? "?id=" + req_uuid : "");
 		}
 	</script>
 
@@ -180,13 +182,15 @@
 	<img alt="mute" id="mute-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
 	<img alt="replay" id="restart-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
 	<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
-	<a style="display:none;" id="hopscotch-link" target="_top" onclick="event.preventDefault();">
+	<a id="hopscotch-link" target="_top" onclick="event.preventDefault();">
 		<img alt="hopscotch" id="hopscotch-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/hopscotch_button-a64dbfaa6e5b9f817bb28c67cf5dcf6741aac3034464d3305065f1edb6a97617.svg" />
-		<img width="44" alt="options" id="settings-button" class="player-icon" src="../images/gear-icon.png" />
+		<img style="display:none;" width="44" alt="options" id="settings-button" class="player-icon" src="../images/gear-icon.png" />
 	</a>
 	</div>
 	<div id="project_error"><div class="project_error_message"><h2>Sorry, try again later.</h2>
 	<script>
+	((JSON.parse(localStorage.getItem("preferences")||"{}").replace_fullscreen) ? document.getElementById("fullscreen-button"):document.getElementById("hopscotch-link")).style.display = "none";
+	
 	setTimeout(function() {
 		if (!window.main) {
 			project_loading.style.display = 'none';
