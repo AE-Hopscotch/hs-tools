@@ -406,6 +406,6 @@
 			}, 29);
 		};
 		document.body.style.backgroundColor = (getPref("dark_mode")) ? "black" : "";
-		document.getElementById("project_loading").style.filter = "invert(" + Number(getPref("dark_mode")) + ")";
+		setTimeout(function(){document.getElementById("project_loading").style.filter = "invert(" + Number(getPref("dark_mode")) + ")";},50);
 	</script>
 </div>
