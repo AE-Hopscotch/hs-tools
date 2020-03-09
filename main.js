@@ -63,6 +63,17 @@ function getCookie(cname) {
 	return "";
 }
 
+//Manage Preferences
+var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false}');
+function getPref(name) {
+	return !!prefs[name];
+}
+
+function setPref(name, bool) {
+	prefs[name] = bool;
+	localStorage.setItem("preferences", JSON.stringify(prefs));
+}
+
 //Go to Homepage
 function home(){
 	setCookie('lastPage','',30);
