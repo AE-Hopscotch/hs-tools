@@ -298,7 +298,7 @@
 		setTimeout(function(){document.getElementById('contents').style.opacity = '1';}, 50);
 		if (window.navigator.standalone == true) {
 			var lastPage = getCookie("lastPage");
-			if (lastPage != "" && lastPage != window.location.href){
+			if (lastPage != "" && lastPage != window.location.href && !/hs-tools\/play-project/.test(lastPage)){
 				window.location.href = lastPage.replace('/explore-channel/user.html','/explore-channel/');
 			}
 		}
