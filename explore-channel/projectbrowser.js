@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.0 a2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.0 b1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -334,6 +334,7 @@ var xRayClickAction = 5;
 var xRayView = 0;
 	(xRayClickAction == 0) ? xRayClickAction = 5 : xRayClickAction --;
 	xray('click-action');
+if (JSON.parse(localStorage.getItem("preferences")||"{}")["x-ray_default"]) xray("toggle-status");
 
 function xray(action, keyIn) {
 	keyIn = keyIn||false;
