@@ -385,7 +385,7 @@
 						a.style.borderColor = '#666';
 					}
 					
-					setCookie("dark_mode", "true", 30);
+					setPref("dark_mode", true);
 					console.log("Saved Dark Mode");
 				} else {
 					//Set Light Mode
@@ -413,7 +413,7 @@
 						a.style.borderColor = '#ddd';
 					}
 					
-					setCookie("dark_mode", "false", 30);
+					setPref("dark_mode", false);
 					console.log("Saved Light Mode");
 				}
 			}
@@ -477,7 +477,7 @@
 				return "";
 			}
 			
-			if (getCookie("dark_mode") == 'true'){
+			if (getPref("dark_mode")){
 				theme(2);
 			}
 
