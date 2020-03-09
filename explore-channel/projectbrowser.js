@@ -210,10 +210,11 @@ function timeDifference(current, previous) {
 }
 
 //User Theme Preference
-if(getCookie("dark_mode") == 'true') {
+
+var dark_mode = JSON.parse(localStorage.getItem("preferences")||"{}").dark_mode;
+if(dark_mode) {
 	theme_(2);
 }
-var dark_mode = (getCookie("dark_mode") == 'true');
 function theme_(t) {
 	//Sets Dark Mode Variable
 	if (t == -1) dark_mode = dark_mode; else if (t == 0 || t == undefined) dark_mode = !dark_mode; else dark_mode = (t == 2);
@@ -225,7 +226,7 @@ function theme_(t) {
 		document.documentElement.style.setProperty('--col-label-text', '#ccc');
 		document.documentElement.style.setProperty('--img-opacity', '0.4');
 		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-		setCookie("dark_mode", "true", 30);
+		setPref("dark_mode", true);
 		console.log("Saved Dark Mode");
 	} else {
 		document.documentElement.style.setProperty('--col-bg-main', '#F8F8F8');
@@ -234,10 +235,9 @@ function theme_(t) {
 		document.documentElement.style.setProperty('--col-label-text', 'black');
 		document.documentElement.style.setProperty('--img-opacity', '1');
 		document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-		setCookie("dark_mode", "false", 30);
+		setPref("dark_mode", false);
 		console.log("Saved Light Mode");
 	}
-	
 }
 
 //Enable Transition
