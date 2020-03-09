@@ -29,7 +29,7 @@
 	if (getCookie("dark_mode") == "true") {
 		document.getElementsByTagName("html")[0].style.cssText = "background-color: black; color: #666;";
 	}
-	var rr = !(JSON.parse(localStorage.getItem("preferences"))||{}.no_rick);
+	var rr = !((JSON.parse(localStorage.getItem("preferences"))||{}).no_rick);
 	setTimeout(function(){window.location.href = (rr)?"https://www.youtube.com/watch?v=dQw4w9WgXcQ":"https://www.youtube.com/watch?v=9ZMLvvXRHY4&t=11";}, 800);
 	console.log(location.href);
 	</script>
