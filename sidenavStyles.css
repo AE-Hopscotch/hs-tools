@@ -1,6 +1,11 @@
 :root {
 	--closeBtnIdle: 1;
 	--navCloseable: true;
+	--col-bg-main: white;
+	--col-card-bg: #f8f8f8;
+	--col-card-tab: #eee;
+	--col-text: black;
+	--time-trans: 0s;
 }
 
 .sidenav::-webkit-scrollbar, .nobar::-webkit-scrollbar {
@@ -9,7 +14,9 @@
 
 body {
 	font-family: "Lato", sans-serif;
-	transition: background-color .5s, color .5s;
+	transition: background-color var(--time-trans), color var(--time-trans);
+	background-color: var(--col-bg-main);
+	color: var(--col-text);
 }
 
 h2 {
@@ -29,7 +36,7 @@ a {
 	text-decoration: none;
 }
 
-.cover{
+.cover {
 	display: block;
 	transition: 0.5s;
 }
