@@ -93,7 +93,7 @@ function addSiteVisit(branch) {
 	xhttp.send();
 }
 
-if (!/https:\/\/awesome-e\.github\.io\/hs-tools\/?($|play-project\/pi-run)/.test(window.location.href)) setCookie('lastPage', window.location.href, 30);
+if (!/https:\/\/awesome-e\.github\.io\/hs-tools\/?($|play-project)/.test(window.location.href)) setCookie('lastPage', window.location.href, 30);
 if (getCookie('visitedWithinHour') != 'true' && /https:\/\/awesome-e.github.io\/hs-tools\//gi.test(location.href)) {
 	if (window.location.href != "https://awesome-e.github.io/hs-tools/") addSiteVisit(location.href.replace(/.*?hs-tools\//,''));
 	addSiteVisit();
