@@ -95,7 +95,7 @@
 			.accordion {
 				max-height: var(--elementHeight);
 				overflow: hidden;
-				background-color: #f8f8f8;
+				background-color: var(--col-card-bg);
 				display: block;
 				margin: 0px;
 			}
@@ -104,12 +104,16 @@
 				max-height: 0px;
 			}
 			
+			.accordion, .accordControls * {
+				color: var(--col-text);
+			}
+			
 			.accordControls {
 				margin-bottom: 0px;
-				background-color: #eee;
+				background-color: var(--col-card-tab);
 				position: relative;
 				cursor: pointer;
-				transition: 0.5s;
+				transition: height 0.5, background-color var(--time-trans);*/
 			}
 						
 			.accordControls::after {
@@ -131,7 +135,7 @@
 			}
 			
 			img {
-				transition: opacity 0.5s;
+				transition: opacity var(--time-trans);
 			}
 		</style>
 	</head>
@@ -264,7 +268,17 @@
 			</ul>
 
 			<h2 id="edit">Editing Projects</h2>
-
+			<p class="text" style="text-indent: 50px;">Editing projects is the core focus of this shortcut. There are endless possibilities when it comes to the potential of a JSON editor like this,
+				even if it is a little confusing to use at first. It is more guided than editing a raw JSON file, but it lets you have the same amount of control at a small cost of speed. Each section
+				of the shortcut has more info on what it does, but some basic terms will be referred to a lot in the more advanced sections.</p>
+			<ul>
+				<li><b>What is a UUID?</b> A UUID is what is known as a universally unique identifier, and as suggested by its name, it identifies various parts of your object. Like giving a shelf item a
+				barcode, every object, ability, rule, etc. will have a different UUID. When a UUID is mentioned, it typically refers directly to one of these.</li>
+				<li><b>What is an ability?</b> An ability can actually mean a few different things, but we focus on two. Depending on the context, it can simply mean a rainbow custom block. But it can also refer to
+				a control script, or all of the blocks that are found inside of a larger collapsible block.</li>
+			</ul>
+			
+			<!-- Intro Paragraph? -->
 			<h2 id="edit01">Stage Size</h2>
 			<div class="flex imgflex" r="760" reverse>
 				<p>Stage Size was my first step in JSON editing, and it might be yours too, who knows? To edit this using my shortcut, simply change the values on the right-side column (shown in example popup). All tables follow this rule: The trait name on
@@ -798,7 +812,7 @@
 				setTimeout(function(){
 					document.getElementById(id).toggleAttribute("data-closed");
 					document.getElementById(id + "content").toggleAttribute("data-closed");
-					document.getElementById(id + "content").style.transition = "0.5s ease";
+					document.getElementById(id + "content").style.transition = "var(--time-trans) ease";
 				}, 10);
 				setTimeout(function(){
 					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+500) + "px");
@@ -823,8 +837,6 @@
 				(this.getAttribute(attr) == null) ? this.setAttribute(attr,'') : this.removeAttribute(attr);
 				return !(this.getAttribute(attr) == null);
 			}
-			
-			
 			
 			var accordions = document.getElementsByClassName("accordControls");
 			
