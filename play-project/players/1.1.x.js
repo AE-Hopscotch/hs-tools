@@ -7896,8 +7896,8 @@ var __extends = this && this.__extends || function(a, b) {
 				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
 			}
 			return 0;
-			
-		  case HSBlockType.MathOperatorAdd:
+
+          case HSBlockType.MathOperatorAdd:
             return this.secondParameterValue(a) + this.firstParameterValue(a);
 
           case HSBlockType.MathOperatorSubtract:
@@ -8060,6 +8060,8 @@ var __extends = this && this.__extends || function(a, b) {
     }, b.prototype.computedStringValue = function(a) {
         var b = this.computedValue(a);
         return null === b ? null : b > MAX_FLOAT ? "inf" : b < -MAX_FLOAT ? "-inf" : 0 === b ? 1 / b > 0 ? "0" : "-0" : (Math.round(1e6 * b) / 1e6).toString();
+    }, b.prototype.roundTo5Decimals = function(a) {
+        return a ? Math.round(1e5 * a) / 1e5 : a;
     }, b.prototype.computedBooleanValue = function(a) {
         function b() {
             return Math.abs(f - g) <= e;
@@ -8070,7 +8072,7 @@ var __extends = this && this.__extends || function(a, b) {
         function d() {
             return f > g;
         }
-        var e = Number.EPSILON, f = this.firstParameterValue(a), g = this.secondParameterValue(a);
+        var e = Number.EPSILON, f = this.roundTo5Decimals(this.firstParameterValue(a)), g = this.roundTo5Decimals(this.secondParameterValue(a));
         switch (this.type) {
           case HSBlockType.ConditionalOperatorEquals:
             return b();
@@ -8134,7 +8136,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
 
 var HSTextNodeKind;
 
@@ -8871,10 +8873,8 @@ var HSMain = function() {
     function a(b) {
         this.root = b, this.context = new HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
         this.setiOSStageSizeIfNecessary();
-        var c = document.getElementById("project_data");//, d = b.dataset.projectJson || c && c.getAttribute("data");
-		
+        var c = document.getElementById("project_data")//, d = b.dataset.projectJson || c && c.getAttribute("data");
 		var d = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
-		
         d && (this.load(JSON.parse(d)), sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
         this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
         this.canvas = this.createCanvas("foreground"), window.gliEmbedDebug ? this.renderer = new PIXI.WebGLRenderer(HSStageScene.stageWidth, HSStageScene.stageHeight, {
@@ -9610,7 +9610,7 @@ var HSSound = function() {
             return a.stop();
         }), this.sources.clear();
     }, a.prototype.url = function() {
-        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        return "https://awesome-e.github.io/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
     }, a;
 }();
 

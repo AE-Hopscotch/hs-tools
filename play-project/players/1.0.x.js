@@ -7896,8 +7896,8 @@ var __extends = this && this.__extends || function(a, b) {
 				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
 			}
 			return 0;
-			
-		  case HSBlockType.MathOperatorAdd:
+
+          case HSBlockType.MathOperatorAdd:
             return this.secondParameterValue(a) + this.firstParameterValue(a);
 
           case HSBlockType.MathOperatorSubtract:
@@ -8133,7 +8133,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
 
 var HSTextNodeKind;
 
@@ -8844,10 +8844,8 @@ var HSMain = function() {
     function a(b) {
         this.root = b, this.context = new HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
         this.setiOSStageSizeIfNecessary();
-        var c = document.getElementById("project_data");//, d = b.dataset.projectJson || c && c.getAttribute("data");
-		
+        var c = document.getElementById("project_data")//, d = b.dataset.projectJson || c && c.getAttribute("data");
 		var d = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
-		
         d && (this.load(JSON.parse(d)), sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
         this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
         this.canvas = this.createCanvas("foreground"), window.gliEmbedDebug ? this.renderer = new PIXI.WebGLRenderer(HSStageScene.stageWidth, HSStageScene.stageHeight, {
@@ -8890,8 +8888,6 @@ var HSMain = function() {
     }, a.prototype.exitFullscreen = function() {
         exitFullscreen();
     }, a.prototype.resizeRoot = function(b, c) {
-		console.log(b,c);
-		console.trace("HI");
         void 0 === b && (b = this._oldWidth), void 0 === c && (c = this._oldHeight), this._oldWidth = b, 
         this._oldHeight = c;
         var d, e = HSStageScene.stageWidth, f = HSStageScene.stageHeight;
@@ -9585,7 +9581,7 @@ var HSSound = function() {
             return a.stop();
         }), this.sources.clear();
     }, a.prototype.url = function() {
-        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        return "https://awesome-e.github.io/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
     }, a;
 }();
 
