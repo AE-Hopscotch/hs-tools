@@ -28,10 +28,21 @@
 		<meta property="og:image" content="/hs-tools/images/hs-filter.png">
 		
 		<style>
+			:root {
+				--col-bg-main: white;
+				--col-card-bg: #f8f8f8;
+				--col-card-tab: #eee;
+				--col-text: black;
+				--col-border1: #ddd;
+				--time-trans: 0s;
+			}
+			
 			body {
 				transition:
-					background-color 0.5s ease,
-					color 0.5s ease;
+					background-color var(--time-trans) ease,
+					color var(--time-trans) ease;
+				background-color: var(--col-bg-main);
+				color: var(--col-text);
 			}
 
 			#themebtn, .btn {
@@ -91,7 +102,7 @@
 		</style>
 	</head>
 	<body>
-		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 100;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: var(--time-trans); position: fixed; bottom: 8px; right: 8px; z-index: 100;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
 		
 		<div id="urlChecker" style="overflow: visible;">
 			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID" type="url"><button id="input-url2" onclick="checkFilterUrl()" style="display: inline-block; background-color: #ddf3e6; padding: 2px 6px; margin-left: 2px; margin-right: 38px;">Go</button></span>
@@ -108,6 +119,7 @@
 		<button onclick="theme()" id="themebtn" style=""><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
+		<script src="../sidenav.min.js"></script>
 		<script>
 			var hasContent = false;
 			function copyButton(e) {
@@ -228,7 +240,6 @@
 					values = [];
 					//Remove Sound Parameters
 					
-					//console.log(matches);
 					matches.forEach((m)=>{
 						if (m == undefined || m  == "") return;
 						values.push(m.replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
@@ -260,7 +271,6 @@
 				
 				content = Object.keys(dict).join("\n");
 				content = content.replace(/\n  \n|\n  $/gi, "\n");
-				console.log(content);
 				target.value = (content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:") ? content || "This project does not exist" : "This project does not exist";
 				copyButton(content != "Title and Author:\nScene Names:\nObject Names:\nVariable Names:\nCustom Rules:\nAbility Names:\nAbility Values:");
 				console.log("Has Content: " + hasContent);
@@ -302,7 +312,7 @@
 					});
 				};
 				
-				request('https://c.gethopscotch.com/api/v1/projects/'+ url);/**/
+				request('https://c.gethopscotch.com/api/v1/projects/'+ url);
 			}
 			
 			//Upload and Read File	
@@ -371,72 +381,20 @@
 				filterUrl(projectID);
 			}
 			
-			///Radio Buttons
-			var inputSelection = "url";
-			function changeInputSelect() {
-				var radios = document.getElementsByName('inputs');
-				if (radios[0].checked) {
-					// do whatever you want with the checked radio
-					document.getElementById("input-" + radios[0].value + "2").removeAttribute('disabled');
-					document.getElementById("input-" + radios[0].value).removeAttribute('disabled');
-					document.getElementById("input-" + radios[1].value).setAttribute('disabled', 'true');
-				} else {
-					document.getElementById("input-" + radios[0].value).setAttribute('disabled', 'true');
-					document.getElementById("input-" + radios[0].value + "2").setAttribute('disabled', 'true');
-					document.getElementById("input-" + radios[1].value).removeAttribute('disabled');
-				}
-			}
-			
-			function hi(){
-				alert("hi");
-			}
-
-			function theme(t){
-				t = t || 0; //0 = Toggle; 1 = Light; 2 = Dark
-				
-				switch (t) {
-					case 0:
-						break;
-					case 1:
-						document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-						break;
-					case 2:
-						document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-						break;
-				}
-				
-				if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-					//Set Dark Mode
-					document.body.style.backgroundColor = "#000";
-					document.body.style.color = "#8c8c8c";
-					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-					document.getElementById("homeSvg").style.fill = "#8c8c8c";
-					
-					setPref("dark_mode", true);
-					console.log("Saved Dark Mode");
-				} else {
-					//Set Light Mode
-					document.body.style.backgroundColor = "#fff";
-					document.body.style.color = "#000";
-					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-					document.getElementById("homeSvg").style.fill = "black";
-					
-					setPref("dark_mode", false);
-					console.log("Saved Light Mode");
-				}
-			}
-			
-			function copyText(){
-				if (hasContent){
-					var copyText = document.getElementById("content-target");
-
-					copyText.select();
-					copyText.setSelectionRange(0, 9999999); //Mobile
-
-					document.execCommand("copy");
-					
-					window.getSelection().removeAllRanges();
-				}
+			//Radio Buttons	
+			var inputSelection = "url";	
+			function changeInputSelect() {	
+				var radios = document.getElementsByName('inputs');	
+				if (radios[0].checked) {	
+					// do whatever you want with the checked radio	
+					document.getElementById("input-" + radios[0].value + "2").removeAttribute('disabled');	
+					document.getElementById("input-" + radios[0].value).removeAttribute('disabled');	
+					document.getElementById("input-" + radios[1].value).setAttribute('disabled', 'true');	
+				} else {	
+					document.getElementById("input-" + radios[0].value).setAttribute('disabled', 'true');	
+					document.getElementById("input-" + radios[0].value + "2").setAttribute('disabled', 'true');	
+					document.getElementById("input-" + radios[1].value).removeAttribute('disabled');	
+				}	
 			}
 			
 			//Log Site Update Time and Device
@@ -447,34 +405,6 @@
 			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
 				document.getElementById("copybtn").style.top = "-46px";
 				document.getElementById("copybtn").style.top = "-66px";
-			}
-			
-			//Theme
-			function setCookie(cname,cvalue,exdays) {
-				var d = new Date();
-				d.setTime(d.getTime() + (exdays*24*60*60*1000));
-				var expires = "expires=" + d.toGMTString();
-				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-			}
-
-			function getCookie(cname) {
-				var name = cname + "=";
-				var decodedCookie = decodeURIComponent(document.cookie);
-				var ca = decodedCookie.split(';');
-				for( var i = 0; i < ca.length; i++ ){
-					var c = ca[i];
-					while (c.charAt(0) == ' ') {
-						c = c.substring(1);
-					}
-					if (c.indexOf(name) == 0) {
-						return c.substring(name.length, c.length);
-					}
-				}
-				return "";
-			}
-
-			if (getPref("dark_mode")){
-				theme(2);
 			}
 		</script>
 	</body>
