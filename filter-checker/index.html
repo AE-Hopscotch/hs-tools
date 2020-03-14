@@ -28,11 +28,21 @@
 		<meta property="og:image" content="../images/hs-filter.png">
 		
 		<style>
+			:root {
+				--col-bg-main: white;
+				--col-card-bg: #f8f8f8;
+				--col-card-tab: #eee;
+				--col-text: black;
+				--col-border1: #ddd;
+				--time-trans: 0s;
+			}
+			
 			body, .topBar, #filterSearchBox {
 				transition:
-					background-color 0.5s ease,
-					color 0.5s ease;
-				
+					background-color var(--time-trans) ease,
+					color var(--time-trans) ease;
+				background-color: var(--col-bg-main);
+				color: var(--col-text);
 			}
 			
 			.topBar {
@@ -43,7 +53,8 @@
 				width: 100%;
 				height:60px;
 				z-index: 1;
-				background-color: white;
+				background-color: var(--col-bg-main);
+				transition: background-color var(--time-trans);
 			}
 
 			#themebtn {
@@ -95,9 +106,11 @@
 			#filterSearchBox {
 			  background-position: 10px 12px;
 			  background-repeat: no-repeat;
+			  background-color: var(--col-bg-main);
 			  font-size: 16px;
 			  padding: 12px 20px 12px 40px;
-			  border: 1px solid #ddd;
+			  border: 1px solid var(--col-border1);
+			  color: var(--col-text);
 			  margin-bottom: 0px;
 			  position: fixed;
 			  top: 10px;
@@ -105,15 +118,16 @@
 			  width: calc(50% - 20px);
 			  z-index: 10;
 			  transition: 
-				border 0.5s ease,
-				background-color 0.5s ease;
+				border var(--time-trans) ease,
+				background-color var(--time-trans) ease,
+				color var(--time-trans) ease;
 			}
 			
 			#filterSearchBG {
 				display: block;
 				height: 44px;
-				background-color: white;
-				border: 3px solid white;
+				background-color: var(--col-bg-main);
+				border: 3px solid var(--col-bg-main);
 				position: fixed;
 				top: 10px;
 				left: 10px;
@@ -129,12 +143,13 @@
 
 			.searchItems li {
 				display: block;
-				border: 1px solid #ddd;
+				border: 1px solid var(--col-border1);
 				margin-top: -1px; /* Prevent double borders */
 				padding: 12px;
 				text-decoration: none;
 				font-size: 18px;
-				color: black;
+				color: var(--col-text);
+				transition: color var(--time-trans), border-color var(--time-trans);
 				display: block;
 				font-weight: 500;
 				background: none;
@@ -142,7 +157,7 @@
 			
 			.searchItems lb {
 				display: block;
-				border: 1px solid #ddd;
+				border: 1px solid var(--col-border1);
 				margin-top: -1px; /* Prevent double borders */
 				padding: 3px 12px;
 				text-decoration: none;
@@ -151,6 +166,7 @@
 				display: block;
 				font-weight: 600;
 				background: none;
+				transition: border-color var(--time-trans);
 			}
 			
 			.searchItems li sub {
@@ -170,7 +186,8 @@
 			
 			#indList t {
 				font-weight: 400;
-				color: black;
+				color: var(--col-text);
+				transition: color var(--time-trans);
 			}
 			
 			.flex {
@@ -291,7 +308,7 @@
 		</style>
 	</head>
 	<body>
-		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 100;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		<a href="javascript:home()"><svg id="homeSvg" style="fill:black; transition: var(--time-trans); position: fixed; bottom: 8px; right: 8px; z-index: 100;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
 		
 		<div id="urlChecker" style="">
 			<span><input onclick="changeInputSelect()" type="radio" name="inputs" value="url" id="_ur" checked><label for="_ur">By URL</label> <input id="input-url" placeholder="URL or Project ID" type="url"><button id="input-url2" onclick="checkFilterUrl()" style="display: inline-block; background-color: #ddf3e6; padding: 2px 6px; margin-left: 2px; margin-right: 38px;">Go</button></span>
@@ -430,6 +447,7 @@
 		<button onclick="theme()" id="themebtn" style="z-index:20;"><i class="fa fa-fw fa-moon-o"> </i></button>
 		
 		<script src="../main.js"></script>
+		<script src="../sidenav.min.js"></script>
 		<script>
 			//Filter Process
 			function testFilter(data) {
@@ -605,165 +623,7 @@
 					}
 				}
 			}
-
-			var search_open = false;
-			/* SEARCH
-			function filterSearch(open){
-				var search = document.getElementById('filterSearchUL');
-				search_open = open;
-				
-				if (!open) {
-					if (!document.getElementById('filterSearchUL').hidden){
-						setTimeout(function(){
-							var search = document.getElementById('filterSearchUL');
-							if (!search.hidden) search.hidden = !search_open;
-							if (search.hidden){
-								console.log("Search Closed at " + String(Date.now()));
-							}
-							searchWords();
-						}, 2);
-					}
-				} else {
-					if (document.getElementById('filterSearchUL').hidden){
-						search.hidden = false;
-						searchWords();
-						console.log("Search Opened at " + String(Date.now()));
-					}
-				}
-			}
-			/**/
 			
-			function hi(){
-				alert("hi");
-			}
-
-			function theme(t){
-				t = t || 0; //0 = Toggle; 1 = Light; 2 = Dark
-				
-				switch (t) {
-					case 0:
-						break;
-					case 1:
-						document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-						break;
-					case 2:
-						document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-						break;
-				}
-				
-				if (document.getElementById('themebtn').innerHTML == '<i class="fa fa-fw fa-moon-o"> </i>'){
-					//Set Dark Mode
-					document.body.style.backgroundColor = "#000";
-					document.body.style.color = "#8c8c8c";
-					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-sun-o"> </i>';
-					
-					//document.getElementById('topBar').style.backgroundColor = 'black';
-					document.getElementById('filterSearchBox').style.backgroundColor = 'black';
-					document.getElementById('filterSearchBox').style.borderColor = '#666';
-					document.getElementById('filterSearchBox').style.color = '#ddd';
-					document.getElementById('filterSearchBG').style.borderColor = 'black';
-					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
-					document.getElementById("homeSvg").style.fill = "#8c8c8c";
-					//document.getElementById("linksPopout").classList.add("dark");
-					
-					var a = document.getElementById('filterSearchUL');
-					
-					b = a.getElementsByTagName('li');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = '#888';
-						a.style.borderColor = '#666';
-					}
-					
-					b = document.getElementsByTagName('lb');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.borderColor = '#666';
-					}
-					
-					var a = document.getElementById('indList');
-					b = a.getElementsByTagName('t');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = '#888';
-					}
-					
-					setPref("dark_mode", true);
-					console.log("Saved Dark Mode");
-				} else {
-					//Set Light Mode
-					document.body.style.backgroundColor = "#fff";
-					document.body.style.color = "#000";
-					document.getElementById('themebtn').innerHTML = '<i class="fa fa-fw fa-moon-o"> </i>';
-					
-					//document.getElementById('').style.backgroundColor = 'white';
-					document.getElementById('filterSearchBox').style.backgroundColor = 'white';
-					document.getElementById('filterSearchBox').style.borderColor = '#ddd';
-					document.getElementById('filterSearchBox').style.color = 'black';
-					document.getElementById('filterSearchBG').style.borderColor = 'white';
-					document.getElementById('filterSearchBG').style.transition = 'border 0.5s ease, background-color 0.5s ease';
-					document.getElementById("homeSvg").style.fill = "black";
-					//document.getElementById("linksPopout").classList.remove("dark");
-					
-					var a = document.getElementById('filterSearchUL');
-					
-					b = a.getElementsByTagName('li');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = 'black';
-						a.style.borderColor = '#ddd';
-					}
-					
-					b = document.getElementsByTagName('lb');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.borderColor = '#ddd';
-					}
-					
-					var a = document.getElementById('indList');
-					b = a.getElementsByTagName('t');
-					var i;
-					for (i = 0; i < b.length; i++) {
-						a = b[i];
-						a.style.transition = "0.5s";
-						a.style.color = 'black';
-					}
-					
-					setPref("dark_mode", false);
-					console.log("Saved Light Mode");
-				}
-			}
-
-			/* NOT IN USE
-			function scrollList() {
-			  var list = document.getElementById('blockSearch'); // targets the <ul>
-			  var first = list.firstChild; // targets the first <li>
-			  var maininput = document.getElementById('blockSearchBox');  // targets the input, which triggers the functions populating the list
-			  document.onkeydown = function(e) { // listen to keyboard events
-				switch (e.keyCode) {
-				  case 38: // if the UP key is pressed
-					if (document.activeElement == (maininput || first)) { break; } // stop the script if the focus is on the input or first element
-					else { document.activeElement.parentNode.previousSibling.firstChild.focus(); } // select the element before the current, and focus it
-					break;
-				  case 40: // if the DOWN key is pressed
-					if (document.activeElement == maininput) { first.firstChild.focus(); } // if the currently focused element is the main input --> focus the first <li>
-					else { document.activeElement.parentNode.nextSibling.firstChild.focus(); } // target the currently focused element -> <a>, go up a node -> <li>, select the next node, go down a node and focus it
-				  break;
-				}
-			  }
-			}
-			*/
-
 			//Text Down if on iOS
 			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
 				document.getElementById("indCnt").style.bottom = "-14px";
@@ -775,34 +635,6 @@
 			//Log Site Update Time and Device
 			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
-			
-			//Theme
-			function setCookie(cname,cvalue,exdays) {
-				var d = new Date();
-				d.setTime(d.getTime() + (exdays*24*60*60*1000));
-				var expires = "expires=" + d.toGMTString();
-				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-			}
-
-			function getCookie(cname) {
-				var name = cname + "=";
-				var decodedCookie = decodeURIComponent(document.cookie);
-				var ca = decodedCookie.split(';');
-				for( var i = 0; i < ca.length; i++ ){
-					var c = ca[i];
-					while (c.charAt(0) == ' ') {
-						c = c.substring(1);
-					}
-					if (c.indexOf(name) == 0) {
-						return c.substring(name.length, c.length);
-					}
-				}
-				return "";
-			}
-
-			if (getPref("dark_mode")){
-				theme(2);
-			}
 		</script>
 	</body>
 </html>
