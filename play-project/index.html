@@ -177,7 +177,7 @@
 		} else {
 			var req_uuid = customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'');
 			request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
-			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=0" : ""));
+			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : ""));
 		}
 	</script>
 
