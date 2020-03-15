@@ -41,6 +41,9 @@
 			* body.embedded #fullscreen-button {
 				display: inline-block;
 			}
+			h2 {
+				color: #666;
+			}
 		</style>
 	</head>
 </html>
@@ -56,6 +59,7 @@
 			"projectData": {},
 			"uuid": "",
 			"playerVersion": "",
+			"custom_sound_path": ((getPref("custom_sounds"))?"new/":""),
 			"webplayer_action": function(a, b) {
 				try {
 					a = JSON.parse(a);
@@ -173,7 +177,7 @@
 		} else {
 			var req_uuid = customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'');
 			request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
-			replaceLocation((req_uuid) ? "?id=" + req_uuid : "");
+			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=0" : ""));
 		}
 	</script>
 
@@ -189,7 +193,7 @@
 	</div>
 	<div id="project_error"><div class="project_error_message"><h2>Sorry, try again later.</h2>
 	<script>
-	((JSON.parse(localStorage.getItem("preferences")||"{}").replace_fullscreen) ? document.getElementById("fullscreen-button"):document.getElementById("hopscotch-link")).style.display = "none";
+	((getPref("replace_fullscreen")||/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? document.getElementById("fullscreen-button"):document.getElementById("hopscotch-link")).style.display = "none";
 	
 	setTimeout(function() {
 		if (!window.main) {
@@ -197,6 +201,7 @@
 			project_error.style.display = 'block';
 		}
 	}, 30000);
+		document.body.style.backgroundColor = (getPref("dark_mode")) ? "black" : "";
 		document.body.style.backgroundColor = (getPref("dark_mode")) ? "black" : "";
 		setTimeout(function(){document.getElementById("project_loading").style.filter = "invert(" + Number(getPref("dark_mode")) + ")";},50);
 	</script></div></div>
