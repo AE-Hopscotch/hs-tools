@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.0 b1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.0 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -128,7 +128,7 @@ function showProjects(chProjects) {
 			var uCard = document.createElement("a");
 			uCard.setAttribute("class", "user-card");
 			uCard.href = `user.html?u=${generateUserLink(u)}`;
-			uCard.innerHTML = `<span class="img-container"><img src="${(u.remote_avatar_url == undefined)?'../images/webavatars/'+u.avatar_type+'.png':u.remote_avatar_url}"/></span><name>${u.nickname}</name>`;
+			uCard.innerHTML = `<span class="img-container"><img src="${(u.remote_avatar_url == undefined)?'../images/webavatars/'+(u.avatar_type||0)+'.png':u.remote_avatar_url}"/></span><name>${u.nickname}</name>`;
 			uCard.setAttribute("id", u.id); // added line
 			hiddenElm.parentNode.insertBefore(uCard, hiddenElm);
 		});
@@ -152,9 +152,13 @@ function showProjects(chProjects) {
 			}).join('');
 			
 			pCard.setAttribute("class", "project-card");
-			var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div>
-			<div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
-			<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
+			if (p.uuid == "ae_web_info") { //Info Page
+				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div><div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);">No x-ray effect available</span><span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`
+			} else {
+				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div>
+				<div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
+				<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
+			}
 			
 			if (p.original_user != undefined && p.original_user.id != p.user.id) {	
 				pCard.innerHTML = `<a tabindex="7" href="user.html?u=${
@@ -165,12 +169,14 @@ function showProjects(chProjects) {
 				pCard.innerHTML = baseCode;
 			}
 			pCard.setAttribute("id", p.uuid); // added line
-			hiddenElm.parentNode.insertBefore(pCard, hiddenElm);
-			//Title Regex
-			if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
-			if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
-			if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
-			getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
+			if(!document.getElementById(p.uuid)) hiddenElm.parentNode.insertBefore(pCard, hiddenElm); //Insert if the card does not exist already
+			if (p.uuid != "ae_web_info") {
+				//Title Regex
+				if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
+				if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
+				getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
+			}
 		});
 	}
 	busy = false;
@@ -275,7 +281,7 @@ document.body.addEventListener('keydown', function(e){
 			if (e.ctrlKey){
 				e.preventDefault();
 				document.querySelectorAll('.project-card').forEach(function(s){
-					s.classList.add('xSelected');
+					if(s.id != "ae_web_info") s.classList.add('xSelected');
 				});
 			}
 			break;
@@ -374,7 +380,7 @@ function xray(action, keyIn) {
 			}
 			break;
 		case 'click-action':
-			(xRayClickAction == 5) ? xRayClickAction = 0 : xRayClickAction ++;
+			(xRayClickAction == 6) ? xRayClickAction = 0 : xRayClickAction ++;
 			switch (xRayClickAction) {
 				case 0:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-safari"> </i>';
@@ -398,6 +404,9 @@ function xray(action, keyIn) {
 					break;
 				case 5:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-window-maximize"> </i>';
+					break;
+				case 6:
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-external-link"> </i>';
 					break;
 			}
 			break;
@@ -497,6 +506,8 @@ function xProjectAction(p,e) {
 			case 5:
 				showEmbeddedPlayer(p.uuid);
 				break;
+			case 6:
+				window.open("../play-project/?id=" + p.uuid);
 		}
 	}
 }
@@ -576,7 +587,8 @@ function showEmbeddedPlayer(uuid) {
 		var playFrame = document.createElement('div');
 		playFrame.id = "embed-container";
 		playFrame.style = "display:block;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;";
-		playFrame.innerHTML = `<iframe id="project-player" src="../play-project/index.html?id=${uuid}&play=1" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>
+		var src = ((uuid == "ae_web_info") ? "about.html" : "../play-project/index.html?id=" + uuid + "&play=1");
+		playFrame.innerHTML = `<iframe id="project-player" src="${src}" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>
 		<button onclick="removeEmbeddedPlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-close' style='color:white;font-size:32px;position:relative;top:-1px;left:-${Number(onIos)}px;'></i></button>`;
 		document.body.appendChild(playFrame);
 		setTimeout(function(){
@@ -597,10 +609,6 @@ function removeEmbeddedPlayer() {
 	document.body.style.overflow = "auto";
 	document.body.ontouchmove = (e) => {void(0);};
 	//$('body').off('touchmove');
-}
-function noDefault(data) {
-	alert(data);
-	e.preventDefault(); //Prevent Scrolling
 }
 
 if ((new URL(window.location.href)).searchParams.get('xRay') != null) {

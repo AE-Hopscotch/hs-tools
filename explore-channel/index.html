@@ -200,7 +200,7 @@
 					if (options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||page==1||channel.includes("Search"))) printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
-						(x.responseText || '')
+						options.url.split("/api/v2/")[1] + "," + (x.responseText || '')
 					);
 				};
 				if (/^POST/i.test(options.method)) {
@@ -216,7 +216,21 @@
 					url: input_url,
 					//data: dataField.value
 				}, function printResult(result) {
-					if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
+					var plays = 0;
+					function showReq(bool){
+						if (bool) result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
+						result = result.replace(/^.*?,/,"");
+						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
+					}
+					if (/best_of\/featured/.test(result)) {
+						XHR.get("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'iCount%20Visits'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(r){
+							plays = JSON.parse(r).values[1].filter(i=>i=="webHsAbout").length;
+							showReq(true);
+						}, false)
+						x.send();
+					} else {
+						showReq(false);
+					}
 				});
 			}
 			

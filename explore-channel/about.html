@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Web Explorer Info</title>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../style.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		
+		<meta name="description" content="The official help page on using Awesome_E's Hopscotch Web Explorer"/>
+		<meta name="keywords" content="browse, hopscotch, community, channels, explore, awesome_e"/>
+		<meta property="og:title" content="Web Explorer Info">
+		<meta property="og:description" content="The official help page on using Awesome_E's Hopscotch Web Explorer">
+		<meta property="og:image" content="../images/browse-web.png">
+		
+		<script src="../main.js"></script>
+		<link rel="stylesheet" href="../sidenavStyles.css">
+		<link rel="stylesheet" href="browserstyle.css">
+		<style>
+			html {
+				background-image: url("../images/hs-shapes-bg.png");
+				background-size: 375px;
+			}
+			body {
+				background-color: rgba(0,0,0,0);
+				padding: 16px 8px 8px;
+			}
+			h1 {
+				font-family: Lilita One;
+				font-weight: 400;
+				color: #ddd;
+				text-align: center;
+				font-size: 250%;
+				margin-top: 0;
+			}
+			
+			::-moz-selection {
+			
+			}
+			::selection {
+				background: #11887a;
+				color: #ccc;
+			}
+			
+			.accordion {
+				max-height: var(--elementHeight);
+				overflow: hidden;
+				background-color: var(--col-card-bg);
+				display: block;
+				margin: 0px;
+				padding: 0 16px;
+				font-size: 100%;
+			}
+			
+			.accordion ol, .accordion ul {
+				padding-left: 24px;
+			}
+			
+			ul li, ol li {
+				font-size: 100%;
+			}
+			
+			.accordion[data-closed] {
+				max-height: 0px;
+			}
+			
+			.accordion, .accordControls * {
+				color: var(--col-text);
+			}
+			
+			.accordControls {
+				margin-bottom: 0px;
+				margin-top: 8px;
+				background-color: var(--col-card-tab);
+				position: relative;
+				cursor: pointer;
+				transition: height 0.5, background-color var(--time-trans);*/
+			}
+						
+			.accordControls::after {
+				position: absolute;
+				top: 3px;
+				right: 8px;
+				font-weight: 600;
+				content: "−";
+				color: #a44;
+			}
+			
+			.accordControls[data-closed]::after {
+				content:"+";
+				color: #4a4;
+			}
+			
+			table {
+				margin: auto;
+				margin-bottom: 8px;
+				border-collapse: collapse;
+			}
+			th, td {
+				border: 2px solid gray;
+				padding: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<button hidden id="themebtn"></button>
+		<a hidden id="homeSvg"></a>
+		<script src="../sidenav.min.js"></script>
+		<h1>Welcome to the Web Explorer</h1>
+			<p class="text center accordControls" id="a1"><b id="a1l">About the Web Explorer</b></p>
+			<span class="accordion" id="a1content">
+				<p>The Hopscotch Web Explorer is a project browser that allows you to see projects in the Hopscotch community
+				without the need of opening the Hopscotch app! While you cannot create projects, you can still see what other
+				Hopscotchers create and what type of projects fill the community.</p>
+				
+				<p>For me, the initial thought was: &ldquo;Since we can already play others&rsquo; Hopscotch projects on the web,
+				why should we not be able to discover them without receiving a link first?&rdquo;<br/><br/>So, with that, I embarked
+				on a journey to create the first working web explorer for Hopscotch. Just like in the app, you can browse through all
+				of the categories along the top, along with a couple of extras, namely &ldquo;E&rsquo;s Picks&rdquo; and &ldquo;Newest&rdquo;
+				(as in newest of all projects, not just curated projects). I&rsquo;ve also added several other extra features that the
+				app does not provide, which creates a great experience to both me as a creator as well as the user.</p>
+			
+			</span>
+			<p class="text center accordControls" id="a2"><b id="a2l">Browsing the Community</b></p>
+			<span class="accordion" id="a2content">
+				<p>If you are familiar with how to navigate through the Hopscotch app, this is very similar.</p>
+				<ul>
+					<li>Tap the moon or sun button in the bottom left to toggle between light and dark mode.</li>
+					<li>Tap the category names along the top to browse through projects in each category.</li>
+					<li>Click on the username below the project thumbnail to see that user&rsquo;s projects and favorites.</li>
+					<li>A tag will show on the top of the thumbnail if the project is remixed. This shows the original
+					creator&rsquo;s name, which you can also click on to navigate to their profile.</li>
+					<li>Tap the thumbnail of a project to play it within the browser.</li>
+					<li>When playing a project, tap the X on the top left to close it and go back to browsing.</li>
+					<li>Tap the link button to copy the link of its corresponding project.</li>
+					<li>Stats about the project are shown under the title. Liking and remixing projects can only be done in the Hopscotch app.</li>
+				</ul>
+				<p>You can also use keyboard shortcuts to navigate some aspects of the browser</p>
+				<table><thead>
+						<tr><th>Key</th><td>Action</td></tr>
+				</thead><tbody>
+						<tr><th>Slash ( / )</th><td>Opens the search</td></tr>
+						<tr><th>Escape</th><td>Closes the search</td></tr>
+						<tr><th>Alt + Left</th><td>Go backwards (same as browser back button)</td></tr>
+						<tr><th>Alt + Right</th><td>Go forward (same as browser forwards)</td></tr>
+				</tbody></table>
+			</span>
+			<p class="text center accordControls" id="a3"><b id="a3l">Extra Features Using &ldquo;X-Ray&rdquo;</b></p>
+			<span class="accordion" id="a3content">
+				<p>I have developed an &ldquo;x-ray&rdquo; function that allows you to see more UI elements. To enable it, tap
+				the target icon near the bottom left corner of the screen. Here is what it adds:</p>
+				<ul>
+					<li>The number of times a project has been remixed will show up to the left of the number of likes</li>
+					<li>Zoom capability is added. Adjust the slider to zoom in or zoom out; this will change the size of project cards.</li>
+					<li>The ability to automatically filter projects that are determined to be &ldquo;low quality&rdquo; –
+					this is intended to be used when searching for good projects in the Newest tab. To activate this, click on the eye
+					above the zoom slider. This will toggle the visibility of such projects between fully visible, half visible, and invisible.
+					Disclaimer: no automatic filter is perfect, especially without AI or machine learning. My filter is no exception, as many more
+					projects could be filtered out and some should not be filtered out. But the purpose of the filter view is just to get an idea
+					of what the title and thumbnail show in terms of project quality.</li>
+					<li>Project actions can be switched. To change what clicking on a thumbnail does, click the icon above the eye. There are a
+					few different modes. These include:</li>
+						<ul>
+							<li>Play (window icon): Plays the project in the same window</li>
+							<li>Open (share icon): Opens a popup to play the project in my modified player</li>
+							<li>Go to (safari icon): Navigates to the native Hopscotch page</li>
+							<li>Info (info circle): Displays information about the project</li>
+							<li>Remove (x icon): Removes the project from your view</li>
+							<li>See pallet (terminal icon): Logs the color pallet in the browser console</li>
+						</ul>
+				</ul>
+				<p>The x-ray function also allows you to select projects and perform actions on them, regardless of what click action you are on.</p>
+				<table><thead>
+						<tr><th>Key</th><td>Action</td></tr>
+				</thead><tbody>
+						<tr><th>Plus (+)</th><td>Activates x-ray</td></tr>
+						<tr><th>Equals (=)</th><td>Toggles the project&rsquo;s click action</td></tr>
+						<tr><th>Minus (-)</th><td>Toggles the filter view mode</td></tr>
+						<tr><th>Ctrl + Click</th><td>Select or unselect a project card</td></tr>
+						<tr><th>Shift + Click</th><td>Select all projects in a range</td></tr>
+						<tr><th>Alt + Click</th><td>Remove the project card from the page</td></tr>
+						<tr><th>Delete</th><td>Remove all selected projects from view</td></tr>
+						<tr><th>C</th><td>Clear project selection (deselect all)</td></tr>
+						<tr><th>H</th><td>Toggle x-ray view for this project only (force it to disappear or reappear)</td></tr>
+						<tr><th>Ctrl + A</th><td>Select all project cards</td></tr>
+						<tr><th>Alt + K</th><td>Keep only the selection, remove all other project cards</td></tr>
+						<tr><th>Alt + O</th><td>Opens all selected projects in new tabs (requires popup permissions)</td></tr>
+						<tr><th>Alt + P</th><td>Opens the code of selected projects in new tabs (also needs popup permissions)</td></tr>
+				</tbody></table>
+			</span>
+			<p class="text center accordControls" id="a4"><b id="a4l">Special User Badges</b></p>
+			<span class="accordion" id="a4content">
+				<p class="center">Badges symbolize or distinguish a user and is manually added by me. They are earned and will show up
+				next to their username in the Hopscotch Web Explorer</p>
+				<table><thead>
+						<tr><th>Badge</th><td>Meaning</td></tr>
+				</thead><tbody>
+						<tr><th><ae badge="1"></ae></th><td>The official Hopscotch Team&rsquo;s account</td></tr>
+						<tr><th><ae badge="2"></ae></th><td>Awesome_E&rsquo;s account, creator of the web explorer</td></tr>
+						<tr><th><ae badge="3"></ae></th><td>Bought using ePoints on the Hopscotch Forum</td></tr>
+						<tr><th><ae badge="4"></ae></th><td>Contributor to the Hopscotch Tools webpage</td></tr>
+						<tr><th><ae badge="5"></ae></th><td>Remembered to wish me a happy birthday</td></tr>
+						<tr><th><ae badge="6"></ae></th><td>A top creator in the community</td></tr>
+				</tbody></table>
+			</span>
+			<br/>
+		<script>
+			function accordion(id) {
+				//var id = event["toElement"].id.replace(/[l]/,"");
+				if (!(document.getElementById(id).getAttribute("data-closed")=="")) {
+					document.getElementById(id + "content").style.transition = "0s";
+					document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight) + "px");
+				}
+				setTimeout(function(){
+					document.getElementById(id).toggleAttribute("data-closed");
+					document.getElementById(id + "content").toggleAttribute("data-closed");
+					document.getElementById(id + "content").style.transition = "var(--time-trans) ease";
+				}, 10);
+				setTimeout(function(){
+					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+500) + "px");
+				}, 510);
+			};
+			
+			$(document).ready(function() {
+				$(".accordControls").click(function(event) {
+					accordion(event.target.id.replace(/[l]/,""));
+				});
+			});
+			
+			var hasToggle = (HTMLElement.prototype.toggleAttribute != undefined);
+			//Define Toggle Attribute for if it does not exist
+			if (!hasToggle) HTMLElement.prototype.toggleAttribute = function(attr){
+				(this.getAttribute(attr) == null) ? this.setAttribute(attr,'') : this.removeAttribute(attr);
+				return !(this.getAttribute(attr) == null);
+			}
+			
+			var accordions = document.getElementsByClassName("accordControls");
+			
+			for (var i = 0; i < accordions.length; i++) {
+				
+				//accordions[i].addEventListener('click', accordion, false);
+				accordions[i].toggleAttribute("data-closed");
+				var content = document.getElementById(accordions[i].id + "content");
+				
+				content.style.setProperty('--elementHeight', String(content.clientHeight) + "px");
+				content.toggleAttribute("data-closed");
+			}
+			
+			theme(2);
+			setTimeout(function(){document.documentElement.style.setProperty("--time-trans", "0.5s")},100);
+		</script>
+		<div visitCt>
+			<form hidden visitCt action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScs7ENqnVcAip-Fy6kBWJ-AxtAGwgWPhYmI8A5aqNhH0PzasA/formResponse" target="ii">
+				<input name="entry.1646746097" value="webHsAbout"/>
+				<button id="s1">test</button>
+			</form>
+			<form hidden visitCt action="https://awesome-e.github.io/hs-tools/images/hs-logo-app.png" target="ii">
+				<button id="s2">test</button>
+			</form>
+			<script>
+				var ct=0;
+			</script>
+			<iframe visitCt id="ii" name="ii" style="display:none;" onload="ct++;if(ct==2)document.querySelectorAll('*[visitCt]').remove()"></iframe>
+			<script>
+				setTimeout(function(){
+					document.getElementById("s1").click();
+					setTimeout(function(){document.getElementById("s2").click();},20);
+				},120);
+			</script>
+		</div>
+	</body>
+</html>
