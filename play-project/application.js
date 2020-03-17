@@ -36226,7 +36226,7 @@ $('#google-plus-share-button').click(function (event) {
 	  //AE_MOD preplay project if specified in uuid
 	  var url = new URL(window.location.href);
 	  if (url.searchParams.get('play') == '1') playContainer.click();
-	  if (window.innerWidth > 760) {
+	  if (!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
 		  //Resize the screen right away
 		  main.resizeScreen();
 		  //Update when screen size changes
