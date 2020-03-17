@@ -40,8 +40,15 @@
 			}
 			body {
 				background-color: rgba(0,0,0,0);
-				padding: 16px 8px 8px;
 				height: 100%;
+				margin: 0;
+				position: fixed;
+				top: 0;
+			}
+			.container {
+				padding: 24px 16px 16px;
+				overflow: auto;
+				max-height: 100%;
 			}
 			h1 {
 				font-family: Lilita One;
@@ -124,7 +131,8 @@
 		<button hidden id="themebtn"></button>
 		<a hidden id="homeSvg"></a>
 		<script src="../sidenav.min.js"></script>
-		<h1>Welcome to the Web Explorer</h1>
+		<div class="container">
+			<h1>Welcome to the Web Explorer</h1>
 			<p class="text center accordControls" id="a1"><b id="a1l">About the Web Explorer</b></p>
 			<span class="accordion" id="a1content">
 				<p>The Hopscotch Web Explorer is a project browser that allows you to see projects in the Hopscotch community
@@ -221,7 +229,7 @@
 						<tr><th><ae badge="6"></ae></th><td>A top creator in the community</td></tr>
 				</tbody></table>
 			</span>
-			<br/>
+		</div>
 		<script>
 			function accordion(id) {
 				//var id = event["toElement"].id.replace(/[l]/,"");
@@ -268,7 +276,7 @@
 			setTimeout(function(){document.documentElement.style.setProperty("--time-trans", "0.5s")},100);
 			
 			var url = new URL(window.location.href);
-			if (url.searchParams.get("h") != undefined) document.body.style.maxHeight = Number(url.searchParams.get("h")-16) + "px";
+			if (url.searchParams.get("h") != undefined) document.querySelector(".container").style.maxHeight = url.searchParams.get("h") + "px";
 		</script>
 		<div visitCt>
 			<form hidden visitCt action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScs7ENqnVcAip-Fy6kBWJ-AxtAGwgWPhYmI8A5aqNhH0PzasA/formResponse" target="ii">
