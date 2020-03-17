@@ -271,3 +271,35 @@ var Base64 = {
 		return t;
 	}
 }
+
+//Requests
+var XHR = {
+	sendReq: function(options, printResult, ca) {
+		var x = new XMLHttpRequest();
+		x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'') + options.url);
+		x.onload = x.onerror = function() {
+			printResult(x.responseText||'');
+		};
+		if (/^POST/i.test(options.method)) {
+			x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		}
+		x.send(options.data);
+	},
+	request: function(input_method, input_url, fn, ca) {
+		if (ca == undefined) ca = true;
+		busy = true;
+		XHR.sendReq({
+			method: input_method,
+			url: input_url
+		}, fn, ca);
+	},
+	get: function(url, fn, ca) {
+		if (ca == undefined) ca = true;
+		busy = true;
+		XHR.sendReq({
+			method: 'GET',
+			url: url
+		}, fn, ca);
+	}
+			
+}
