@@ -133,6 +133,41 @@
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					AE_MOD.isCustom = true;
+					AE_MOD.webplayer_action = function(a, b) {
+						try {
+							a = JSON.parse(a);
+						} catch (e) {
+							console.error("Invalid webplayer action");
+							return;
+						}
+						switch (a.name) {
+							case "restart":
+								document.getElementById("restart-button").click();
+								break;
+							case "js-console-log":
+								console.log('%cAwesome_E’s Project Player%c ' + b, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
+								break;
+							case "js-alert":
+								alert('Args:\n'+a.args+'\nData:'+b);
+								break;
+							case "js-prompt":
+								return Number(prompt(a.args[0]));
+							case "checkKey":
+								return Number(a.args.repeatEach(function(k){
+									return AE_MOD.keyboardKeys.includes(k);
+								}).includes(true));
+							case "checkKeyData":
+								return Number(AE_MOD.keyboardKeys.includes(b));
+							case "checkKeyAll":
+								return Number(!a.args.repeatEach(function(k){
+									return AE_MOD.keyboardKeys.includes(k);
+								}).includes(false));
+							case "isWebExp":
+								return 1;
+							case "isComputer":
+								return Number(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+						}
+					};
 					initWebplayer(HS_WEBPLAYER_VERSION);
 				} catch (e) {
 					alert("Invalid JSON data");
