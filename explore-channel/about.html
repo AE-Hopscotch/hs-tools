@@ -40,6 +40,7 @@
 			body {
 				background-color: rgba(0,0,0,0);
 				padding: 16px 8px 8px;
+				height: auto;
 			}
 			h1 {
 				font-family: Lilita One;
@@ -280,7 +281,7 @@
 			<script>
 				setTimeout(function(){
 					document.getElementById("s1").click();
-					setTimeout(function(){document.getElementById("s2").click();},20);
+					setTimeout(function(){document.getElementById("s2").click();}, (/iPhone|iPad|iPod/.test(navigator.userAgent))?200:20);
 				},120);
 			</script>
 		</div>
