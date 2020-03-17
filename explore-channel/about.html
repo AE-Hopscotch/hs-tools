@@ -36,11 +36,12 @@
 			html {
 				background-image: url("../images/hs-shapes-bg.png");
 				background-size: 375px;
+				height: 100%;
 			}
 			body {
 				background-color: rgba(0,0,0,0);
 				padding: 16px 8px 8px;
-				height: auto;
+				height: 100%;
 			}
 			h1 {
 				font-family: Lilita One;
@@ -265,6 +266,9 @@
 			
 			theme(2);
 			setTimeout(function(){document.documentElement.style.setProperty("--time-trans", "0.5s")},100);
+			
+			var url = new URL(window.location.href);
+			if (url.searchParams.get("h") != undefined) document.body.style.maxHeight = Number(url.searchParams.get("h")-16) + "px";
 		</script>
 		<div visitCt>
 			<form hidden visitCt action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScs7ENqnVcAip-Fy6kBWJ-AxtAGwgWPhYmI8A5aqNhH0PzasA/formResponse" target="ii">
