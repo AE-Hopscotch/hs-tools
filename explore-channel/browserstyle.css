@@ -504,7 +504,7 @@ sq {
 	background-size: 16px 16px;
 	vertical-align:text-bottom;
 }
-div > ae[badge] {
+div > ae[badge], table ae[badge] {
 	display: inline-block;
 	width: 48px;
 	height: 48px;
