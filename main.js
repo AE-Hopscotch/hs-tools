@@ -154,6 +154,11 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
 	}
 }
 
+//String Functions
+String.prototype.htmlEscape = function(){
+	return this.replace(/&/g, "&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g, "&#039;");;
+}
+
 //Space or Enter -> Click Child Element
 document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
 	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.querySelector('*').click();});
@@ -303,3 +308,4 @@ var XHR = {
 	}
 			
 }
+
