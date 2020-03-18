@@ -209,6 +209,7 @@
 						<tr><th>C</th><td>Clear project selection (deselect all)</td></tr>
 						<tr><th>H</th><td>Toggle x-ray view for this project only (force it to disappear or reappear)</td></tr>
 						<tr><th>Ctrl + A</th><td>Select all project cards</td></tr>
+						<tr><th>Ctrl + C</th><td>Copy the link to every selected project</td></tr>
 						<tr><th>Alt + K</th><td>Keep only the selection, remove all other project cards</td></tr>
 						<tr><th>Alt + O</th><td>Opens all selected projects in new tabs (requires popup permissions)</td></tr>
 						<tr><th>Alt + P</th><td>Opens the code of selected projects in new tabs (also needs popup permissions)</td></tr>
@@ -219,14 +220,14 @@
 				<p class="center">Badges symbolize or distinguish a user and is manually added by me. They are earned and will show up
 				next to their username in the Hopscotch Web Explorer</p>
 				<table><thead>
-						<tr><th>Badge</th><td>Meaning</td></tr>
+						<tr><th>Badge</th><td style="padding:8px;">Meaning</td></tr>
 				</thead><tbody>
-						<tr><th><ae badge="1"></ae></th><td>The official Hopscotch Team&rsquo;s account</td></tr>
-						<tr><th><ae badge="2"></ae></th><td>Awesome_E&rsquo;s account, creator of the web explorer</td></tr>
-						<tr><th><ae badge="3"></ae></th><td>Bought using ePoints on the Hopscotch Forum</td></tr>
-						<tr><th><ae badge="4"></ae></th><td>Contributor to the Hopscotch Tools webpage</td></tr>
-						<tr><th><ae badge="5"></ae></th><td>Remembered to wish me a happy birthday</td></tr>
-						<tr><th><ae badge="6"></ae></th><td>A top creator in the community</td></tr>
+						<tr><th><ae badge="1"></ae></th><td style="padding:8px;">The official Hopscotch Team&rsquo;s account</td></tr>
+						<tr><th><ae badge="2"></ae></th><td style="padding:8px;">Awesome_E&rsquo;s account, creator of the web explorer</td></tr>
+						<tr><th><ae badge="3"></ae></th><td style="padding:8px;">Bought using ePoints on the Hopscotch Forum</td></tr>
+						<tr><th><ae badge="4"></ae></th><td style="padding:8px;">Contributor to the Hopscotch Tools webpage</td></tr>
+						<tr><th><ae badge="5"></ae></th><td style="padding:8px;">Remembered to wish me a happy birthday</td></tr>
+						<tr><th><ae badge="6"></ae></th><td style="padding:8px;">A top creator in the community</td></tr>
 				</tbody></table>
 			</span>
 		</div>
@@ -291,7 +292,7 @@
 			</script>
 			<iframe visitCt id="ii" name="ii" style="display:none;" onload="ct++;if(ct==2)document.querySelectorAll('*[visitCt]').remove()"></iframe>
 			<script>
-				setTimeout(function(){
+				if (location.protocol == "https:") setTimeout(function(){
 					document.getElementById("s1").click();
 					setTimeout(function(){document.getElementById("s2").click();}, (/iPhone|iPad|iPod/.test(navigator.userAgent))?200:20);
 				},120);
