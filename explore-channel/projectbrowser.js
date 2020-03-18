@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.1 b3"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.2 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -153,7 +153,7 @@ function showProjects(chProjects) {
 			
 			pCard.setAttribute("class", "project-card");
 			if (p.uuid == "ae_web_info") { //Info Page
-				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div><div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);">No x-ray effect available</span><span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`
+				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div><div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);">No x-ray action</span><span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`
 			} else {
 				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/${p.uuid}')"></i></div>
 				<div class="info"><span class="user-container">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
@@ -255,50 +255,60 @@ setTimeout(function(){
 document.body.addEventListener('keydown', function(e){
 	//Break if search box is focused or x-ray is off (except plus key)
 	var searchInput = document.querySelector('input[type=search]');
-	if ((searchInput != null && document.activeElement == searchInput) || (e.keyCode != 187 && !xRay)) return;
+	if ((searchInput != null && document.activeElement == searchInput) || (e.keyCode != 187 && !xRay) || (document.getElementById("close-player-btn"))) return;
+	var ctrlPressed = ((e.ctrlKey && !/Mac/.test(navigator.platform))||(e.metaKey && /Mac/.test(navigator.platform)));
 	
 	switch (e.keyCode) {
+		case 27:
+			if (!(window.fullScreen) && !(window.innerWidth == screen.width && window.innerHeight == screen.height) && (document.getElementById("close-player-btn"))) {
+				document.getElementById("close-player-btn").click();
+			}
+			break;
 		case 187: //Plus key (Activate x-ray)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			//Toggle the x-ray variables
 			if (event.key == "+") {
 				xray('toggle-status');
 			} else {
-				if (xRay) xray('click-action', true);
+				if (xRay) xray('click-action', true); alert(e.keyCode)
 			}
 			break;
 		case 189: //Minus Key (Change x-ray view)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			if (event.key == "-" && xRay) xray('toggle-show');
 			break;
 		case 46: //Delete Key (delete selected tiles)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			document.querySelectorAll('.xSelected').forEach(function(s){
 				s.remove();
 			});
 			break;
 		case 65: //Letter A (Ctrl+a = select all tiles)
-			if (e.ctrlKey){
+			if (ctrlPressed){
 				e.preventDefault();
 				document.querySelectorAll('.project-card').forEach(function(s){
 					if(s.id != "ae_web_info") s.classList.add('xSelected');
 				});
 			}
 			break;
-		case 67: //Letter C (Clear selection)
-			if (e.ctrlKey) break;
-			document.querySelectorAll('.xSelected').forEach(function(s){
-				s.classList.remove('xSelected');
-			});
+		case 67: //Letter C (Copy all links + clear selection)
+			if (document.querySelectorAll('.xSelected').length > 0) e.preventDefault();
+			if (ctrlPressed) {
+				if (document.querySelectorAll('.xSelected').length > 0) copy(document.querySelectorAll('.xSelected').repeatEach((s)=>{return "https://c.gethopscotch.com/p/"+s.id;}).join("\n"));
+			} else {
+				document.querySelectorAll('.xSelected').forEach(function(s){
+					s.classList.remove('xSelected');
+				});
+			}
 			break;
 		case 72: //Letter H (toggle hide status for selection)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			document.querySelectorAll('.xSelected').forEach(function(s){
 				s.setAttribute('data-show', String(s.getAttribute('data-show') == 'false'));
 			});
 			break;
 		case 75: //Letter K (Alt+k = keep only the selected cards)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			if (e.altKey) {
 				document.querySelectorAll('.project-card:not(.xSelected)').forEach(function(s){
 					s.remove();
@@ -306,7 +316,7 @@ document.body.addEventListener('keydown', function(e){
 			}
 			break;
 		case 79: //Letter O (Alt+o = open all in new tabs)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			if (e.altKey) {
 				var popupsBlocked = 0;
 				document.querySelectorAll('.xSelected').forEach(function(s){
@@ -319,7 +329,7 @@ document.body.addEventListener('keydown', function(e){
 			}
 			break;
 		case 80: //Letter P (Alt+p = open all code in new tabs)
-			if (e.ctrlKey) break;
+			if (ctrlPressed) break;
 			if (e.altKey) {
 				var popupsBlocked = 0;
 				document.querySelectorAll('.xSelected').forEach(function(s){
@@ -475,16 +485,20 @@ function xProjectAction(p,e) {
 					var r = Math.round(result.length/10)/100;
 					var alertText = "Hopscotch Web Explorer Version: v" + explorerVersion +
 									"\nTitle: " + p.title +
-									`\nMade by:  ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
-									((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from:  ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
+									"\nFiltered: " + p.has_been_removed +
+									`\nMade by: ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
+									((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 									"\nProject UUID: " + p.uuid +
 									"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
 									"\n❤ " + p.number_of_stars + "  ▶ " + p.play_count +
 									"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
+									"\nAbout 1 like per " + Math.round((p.play_count||1)/p.number_of_stars||0) + " plays (" + (Math.round(p.number_of_stars/p.play_count*10000)/100||0) + "%)" +
+									"\n" + (Math.round(p.published_remixes_count/(p.published_remixes_count+p.project_remixes_count)*10000)/100||0) + "% of remixes are published" +
 									"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
 									"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
 									"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
-									"\nNumber of Rules: " + p.rules.length + ", Number of Abilities: " + p.abilities.length +
+									"\n" + p.rules.length + " rules, " + p.abilities.length + " abilities " +
+									"(" + (function(){var blocks = 0; p.abilities.forEach((x)=>{blocks += (x.blocks||[]).length;});return blocks;})() + " blocks)" +
 									"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
 									"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage Size: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height;
 					var shown = false;
