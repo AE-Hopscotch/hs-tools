@@ -132,7 +132,7 @@
 				
 				//Format the buttons
 				document.querySelectorAll(".topnav button").forEach(function(btn){
-					if (btn.innerHTML.replace(/You found me\!/,"Published").replace(/E’s Picks/,"Favorites") == channel) btn.setAttribute("class", "selected"); else btn.removeAttribute("class");
+					if (btn.innerHTML.replace(/You found/,"Published").replace(/E’s Picks/,"Favorites") == channel) btn.setAttribute("class", "selected"); else btn.removeAttribute("class");
 				});
 				
 				//Remove all existing project cards
