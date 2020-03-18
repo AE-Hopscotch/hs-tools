@@ -255,7 +255,7 @@ setTimeout(function(){
 document.body.addEventListener('keydown', function(e){
 	//Break if search box is focused or x-ray is off (except plus key)
 	var searchInput = document.querySelector('input[type=search]');
-	if ((searchInput != null && document.activeElement == searchInput) || (e.keyCode != 187 && !xRay) || (document.getElementById("close-player-btn"))) return;
+	if ((searchInput != null && document.activeElement == searchInput) || (e.keyCode != 187 && e.keyCode != 27 && !xRay) || (document.getElementById("close-player-btn")&&e.keyCode!=27)) return;
 	var ctrlPressed = ((e.ctrlKey && !/Mac/.test(navigator.platform))||(e.metaKey && /Mac/.test(navigator.platform)));
 	
 	switch (e.keyCode) {
