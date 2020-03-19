@@ -62,7 +62,7 @@
 			"custom_sound_path": ((getPref("custom_sounds"))?"new/":""),
 			"webplayer_action": function(a, b) {
 				try {
-					a = JSON.parse(a);
+					a = JSON.parse(a.replace(/"_data"/g,b));
 				} catch (e) {
 					console.error("Invalid webplayer action");
 					return;
@@ -72,10 +72,10 @@
 						document.getElementById("restart-button").click();
 						break;
 					case "js-console-log":
-						console.log('%cAwesome_E’s Project Player%c ' + b, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
+						console.log('%cAwesome_E’s Project Player%c ' + a.args, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
 						break;
 					case "js-alert":
-						alert('Args:\n'+a.args+'\nData:'+b);
+						alert('Args:\n'+a.args+'\n\nData:'+b);
 						break;
 					case "js-prompt":
 						return Number(prompt(a.args[0]));
