@@ -78,7 +78,7 @@
 						alert('Args:\n'+a.args+'\n\nData:'+b);
 						break;
 					case "js-prompt":
-						return Number(prompt(a.args[0]));
+						return Number(prompt(a.args[0],(a.args[1]||"")));
 					case "checkKey":
 						return Number(a.args.repeatEach(function(k){
 							return AE_MOD.keyboardKeys.includes(k);
