@@ -127,6 +127,17 @@
 				(e) ? document.getElementById("copybtn").removeAttribute("hidden") : document.getElementById("copybtn").hidden = "true";
 			}
 			
+			function copyText() {
+				//Create a textbox field where we can insert text to. 
+				var copyTextArea = document.createElement("textarea");
+				copyTextArea.value = document.querySelector("textarea").value;
+				document.body.appendChild(copyTextArea);
+				copyTextArea.select();
+				copyTextArea.setSelectionRange(0, 9999999); //Mobile
+				document.execCommand('copy');
+				document.body.removeChild(copyTextArea);
+			}
+			
 			//Extract Text
 			function extractText(data) {
 				copyButton(false);
