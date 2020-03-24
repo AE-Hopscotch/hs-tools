@@ -224,7 +224,7 @@
 						result = result.replace(/^.*?,/,"");
 						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 					}
-					if (/best_of\//.test(result)) {
+					if (/best_of\/.*?page=1/.test(result)) {
 						XHR.get("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'iCount%20Visits'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(r){
 							plays = JSON.parse(r).values[1].filter(i=>i=="webHsAbout").length;
 							showReq(true);
