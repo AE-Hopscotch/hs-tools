@@ -163,7 +163,7 @@
 			//Replace Names variable if pref different
 			var sort = prefVal("channel_sort");
 			if (sort) Object.keys(names).forEach((k)=>{
-				if (k != "Newest") names[k] = names[k].replace(/featured$|newest$/,sort);
+				names[k] = names[k].replace(/featured$|newest$/,sort);
 			});
 			
 			
