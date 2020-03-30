@@ -218,6 +218,19 @@
 				color: var(--col-body-text);
 				transition: color 0.5s;
 			}
+			
+			.settings td:nth-child(2) {
+				display: flex;
+				align-items: center;
+				height: 32px;
+			}
+			
+			.settings select {
+				padding: 4px;
+			}
+			.settings *::-webkit-scrollbar {
+				display:none;
+			}
 		</style>
 	</head>
 	<body><h1 style="font-family: 'Dancing Script'; text-align: center; color: white; font-size: 48px; font-weight: 500;">Awesome_E&rsquor;s Hopscotch Tools</h1>
@@ -258,7 +271,7 @@
 			<button onclick="closeOptions()" class="uiBtn" style="position:absolute;top:8px;right:8px;font-size:24px;cursor:pointer;background-color:rgba(150,150,150,0.4);color:white;padding:4px 8px;border:none;outline:none;border-radius:2px;"><i class="fa fa-close"></i></button>
 			<h2 style="margin:2px;text-align:center;padding:0;font-family:Lato,sans-serif;font-size:32px;">Settings</h2>
 			<div class="flex settings" style="opacity:1;">
-				<div>
+				<div style="overflow-x:hidden; overflow-y:auto;">
 					<table>
 						<tr>
 							<td>Dark Mode</td>
@@ -296,6 +309,18 @@
 							</label></td>
 						</tr>
 					</table>
+					<table>
+						<tr>
+							<td>Channel Sorting</td>
+							<td>
+								<select for="channel_sort">
+									<option value="">Default Order</option>
+									<option value="featured">Featured First</option>
+									<option value="newest">Newest First</option>
+								</select>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -329,16 +354,20 @@
 			document.documentElement.style.setProperty("--col-popup-rect", (!d) ? "rgba(255,255,255,0.75)" : "rgba(60,60,60,0.75)");
 		}
 		
-		Object.keys(prefs).forEach((k)=>{if(prefs[k])document.querySelector("input[for="+k+"]").setAttribute("checked","")});
+		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
 		if (location.hash == "#options") openOptions();
-		document.querySelector(".settings table").onclick = function(e) {
-			if (e.target.type == "checkbox") {
-				document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
-				console.log(prefs);
-				if (e.target.getAttribute("for") == "dark_mode") theme();
+		document.querySelectorAll(".settings table").forEach((t)=>{
+			t.onclick = function(e) {
+				if (e.target.getAttribute("for")) {
+					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
+					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
+					console.log(prefs);
+					console.log(e.target);
+					if (e.target.getAttribute("for") == "dark_mode") theme();
+				}
+				localStorage.setItem("preferences", JSON.stringify(prefs));
 			}
-			localStorage.setItem("preferences", JSON.stringify(prefs));
-		}
+		});
 		theme();
 	</script>
 </html>
