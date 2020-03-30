@@ -218,15 +218,14 @@
 				color: var(--col-body-text);
 				transition: color 0.5s;
 			}
-			
 			.settings td:nth-child(2) {
 				display: flex;
 				align-items: center;
 				height: 32px;
 			}
-			
 			.settings select {
-				padding: 4px;
+				padding: 2px;
+				font-size: 16px;
 			}
 			.settings *::-webkit-scrollbar {
 				display:none;
@@ -355,9 +354,10 @@
 		}
 		
 		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
+		
 		if (location.hash == "#options") openOptions();
 		document.querySelectorAll(".settings table").forEach((t)=>{
-			t.onclick = function(e) {
+			t.oninput = function(e) {
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
@@ -368,6 +368,7 @@
 				localStorage.setItem("preferences", JSON.stringify(prefs));
 			}
 		});
+		
 		theme();
 	</script>
 </html>
