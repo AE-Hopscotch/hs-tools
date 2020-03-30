@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.3 r1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.3 r2"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -498,7 +498,7 @@ function xProjectAction(p,e) {
 									"  🔀 " + p.project_remixes_count + "  📰 " + p.published_remixes_count +
 									"\nAbout 1 like per " + Math.round((p.play_count||1)/p.number_of_stars||0) + " plays (" + (Math.round(p.number_of_stars/p.play_count*10000)/100||0) + "%)" +
 									"\n" + (Math.round(p.published_remixes_count/(p.published_remixes_count+p.project_remixes_count)*10000)/100||0) + "% of remixes are published" +
-									"\nPublish Time: " + p.correct_published_at.replace("T", " at ").replace("Z", " GMT") +
+									"\nPublish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT") +
 									"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
 									"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
 									"\n" + p.rules.length + " rules, " + p.abilities.length + " abilities " +
