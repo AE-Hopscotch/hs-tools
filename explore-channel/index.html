@@ -85,7 +85,8 @@
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Halloween')" style="display:none;">Halloween</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Christmas')" style="display:none;">Christmas</button></span>
-			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('St. Patrick’s Day')">St. Patrick’s Day</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('St. Patrick’s Day')" style="display:none;">St. Patrick’s Day</button></span>
+			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Easter')">Easter</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Action')">Action</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Animation')">Animation</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Art')">Art</button></span>
@@ -142,6 +143,7 @@
 				"Halloween": "categories/hhc19/featured",
 				"Christmas": "categories/christmas/featured",
 				"St. Patrick’s Day": "categories/green/featured",
+				"Easter": "categories/easter2020/featured",
 				"Action": "categories/action/newest",
 				"Animation": "categories/animation/newest",
 				"Art": "categories/drawnart/newest",
@@ -155,6 +157,13 @@
 				"Search": "projects/search",
 				"Search_Users": "users/search"
 			}
+			
+			//Replace Names variable if pref different
+			var sort = prefVal("channel_sort");
+			if (sort) Object.keys(names).forEach((k)=>{
+				if (k != "Newest") names[k] = names[k].replace(/featured$|newest$/,sort);
+			});
+			
 			
 			var path = "categories/best_of/featured";
 			function showChannel(channel, addHistoryEntry, customPath) {
