@@ -64,9 +64,12 @@ function getCookie(cname) {
 }
 
 //Manage Preferences
-var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false}');
+var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"channel_sort":""}');
 function getPref(name) {
 	return !!prefs[name];
+}
+function prefVal(name) {
+	return prefs[name]||"";
 }
 
 function setPref(name, bool) {
