@@ -1628,6 +1628,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }, t.prototype.enterFullscreen = function(t, e) {
             D.CollisionManagerDebug.ENABLED || this.enterFullscreenAction(this.root, t, e);
         }, t.prototype.enterFullscreenAction = function(t, e, i) {
+			t = t.parentNode; //AE_MOD Container fullscreen to fix UI touch
             var r = e || window.innerWidth, n = i || window.innerHeight;
             if (this.resizeRoot(r, n), (t = t).requestFullscreen) t.requestFullscreen(); else if (t.mozRequestFullScreen) t.mozRequestFullScreen(); else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen(); else if (t.msRequestFullscreen) t.msRequestFullscreen(); else {
                 this.isMaximized = !0, this.resizeRoot(r, n), this.root.style.position = "absolute", 

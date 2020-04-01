@@ -133,6 +133,7 @@ function isFullscreen() {
 }
 
 function enterFullscreen(a, b, c) {
+	a = a.parentNode; //AE_MOD Container fullscreen to fix UI touch
     var d = b || window.innerWidth, e = c || window.innerHeight;
     if (main.resizeRoot(d, e), a = a, a.requestFullscreen) a.requestFullscreen(); else if (a.mozRequestFullScreen) a.mozRequestFullScreen(); else if (a.webkitRequestFullscreen) a.webkitRequestFullscreen(); else if (a.msRequestFullscreen) a.msRequestFullscreen(); else {
         main.isMaximized = !0, main.resizeRoot(d, e), main.root.style.position = "absolute", 
