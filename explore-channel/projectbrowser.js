@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.3 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.3 r3"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -298,7 +298,7 @@ document.body.addEventListener('keydown', function(e){
 		case 67: //Letter C (Copy all links + clear selection)
 			if (document.querySelectorAll('.xSelected').length > 0) e.preventDefault();
 			if (ctrlPressed) {
-				if (document.querySelectorAll('.xSelected').length > 0) copy(document.querySelectorAll('.xSelected').repeatEach((s)=>{return "https://c.gethopscotch.com/p/"+s.id;}).join("\n"));
+				if (document.querySelectorAll('.xSelected').length > 0) copy(document.querySelectorAll('.xSelected').repeatEach((s)=>{return ((e.shiftKey)?"https://awesome-e.github.io/hs-tools/play-project/?id=":"https://c.gethopscotch.com/p/")+s.id;}).join("\n"));
 			} else {
 				document.querySelectorAll('.xSelected').forEach(function(s){
 					s.classList.remove('xSelected');
