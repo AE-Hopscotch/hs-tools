@@ -142,7 +142,7 @@
 			function extractText(data) {
 				copyButton(false);
 				
-				var emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udd94\udd96-\udfff]|\ud83e[\ud000-\udfff])/g;
+				var emojiRegex = (emojiSetting!=1) ? /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udd94\udd96-\udfff]|\ud83e[\ud000-\udfff])/g : /$.^/g;
 				
 				function AddContent(){
 					content += subcontent;
@@ -150,6 +150,7 @@
 				}
 				
 				function removeExtraText(text) {
+					 if (emojiSetting == 2) return (text.match(emojiRegex)||[""]).join("\n");
 					 text = text.split("\n").sort().repeatEach((t)=>{return t.replace(/^.$/,'').replace(emojiRegex,''); /*Remove emojis and one-character lines*/}).join("\n");
 					 return text.replace(/-?[0-9.]+/g," ") 	//Remove Numbers
 								.replace(/\uFE0F/g," ") 	//Change to Spaces
@@ -249,8 +250,8 @@
 					var matches = match.replace(/\\n/g, "|\\n").replace(/(?:^|[^\\\n])\\(?:\\{2})*(?![0-4]\b)n/g, "\n").split("\n");
 					
 					values = [];
-					//Remove Sound Parameters
 					
+					//Remove Sound Parameters
 					matches.forEach((m)=>{
 						if (m == undefined || m  == "") return;
 						values.push(m.replace(/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/g, ""));
@@ -411,6 +412,8 @@
 			//Log Site Update Time and Device
 			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
+			
+			var emojiSetting = 0; //0 = Normal, 1 = Keep Emoji, 2 = Emoji Only
 			
 			//Copy Button Placement if on iOS
 			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
