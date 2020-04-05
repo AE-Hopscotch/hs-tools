@@ -61,7 +61,7 @@
 			<div hidden class="container" id="download">
 				<i class="fa fa-close" onclick="popup.close()"></i>
 				<span class="label" style="width:350px;text-align:center;margin:0 auto 8px;">Your download will begin shortly</span>
-				<span style="display:block;margin:auto;text-align:center;">You will be redirected to the &ldquo;Import HS Project&rdquo; shortcut. In the case that you do not have the shortcut yet, download it <a href="https://www.icloud.com/shortcuts/96b5b223c62143568492ebb452f6beb9">here</a>.<br/><br/>
+				<span style="display:block;margin:auto;text-align:center;max-width:365px;">You will be redirected to the &ldquo;Import HS Project&rdquo; shortcut. In the case that you do not have the shortcut yet, download it <a href="https://www.icloud.com/shortcuts/96b5b223c62143568492ebb452f6beb9">here</a>.<br/><br/>
 				<span>If you are saving a draft, choose &ldquo;This is my draft,&rdquo; and save it to the location below:</span>
 				<img src="../images/save-location.jpg" width="250" style="border-radius:8px;display:block;margin:8px auto;">
 				<span>If you are importing the project, choose &ldquo;I downloaded another project.&rdquo;</span>
@@ -264,7 +264,7 @@
 				hsProject = JSON.parse(localStorage.getItem("hsProject"));
 				updateFields();
 				localStorage.removeItem("hsProject");
-				replaceLocation("");
+				replaceLocation("?reload=0");
 				popup.download();
 			}
 			
