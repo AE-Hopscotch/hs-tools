@@ -287,7 +287,7 @@ var XHR = {
 		var x = new XMLHttpRequest();
 		x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'') + options.url);
 		x.onload = x.onerror = function() {
-			printResult(x.responseText||'');
+			printResult(x.responseText||'', x.status);
 		};
 		if (/^POST/i.test(options.method)) {
 			x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
