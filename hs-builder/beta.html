@@ -268,7 +268,7 @@
 					if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 						location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';
 						localStorage.setItem("hsProject",JSON.stringify(hsProject));
-						location.href = "?reload=1";
+						setTimeout(function(){location.href = "?reload=1";},100);
 					} else {
 						location.href = JSON.parse(xhr.responseText).link;
 					}
