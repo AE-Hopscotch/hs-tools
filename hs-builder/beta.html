@@ -177,9 +177,9 @@
 					readFileContent(file).then(content => {
 						try {
 							hsProject = JSON.parse(content);
+							if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
 							hsProject.filename = input.value.replace(/^.*(\/|\\)/,"");
 							updateFields(); popup.close();
-							if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
 							document.getElementById('hs-project-file').value = "";
 						} catch (SyntaxError) { console.log('Invalid File'); document.getElementById("file-label").innerHTML = "Invalid File"; }
 					}).catch(error => console.log(error))
