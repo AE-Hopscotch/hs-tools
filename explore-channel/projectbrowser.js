@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.4.3 r3"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.4.4 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 //Badges
@@ -274,7 +274,7 @@ document.body.addEventListener('keydown', function(e){
 			if (event.key == "+") {
 				xray('toggle-status');
 			} else {
-				if (xRay) xray('click-action', true); alert(e.keyCode)
+				if (xRay) xray('click-action', true);
 			}
 			break;
 		case 189: //Minus Key (Change x-ray view)
