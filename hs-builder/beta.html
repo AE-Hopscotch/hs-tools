@@ -252,7 +252,10 @@
 				formData.append("file", blob, (hsProject.filename||hsProject.uuid+".hopscotch"));
 				xhr.open("POST", "https://file.io/?expires=1d");
 				xhr.onload = xhr.onerror = function(){
-					window.open(JSON.parse(xhr.responseText).link);
+					if (/iPhone|iPad|iPod/.test(navigator.userAgent))
+						location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';
+					else
+						location.href = JSON.parse(xhr.responseText).link;
 					document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Download'
 				}
 				xhr.send(formData);
