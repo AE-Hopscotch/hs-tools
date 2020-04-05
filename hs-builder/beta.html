@@ -58,6 +58,15 @@
 				<button id="hs-project-file-btn" style="margin-top:4px;"><i class="fa fa-upload"></i> Choose File</button>
 				<span id="file-label">No file chosen</span>
 			</div>
+			<div hidden class="container" id="download">
+				<i class="fa fa-close" onclick="popup.close()"></i>
+				<span class="label" style="width:350px;text-align:center;margin:0 auto 8px;">Your download will begin shortly</span>
+				<span style="display:block;margin:auto;text-align:center;">You will be redirected to the &ldquo;Import HS Project&rdquo; shortcut. In the case that you do not have the shortcut yet, download it <a href="https://www.icloud.com/shortcuts/96b5b223c62143568492ebb452f6beb9">here</a>.<br/><br/>
+				<span>If you are saving a draft, choose &ldquo;This is my draft,&rdquo; and save it to the location below:</span>
+				<img src="../images/save-location.jpg" width="250" style="border-radius:8px;display:block;margin:8px auto;">
+				<span>If you are importing the project, choose &ldquo;I downloaded another project.&rdquo;</span>
+				</span>
+			</div>
 		</div>
 		<div style="position:relative; top:72px;">
 			<table id="traits-table">
@@ -192,6 +201,10 @@
 				importProject: function() {
 					document.querySelector("#import").removeAttribute("hidden","");
 					document.querySelector(".popup").removeAttribute("hidden","");
+				},
+				download: function() {
+					document.querySelector("#download").removeAttribute("hidden","");
+					document.querySelector(".popup").removeAttribute("hidden","");
 				}
 			}
 			document.body.onkeydown = function(e) {
@@ -252,12 +265,14 @@
 				updateFields();
 				localStorage.removeItem("hsProject");
 				replaceLocation("");
+				popup.download();
 			}
 			
 			//Download Project
 			function downloadProject() {
 				if (!hsProject.uuid&&!hsProject.filename) return alert("There is no file to download");
 				document.getElementById("download-btn").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Downloading...';
+				if (/iPhone|iPad|iPod/.test(navigator.userAgent)) popup.download();
 				var xhr = new XMLHttpRequest();
 				var formData = new FormData();
 				var jsonse = JSON.stringify(hsProject);
