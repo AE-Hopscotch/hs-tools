@@ -1,0 +1,173 @@
+:root {
+	--col-bg-main: white;
+	--col-card-bg: #f8f8f8;
+	--col-card-tab: #eee;
+	--col-text: black;
+	--col-border1: #ddd;
+	--time-trans: 0s;
+}
+
+html, body {
+	margin: 0;
+	box-sizing: border-box;
+	background-color: var(--col-bg-main);
+}
+button {
+	cursor: pointer;
+	background: rgba(255,255,255,0.95);
+	border: none;
+	outline: none;
+}
+button:active {
+	opacity: 0.8;
+}
+sq {
+	display: block;
+	transition: 0.5s;
+	position: fixed;
+	bottom: 0px; right: 0px;
+	z-index: 100;
+	background-color: rgba(0,0,0,0.5);
+	padding:8px;
+	border-radius: 8px;
+	bottom: 4px; right: 4px;
+}
+#themebtn, .btn {
+	position: fixed;
+	right: 8px;
+	top: 12px;
+	font-size: 24px;
+	cursor: pointer;
+	background-color: rgba(255,255,255,0.95);
+	color: black;
+	padding: 4px 8px;
+	border: none;
+	width:56px;
+	height:48px;
+	z-index: 25;
+}
+
+.top-banner {
+	height: 72px;
+	width: 100%;
+	padding: 8px;	
+	position: fixed;
+	background: linear-gradient(rgba(11, 91, 81, 0.9), rgba(15, 118, 106, 0.9));
+	display: flex;
+	align-items: center;
+}
+.top-banner img {
+	margin: 4px;
+}
+.top-banner h1 {
+	display: inline-block;
+	margin: 0;
+	height: 72px;
+	position: relative;
+	top: 0;
+	padding: 12px 4px 20px;
+	font-family: Francois One;
+	color: white;
+}
+.top-banner button {
+	display: inline-block;
+	position: relative;
+	padding: 8px 10px;
+	margin: 8px;
+	font-size: 20px;
+}
+@media screen and (max-width: 750px) {
+	.top-banner h1 {
+		display: none;
+	}
+}
+.popup {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgb(0,0,0,0.8);
+	z-index: 100;
+}
+.container {
+	position: fixed;
+	background: rgba(32, 90, 82, 0.75);
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 8px;
+	color: white;
+	font-family: sans-serif;
+}
+.container .fa-close {
+	color: white;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	cursor: pointer;
+	font-size: 18px;
+	z-index: 2;
+}
+.container input {
+	padding: 6px;
+	font-size: 18px;
+	width: 384px;
+	margin: 4px 0;
+	border: none;
+	outline: none;
+}
+.container span.label {
+	font-family: Lilita One;
+	font-weight: 200;
+	font-size: 20px;
+	display: block;
+}
+.container button {
+	padding: 4px 6px;
+	font-size: 14px;
+}
+.container span {
+	font-size: 18px;
+	position: relative;
+	top: 1px;
+}
+#traits-table {
+	width: 100%;
+	color: var(--col-text);
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+#traits-table tr td {
+	width: 33%;
+	height: 150px;
+	padding: 8px;
+	border: 2px solid gray;
+	vertical-align: top;
+	position: relative;
+}
+#traits-table h3 {
+	margin: 0 0 8px;
+	text-align: center;
+}
+#traits-table span {
+	font-family: Georgia;
+	font-size: 16px;
+}
+
+#traits-table table {
+	width:100%;
+}
+#traits-table table td {
+	height: auto;
+	border: none;
+	vertical-align: middle;
+	text-align: center;
+	max-width: 100%;
+}
+#traits-table table td input, #traits-table table td select {
+	padding: 6px;
+	font-size: 16px;
+	background-color: var(--col-card-bg);
+	color: var(--col-text);
+	width: var(--input-width);
+	text-align: center;
+	border: 1px solid gray;
+}
