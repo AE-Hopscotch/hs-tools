@@ -56,6 +56,7 @@ sq {
 	background: linear-gradient(rgba(11, 91, 81, 0.9), rgba(15, 118, 106, 0.9));
 	display: flex;
 	align-items: center;
+	z-index: 20;
 }
 .top-banner img {
 	margin: 4px;
@@ -97,6 +98,8 @@ sq {
 	padding: 8px;
 	color: white;
 	font-family: sans-serif;
+	max-width: calc(100% - 16px);
+	max-height: calc(100% - 16px);
 }
 .container .fa-close {
 	color: white;
