@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HS Project Builder</title>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../style.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		
+		<meta name="description" content=""/>
+		<meta name="keywords" content="build, mod, text, project, hopscotch"/>
+		<meta property="og:title" content="">
+		<meta property="og:description" content="">
+		<meta property="og:image" content="/hs-tools/images/SOMETHING GOES HERE.png">
+	</head>
+	<body>
+		
+		<pre contenteditable>
+		{
+			"test": [
+				"a", {"a{}":1,"b":"[]{}"},
+				{"c":"test \"test\"[]{}"}
+			]
+		}
+		</pre>
+
+		<input id="project-search-input" type="text"/><button onclick="findText()">Find</button>
+		
+		<table>
+			<tr>
+				<td>
+					<br/><input type="checkbox" id="opt_ww"/><label for="opt_ww">Whole word only</label>
+					<br/><input type="checkbox" id="opt_cs"/><label for="opt_cs">Case Sensitive</label>
+					<br/><input type="checkbox" id="opt_nl"/><label for="opt_nl">\n matches new line</label>
+					<br/><input type="checkbox" id="opt_ev"/><label for="opt_ev">Match entire value only</label>
+					<br/><input type="checkbox" id="opt_dc"/><label for="opt_dc">Match deleted code</label>
+					<br/><input type="checkbox" id="opt_rg"/><label for="opt_rg">Regular expression</label>
+				</td>
+				<td>
+					<br/><input type="checkbox" id="ft_ab" checked /><label for="ft_ab">Match ability names</label>
+					<br/><input type="checkbox" id="ft_pv" checked /><label for="ft_pv">Match parameter values</label>
+					<br/><input type="checkbox" id="ft_cr" checked /><label for="ft_cr">Match custom rule names</label>
+					<br/><input type="checkbox" id="ft_ob" checked /><label for="ft_ob">Match objects</label>
+					<br/><input type="checkbox" id="ft_sc" checked /><label for="ft_sc">Match scene names</label>
+					<br/><input type="checkbox" id="ft_vr" checked /><label for="ft_vr">Match variable names</label>
+				</td>
+			</tr>
+		</table>
+
+		<script src="../main.js"></script>
+		<script>
+			document.querySelectorAll("input[type=checkbox][id*=opt_]").forEach((elm)=>{
+				elm.oninput = function(e){
+					if (e.target.id == "opt_rg") {
+						var c = e.target.checked;
+						(["opt_ev","opt_ww","opt_nl"]).forEach((o)=>{
+							document.getElementById(o).checked = (c && o=="opt_nl");
+							(c) ? document.getElementById(o).setAttribute("disabled","") : document.getElementById(o).removeAttribute("disabled");
+						});
+					}
+				};
+			});
+			
+			function formatProject(p) {
+				//Assign each block its own ID
+				p.abilities.forEach((a)=>{
+					for (i = 0; i < a.blocks.length; i++) {
+						b = a.blocks[i];
+						b.web_id = a.abilityID + "_b" + i;
+					}
+				});
+				//Assign each scene its own ID
+				for (i = 0; i < p.scenes.length; i++) {
+					p.scenes[i].web_id = "s" + i;
+				}
+				return p;
+			}
+			
+			function unformatProject(p) {
+				//Remove IDs of Individual Blocks and Scenes
+				p = JSON.stringify(p).replace(/,"web_id":"[0-9A-F_\-]*?",/gi,",").replace(/,?"web_id":"[0-9A-F_\-]*?",?/gi,"");
+				try {return JSON.parse(p);} catch(E){console.log(E, p);}
+			}
+			
+			function findText() {
+				var searchText = document.getElementById("project-search-input").value;
+				textItems = [];
+				
+				(p.abilities||[]).forEach((a)=>{
+					if (a.name && optVal("ft_ab")) textItems.push({"type":"ability","value":a.name,"id":a.abilityID});
+					for (i = 0; i < a.blocks.length; i++) {
+						b = a.blocks[i];
+						if (optVal("ft_pv")) (JSON.stringify(b).match(/"value":".*?(?<!\\)(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse('{"type":"block",' + m + ',"id":"' + b.web_id + '"}'));});
+					}
+				});
+				if (optVal("ft_cr")) (p.customRules||[]).forEach((c)=>{
+					textItems.push({"type":"customRule","value":c.name,"id":c.id});
+				});
+				if (optVal("ft_ob")) (p.objects||[]).forEach((o)=>{
+					textItems.push({"type":"object_name","value":o.name,"id":o.objectID});
+					textItems.push({"type":"object_text","value":o.text,"id":o.objectID});
+				});
+				if (optVal("ft_sc")) (p.scenes||[]).forEach((s)=>{
+					textItems.push({"type":"scene","value":s.name,"id":s.web_id});
+				});
+				if (optVal("ft_vr")) (p.variables||[]).forEach((v)=>{
+					textItems.push({"type":"var","value":v.name,"id":v.objectIdString});
+				});
+				
+				console.log(textItems);
+				
+				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : escapeRegExp(searchText), (optVal("opt_cs")?"":"i"));
+				console.log(searchRegex);
+				textItems.forEach((t)=>{
+					if (t.value.match(searchRegex)) console.log(t);
+				});
+			}
+			
+			function optVal(id){
+				return (document.getElementById(id)||{"checked":false}).checked;
+			}
+			
+			var p;
+
+			r = new XMLHttpRequest();
+			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/test");
+			r.onerror = r.onload = function(){
+				p = JSON.parse(r.responseText);
+				console.log("%cReady","color:lime");
+				console.log(formatProject(p));
+			}
+			r.send();
+
+			function escapeRegExp(string) {
+			  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+			}		
+		</script>
+		
+	</body>
+</html>
+
+
