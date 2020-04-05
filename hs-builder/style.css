@@ -34,17 +34,17 @@ sq {
 	bottom: 4px; right: 4px;
 }
 #themebtn, .btn {
-	position: fixed;
+	position: absolute;
 	right: 8px;
-	top: 12px;
 	font-size: 24px;
 	cursor: pointer;
 	background-color: rgba(255,255,255,0.95);
 	color: black;
+	margin: 0;
 	padding: 4px 8px;
 	border: none;
-	width:56px;
-	height:48px;
+	width: 56px;
+	height: 39px;
 	z-index: 25;
 }
 
@@ -78,8 +78,13 @@ sq {
 	margin: 8px;
 	font-size: 20px;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 860px) {
 	.top-banner h1 {
+		display: none;
+	}
+}
+@media screen and (max-width: 525px) {
+	.top-banner button span {
 		display: none;
 	}
 }
@@ -114,6 +119,7 @@ sq {
 	padding: 6px;
 	font-size: 18px;
 	width: 384px;
+	max-width: 100%;
 	margin: 4px 0;
 	border: none;
 	outline: none;
