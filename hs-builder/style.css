@@ -11,6 +11,7 @@ html, body {
 	margin: 0;
 	box-sizing: border-box;
 	background-color: var(--col-bg-main);
+	transition: var(--time-trans);
 }
 button {
 	cursor: pointer;
@@ -134,6 +135,7 @@ sq {
 	color: var(--col-text);
     border-spacing: 10px;
     border-collapse: separate;
+	transition: color var(--time-trans);
 }
 #traits-table tr td {
 	width: 33%;
@@ -150,6 +152,8 @@ sq {
 #traits-table span {
 	font-family: Georgia;
 	font-size: 16px;
+	color: var(--col-text);
+	transition: color var(--time-trans);
 }
 
 #traits-table table {
@@ -161,6 +165,7 @@ sq {
 	vertical-align: middle;
 	text-align: center;
 	max-width: 100%;
+	transition: var(--time-trans);
 }
 #traits-table table td input, #traits-table table td select {
 	padding: 6px;
@@ -170,4 +175,5 @@ sq {
 	width: var(--input-width);
 	text-align: center;
 	border: 1px solid gray;
+	transition: var(--time-trans);
 }
