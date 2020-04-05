@@ -150,6 +150,7 @@
 						indicator.innerHTML = (s == 500) ? "This project does not exist" : "Server Error";
 					} else {
 						hsProject = JSON.parse(r);
+						if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
 						indicator.setAttribute("hidden","");
 						updateFields();
 						popup.close();
