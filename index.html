@@ -162,7 +162,7 @@
 				transform: translate(-50%, -50%);
 				width: 500px;
 				max-width: calc(100% - 32px);
-				height: 384px;
+				max-height: calc(100% - 32px);
 				max-height: calc(100% - 32px);
 				background-color: var(--col-popup-grad);
 				color: var(--col-body-text);
@@ -175,7 +175,6 @@
 			@media only screen and (max-width: 400px) {
 				#settings-panel {
 					width: calc(100% - 32px);
-					height: calc(100% - 32px);
 				}
 			}
 			
@@ -305,9 +304,16 @@
 							</label></td>
 						</tr>
 						<tr>
-							<td>Improved Sounds</td>
+							<td>Original Sounds</td>
 							<td><label class="switch">
-								<input type="checkbox" for="custom_sounds">
+								<input type="checkbox" for="old_sounds">
+								<span class="slider round"></span>
+							</label></td>
+						</tr>
+						<tr>
+							<td>Different Avatars</td>
+							<td><label class="switch">
+								<input type="checkbox" for="new_avatars">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
