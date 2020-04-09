@@ -299,7 +299,7 @@
 				}
 			}, 100);
 			function showDefaultChannel() {
-				if (names[channel]) {
+				if (names[channel] && !/^Search(_Users)?$/.test(channel)) {
 					showChannel(channel, false);
 				} else {
 					if (!search_open) previousChannel = channel;
