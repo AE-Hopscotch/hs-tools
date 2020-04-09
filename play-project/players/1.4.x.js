@@ -338,7 +338,14 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }, t.prototype.allSoundNames = function() {
             for (var t = this.findAllForClassName(s.HSParameter.key), e = [], i = 0; i < t.length; i++) {
                 var r = t[i];
-                r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value) && e.push(r.value);
+				//AE_MOD Load multiple sounds
+				if (r.type === HSParameterType.Sound && -1 === e.indexOf(r.value)) {
+					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
+					e.push(((isCustom) ? "custom/":"") + r.value);
+					if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
+						e.push("new/" + r.value, "guitar/" + r.value);
+					}
+				}
             }
             return e;
         }, t.prototype.hasAccelerometerEvent = function() {
@@ -2778,7 +2785,14 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             switch (t.type) {
               case a.HSBlockType.PlaySoundSeconds:
               case a.HSBlockType.PlaySound:
+				function notePath (val) {
+					//AE_MOD find path of note
+					isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
+					k = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
+					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : k;
+				}
                 var r = o.HSSoundManager.sharedInstance, s = i[0].computedStringValue(e);
+				var s = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);
                 r.play(s);
                 break;
 
@@ -4572,8 +4586,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
                 return t.stop();
             }), this.sources.clear();
         }, t.prototype.url = function() {
-			var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(this.name));
-			return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" + ((isCustom)?"custom/":(AE_MOD.custom_sound_path||"")) /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+			return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
 		}, t.soundCache = new Map(), t;
     }();
     e.HSSound = n, window.HSSound = n;
