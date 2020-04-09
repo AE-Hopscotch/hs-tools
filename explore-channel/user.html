@@ -268,7 +268,7 @@
 					document.title = userReal.nickname;
 					document.querySelector(".topSticky h1").innerHTML = userReal.nickname.htmlEscape();
 					document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + user.created_at.replace(/\w+ 0000/,"unknown");
-					if (user.remote_avatar_url == undefined) document.querySelector(".topnav img").src = "../images/webavatars/" + ((userReal.avatar_type == null) ? 0 : userReal.avatar_type) + ".png";
+					if (user.remote_avatar_url == undefined) document.querySelector(".topnav img").src = "../images/webavatars/" + avPath + ((userReal.avatar_type == null) ? 0 : userReal.avatar_type) + ".png";
 					
 					var badgeHTML = (badges.users[user.id]||[]).repeatEach((b)=>{
 						return `'<ae badge="${b}" title="${badges.titles[b-1]}"></ae>'`.replace(/^'|'$/g,'');
@@ -302,7 +302,7 @@
 			if (user.nickname) document.querySelector(".topSticky h1").innerHTML = user.nickname.htmlEscape();
 			//document.title = user.nickname;
 			document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + user.created_at.replace("undefined 0000","unknown");
-			if (user.avatar_type||user.remote_avatar_url) document.querySelector(".topnav img").src = (user.remote_avatar_url == undefined) ? ("../images/webavatars/" + user.avatar_type + ".png") : user.remote_avatar_url;
+			if (user.avatar_type||user.remote_avatar_url) document.querySelector(".topnav img").src = (user.remote_avatar_url == undefined) ? ("../images/webavatars/" + avPath + user.avatar_type + ".png") : user.remote_avatar_url;
 			if (document.referrer != "") {
 				console.log("Referrer: " + document.referrer);
 			}
