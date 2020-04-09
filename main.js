@@ -64,7 +64,7 @@ function getCookie(cname) {
 }
 
 //Manage Preferences
-var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"channel_sort":""}');
+var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":""}');
 function getPref(name) {
 	return !!prefs[name];
 }
