@@ -2787,8 +2787,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
               case a.HSBlockType.PlaySound:
 				function notePath (val) {
 					//AE_MOD find path of note
-					isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-					k = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
+					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
+					var k = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
 					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : k;
 				}
                 var r = o.HSSoundManager.sharedInstance, s = i[0].computedStringValue(e);
