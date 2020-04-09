@@ -9391,7 +9391,14 @@ var HSProjectContext = function() {
     }, a.prototype.allSoundNames = function() {
         for (var a = this.findAllForClassName(HSParameter.key), b = [], c = 0; c < a.length; c++) {
             var d = a[c];
-            d.type === HSParameterType.Sound && -1 === b.indexOf(d.value) && b.push(d.value);
+			//AE_MOD Load multiple sounds
+			if (d.type === HSParameterType.Sound && -1 === b.indexOf(d.value)) {
+				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(d.value));
+				b.push(((isCustom) ? "custom/":"") + d.value);
+				if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(d.value)) {
+					b.push("new/" + d.value, "guitar/" + d.value);
+				}
+			}
         }
         return b;
     }, a.prototype.hasAccelerometerEvent = function() {
@@ -9611,8 +9618,7 @@ var HSSound = function() {
             return a.stop();
         }), this.sources.clear();
     }, a.prototype.url = function() {
-		var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(this.name));
-        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" + ((isCustom)?"custom/":(AE_MOD.custom_sound_path||"")) /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
     }, a;
 }();
 
@@ -9855,7 +9861,14 @@ var HSExecutable = function() {
         switch (a.type) {
           case HSBlockType.PlaySoundSeconds:
           case HSBlockType.PlaySound:
+			function notePath (val) {
+				//AE_MOD find path of note
+				isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
+				i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : i;
+			}
             var d = HSSoundManager.sharedInstance, e = c[0].computedStringValue(b);
+			var e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);
             d.play(e);
             break;
 
