@@ -367,10 +367,12 @@
 		if (location.hash == "#options") openOptions();
 		
 		document.querySelectorAll(".settings table").forEach((t)=>{
+			console.log(t.querySelector("input").getAttribute("for"));
 			t.addEventListener("input", function(e) {
+				alert("test");
 				if (e.target.getAttribute("for")) {
-					document.querySelectorAll(".settings input[type=checkbox]").forEach((elm)=>{prefs[elm.getAttribute("for")] = !!elm.checked});
-					document.querySelectorAll(".settings select").forEach((elm)=>{prefs[elm.getAttribute("for")] = elm.value});
+					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
+					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
 					console.log(prefs);
 					console.log(e.target);
 					if (e.target.getAttribute("for") == "dark_mode") theme();
