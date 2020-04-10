@@ -366,11 +366,11 @@
 		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
 		if (location.hash == "#options") openOptions();
 		
-		document.querySelectorAll(".settings table select, .settings table input").forEach((t)=>{
+		document.querySelectorAll(".settings table").forEach((t)=>{
 			t.addEventListener("input", function(e) {
 				if (e.target.getAttribute("for")) {
-					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
-					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
+					document.querySelectorAll(".settings input[type=checkbox]").forEach((elm)=>{prefs[elm.getAttribute("for")] = !!elm.checked});
+					document.querySelectorAll(".settings select").forEach((elm)=>{prefs[elm.getAttribute("for")] = elm.value});
 					console.log(prefs);
 					console.log(e.target);
 					if (e.target.getAttribute("for") == "dark_mode") theme();
