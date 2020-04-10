@@ -278,42 +278,42 @@
 						<tr>
 							<td>Dark Mode</td>
 							<td><label class="switch">
-								<input type="checkbox" for="dark_mode">
+								<input type="checkbox" id="dark_mode">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
 						<tr>
 							<td>Enable X-Ray by Default</td>
 							<td><label class="switch">
-								<input type="checkbox" for="x-ray_default">
+								<input type="checkbox" id="x-ray_default">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
 						<tr>
 							<td>Disable Rick Rolls</td>
 							<td><label class="switch">
-								<input type="checkbox" for="no_rick">
+								<input type="checkbox" id="no_rick">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
 						<tr>
 							<td>Replace Fullscreen Button</td>
 							<td><label class="switch">
-								<input type="checkbox" for="replace_fullscreen">
+								<input type="checkbox" id="replace_fullscreen">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
 						<tr>
 							<td>Original Sounds</td>
 							<td><label class="switch">
-								<input type="checkbox" for="old_sounds">
+								<input type="checkbox" id="old_sounds">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
 						<tr>
 							<td>Different Avatars</td>
 							<td><label class="switch">
-								<input type="checkbox" for="new_avatars">
+								<input type="checkbox" id="new_avatars">
 								<span class="slider round"></span>
 							</label></td>
 						</tr>
@@ -322,7 +322,7 @@
 						<tr>
 							<td>Channel Sorting</td>
 							<td>
-								<select for="channel_sort">
+								<select id="channel_sort">
 									<option value="">Default Order</option>
 									<option value="featured">Featured First</option>
 									<option value="newest">Newest First</option>
@@ -363,19 +363,19 @@
 			document.documentElement.style.setProperty("--col-popup-rect", (!d) ? "rgba(255,255,255,0.75)" : "rgba(60,60,60,0.75)");
 		}
 		
-		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
+		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[id="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[id="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
 		if (location.hash == "#options") openOptions();
 		
 		try {
 		document.querySelectorAll(".settings table").forEach((t)=>{
-			console.log(t.querySelector("input,select").getAttribute("for"));
+			console.log(t.querySelector("input,select").getAttribute("id"));
 			try {t.addEventListener("input", function(e) {
-				if (e.target.getAttribute("for")) {
-					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
-					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
+				if (e.target.getAttribute("id")) {
+					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("id")] = !!e.checked});
+					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("id")] = e.value});
 					console.log(prefs);
 					console.log(e.target);
-					if (e.target.getAttribute("for") == "dark_mode") theme();
+					if (e.target.getAttribute("id") == "dark_mode") theme();
 				}
 				localStorage.setItem("preferences", JSON.stringify(prefs));
 			});}catch(E){console.log(E)}
