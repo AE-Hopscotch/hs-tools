@@ -163,7 +163,6 @@
 				width: 500px;
 				max-width: calc(100% - 32px);
 				max-height: calc(100% - 32px);
-				max-height: calc(100% - 32px);
 				background-color: var(--col-popup-grad);
 				color: var(--col-body-text);
 				transition: background-color 0.5s, opacity 0.5s, color 0.5s;
@@ -175,6 +174,7 @@
 			@media only screen and (max-width: 400px) {
 				#settings-panel {
 					width: calc(100% - 32px);
+					height: 100%;
 				}
 			}
 			
@@ -194,7 +194,7 @@
 				flex-direction: column;
 				justify-content: flex-start;
 				position: relative;
-				height: calc(100% - 64px);
+				height: calc(100% - 32px);
 			}
 			.settings div {
 				width: 100%;
