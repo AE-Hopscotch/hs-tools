@@ -377,7 +377,7 @@
 				}
 				localStorage.setItem("preferences", JSON.stringify(prefs));
 			}
-			t.addEventListener("click", update);
+			if (/iPad|iPhone|iPod/.test(navigator.userAgent)) t.addEventListener("click", update);
 			t.addEventListener("input", update);
 		});
 		
