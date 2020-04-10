@@ -367,8 +367,8 @@
 		
 		if (location.hash == "#options") openOptions();
 		document.querySelectorAll(".settings table").forEach((t)=>{
+				console.log(prefs, t);
 			t.oninput = function(e) {
-				console.log(prefs, e.target.getAttribute("for"));
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
