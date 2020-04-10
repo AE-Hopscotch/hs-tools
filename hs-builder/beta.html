@@ -280,12 +280,14 @@
 				var formData = new FormData();
 				var jsonse = JSON.stringify(hsProject);
 				var blob = new Blob([jsonse], {type: "application/json"});
+				console.log(blob, jsonse);
 				formData.append("file", blob, (hsProject.filename||hsProject.uuid+".hopscotch"));
 				xhr.open("POST", "https://file.io/?expires=1d");
 				xhr.onload = xhr.onerror = function(){
 					if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-						location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';
 						localStorage.setItem("hsProject",JSON.stringify(hsProject));
+						setCookie("lastPage","https://awesome-e.github.io/hs-tools/hs-builder/beta?reload=1");
+						location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';
 						setTimeout(function(){location.href = "?reload=1";},100);
 					} else {
 						location.href = JSON.parse(xhr.responseText).link;
