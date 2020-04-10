@@ -118,6 +118,11 @@
 				font-family: Lato;
 				font-size: 18px;
 				transition: opacity 0.5s;
+				height: 42px;
+			}
+			
+			.header bl:not(.fa):not([type=dotted]) {
+				padding: 10px;
 			}
 			
 			.header a bl:hover {
@@ -134,7 +139,6 @@
 		<br><p style="color:white; margin-top: 30px; font-size: 0px;">---</p>
 
 		<span id="info">
-			
 			<span hidden class="info header" id="info0"><br/>
 				<div style="display: block; opacity: 0; transition: opacity 0.5s ease-in-out;">
 					<h1>Awesome_E&rsquo;s Guide to</h1>
@@ -158,6 +162,12 @@
 							<a href="?id=61"><bl class="fa" type="ctrl">Wait Seconds</bl></a>
 							<a href="?id=58"><bl class="fa" type="looks">Set Z Index</bl></a>
 							<a href="?id=55"><bl class="fa" type="ctrl">Destroy</bl></a>
+						</div>
+						<div class="flex-container">
+							<h2>Reference Pages</h2>
+							<a href="device-id-reference"><bl type="hs-tools">Device ID</bl></a>
+							<a><bl type="dotted" title="Coming soon">Full Reference</bl></a>
+							<a><bl type="dotted" title="No such reference page exists yet">Nothing here...</bl></a>
 						</div>
 					</span>
 				</div>
@@ -434,7 +444,7 @@
 					//Block Handlebars
 					bl.innerHTML += " &ic; <i class='fa fa-bars' style='color: black; opacity: 0.4;'></i>";
 				});
-				document.querySelectorAll(".info.header bl:not([type=dotted])").forEach(function(bl){
+				document.querySelectorAll(".info.header bl.fa:not([type=dotted])").forEach(function(bl){
 					//Block Handlebars
 					bl.innerHTML += "<i class='fa fa-bars' style='position: absolute; right: 8px; margin: 0 2px; color: black; opacity: 0.4;'></i>";
 				});
