@@ -364,11 +364,11 @@
 		}
 		
 		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
-		console.log(JSON.stringify(prefs));
 		if (location.hash == "#options") openOptions();
 		
 		document.querySelectorAll(".settings table").forEach((t)=>{
-			t.oninput = function(e) {
+			t.addEventListener("input", function(e) {
+				console.log("click");
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
@@ -377,7 +377,7 @@
 					if (e.target.getAttribute("for") == "dark_mode") theme();
 				}
 				localStorage.setItem("preferences", JSON.stringify(prefs));
-			}
+			});
 		});
 		
 		theme();
