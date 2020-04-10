@@ -369,7 +369,7 @@
 		try {
 		document.querySelectorAll(".settings table").forEach((t)=>{
 			console.log(t.querySelector("input,select").getAttribute("for"));
-			t.addEventListener("input", function(e) {
+			try {t.addEventListener("input", function(e) {
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
@@ -378,9 +378,9 @@
 					if (e.target.getAttribute("for") == "dark_mode") theme();
 				}
 				localStorage.setItem("preferences", JSON.stringify(prefs));
-			});
+			});}catch(E){console.log(E)}
+			theme();
 		});
 		} catch (E) {console.log(E)}
-		theme();
 	</script>
 </html>
