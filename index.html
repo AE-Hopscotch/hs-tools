@@ -364,7 +364,7 @@
 		}
 		
 		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
-		
+		console.log("iOS console test");
 		if (location.hash == "#options") openOptions();
 		document.querySelectorAll(".settings table").forEach((t)=>{
 				console.log(prefs, t);
