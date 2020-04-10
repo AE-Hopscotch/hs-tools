@@ -366,10 +366,10 @@
 		Object.keys(prefs).forEach((k)=>{e = document.querySelector("input[for="+k+"]"); if(prefs[k]&&e) e.setAttribute("checked",""); else { e = document.querySelector("select[for="+k+"]"); if(prefs[k]&&e) e.value = prefs[k]}});
 		if (location.hash == "#options") openOptions();
 		
+		try {
 		document.querySelectorAll(".settings table").forEach((t)=>{
-			console.log(t.querySelector("input").getAttribute("for"));
+			console.log(t.querySelector("input,select").getAttribute("for"));
 			t.addEventListener("input", function(e) {
-				alert("test");
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
@@ -380,7 +380,7 @@
 				localStorage.setItem("preferences", JSON.stringify(prefs));
 			});
 		});
-		
+		} catch (E) {console.log(E)}
 		theme();
 	</script>
 </html>
