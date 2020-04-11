@@ -95,7 +95,7 @@ a {
 .searchItems oldblocks li a, bl[type=old] {
 	background-color: #647f96;
 }
-.searchItems oldblocks li a, bl[type="hs-tools"] {
+.searchItems hstoolsblocks li a, bl[type="hs-tools"] {
 	background-color: #0d6f62;
 }
 .searchItems dottedblocks li a, bl[type=dotted] {
