@@ -186,3 +186,328 @@ sq {
 	border: 1px solid gray;
 	transition: var(--time-trans);
 }
+
+/* Block Rendering */
+
+.bl-container {
+	background: none;
+	padding: 8px;
+	border: 2px solid red;
+	position: relative;
+	width: 600px;
+}
+.selected > bl {
+	opacity: 1;
+	padding: 0 10px 0 10px;
+	border: 2px solid #11e4c8;
+}
+.invis > bl {
+	opacity: 0.6;
+	padding: 0 10px 0 10px;
+	border: 2px solid #11e4c8;
+	height: 0;
+}
+.collapsible {
+	/* Hide controls scripts if the block is not a control block */
+	display: none;
+}
+.collapsible-container > .collapsible {
+	padding: 0 16px 36px;
+	position: relative;
+	display: block;
+}
+.collapsible:nth-child(3) {
+	padding-top: 16px;
+}
+.collapsible-container {
+	position: relative;
+	--col-frame: #3e83be;
+}
+.collapsible-container.draw {
+	--col-frame: #a6006e;
+}
+.collapsible-container.abl {
+	--col-frame: #a6006e;
+}
+.collapsible-container.abl {
+	--col-frame: #f2f2f2;
+}
+.collapsible-container > bl {
+	width: calc(100% - 108px);
+	padding-right: 80px;
+}
+.collapsible-container:not(.invis)::before {
+	content: " ";
+	pointer-events: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 8px solid var(--col-frame);
+	border-radius: 16px;
+	width: calc(100% - 32px);
+	height: calc(100% - 32px);
+	display: block;
+}
+.collapsible-container:not(.invis) .collapsible:nth-child(3)::before {
+	padding: 0 4px;
+	color: white;
+	content: "Else";
+	font-size: 18px;
+	pointer-events: none;
+	position: absolute;
+	top: -24px;
+	background-color: var(--col-frame);
+	width: calc(100% - 36px);
+	height: 40px;
+	display: flex;
+	align-items: center;
+}
+.invis .collapsible {
+	display: none;
+}
+
+bl c {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+bl c::-webkit-scrollbar {
+	display: none;
+}
+
+bl {
+	display: inline-flex;
+	padding: 2px 12px 2px 12px;
+	border-radius: 10px;
+	font-size: 18px;
+	color: white;
+	align-items: center;
+	height: 42px;
+	position: relative;
+	margin: 8px;
+	overflow-x: hidden;
+	max-width: calc(100% - 40px);
+	background-color: #888;
+	--col-bg-inherited: #888;
+}
+bl b {
+	background-color:inherit;
+	height: 100%;
+	padding: 0px 6px;
+	margin: 0;
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+}
+bl b::before {
+	font-family: FontAwesome;
+	content: "\f040";
+	font-weight: 400;
+	font-size: 22px;
+	background-color: inherit;
+	position: relative;
+	top: -1px;
+}
+bl b.handle::before {
+	content: "\f0c9";
+}
+bl b.openbtn::before {
+	content: "\f054";
+	top: 1px;
+	background-color: rgba(0,0,0,0);
+}
+.collapsible-container > bl b.openbtn::before {
+	content: "\f077";
+	top: -1px;
+}
+bl b.editbtn:hover, *:not(.disabled) > bl b.openbtn:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+bl b.handle {
+	cursor: grab;
+}
+bl b.openbtn {
+	padding: 0 2px;
+	background:none;
+	width: 1.28571429em;
+	text-align: center;
+}
+.disabled b.openbtn {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+bl b.handle:active {
+	cursor: grabbing;
+}
+.collapsible-container > bl b.handle {
+	position: absolute;
+	right: 12px;
+}
+.collapsible-container > bl b.editbtn {
+	position: absolute;
+	right: 44px;
+}
+bl * {
+	margin: 0 4px;
+}
+bl.move {
+	background-color: #d73e1e;
+	--col-bg-inherited: #d73e1e;
+}
+bl.looks {
+	background-color: #63ae1e;
+	--col-bg-inherited: #63ae1e;
+}
+bl.draw {
+	background-color: #a6006e;
+	--col-bg-inherited: #a6006e;
+}
+bl.var {
+	background-color: #e7b601;
+	--col-bg-inherited: #e7b601;
+}
+bl.ctrl {
+	background-color: #3e83be;
+	--col-bg-inherited: #3e83be;
+}
+bl.old {
+	background-color: #647f96;
+	--col-bg-inherited: #647f96;
+}
+bl.abl {
+	background-color: #f2f2f2;
+	--col-bg-inherited: #f2f2f2;
+	color: black;
+	background-image: url(../images/ability-bars.png);
+    background-size: 48px;
+    background-repeat-x: no-repeat;
+}
+
+ps {
+	min-height: 32px;
+	background-color:white;
+	color: black;
+	border: 2px solid white;
+	border-radius: 20px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+ps.fw {
+	min-width: 56px;
+}
+ps span {
+	min-width: 44px;
+    padding: 0 2px;
+    text-align: center;
+    max-width: 192px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+	display: inline-block;
+}
+ps::before, op::before {
+	content: "-";
+	z-index: -1;
+	width: 0;
+	opacity: 0;
+	pointer-events: none;
+	position: relative;
+}
+op {
+	display: inline-flex;
+	color: white;
+	min-width: 32px;
+	border: 0px solid white;
+	height: 36px;
+	border-radius: 20px;
+	align-items: center;
+	margin: 0px 0px;
+	padding: 0 4px;
+}
+op.val {
+	background-color: #f9cc1e;
+}
+op.otr {
+	background-color: #f9ad1e;
+}
+op.rcol {
+	width: 48px;
+	height: 32px;
+	background: linear-gradient(130deg, #ff2764 5%, #1acfff 95%);
+}
+op.fw {
+	width: 48px;
+	overflow-y: hidden;
+	justify-content: center;
+}
+op.fw img {
+	position: relative;
+	top: 0;
+	height: 30px;
+	object-fit: cover;
+}
+op.cm {
+	--ia: 0.2;
+	--ba: 0.2;
+	background-color: var(--col-bg-inherited);
+	background-image: linear-gradient(rgba(0,0,0,var(--ia)), rgba(0,0,0,var(--ia)));
+}
+op.cm op.cm {--ia: calc(--ba + 0.2);}
+op.cm op.cm op.cm {--ia: calc(--ba + 0.4);}
+op.cm op.cm op.cm op.cm {--ia: calc(--ba + 0.6);}
+op.cm op.cm op.cm op.cm op.cm {--ia: calc(--ba + 0.8);}
+op.cm op.cm op.cm op.cm op.cm op.cm {--ia: calc(--ba + 1.0);}
+
+op.math {
+	background-color: #733977;
+	--col-bg-inherited: #733977;
+	--ia: 0;
+	--ba: 0;
+}
+
+/*op.math op.math {
+	background-color: #5c2e5f;
+}
+op.math op.math op.math {
+	background-color: #452247;
+}
+op.math op.math op.math op.math {
+	background-color: #2e1730;
+}
+op.math op.math op.math op.math op.math {
+	background-color: #170b18;
+}
+op.math op.math op.math op.math op.math op.math {
+	background-color: black;
+}*/
+
+.edit-box {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	position: fixed;
+	left: 0; top: 0;
+}
+.edit-box textarea {
+	position: fixed;
+	width: 75%;
+	height: 50%;
+	max-width: calc(100% - 64px);
+	max-height: calc(100% - 64px);
+	top: 50%; left: 50%;
+	transform: translate(-50%,-50%);
+	padding: 8px;
+	font-size: 16px;
+	tab-size: 25px;
+}
+.edit-box .controls {
+	position: fixed;
+	top: 4px; right: 4px;
+}
+.edit-box button {
+	font-size: 16px;
+	padding: 6px 10px;
+	margin: 8px;
+}

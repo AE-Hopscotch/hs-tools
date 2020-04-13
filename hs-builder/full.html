@@ -124,7 +124,7 @@
 				
 				console.log(textItems);
 				
-				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : escapeRegExp(searchText), (optVal("opt_cs")?"":"i"));
+				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":""), (optVal("opt_cs")?"":"i"));
 				console.log(searchRegex);
 				textItems.forEach((t)=>{
 					if (t.value.match(searchRegex)) console.log(t);
@@ -138,7 +138,7 @@
 			var p;
 
 			r = new XMLHttpRequest();
-			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/test");
+			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/test?nocache="+Math.random());
 			r.onerror = r.onload = function(){
 				p = JSON.parse(r.responseText);
 				console.log("%cReady","color:lime");
@@ -146,9 +146,12 @@
 			}
 			r.send();
 
-			function escapeRegExp(string) {
-			  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-			}		
+			function escapeRegExp(str) {
+				return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+			}
+			function addNewLines (str) {
+				return //.replace(/\n/g,"\\n")//str.replace(/((?<!\\)(?:\\\\)*)(\\n)/g,'$1n');
+			}
 		</script>
 		
 	</body>
