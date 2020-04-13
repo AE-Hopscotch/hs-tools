@@ -8,6 +8,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script src="../main.js"></script>
 		<script src="blockrender.js"></script>
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 		
 		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
@@ -85,7 +87,7 @@
 					new Sortable(l, {
 						group: 'blocks',
 						ghostClass: 'invis',
-						fallbackTolerance: 3,
+						fallbackTolerance: 5,
 						animation: 150,
 						handle: '.handle',
 						fallbackOnBody: true,
@@ -112,6 +114,7 @@
 				new Sortable(document.querySelector(".bl-container"), {
 					group: 'blocks',
 					ghostClass: 'invis',
+					fallbackTolerance: 5,
 					animation: 150,
 					handle: '.handle',
 					multiDrag: true,
