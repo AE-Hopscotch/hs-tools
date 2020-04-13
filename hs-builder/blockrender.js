@@ -138,12 +138,13 @@ var blockLabels = {
 	8002: ["<i class=\"fa fa-fw fa-mobile\"></i> Edge"],
 	8003: ["\u2063 \uD83D\uDCF1"],
 	8004: ["<ps><span>Self</span></ps>"],
-	8005: ["<ps><span>\u2063 Original Object \u2603</span></ps>"],
+	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
 	8006: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"]
 }
 
 function jsonToHtml(block, isNested) {
-	isNested = isNested||false;console.log(isNested);
+	isNested = isNested||false;
+	///console.log(isNested);
 	//console.log(block);
 	if (COUNT > 125) {
 		alert("safety limit 125 reached. Please report the URL & ability.");
@@ -159,7 +160,7 @@ function jsonToHtml(block, isNested) {
 		function doParameter(d) {
 			function hsvToRgb(str) {
 				var arr = str.replace(/.*\(|\)/g,"").split(",");
-				var h = Math.max(Number(arr[0])/360,0), s = Math.max(Number(arr[1])/100,0), v = Math.max(Number(arr[2])/100,0);
+				var h = Math.max(Number(arr[0])/360,0), s = Math.max(Number(arr[1])%101/100,0), v = Math.max(Number(arr[2])%101/100,0);
 				var r, g, b;
 				var i = Math.floor(h * 6); var f = h * 6 - i; var p = v * (1 - s); var q = v * (1 - f * s); var t = v * (1 - (1 - f) * s);
 				switch (i % 6) {
@@ -208,7 +209,7 @@ function jsonToHtml(block, isNested) {
 					//console.log(jsonToHtml(b));
 					var blockInfo = jsonToHtml(b,true);
 					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '">' + blockInfo.innerHTML + "</div>";
-					console.log('<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '">' + blockInfo.innerHTML );
+					//console.log('<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '">' + blockInfo.innerHTML );
 				});
 			} else {
 				elmClass = elmClass.replace("collapsible-container","disabled");
