@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BLOCK RENDER</title>
+		<link rel="stylesheet" href="style.css">
+		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+		<script src="../main.js"></script>
+		<script src="blockrender.js"></script>
+		<style>
+			html, body {
+				font-family: Lato;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id="blocks-container" class="bl-container" style="padding-bottom: 36px;">
+			<!--div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+			<div><bl class="draw"><c>Draw a Trail color <ps><op class="rcol"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+			<div><bl class="move"><c>Set Position x <ps></ps> y <ps><op class="cnd cm">
+				 &ic; testing &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+			<div><bl class="ctrl"><c>Wait milliseconds <ps><op class="val"><ps><i class="fa fa-cubes"></i></ps> Horizontal Velocity &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+			<div><bl class="var"><c>Set <ps><op class="otr"><ps>Self</ps> Clone Index &ic;</op></ps> to <ps><op class="math cm"><ps><op class="val">&ic; &#x1F4F1; Variable Name Text &ic;</op></ps> + <ps>2</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+			<div class="collapsible-container"><bl class="ctrl cl"><c>Check Once If <ps><op class="cnd cm"><ps>7</ps> = <ps>7</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
+				<div class="collapsible">
+					<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+					<div class="collapsible-container draw"><bl class="draw cl"><c>Draw a Trail color <ps><op class="rcol"></op></ps> width <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
+						<div class="collapsible">
+							<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+						</div>
+					</div>
+				</div>
+				<div class="collapsible">
+					<div><bl class="move"><c>Set Position x <ps></ps> y <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+			</div-->
+		</div>
+		<div class="edit-box">
+			<textarea></textarea>
+			<span class="controls"><button onclick="editclose()"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()"><i class="fa fa-check"></i> SAVE </button>
+			</div>
+		</div>
+		<script>
+			var hsProject = {};
+			
+			var COUNT = 0;
+			
+			function addBlockFunctions(parent) {
+				parent.querySelectorAll(".editbtn").forEach((elm)=>{
+					elm.onclick = function(e){
+						activeEditBlock = e.target.parentNode.parentNode;
+						document.querySelector(".edit-box textarea").value = JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t");
+						document.querySelector(".edit-box").style.display = "block";
+					}
+				});
+				parent.querySelectorAll("*:not(.disabled) > bl .openbtn").forEach((elm)=>{
+					elm.onclick = function(e){
+						if (e.target.parentNode.parentNode.classList.contains("collapsible-container")) e.target.parentNode.parentNode.classList.remove("collapsible-container"); else e.target.parentNode.parentNode.classList.add("collapsible-container");
+					}
+				});
+				var list = parent.querySelectorAll(".collapsible");
+				list.forEach((l)=>{
+					new Sortable(l, {
+						group: 'blocks',
+						ghostClass: 'invis',
+						fallbackTolerance: 3,
+						animation: 150,
+						handle: '.handle',
+						fallbackOnBody: true,
+						swapThreshold: 0.65,
+						multiDrag: true,
+						selectedClass: 'selected'
+					});
+				});
+			}
+			
+			XHR.get("https://c.gethopscotch.com/api/v1/projects/test", function(r){
+				hsProject = JSON.parse(r);
+				//hsProject = {abilities: [{"blocks":[{"description":"Set Image","type":56,"parameters":[{"defaultValue":"","value":"","key":"","datum":{"description":"","type":110},"type":54}],"block_class":"method"}]}]};
+				//console.log(hsProject.abilities);
+				(hsProject.abilities[58].blocks||[]).forEach(function(block) {
+					var blockElm = document.createElement("div");
+					var blockInfo = jsonToHtml(block);
+					blockElm.setAttribute("class", blockInfo.classList);
+					blockElm.setAttribute("data", blockInfo.data);
+					blockElm.innerHTML = blockInfo.innerHTML;
+					document.getElementById("blocks-container").appendChild(blockElm);
+				});
+				
+				new Sortable(document.querySelector(".bl-container"), {
+					group: 'blocks',
+					ghostClass: 'invis',
+					animation: 150,
+					handle: '.handle',
+					multiDrag: true,
+					selectedClass: 'selected'
+				});
+				
+				addBlockFunctions(document);
+			},true);
+			
+			var activeEditBlock;
+			function editclose() {
+				document.querySelector(".edit-box").style.display = "none";
+				activeEditBlock = null;
+			}
+			function editsave() {
+				var savetext = document.querySelector(".edit-box textarea").value||'{}';
+				try {
+					//Valid Block
+					var info = jsonToHtml(JSON.parse(savetext));
+					activeEditBlock.innerHTML = info.innerHTML;
+					activeEditBlock.setAttribute("class", info.classList);
+					activeEditBlock.setAttribute("data", savetext);
+					addBlockFunctions(activeEditBlock);
+					document.querySelector(".edit-box").style.display = "none";
+					activeEditBlock = null;
+				} catch (E) {
+					console.error(E);
+					//Valid JSON but invalid block, can indicate delete
+					try {
+						JSON.parse(savetext);
+						document.querySelector(".edit-box").style.display = "none";
+						activeEditBlock = null;
+					} catch (E) {
+						alert("Invalid JSON");
+					}
+				}
+			}
+			document.body.onkeydown = function(e) {
+				if (!activeEditBlock) return;
+				if (e.keyCode == 27) editclose();
+				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
+			}
+			
+		</script>
+	</body>
+</html>
