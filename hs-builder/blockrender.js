@@ -160,7 +160,7 @@ function jsonToHtml(block, isNested) {
 		function doParameter(d) {
 			function hsvToRgb(str) {
 				var arr = str.replace(/.*\(|\)/g,"").split(",");
-				var h = Math.max(Number(arr[0])/360,0), s = Math.max(Number(arr[1])%101/100,0), v = Math.max(Number(arr[2])%101/100,0);
+				var h = Math.max((Number(arr[0]))/360,0), s = Math.max((Number(arr[1])%101)/100,0), v = Math.max((Number(arr[2])%101)/100,0);
 				var r, g, b;
 				var i = Math.floor(h * 6); var f = h * 6 - i; var p = v * (1 - s); var q = v * (1 - f * s); var t = v * (1 - (1 - f) * s);
 				switch (i % 6) {
