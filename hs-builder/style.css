@@ -198,8 +198,9 @@ sq {
 }
 .selected > bl {
 	opacity: 1;
-	padding: 0 10px 0 10px;
-	border: 2px solid #11e4c8;
+	/*padding: 0 10px 0 10px;
+	border: 2px solid #11e4c8;*/
+	box-shadow: #11e4c8 0 0 0 2px inset;
 }
 .invis > bl {
 	opacity: 0.6;
@@ -292,7 +293,7 @@ bl {
 }
 bl b {
 	background-color:inherit;
-	height: 100%;
+	height: calc(100% - 8px);
 	padding: 0px 6px;
 	margin: 0;
 	display: inline-flex;
@@ -380,8 +381,9 @@ bl.abl {
 	--col-bg-inherited: #f2f2f2;
 	color: black;
 	background-image: url(../images/ability-bars.png);
+    background-position: 0,0;
     background-size: 48px;
-    background-repeat-x: no-repeat;
+    background-repeat: no-repeat;
 }
 
 ps {
