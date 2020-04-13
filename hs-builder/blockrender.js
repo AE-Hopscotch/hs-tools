@@ -166,6 +166,7 @@ function jsonToHtml(block, isNested) {
 				switch (i % 6) {
 					case 0: r = v, g = t, b = p; break; case 1: r = q, g = v, b = p; break; case 2: r = p, g = v, b = t; break; case 3: r = p, g = q, b = v; break; case 4: r = t, g = p, b = v; break; case 5: r = v, g = p, b = q; break;
 				}
+				variableThing = String(r*255) + ", " + String(g*255) + ", " + String(b*255);
 				return [ r * 255, g * 255, b * 255 ];
 			}
 			function getVar(id) {
