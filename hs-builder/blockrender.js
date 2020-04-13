@@ -166,8 +166,7 @@ function jsonToHtml(block, isNested) {
 				switch (i % 6) {
 					case 0: r = v, g = t, b = p; break; case 1: r = q, g = v, b = p; break; case 2: r = p, g = v, b = t; break; case 3: r = p, g = q, b = v; break; case 4: r = t, g = p, b = v; break; case 5: r = v, g = p, b = q; break;
 				}
-				variableThing = String(r*255) + ", " + String(g*255) + ", " + String(b*255);
-				return [ r * 255, g * 255, b * 255 ];
+				return [ Math.round(r*255), Math.round(g*255), Math.round(b*255) ];
 			}
 			function getVar(id) {
 				var name;
@@ -177,7 +176,7 @@ function jsonToHtml(block, isNested) {
 				return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
 			}
 			if (!d.datum) {
-				return	(d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value)) ? '<ps class="fw" style="background:rgb('+hsvToRgb(d.value)+')"></ps>'
+				return	(d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value)) ? '<ps class="fw" style="background-color:rgb('+hsvToRgb(d.value)+')"></ps>'
 						: "<ps><span" + ((d.type==51)?" title=\"This is a sound\" style=\"color:gray;\"":"") + ">\u2063 " + d.value.htmlEscape() + " \u2063</span></ps>";
 			}
 			//console.log(d.datum.block_class);
