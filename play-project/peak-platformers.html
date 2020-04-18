@@ -124,7 +124,7 @@
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
 			document.title = pTitleFull;
 			if (!AE_MOD.isCustom) {
-				document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.projectData.previous_project_uuid + '.png';
+				document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + (AE_MOD.projectData.previous_project_uuid||"10tvq741gv") + '.png';
 				document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.projectData.previous_project_uuid);
 			}
 			document.querySelector('meta[property="og:title"]').setAttribute('content', pTitle);
@@ -559,6 +559,14 @@
 				elm.style.setProperty("--disp-col", "table-cell");
 			});
 		}
+		
+		document.querySelectorAll("thead td").forEach(c=>{
+			c.addEventListener("touchstart", function(e) {
+				alert("Touch start event");
+				toggleView();
+			});
+		});
+		
 		toggleView();
 		
 		var splits = AE_div.speedrun.splits;
