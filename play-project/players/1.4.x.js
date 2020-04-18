@@ -1839,12 +1839,12 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             return (this.next ? this.next.allNodes() : []).concat(this);
         }, t.prototype.draw = function(t) {
             return Promise.all(this.allNodes().map(function(e) {
-                console.log( e.drawNode(t)); //AE_MOD EMOJI
+              //  console.log( e.drawNode(t)); //AE_MOD EMOJI
 				return e.drawNode(t);
             }));
         }, t.prototype.drawNode = function(t) {
 			//AE_MOD EMOJI THIS IS THE ISSUE
-			console.log(t);
+		//	console.log(t);
             return t.fillText(this.text, this.x, this.y), null;
         }, t.prototype.forceLineBreak = function(e, i) {
             for (var r = "", n = this.text, o = 0; o !== n.length; ++o) {
@@ -1881,7 +1881,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }
         return n(e, t), e.prototype.drawNode = function(i) {
             var r = this;
-			console.log(this); //AE_MOD EMOJI
+		//	console.log(this); //AE_MOD EMOJI
             return e.getImage({
                 text: this.text,
                 color: c.HSColor.hsbStringFromRgbString(i.fillStyle)
@@ -2357,8 +2357,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 				break;
 				
 			  case D.HSBlockType.None: //AE_MOD
-				if (/^_ae_webplayer_action:/g.test((d[0]||"").value)){
-					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
+				if (/^_ae_webplayer_action:/g.test((u[0]||"").value)){
+					AE_MOD.webplayer_action(u[0].value.split('_ae_webplayer_action:')[1], ((u[1])?u[1].computedValue(this):undefined));
 				}
 				break;
             }
