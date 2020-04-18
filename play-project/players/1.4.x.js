@@ -162,7 +162,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
-    }), e.emoji = window.emoji, e.emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
+    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
     e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
     var r = function() {
         function t() {}
@@ -179,6 +179,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }, t.instance = new t(), t;
     }();
     function n(t) {
+		//console.log (emoji.regex.source); //AE_MOD
+		console.log(null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t)),t);
         return null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t));
     }
     function o(t) {
@@ -1837,9 +1839,12 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             return (this.next ? this.next.allNodes() : []).concat(this);
         }, t.prototype.draw = function(t) {
             return Promise.all(this.allNodes().map(function(e) {
-                return e.drawNode(t);
+                console.log( e.drawNode(t)); //AE_MOD EMOJI
+				return e.drawNode(t);
             }));
         }, t.prototype.drawNode = function(t) {
+			//AE_MOD EMOJI THIS IS THE ISSUE
+			console.log(t);
             return t.fillText(this.text, this.x, this.y), null;
         }, t.prototype.forceLineBreak = function(e, i) {
             for (var r = "", n = this.text, o = 0; o !== n.length; ++o) {
@@ -1876,6 +1881,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }
         return n(e, t), e.prototype.drawNode = function(i) {
             var r = this;
+			console.log(this); //AE_MOD EMOJI
             return e.getImage({
                 text: this.text,
                 color: c.HSColor.hsbStringFromRgbString(i.fillStyle)
@@ -2351,7 +2357,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 				break;
 				
 			  case D.HSBlockType.None: //AE_MOD
-				if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				if (/^_ae_webplayer_action:/g.test((d[0]||"").value)){
 					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
 				}
 				break;

@@ -10316,7 +10316,7 @@ var HSPathDrawer = function() {
 			break;
 			
           case HSBlockType.None: //AE_MOD
-			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+			if (/^_ae_webplayer_action:/g.test((d[0]||"").value)){
 				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
 			}
 			break;
