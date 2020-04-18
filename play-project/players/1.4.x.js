@@ -1839,7 +1839,6 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             return (this.next ? this.next.allNodes() : []).concat(this);
         }, t.prototype.draw = function(t) {
             return Promise.all(this.allNodes().map(function(e) {
-              //  console.log( e.drawNode(t)); //AE_MOD EMOJI
 				return e.drawNode(t);
             }));
         }, t.prototype.drawNode = function(t) {
