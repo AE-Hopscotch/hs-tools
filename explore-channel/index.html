@@ -146,6 +146,7 @@
 							if (!/^(Featured|Newest|Announcements|Following|Latest Feed)$/.test(c.title)) newChannelList.push(JSON.parse(`{"${c.title}":"${c.path}"}`));
 						});
 						updateChannels(newChannelList);
+						replaceChannelPaths();
 						showDefaultChannel();
 						localStorage.setItem("WebExpChannels",JSON.stringify(newChannelList));
 					} catch (SyntaxError) {
