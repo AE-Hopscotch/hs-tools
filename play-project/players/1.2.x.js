@@ -8146,7 +8146,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis" /*AE_MOD - fix emojis "/assets"*/;
 
 var HSTextNodeKind;
 
@@ -10377,7 +10377,7 @@ var HSPathDrawer = function() {
 			break;
 			
           case HSBlockType.None: //AE_MOD
-			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+			if (/^_ae_webplayer_action:/g.test((d[0]||"").value)){
 				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
 			}
 			break;
