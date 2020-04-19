@@ -72,6 +72,10 @@
 					case "comp_split":
 						AE_div.speedrun.addSplit(a.args[0]||0);
 						break;
+					case "comp_setSplit":
+						//Sets the split ID because glitches exist in games
+						AE_div.speedrun.split_nums.push(Number(a.args[0])||0);
+						break;
 					case "restart":
 						document.getElementById("restart-button").click();
 						break;
@@ -180,6 +184,7 @@
 		/***********************************/
 		AE_div.speedrun = {
 			game_num: 0,
+			split_nums: [],
 			splits: [],
 			net_splits: [],
 			totals: [],
@@ -191,28 +196,28 @@
 					busy = true;
 					AE_div.speedrun.split_save += a;
 					AE_div.speedrun.time_save += a;
-					if (AE_div.speedrun.game_num == 9) {
-						clearInterval(AE_div.speedrun.timer);
 						AE_div.speedrun.splits.push(getTimeString(AE_div.speedrun.split_time));
 						AE_div.speedrun.net_splits.push(getTimeString(AE_div.speedrun.split_time - AE_div.speedrun.split_save));
 						AE_div.speedrun.totals.push(getTimeString(AE_div.speedrun.timer_time));
 						AE_div.speedrun.net_totals.push(getTimeString(AE_div.speedrun.timer_time - AE_div.speedrun.time_save));
+						if (AE_div.speedrun.split_nums.length < AE_div.speedrun.splits.length) {
+							AE_div.speedrun.split_nums.push(AE_div.speedrun.splits.length);
+						}
+					if (AE_div.speedrun.game_num == 1) {
+						clearInterval(AE_div.speedrun.timer);
 						var splits = AE_div.speedrun.splits;
 						for (i = 0; i < splits.length; i++) {
-							console.log(splits[i]);
-							document.querySelectorAll("td[splitTime]")[i].innerHTML = splits[i];
-							document.querySelectorAll("td[netSplit]")[i].innerHTML = AE_div.speedrun.net_splits[i];
-							document.querySelectorAll("td[totalTime]")[i].innerHTML = AE_div.speedrun.totals[i];
-							document.querySelectorAll("td[netTotal]")[i].innerHTML = AE_div.speedrun.net_totals[i];
+							var k = AE_div.speedrun.split_nums[i] - 1;
+							console.log(splits[i], splits[k]);
+							document.querySelectorAll("td[splitTime]")[k].innerHTML = splits[i];
+							document.querySelectorAll("td[netSplit]")[k].innerHTML = AE_div.speedrun.net_splits[i];
+							document.querySelectorAll("td[totalTime]")[k].innerHTML = AE_div.speedrun.totals[i];
+							document.querySelectorAll("td[netTotal]")[k].innerHTML = AE_div.speedrun.net_totals[i];
 						}
 						document.getElementById('finalTime').style.display = "inline-block";
 						setTimeout(function(){document.getElementById('finalTime').style.opacity = "1";},10);
 					} else {
 						AE_div.speedrun.game_num ++;
-						AE_div.speedrun.splits.push(getTimeString(AE_div.speedrun.split_time));
-						AE_div.speedrun.net_splits.push(getTimeString(AE_div.speedrun.split_time - AE_div.speedrun.split_save));
-						AE_div.speedrun.totals.push(getTimeString(AE_div.speedrun.timer_time));
-						AE_div.speedrun.net_totals.push(getTimeString(AE_div.speedrun.timer_time - AE_div.speedrun.time_save));
 						localStorage.setItem('data', JSON.stringify({
 							time: AE_div.speedrun.timer_time,
 							time_save: AE_div.speedrun.time_save,
@@ -220,6 +225,7 @@
 							split_save: AE_div.speedrun.split_save,
 							gnum: AE_div.speedrun.game_num,
 							splits: AE_div.speedrun.splits,
+							split_nums: AE_div.speedrun.split_nums,
 							net_splits: AE_div.speedrun.net_splits,
 							totals: AE_div.speedrun.totals,
 							net_totals: AE_div.speedrun.net_totals
@@ -236,11 +242,13 @@
 					busy = true;
 					AE_div.speedrun.split_save += a;
 					AE_div.speedrun.time_save += a;
-						AE_div.speedrun.game_num ++;
 						AE_div.speedrun.splits.push(getTimeString(AE_div.speedrun.split_time));
 						AE_div.speedrun.net_splits.push(getTimeString(AE_div.speedrun.split_time - AE_div.speedrun.split_save));
 						AE_div.speedrun.totals.push(getTimeString(AE_div.speedrun.timer_time));
 						AE_div.speedrun.net_totals.push(getTimeString(AE_div.speedrun.timer_time - AE_div.speedrun.time_save));
+						if (AE_div.speedrun.split_nums.length < AE_div.speedrun.splits.length) {
+							AE_div.speedrun.split_nums.push(AE_div.speedrun.splits.length);
+						}
 					AE_div.speedrun.split_time = 0;
 					AE_div.speedrun.split_save = 0;
 					busy = false;
@@ -253,11 +261,12 @@
 			localStorage.removeItem('data');
 			console.log(dataLoad);
 		/***********************************/
-			customUUID = (["10vckwnkz4","10vckwnkz4","10vckwnkz4","10vckwnkz4","10vckqhfay","10vckqhfay","10vckqhfay","10vckqhfay","10vckqhfay","10vckqhfay"])[dataLoad.gnum];
+			customUUID = (["10vckwnkz4","10vckqhfay"])[dataLoad.gnum];
 		/***********************************/
 			AE_div.speedrun.game_num = dataLoad.gnum;
 			AE_div.speedrun.timer_time = dataLoad.time;
 			AE_div.speedrun.time_save = dataLoad.time_save;
+			AE_div.speedrun.split_nums = dataLoad.split_nums;
 			AE_div.speedrun.splits = dataLoad.splits;
 			AE_div.speedrun.net_splits = dataLoad.net_splits;
 			AE_div.speedrun.totals = dataLoad.totals;
@@ -277,7 +286,7 @@
 				"Objective: Defeat the Evil Parrot",
 				"Objective: Finish the cutscene"
 			];
-			alert(infoList[AE_div.speedrun.game_num]);
+			alert(infoList[(AE_div.speedrun.split_nums[AE_div.speedrun.split_nums.length-1]||0)]);
 		}
 		/***********************************/
 		
@@ -559,14 +568,11 @@
 				elm.style.setProperty("--disp-col", "table-cell");
 			});
 		}
-		
 		document.querySelectorAll("thead td").forEach(c=>{
 			c.addEventListener("touchstart", function(e) {
-				alert("Touch start event");
 				toggleView();
 			});
 		});
-		
 		toggleView();
 		
 		var splits = AE_div.speedrun.splits;
