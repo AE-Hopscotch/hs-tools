@@ -5,9 +5,16 @@
 		<link rel="stylesheet" href="style.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/lib/codemirror.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/lib/codemirror.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/mode/javascript/javascript.min.js"></script>
+		
 		<script src="../main.js"></script>
 		<script src="blockrender.js"></script>
+		
+		
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 		
@@ -73,8 +80,9 @@
 				parent.querySelectorAll(".editbtn").forEach((elm)=>{
 					elm.onclick = function(e){
 						activeEditBlock = e.target.parentNode.parentNode;
-						document.querySelector(".edit-box textarea").value = JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t");
+						//document.querySelector(".edit-box textarea").value = JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t");
 						document.querySelector(".edit-box").style.display = "block";
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
 					}
 				});
 				parent.querySelectorAll("*:not(.disabled) > bl .openbtn").forEach((elm)=>{
@@ -136,7 +144,7 @@
 				activeEditBlock = null;
 			}
 			function editsave() {
-				var savetext = document.querySelector(".edit-box textarea").value||'{}';
+				var savetext = editor.getValue()/*document.querySelector(".edit-box textarea").value*/||'{}';
 				try {
 					//Valid Block
 					var info = jsonToHtml(JSON.parse(savetext));
@@ -144,6 +152,7 @@
 					activeEditBlock.setAttribute("class", info.classList);
 					activeEditBlock.setAttribute("data", savetext);
 					addBlockFunctions(activeEditBlock);
+					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
 					document.querySelector(".edit-box").style.display = "none";
 					activeEditBlock = null;
 				} catch (E) {
@@ -164,9 +173,17 @@
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
 			
-			/*document.body.onkeydown = function(e){ //Log the Dragged Entity
-				if (e.keyCode == 65 && e.ctrlKey && e.shiftKey) console.log(document.querySelector(".sortable-drag"));
-			}*/
+			var editor = CodeMirror.fromTextArea(document.querySelector("textarea"), {
+				matchBrackets: true,
+				autoCloseBrackets: true,
+				mode: "application/json",
+				lineWrapping: true,
+				value: '{}',
+				lineNumbers: true,
+				indentWithTabs: true,
+				indentUnit: 4,
+				tabSize: 4
+			});
 			
 		</script>
 	</body>

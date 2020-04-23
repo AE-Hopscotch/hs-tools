@@ -146,14 +146,17 @@ function jsonToHtml(block, isNested) {
 	isNested = isNested||false;
 	///console.log(isNested);
 	//console.log(block);
+	if (JSON.stringify(block) == "{}"||COUNT > 125) {
+		return {innerHTML:""};
+	}
 	if (COUNT > 125) {
-		alert("safety limit 125 reached. Please report the URL & ability.");
+		alert("safety limit 125 reached. Please report the project URL & ability.");
 		return {innerHTML:""};//{"classList":elmClass||"","innerHTML":innerHTML};
 	}
 	COUNT ++;
 	if (!isNested) nestedUuidList = [];
 	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":""));
-	var labels = blockLabels[block.type];
+	var labels = blockLabels[block.type]||[];
 	var paramString = "";
 	for (var i = 0; i < (block.parameters||[]).length; i++) {
 		var p = block.parameters[i];
@@ -176,6 +179,7 @@ function jsonToHtml(block, isNested) {
 				return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
 			}
 			if (!d.datum) {
+				if (d.value !== String(d.value)) return alert("Error: Values must be strings")||"<ps><span></span></ps>";
 				return	(d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value)) ? '<ps class="fw" style="background-color:rgb('+hsvToRgb(d.value)+')"></ps>'
 						: "<ps><span" + ((d.type==51)?" title=\"This is a sound\" style=\"color:gray;\"":"") + ">\u2063 " + d.value.htmlEscape() + " \u2063</span></ps>";
 			}
@@ -188,7 +192,7 @@ function jsonToHtml(block, isNested) {
 			}
 			if (!/operator/i.test(d.datum.block_class)) {
 				//console.log(d.datum.block_class);
-				return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 " + d.datum.type*-30 + "px\" src=\""+'../images/character_sprite_strip.png'+"\" width=\"36\"/>") + "</op></ps>";
+				return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 " + (d.datum.type/*-25*(d.datum.type>=100)-23*(d.datum.type>=150)*/)*-30 + "px\" src=\""+'../images/character_sprite_strip.png'+"\" width=\"36\"/>") + "</op></ps>";
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
