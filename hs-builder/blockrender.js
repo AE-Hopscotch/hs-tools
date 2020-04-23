@@ -196,7 +196,7 @@ function jsonToHtml(block, isNested) {
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
-		paramString += " " + (labels[i+2]||"") + " " + doParameter(p);
+		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
 	};
 	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:labels[1])||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
