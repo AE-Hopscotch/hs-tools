@@ -69,8 +69,6 @@
 			
 			var COUNT = 0;
 			
-			var MOBILE_TOLERANCE = Number(prompt("mobile tolerance for select","5"))||5;
-			
 			function addBlockFunctions(parent) {
 				parent.querySelectorAll(".editbtn").forEach((elm)=>{
 					elm.onclick = function(e){
@@ -89,7 +87,10 @@
 					new Sortable(l, {
 						group: 'blocks',
 						ghostClass: 'invis',
-						fallbackTolerance: MOBILE_TOLERANCE,
+						dragClass: 'dragged',
+						fallbackTolerance: 5,
+						forceFallback: true,
+						delayOnTouchOnly: true,
 						animation: 150,
 						handle: '.handle',
 						fallbackOnBody: true,
@@ -116,7 +117,10 @@
 				new Sortable(document.querySelector(".bl-container"), {
 					group: 'blocks',
 					ghostClass: 'invis',
-					fallbackTolerance: MOBILE_TOLERANCE,
+					dragClass: 'dragged',
+					fallbackTolerance: 5,
+					forceFallback: true,
+					delayOnTouchOnly: true,
 					animation: 150,
 					handle: '.handle',
 					multiDrag: true,
@@ -159,6 +163,10 @@
 				if (e.keyCode == 27) editclose();
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
+			
+			/*document.body.onkeydown = function(e){ //Log the Dragged Entity
+				if (e.keyCode == 65 && e.ctrlKey && e.shiftKey) console.log(document.querySelector(".sortable-drag"));
+			}*/
 			
 		</script>
 	</body>
