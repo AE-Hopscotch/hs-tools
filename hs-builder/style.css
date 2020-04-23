@@ -208,6 +208,9 @@ sq {
 	border: 2px solid #11e4c8;
 	height: 0;
 }
+.dragged {
+	opacity: 0.5 !important;
+}
 .collapsible {
 	/* Hide controls scripts if the block is not a control block */
 	display: none;
@@ -223,6 +226,7 @@ sq {
 .collapsible-container {
 	position: relative;
 	--col-frame: #3e83be;
+	height: auto !important;
 }
 .collapsible-container.draw {
 	--col-frame: #a6006e;
@@ -238,7 +242,7 @@ sq {
 	padding-right: 80px;
 }
 .collapsible-container:not(.invis)::before {
-	content: " ";
+	content: " Hello ";
 	pointer-events: none;
 	position: absolute;
 	top: 50%;
