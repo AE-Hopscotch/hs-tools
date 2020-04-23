@@ -459,7 +459,8 @@ op.cm {
 	background-color: var(--col-bg-inherited);
 	background-image: linear-gradient(rgba(0,0,0,var(--ia)), rgba(0,0,0,var(--ia)));
 }
-op.cm op.cm {--ia: calc(var(--ba) + 0.2);--ba: inherit;}
+op.cm op.cm:not(.math) {--ba: inherit;}
+op.cm op.cm {--ia: calc(var(--ba) + 0.2);}
 op.cm op.cm op.cm {--ia: calc(var(--ba) + 0.4);}
 op.cm op.cm op.cm op.cm {--ia: calc(var(--ba) + 0.6);}
 op.cm op.cm op.cm op.cm op.cm {--ia: calc(var(--ba) + 0.8);}
