@@ -527,10 +527,11 @@ CODE MIRROR STYLES
 *****************/
 .CodeMirror{font-size:14px!important;background:#2e3836!important;box-shadow:2px 2px 10px #293d3a inset;font-family:'Source Code Pro',monospace;width:80%;height:75%!important;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:4px;padding-right:8px!important}
 .CodeMirror-cursor{height:17px!important;margin-top:4px!important;background:#fff!important;border-color:#fff!important}
-.CodeMirror-gutters{background:#3e4c49!important;border-right:1px solid #7b8a88!important;box-shadow:2px 0 10px #293d3a;margin-left:-1px}
-.CodeMirror-sizer{margin-left:31px!important;margin-bottom:-17px!important;border-right-width:13px!important;min-height:29px!important;min-width:7px!important;padding:5px 20px 0 5px !important}
-.CodeMirror-line{line-height:1.7!important}
-.CodeMirror-linenumber{color:#fff!important;left:0!important;width:22px!important;margin-left:-5px!important;padding-right:4px!important;top:3px}
+.CodeMirror-gutters{transform:translate(-55px,0);background:#3e4c49!important;border-right:1px solid #7b8a88!important;box-shadow:2px 0 10px #293d3a;margin-left:-1px}
+.CodeMirror-guttermarker-subtle{transform:translate(-6px,3px);}
+.CodeMirror-sizer{margin-left:3px!important;margin-bottom:-17px!important;border-right-width:13px!important;min-height:29px!important;min-width:7px!important;padding:5px 20px 0 5px !important}
+.CodeMirror-line{line-height:1.7!important;padding-left:52px!important}
+.CodeMirror-linenumber{color:#fff!important;width:28px!important;margin-left:-5px!important;padding-right:4px!important;padding-left:0!important;top:3px;left:12px!important}
 .CodeMirror-linenumbers{width:31px!important}
 .cm-qualifier{color:#eee!important}
 .cm-punctuation,.cm-unit,.cm-negative{color:#e09142!important}
@@ -550,7 +551,8 @@ CODE MIRROR STYLES
 .CodeMirror-selected{background:rgba(200,200,200,0.1)!important}
 .CodeMirror-activeline-background{background:transparent!important}
 .CodeMirror-focused .CodeMirror-activeline-background{background:rgba(0,0,60,0.1)!important}
-.CodeMirror-matchingbracket{color:inherit!important}
+.CodeMirror-matchingbracket{color:lime!important}
+.CodeMirror-nonmatchingbracket{color:red!important}
 .CodeMirror-focused .CodeMirror-matchingbracket,.CodeMirror-focused .CodeMirror-matchingtag.cm-tag{background:rgba(255,255,255,0.2)!important;border-radius:2px;padding-bottom:3px}
 .CodeMirror-focused .CodeMirror-matchingtag.cm-tag{padding-bottom:1px!important}
 .CodeMirror-matchingtag,.CodeMirror-matchingtag.cm-bracket{background:transparent!important}
@@ -559,7 +561,7 @@ CODE MIRROR STYLES
 .CodeMirror-scroll{max-width:100%;max-height:calc(100% - 16px)}
 .CodeMirror-scroll::-webkit-scrollbar{display:none}
 .CodeMirror-scrollbar-filler{background:#2e3836!important}
-.CodeMirror-vscrollbar{outline:none}
+.CodeMirror-vscrollbar,.CodeMirror-hscrollbar{outline:none}
 .CodeMirror-vscrollbar-filler,.CodeMirror-hscrollbar-filler{position:absolute;bottom:0;right:0;background:transparent;border-radius:0 0 5px 0;z-index:2}
 .CodeMirror-vscrollbar-filler{width:10px;top:70px}
 .CodeMirror-hscrollbar-filler{left:30px;height:10px}
@@ -568,4 +570,6 @@ CODE MIRROR STYLES
 .CodeMirror-vscrollbar::-webkit-scrollbar-track,.CodeMirror-hscrollbar::-webkit-scrollbar-track{background:transparent!important}
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb,.CodeMirror-hscrollbar::-webkit-scrollbar-thumb{background:#859391!important;border-radius:3px}
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover,.CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover{background:#939f9d!important}
+.CodeMirror-foldmarker{color:aqua!important;text-shadow:#9df 1px 1px 2px, #9df -1px -1px 2px, #9df 1px -1px 2px, #9df -1px 1px 2px!important}
+.CodeMirror-lint-marker-error{top:3px!important;left:-4px!important}
 

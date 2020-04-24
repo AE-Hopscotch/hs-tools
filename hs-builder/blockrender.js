@@ -232,7 +232,6 @@ function jsonToHtml(block, isNested) {
 					(a.blocks||[]).repeatEach((b)=>{
 						var blockInfo = jsonToHtml(b,true);
 						nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '">' + blockInfo.innerHTML + "</div>";
-						console.log(nestedHTML);
 					});
 				} else {
 					elmClass = elmClass.replace("collapsible-container ","");

@@ -7,14 +7,24 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/lib/codemirror.min.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/lib/codemirror.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/codemirror@5.41.0/mode/javascript/javascript.min.js"></script>
-		<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/javascript/javascript.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/edit/matchbrackets.min.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/brace-fold.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldcode.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.css" />
+				
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.js"></script>
+		<script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css" />
 		
 		<script src="../main.js"></script>
 		<script src="blockrender.js"></script>
-		
 		
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
@@ -137,7 +147,7 @@
 				});
 				
 				addBlockFunctions(document);
-			},true);
+		},true);
 			
 			var activeEditBlock;
 			function editclose() {
@@ -178,13 +188,15 @@
 				matchBrackets: true,
 				autoCloseBrackets: true,
 				mode: "application/ld+json",
+				foldGutter: true,
+				lint: true,
+				gutters: ["CodeMirror-lint-markers","CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 				lineWrapping: false,
 				value: '{}',
 				lineNumbers: true,
 				indentWithTabs: true,
 				tabSize: 2
 			});
-			
 		</script>
 	</body>
 </html>
