@@ -106,7 +106,10 @@
 	<div class="wrapper"><div class="content" id="body_content">
 
 	<script id="svgInsert" src="https://awesome-e.github.io/hs-tools/play-project/html_svg.js"></script>
-
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
 	<script>
 		var projectImport = projectImport || {};
 		var AE_MOD = {
@@ -116,8 +119,9 @@
 			"webplayer_action": function(a, b) {
 				try {
 					a = JSON.parse(a.replace(/"_data"/g,b));
+					a.args = a.args || [];
 				} catch (e) {
-					console.error("Invalid webplayer action");
+					console.error("Invalid webplayer action:" + a);
 					return;
 				}
 				switch (a.name) {
@@ -152,6 +156,65 @@
 						target.innerHTML = a.args[0];
 						banner(true);
 						break;
+					case "session-new":
+						if (session.gameId && session.isHost) {
+							if (confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?"))
+							session.leave();
+							else break;
+						}
+						session.isHost = true;
+						session.maxSize = a.args[0];
+						session.gameId = Math.round(Math.random()*Math.pow(10,12)).toString(36);
+							var now = Math.round(Date.now()/1000).toString(36);
+							session.userJoined = now + session.userId;
+						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(true);
+						copyText(session.gameId);
+						alert("Session ID copied to clipboard: " + session.gameId);
+						
+						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
+							session.data = s.val();
+						});
+						return 0;
+						break;
+					case "session-join":
+						if (session.gameId && (session.isHost||session.userKey)) {
+							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) return;
+							session.leave();
+						}
+						session.gameId = prompt("Enter Session ID:");
+							var now = Math.round(Date.now()/1000).toString(36);
+							session.userJoined = now + session.userId;
+							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).once("value").then(s=>{
+								if (s.val()) {
+									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
+									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
+										session.data = s.val();
+										if(!s.val()) {
+											alert("The host has ended the session");
+											session.leave();
+										}
+									});
+								} else {
+									alert("No such session exists");
+								}
+							});
+						break;
+					case "session-read":
+						if (!session.data) break;
+						try {return eval(a.args.join(""));}catch(e){return 0;}
+					case "session-write":
+						if (!session.data) break;
+						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
+							a.args[2]
+						);
+						break;
+					case "session-myindex":
+						if (!session.data) return 0;
+						return session.getUser(-1, true);
+					case "session-leave":
+						session.leave();
+						break;
+					
 				}
 			}
 		};
@@ -164,7 +227,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = "https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = "local_application.js"//"https://awesome-e.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
@@ -250,6 +313,58 @@
 				b.style.top = "-96px";
 			}
 		}
+		
+		var firebaseConfig = {
+			apiKey: "AIzaSyD875SNjpnaKUFFk7c3aR1PCb0RLDmhct0",
+			authDomain: "ae-hs-tools.firebaseapp.com",
+			databaseURL: "https://ae-hs-tools.firebaseio.com",
+			projectId: "ae-hs-tools",
+			storageBucket: "ae-hs-tools.appspot.com",
+			messagingSenderId: "308306472112",
+			appId: "1:308306472112:web:60bfcd36fca7d9723a9f75",
+			measurementId: "G-XQBHQKPNWK"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.auth().signInAnonymously().catch(function(error) {
+			// Handle Errors here.
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			// ...
+		});
+		var session = {
+			isHost: false,
+			userId: null,
+			gameId: null,
+			maxSize: 0,
+			leave: function(){
+				if (session.gameId && session.isHost) firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).remove();
+				else if (session.gameId){
+					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.userJoined).remove();
+					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).remove();
+				}
+				console.trace();
+				session.gameId = null;
+			},
+			getUser: function(u, id_not_string){
+				if (u == -2) return "";
+				if (u == -1) u = Object.keys(session.data.users).sort().indexOf(session.userJoined);
+				return (id_not_string) ? u : Object.keys(session.data.users)[u];
+			}
+		};
+		firebase.auth().onAuthStateChanged(function(user) {
+		  if (user) {
+			// User is signed in
+			var isAnonymous = user.isAnonymous;
+			session.userId = user.uid;
+		  } else {
+			// User is signed out
+		  }
+		  // ...
+		});
+		document.body.onunload = function(){
+			session.leave();
+		};
 	</script>
 
 	<div id="ae-hs-player">
