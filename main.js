@@ -189,6 +189,17 @@ function removeDuplicates(arr) {
 	return arr;
 };
 
+//Copy Text
+function copyText(val) {
+	var copyTextArea = document.createElement("textarea");
+	copyTextArea.value = val;
+	document.body.appendChild(copyTextArea);
+	copyTextArea.select();
+	copyTextArea.setSelectionRange(0, 9999999); //Mobile
+	document.execCommand('copy');
+	document.body.removeChild(copyTextArea);
+}
+
 //Better Base 64
 var Base64 = {
     _keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
