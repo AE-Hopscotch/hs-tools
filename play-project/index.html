@@ -203,7 +203,7 @@
 						if (!session.data) break;
 						try {return eval(a.args.join(""));}catch(e){return 0;}
 					case "session-write":
-						if (!session.data) break;
+						if (!session.data || !session.gameId) break;
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
 							a.args[2]
 						);
