@@ -344,6 +344,7 @@
 					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).remove();
 				}
 				console.trace();
+				session.isHost = false;
 				session.gameId = null;
 			},
 			getUser: function(u, id_not_string){
