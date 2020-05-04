@@ -158,9 +158,11 @@
 						break;
 					case "session-new":
 						if (session.gameId && session.isHost) {
-							if (confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?"))
+							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?")) break;
 							session.leave();
-							else break;
+						} else if (session.gameId) {
+							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) break;
+							session.leave();
 						}
 						session.isHost = true;
 						session.maxSize = a.args[0];
@@ -177,11 +179,15 @@
 						return 0;
 						break;
 					case "session-join":
-						if (session.gameId && (session.isHost||session.userKey)) {
-							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) return;
+						if (session.gameId && session.isHost) {
+							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to join a new session anyways?")) break;
+							session.leave();
+						} else if (session.gameId) {
+							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) break;
 							session.leave();
 						}
-						session.gameId = prompt("Enter Session ID:");
+						session.gameId = (prompt("Enter Session ID:")||"").replace(/\s$/,"");
+						if (session.gameId) {
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
 							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).once("value").then(s=>{
@@ -198,6 +204,7 @@
 									alert("No such session exists");
 								}
 							});
+						}
 						break;
 					case "session-read":
 						if (!session.data) break;
@@ -218,6 +225,8 @@
 				}
 			}
 		};
+		
+		/***/
 		
 		var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
 		var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
@@ -242,6 +251,8 @@
 			document.querySelector('meta[name="twitter:description"]').setAttribute('content', pTitleFull);
 			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
 		}
+		
+		/***/
 		
 		function doCORSRequest(options, printResult) {
 			var x = new XMLHttpRequest();
@@ -270,6 +281,13 @@
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					AE_MOD.isCustom = false;
+					//Authorize if Project contains session blocks.
+					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) {
+						// Handle Errors here.
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						// ...
+					});
 					init();
 				} catch (SyntaxError) {
 					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
@@ -326,12 +344,7 @@
 		};
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
-		firebase.auth().signInAnonymously().catch(function(error) {
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			// ...
-		});
+		
 		var session = {
 			isHost: false,
 			userId: null,
