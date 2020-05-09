@@ -149,7 +149,9 @@
 					case "isWebExp":
 						return 1;
 					case "isComputer":
-						return Number(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+						return Number(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)&&!(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+					case "user-tz":
+						return Math.round(new Date().getTimezoneOffset()/-60);
 					case "achievement":
 						var target = document.getElementById("achievement-banner");
 						target.innerHTML = "";
@@ -202,6 +204,7 @@
 									});
 								} else {
 									alert("No such session exists");
+									session.leave();
 								}
 							});
 						}
@@ -356,9 +359,9 @@
 					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.userJoined).remove();
 					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).remove();
 				}
-				console.trace();
 				session.isHost = false;
 				session.gameId = null;
+				if (session.data) session.data = null;
 			},
 			getUser: function(u, id_not_string){
 				if (u == -2) return "";
@@ -371,6 +374,13 @@
 			// User is signed in
 			var isAnonymous = user.isAnonymous;
 			session.userId = user.uid;
+			//Leave if restart
+			document.getElementById("restart-button").addEventListener("click",function(){
+				session.leave();
+			});
+			document.getElementById("restart-button").addEventListener("touchstart",function(){
+				session.leave();
+			});
 		  } else {
 			// User is signed out
 		  }
