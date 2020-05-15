@@ -175,7 +175,7 @@
 				opacity: 0;
 			}
 			
-			@media only screen and (max-width: 400px) {
+			@media only screen and (max-width: 480px) {
 				#settings-panel {
 					width: calc(100% - 32px);
 					height: 100%;
@@ -229,6 +229,7 @@
 			.settings select {
 				padding: 2px;
 				font-size: 16px;
+				width: 130px;
 			}
 			.settings *::-webkit-scrollbar {
 				display:none;
@@ -477,6 +478,15 @@
 									<option value="">Default Order</option>
 									<option value="featured">Featured First</option>
 									<option value="newest">Newest First</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Project Tile Appearance</td>
+							<td>
+								<select for="retro_pTiles">
+									<option value="">Modern</option>
+									<option value="retro">Retro</option>
 								</select>
 							</td>
 						</tr>
