@@ -64,7 +64,7 @@ function getCookie(cname) {
 }
 
 //Manage Preferences
-var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":""}');
+var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}');
 function getPref(name) {
 	return !!prefs[name];
 }
@@ -296,7 +296,7 @@ var Base64 = {
 var XHR = {
 	sendReq: function(options, printResult, ca) {
 		var x = new XMLHttpRequest();
-		x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'') + options.url);
+		x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'')+options.url);
 		x.onload = x.onerror = function() {
 			printResult(x.responseText||'', x.status);
 		};
