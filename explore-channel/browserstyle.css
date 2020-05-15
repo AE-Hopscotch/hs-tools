@@ -279,7 +279,9 @@ sq {
 	right: 0;
 	font-size: 16px;
 	font-family: Avenir;
-	text-align: right;text-overflow: ellipsis;
+	text-align: right;
+	text-overflow: ellipsis;
+	background-size: 0 0;
 }
 .info .user {
 	line-height: 20px;
@@ -518,6 +520,7 @@ sq {
 	background-repeat: no-repeat; 
 	background-size: 16px 16px;
 	vertical-align:text-bottom;
+	flex-shrink: 0;
 }
 div > ae[badge], table ae[badge] {
 	display: inline-block;
@@ -548,3 +551,153 @@ ae[badge='6'] {
 	background-image: url('../images/web-badges/creator.png');
 }
 
+/* Retro Appearance */
+
+.retro .topnav button.selected {
+	border-bottom: 4px solid #60AF46;
+	color: #60AF46;
+}
+.retro .search-bar button.selected {
+	color: #60AF46;
+}
+.retro .uiBtn, .retro .xray-contents {
+	background-color: #60AF46;
+}
+.retro .xSelected {
+	box-shadow: #60AF46 0 0 4px 4px;
+}
+
+.retro, .retro body {
+	background-color: var(--col-bg-toolbar);
+}
+.retro .flex .project-card {
+	background-color: var(--col-bg-main);
+	width: 200px;
+	height: 200px;
+	margin-top: 48px;
+	overflow: visible;
+}
+.retro .project-card a.thumbnail {
+	background-color: var(--col-bg-main);
+	background-size: 100% 100%;
+	border-radius: 12px;
+	width: 150px;
+	height: 100px;
+	margin: 32px auto 4px;
+}
+.retro .project-card *:focus {
+	
+}
+.retro .project-card a.thumbnail img {
+	
+}
+
+.retro .remixbar:before {
+	background: none;
+	font-family: FontAwesome;
+	content: "\f126";
+    -webkit-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+	font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.retro .remixbar {
+	position: absolute;
+	top: -23px;
+	font-size: 12px;
+	background: none;
+	left: 16px;
+	color: var(--col-label-text);
+	transition: color 0.5s;
+}
+.retro .sharelinkbtn {
+	justify-content: space-evenly;
+	width: 200px;
+	height: 40px;
+}
+.retro .sharelinkbtn .fa {
+	font-size: 75%;
+	width: 35px;
+}
+.retro .sharelinkbtn .fa-heart::before {
+	opacity: 0.5;
+}
+.retro .sharelinkbtn .fa-link::before {
+	display: block;
+	content: "\f126";
+	font-size: 120%;
+    -webkit-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+}
+.retro .info {
+	position: static;
+	width: 0;
+	height: 0;
+}
+.retro .info name {
+	position: absolute;
+	top: 0;
+	text-align: center;
+	width: 180px;
+	margin: 0 10px;
+	padding: 7px 4px;
+	height: 32px;
+	font-size: 16px;
+	font-weight: bold;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: block;
+	align-items: center;
+	justify-content: center;
+}
+.retro .info name.truncate:after {
+	display: none;
+}
+.retro .info .user-container {
+	width: 184px;
+	height: 24px;
+	margin: 4px;
+	padding-left: 30px;
+    top: -35px;
+	text-align: left;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+}
+.retro .info .user-container[re="1"] {
+	top: -48px;
+}
+.retro .info .user-container::before {
+	content: " ";
+	display: block;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 0; left: 0;
+	background: inherit;
+	background-size: cover;
+	border-radius: 50%;
+}
+.retro .info .user {
+	font-weight: 900;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.retro .info stats {
+	left: 0;
+	display: flex;
+	justify-content: space-evenly;
+}
+.retro .info stats span {
+	width: 35px;
+	text-align: center;
+	margin: 4px 1px;
+}
+.retro .info stats .fa {
+	display: none;
+}
