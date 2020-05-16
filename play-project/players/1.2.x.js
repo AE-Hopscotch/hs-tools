@@ -9411,7 +9411,7 @@ var HSProjectContext = function() {
 				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(d.value));
 				b.push(((isCustom) ? "custom/":"") + d.value);
 				if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(d.value)) {
-					b.push("new/" + d.value, "guitar/" + d.value);
+					b.push("new/" + d.value, "guitar/" + d.value, "8-bit/" + d.value);
 				}
 			}
         }
@@ -9879,7 +9879,7 @@ var HSExecutable = function() {
 			function notePath (val) {
 				//AE_MOD find path of note
 				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-				var i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+				var i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
 				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : i;
 			}
             var d = HSSoundManager.sharedInstance;
@@ -9909,7 +9909,20 @@ var HSExecutable = function() {
             break;
 
           default:
-            b.executeBlock(a);
+			try {
+				b.executeBlock(a);
+			} catch (E) {
+				//AE_MOD
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+				console.log("Block Code:", a);
+				console.log("Active Object UUID: " + b.objectID);
+				b.stageRules.forEach(r=>{
+					if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+				});
+				console.groupEnd();
+				throw E;
+			}
         }
     }, a;
 }(), HSLinkedList = function() {
