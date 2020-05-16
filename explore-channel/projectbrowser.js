@@ -160,7 +160,7 @@ function showProjects(chProjects) {
 			if (p.user.remote_avatar_url) {
 				imgUrl = p.user.remote_avatar_url;
 			} else {
-				imgUrl = "../images/webavatars/" + (p.user.avatar_type||0) + ".png";
+				imgUrl = "../images/webavatars/" + avPath + (p.user.avatar_type||0) + ".png";
 			}
 			
 			pCard.setAttribute("class", "project-card");
