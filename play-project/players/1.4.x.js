@@ -1,4 +1,4 @@
-console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
+console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
 
 !function(t) {
     var e = {};
@@ -95,7 +95,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         t[t.MathOperatorModulo = 4011] = "MathOperatorModulo", t[t.MathOperatorTangent = 4012] = "MathOperatorTangent", 
         t[t.MathOperatorInverseSine = 4013] = "MathOperatorInverseSine", t[t.MathOperatorInverseCosine = 4014] = "MathOperatorInverseCosine", 
         t[t.MathOperatorInverseTangent = 4015] = "MathOperatorInverseTangent", t[t.MathOperatorMaximum = 4016] = "MathOperatorMaximum", 
-        t[t.MathOperatorMinimum = 4017] = "MathOperatorMinimum", t[t.HS_END_OF_MATH_OPERATORS = 4018] = "HS_END_OF_MATH_OPERATORS", 
+        t[t.MathOperatorMinimum = 4017] = "MathOperatorMinimum", t[t.MathOperatorFloor = 4018] = "MathOperatorFloor", 
+        t[t.MathOperatorCeiling = 4019] = "MathOperatorCeiling", t[t.HS_END_OF_MATH_OPERATORS = 4020] = "HS_END_OF_MATH_OPERATORS", 
         t[t.ColorOperatorRandom = 5e3] = "ColorOperatorRandom", t[t.ColorOperatorRGB = 5001] = "ColorOperatorRGB", 
         t[t.ColorOperatorHSB = 5002] = "ColorOperatorHSB", t[t.HS_END_OF_COLOR_OPERATORS = 5003] = "HS_END_OF_COLOR_OPERATORS", 
         t[t.Rule = 6e3] = "Rule", t[t.RulePreview = 6001] = "RulePreview", t[t.EventOperatorStart = 7e3] = "EventOperatorStart", 
@@ -160,11 +161,15 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
     }, window.HSBlockType = r, window.HSEventType = n;
 }, function(t, e, i) {
     "use strict";
+    function r() {
+        return e.iOSApp || !!window.HS_IS_IOS_APP;
+    }
     Object.defineProperty(e, "__esModule", {
         value: !0
-    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
-    e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
-    var r = function() {
+    }), e.emoji = window.emoji, e.emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
+    e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent), 
+    e.isIOSApp = r;
+    var n = function() {
         function t() {}
         return t.forceIOSApp = function(t) {
             e.iOSApp = t;
@@ -178,19 +183,17 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             n && n.messageHandlers && n.messageHandlers[i].postMessage(((r = {})[t] = e, r));
         }, t.instance = new t(), t;
     }();
-    function n(t) {
-		//console.log (emoji.regex.source); //AE_MOD
-		//console.log(null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t)),t);
+    function o(t) {
         return null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t));
     }
-    function o(t) {
+    function a(t) {
         return null != t && "" !== t && RegExp("^(" + e.emoji.regex.source + ")+$").test(t);
     }
-    e.HSApp = r, e.hasEmoji = n, e.onlyEmoji = o;
-    var a = 0;
-    function s(t, i) {
+    e.HSApp = n, e.hasEmoji = o, e.onlyEmoji = a;
+    var s = 0;
+    function u(t, i) {
         if (void 0 === i && (i = JSON.stringify(t)), !e.appRequestCache.get(i)) {
-            var r = a++;
+            var r = s++;
             e.appRequestCache.set(i, new Promise(function(i) {
                 e.appRequestCallbacks[r] = i, window.webkit.messageHandlers.renderer.postMessage(Object.assign({}, t, {
                     replyTo: "appRequestCallbacks[" + r + "]"
@@ -201,69 +204,69 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }
         return e.appRequestCache.get(i);
     }
-    function u() {
+    function c() {
         for (var t = [], e = 0; e < arguments.length; e++) t[e] = arguments[e];
-        console.log.apply(console, arguments), r.sendToApp("log", Array.prototype.join.call(arguments, " "));
+        console.log.apply(console, arguments), n.sendToApp("log", Array.prototype.join.call(arguments, " "));
     }
-    function c(t, e, i) {
+    function h(t, e, i) {
         var r = Math.max(e, t);
         return Math.min(r, i);
     }
-    function h(t) {
+    function l(t) {
         return t.reduce(function(t, e) {
             return t + e;
         }, 0) / t.length;
     }
-    function l(t) {
-        var e = h(t);
+    function p(t) {
+        var e = l(t);
         return t.reduce(function(t, i) {
             return t + Math.pow(i - e, 2);
         }, 0) / t.length;
     }
-    function p(t, e) {
+    function d(t, e) {
         for (var i = t.length - 1; i >= 0; i--) if (e(t[i], i, t)) return t[i];
     }
-    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = s, 
-    e.log = u, e.clamp = c, e.mean = h, e.variance = l, e.findLast = p;
-    var d, S, D, f = [], g = 0;
-    function y() {
-        g = performance.now();
-    }
+    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = u, 
+    e.log = c, e.clamp = h, e.mean = l, e.variance = p, e.findLast = d;
+    var S, D, f, g = [], y = 0;
     function E() {
+        y = performance.now();
+    }
+    function v() {
         var t = performance.now();
-        if (f.length >= 100) {
-            for (var e = 0, i = 0; i < f.length; i++) e += f[i];
+        if (g.length >= 100) {
+            for (var e = 0, i = 0; i < g.length; i++) e += g[i];
             var r = document.getElementById("time").innerText;
             r.length > 130 && (r = r.substring(50, 130));
-            var n = Math.round(e / f.length * 1e3) / 1e3;
-            document.getElementById("time").innerText = r + " " + n + "ms", f = [];
+            var n = Math.round(e / g.length * 1e3) / 1e3;
+            document.getElementById("time").innerText = r + " " + n + "ms", g = [];
         }
-        var o = t - g;
-        f.push(o);
-    }
-    function v(t, e) {
-        return Math.abs(t) >= Math.abs(e) ? d.horizontal : d.vertical;
+        var o = t - y;
+        g.push(o);
     }
     function b(t, e) {
-        return Math.abs(t) < e ? S.none : t > 0 ? S.positive : S.negative;
+        return Math.abs(t) >= Math.abs(e) ? S.horizontal : S.vertical;
     }
-    function T(t, e, i) {
-        var r, n = v(t, e);
+    function T(t, e) {
+        return Math.abs(t) < e ? D.none : t > 0 ? D.positive : D.negative;
+    }
+    function m(t, e, i) {
+        var r, n = b(t, e);
         switch (n) {
-          case d.horizontal:
-            r = b(t, i);
+          case S.horizontal:
+            r = T(t, i);
             break;
 
-          case d.vertical:
-            r = b(e, i);
+          case S.vertical:
+            r = T(e, i);
         }
-        return m(r, n);
+        return O(r, n);
     }
-    function m(t, e) {
-        return t === S.positive && e === d.horizontal ? D.right : t === S.positive && e === d.vertical ? D.up : t === S.negative && e === d.horizontal ? D.left : t === S.negative && e === d.vertical ? D.down : null;
+    function O(t, e) {
+        return t === D.positive && e === S.horizontal ? f.right : t === D.positive && e === S.vertical ? f.up : t === D.negative && e === S.horizontal ? f.left : t === D.negative && e === S.vertical ? f.down : null;
     }
-    function O() {}
-    function C(t) {
+    function C() {}
+    function H(t) {
         var e = new Image();
         return t.startsWith("data:") || (e.crossOrigin = "Anonymous"), new Promise(function(i, r) {
             e.onload = function() {
@@ -271,29 +274,29 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             }, e.onerror = r, e.src = t;
         });
     }
-    function H(t) {
+    function w(t) {
         return t * Math.PI / 180;
     }
-    function w(t) {
+    function F(t) {
         return t / Math.PI * 180;
     }
-    e.benchmarkStart = y, e.benchmarkEnd = E, function(t) {
+    e.benchmarkStart = E, e.benchmarkEnd = v, function(t) {
         t[t.horizontal = 0] = "horizontal", t[t.vertical = 1] = "vertical";
-    }(d = e.HSPlane || (e.HSPlane = {})), function(t) {
+    }(S = e.HSPlane || (e.HSPlane = {})), function(t) {
         t[t.positive = 0] = "positive", t[t.negative = 1] = "negative", t[t.none = 2] = "none";
-    }(S = e.HSMagnitude || (e.HSMagnitude = {})), function(t) {
+    }(D = e.HSMagnitude || (e.HSMagnitude = {})), function(t) {
         t[t.up = 0] = "up", t[t.down = 1] = "down", t[t.left = 2] = "left", t[t.right = 3] = "right";
-    }(D = e.HSDirection || (e.HSDirection = {})), e.hs_plane = v, e.hs_magnitude = b, 
-    e.hs_direction = T, e.hs_directionForMagnitudeAndPlane = m, e.exitFullscreen = O, 
-    e.getImageFromUri = C, e.degreesToRadians = H, e.radiansToDegrees = w, Array.prototype.remove = function(t) {
+    }(f = e.HSDirection || (e.HSDirection = {})), e.hs_plane = b, e.hs_magnitude = T, 
+    e.hs_direction = m, e.hs_directionForMagnitudeAndPlane = O, e.exitFullscreen = C, 
+    e.getImageFromUri = H, e.degreesToRadians = w, e.radiansToDegrees = F, Array.prototype.remove = function(t) {
         var e = this.indexOf(t);
         void 0 !== e && this.splice(e, 1);
-    }, window.HSPlane = d, window.HSMagnitude = S, window.HSDirection = D, window.hasEmoji = n, 
-    window.onlyEmoji = o, window.requestTextureFromApp = s, window.log = u, window.clamp = c, 
-    window.mean = h, window.variance = l, window.findLast = p, window.benchmarkStart = y, 
-    window.benchmarkEnd = E, window.hs_plane = v, window.hs_magnitude = b, window.hs_direction = T, 
-    window.hs_directionForMagnitudeAndPlane = m, window.exitFullscreen = O, window.getImageFromUri = C, 
-    window.degreesToRadians = H, window.radiansToDegrees = w, window.HSApp = r, window.appRequestCallbacks = e.appRequestCallbacks;
+    }, window.isIOSApp = r, window.HSPlane = S, window.HSMagnitude = D, window.HSDirection = f, 
+    window.hasEmoji = o, window.onlyEmoji = a, window.requestTextureFromApp = u, window.log = c, 
+    window.clamp = h, window.mean = l, window.variance = p, window.findLast = d, window.benchmarkStart = E, 
+    window.benchmarkEnd = v, window.hs_plane = b, window.hs_magnitude = T, window.hs_direction = m, 
+    window.hs_directionForMagnitudeAndPlane = O, window.exitFullscreen = C, window.getImageFromUri = H, 
+    window.degreesToRadians = w, window.radiansToDegrees = F, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -345,7 +348,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
 					e.push(((isCustom) ? "custom/":"") + r.value);
 					if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
-						e.push("new/" + r.value, "guitar/" + r.value);
+						e.push("new/" + r.value, "guitar/" + r.value, "8-bit/" + r.value);
 					}
 				}
             }
@@ -884,7 +887,6 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
 				}
 				return 0;
-
               case S.HSBlockType.MathOperatorAdd:
                 return this.secondParameterValue(t) + this.firstParameterValue(t);
 
@@ -926,6 +928,12 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 
               case S.HSBlockType.MathOperatorPower:
                 return Math.pow(this.firstParameterValue(t), this.secondParameterValue(t));
+
+              case S.HSBlockType.MathOperatorFloor:
+                return Math.floor(this.firstParameterValue(t));
+
+              case S.HSBlockType.MathOperatorCeiling:
+                return Math.ceil(this.firstParameterValue(t));
 
               case S.HSBlockType.MathOperatorRound:
                 return Math.round(this.firstParameterValue(t));
@@ -1594,7 +1602,9 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             this.root = e, this.context = new r.HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
             this.setiOSStageSizeIfNecessary();
             var i = document.getElementById("project_data")//, n = e.dataset.projectJson || i && i.getAttribute("data");
+			
 			var n = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
+			
             n && (this.load(JSON.parse(n)), o.HSApp.sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
             this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
             this.canvas = this.createCanvas("foreground"), window.gliEmbedDebug ? this.renderer = new PIXI.WebGLRenderer(s.HSStageScene.stageWidth, s.HSStageScene.stageHeight, {
@@ -1637,12 +1647,13 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }, t.prototype.enterFullscreen = function(t, e) {
             D.CollisionManagerDebug.ENABLED || this.enterFullscreenAction(this.root, t, e);
         }, t.prototype.enterFullscreenAction = function(t, e, i) {
-			t = t.parentNode; //AE_MOD Container fullscreen to fix UI touch
             var r = e || window.innerWidth, n = i || window.innerHeight;
-            if (this.resizeRoot(r, n), (t = t).requestFullscreen) t.requestFullscreen(); else if (t.mozRequestFullScreen) t.mozRequestFullScreen(); else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen(); else if (t.msRequestFullscreen) t.msRequestFullscreen(); else {
+            this.resizeRoot(r, n);
+            var o = t.parentElement;
+            if (o.requestFullscreen) o.requestFullscreen(); else if (o.mozRequestFullScreen) o.mozRequestFullScreen(); else if (o.webkitRequestFullscreen) o.webkitRequestFullscreen(); else if (o.msRequestFullscreen) o.parent.msRequestFullscreen(); else {
                 this.isMaximized = !0, this.resizeRoot(r, n), this.root.style.position = "absolute", 
                 this.centerOnScreen(r, n);
-                for (var o = 0; o < document.body.children.length; o++) document.body.children[o].style.visibility = "hidden";
+                for (var a = 0; a < document.body.children.length; a++) document.body.children[a].style.visibility = "hidden";
                 document.body.style.backgroundColor = "black", this.root.style.visibility = "visible", 
                 document.dispatchEvent(new Event("fullscreenchange"));
             }
@@ -1653,16 +1664,20 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
                 for (var t = 0; t < document.body.children.length; t++) document.body.children[t].style.visibility = "";
                 document.body.style.backgroundColor = "", this.root.style.visibility = "", document.dispatchEvent(new Event("fullscreenchange"));
             }
-        }, t.prototype.resizeRoot = function(e, i) {
-            var r;
-            void 0 === e && (e = this._oldWidth), void 0 === i && (i = this._oldHeight), this._oldWidth = e, 
-            this._oldHeight = i;
-            var n = s.HSStageScene.stageWidth, o = s.HSStageScene.stageHeight;
-            e || i ? e && !i ? i = e * o / n : !e && i && (e = i * n / o) : (e = window.innerWidth - 20, 
-            i = window.innerHeight - 250), r = Math.min(i / o, e / n);
-            var a = Math.max(Math.floor(n * r), t.MIN_STAGE_WIDTH), u = a * o / n;
-            this.root.style.width = Math.floor(a) + "px", this.root.style.height = Math.floor(u) + "px", 
+        }, t.prototype.resizeRoot = function(t, e) {
+            void 0 === t && (t = this._oldWidth), void 0 === e && (e = this._oldHeight), this._oldWidth = t, 
+            this._oldHeight = e;
+            var i = s.HSStageScene.stageWidth, r = s.HSStageScene.stageHeight;
+            t || e ? t && !e ? e = t * r / i : !t && e && (t = e * i / r) : (t = window.innerWidth - 20, 
+            e = window.innerHeight - 250), i > r ? this.resizeRootLandscape(t, e, i, r) : this.resizeRootPortrait(t, e, i, r);
+        }, t.prototype.resizeRootLandscape = function(e, i, r, n) {
+            var o = Math.min(i / n, e / r), a = Math.max(Math.floor(r * o), t.MIN_STAGE_WIDTH), s = a * (n / r);
+            this.root.style.width = Math.floor(a) + "px", this.root.style.height = Math.floor(s) + "px", 
             this.isMaximized && this.centerOnScreen(e, i);
+        }, t.prototype.resizeRootPortrait = function(t, e, i, r) {
+            var n = Math.min(e / r, t / i), o = Math.floor(r * n), a = o * (i / r);
+            this.root.style.width = Math.floor(a) + "px", this.root.style.height = Math.floor(o) + "px", 
+            this.isMaximized && this.centerOnScreen(t, e);
         }, t.prototype.centerOnScreen = function(t, i) {
             var r = t || window.innerWidth, n = i || window.innerHeight;
             this.root.style.top = Math.floor((n - e.main.root.offsetHeight) / 2) + "px", this.root.style.left = Math.floor((r - e.main.root.offsetWidth) / 2) + "px";
@@ -1839,12 +1854,9 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             return (this.next ? this.next.allNodes() : []).concat(this);
         }, t.prototype.draw = function(t) {
             return Promise.all(this.allNodes().map(function(e) {
-              //  console.log( e.drawNode(t)); //AE_MOD EMOJI
-				return e.drawNode(t);
+                return e.drawNode(t);
             }));
         }, t.prototype.drawNode = function(t) {
-			//AE_MOD EMOJI THIS IS THE ISSUE
-		//	console.log(t);
             return t.fillText(this.text, this.x, this.y), null;
         }, t.prototype.forceLineBreak = function(e, i) {
             for (var r = "", n = this.text, o = 0; o !== n.length; ++o) {
@@ -1881,18 +1893,17 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }
         return n(e, t), e.prototype.drawNode = function(i) {
             var r = this;
-		//	console.log(this); //AE_MOD EMOJI
             return e.getImage({
                 text: this.text,
                 color: c.HSColor.hsbStringFromRgbString(i.fillStyle)
             }).then(function(t) {
-                var n = a.iOSApp ? t.width : e.WIDTH, o = a.iOSApp ? t.height : e.HEIGHT;
+                var n = a.isIOSApp() ? t.width : e.WIDTH, o = a.isIOSApp() ? t.height : e.HEIGHT;
                 i.drawImage(t, r.x, r.y, n, o);
             }).catch(function(e) {
                 return t.prototype.drawNode.call(r, i);
             });
         }, e.getImageInfo = function(t) {
-            return a.iOSApp ? a.requestTextureFromApp({
+            return a.isIOSApp() ? a.requestTextureFromApp({
                 type: "emoji",
                 props: t
             }).then(function(t) {
@@ -2007,7 +2018,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         t.GEOMETRIC_SHAPES = /[\u25A0-\u25CF\u25E0-\u25E1\u25E6-\u25FF]/, t.tokenizedStringsCache = new Map(), 
         t.highSurrogates = "?-?", t.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
         t.surrogateRegex = RegExp("[" + t.lowSurrogates + t.highSurrogates + "]"), t.secondCharIsSurrogate = RegExp("^.[" + t.lowSurrogates + "]"), 
-        t.startsWithEmojiRegex = /^\\u([a-fA-F]|[0-9]){4}/, t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
+        t.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/, t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
         t.fitzRegex = RegExp("" + t.fitzpatricks), t;
     }();
     e.HSTokenizer = a, window.HSTextNodeKind = r, window.HSToken = o, window.HSTokenizer = a;
@@ -2018,16 +2029,18 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
     });
     var r = i(1), n = function() {
         function t() {}
-        return t.listener = function(t) {
-            var e = t.accelerationIncludingGravity, i = Math.hypot(e.x, e.y, e.z) || 9.8, r = Math.round(100 * e.x / i), n = Math.round(100 * e.y / i), o = window.orientation;
-            null == o || -90 === o ? (this.tiltUp = r, this.tiltRight = n) : 90 === o ? (this.tiltUp = -r, 
-            this.tiltRight = -n) : 0 === o ? (this.tiltUp = -n, this.tiltRight = r) : (this.tiltUp = n, 
-            this.tiltRight = -r), this.tiltDown = -this.tiltUp, this.tiltLeft = -this.tiltRight, 
-            this.updateShakeData(t.acceleration.x, t.acceleration.y, t.acceleration.z);
+        return t.accelerometerFromIOSApp = function(t, e) {
+            this.listener(t), this.isShakingFromApp = e;
+        }, t.listener = function(t) {
+            var e = t.accelerationIncludingGravity, i = Math.hypot(e.x, e.y, e.z) || 9.8, n = Math.round(100 * e.x / i), o = Math.round(100 * e.y / i), a = window.orientation;
+            null == a || -90 === a ? (this.tiltUp = n, this.tiltRight = o) : 90 === a ? (this.tiltUp = -n, 
+            this.tiltRight = -o) : 0 === a ? (this.tiltUp = -o, this.tiltRight = n) : (this.tiltUp = o, 
+            this.tiltRight = -n), this.tiltDown = -this.tiltUp, this.tiltLeft = -this.tiltRight, 
+            r.isIOSApp() || this.updateShakeData(t.acceleration.x, t.acceleration.y, t.acceleration.z);
         }, t.startAccelerometerUpdates = function() {
             "DeviceMotionEvent" in window && !this.isListening && ("function" == typeof DeviceMotionEvent.requestPermission ? this.enableIOS13Accelerometer() : this.enableAccelerometer());
         }, t.enableIOS13Accelerometer = function() {
-            this.isListening || window.addEventListener("touchstart", t.deviceRequestPermissionIOS13);
+            this.isListening || r.isIOSApp() || window.addEventListener("touchend", t.deviceRequestPermissionIOS13);
         }, t.enableAccelerometer = function() {
             this.isListening || (this.isListening = !0, window.addEventListener("devicemotion", this.listener.bind(this), !1));
         }, t.tiltDirection = function() {
@@ -2039,13 +2052,13 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             this.yAccelerations.length > t.SHAKE_MEMORY_COUNT && this.yAccelerations.shift(), 
             this.zAccelerations.length > t.SHAKE_MEMORY_COUNT && this.zAccelerations.shift();
         }, t.isShaking = function() {
-            return [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(e) {
+            return r.isIOSApp() ? this.isShakingFromApp : [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(e) {
                 return Math.abs(r.mean(e)) < t.SUDDEN_ACCEL_THRESHOLD && r.variance(e) > t.SHAKE_SENSITIVITY;
             });
-        }, t.isListening = !1, t.tiltUp = 0, t.tiltDown = 0, t.tiltLeft = 0, t.tiltRight = 0, 
-        t.deviceRequestPermissionIOS13 = function() {
-            window.removeEventListener("touchstart", t.deviceRequestPermissionIOS13), DeviceMotionEvent.requestPermission().then(function(e) {
-                "granted" === e && t.enableAccelerometer();
+        }, t.isListening = !1, t.isShakingFromApp = !1, t.tiltUp = 0, t.tiltDown = 0, t.tiltLeft = 0, 
+        t.tiltRight = 0, t.deviceRequestPermissionIOS13 = function() {
+            DeviceMotionEvent.requestPermission().then(function(e) {
+                "granted" === e && (t.enableAccelerometer(), window.removeEventListener("touchend", t.deviceRequestPermissionIOS13));
             }).catch(console.error);
         }, t.xAccelerations = [], t.yAccelerations = [], t.zAccelerations = [], t.SHAKE_MEMORY_COUNT = 10, 
         t.SHAKE_SENSITIVITY = 60, t.SUDDEN_ACCEL_THRESHOLD = 2, t;
@@ -2356,8 +2369,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
                 this.setPosition(u[0].computedValue(this), u[1].computedValue(this));
 				break;
 				
-			  case D.HSBlockType.None: //AE_MOD
-				if (/^_ae_webplayer_action:/g.test((u[0]||"").value)){
+			  case HSBlockType.None: //AE_MOD
+				if (/^_ae_webplayer_action:/g.test(u[0].value)){
 					AE_MOD.webplayer_action(u[0].value.split('_ae_webplayer_action:')[1], ((u[1])?u[1].computedValue(this):undefined));
 				}
 				break;
@@ -2794,10 +2807,10 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
 				function notePath (val) {
 					//AE_MOD find path of note
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-					var k = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
-					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : k;
+					var i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : i;
 				}
-                var r = o.HSSoundManager.sharedInstance, s = i[0].computedStringValue(e);
+                var r = o.HSSoundManager.sharedInstance//, s = i[0].computedStringValue(e);
 				var s = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);
                 r.play(s);
                 break;
@@ -2824,7 +2837,20 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
                 break;
 
               default:
-                e.executeBlock(t);
+			try {
+				e.executeBlock(t);
+			} catch (E) {
+				//AE_MOD
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+				console.log("Block Code:", t);
+				console.log("Active Object UUID: " + e.objectID);
+				e.stageRules.forEach(r=>{
+					if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+				});
+				console.groupEnd();
+				throw E;
+			}
             }
         }, t;
     }();
@@ -3357,7 +3383,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
             "./index.js": 1
         } ],
         3: [ function(t, e, i) {
-            e.exports = /\uD83C\uDFF4(?:\u200D\uDB40\uDC67\u200D\uDB40\uDC62\u200D(?:\uDB40\uDC77\u200D\uDB40\uDC6C\u200D\uDB40\uDC73|\uDB40\uDC73\u200D\uDB40\uDC63\u200D\uDB40\uDC74|\uDB40\uDC65\u200D\uDB40\uDC6E\u200D\uDB40\uDC67)\u200D|\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74|\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67))\uDB40\uDC7F|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD]))|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|(?:\uD83E\uDDD1(?:\uD83C[\uDFFB-\uDFFF])\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1|\uD83D\uDC68(?:\uD83C[\uDFFB-\uDFFF])\u200D\uD83E\uDD1D\u200D\uD83D\uDC68|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D\uD83E\uDD1D\u200D(?:\uD83D[\uDC68\uDC69]))(?:\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69])|[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD]))|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66|\uD83E\uDDD1(?:\u200D(?:\uD83E\uDD1D\u200D\uD83E\uDDD1|[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:[\u2695\u2696]|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD]))|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67|(?:\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|(?:\uD83E\uDDD1(?:\uD83C[\uDFFB-\uDFFF])?|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])?|\uD83D\uDC68(?:\uD83C[\uDFFB-\uDFFF])?)\u200D\u2708|\uD83C\uDFF4\uFE0F?\u200D\u2620)\uFE0F|\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8\uFE0F|\uD83D\uDC68(?:\u200D(?:(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])?|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F(?:\uD83C[\uDFFB-\uDFFF])?\u200D[\u2640\u2642]\uFE0F|(?:\uD83C[\uDFFB-\uDFFF])?\u200D[\u2640\u2642])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|\uD83C\uDFF4\uFE0F?\u200D\u2620|(?:\uD83E\uDDD1(?:\uD83C[\uDFFB-\uDFFF])?|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])?|\uD83D\uDC68(?:\uD83C[\uDFFB-\uDFFF])?)\u200D\u2708|\uD83D\uDC15\u200D\uD83E\uDDBA|\uD83C\uDFF3\u200D\uD83C\uDF08|\uD83C\uDDF6\u200D?\uD83C\uDDE6|\uD83C\uDDF4\u200D?\uD83C\uDDF2|\uD83D\uDC41\u200D\uD83D\uDDE8|\uD83C\uDDFD\u200D?\uD83C\uDDF0|\uD83E\uDDDE\u200D[\u2640\u2642]\uFE0F|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDB8\uDDB9\uDDCD-\uDDCF\uDDD6-\uDDDD\uDDDF])(?:\uD83C[\uDFFB-\uDFFF])?\u200D[\u2640\u2642]\uFE0F|[#\*0-9](?:\u200D\uFE0F\u200D|\u200D|\uFE0F)?\u20E3|\uD83C\uDDEF(?:\u200D(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDF2(?:\u200D(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83C\uDDF1(?:\u200D(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDF3(?:\u200D(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDDFC(?:\u200D(?:\uD83C[\uDDEB\uDDF8])|\uD83C[\uDDEB\uDDF8])|\uD83C\uDDE7(?:\u200D(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C\uDDEA(?:\u200D(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDE9(?:\u200D(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDB8\uDDB9\uDDCD-\uDDCF\uDDD6-\uDDDD\uDDDF])(?:(?:\uD83C[\uDFFB-\uDFFF])?\u200D[\u2640\u2642]|\uD83C[\uDFFB-\uDFFF])?|\uD83E\uDDDE\u200D[\u2640\u2642]|\uD83C\uDDE8(?:\u200D(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|\uD83C\uDDED(?:\u200D(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDE6(?:\u200D(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDF7(?:\u200D(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDF5(?:\u200D(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDF8(?:\u200D(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDFA(?:\u200D(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDF0(?:\u200D(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDF9(?:\u200D(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDEE(?:\u200D(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDFF(?:\u200D(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDEC(?:\u200D(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDFB(?:\u200D(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDEB(?:\u200D(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|\uD83C\uDDFE(?:\u200D(?:\uD83C[\uDDEA\uDDF9])|\uD83C[\uDDEA\uDDF9])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F(?:\uD83C[\uDFFB-\uDFFF])|\uD83C[\uDFFB-\uDFFF])?|\uD83E\uDDD1(?:\uD83C[\uDFFB-\uDFFF])?|[\u261D\u270A-\u270D](?:\uFE0F(?:\uD83C[\uDFFB-\uDFFF])|\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])?|\uD83D\uDC41|\uD83C\uDFF4|\uD83D\uDC15|\uD83E\uDDDE|(?:\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC6A-\uDC6D\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDC8F\uDC91\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD0F\uDD18-\uDD1F\uDD30-\uDD36\uDDB5\uDDB6\uDDBB\uDDD2-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|\uD83C\uDFF3|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC6A-\uDC6D\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDC8F\uDC91\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD0F\uDD18-\uDD1F\uDD30-\uDD36\uDDB5\uDDB6\uDDBB\uDDD2-\uDDD5]|[\u261D\u270A-\u270D]|[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692-\u2694\u2696\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7\u26F8\u26FA\u26FD\u2702\u2705\u2708\u2709\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF84\uDF86-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFC1\uDFC5\uDFC6\uDFC8\uDFC9\uDFCD-\uDFF0\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDC14\uDC16-\uDC40\uDC44\uDC45\uDC51-\uDC65\uDC79-\uDC7B\uDC7D-\uDC80\uDC84\uDC88-\uDC8E\uDC90\uDC92-\uDCA9\uDCAB-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73\uDD76-\uDD79\uDD87\uDD8A-\uDD8D\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE44\uDE48-\uDE4A\uDE80-\uDEA2\uDEA4-\uDEB3\uDEB7-\uDEBF\uDEC1-\uDEC5\uDECB\uDECD-\uDED2\uDED5\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEFA\uDFE0-\uDFEB]|\uD83E[\uDD0D\uDD0E\uDD10-\uDD17\uDD20-\uDD25\uDD27-\uDD2F\uDD3A\uDD3F-\uDD45\uDD47-\uDD71\uDD73-\uDD76\uDD7A-\uDDA2\uDDA5-\uDDAA\uDDAE-\uDDB4\uDDB7\uDDBA\uDDBC-\uDDCA\uDDD0\uDDE0-\uDDFF\uDE70-\uDE73\uDE78-\uDE7A\uDE80-\uDE82\uDE90-\uDE95]/g;
+            e.exports = /(?:\ud83e\ufe0f?\udd18\ufe0f?\ud83c\ufe0f?\udfff|\ud83e\ufe0f?\udd18\ufe0f?\ud83c\ufe0f?\udffe|\ud83e\ufe0f?\udd18\ufe0f?\ud83c\ufe0f?\udffd|\ud83e\ufe0f?\udd18\ufe0f?\ud83c\ufe0f?\udffc|\ud83e\ufe0f?\udd18\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udec0\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udec0\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udec0\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udec0\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udec0\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udeb6\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udeb6\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udeb6\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udeb6\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udeb6\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udeb5\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udeb5\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udeb5\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udeb5\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udeb5\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udeb4\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udeb4\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udeb4\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udeb4\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udeb4\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udea3\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udea3\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udea3\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udea3\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udea3\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude4f\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude4f\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude4f\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude4f\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude4f\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude4e\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude4e\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude4e\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude4e\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude4e\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude4d\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude4d\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude4d\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude4d\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude4d\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude4c\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude4c\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude4c\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude4c\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude4c\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude4b\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude4b\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude4b\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude4b\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude4b\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude47\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude47\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude47\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude47\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude47\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude46\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude46\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude46\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude46\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude46\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\ude45\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\ude45\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\ude45\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\ude45\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\ude45\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udd96\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udd96\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udd96\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udd96\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udd96\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udd95\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udd95\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udd95\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udd95\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udd95\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udd90\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udd90\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udd90\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udd90\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udd90\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udcaa\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udcaa\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udcaa\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udcaa\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udcaa\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc87\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc87\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc87\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc87\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc87\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc86\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc86\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc86\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc86\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc86\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc85\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc85\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc85\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc85\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc85\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc83\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc83\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc83\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc83\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc83\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc82\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc82\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc82\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc82\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc82\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc81\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc81\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc81\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc81\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc81\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc7c\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc7c\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc7c\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc7c\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc7c\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc78\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc78\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc78\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc78\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc78\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc77\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc77\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc77\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc77\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc77\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc76\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc76\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc76\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc76\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc76\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc75\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc75\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc75\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc75\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc75\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc74\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc74\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc74\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc74\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc74\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc73\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc73\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc73\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc73\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc73\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc72\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc72\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc72\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc72\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc72\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc71\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc71\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc71\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc71\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc71\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc70\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc70\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc70\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc70\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc70\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc6e\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc6e\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc6e\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc6e\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc6e\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc69\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc69\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc69\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc69\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc69\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc68\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc68\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc68\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc68\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc68\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc67\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc67\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc67\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc67\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc67\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc66\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc66\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc66\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc66\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc66\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc50\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc50\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc50\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc50\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc50\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4f\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4f\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4f\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4f\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4f\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4e\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4e\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4e\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4e\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4e\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4d\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4d\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4d\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4d\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4d\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4c\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4c\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4c\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4c\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4c\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4b\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4b\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4b\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4b\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4b\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc4a\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc4a\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc4a\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc4a\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc4a\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc49\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc49\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc49\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc49\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc49\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc48\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc48\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc48\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc48\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc48\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc47\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc47\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc47\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc47\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc47\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc46\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc46\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc46\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc46\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc46\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc43\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc43\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc43\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc43\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc43\ufe0f?\ud83c\ufe0f?\udffb|\ud83d\ufe0f?\udc42\ufe0f?\ud83c\ufe0f?\udfff|\ud83d\ufe0f?\udc42\ufe0f?\ud83c\ufe0f?\udffe|\ud83d\ufe0f?\udc42\ufe0f?\ud83c\ufe0f?\udffd|\ud83d\ufe0f?\udc42\ufe0f?\ud83c\ufe0f?\udffc|\ud83d\ufe0f?\udc42\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udfcb\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udfcb\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udfcb\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udfcb\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udfcb\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udfca\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udfca\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udfca\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udfca\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udfca\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udfc7\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udfc7\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udfc7\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udfc7\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udfc7\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udfc4\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udfc4\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udfc4\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udfc4\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udfc4\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udfc3\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udfc3\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udfc3\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udfc3\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udfc3\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\udf85\ufe0f?\ud83c\ufe0f?\udfff|\ud83c\ufe0f?\udf85\ufe0f?\ud83c\ufe0f?\udffe|\ud83c\ufe0f?\udf85\ufe0f?\ud83c\ufe0f?\udffd|\ud83c\ufe0f?\udf85\ufe0f?\ud83c\ufe0f?\udffc|\ud83c\ufe0f?\udf85\ufe0f?\ud83c\ufe0f?\udffb|\ud83c\ufe0f?\uddff\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddff\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddff\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddfe\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddfe\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddfd\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddfc\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddfc\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddfb\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddfa\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddef|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddf9\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddfd|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddef|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\udde7|\ud83c\ufe0f?\uddf8\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf7\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddf7\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddf7\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddf7\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddf7\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddf6\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddf5\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf4\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddf3\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddfd|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf6|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddf2\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\udde7|\ud83c\ufe0f?\uddf1\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddf0\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddef\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\uddef\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddef\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddef\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf6|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\uddee\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\udded\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf6|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\udde7|\ud83c\ufe0f?\uddec\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddef|\ud83c\ufe0f?\uddeb\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\uddea\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddef|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\udde9\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddfd|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf5|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddf0|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\udde8|\ud83c\ufe0f?\udde8\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddfe|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddfb|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf6|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf3|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddef|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\udded|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\udde7|\ud83c\ufe0f?\udde7\ufe0f?\ud83c\ufe0f?\udde6|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddff|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddfd|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddfc|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddfa|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf9|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf8|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf7|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf6|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf4|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf2|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddf1|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddee|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddec|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddeb|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\uddea|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\udde9|\ud83c\ufe0f?\udde6\ufe0f?\ud83c\ufe0f?\udde8|\u270d\ufe0f?\ud83c\ufe0f?\udfff|\u270d\ufe0f?\ud83c\ufe0f?\udffe|\u270d\ufe0f?\ud83c\ufe0f?\udffd|\u270d\ufe0f?\ud83c\ufe0f?\udffc|\u270d\ufe0f?\ud83c\ufe0f?\udffb|\u270c\ufe0f?\ud83c\ufe0f?\udfff|\u270c\ufe0f?\ud83c\ufe0f?\udffe|\u270c\ufe0f?\ud83c\ufe0f?\udffd|\u270c\ufe0f?\ud83c\ufe0f?\udffc|\u270c\ufe0f?\ud83c\ufe0f?\udffb|\u270b\ufe0f?\ud83c\ufe0f?\udfff|\u270b\ufe0f?\ud83c\ufe0f?\udffe|\u270b\ufe0f?\ud83c\ufe0f?\udffd|\u270b\ufe0f?\ud83c\ufe0f?\udffc|\u270b\ufe0f?\ud83c\ufe0f?\udffb|\u270a\ufe0f?\ud83c\ufe0f?\udfff|\u270a\ufe0f?\ud83c\ufe0f?\udffe|\u270a\ufe0f?\ud83c\ufe0f?\udffd|\u270a\ufe0f?\ud83c\ufe0f?\udffc|\u270a\ufe0f?\ud83c\ufe0f?\udffb|\u26f9\ufe0f?\ud83c\ufe0f?\udfff|\u26f9\ufe0f?\ud83c\ufe0f?\udffe|\u26f9\ufe0f?\ud83c\ufe0f?\udffd|\u26f9\ufe0f?\ud83c\ufe0f?\udffc|\u26f9\ufe0f?\ud83c\ufe0f?\udffb|\u261d\ufe0f?\ud83c\ufe0f?\udfff|\u261d\ufe0f?\ud83c\ufe0f?\udffe|\u261d\ufe0f?\ud83c\ufe0f?\udffd|\u261d\ufe0f?\ud83c\ufe0f?\udffc|\u261d\ufe0f?\ud83c\ufe0f?\udffb|\u0039\ufe0f?\u20e3|\u0038\ufe0f?\u20e3|\u0037\ufe0f?\u20e3|\u0036\ufe0f?\u20e3|\u0035\ufe0f?\u20e3|\u0034\ufe0f?\u20e3|\u0033\ufe0f?\u20e3|\u0032\ufe0f?\u20e3|\u0031\ufe0f?\u20e3|\u0030\ufe0f?\u20e3|\u002a\ufe0f?\u20e3|\u0023\ufe0f?\u20e3|[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267F\u2692-\u2694\u2696\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD79\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED0\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3]|\uD83E[\uDD10-\uDD18\uDD80-\uDD84\uDDC0])[\uFE00-\uFE0D\uFE0F]?(?!\uFE0E)/g;
+			//AE_MOD EMOJI REGEX
         }, {} ],
         4: [ function(t, e, i) {
             (function(t) {
@@ -4580,7 +4607,7 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
         }
         return t.prototype.play = function() {
             var t = this;
-            if (r.iOSApp) r.HSApp.sendToApp("sound", this.name); else if (this.buffer) {
+            if (r.isIOSApp()) r.HSApp.sendToApp("sound", this.name); else if (this.buffer) {
                 var e = this.context.createBufferSource();
                 e.buffer = this.buffer, e.connect(this.context.destination), e.start(0), this.sources.add(e), 
                 e.onended = function() {
@@ -4592,8 +4619,8 @@ console.log("Webplayer v1.4.0 - 2020/03/04 (production)");
                 return t.stop();
             }), this.sources.clear();
         }, t.prototype.url = function() {
-			return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
-		}, t.soundCache = new Map(), t;
+            return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        }, t.soundCache = new Map(), t;
     }();
     e.HSSound = n, window.HSSound = n;
 }, function(t, e, i) {
