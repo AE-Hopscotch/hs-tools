@@ -613,6 +613,12 @@ ae[badge='6'] {
 	color: var(--col-label-text);
 	transition: color 0.5s;
 }
+.retro .remixbar:hover {
+	opacity: 0.5;
+}
+.retro .remixbar:active {
+	opacity: 0.3;
+}
 .retro .sharelinkbtn {
 	justify-content: space-evenly;
 	width: 200px;
