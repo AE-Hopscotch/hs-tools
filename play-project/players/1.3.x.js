@@ -2015,7 +2015,7 @@ console.log("Webplayer v1.3.9 - 2020/05/13 (production)");
         t.GEOMETRIC_SHAPES = /[\u25A0-\u25CF\u25E0-\u25E1\u25E6-\u25FF]/, t.tokenizedStringsCache = new Map(), 
         t.highSurrogates = "?-?", t.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
         t.surrogateRegex = RegExp("[" + t.lowSurrogates + t.highSurrogates + "]"), t.secondCharIsSurrogate = RegExp("^.[" + t.lowSurrogates + "]"), 
-        t.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/ t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
+        t.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/, t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
         t.fitzRegex = RegExp("" + t.fitzpatricks), t;
     }();
     e.HSTokenizer = a, window.HSTextNodeKind = r, window.HSToken = o, window.HSTokenizer = a;
