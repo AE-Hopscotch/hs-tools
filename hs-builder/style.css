@@ -189,12 +189,43 @@ sq {
 
 /* Block Rendering */
 
+.resize-drag {
+	position: relative;
+	touch-action: none;
+	box-sizing: border-box;
+	overflow: auto;
+	display: block;
+	width: 750px;
+	height: 560px;
+	border: 2px solid red;
+	overflow: hidden;
+}
+.resizer {
+	position: absolute;
+	display: block;
+	right:0; bottom:0;
+	width: 18px;
+	height: 18px;
+	overflow: hidden;
+	color: red;
+}
+.resizer::before {
+	font-family: FontAwesome;
+	content: "\f0c9";
+	display: block;
+	transform: rotate(-45deg) scale(4,0.8);
+	position: absolute;
+	bottom: -18%;
+	right: -18%;
+}
 .bl-container {
 	background: none;
 	padding: 8px;
-	border: 2px solid red;
 	position: relative;
-	width: 600px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	box-sizing: border-box;
 }
 .selected > bl {
 	opacity: 1;
@@ -232,11 +263,13 @@ sq {
 	--col-frame: #a6006e;
 }
 .collapsible-container.abl {
-	--col-frame: #a6006e;
-}
-.collapsible-container.abl {
 	--col-frame: #f2f2f2;
 }
+.collapsible-container.rule {
+	--col-frame: #be2961;
+}
+
+
 .collapsible-container > bl {
 	width: calc(100% - 108px);
 	padding-right: 80px;
@@ -389,6 +422,10 @@ bl.abl {
     background-size: 48px;
     background-repeat: no-repeat;
 }
+bl.rule {
+	background-color: #be2961;
+	--col-bg-inherited: #be2961;
+}
 
 ps {
 	min-height: 32px;
@@ -513,12 +550,27 @@ op.math op.math op.math op.math op.math op.math {
 	position: fixed;
 	top: 4px; right: 4px;
 }
+.edit-box .lower-controls {
+	position: fixed;
+	bottom: 4px; right: 4px;
+}
 .edit-box button {
 	font-size: 16px;
 	padding: 6px 10px;
 	margin: 8px;
 }
-
+.edit-box .block-preview {
+	position: fixed;
+	left: 10%;
+	top: 12%;
+	max-width: 60%;
+	zoom: 0.5;
+	transform: translate(-8px,-100%);
+}
+.danger {
+	background-color: #B00;
+	color: white;
+}
 
 
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
@@ -572,4 +624,3 @@ CODE MIRROR STYLES
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover,.CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover{background:#939f9d!important}
 .CodeMirror-foldmarker{color:aqua!important;text-shadow:#9df 1px 1px 2px, #9df -1px -1px 2px, #9df 1px -1px 2px, #9df -1px 1px 2px!important}
 .CodeMirror-lint-marker-error{top:3px!important;left:-4px!important}
-

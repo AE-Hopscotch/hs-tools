@@ -6,7 +6,11 @@
 		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
+		<!-- BEGIN CDN SCRIPTS -->
+		
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
+		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/javascript/javascript.min.js"></script>
@@ -22,6 +26,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.js"></script>
 		<script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css" />
+		
+		<!-- END CDN SCRIPTS -->
 		
 		<script src="../main.js"></script>
 		<script src="blockrender.js"></script>
@@ -51,39 +57,65 @@
 			html, body {
 				font-family: Lato;
 			}
-			
+			@supports not (-webkit-touch-callout: none) {
+				/* CSS for other than iOS devices */
+				.bl-container ::-webkit-scrollbar {
+					width: 14px;
+					z-index:1001;
+				}
+				.bl-container ::-webkit-scrollbar-track {
+					background-color: #eee;
+					border-radius: 0;
+				}
+				.bl-container ::-webkit-scrollbar-thumb {
+					background-color: #e6d700;
+					border-radius: 10px;
+				  opacity: 0.75;
+				}
+				.bl-container ::-webkit-scrollbar-thumb:active {
+				  background-color: #e6cf00;
+					opacity:1;
+				}
+				.bl-container ::-webkit-scrollbar-corner {
+				  background-color: #eee;
+				}
+			}
 		</style>
 	</head>
 	<body>
-		
-		<div id="blocks-container" class="bl-container" style="padding-bottom: 36px;">
-			<!--div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-			<div><bl class="draw"><c>Draw a Trail color <ps><op class="rcol"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-			<div><bl class="move"><c>Set Position x <ps></ps> y <ps><op class="cnd cm">
-				 &ic; testing &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-			<div><bl class="ctrl"><c>Wait milliseconds <ps><op class="val"><ps><i class="fa fa-cubes"></i></ps> Horizontal Velocity &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-			<div><bl class="var"><c>Set <ps><op class="otr"><ps>Self</ps> Clone Index &ic;</op></ps> to <ps><op class="math cm"><ps><op class="val">&ic; &#x1F4F1; Variable Name Text &ic;</op></ps> + <ps>2</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-			<div class="collapsible-container"><bl class="ctrl cl"><c>Check Once If <ps><op class="cnd cm"><ps>7</ps> = <ps>7</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
-				<div class="collapsible">
-					<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-					<div class="collapsible-container draw"><bl class="draw cl"><c>Draw a Trail color <ps><op class="rcol"></op></ps> width <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
-						<div class="collapsible">
-							<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+		<div id="blocks-container-resizer" class="resize-drag">
+			<div id="blocks-container" class="bl-container" style="padding-bottom: 36px;">
+				<!--div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				<div><bl class="draw"><c>Draw a Trail color <ps><op class="rcol"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				<div><bl class="move"><c>Set Position x <ps></ps> y <ps><op class="cnd cm">
+					 &ic; testing &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				<div><bl class="ctrl"><c>Wait milliseconds <ps><op class="val"><ps><i class="fa fa-cubes"></i></ps> Horizontal Velocity &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				<div><bl class="var"><c>Set <ps><op class="otr"><ps>Self</ps> Clone Index &ic;</op></ps> to <ps><op class="math cm"><ps><op class="val">&ic; &#x1F4F1; Variable Name Text &ic;</op></ps> + <ps>2</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				<div class="collapsible-container"><bl class="ctrl cl"><c>Check Once If <ps><op class="cnd cm"><ps>7</ps> = <ps>7</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
+					<div class="collapsible">
+						<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+						<div class="collapsible-container draw"><bl class="draw cl"><c>Draw a Trail color <ps><op class="rcol"></op></ps> width <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
+							<div class="collapsible">
+								<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="collapsible">
-					<div><bl class="move"><c>Set Position x <ps></ps> y <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				</div>
-			</div-->
+					<div class="collapsible">
+						<div><bl class="move"><c>Set Position x <ps></ps> y <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+					</div>
+				</div-->
+			</div>
+			<div class="resizer"></div>
 		</div>
 		<div class="edit-box">
 			<textarea></textarea>
-			<span class="controls"><button onclick="editclose()"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()"><i class="fa fa-check"></i> SAVE </button>
+			<div class="block-preview"></div>
+			<span class="controls"><button onclick="editclose()" title="Close without saving (Esc)"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()" title="Close and save changes (Ctrl+Enter)"><i class="fa fa-check"></i> SAVE </button></span>
+			<span class="lower-controls"><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
 			</div>
 		</div>
 		<script>
-			var hsProject = {};
+			//var hsProject = {};
 			
 			var COUNT = 0;
 			
@@ -98,7 +130,17 @@
 				});
 				parent.querySelectorAll("*:not(.disabled) > bl .openbtn").forEach((elm)=>{
 					elm.onclick = function(e){
-						if (e.target.parentNode.parentNode.classList.contains("collapsible-container")) e.target.parentNode.parentNode.classList.remove("collapsible-container"); else e.target.parentNode.parentNode.classList.add("collapsible-container");
+						var parentBlock = e.target.parentNode.parentNode;
+						var hasDomInside = Boolean(parentBlock.childElementCount>1/*&&parentBlock.querySelector("div.collapsible").innerHTML.match(/"/)*/);
+						if (hasDomInside) {
+							parentBlock.classList.toggle("collapsible-container");
+							parentBlock.querySelectorAll("div.collapsible").remove();
+						} else {
+							//If there is no child container, refresh the block and load what's inside.							
+							activeEditBlock = parentBlock;
+							editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+							editsave(true);
+						}
 					}
 				});
 				var list = parent.querySelectorAll(".collapsible");
@@ -115,18 +157,24 @@
 						fallbackOnBody: true,
 						swapThreshold: 0.65,
 						multiDrag: true,
-						selectedClass: 'selected'
+						selectedClass: 'selected',
+						onEnd: function(e){
+							console.log("🥩🥩 To:", e.to, "🥞🥞 From:", e.from);
+							activeEditBlock = e.item;
+							editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+							editsave();
+						}
 					});
 				});
 			}
 			
-			XHR.get("https://c.gethopscotch.com/api/v1/projects/test", function(r){
-				hsProject = JSON.parse(r);
-				//hsProject = {abilities: [{"blocks":[{"description":"Set Image","type":56,"parameters":[{"defaultValue":"","value":"","key":"","datum":{"description":"","type":110},"type":54}],"block_class":"method"}]}]};
+			//XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/test", function(r){
+				//hsProject = JSON.parse(r);
+				//hsProject = {};
 				//console.log(hsProject.abilities);
-				(hsProject.abilities[58].blocks||[]).forEach(function(block) {
+				(hsProject.abilities[57].blocks||[]).forEach(function(block) {
 					var blockElm = document.createElement("div");
-					var blockInfo = jsonToHtml(block);
+					var blockInfo = jsonToHtml(block, undefined, (block.type==123));
 					blockElm.setAttribute("class", blockInfo.classList);
 					blockElm.setAttribute("data", blockInfo.data);
 					blockElm.innerHTML = blockInfo.innerHTML;
@@ -143,25 +191,34 @@
 					animation: 150,
 					handle: '.handle',
 					multiDrag: true,
-					selectedClass: 'selected'
+					selectedClass: 'selected',
+					onEnd: function(e){
+						console.log("🥩🥩 To:", e.to, "🥞🥞 From:", e.from);
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+					}
 				});
 				
 				addBlockFunctions(document);
-		},true);
+			//},false);//true);
 			
 			var activeEditBlock;
 			function editclose() {
 				document.querySelector(".edit-box").style.display = "none";
 				activeEditBlock = null;
 			}
-			function editsave() {
+			function editsave(forceOpen) {
+				forceOpen = forceOpen||false; // swap state?
 				var savetext = editor.getValue()/*document.querySelector(".edit-box textarea").value*/||'{}';
 				try {
 					//Valid Block
-					var info = jsonToHtml(JSON.parse(savetext));
+					var info = jsonToHtml(JSON.parse(savetext), undefined, !(forceOpen||activeEditBlock.classList.contains("collapsible-container")));
+					//Open the block if forced to open or is already open
 					activeEditBlock.innerHTML = info.innerHTML;
 					activeEditBlock.setAttribute("class", info.classList);
-					activeEditBlock.setAttribute("data", savetext);
+					activeEditBlock.setAttribute("data", JSON.stringify(JSON.parse(savetext)));
+					
 					addBlockFunctions(activeEditBlock);
 					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
 					document.querySelector(".edit-box").style.display = "none";
@@ -178,12 +235,17 @@
 					}
 				}
 			}
+			function editdelete() {
+				editor.getDoc().setValue('{}');
+				if (activeEditBlock) editsave();
+			}
 			document.body.onkeydown = function(e) {
 				if (!activeEditBlock) return;
 				if (e.keyCode == 27) editclose();
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
 			
+			/* CodeMirror */
 			var editor = CodeMirror.fromTextArea(document.querySelector("textarea"), {
 				matchBrackets: true,
 				autoCloseBrackets: true,
@@ -197,6 +259,48 @@
 				indentWithTabs: true,
 				tabSize: 2
 			});
+			editor.on("change",function(e){
+				try {
+					JSON.parse(editor.getValue());
+					//console.log("Successful JSON Parse")
+					document.querySelector(".edit-box .block-preview").innerHTML = jsonToHtml(JSON.parse(editor.getValue())).innerHTML.replace(/<b class="editbtn"><\/b>/g,"").replace(/ class="(handle|openbtn)/g,' style="cursor:unset;opacity:1;" class="'+"$1");
+				} catch (E) {}
+			});
+			/* Interact JS */
+			interact('.resize-drag')
+				.resizable({
+				// resize from all edges and corners
+				edges: { 
+					right: ".resizer",
+					bottom: ".resizer"
+				},
+				listeners: {
+					move (event) {
+					var target = event.target
+					var x = (parseFloat(target.getAttribute('data-x')) || 0)
+					var y = (parseFloat(target.getAttribute('data-y')) || 0)
+					// update the element's style
+					target.style.width = event.rect.width + 'px'
+					target.style.height = event.rect.height + 'px'
+					// translate when resizing from top or left edges
+					x += event.deltaRect.left
+					y += event.deltaRect.top
+					target.style.webkitTransform = target.style.transform =
+						'translate(' + x + 'px,' + y + 'px)';
+					}
+				},
+				modifiers: [
+					// keep the edges inside the parent
+					interact.modifiers.restrictEdges({
+					//outer: 'parent'
+					}),
+					// minimum size
+					interact.modifiers.restrictSize({
+					min: { width: 100, height: 50 }
+					})
+				],
+				inertia: false
+				});
 		</script>
 	</body>
 </html>
