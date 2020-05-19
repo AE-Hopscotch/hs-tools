@@ -112,7 +112,7 @@
 			<textarea></textarea>
 			<div class="block-preview"></div>
 			<span class="controls"><button onclick="editclose()" title="Close without saving (Esc)"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()" title="Close and save changes (Ctrl+Enter)"><i class="fa fa-check"></i> SAVE </button></span>
-			<span class="lower-controls"><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
+			<span class="lower-controls"><button disabled onclick="" title="" class=""><i class="fa fa-eye"></i> FOCUS VIEW </button><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
 			</div>
 		</div>
 		<script>
@@ -147,7 +147,7 @@
 				var list = parent.querySelectorAll(".collapsible");
 				list.forEach((l)=>{
 					new Sortable(l, {
-						group: 'blocks',
+						group: l.parentNode.getAttribute("data-group"),
 						ghostClass: 'invis',
 						dragClass: 'dragged',
 						fallbackTolerance: 5,
@@ -169,21 +169,23 @@
 				});
 			}
 			
-			//XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/test", function(r){
-				//hsProject = JSON.parse(r);
+			XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/test", function(r){
+				hsProject = JSON.parse(r);
 				//hsProject = {};
 				//console.log(hsProject.abilities);
-				(hsProject.abilities[57].blocks||[]).forEach(function(block) {
+				//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
+				(hsProject.objects[1].rules||[]).forEach(function(block) {
 					var blockElm = document.createElement("div");
-					var blockInfo = jsonToHtml(block, undefined, (block.type==123));
+					var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"));
 					blockElm.setAttribute("class", blockInfo.classList);
 					blockElm.setAttribute("data", blockInfo.data);
+					blockElm.setAttribute("data-group", blockInfo.sortGroup);
 					blockElm.innerHTML = blockInfo.innerHTML;
 					document.getElementById("blocks-container").appendChild(blockElm);
 				});
 				
 				new Sortable(document.querySelector(".bl-container"), {
-					group: 'blocks',
+					group: 'rules',
 					ghostClass: 'invis',
 					dragClass: 'dragged',
 					fallbackTolerance: 5,
@@ -202,7 +204,7 @@
 				});
 				
 				addBlockFunctions(document);
-			//},false);//true);
+			},false);//true);
 			
 			var activeEditBlock;
 			function editclose() {
@@ -219,6 +221,7 @@
 					activeEditBlock.innerHTML = info.innerHTML;
 					activeEditBlock.setAttribute("class", info.classList);
 					activeEditBlock.setAttribute("data", JSON.stringify(JSON.parse(savetext)));
+					activeEditBlock.setAttribute("data-group", info.sortGroup);
 					
 					addBlockFunctions(activeEditBlock);
 					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
