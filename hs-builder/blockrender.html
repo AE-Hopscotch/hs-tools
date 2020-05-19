@@ -137,9 +137,9 @@
 							parentBlock.classList.toggle("collapsible-container");
 							parentBlock.querySelectorAll("div.collapsible").remove();
 						} else {
-							//If there is no child container, refresh the block and load what's inside.							
+							//If there is no child container, refresh the block and load what's inside.
 							activeEditBlock = parentBlock;
-							editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+							editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
 							editsave(true);
 						}
 					}
@@ -169,42 +169,48 @@
 				});
 			}
 			
-			XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/test", function(r){
-				hsProject = JSON.parse(r);
-				//hsProject = {};
-				//console.log(hsProject.abilities);
-				//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
-				(hsProject.objects[1].rules||[]).forEach(function(block) {
-					var blockElm = document.createElement("div");
-					var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"));
-					blockElm.setAttribute("class", blockInfo.classList);
-					blockElm.setAttribute("data", blockInfo.data);
-					blockElm.setAttribute("data-group", blockInfo.sortGroup);
-					blockElm.innerHTML = blockInfo.innerHTML;
-					document.getElementById("blocks-container").appendChild(blockElm);
-				});
-				
-				new Sortable(document.querySelector(".bl-container"), {
-					group: 'rules',
-					ghostClass: 'invis',
-					dragClass: 'dragged',
-					fallbackTolerance: 5,
-					forceFallback: true,
-					delayOnTouchOnly: true,
-					animation: 150,
-					handle: '.handle',
-					multiDrag: true,
-					selectedClass: 'selected',
-					onEnd: function(e){
-						console.log("🥩🥩 To:", e.to, "🥞🥞 From:", e.from);
-						activeEditBlock = e.item;
-						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
-						editsave();
+			setTimeout(function(){
+				XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+(prompt("Project UUID","test")||"").replace(/.*\//,""), function(r){
+					try {
+						hsProject = JSON.parse(r);
+					} catch (E) {
+						return alert("Invalid Response");
 					}
-				});
-				
-				addBlockFunctions(document);
-			},false);//true);
+					//hsProject = {};
+					//console.log(hsProject.abilities);
+					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
+					(hsProject.objects||[]).forEach(function(block) {
+						var blockElm = document.createElement("div");
+						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null));
+						blockElm.setAttribute("class", blockInfo.classList);
+						blockElm.setAttribute("data", blockInfo.data);
+						blockElm.setAttribute("data-group", blockInfo.sortGroup);
+						blockElm.innerHTML = blockInfo.innerHTML;
+						document.getElementById("blocks-container").appendChild(blockElm);
+					});
+					
+					new Sortable(document.querySelector(".bl-container"), {
+						group: 'rules',
+						ghostClass: 'invis',
+						dragClass: 'dragged',
+						fallbackTolerance: 5,
+						forceFallback: true,
+						delayOnTouchOnly: true,
+						animation: 150,
+						handle: '.handle',
+						multiDrag: true,
+						selectedClass: 'selected',
+						onEnd: function(e){
+							console.log("🥩🥩 To:", e.to, "🥞🥞 From:", e.from);
+							activeEditBlock = e.item;
+							editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
+							editsave();
+						}
+					});
+					
+					addBlockFunctions(document);
+				},false);//true);
+			}, 400);
 			
 			var activeEditBlock;
 			function editclose() {
@@ -223,9 +229,9 @@
 					activeEditBlock.setAttribute("data", JSON.stringify(JSON.parse(savetext)));
 					activeEditBlock.setAttribute("data-group", info.sortGroup);
 					
-					addBlockFunctions(activeEditBlock);
 					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
 					document.querySelector(".edit-box").style.display = "none";
+					addBlockFunctions(activeEditBlock);
 					activeEditBlock = null;
 				} catch (E) {
 					console.error(E);
@@ -271,8 +277,7 @@
 				} catch (E) {}
 			});
 			/* Interact JS */
-			interact('.resize-drag')
-				.resizable({
+			interact('.resize-drag').resizable({
 				// resize from all edges and corners
 				edges: { 
 					right: ".resizer",
@@ -304,7 +309,7 @@
 					})
 				],
 				inertia: false
-				});
+			});
 		</script>
 	</body>
 </html>

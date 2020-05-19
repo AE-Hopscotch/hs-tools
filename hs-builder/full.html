@@ -150,7 +150,7 @@
 			var p;
 
 			r = new XMLHttpRequest();
-			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/test?nocache="+Math.random());
+			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/10vln9qp48?nocache="+Math.random());
 			r.onerror = r.onload = function(){
 				p = JSON.parse(r.responseText);
 				console.log("%cReady","color:lime");

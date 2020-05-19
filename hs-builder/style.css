@@ -224,6 +224,7 @@ sq {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	overflow-x: auto;
 	overflow-y: scroll;
 	box-sizing: border-box;
 }
@@ -262,7 +263,7 @@ sq {
 .collapsible-container.draw {
 	--col-frame: #a6006e;
 }
-.collapsible-container.abl {
+.collapsible-container.abl, .collapsible-container.crule {
 	--col-frame: #f2f2f2;
 }
 .collapsible-container.rule {
@@ -277,7 +278,7 @@ sq {
 	padding-right: 80px;
 }
 .collapsible-container:not(.invis)::before {
-	content: " Hello ";
+	content: " ";
 	pointer-events: none;
 	position: absolute;
 	top: 50%;
@@ -356,6 +357,9 @@ bl b.openbtn::before {
 	top: 1px;
 	background-color: rgba(0,0,0,0);
 }
+bl.crule b.openbtn::before {
+	color: white;
+}
 .collapsible-container > bl b.openbtn::before {
 	content: "\f077";
 	top: -1px;
@@ -415,7 +419,7 @@ bl.old {
 	background-color: #647f96;
 	--col-bg-inherited: #647f96;
 }
-bl.abl {
+bl.abl, bl.crule {
 	background-color: #f2f2f2;
 	--col-bg-inherited: #f2f2f2;
 	color: black;
@@ -423,6 +427,9 @@ bl.abl {
     background-position: 0,0;
     background-size: 48px;
     background-repeat: no-repeat;
+}
+bl.crule {
+	background-image: url(../images/crule-bars.png);
 }
 bl.rule {
 	background-color: #be2961;
@@ -490,11 +497,12 @@ op.fw {
 	overflow-y: hidden;
 	justify-content: center;
 }
-op.fw img {
+op.fw img, ps > img {
 	position: relative;
 	top: 0;
 	height: 30px;
 	object-fit: cover;
+	pointer-events: none;
 }
 op.cm {
 	--ia: 0.2;
