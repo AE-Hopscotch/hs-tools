@@ -50,9 +50,11 @@
 					<br/><input type="checkbox" id="opt_ev"/><label for="opt_ev">Match entire value only</label>
 					<br/><input type="checkbox" id="opt_dc"/><label for="opt_dc">Match deleted code</label>
 					<br/><input type="checkbox" id="opt_rg"/><label for="opt_rg">Regular expression</label>
+					<br/><input type="checkbox" id=""/><label for="">idk, another checkbox</label>
 				</td>
 				<td>
 					<br/><input type="checkbox" id="ft_ab" checked /><label for="ft_ab">Match ability names</label>
+					<br/><input type="checkbox" id="ft_bn" checked /><label for="ft_bn">Match block names</label>
 					<br/><input type="checkbox" id="ft_pv" checked /><label for="ft_pv">Match parameter values</label>
 					<br/><input type="checkbox" id="ft_cr" checked /><label for="ft_cr">Match custom rule names</label>
 					<br/><input type="checkbox" id="ft_ob" checked /><label for="ft_ob">Match objects</label>
@@ -63,6 +65,7 @@
 		</table>
 
 		<script src="../main.js"></script>
+		<script src="blockrender.js"></script>
 		<script>
 			document.querySelectorAll("input[type=checkbox][id*=opt_]").forEach((elm)=>{
 				elm.oninput = function(e){
@@ -76,12 +79,20 @@
 				};
 			});
 			
+			var blockTypeCounts = {};
+			var blockDescCounts = {};
 			function formatProject(p) {
 				//Assign each block its own ID
 				p.abilities.forEach((a)=>{
 					for (i = 0; i < a.blocks.length; i++) {
 						b = a.blocks[i];
 						b.web_id = a.abilityID + "_b" + i;
+						
+						var type = blockLabels[b.type][0];
+						(blockTypeCounts[type]) ? blockTypeCounts[type]++ : blockTypeCounts[type]=1;
+						
+						var name = blockLabels[b.type][1];
+						(blockDescCounts[name]) ? blockDescCounts[name]++ : blockDescCounts[name]=1;
 					}
 				});
 				//Assign each scene its own ID
@@ -105,6 +116,7 @@
 					if (a.name && optVal("ft_ab")) textItems.push({"type":"ability","value":a.name,"id":a.abilityID});
 					for (i = 0; i < a.blocks.length; i++) {
 						b = a.blocks[i];
+						if (optVal("ft_bn")) textItems.push({"type":"blockName","value":blockLabels[b.type][1],"id":b.web_id});
 						if (optVal("ft_pv")) (JSON.stringify(b).match(/"value":".*?(?<!\\)(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse('{"type":"block",' + m + ',"id":"' + b.web_id + '"}'));});
 					}
 				});
@@ -124,7 +136,7 @@
 				
 				console.log(textItems);
 				
-				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":""), (optVal("opt_cs")?"":"i"));
+				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ev")?"^":"")+(optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":"")+(optVal("opt_ev")?"$":"")||"$.^", (optVal("opt_cs")?"":"i"));
 				console.log(searchRegex);
 				textItems.forEach((t)=>{
 					if (t.value.match(searchRegex)) console.log(t);

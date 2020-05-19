@@ -268,7 +268,9 @@ sq {
 .collapsible-container.rule {
 	--col-frame: #be2961;
 }
-
+.collapsible-container.obj {
+	--col-frame: #6BDAED;
+}
 
 .collapsible-container > bl {
 	width: calc(100% - 108px);
@@ -426,6 +428,10 @@ bl.rule {
 	background-color: #be2961;
 	--col-bg-inherited: #be2961;
 }
+bl.obj {
+	background-color: #6BDAED;
+	--col-bg-inherited: #6BDAED;
+}
 
 ps {
 	min-height: 32px;
@@ -558,14 +564,20 @@ op.math op.math op.math op.math op.math op.math {
 	font-size: 16px;
 	padding: 6px 10px;
 	margin: 8px;
+	user-select: none;
+}
+.edit-box button:disabled {
+	cursor: unset;
+	opacity: 0.3;
 }
 .edit-box .block-preview {
 	position: fixed;
 	left: 10%;
 	top: 12%;
 	max-width: 60%;
-	zoom: 0.5;
+	zoom: 0.75;
 	transform: translate(-8px,-100%);
+	user-select: none;
 }
 .danger {
 	background-color: #B00;
