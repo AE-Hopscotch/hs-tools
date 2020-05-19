@@ -157,25 +157,48 @@ function isFalseScript (container) {
 	return isFalse;
 }
 
+var oldProjAlerted = false;
 function jsonToHtml(block, isNested, keepClosed) {
 	isNested = isNested||false;
 	keepClosed = keepClosed||false;
 	
 	var sortGroup = "blocks";
-	//console.log(isNested);
-	//console.log(block);
+	
+	if (block.scripts) {
+		if (!oldProjAlerted) alert("The block renderer cannot fully render old project formats yet")
+		oldProjAlerted = true;
+	}
 	
 	//Convert Rule Strings to rule Blocks
-	if (typeof block == 'string') {
+	if (typeof block == "string") {
 		hsProject.rules.forEach(rule=>{
 			if (rule.id == block) block = rule;
-		})	
+		});
+		//If it is a custom rule
+		if (typeof block == "string") {
+			hsProject.customRules.forEach(customrule=>{
+				if (customrule.id == block) block = customrule;
+			});
+		}
 	}
+	//Set data of objects
+	if (block.xPosition!=null) {
+		block.block_class = "control";
+		block.parameters = [{
+			"datum": {
+				"type": block.type,
+				"text": block["text"]
+			}
+		}];
+	}
+	//Change the container type for objects and custom rules
 	if (block.ruleBlockType && !block.type) block.type = block.ruleBlockType;
 	if (block.abilityID && !block.controlScript) {
 		block.controlScript = {abilityID:block.abilityID};
 		block.block_class = "control";
-		sortGroup = "blocks";
+	} else if (block.rules) {
+		block.block_class = "control";
+		sortGroup = "rules";
 	}
 	
 	var block_parent = activeEditBlock;
@@ -184,10 +207,10 @@ function jsonToHtml(block, isNested, keepClosed) {
 		var myData = JSON.parse(activeEditBlock.getAttribute("data"));
 		var myScripts = (myData.controlScript) ? new RegExp (("^("+myData.controlScript.abilityID+"|"+(myData.controlFalseScript||{abilityID:""}).abilityID).replace(/\|$/,"")+")$","m"):/$.^/;
 	}
-	while (block_parent && block_parent != document.body && block_parent != document.getElementById("blocks-container-resizer")) {
+	while (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer")) {
 		var isFalse = isFalseScript(block_parent.parentNode);
 		block_parent = (block_parent.parentNode||{parentNode:null}).parentNode||document.getElementById("blocks-container-resizer");
-		if (block_parent && block_parent != document.getElementById("blocks-container-resizer") && myScripts.test( (JSON.parse(block_parent.getAttribute("data"))[(isFalse)?"controlFalseScript":"controlScript"]||JSON.parse(block_parent.getAttribute("data")).abilityID).abilityID )) isNested = true;
+		if (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer") && myScripts.test( (JSON.parse(block_parent.getAttribute("data"))[(isFalse)?"controlFalseScript":"controlScript"]||JSON.parse(block_parent.getAttribute("data")).abilityID).abilityID )) isNested = true;
 	}
 	
 	if (JSON.stringify(block) == "{}"||COUNT > 1000) {
@@ -199,8 +222,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 	}
 	COUNT ++;
 	if (!isNested) nestedUuidList = [];
-	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":((block.type==6000)?" rule":"")));
-	var labels = blockLabels[block.type]||[];
+	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":((block.type==6000)?" rule":(block.xPosition!=null?" obj":block.rules?" crule":""))));
+	var labels = (block.xPosition!=null?["obj"]:blockLabels[block.type]||(block.rules?["crule"]:[]));
 	var paramString = "";
 	for (var i = 0; i < (block.parameters||[]).length; i++) {
 		var p = block.parameters[i];
@@ -239,32 +262,76 @@ function jsonToHtml(block, isNested, keepClosed) {
 					}
 				}
 			}
-			//console.log(d.datum.block_class);
-			if (d.datum.type == 5000) return "<ps><op class=\"rcol\"></op></ps>";
-			//if (d.datum.type >= 7e3 && d.datum.type < 8e3) return "<ps><op class=\"cm\">\u2063 " + blockLabels[d.datum.type][1] + " \u2063</op></ps>";
-			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8006)) return "<ps><op class=\"val\">" + blockLabels[d.datum.type][0] + " " + getVar(d.datum.variable) + " \u2063</op></ps>";
-			if (d.datum.HSTraitTypeKey >= 2e3 && d.datum.HSTraitTypeKey < 4e3) return "<ps><op class=\"otr\">" + (blockLabels[d.datum.HSTraitObjectParameterTypeKey]||"") + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
-			if (d.datum.type==22||(d.datum.type >= 1e3 && d.datum.type < 2e3)||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
-				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3)
-				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":blockLabels[d.datum.type][1]||d.datum.description||"") + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"") + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
+			//Traits
+			if (d.datum.HSTraitTypeKey >= 2e3 && d.datum.HSTraitTypeKey < 4e3) {
+				var objectLabel = objectLabel = (blockLabels[d.datum.HSTraitObjectParameterTypeKey]||"");
+				if (d.datum.HSTraitObjectParameterTypeKey==8e3) {
+					hsProject.objects.forEach(o=>{
+						if (d.datum.HSTraitObjectIDKey == o.objectID) objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+					});
+				}
+				//"HSTraitObjectIDKey";
+				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
 			}
+			//Variables
+			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8006)) {
+				var objectLabel = blockLabels[d.datum.type][0];;
+				if (d.datum.type == 8e3) {
+					hsProject.objects.forEach(o=>{
+						if (d.datum.object == o.objectID) {
+							objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+						}
+					});
+				}
+				return "<ps><op class=\"val\">" + objectLabel + " " + getVar(d.datum.variable) + " \u2063</op></ps>";
+			}
+			//Images (no block class)
 			if (!/operator/i.test(d.datum.block_class)) {
 				//console.log(d.datum.block_class);
-				return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 " + (d.datum.type/*-25*(d.datum.type>=100)-23*(d.datum.type>=150)*/)*-30 + "px\" src=\""+'../images/character_sprite_strip.png'+"\" width=\"36\"/>") + "</op></ps>";
+				if (d.datum.type == 1) {
+					return "<ps><op class=\"cm\">\u2063 Text <ps><span>" + d.datum["text"].replace(/\n(.|\n)*/g,"") + "</span></ps></op></ps>";
+				} else {
+					return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>") + "</op></ps>";
+				}
+			}
+			//Random Color
+			if (d.datum.type == 5000) return "<ps><op class=\"rcol\"></op></ps>";
+			//None Block, Math, Conditionals, Game Rules
+			if (d.datum.type<1e3||(d.datum.type >= 1e3 && d.datum.type < 2e3)||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
+				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3);
+				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"") + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"") + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
 		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:labels[1])||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:((block.rules||block.xPosition!=null)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
-		var nestedHTML = "<div class=\"collapsible\">", trueScript = (block.controlScript||{}).abilityID||"", falseScript = (block.controlFalseScript||{}).abilityID||"";
+		var nestedHTML = "<div class=\"collapsible\">",
+			trueScript = (block.controlScript||{}).abilityID||"",
+			falseScript = (block.controlFalseScript||{}).abilityID||"",
+			addedToHtml = false;
+		if (!trueScript && block.rules) {
+			//Handle Objects and Custom Rules
+				addedToHtml = true;
+			if (!keepClosed) {
+				(block.rules||[]).repeatEach((r)=>{
+					nestedUuidList.push(r);
+					//console.log(jsonToHtml(r));
+					var blockInfo = jsonToHtml(r,true,true);
+					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+				});
+			} else {
+				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
+			}
+		}
 		//console.log(trueScript);
 		//console.log(falseScript);
 		var pAbilities = (hsProject.abilities||[]).repeatEach((a)=>{return JSON.stringify(a)}).join("\n")||"";
 		(pAbilities.match(new RegExp('^.*"abilityID":"' + trueScript + '".*$',"gm"))||[]).forEach((a)=>{
 			a = JSON.parse(a);
 			if (a.abilityID != trueScript) return;
+			if (a&&nestedUuidList.indexOf(trueScript)==-1) addedToHtml = true;
 			//if (block.type != 123) keepClosed = false;
 			if (!keepClosed&&a&&nestedUuidList.indexOf(trueScript)==-1) {
 				nestedUuidList.push(a.abilityID);
@@ -278,7 +345,14 @@ function jsonToHtml(block, isNested, keepClosed) {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 			}
 		});
+		if (!addedToHtml&&(trueScript||block.rules)&&block) {
+			//console.log("true script does not exist",keepClosed);
+			var blockInfo = jsonToHtml({},true,keepClosed);
+			//nestedHTML += '<div class="' + blockInfo.classList + '" data="'+'" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+			if (keepClosed) elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
+		}
 		//console.log(nestedHTML);
+		addedToHtml = false;
 		innerHTML = innerHTML.replace("<c>","<b class=\"openbtn\"></b><c>") + nestedHTML + "</div>";
 		if (block.type == 124) {
 			var nestedHTML = "<div class=\"collapsible\">";
@@ -287,6 +361,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 				a = JSON.parse(a);
 				if (a.abilityID != falseScript) return;
 				if (a&&nestedUuidList.indexOf(falseScript)==-1) {
+					addedToHtml = true;
 					nestedUuidList.push(a.abilityID);
 					(a.blocks||[]).repeatEach((b)=>{
 						var blockInfo = jsonToHtml(b,true,(b.type==123));
@@ -298,9 +373,18 @@ function jsonToHtml(block, isNested, keepClosed) {
 			});
 			innerHTML = innerHTML + nestedHTML + "</div>";
 		}
-		if (nestedHTML == "<div class=\"collapsible\">" && keepClosed) innerHTML = innerHTML.replace(/<div class="collapsible"><\/div>$/,"")
+		if (!addedToHtml&&falseScript&&block) {
+			//console.log("true script does not exist",keepClosed);
+			var blockInfo = jsonToHtml({},true,keepClosed);
+			if (keepClosed) elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
+		}
+		if (keepClosed) innerHTML = innerHTML.replace(/<div class="collapsible"><\/div>/g,"")
 		//console.log(nestedUuidList);
 	}
-	if (sortGroup == "rules") delete block.controlScript;
+	if (block.rules || block.type == 6000) {
+		delete block.controlScript;
+		delete block.block_class;
+		if (block.xPosition!=null) delete block.parameters;
+	}
 	return {"classList":elmClass||"","data":JSON.stringify(block),"innerHTML":innerHTML,"sortGroup":sortGroup};
 }
