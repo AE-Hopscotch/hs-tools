@@ -66,6 +66,7 @@
 
 		<script src="../main.js"></script>
 		<script src="blockrender.js"></script>
+		<script src="editor.js"></script>
 		<script>
 			document.querySelectorAll("input[type=checkbox][id*=opt_]").forEach((elm)=>{
 				elm.oninput = function(e){
@@ -83,10 +84,24 @@
 			var blockDescCounts = {};
 			function formatProject(p) {
 				//Assign each block its own ID
+				projectDict = {
+					"abilities": {},
+					"eventParameters": {},
+					"objects": {},
+					"rules": {},
+					"customRules": {},
+					"variables": {},
+					"scenes": {}
+				};
+				//JSON.parse(JSON.stringify(hsProject));
 				p.abilities.forEach((a)=>{
-					for (i = 0; i < a.blocks.length; i++) {
+					projectDict.abilities[a.abilityID] = {abilityID:a.abilityID,createdAt:a.createdAt,name:a.name,blocks:{}};
+					
+					for (i = 0; i < (a.blocks||[]).length; i++) {
 						b = a.blocks[i];
 						b.web_id = a.abilityID + "_b" + i;
+						
+						projectDict.abilities[a.abilityID].blocks[b.web_id] = b;
 						
 						var type = blockLabels[b.type][0];
 						(blockTypeCounts[type]) ? blockTypeCounts[type]++ : blockTypeCounts[type]=1;
@@ -97,8 +112,36 @@
 				});
 				//Assign each scene its own ID
 				for (i = 0; i < p.scenes.length; i++) {
-					p.scenes[i].web_id = "s" + i;
+					var s = p.scenes[i];
+					s.web_id = "s" + i;
+					projectDict.scenes[s.web_id] = s;
 				}
+				//Assign objects dictionary
+				for (i = 0; i < p.objects.length; i++) {
+					var o = p.objects[i];
+					projectDict.objects[o.objectID] = o;
+				}
+				//Assign event parameters dictionary
+				for (i = 0; i < p.eventParameters.length; i++) {
+					var ep = p.eventParameters[i];
+					projectDict.eventParameters[ep.id] = ep;
+				}
+				//Assign rules dictionary
+				for (i = 0; i < p.rules.length; i++) {
+					var r = p.rules[i];
+					projectDict.rules[r.id] = r;
+				}
+				//Assign custom rules dictionary
+				for (i = 0; i < p.customRules.length; i++) {
+					var cr = p.customRules[i];
+					projectDict.customRules[cr.id] = cr;
+				}
+				//Assign variables dictionary
+				for (i = 0; i < p.variables.length; i++) {
+					var v = p.variables[i];
+					projectDict.variables[v.objectIdString] = v;
+				}
+				
 				return p;
 			}
 			
@@ -112,25 +155,25 @@
 				var searchText = document.getElementById("project-search-input").value;
 				textItems = [];
 				
-				(p.abilities||[]).forEach((a)=>{
+				(hsProject.abilities||[]).forEach((a)=>{
 					if (a.name && optVal("ft_ab")) textItems.push({"type":"ability","value":a.name,"id":a.abilityID});
-					for (i = 0; i < a.blocks.length; i++) {
+					for (i = 0; i < (a.blocks||[]).length; i++) {
 						b = a.blocks[i];
 						if (optVal("ft_bn")) textItems.push({"type":"blockName","value":blockLabels[b.type][1],"id":b.web_id});
 						if (optVal("ft_pv")) (JSON.stringify(b).match(/"value":".*?(?<!\\)(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse('{"type":"block",' + m + ',"id":"' + b.web_id + '"}'));});
 					}
 				});
-				if (optVal("ft_cr")) (p.customRules||[]).forEach((c)=>{
+				if (optVal("ft_cr")) (hsProject.customRules||[]).forEach((c)=>{
 					textItems.push({"type":"customRule","value":c.name,"id":c.id});
 				});
-				if (optVal("ft_ob")) (p.objects||[]).forEach((o)=>{
+				if (optVal("ft_ob")) (hsProject.objects||[]).forEach((o)=>{
 					textItems.push({"type":"object_name","value":o.name,"id":o.objectID});
 					textItems.push({"type":"object_text","value":o.text,"id":o.objectID});
 				});
-				if (optVal("ft_sc")) (p.scenes||[]).forEach((s)=>{
+				if (optVal("ft_sc")) (hsProject.scenes||[]).forEach((s)=>{
 					textItems.push({"type":"scene","value":s.name,"id":s.web_id});
 				});
-				if (optVal("ft_vr")) (p.variables||[]).forEach((v)=>{
+				if (optVal("ft_vr")) (hsProject.variables||[]).forEach((v)=>{
 					textItems.push({"type":"var","value":v.name,"id":v.objectIdString});
 				});
 				
@@ -147,14 +190,14 @@
 				return (document.getElementById(id)||{"checked":false}).checked;
 			}
 			
-			var p;
+			var hsProject, projectDict;
 
 			r = new XMLHttpRequest();
-			r.open("GET", "https://cors-anywhere.herokuapp.com/https://c.gethopscotch.com/api/v1/projects/10vln9qp48?nocache="+Math.random());
+			r.open("GET", "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://c.gethopscotch.com/api/v1/projects/test?nocache=")+Date.now());
 			r.onerror = r.onload = function(){
-				p = JSON.parse(r.responseText);
+				hsProject = JSON.parse(r.responseText);
 				console.log("%cReady","color:lime");
-				console.log(formatProject(p));
+				console.log(formatProject(hsProject));
 			}
 			r.send();
 

@@ -187,7 +187,41 @@ sq {
 	transition: var(--time-trans);
 }
 
-/* Block Rendering */
+/* Interact JS */
+
+.page-controls {
+	width: 300px;
+	height: 150px;
+	display: block;
+	touch-action: none;
+	padding: 8px;
+    position: fixed;
+    background: linear-gradient(rgba(11, 91, 81, 0.9), rgba(15, 118, 106, 0.9));
+    z-index: 20;
+	border: 2px solid teal;
+	border-radius: 8px;
+}
+.page-controls img {
+	margin: 4px;
+}
+.page-controls h1 {
+	display: inline-block;
+	margin: 0;
+	position: relative;
+	top: 0;
+	font-family: Francois One;
+	color: white;
+	margin: 0; padding: 0;
+	top: -15px;
+	position:relative;
+}
+.page-controls button {
+	display: inline-block;
+	position: relative;
+	padding: 8px 10px;
+	margin: 8px;
+	font-size: 20px;
+}
 
 .resize-drag {
 	position: relative;
@@ -196,9 +230,12 @@ sq {
 	overflow: auto;
 	display: block;
 	width: 750px;
+	max-width: 100%;
 	height: 560px;
-	border: 2px solid red;
+	border: 2px solid teal;
+	border-radius: 8px;
 	overflow: hidden;
+	transform: translate(0,0);
 }
 .resizer {
 	position: absolute;
@@ -207,7 +244,7 @@ sq {
 	width: 18px;
 	height: 18px;
 	overflow: hidden;
-	color: red;
+	color: teal;
 }
 .resizer::before {
 	font-family: FontAwesome;
@@ -218,6 +255,33 @@ sq {
 	bottom: -18%;
 	right: -18%;
 }
+.drag-handle {
+	width: 100%;
+	position: fixed;
+	display: block;
+	top: 0; left: 0;
+	background-color: rgba(80,80,80,0.8);
+	color: white;
+	padding: 4px 8px;
+	box-sizing: border-box;
+	z-index: 10;
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	touch-action: none;
+}
+.drag-handle a {
+	color: white;
+	text-decoration: none;
+}
+.drag-handle a:hover {
+	opacity: 0.7;
+}
+.drag-handle a:active {
+	opacity: 0.4;
+}
+
+/* Block Rendering */
+
 .bl-container {
 	background: none;
 	padding: 8px;
@@ -227,6 +291,7 @@ sq {
 	overflow-x: auto;
 	overflow-y: scroll;
 	box-sizing: border-box;
+	user-select: none;
 }
 .selected > bl {
 	opacity: 1;
@@ -367,6 +432,9 @@ bl.crule b.openbtn::before {
 bl b.editbtn:hover, *:not(.disabled) > bl b.openbtn:hover {
 	opacity: 0.7;
 	cursor: pointer;
+}
+bl b.editbtn:active, *:not(.disabled) > bl b.openbtn:active {
+	opacity: 0.4;
 }
 bl b.handle {
 	cursor: grab;

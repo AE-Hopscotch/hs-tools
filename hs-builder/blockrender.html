@@ -4,6 +4,8 @@
 		<title>Block Rendering</title>
 		<link rel="stylesheet" href="style.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Francois%20One' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 		<!-- BEGIN CDN SCRIPTS -->
@@ -57,6 +59,8 @@
 			html, body {
 				font-family: Lato;
 				-webkit-overflow-scrolling: touch;
+				width: 100%;
+				height: 100%;
 			}
 			@supports not (-webkit-touch-callout: none) {
 				/* CSS for other than iOS devices */
@@ -69,12 +73,12 @@
 					border-radius: 0;
 				}
 				.bl-container::-webkit-scrollbar-thumb {
-					background-color: #e6d700;
+					background-color: rgba(100,100,100,0.8); /*#e6d700;*/
 					border-radius: 10px;
 					opacity: 0.75;
 				}
 				.bl-container::-webkit-scrollbar-thumb:active {
-				  background-color: #e6cf00;
+				  background-color: rgba(100,100,100,0.7); /*#e6cf00;*/
 					opacity:1;
 				}
 				.bl-container::-webkit-scrollbar-corner {
@@ -84,27 +88,10 @@
 		</style>
 	</head>
 	<body>
+		<button onclick="theme()" id="themebtn" style="right:0;"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<div id="blocks-container-resizer" class="resize-drag">
-			<div id="blocks-container" class="bl-container" style="padding-bottom: 36px;">
-				<!--div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				<div><bl class="draw"><c>Draw a Trail color <ps><op class="rcol"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				<div><bl class="move"><c>Set Position x <ps></ps> y <ps><op class="cnd cm">
-					 &ic; testing &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				<div><bl class="ctrl"><c>Wait milliseconds <ps><op class="val"><ps><i class="fa fa-cubes"></i></ps> Horizontal Velocity &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				<div><bl class="var"><c>Set <ps><op class="otr"><ps>Self</ps> Clone Index &ic;</op></ps> to <ps><op class="math cm"><ps><op class="val">&ic; &#x1F4F1; Variable Name Text &ic;</op></ps> + <ps>2</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-				<div class="collapsible-container"><bl class="ctrl cl"><c>Check Once If <ps><op class="cnd cm"><ps>7</ps> = <ps>7</ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
-					<div class="collapsible">
-						<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-						<div class="collapsible-container draw"><bl class="draw cl"><c>Draw a Trail color <ps><op class="rcol"></op></ps> width <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl>
-							<div class="collapsible">
-								<div><bl class="looks"><c>Set Color <ps style="background:rgb(0,0,0);"></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-							</div>
-						</div>
-					</div>
-					<div class="collapsible">
-						<div><bl class="move"><c>Set Position x <ps></ps> y <ps></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-					</div>
-				</div-->
+			<div id="blocks-container" class="bl-container" style="padding: 36px 8px;">
+				<div class="drag-handle">Block Rendering: Loading...</div>
 			</div>
 			<div class="resizer"></div>
 		</div>
@@ -112,11 +99,13 @@
 			<textarea></textarea>
 			<div class="block-preview"></div>
 			<span class="controls"><button onclick="editclose()" title="Close without saving (Esc)"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()" title="Close and save changes (Ctrl+Enter)"><i class="fa fa-check"></i> SAVE </button></span>
-			<span class="lower-controls"><button disabled onclick="" title="" class=""><i class="fa fa-eye"></i> FOCUS VIEW </button><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
+			<span class="lower-controls"><button id="focus-btn" onclick="editfocus()" title="" class=""><i class="fa fa-eye"></i> FOCUS VIEW </button><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
 			</div>
 		</div>
+		<script src="../sidenav.min.js"></script>
+		<script src="editor.js"></script>
 		<script>
-			//var hsProject = {};
+			var hsProject, projectDict = {};
 			
 			var COUNT = 0;
 			
@@ -126,6 +115,8 @@
 						activeEditBlock = e.target.parentNode.parentNode;
 						//document.querySelector(".edit-box textarea").value = JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t");
 						document.querySelector(".edit-box").style.display = "block";
+						var blockData = JSON.parse(activeEditBlock.getAttribute("data"));
+						(jsonToHtml(blockData).focusType != "blocks" || blockData.type == 123) ? document.getElementById("focus-btn").removeAttribute("disabled") : document.getElementById("focus-btn").setAttribute("disabled","");
 						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
 					}
 				});
@@ -160,7 +151,7 @@
 						multiDrag: true,
 						selectedClass: 'selected',
 						onEnd: function(e){
-							console.log("ðŸ¥©ðŸ¥© To:", e.to, "ðŸ¥žðŸ¥ž From:", e.from);
+							console.log("To:", e.to, "\nFrom:", e.from);
 							activeEditBlock = e.item;
 							editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
 							editsave();
@@ -169,46 +160,58 @@
 				});
 			}
 			
+			function replaceRender(data, tct, desc) {
+				if (data == -1) {
+					desc = "Entire Project";
+					if (hsProject.scenes) {
+						data = hsProject.scenes, tct = "scenes";
+					} else {
+						data = hsProject.objects||[], tct = "objects";
+					}
+				}
+				document.getElementById("blocks-container-resizer").innerHTML = '<div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"><div class="drag-handle">Block Rendering: ' + desc + (desc!="Entire Project"?' <a title="See Entire Project" href="javascript:replaceRender(-1)">&ic; <i class="fa fa-list-alt"></i></a>':'')+'</div></div><div class="resizer"></div>';
+				//Data = Data Array, Top Container Type (e.g. Rules, Objects)
+				data.forEach(function(item) {
+					var blockElm = document.createElement("div");
+					var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.filename!=null||(item.objects&&hsProject.scenes.length>1)));
+					blockElm.setAttribute("class", blockInfo.classList);
+					blockElm.setAttribute("data", blockInfo.data);
+					blockElm.setAttribute("data-group", blockInfo.sortGroup);
+					blockElm.innerHTML = blockInfo.innerHTML;
+					document.getElementById("blocks-container").appendChild(blockElm);
+				});
+				
+				x = new Sortable(document.querySelector(".bl-container"), {
+					group: tct,
+					ghostClass: 'invis', dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					onEnd: function(e){
+						console.log("To:", e.to, "\nFrom:", e.from);
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
+						editsave();
+					}
+				});
+				
+				document.querySelector(".bl-container").setAttribute("data-group", tct);
+				
+				addBlockFunctions(document);
+			}
+			req_id = localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
 			setTimeout(function(){
-				XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+(prompt("Project UUID","test")||"").replace(/.*\//,""), function(r){
+				if (!req_id) return;
+				XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
 					try {
 						hsProject = JSON.parse(r);
 					} catch (E) {
 						return alert("Invalid Response");
 					}
+					formatProject(hsProject);
+					replaceRender(-1); //-1 means top (entire project)
 					//hsProject = {};
 					//console.log(hsProject.abilities);
 					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
-					(hsProject.scenes||hsProject.objects||[]).forEach(function(block) {
-						var blockElm = document.createElement("div");
-						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null||(block.objects&&hsProject.scenes.length>1)));
-						blockElm.setAttribute("class", blockInfo.classList);
-						blockElm.setAttribute("data", blockInfo.data);
-						blockElm.setAttribute("data-group", blockInfo.sortGroup);
-						blockElm.innerHTML = blockInfo.innerHTML;
-						document.getElementById("blocks-container").appendChild(blockElm);
-					});
-					
-					new Sortable(document.querySelector(".bl-container"), {
-						group: 'scenes',
-						ghostClass: 'invis',
-						dragClass: 'dragged',
-						fallbackTolerance: 5,
-						forceFallback: true,
-						delayOnTouchOnly: true,
-						animation: 150,
-						handle: '.handle',
-						multiDrag: true,
-						selectedClass: 'selected',
-						onEnd: function(e){
-							console.log("ðŸ¥©ðŸ¥© To:", e.to, "\nðŸ¥žðŸ¥ž From:", e.from);
-							activeEditBlock = e.item;
-							editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
-							editsave();
-						}
-					});
-					
-					addBlockFunctions(document);
 				},false);//true);
 			}, 400);
 			
@@ -249,6 +252,16 @@
 				editor.getDoc().setValue('{}');
 				if (activeEditBlock) editsave();
 			}
+			function editfocus() {
+				var blockData = JSON.parse(activeEditBlock.getAttribute("data"));
+				console.log( "blocks", projectDict.objects[blockData.objectID||"idk"]);
+				if (blockData.objects) replaceRender(blockData.objects, "objects", "Objects in “" + blockData.name + "”");
+				else if (blockData.rules) replaceRender(blockData.rules, "rules", "Rules of “" + blockData.name + "”");
+				else if (blockData.abilityID) replaceRender(Object.keys(projectDict.abilities[blockData.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.abilityID].blocks[b]}), "blocks", "When “" + (blockLabels[(blockData.parameters[0].datum||{}).type][1]||"").replace(/\u2063\s|\s\u2063/g,"") + "” for “" + (blockData.objectID?projectDict.objects[blockData.objectID||{}].name:JSON.parse(activeEditBlock.parentNode.parentNode.getAttribute("data")).name) + "”");
+				else if (blockData.controlScript) replaceRender(Object.keys(projectDict.abilities[blockData.controlScript.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.controlScript.abilityID].blocks[b]}), "blocks", "Blocks in “" + blockData.description + "”");
+				//console.log(activeEditBlock,jsonToHtml(blockData).focusType);
+				editclose();
+			}
 			document.body.onkeydown = function(e) {
 				if (!activeEditBlock) return;
 				if (e.keyCode == 27) editclose();
@@ -278,37 +291,62 @@
 			});
 			/* Interact JS */
 			interact('.resize-drag').resizable({
-				// resize from all edges and corners
+				//Resize from all edges and corners
 				edges: { 
 					right: ".resizer",
 					bottom: ".resizer"
 				},
 				listeners: {
 					move (event) {
-					var target = event.target
-					var x = (parseFloat(target.getAttribute('data-x')) || 0)
-					var y = (parseFloat(target.getAttribute('data-y')) || 0)
-					// update the element's style
-					target.style.width = event.rect.width + 'px'
-					target.style.height = event.rect.height + 'px'
-					// translate when resizing from top or left edges
-					x += event.deltaRect.left
-					y += event.deltaRect.top
-					target.style.webkitTransform = target.style.transform =
-						'translate(' + x + 'px,' + y + 'px)';
+						var target = event.target;
+						var x = (parseFloat(target.getAttribute('data-x')) || 0);
+						var y = (parseFloat(target.getAttribute('data-y')) || 0);
+						//Update the element's style
+						target.style.width = event.rect.width + 'px';
+						target.style.height = event.rect.height + 'px';
+						//Translate when resizing from top or left edges
+						x += event.deltaRect.left, y += event.deltaRect.top;
+						target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
 					}
 				},
 				modifiers: [
-					// keep the edges inside the parent
+					//Keep the edges inside the parent
 					interact.modifiers.restrictEdges({
-					//outer: 'parent'
+						outer: 'parent'
 					}),
-					// minimum size
+					//Minimum size
 					interact.modifiers.restrictSize({
 					min: { width: 100, height: 50 }
 					})
 				],
-				inertia: false
+				inertia: true
+			}).draggable({
+				allowFrom: 'div.bl-container .drag-handle',
+				//Enable inertial throwing
+				inertia: true,
+				//Keep the element within the area of it's parent
+				modifiers: [
+					interact.modifiers.restrictRect({
+					restriction: 'parent',
+					endOnly: true
+					})
+				],
+				//Enable autoScroll
+				autoScroll: true,
+
+				listeners: {
+					//Call this function on every dragmove event
+					move (event) {
+						var target = event.target;
+						//Keep the dragged position in the data-x/data-y attributes
+						var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+						var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+						//Translate the element
+						target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';// update the posiion attributes
+						target.setAttribute('data-x', x); target.setAttribute('data-y', y);
+					}
+				}
 			});
 		</script>
 	</body>
