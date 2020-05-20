@@ -169,7 +169,7 @@
 						data = hsProject.objects||[], tct = "objects";
 					}
 				}
-				document.getElementById("blocks-container-resizer").innerHTML = '<div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"><div class="drag-handle">Block Rendering: ' + desc + (desc!="Entire Project"?' <a title="See Entire Project" href="javascript:replaceRender(-1)">&ic; <i class="fa fa-list-alt"></i></a>':'')+'</div></div><div class="resizer"></div>';
+				document.getElementById("blocks-container-resizer").innerHTML = '<div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"><div class="drag-handle">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)">&ic; <i class="fa fa-list-alt"></i></a>':'')+'</div></div><div class="resizer"></div>';
 				//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 				data.forEach(function(item) {
 					var blockElm = document.createElement("div");
@@ -198,10 +198,9 @@
 				
 				addBlockFunctions(document);
 			}
-			req_id = localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
 			setTimeout(function(){
-				if (!req_id) return;
-				XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
+				req_id = localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
+				if (req_id) XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
 					try {
 						hsProject = JSON.parse(r);
 					} catch (E) {
@@ -213,6 +212,9 @@
 					//console.log(hsProject.abilities);
 					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
 				},false);//true);
+				else {
+					replaceRender({},"","No project loaded");
+				}
 			}, 400);
 			
 			var activeEditBlock;
@@ -255,10 +257,10 @@
 			function editfocus() {
 				var blockData = JSON.parse(activeEditBlock.getAttribute("data"));
 				console.log( "blocks", projectDict.objects[blockData.objectID||"idk"]);
-				if (blockData.objects) replaceRender(blockData.objects, "objects", "Objects in “" + blockData.name + "”");
-				else if (blockData.rules) replaceRender(blockData.rules, "rules", "Rules of “" + blockData.name + "”");
-				else if (blockData.abilityID) replaceRender(Object.keys(projectDict.abilities[blockData.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.abilityID].blocks[b]}), "blocks", "When “" + (blockLabels[(blockData.parameters[0].datum||{}).type][1]||"").replace(/\u2063\s|\s\u2063/g,"") + "” for “" + (blockData.objectID?projectDict.objects[blockData.objectID||{}].name:JSON.parse(activeEditBlock.parentNode.parentNode.getAttribute("data")).name) + "”");
-				else if (blockData.controlScript) replaceRender(Object.keys(projectDict.abilities[blockData.controlScript.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.controlScript.abilityID].blocks[b]}), "blocks", "Blocks in “" + blockData.description + "”");
+				if (blockData.objects) replaceRender(blockData.objects, "objects", "Objects in \u201C" + blockData.name + "\u201D");
+				else if (blockData.rules) replaceRender(blockData.rules, "rules", "Rules of \u201C" + blockData.name + "\u201D");
+				else if (blockData.abilityID) replaceRender(Object.keys(projectDict.abilities[blockData.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.abilityID].blocks[b]}), "blocks", "When \u201C" + (blockLabels[(blockData.parameters[0].datum||{}).type][1]||"").replace(/\u2063\s|\s\u2063/g,"") + "\u201D for \u201C" + (blockData.objectID?projectDict.objects[blockData.objectID||{}].name:JSON.parse(activeEditBlock.parentNode.parentNode.getAttribute("data")).name) + "\u201D");
+				else if (blockData.controlScript) replaceRender(Object.keys(projectDict.abilities[blockData.controlScript.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.controlScript.abilityID].blocks[b]}), "blocks", "Blocks in \u201C" + blockData.description + "\u201D");
 				//console.log(activeEditBlock,jsonToHtml(blockData).focusType);
 				editclose();
 			}
