@@ -263,7 +263,12 @@ function jsonToHtml(block, isNested, keepClosed) {
 						case 50:
 							var innerText = "";
 							(hsProject.eventParameters||[]).forEach(ep=>{
-								if (ep.id == d.variable) innerText = "<ps><span>" + ep.description + "</span></ps>";
+								if (ep.id == d.variable) {
+									innerText = "<ps><span>" + ep.description + "</span></ps>";
+									if (ep.description == "Object") hsProject.objects.forEach(o=>{
+										if (ep.objectID == o.objectID) innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+									});
+								}
 							});
 							return innerText;
 						default:
@@ -306,7 +311,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 			//Random Color
 			if (d.datum.type == 5000) return "<ps><op class=\"rcol\"></op></ps>";
 			//None Block, Math, Conditionals, Game Rules
-			if (d.datum.type<1e3||(d.datum.type >= 1e3 && d.datum.type < 2e3)||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
+			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
 				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3);
 				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"") + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"") + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
 			}

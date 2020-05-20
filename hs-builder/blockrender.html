@@ -181,7 +181,7 @@
 					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
 					(hsProject.scenes||hsProject.objects||[]).forEach(function(block) {
 						var blockElm = document.createElement("div");
-						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null||(block.objects&&hsProject.scenes>1)));
+						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null||(block.objects&&hsProject.scenes.length>1)));
 						blockElm.setAttribute("class", blockInfo.classList);
 						blockElm.setAttribute("data", blockInfo.data);
 						blockElm.setAttribute("data-group", blockInfo.sortGroup);
