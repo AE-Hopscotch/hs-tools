@@ -166,7 +166,7 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
     }
     Object.defineProperty(e, "__esModule", {
         value: !0
-    }), e.emoji = window.emoji, e.emoji.basePath = "http://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
+    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
     e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent), 
     e.isIOSApp = r;
     var n = function() {
@@ -1581,7 +1581,7 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
     var D = i(37);
     function f(t) {
         var e = new XMLHttpRequest();
-        e.open("GET", "http://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), e.onreadystatechange = function() {
+        e.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), e.onreadystatechange = function() {
             4 === e.readyState && t(200 === e.status);
         }, e.onerror = function() {
             t(!1);
@@ -2358,7 +2358,10 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
 
               case D.HSBlockType.SetZIndex:
                 var l = u[0].computedValue(this);
-                l !== this.zIndex && (this.zIndex = l, s.HSStageScene.dirtySort = !0);
+				console.log(e,z); //AE_TEST
+				z++;
+				if (z==1) l = 102;
+				l !== this.zIndex && (this.zIndex = l, s.HSStageScene.dirtySort = !0);
                 break;
 
               case D.HSBlockType.SetOriginXY:
@@ -2837,20 +2840,20 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
                 break;
 
               default:
-			try {
-				e.executeBlock(t);
-			} catch (E) {
-				//AE_MOD
-				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
-				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
-				console.log("Block Code:", t);
-				console.log("Active Object UUID: " + e.objectID);
-				e.stageRules.forEach(r=>{
-					if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
-				});
-				console.groupEnd();
-				throw E;
-			}
+				try {
+					e.executeBlock(t);
+				} catch (E) {
+					//AE_MOD
+					//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+					console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+					console.log("Block Code:", t);
+					console.log("Active Object UUID: " + e.objectID);
+					e.stageRules.forEach(r=>{
+						if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+					});
+					console.groupEnd();
+					throw E;
+				}
             }
         }, t;
     }();
