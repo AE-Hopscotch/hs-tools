@@ -262,6 +262,7 @@
 			}
 
 			function request(input_url) {
+				input_url = input_url.replace(/v2\/(projects\/(featured|newest))/,"v1/$1");
 				busy = true;
 				doCORSRequest({
 					method: 'GET',
