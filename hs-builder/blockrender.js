@@ -169,16 +169,22 @@ function jsonToHtml(block, isNested, keepClosed) {
 		oldProjAlerted = true;
 	}
 	
-	//Convert Rule Strings to rule Blocks
+	//Convert object, rule, and custom rule strings to blocks
 	if (typeof block == "string") {
 		hsProject.rules.forEach(rule=>{
 			if (rule.id == block) block = rule;
 		});
-		//If it is a custom rule
+		//If it is a custom rule or an object
 		if (typeof block == "string") {
 			hsProject.customRules.forEach(customrule=>{
 				if (customrule.id == block) block = customrule;
 			});
+			//If it is an object
+			if (typeof block == "string") {
+				hsProject.objects.forEach(object=>{
+					if (object.objectID == block) block = object;
+				});
+			}
 		}
 	}
 	//Set data of objects
@@ -191,7 +197,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 			}
 		}];
 	}
-	//Change the container type for objects and custom rules
+	//Change the container type for rules, custom rules, objects, and scenes
 	if (block.ruleBlockType && !block.type) block.type = block.ruleBlockType;
 	if (block.abilityID && !block.controlScript) {
 		block.controlScript = {abilityID:block.abilityID};
@@ -199,6 +205,9 @@ function jsonToHtml(block, isNested, keepClosed) {
 	} else if (block.rules) {
 		block.block_class = "control";
 		sortGroup = "rules";
+	} else if (block.objects) {
+		block.block_class = "control";
+		sortGroup = "objects";
 	}
 	
 	var block_parent = activeEditBlock;
@@ -222,8 +231,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 	}
 	COUNT ++;
 	if (!isNested) nestedUuidList = [];
-	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":((block.type==6000)?" rule":(block.xPosition!=null?" obj":block.rules?" crule":""))));
-	var labels = (block.xPosition!=null?["obj"]:blockLabels[block.type]||(block.rules?["crule"]:[]));
+	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":((block.type==6000)?" rule":(block.xPosition!=null?" obj":block.rules?" crule":(block.objects?" scn":"")))));
+	var labels = (block.xPosition!=null?["obj"]:blockLabels[block.type]||(block.rules?["crule"]:(block.objects?["scn"]:[])));
 	var paramString = "";
 	for (var i = 0; i < (block.parameters||[]).length; i++) {
 		var p = block.parameters[i];
@@ -305,7 +314,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:((block.rules||block.xPosition!=null)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
@@ -313,12 +322,25 @@ function jsonToHtml(block, isNested, keepClosed) {
 			addedToHtml = false;
 		if (!trueScript && block.rules) {
 			//Handle Objects and Custom Rules
-				addedToHtml = true;
+			addedToHtml = true;
 			if (!keepClosed) {
 				(block.rules||[]).repeatEach((r)=>{
 					nestedUuidList.push(r);
 					//console.log(jsonToHtml(r));
 					var blockInfo = jsonToHtml(r,true,true);
+					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+				});
+			} else {
+				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
+			}
+		} else if (!trueScript && block.objects){
+			//Handle objects inside of scenes
+			addedToHtml = true;
+			if (!keepClosed) {
+				(block.objects||[]).repeatEach((o)=>{
+					nestedUuidList.push(o);
+					//console.log(jsonToHtml(r));
+					var blockInfo = jsonToHtml(o,true,true);
 					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
 			} else {
@@ -381,7 +403,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		if (keepClosed) innerHTML = innerHTML.replace(/<div class="collapsible"><\/div>/g,"")
 		//console.log(nestedUuidList);
 	}
-	if (block.rules || block.type == 6000) {
+	if (block.rules || block.objects || block.type == 6000) {
 		delete block.controlScript;
 		delete block.block_class;
 		if (block.xPosition!=null) delete block.parameters;
