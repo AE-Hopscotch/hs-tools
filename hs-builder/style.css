@@ -263,7 +263,7 @@ sq {
 .collapsible-container.draw {
 	--col-frame: #a6006e;
 }
-.collapsible-container.abl, .collapsible-container.crule {
+.collapsible-container.abl, .collapsible-container.crule, .collapsible-container.scn {
 	--col-frame: #f2f2f2;
 }
 .collapsible-container.rule {
@@ -419,7 +419,7 @@ bl.old {
 	background-color: #647f96;
 	--col-bg-inherited: #647f96;
 }
-bl.abl, bl.crule {
+bl.abl, bl.crule, bl.scn {
 	background-color: #f2f2f2;
 	--col-bg-inherited: #f2f2f2;
 	color: black;
@@ -427,6 +427,9 @@ bl.abl, bl.crule {
     background-position: 0,0;
     background-size: 48px;
     background-repeat: no-repeat;
+}
+bl.scn {
+	background-image: url(../images/scene-bars.png);
 }
 bl.crule {
 	background-image: url(../images/crule-bars.png);

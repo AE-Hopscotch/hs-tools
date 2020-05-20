@@ -179,9 +179,9 @@
 					//hsProject = {};
 					//console.log(hsProject.abilities);
 					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
-					(hsProject.objects||[]).forEach(function(block) {
+					(hsProject.scenes||[]).forEach(function(block) {
 						var blockElm = document.createElement("div");
-						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null));
+						var blockInfo = jsonToHtml(block, undefined, (block.type==123||typeof block == "string"||block.filename!=null||(block.objects&&hsProject.scenes>1)));
 						blockElm.setAttribute("class", blockInfo.classList);
 						blockElm.setAttribute("data", blockInfo.data);
 						blockElm.setAttribute("data-group", blockInfo.sortGroup);
@@ -190,7 +190,7 @@
 					});
 					
 					new Sortable(document.querySelector(".bl-container"), {
-						group: 'rules',
+						group: 'scenes',
 						ghostClass: 'invis',
 						dragClass: 'dragged',
 						fallbackTolerance: 5,
@@ -201,7 +201,7 @@
 						multiDrag: true,
 						selectedClass: 'selected',
 						onEnd: function(e){
-							console.log("🥩🥩 To:", e.to, "🥞🥞 From:", e.from);
+							console.log("🥩🥩 To:", e.to, "\n🥞🥞 From:", e.from);
 							activeEditBlock = e.item;
 							editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
 							editsave();
