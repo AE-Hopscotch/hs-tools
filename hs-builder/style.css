@@ -224,7 +224,7 @@ sq {
 }
 
 .resize-drag {
-	position: relative;
+	position: fixed;
 	touch-action: none;
 	box-sizing: border-box;
 	overflow: auto;
@@ -235,7 +235,9 @@ sq {
 	border: 2px solid teal;
 	border-radius: 8px;
 	overflow: hidden;
-	transform: translate(0,0);
+	transform: translate(-50%,-50%);
+	top: 50%;
+	left: 50%;
 }
 .resizer {
 	position: absolute;

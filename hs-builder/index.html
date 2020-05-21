@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Block Rendering</title>
+		<title>Hopscotch Project Builder</title>
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="../style.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
@@ -50,11 +50,11 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		
-		<meta name="description" content="Given an ability, this page will render all of the blocks inside of it."/>
+		<meta name="description" content=""/>
 		<meta name="keywords" content="build, mod, text, project, hopscotch"/>
-		<meta property="og:title" content="Hopscotch Block Rendering">
-		<meta property="og:description" content="Given an ability, this page will render all of the blocks inside of it.">
-		<meta property="og:image" content="/hs-tools/images/ability-bars.png">
+		<meta property="og:title" content="Hopscotch Project Builder">
+		<meta property="og:description" content="">
+		<meta property="og:image" content="/hs-tools/images/hs-blueprint-file.png">
 		
 		<style>
 			html, body {
@@ -62,6 +62,11 @@
 				-webkit-overflow-scrolling: touch;
 				width: 100%;
 				height: 100%;
+			}
+			@supports (-webkit-touch-callout: none) {
+				.page-controls h1 {
+					letter-spacing: -2px;
+				}
 			}
 			@supports not (-webkit-touch-callout: none) {
 				/* CSS for other than iOS devices */
