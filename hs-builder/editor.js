@@ -44,13 +44,6 @@ function formatProject(p) {
 	//Assign objects dictionary
 	for (i = 0; i < (p.objects||[]).length; i++) {
 		var o = p.objects[i];
-		//if (!p.objects[i].rules) o.rules = [];
-		// if (o.rules == undefined) hasRules = false;
-		//projectDict.objects[o.objectID] = o;
-	}
-	//Assign objects dictionary
-	for (i = 0; i < (p.objects||[]).length; i++) {
-		var o = p.objects[i];
 		projectDict.objects[o.objectID] = Object.detach(o);
 		if (!o.rules) o.rules = [];
 	}
@@ -72,7 +65,7 @@ function formatProject(p) {
 				if (o.objectID == r.objectID) o.rules.push(r.id);
 			});
 		}
-		projectDict.rules[r.id] = r;
+		projectDict.rules[r.id] = Object.detach(r);
 	}
 	//Assign custom rules dictionary
 	for (i = 0; i < (p.customRules||[]).length; i++) {
