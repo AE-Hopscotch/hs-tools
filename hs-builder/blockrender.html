@@ -173,7 +173,7 @@
 				//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 				data.forEach(function(item) {
 					var blockElm = document.createElement("div");
-					var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.filename!=null||(item.objects&&hsProject.scenes.length>1)));
+					var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.xPosition!=null||(item.objects&&data.length>1)));
 					blockElm.setAttribute("class", blockInfo.classList);
 					blockElm.setAttribute("data", blockInfo.data);
 					blockElm.setAttribute("data-group", blockInfo.sortGroup);
