@@ -224,7 +224,7 @@ sq {
 }
 
 .resize-drag {
-	position: absolute;
+	position: relative;
 	touch-action: none;
 	box-sizing: border-box;
 	overflow: auto;
