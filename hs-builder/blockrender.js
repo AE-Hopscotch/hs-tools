@@ -169,7 +169,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 	if (block_parent && block_parent.parentNode && block_parent.parentNode.parentNode && document.querySelector(".edit-box").style.display=="block") {
 		var myBlockType = (block_parent.parentNode.id == "blocks-container")?document.getElementById("blocks-container").getAttribute("data-group"):block_parent.parentNode.parentNode.getAttribute("data-group");
 	}
-	
 	if (block.scripts) {
 		if (!oldProjAlerted) alert("The block renderer cannot fully render old project formats yet")
 		oldProjAlerted = true;
@@ -189,7 +188,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		block = projectDict.objects[block]||block;
 	}
 	//Set data of objects
-	if (block.xPosition!=null) {
+	if (block.xPosition!=undefined) {
 		block.block_class = "control";
 		block.parameters = [{
 			"datum": {
@@ -220,7 +219,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		//Check if a block is nested
 		var isFalse = isFalseScript(block_parent.parentNode);
 		block_parent = (block_parent.parentNode||{parentNode:null}).parentNode||document.getElementById("blocks-container-resizer");
-		if (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer") && myScripts.test( (JSON.parse(block_parent.getAttribute("data"))[(isFalse)?"controlFalseScript":"controlScript"]||JSON.parse(block_parent.getAttribute("data")).abilityID).abilityID )) isNested = true;
+		if (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer") && myScripts.test( (JSON.parse(block_parent.getAttribute("data"))[(isFalse)?"controlFalseScript":"controlScript"]||{abilityID: JSON.parse(block_parent.getAttribute("data")).abilityID}).abilityID )) isNested = true;
 	}
 	
 	if (JSON.stringify(block) == "{}") {
@@ -263,7 +262,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 							ep.type = ep.type||ep.blockType;
 							if (ep.type == 8e3){
 								var o = projectDict.objects[ep.objectID];
-								console.log(o);
 								if (o.type) {
 									var innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 								} else {
@@ -333,7 +331,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 			//Handle Objects and Custom Rules
 			addedToHtml = true;
 			if (!keepClosed) {
-				(block.rules||[]).repeatEach((r)=>{
+				(Object.keys(block.rules||{})||[]).repeatEach(rule=>{
+					r = block.rules[rule];
 					nestedUuidList.push(r);
 					var blockInfo = jsonToHtml(r,true,true);
 					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
