@@ -11,7 +11,7 @@ function formatProject(p) {
 		"scenes": {}
 	};
 	//JSON.parse(JSON.stringify(hsProject));
-	p.abilities.forEach((a)=>{
+	(p.abilities||[]).forEach((a)=>{
 		projectDict.abilities[a.abilityID] = {abilityID:a.abilityID,createdAt:a.createdAt,name:a.name,blocks:{}};
 		
 		for (i = 0; i < (a.blocks||[]).length; i++) {
@@ -28,33 +28,33 @@ function formatProject(p) {
 		}
 	});
 	//Assign each scene its own ID
-	for (i = 0; i < p.scenes.length; i++) {
+	for (i = 0; i < (p.scenes||[]).length; i++) {
 		var s = p.scenes[i];
 		s.web_id = "s" + i;
 		projectDict.scenes[s.web_id] = s;
 	}
 	//Assign objects dictionary
-	for (i = 0; i < p.objects.length; i++) {
+	for (i = 0; i < (p.objects||[]).length; i++) {
 		var o = p.objects[i];
 		projectDict.objects[o.objectID] = o;
 	}
 	//Assign event parameters dictionary
-	for (i = 0; i < p.eventParameters.length; i++) {
+	for (i = 0; i < (p.eventParameters||[]).length; i++) {
 		var ep = p.eventParameters[i];
 		projectDict.eventParameters[ep.id] = ep;
 	}
 	//Assign rules dictionary
-	for (i = 0; i < p.rules.length; i++) {
+	for (i = 0; i < (p.rules||[]).length; i++) {
 		var r = p.rules[i];
 		projectDict.rules[r.id] = r;
 	}
 	//Assign custom rules dictionary
-	for (i = 0; i < p.customRules.length; i++) {
+	for (i = 0; i < (p.customRules||[]).length; i++) {
 		var cr = p.customRules[i];
 		projectDict.customRules[cr.id] = cr;
 	}
 	//Assign variables dictionary
-	for (i = 0; i < p.variables.length; i++) {
+	for (i = 0; i < (p.variables||[]).length; i++) {
 		var v = p.variables[i];
 		projectDict.variables[v.objectIdString] = v;
 	}

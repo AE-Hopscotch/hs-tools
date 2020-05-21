@@ -49,10 +49,10 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		
-		<meta name="description" content="Given an ability, this page will render all of the blocks inside of it."/>
+		<meta name="description" content="This page can render all of the code inside of a Hopscotch Project."/>
 		<meta name="keywords" content="build, mod, text, project, hopscotch"/>
 		<meta property="og:title" content="Hopscotch Block Rendering">
-		<meta property="og:description" content="Given an ability, this page will render all of the blocks inside of it.">
+		<meta property="og:description" content="This page can render all of the code inside of a Hopscotch Project.">
 		<meta property="og:image" content="/hs-tools/images/ability-bars.png">
 		
 		<style>
@@ -199,7 +199,8 @@
 				addBlockFunctions(document);
 			}
 			setTimeout(function(){
-				req_id = localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
+				req_id = (new URL(location.href)).searchParams.get("id") || localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
+				req_id = (new URL(location.href)).searchParams.get("id") || req_id;
 				if (req_id) XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
 					try {
 						hsProject = JSON.parse(r);
@@ -318,7 +319,7 @@
 					}),
 					//Minimum size
 					interact.modifiers.restrictSize({
-					min: { width: 100, height: 50 }
+					min: { width: 300, height: 150 }
 					})
 				],
 				inertia: true
