@@ -163,6 +163,11 @@ String.prototype.htmlEscape = function(){
 	return this.replace(/&/g, "&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g, "&#039;");;
 }
 
+//Object Functions
+Object.detach = function(o) {
+	return JSON.parse(JSON.stringify(o));
+}
+
 //Space or Enter -> Click Child Element
 document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
 	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.querySelector('*').click();});
@@ -176,7 +181,7 @@ document.querySelectorAll('*[AE-STSE]').forEach(function(elm){
 //For Each but with output
 Array.prototype.repeatEach = NodeList.prototype.repeatEach = HTMLCollection.prototype.repeatEach = function(fn) {
 	var outputs = [];
-	if (!(fn && typeof fn == 'function')) throw 'TypeError: ' + fn + ' is not a function';
+	if (!(fn && typeof fn == 'function')) throw new TypeError(fn + ' is not a function');
 	for(var i = 0; i < this.length; i++) {
 		outputs.push( fn(this[i]) );
 	}
