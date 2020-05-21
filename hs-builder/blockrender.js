@@ -142,8 +142,8 @@ const blockLabels = {
 	7022: ["event","\u2063 touch ends \u2063"],
 	7023: ["HS_END_OF_EVENT_OPERATORS"],
 	8e3: ["<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object</span></ps>"],
-	8001: ["<i class=\"fa fa-fw fa-question-circle\"></i>"],
-	8002: ["<i class=\"fa fa-fw fa-mobile\"></i> Edge"],
+	8001: ["<i class=\"fa fa-fw fa-question-circle\"> Anything</i>"],
+	8002: ["<i class=\"fa fa-mobile\"></i> Edge"],
 	8003: ["\u2063 \uD83D\uDCF1"],
 	8004: ["<ps><span>Self</span></ps>"],
 	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
@@ -177,24 +177,15 @@ function jsonToHtml(block, isNested, keepClosed) {
 	
 	//Convert object, rule, and custom rule strings to blocks
 	if (typeof block == "string" && (!myBlockType||myBlockType == "rules"||(keepClosed&&arguments.callee.caller.name!="editsave"))) {
-		/* hsProject.rules.forEach(rule=>{
-			if (rule.id == block) block = rule;
-		}); */
 		block = projectDict.rules[block]||block;
 		
 		//If it is a custom rule or an object
 		if (typeof block == "string") {
-			/* hsProject.customRules.forEach(customrule=>{
-				if (customrule.id == block) block = customrule;
-			}); */
 			block = projectDict.customRules[block]||block;
 		}
 	}
 	//If it is an object
 	if (typeof block == "string" && (!myBlockType||myBlockType == "objects"||(keepClosed&&arguments.callee.caller.name!="editsave"))) {
-		/* hsProject.objects.forEach(object=>{
-			if (object.objectID == block) block = object;
-		}); */
 		block = projectDict.objects[block]||block;
 	}
 	//Set data of objects
@@ -237,7 +228,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 	}
 	COUNT ++; //This is just a testing feature to see how many times this function has been run
 	if (!isNested) nestedUuidList = [];
-	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1)?" draw":((block.type==123)?" abl":((block.type==6000)?" rule":(block.xPosition!=null?" obj":block.rules?" crule":(block.objects?" scn":"")))));
+	if (/control/i.test(block.block_class)) var elmClass = "collapsible-container" + ((([26,30,31,32]).indexOf(block.type)!=-1&&block.xPosition==undefined)?" draw":((block.type==123&&block.xPosition==undefined)?" abl":((block.type==6000&&block.xPosition==undefined)?" rule":(block.xPosition!=undefined?" obj":block.rules?" crule":(block.objects?" scn":"")))));
 	var labels = (block.xPosition!=null?["obj"]:blockLabels[block.type]||(block.rules?["crule"]:(block.objects?["scn"]:[])));
 	var paramString = "";
 	for (var i = 0; i < (block.parameters||[]).length; i++) {
@@ -254,37 +245,43 @@ function jsonToHtml(block, isNested, keepClosed) {
 				return [ Math.round(r*255), Math.round(g*255), Math.round(b*255) ];
 			}
 			function getVar(id) {
-				var name = projectDict.variables[id].name;
-				/* hsProject.variables.forEach((v)=>{
-					if (v.objectIdString == id) name = v.name;
-				}); */
+				var name = (projectDict.variables[id]||{}).name;
+				return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
+			}
+			function getTrait(id) {
+				var name = (blockLabels[(projectDict.traits[id]||{}).HSTraitTypeKey]||[])[0];
 				return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
 			}
 			if (!d.datum) {
 				if (d.type != 50 && d.value !== String(d.value)) return console.warn("Values must be strings")||"<ps><span></span></ps>";
-				if (d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value)) {
+				if (d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value) && !d.variable) {
 					return '<ps class="fw" style="background-color:rgb('+hsvToRgb(d.value)+')"></ps>'
 				} else {
 					switch (d.type) {
 						case 50:
-							/* var innerText = "";
-							(hsProject.eventParameters||[]).forEach(ep=>{
-								if (ep.id == d.variable) {
-									innerText = "<ps><span>" + ep.description + "</span></ps>";
-									if (ep.description == "Object") hsProject.objects.forEach(o=>{
-										if (ep.objectID == o.objectID) innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
-									});
-								}
-							}); */
 							var ep = projectDict.eventParameters[d.variable];
-							if (ep.description == "Object") {
+							ep.type = ep.type||ep.blockType;
+							if (ep.type == 8e3){
 								var o = projectDict.objects[ep.objectID];
-								var innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+								console.log(o);
+								if (o.type) {
+									var innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+								} else {
+									console.log("no type", o);//var innerText = "<ps><op class=\"val\">\u2063 THIS ONE" + (getVar(d.variable)||"TEST") + " \u2063</op></ps>";
+								}
 							} else {
-								var innerText = "<ps><span>" + ep.description + "</span></ps>";
+								var innerText = "<ps><span>" + (ep.description||blockLabels[projectDict.eventParameters[ep.id].type]) + "</span></ps>";
 							}
 							return innerText;
 						default:
+							if (d.variable) {
+								var vClass = "val";
+								var o = projectDict.objects[(projectDict.variables[d.variable]||{}).objectIdString]||projectDict.objects[(projectDict.variables[d.variable]||{}).HSObjectIDString], objectLabel = "";
+								if (!o) o = projectDict.objects[(projectDict.traits[d.variable]||{}).HSTraitObjectIDKey];
+								vClass = (getTrait(d.variable)!='<span style="color:red;">unknown</span>') ? "otr" : "val";
+								if (typeof o == "object") objectLabel = "\u2063 " + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063";
+								return "<ps><op class=\"" + vClass + "\">\u2063" + objectLabel + " " + (getTrait(d.variable)!='<span style="color:red;">unknown</span>'?getTrait(d.variable):getVar(d.variable)) + " \u2063</op></ps>";
+							}
 							return "<ps><span" + ((d.type==51)?" title=\"This is a sound\" style=\"color:gray;\"":"") + ">\u2063 " + d.value.replace(/\n(.|\n)*/g,"").htmlEscape() + " \u2063</span></ps>";
 					}
 				}
@@ -293,24 +290,15 @@ function jsonToHtml(block, isNested, keepClosed) {
 			if (d.datum.HSTraitTypeKey >= 2e3 && d.datum.HSTraitTypeKey < 4e3) {
 				var objectLabel = objectLabel = (blockLabels[d.datum.HSTraitObjectParameterTypeKey]||"");
 				if (d.datum.HSTraitObjectParameterTypeKey==8e3) {
-					/* hsProject.objects.forEach(o=>{
-						if (d.datum.HSTraitObjectIDKey == o.objectID) objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
-					}); */
 					var o = projectDict.objects[d.datum.HSTraitObjectIDKey];
 					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 				}
-				//"HSTraitObjectIDKey";
 				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
 			}
 			//Variables
 			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8006)) {
-				var objectLabel = blockLabels[d.datum.type][0];;
+				var objectLabel = blockLabels[d.datum.type][0];
 				if (d.datum.type == 8e3) {
-					/* hsProject.objects.forEach(o=>{
-						if (d.datum.object == o.objectID) {
-							objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
-						}
-					}); */
 					var o = projectDict.objects[d.datum.object];
 					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 				}
@@ -318,7 +306,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 			}
 			//Images (no block class)
 			if (!/operator/i.test(d.datum.block_class)) {
-				//console.log(d.datum.block_class);
 				if (d.datum.type == 1) {
 					return "<ps><op class=\"cm\">\u2063 Text <ps><span>" + d.datum["text"].replace(/\n(.|\n)*/g,"") + "</span></ps></op></ps>";
 				} else {
@@ -336,7 +323,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123)?projectDict.abilities[block.controlScript.abilityID].name||block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
@@ -348,7 +335,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 			if (!keepClosed) {
 				(block.rules||[]).repeatEach((r)=>{
 					nestedUuidList.push(r);
-					//console.log(jsonToHtml(r));
 					var blockInfo = jsonToHtml(r,true,true);
 					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
@@ -361,7 +347,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 			if (!keepClosed) {
 				(block.objects||[]).repeatEach((o)=>{
 					nestedUuidList.push(o);
-					//console.log(jsonToHtml(r));
 					var blockInfo = jsonToHtml(o,true,true);
 					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
@@ -369,56 +354,35 @@ function jsonToHtml(block, isNested, keepClosed) {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 			}
 		}
-		//console.log(trueScript);
-		//console.log(falseScript);
-		//var pAbilities = (hsProject.abilities||[]).repeatEach((a)=>{return JSON.stringify(a)}).join("\n")||"";
 		var a = projectDict.abilities[trueScript];
-		/* (pAbilities.match(new RegExp('^.*"abilityID":"' + trueScript + '".*$',"gm"))||[]).forEach((a)=>{
-			a = JSON.parse(a);
-			if (a.abilityID != trueScript) return; */
 		if (a){
-			//console.warn(a);
 			if (a&&nestedUuidList.indexOf(trueScript)==-1) addedToHtml = true;
-			//if (block.type != 123) keepClosed = false;
 			if (!keepClosed&&a&&nestedUuidList.indexOf(trueScript)==-1) {
 				nestedUuidList.push(a.abilityID);
 				
-				// (a.blocks||[]).repeatEach((b)=>{
 				(Object.keys(a.blocks)||[]).repeatEach((k)=>{
-					//console.log(jsonToHtml(b));
-					//console.warn(a);
 					var b = a.blocks[k]||{};
 					var blockInfo = jsonToHtml(b,true,(b.type==123));
 					if (blockInfo.innerHTML) nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
-					//console.log('<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '">' + blockInfo.innerHTML );
 				});
 				
 			} else {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 			}
 		}
-		//});
 		if (!addedToHtml&&(trueScript||block.rules)&&block) {
-			//console.log("true script does not exist",keepClosed);
 			var blockInfo = jsonToHtml({},true,keepClosed);
-			//nestedHTML += '<div class="' + blockInfo.classList + '" data="'+'" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 			if (keepClosed) elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 		}
-		//console.log(nestedHTML);
 		addedToHtml = false;
 		innerHTML = innerHTML.replace("<c>","<b class=\"openbtn\"></b><c>") + nestedHTML + "</div>";
 		if (block.type == 124) {
 			var nestedHTML = "<div class=\"collapsible\">";
-			//pAbility = JSON.parse((pAbilities.match(new RegExp('^.*"abilityID":"' + falseScript + '".*$',"m"))||[])[0]||'""');
-			//(pAbilities.match(new RegExp('^.*"abilityID":"' + falseScript + '".*$',"gm"))||[]).forEach((a)=>{
-				/* a = JSON.parse(a);
-				if (a.abilityID != falseScript) return; */
 			var a = projectDict.abilities[falseScript];
 			if (a) {
 				if (a&&nestedUuidList.indexOf(falseScript)==-1) {
 					addedToHtml = true;
 					nestedUuidList.push(a.abilityID);
-					// (a.blocks||[]).repeatEach((b)=>{
 					(Object.keys(a.blocks)||[]).repeatEach((k)=>{
 						var b = a.blocks[k]||{};
 						var blockInfo = jsonToHtml(b,true,(b.type==123));
@@ -428,16 +392,13 @@ function jsonToHtml(block, isNested, keepClosed) {
 					elmClass = elmClass.replace("collapsible-container ","");
 				}
 			}
-			//});
 			innerHTML = innerHTML + nestedHTML + "</div>";
 		}
 		if (!addedToHtml&&falseScript&&block) {
-			//console.log("true script does not exist",keepClosed);
 			var blockInfo = jsonToHtml({},true,keepClosed);
 			if (keepClosed) elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 		}
 		if (keepClosed) innerHTML = innerHTML.replace(/<div class="collapsible"><\/div>/g,"")
-		//console.log(nestedUuidList);
 	}
 	if (block.rules || block.objects || block.type == 6000) {
 		delete block.controlScript;
