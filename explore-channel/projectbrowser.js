@@ -636,7 +636,7 @@ function showEmbeddedPlayer(uuid) {
 		//Prevent the user from scrolling
 		document.body.style.overflow = "hidden";
 		document.body.ontouchmove = (e) => {e.preventDefault()};
-		if (location.protocol == "https:") replaceLocation("../play-project/?id=" + uuid);
+		if (location.protocol == "https:") setLocation("../play-project/?id=" + uuid);
 	}
 }
 function removeEmbeddedPlayer() {
@@ -649,7 +649,7 @@ function removeEmbeddedPlayer() {
 	document.body.style.overflow = "auto";
 	document.body.ontouchmove = (e) => {void(0);};
 	//$('body').off('touchmove');
-	if (location.protocol == "https:") replaceLocation(pageUrl);
+	if (location.protocol == "https:") setLocation(pageUrl);
 }
 function toggleRender() {
 	var iframe = document.getElementById("project-player");
