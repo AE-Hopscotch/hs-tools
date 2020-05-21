@@ -1,4 +1,11 @@
 var blockTypeCounts = {}, blockDescCounts = {};
+function uuidv4() {
+	return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/x/g, function(c) {
+		var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+		return v.toString(16);
+	});
+}
+
 function formatProject(p) {
 	//Assign each block its own ID
 	projectDict = {
@@ -8,12 +15,12 @@ function formatProject(p) {
 		"rules": {},
 		"customRules": {},
 		"variables": {},
-		"scenes": {}
+		"scenes": {},
+		"traits": {}
 	};
 	//JSON.parse(JSON.stringify(hsProject));
 	(p.abilities||[]).forEach((a)=>{
 		projectDict.abilities[a.abilityID] = {abilityID:a.abilityID,createdAt:a.createdAt,name:a.name,blocks:{}};
-		
 		for (i = 0; i < (a.blocks||[]).length; i++) {
 			b = a.blocks[i];
 			b.web_id = a.abilityID + "_b" + i;
@@ -33,10 +40,19 @@ function formatProject(p) {
 		s.web_id = "s" + i;
 		projectDict.scenes[s.web_id] = s;
 	}
+	// var hasRules = true;
 	//Assign objects dictionary
 	for (i = 0; i < (p.objects||[]).length; i++) {
 		var o = p.objects[i];
-		projectDict.objects[o.objectID] = o;
+		//if (!p.objects[i].rules) o.rules = [];
+		// if (o.rules == undefined) hasRules = false;
+		//projectDict.objects[o.objectID] = o;
+	}
+	//Assign objects dictionary
+	for (i = 0; i < (p.objects||[]).length; i++) {
+		var o = p.objects[i];
+		projectDict.objects[o.objectID] = Object.detach(o);
+		if (!o.rules) o.rules = [];
 	}
 	//Assign event parameters dictionary
 	for (i = 0; i < (p.eventParameters||[]).length; i++) {
@@ -46,6 +62,16 @@ function formatProject(p) {
 	//Assign rules dictionary
 	for (i = 0; i < (p.rules||[]).length; i++) {
 		var r = p.rules[i];
+		if (!r.id) {
+			//Assign UUID if it does not exist, then add that to the object
+			r.id = uuidv4().toUpperCase();
+			var obj = projectDict.objects[r.objectID];
+			if (!obj.rules) obj.rules = {};
+			obj.rules[r.id] = Object.detach(r);
+			p.objects.forEach(o=>{
+				if (o.objectID == r.objectID) o.rules.push(r.id);
+			});
+		}
 		projectDict.rules[r.id] = r;
 	}
 	//Assign custom rules dictionary
@@ -58,6 +84,11 @@ function formatProject(p) {
 		var v = p.variables[i];
 		projectDict.variables[v.objectIdString] = v;
 	}
+	//Assign traits dictionary (used in older projects)
+	for (i = 0; i < (p.traits||[]).length; i++) {
+		var t = p.traits[i];
+		projectDict.traits[t.HSTraitIDKey] = t;
+	}
 	return p;
 }
 
@@ -68,7 +99,7 @@ function unformatProject(p) {
 }
 
 //Initialize Interactables
-interact('.page-controls').draggable({
+if (typeof interact != "undefined") interact('.page-controls').draggable({
 	//allowFrom: 'div.bl-container .drag-handle',
 	ignoreFrom: 'button',
 	//Enable inertial throwing

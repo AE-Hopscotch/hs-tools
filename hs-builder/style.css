@@ -568,7 +568,7 @@ op.fw {
 	overflow-y: hidden;
 	justify-content: center;
 }
-op.fw img, ps > img {
+op img, ps > img {
 	position: relative;
 	top: 0;
 	height: 30px;
