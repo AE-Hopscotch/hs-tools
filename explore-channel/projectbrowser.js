@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.5.1 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.5.2 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -73,7 +73,7 @@ function copy(text){
 //Custom Requests
 function sendCustomReq(options, printResult) {
 	var x = new XMLHttpRequest();
-	x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+	x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?url=' + encodeURIComponent(options.url));
 	x.onload = x.onerror = function() {
 		printResult(
 			//options.method + ' ' + options.url + '\n' +
@@ -649,7 +649,7 @@ function removeEmbeddedPlayer() {
 	document.body.style.overflow = "auto";
 	document.body.ontouchmove = (e) => {void(0);};
 	//$('body').off('touchmove');
-	if (location.protocol == "https:") setLocation(pageUrl);
+	if (location.protocol == "https:") history.go(-1); //Go back without reload
 }
 function toggleRender() {
 	var iframe = document.getElementById("project-player");
