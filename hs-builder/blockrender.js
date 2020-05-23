@@ -335,7 +335,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 					r = block.rules[rule];
 					nestedUuidList.push(r);
 					var blockInfo = jsonToHtml(r,true,true);
-					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
 			} else {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
@@ -362,7 +362,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 				(Object.keys(a.blocks)||[]).repeatEach((k)=>{
 					var b = a.blocks[k]||{};
 					var blockInfo = jsonToHtml(b,true,(b.type==123));
-					if (blockInfo.innerHTML) nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+					if (blockInfo.innerHTML) nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
 				
 			} else {
@@ -379,13 +379,13 @@ function jsonToHtml(block, isNested, keepClosed) {
 			var nestedHTML = "<div class=\"collapsible\">";
 			var a = projectDict.abilities[falseScript];
 			if (a) {
-				if (a&&nestedUuidList.indexOf(falseScript)==-1) {
+				if (!keepClosed&&a&&nestedUuidList.indexOf(falseScript)==-1) {
 					addedToHtml = true;
 					nestedUuidList.push(a.abilityID);
 					(Object.keys(a.blocks)||[]).repeatEach((k)=>{
 						var b = a.blocks[k]||{};
 						var blockInfo = jsonToHtml(b,true,(b.type==123));
-						nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+						nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 					});
 				} else {
 					elmClass = elmClass.replace("collapsible-container ","");
@@ -404,6 +404,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 		delete block.block_class;
 		if (block.xPosition!=null) delete block.parameters;
 	}
+	block = Object.detach(block);
+	var web_id = block.web_id;
 	delete block.web_id;
-	return {"classList":elmClass||"","data":JSON.stringify(block),"innerHTML":innerHTML,"sortGroup":sortGroup,"focusType":myBlockType};
+	return {"id":web_id||"","classList":elmClass||"","data":JSON.stringify(block),"innerHTML":innerHTML,"sortGroup":sortGroup,"focusType":myBlockType};
 }

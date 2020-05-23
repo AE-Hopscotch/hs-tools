@@ -224,18 +224,26 @@ sq {
 }
 
 .resize-drag {
-	position: relative;
+	position: absolute;
+	margin: auto;
 	touch-action: none;
 	box-sizing: border-box;
 	overflow: auto;
 	display: block;
-	width: 750px;
+	width: 700px;
 	max-width: 100%;
-	height: 560px;
+	height: 500px;
 	border: 2px solid teal;
 	border-radius: 8px;
 	overflow: hidden;
 	transform: translate(0,0);
+	background-color: #ffffffd4;
+	transition: background-color var(--time-trans);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+html[style*="--col-bg-main:black;"] .resize-drag {
+	background-color: #000000d4;
 }
 .resizer {
 	position: absolute;
@@ -618,6 +626,7 @@ op.math op.math op.math op.math op.math op.math {
 	background: rgba(0,0,0,0.7);
 	position: fixed;
 	left: 0; top: 0;
+	z-index: 100;
 }
 .edit-box textarea {
 	position: fixed;

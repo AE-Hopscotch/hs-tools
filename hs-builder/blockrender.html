@@ -90,9 +90,8 @@
 	<body>
 		<button onclick="theme()" id="themebtn" style="right:0;"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<div id="blocks-container-resizer" class="resize-drag">
-			<div id="blocks-container" class="bl-container" style="padding: 36px 8px;">
-				<div class="drag-handle">Block Rendering: Loading...</div>
-			</div>
+			<div class="drag-handle">Block Rendering: Loading...</div>
+			<div id="blocks-container" class="bl-container" style="padding: 36px 8px;"></div>
 			<div class="resizer"></div>
 		</div>
 		<div class="edit-box">
@@ -118,6 +117,7 @@
 						var blockData = JSON.parse(activeEditBlock.getAttribute("data"));
 						(jsonToHtml(blockData).focusType != "blocks" || blockData.type == 123) ? document.getElementById("focus-btn").removeAttribute("disabled") : document.getElementById("focus-btn").setAttribute("disabled","");
 						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editor.clearHistory();
 					}
 				});
 				parent.querySelectorAll("*:not(.disabled) > bl .openbtn").forEach((elm)=>{
@@ -151,10 +151,7 @@
 						multiDrag: true,
 						selectedClass: 'selected',
 						onEnd: function(e){
-							console.log("To:", e.to, "\nFrom:", e.from);
-							activeEditBlock = e.item;
-							editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
-							editsave();
+							updatescript(e.from), updatescript(e.to);
 						}
 					});
 				});
@@ -169,13 +166,14 @@
 						data = hsProject.objects||[], tct = "objects";
 					}
 				}
-				document.getElementById("blocks-container-resizer").innerHTML = '<div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"><div class="drag-handle">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)">&ic; <i class="fa fa-list-alt"></i></a>':'')+'</div></div><div class="resizer"></div>';
+				document.getElementById("blocks-container-resizer").innerHTML = '<div class="drag-handle">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)">&ic; <i class="fa fa-list-alt"></i></a>':'')+'</div><div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"></div><div class="resizer"></div>';
 				//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 				data.forEach(function(item) {
 					var blockElm = document.createElement("div");
 					var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.xPosition!=null||(item.objects&&data.length>1)));
 					blockElm.setAttribute("class", blockInfo.classList);
 					blockElm.setAttribute("data", blockInfo.data);
+					if (blockInfo.id) blockElm.setAttribute("data-id", blockInfo.id);
 					blockElm.setAttribute("data-group", blockInfo.sortGroup);
 					blockElm.innerHTML = blockInfo.innerHTML;
 					document.getElementById("blocks-container").appendChild(blockElm);
@@ -187,10 +185,7 @@
 					forceFallback: true, delayOnTouchOnly: true, animation: 150,
 					handle: '.handle', multiDrag: true, selectedClass: 'selected',
 					onEnd: function(e){
-						console.log("To:", e.to, "\nFrom:", e.from);
-						activeEditBlock = e.item;
-						editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
-						editsave();
+						updatescript(e.from), updatescript(e.to);
 					}
 				});
 				
@@ -199,22 +194,26 @@
 				addBlockFunctions(document);
 			}
 			setTimeout(function(){
-				req_id = (new URL(location.href)).searchParams.get("id") || localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
-				req_id = (new URL(location.href)).searchParams.get("id") || req_id;
-				if (req_id) XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
-					try {
-						hsProject = JSON.parse(r);
-					} catch (E) {
-						return alert("Invalid Response");
-					}
+				var url = new URL(location.href);
+				if (localStorage.getItem("projectFromStorage") &&  url.searchParams.get("play") == "1") {
+					hsProject = JSON.parse(localStorage.getItem("projectFromStorage"));
 					formatProject(hsProject);
 					replaceRender(-1); //-1 means top (entire project)
-					//hsProject = {};
-					//console.log(hsProject.abilities);
-					//(hsProject.abilities[57].blocks||[]).forEach(function(block) {
-				},false);//true);
-				else {
-					replaceRender([],"","No project loaded");
+				} else {
+					req_id = (new URL(location.href)).searchParams.get("id") || localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
+					req_id = (new URL(location.href)).searchParams.get("id") || req_id;
+					if (req_id) XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
+						try {
+							hsProject = JSON.parse(r);
+						} catch (E) {
+							return alert("Invalid Response");
+						}
+						formatProject(hsProject);
+						replaceRender(-1); //-1 means top (entire project)
+					},false);//true);
+					else {
+						replaceRender([],"","No project loaded");
+					}
 				}
 			}, 400);
 			
@@ -233,9 +232,11 @@
 					activeEditBlock.innerHTML = info.innerHTML;
 					activeEditBlock.setAttribute("class", info.classList);
 					activeEditBlock.setAttribute("data", info.data);
+					if (info.id) activeEditBlock.setAttribute("data-id", info.id);
 					activeEditBlock.setAttribute("data-group", info.sortGroup);
 					
 					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
+					if (document.querySelector(".edit-box").style.display == "block") updatescript(activeEditBlock, true), updatescript(activeEditBlock.parentNode);
 					document.querySelector(".edit-box").style.display = "none";
 					addBlockFunctions(activeEditBlock);
 					activeEditBlock = null;
@@ -257,12 +258,14 @@
 			}
 			function editfocus() {
 				var blockData = JSON.parse(activeEditBlock.getAttribute("data"));
-				console.log( "blocks", projectDict.objects[blockData.objectID||"idk"]);
+				document.getElementById("blocks-container-resizer").setAttribute("data", JSON.stringify(blockData));
+				console.log("blocks", projectDict.objects[blockData.objectID||"idk"]);
 				if (blockData.objects) replaceRender(blockData.objects, "objects", "Objects in \u201C" + blockData.name + "\u201D");
 				else if (blockData.rules) replaceRender(blockData.rules, "rules", "Rules of \u201C" + blockData.name + "\u201D");
 				else if (blockData.abilityID) replaceRender(Object.keys(projectDict.abilities[blockData.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.abilityID].blocks[b]}), "blocks", "When \u201C" + (blockLabels[(blockData.parameters[0].datum||{}).type][1]||"").replace(/\u2063\s|\s\u2063/g,"") + "\u201D for \u201C" + (blockData.objectID?projectDict.objects[blockData.objectID||{}].name:JSON.parse(activeEditBlock.parentNode.parentNode.getAttribute("data")).name) + "\u201D");
 				else if (blockData.controlScript) replaceRender(Object.keys(projectDict.abilities[blockData.controlScript.abilityID].blocks).repeatEach(b=>{return projectDict.abilities[blockData.controlScript.abilityID].blocks[b]}), "blocks", "Blocks in \u201C" + blockData.description + "\u201D");
 				//console.log(activeEditBlock,jsonToHtml(blockData).focusType);
+				document.getElementById("blocks-container").setAttribute("data", JSON.stringify(blockData));
 				editclose();
 			}
 			document.body.onkeydown = function(e) {
@@ -270,7 +273,140 @@
 				if (e.keyCode == 27) editclose();
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
-			
+			function writedata(type, web_id, newdata) {
+				switch (type) {
+					case "project":
+						if (newdata[0].objects) {
+							//Write to scenes (newer projects)
+							hsProject.scenes = newdata;
+						} else {
+							//Write to objects (older projects)
+							hsProject.objects = newdata;
+						}
+						break;
+					case "scene":
+						projectDict.scenes[web_id] = newdata;
+						for (i = 0; i < (hsProject.scenes||[]).length; i++){
+							if (hsProject.scenes[i].web_id == web_id) {
+								hsProject.scenes[i] = newdata;
+								hsProject.scenes[i].web_id = web_id;
+							}
+						}
+						break;
+					case "object":
+						projectDict.objects[web_id] = newdata;
+						//(hsProject.objects||[]).forEach(o=>{
+						for (i = 0; i < (hsProject.objects||[]).length; i++) {
+							if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata;
+						};
+						break;
+					case "crule": //incomplete
+						projectDict.customRules[web_id] = newdata;
+						//(hsProject.customRules||[]).forEach(r=>{
+						for (i = 0; i < (hsProject.customRules||[]).length; i++) {
+							if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata;
+						};
+						break;
+					case "rule":
+						projectDict.rules[web_id] = newdata;
+						//(hsProject.rules||[]).forEach(r=>{
+						for (i = 0; i < (hsProject.rules||[]).length; i++) {
+							if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata;
+						};
+						break;
+					case "ability": //Input the whole new ability
+						projectDict.abilities[web_id] = projectDict.abilities[web_id]||{},
+							projectDict.abilities[web_id].blocks = {},
+							projectDict.abilities[web_id].name = newdata.name,
+							projectDict.abilities[web_id].createdAt = newdata.createdAt,
+							projectDict.abilities[web_id].abilityID = newdata.abilityID;
+						for (i = 0; i < (newdata.blocks||[]).length; i++) {
+							newblock = newdata.blocks[i];
+							newblock.web_id = web_id + "_b" + i;
+							projectDict.abilities[web_id].blocks[newblock.web_id] = newblock;
+						}
+						for (i = 0; i < (hsProject.abilities||[]).length; i++) {
+							var a = hsProject.abilities[i];
+							if (hsProject.abilities[i].abilityID == web_id) {
+								for (j = 0; j < (newdata.blocks||[]).length; j++) {
+									var b = newdata.blocks[j];
+									b.web_id = web_id + "_b" + j;
+								}
+								hsProject.abilities[i] = newdata;
+								hsProject.abilities[i].blocks = newdata.blocks;
+							}
+						};
+						break;
+					//There is no need to update a block because it updates the ability regardless
+				}
+				var url = new URL(location.href);
+				if (url.searchParams.get("play") == "1") {
+					console.log("%cProject Instance Saved","color:lime;font-weight:600;");
+					localStorage.setItem("projectFromStorage", JSON.stringify(hsProject));
+				}
+			}
+			function updatescript(container, isBlock) {
+				isBlock = isBlock||false;
+				var cp = (!isBlock) ? container.parentNode : container;
+				var scData = JSON.parse(cp.getAttribute("data"));
+				scType = !scData ? "project" : (scData.objects?"scene":(scData.xPosition!=undefined?"object":(scData.rules?"crule":(scData.abilityID?"rule":"ability"))));
+				scId = (!scData ? "none" : scData.web_id||scData.id||scData.abilityID||scData.objectID||cp.getAttribute("data-id"));
+				if (scData && (scData.controlScript || scData.controlFalseScript)) scId = (container.previousElementSibling && container.previousElementSibling.classList.contains("collapsible")) ? scData.controlFalseScript.abilityID : scData.controlScript.abilityID
+				var newdata = {};
+				if (isBlock && scType == "ability") return;
+				switch (scType) {
+					case "ability": //Change the parent ability
+						newdata = {
+							"abilityID": scId,
+							"blocks": container.children.repeatEach(c=>{
+								return JSON.parse(c.getAttribute("data"));
+							}),
+							"createdAt": (projectDict.abilities[scId]||{createdAt:newestCreateDate}).createdAt
+						};
+						if (scData.name) newdata.name = scData.name;
+						break;
+					case "rule":
+						if (isBlock) {
+							//Change the rule block itself
+							newdata = scData;
+							scId = scData.id;
+						} else {
+							//Change the ability within the rule
+							newdata = {
+								"abilityID": scData.abilityID,
+								"blocks": container.children.repeatEach(c=>{
+									return JSON.parse(c.getAttribute("data"));
+								}),
+								"createdAt": (projectDict.abilities[scData.abilityID]||{createdAt:newestCreateDate}).createdAt
+							};
+							if (scData.name) newdata.name = projectDict.abilities[scData.abilityID].name;
+							scType = "ability";
+							scId = scData.abilityID;
+						}
+						break;
+					case "crule": //Change the rules within the custom rule
+					case "object": //Change the rules within the object
+						newdata = scData;
+						newdata.rules = container.children.repeatEach(c=>{
+							return JSON.parse(c.getAttribute("data")||'{}').id;
+						});
+						scId = scData.id||scData.objectID;
+						break;
+					case "scene": //Change the objects in the scene
+						newdata = scData;
+						if (!isBlock) newdata.objects = container.children.repeatEach(c=>{
+							return JSON.parse(c.getAttribute("data")).objectID;
+						});
+						break;
+					case "project":
+						newdata = document.querySelectorAll(".bl-container > div").repeatEach(c=>{
+							return JSON.parse(c.getAttribute("data"));
+						});
+						break;
+				}
+				if (!(scData||{}).ruleBlockType && scType != "project") cp.setAttribute("data", JSON.stringify(newdata));
+				writedata(scType, scId, newdata);
+			}
 			/* CodeMirror */
 			var editor = CodeMirror.fromTextArea(document.querySelector("textarea"), {
 				matchBrackets: true,
@@ -324,7 +460,7 @@
 				],
 				inertia: true
 			}).draggable({
-				allowFrom: 'div.bl-container .drag-handle',
+				allowFrom: 'div.drag-handle',
 				//Enable inertial throwing
 				inertia: true,
 				//Keep the element within the area of it's parent
@@ -339,18 +475,31 @@
 
 				listeners: {
 					//Call this function on every dragmove event
+					start (event) {
+						var target = event.target;
+						//Set Z Index of the elements
+						for (i = 0; i < draggables.length; i++) {
+							if (Number(draggables[i].style.zIndex) > Number(target.style.zIndex)) draggables[i].style.zIndex = draggables[i].style.zIndex - 1;
+						};
+						target.style.zIndex = document.querySelectorAll(".resize-drag").length;
+					},
 					move (event) {
 						var target = event.target;
 						//Keep the dragged position in the data-x/data-y attributes
 						var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
 						var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
+						
 						//Translate the element
 						target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';// update the posiion attributes
 						target.setAttribute('data-x', x); target.setAttribute('data-y', y);
 					}
 				}
 			});
+			//Z Index of draggable elements
+			var draggables = document.querySelectorAll(".resize-drag");
+			for (i = 0; i < draggables.length; i++) {
+				draggables[i].style.zIndex = i;
+			};
 		</script>
 	</body>
 </html>
