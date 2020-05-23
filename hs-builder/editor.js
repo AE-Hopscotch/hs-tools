@@ -6,6 +6,7 @@ function uuidv4() {
 	});
 }
 
+var newestCreateDate = 0;
 function formatProject(p) {
 	//Assign each block its own ID
 	projectDict = {
@@ -24,6 +25,7 @@ function formatProject(p) {
 		for (i = 0; i < (a.blocks||[]).length; i++) {
 			b = a.blocks[i];
 			b.web_id = a.abilityID + "_b" + i;
+			newestCreateDate = Math.max(newestCreateDate,a.createdAt+12.34567);
 			
 			projectDict.abilities[a.abilityID].blocks[b.web_id] = b;
 			
