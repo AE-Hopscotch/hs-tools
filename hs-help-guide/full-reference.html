@@ -44,6 +44,12 @@
 				background-color: rgba(0,0,0,0);
 				zoom: 0.50001;
 			}
+			input {
+				padding: 8px 8px 8px 32px;
+			}
+				.inframe input {
+					padding-left: 8px;
+				}
 			@media only screen and (max-width: 400px) {
 				html:not(.inframe), html:not(.inframe) body {
 					zoom: 0.75;
@@ -202,11 +208,47 @@
 			br {
 				user-select: none;
 			}
+			sq {
+				display: block;
+				transition: 0.5s;
+				position: fixed;
+				bottom: 0px; right: 0px;
+				z-index: 100;
+				background-color: rgba(0,0,0,0.5);
+				padding:8px;
+				border-radius: 8px;
+				bottom: 4px; right: 4px;
+			}
+			.button {
+				position: fixed;
+				left: 10px;
+				top: 10px;
+				width: 28px;
+				height: 44px;
+				background-color: #0b5b51;
+				border: none; outline: none;
+				cursor: pointer;
+				color: white;
+				padding: 6px 8px;
+				text-align: center;
+			}
+			.fa-chevron-left {
+				position: relative;
+				left: -1px;
+			}
+			.inframe .button, .inframe sq {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
+		<sq>
+			<a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#eee;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		</sq>
+		<button onclick="location.href='../hs-help-guide/'" class="button" style="z-index:2;"><i class="fa fa-chevron-left"> </i></button>
 		<button hidden onclick="theme()" id="themebtn" style="right:0;" style="min-width: 300px;"><i class="fa fa-fw fa-moon-o"> </i></button>
-		<input placeholder="Search by name, ID, or type..." style="z-index:1;position:fixed;margin:8px;top:0;left:0;width:calc(100% - 16px);height:48px;font-size:26px;padding:8px;background-color:#666;color:white;border:2px solid #ccc;outline:none;" oninput="search()"/>
+		
+		<input placeholder="Search by name, ID, or type..." style="z-index:1;position:fixed;margin:8px;top:0;left:0;width:calc(100% - 16px);height:48px;font-size:26px;background-color:#666;color:white;border:2px solid #ccc;outline:none;" oninput="search()"/>
 		<div class="flex" style="margin-top:48px;"></div>
 		<div style="position:fixed;top:0;left:0;width:100%;display:block;background-color:gray;height:64px;"></div>
 		<script src="../main.js"></script>
