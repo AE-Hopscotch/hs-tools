@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Full Hopscotch Reference</title>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../style.css">
+		<link rel="stylesheet" href="../sidenavStyles.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		
+		<!--meta name="description" content="Reference values on text collision values based on various text rendering systems"/>
+		<meta name="keywords" content="hopscotch, reference, rendering, text, project"/>
+		<meta property="og:title" content="Hopscotch Device Identifier Reference"/>
+		<meta property="og:description" content="Reference values on text collision values based on various text rendering systems"/>
+		<meta property="og:image" content="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/51/mobile-phone_1f4f1.png"/-->
+		
+		<style>
+			html, body {
+				background-color: var(--col-bg-main);
+			}
+			html {
+				overflow-y: auto;
+			}
+			body {
+				padding: 8px;
+			}
+			.inframe body {
+				background-color: rgba(0,0,0,0);
+				zoom: 0.50001;
+			}
+			@media only screen and (max-width: 400px) {
+				html:not(.inframe), html:not(.inframe) body {
+					zoom: 0.75;
+				}
+			}
+			
+				::-webkit-scrollbar {
+					width: 14px;
+					z-index:1001;
+				}
+				::-webkit-scrollbar-track {
+					background-color: #eee;
+					border-radius: 0;
+				}
+				::-webkit-scrollbar-thumb {
+					background-color: rgba(100,100,100,0.8); /*#e6d700;*/
+					border-radius: 10px;
+					opacity: 0.75;
+				}
+				::-webkit-scrollbar-thumb:active {
+				  background-color: rgba(100,100,100,0.7); /*#e6cf00;*/
+					opacity:1;
+				}
+				::-webkit-scrollbar-corner {
+				  background-color: #eee;
+				}
+			.flex {
+				justify-content: space-evenly;
+			}
+			.flex > div {
+				width: 150px;
+				height: 150px;
+				background-color: #888;
+				margin: 8px;
+				padding: 8px;
+				position: relative;
+				border-radius: 16px;
+				overflow: hidden;
+			}
+			.flex > div .num {
+				color: white;
+				position: absolute;
+				top: 8px; left: 8px;
+				font-size: 30px;
+				font-weight: 600;
+			}
+			.flex > div .type-icon {
+				color: black;
+				position: absolute;
+				top: 8px; right: 8px;
+				font-size: 20px;
+				background-color: #eee;
+				width: 36px;
+				height: 32px;
+				padding: 4px;
+				border-radius: 4px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.flex > div .name {
+				color: white;
+				position: absolute;
+				top: 55%; left: 50%;
+				transform: translate(-50%,-50%);
+				text-align: center;
+				font-size: 22px;
+				width: 80%;
+			}
+			.flex > div.obj .name {
+				top: inherit;
+				bottom: 0;
+				width: 90%;
+				font-size: 16px;
+			}
+			.flex > div .img {
+				position: absolute;
+				top: 52%; left: 50%;
+				transform: translate(-50%,-50%);
+				width: 80px;
+				height: 65px;
+				background-size: cover;
+			}
+			
+			.flex > div.move {
+				background-color: #d73e1e;
+			}
+			.flex > div.looks {
+				background-color: #63ae1e;
+			}
+			.flex > div.draw {
+				background-color: #a6006e;
+			}
+			.flex > div.var {
+				background-color: #e7b601;
+			}
+			.flex > div.ctrl {
+				background-color: #3e83be;
+			}
+			.flex > div.old {
+				background-color: #647f96;
+			}
+			.flex > div.abl, .flex > div.crule, .flex > div.scn {
+				background-color: #ddd;
+				color: black;
+				background-image: url(../images/ability-bars.png);
+				background-position: 0,0;
+				background-size: 172px 172px;
+				background-repeat: no-repeat;
+			}
+			.flex > div.scn {
+				background-image: url(../images/scene-bars.png);
+			}
+			.flex > div.crule {
+				background-image: url(../images/crule-bars.png);
+			}
+			.flex > div.rule {
+				background-color: #be2961;
+			}
+			.flex > div.obj {
+				background-color: #6bdaed;
+			}
+			.flex > div.math {
+				background-color: #733977;
+			}
+			.flex > div.val {
+				background-color: #f9cc1e;
+			}
+			.flex > div.otr {
+				background-color: #f9ad1e;
+			}
+			.flex > div.rcol {
+				background: linear-gradient(130deg, #ff2764 5%, #1acfff 95%);
+			}
+			.flex > div.ptr {
+				background-color: #ddd;
+			}
+			.flex > div.ptr *, .flex > div.ptypes * {
+				color: black;
+			}
+			.flex > div.ptypes {
+				background-color: white;
+				color: black;
+				border: 2px solid gray;
+			}
+			
+			::placeholder {
+				color: #ccc;
+				opacity: 0.4;
+			}
+			
+			div ::selection {
+				background: #11887a;
+				color: #ccc;
+			}
+			br {
+				user-select: none;
+			}
+		</style>
+	</head>
+	<body>
+		<button hidden onclick="theme()" id="themebtn" style="right:0;" style="min-width: 300px;"><i class="fa fa-fw fa-moon-o"> </i></button>
+		<input placeholder="Search by name, ID, or type..." style="z-index:1;position:fixed;margin:8px;top:0;left:0;width:calc(100% - 16px);height:48px;font-size:26px;padding:8px;background-color:#666;color:white;border:2px solid #ccc;outline:none;" oninput="search()"/>
+		<div class="flex" style="margin-top:48px;"></div>
+		<div style="position:fixed;top:0;left:0;width:100%;display:block;background-color:gray;height:64px;"></div>
+		<script src="../main.js"></script>
+		<script src="../sidenav.min.js"></script>
+		<script src="../hs-builder/blockrender.js"></script>
+		<script>
+			function search(){
+				document.querySelectorAll(".flex .name").forEach(c=>{
+					c.parentNode.style.display = c.innerHTML.replace(/<.*?>/g,"").toLowerCase().match(document.querySelector("input").value.toLowerCase()) ? "block" : "none";
+				});
+				document.querySelectorAll(".flex .num").forEach(c=>{
+					c.parentNode.style.display = c.innerHTML.toLowerCase().match(document.querySelector("input").value.toLowerCase()) ? "block" : c.parentNode.style.display;
+				});
+				document.querySelectorAll(".flex .type-icon").forEach(c=>{
+					c.parentNode.style.display = c.title.toLowerCase().match(document.querySelector("input").value.toLowerCase()) ? "block" : c.parentNode.style.display;
+				});
+			}
+			XHR.get("https://awesome-e.github.io/hs-tools/get/hopscotch-blocks-dictionary.json",function(r) {
+				Object.keys(JSON.parse(r)).sort((a,b)=>a-b).forEach(key=>{
+					var item = JSON.parse(r)[key];
+					var div = document.createElement("div");
+					div.setAttribute("class", item.type || "abl");
+					div.innerHTML = '<span class="num">'+item.id+'</span><i title="block" class="fa type-icon fa-cubes"></i><span class="name">'+item.name.replace(/of this object| \/ ability/i,"")+'</span>';
+					document.querySelector(".flex").appendChild(div);
+				});
+				var type = 0;
+				for (i = 233; i < 9e3; i++) {
+					var item = blockLabels[i];
+					type = type||0;
+					var name = 
+						(i<5e3) ? (item[0+3*(i>=1e3)-3*(i>=2e3)+(i>=4e3)].replace(/^\s$/,"")||item[3]).replace(/(Random)1/,"$1<br/>1-") :
+						(i<6e3) ? ["Random","RGB","HSB"][i-5e3] : ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||item[0].replace(/\u2063\s|\s\u2063|^\s$/g,""));
+					var div = document.createElement("div");
+					div.setAttribute("class", ["","rule","otr","otr","math","rcol","rule","rule","ptr"][type]);
+					div.innerHTML = '<span class="num">'+i+'</span><br/><i title="'+["unknown","conditional","object trait","stage trait","math operator","color operator","rule","event operator","event parameter"][type]+'" class="fa type-icon fa-'+["square","question-circle","info-circle","info-circle","terminal","terminal","list","exclamation ","cube"][type]+'"></i><br/><span class="name">'+name+'</span>';
+					document.querySelector(".flex").appendChild(div);
+					switch (i) {
+						case 239: i = 1e3-1; type = 1; break;
+						case 1007: i = 2e3-1; type = 2; break;
+						case 2014: i = 3e3-1; type = 3; break;
+						case 3008: i = 4e3-1; type = 4; break;
+						case 4019: i = 5e3-1; type = 5; break;
+						case 5002: i = 6e3-1; type = 6; break;
+						case 6001: i = 7e3-1; type = 7; break;
+						case 7022: i = 8e3-1; type = 8; break;
+						case 8005: i = 9e3-1; type = 9; break;
+					}
+				};
+				type = 0;
+				for (i = 0; i < 3e4+1; i++) {
+					var item = charLabels[i];
+					type = type||0;
+					var name = charLabels[i], pos = (i < 166 || i > 3000 && i < 3003) ? -200/3*(i>3000?i-2835:i) : "1370";
+					var div = document.createElement("div");
+					div.setAttribute("class", "obj");
+					div.innerHTML = '<span class="num">'+i+'</span><br/><i title="object type" class="fa type-icon fa-photo"></i><br/><div class="img" style="background-image:url(../images/character_sprite_strip.png);background-position:0 '+pos+'px"></div><span class="name">'+name+'</span>';
+					if (name.match(/HS_/)||i>3003) div.innerHTML = div.innerHTML.replace(/class="name"/,'class="name" style="bottom:auto;top:55%;overflow-wrap: break-word;"');
+					if (i == 2e3) div.innerHTML = div.innerHTML.replace(/<div class="img".*?\/div>/,'<i class="fa fa-photo" style="color:black;position:absolute;top:53%;left:50%;transform:translate(-50%,-50%);display:block;font-size:56px;"></i>');
+					document.querySelector(".flex").appendChild(div);
+					switch (i) {
+						case 74: i = 99; type = 1; break;
+						case 126: i = 149; type = 2; break;
+						case 166: i = 2e3-1; type = 4; break;
+						case 2000: i = 3e3-1; type = 4; break;
+						case 3003: i = 1e4-1; type = 5; break;
+						case 1e4: i = 3e4-1; type = 6; break;
+					}
+				};
+				for (i = 42; i < 57; i++) {
+					var item = paramTypes[i];
+					var div = document.createElement("div");
+					div.setAttribute("class", "ptypes");
+					div.innerHTML = '<span class="num">'+i+'</span><i title="parameter type" class="fa type-icon fa-square-o"></i><span class="name">'+item.replace(/([a-z]|[A-Z]{2})([A-Z])/,"$1 $2")+'</span>';
+					document.querySelector(".flex").appendChild(div);	
+				}
+			}, false);
+			if (self != top) document.querySelector("html").classList.add("inframe");
+		</script>
+	</body>
+</html>
