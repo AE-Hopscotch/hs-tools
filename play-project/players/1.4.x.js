@@ -2358,9 +2358,6 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
 
               case D.HSBlockType.SetZIndex:
                 var l = u[0].computedValue(this);
-				console.log(e,z); //AE_TEST
-				z++;
-				if (z==1) l = 102;
 				l !== this.zIndex && (this.zIndex = l, s.HSStageScene.dirtySort = !0);
                 break;
 
