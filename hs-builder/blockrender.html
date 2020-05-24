@@ -89,16 +89,48 @@
 	</head>
 	<body>
 		<button onclick="theme()" id="themebtn" style="right:0;"><i class="fa fa-fw fa-moon-o"> </i></button>
-		<div id="blocks-container-resizer" class="resize-drag">
+		<div id="blocks-container-resizer" class="resize-drag" style="min-width: 300px;">
 			<div class="drag-handle">Block Rendering: Loading...</div>
 			<div id="blocks-container" class="bl-container" style="padding: 36px 8px;"></div>
+			<div class="resizer"></div>
+		</div>
+		<div id="iframe-resizer" class="resize-drag" style="width: 220px; min-width: 220px;">
+			<div class="drag-handle">Reference Chart</div>
+			<div id="blocks-container" class="bl-container" style="padding:27px 0 0;overflow:hidden;">
+				<iframe onfocus="alert()" frameborder="0" src="../hs-help-guide/full-reference.html" id="iframe" class="bl-container" style="padding:0;"></iframe>
+			</div>
+			<div class="resizer"></div>
+		</div>
+		<div id="drawer-resizer" class="resize-drag" style="min-width: 250px; width: 250px; height: 400px;">
+			<div class="drag-handle">Blocks Drawer</div>
+			<div class="bl-container">
+				<div id="blocks-drawer" style="padding: 36px 8px 4px; height: auto;">
+					<div data="{&quot;block_class&quot;:&quot;method&quot;,&quot;description&quot;:&quot;Set&quot;,&quot;type&quot;:45,&quot;parameters&quot;:[{&quot;defaultValue&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;key&quot;:&quot;&quot;,&quot;type&quot;:47},{&quot;defaultValue&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;key&quot;:&quot;to&quot;,&quot;type&quot;:48}]}" data-group="blocks"><bl class="var"><c>Set <ps><span></span></ps> to <ps><span></span></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+				<div id="rules-drawer" style="padding: 16px 8px 4px; height: auto;">
+					<div class=" rule" data="{&quot;ruleBlockType&quot;:6000,&quot;id&quot;:&quot;&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;abilityID&quot;:&quot;&quot;,&quot;parameters&quot;:[{&quot;defaultValue&quot;:&quot;&quot;,&quot;datum&quot;:{&quot;type&quot;:7000,&quot;block_class&quot;:&quot;operator&quot;,&quot;description&quot;:&quot;Game Starts&quot;},&quot;key&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;type&quot;:52}],&quot;type&quot;:6000}" data-group="blocks"><bl class="rule"><b class="openbtn"></b><c>When <ps><op class="cm">&ic; game starts &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+				<div id="customRules-drawer" style="padding: 16px 8px 4px; height: auto;">
+					<div class="crule" data="{&quot;name&quot;:&quot;Custom Rule&quot;,&quot;rules&quot;:[],&quot;id&quot;:&quot;&quot;}" data-group="rules"><bl class="crule"><b class="openbtn"></b><c>Custom Rule</c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+				<div id="objects-drawer" style="padding: 16px 8px 4px; height: auto;">
+					<div class="obj" data="{&quot;height&quot;:&quot;55&quot;,&quot;xPosition&quot;:&quot;512&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;width&quot;:&quot;74&quot;,&quot;text&quot;:&quot;&quot;,&quot;filename&quot;:&quot;text-object.png&quot;,&quot;type&quot;:1,&quot;rules&quot;:[],&quot;name&quot;:&quot;Text&quot;,&quot;yPosition&quot;:&quot;384&quot;}" data-group="rules"><bl class="obj"><b class="openbtn"></b><c>Text <ps><op class="cm">&ic; Text &ic;<ps><span></span></ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+				<div id="scenes-drawer" style="padding: 16px 8px 4px; height: auto;">
+					<div class="scn" data="{&quot;objects&quot;:[],&quot;name&quot;:&quot;New Scene&quot;}" data-group="objects"><bl class="scn"><b class="openbtn"></b><c>New Scene</c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
+			</div>
 			<div class="resizer"></div>
 		</div>
 		<div class="edit-box">
 			<textarea></textarea>
 			<div class="block-preview"></div>
 			<span class="controls"><button onclick="editclose()" title="Close without saving (Esc)"><i class="fa fa-close"></i> CLOSE </button><button onclick="editsave()" title="Close and save changes (Ctrl+Enter)"><i class="fa fa-check"></i> SAVE </button></span>
-			<span class="lower-controls"><button id="focus-btn" onclick="editfocus()" title="" class=""><i class="fa fa-eye"></i> FOCUS VIEW </button><button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button></span>
+			<span class="lower-controls">
+				<button id="focus-btn" onclick="editfocus()" title="" class=""><i class="fa fa-eye"></i> FOCUS VIEW </button>
+				<button id="copy-btn" onclick="editcopy()" title="" class=""><i class="fa fa-copy"></i> DUPLICATE </button>
+				<button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button>
+			</span>
 			</div>
 		</div>
 		<script src="../sidenav.min.js"></script>
@@ -179,7 +211,7 @@
 					document.getElementById("blocks-container").appendChild(blockElm);
 				});
 				
-				x = new Sortable(document.querySelector(".bl-container"), {
+				x = new Sortable(document.getElementById("blocks-container"), {
 					group: tct,
 					ghostClass: 'invis', dragClass: 'dragged', fallbackTolerance: 5,
 					forceFallback: true, delayOnTouchOnly: true, animation: 150,
@@ -236,7 +268,7 @@
 					activeEditBlock.setAttribute("data-group", info.sortGroup);
 					
 					if (!activeEditBlock.innerHTML) activeEditBlock.parentNode.removeChild(activeEditBlock);
-					if (document.querySelector(".edit-box").style.display == "block") updatescript(activeEditBlock, true), updatescript(activeEditBlock.parentNode);
+					if (activeEditBlock.innerHTML && document.querySelector(".edit-box").style.display == "block") updatescript(activeEditBlock, true), updatescript(activeEditBlock.parentNode);
 					document.querySelector(".edit-box").style.display = "none";
 					addBlockFunctions(activeEditBlock);
 					activeEditBlock = null;
@@ -268,9 +300,30 @@
 				document.getElementById("blocks-container").setAttribute("data", JSON.stringify(blockData));
 				editclose();
 			}
+			function editcopy() {
+				var newNode = document.createElement("div");
+				activeEditBlock.parentNode.insertBefore(newNode, activeEditBlock);
+				newNode.innerHTML = activeEditBlock.innerHTML;
+				newNode.class = activeEditBlock.class;
+				newNode.setAttribute("data", activeEditBlock.getAttribute("data"));
+				console.log(newNode);
+				newNode.setAttribute("data-id", activeEditBlock.getAttribute("data-id"));
+				newNode.setAttribute("data-groupt", activeEditBlock.getAttribute("data-group"));
+				editsave();
+				
+				activeEditBlock = newNode;
+				editor.getDoc().setValue(activeEditBlock.getAttribute("data"));
+				editsave();
+			}
 			document.body.onkeydown = function(e) {
+				if (e.keyCode == 46 && !activeEditBlock) {
+					document.getElementById("blocks-container").querySelectorAll(".selected").forEach(e=>{
+						activeEditBlock = e;
+						editdelete();
+					});
 				if (!activeEditBlock) return;
 				if (e.keyCode == 27) editclose();
+				}
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
 			function writedata(type, web_id, newdata) {
@@ -278,7 +331,7 @@
 					case "project":
 						if (newdata[0].objects) {
 							//Write to scenes (newer projects)
-							hsProject.scenes = newdata;
+							hsProject.scenes = newdata.removeNull();
 						} else {
 							//Write to objects (older projects)
 							hsProject.objects = newdata;
@@ -387,7 +440,7 @@
 					case "crule": //Change the rules within the custom rule
 					case "object": //Change the rules within the object
 						newdata = scData;
-						newdata.rules = container.children.repeatEach(c=>{
+						if (!isBlock) newdata.rules = container.children.repeatEach(c=>{
 							return JSON.parse(c.getAttribute("data")||'{}').id;
 						});
 						scId = scData.id||scData.objectID;
@@ -451,11 +504,11 @@
 				modifiers: [
 					//Keep the edges inside the parent
 					interact.modifiers.restrictEdges({
-						outer: 'parent'
+						//outer: 'parent'
 					}),
 					//Minimum size
 					interact.modifiers.restrictSize({
-					min: { width: 300, height: 150 }
+					min: { width: 200, height: 150 }
 					})
 				],
 				inertia: true
@@ -466,7 +519,8 @@
 				//Keep the element within the area of it's parent
 				modifiers: [
 					interact.modifiers.restrictRect({
-					restriction: 'parent',
+					restriction: //'parent',
+					{x: 0, y: 0, width: 10000, height: 4000},
 					endOnly: true
 					})
 				],
@@ -475,14 +529,6 @@
 
 				listeners: {
 					//Call this function on every dragmove event
-					start (event) {
-						var target = event.target;
-						//Set Z Index of the elements
-						for (i = 0; i < draggables.length; i++) {
-							if (Number(draggables[i].style.zIndex) > Number(target.style.zIndex)) draggables[i].style.zIndex = draggables[i].style.zIndex - 1;
-						};
-						target.style.zIndex = document.querySelectorAll(".resize-drag").length;
-					},
 					move (event) {
 						var target = event.target;
 						//Keep the dragged position in the data-x/data-y attributes
@@ -499,7 +545,111 @@
 			var draggables = document.querySelectorAll(".resize-drag");
 			for (i = 0; i < draggables.length; i++) {
 				draggables[i].style.zIndex = i;
+				draggables[i].onmousedown = draggables[i].onclick =  draggables[i].ontouchstart = function(event) {
+					var target = event.target;
+					while (!target.classList.contains("resize-drag")) {
+						target = target.parentNode;
+					}
+					//Set Z Index of the elements
+					for (i = 0; i < draggables.length; i++) {
+						if (Number(draggables[i].style.zIndex) > Number(target.style.zIndex)) draggables[i].style.zIndex = draggables[i].style.zIndex - 1;
+					};
+					target.style.zIndex = document.querySelectorAll(".resize-drag").length;
+				}
 			};
+			/* Sortable JS */
+				new Sortable(document.getElementById("blocks-drawer"), {
+					group: { name: "blocks", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+						updatescript(e.to);
+					}
+				});
+				new Sortable(document.getElementById("rules-drawer"), {
+					group: { name: "rules", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/("abilityID":")"/,"$1" + uuidv4().toUpperCase() + "\"")
+																			  .replace(/("id":")"/,"$1" + uuidv4().toUpperCase() + "\"") );
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+						updatescript(e.item, true);
+						updatescript(e.to);
+					}
+				});
+				new Sortable(document.getElementById("customRules-drawer"), {
+					group: { name: "rules", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/("(id)":")"/g,"$1" + uuidv4().toUpperCase() + "\""));
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+						updatescript(e.item, true);
+						updatescript(e.to);
+					}
+				});
+				new Sortable(document.getElementById("objects-drawer"), {
+					group: { name: "objects", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/("objectID":")"/g,"$1" + uuidv4().toUpperCase() + "\""));
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+						updatescript(e.item, true);
+						updatescript(e.to);
+					}
+				});
+				new Sortable(document.getElementById("scenes-drawer"), {
+					group: { name: "scenes", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/\{/g,'{"web_id":"s' + (hsProject.scenes||[]).length + '",'));
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						editsave();
+						updatescript(e.item, true);
+						updatescript(e.to);
+					}
+				});
+				window.addEventListener("blur",function(){
+					if (document.activeElement.parentNode.parentNode.classList.contains("resize-drag")) document.activeElement.parentNode.parentNode.click();
+				});
 		</script>
 	</body>
 </html>
