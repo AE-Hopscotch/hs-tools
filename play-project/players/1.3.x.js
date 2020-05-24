@@ -2834,7 +2834,20 @@ console.log("Webplayer v1.3.9 - 2020/05/13 (production)");
                 break;
 
               default:
-                e.executeBlock(t);
+				try {
+					e.executeBlock(t);
+				} catch (E) {
+					//AE_MOD
+					//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+					console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+					console.log("Block Code:", t);
+					console.log("Active Object UUID: " + e.objectID);
+					e.stageRules.forEach(r=>{
+						if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+					});
+					console.groupEnd();
+					throw E;
+				}
             }
         }, t;
     }();

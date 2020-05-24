@@ -9893,7 +9893,20 @@ var HSExecutable = function() {
             break;
 
           default:
-            b.executeBlock(a);
+			try {
+				b.executeBlock(a);
+			} catch (E) {
+				//AE_MOD
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+				console.log("Block Code:", a);
+				console.log("Active Object UUID: " + b.objectID);
+				b.stageRules.forEach(r=>{
+					if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+				});
+				console.groupEnd();
+				throw E;
+			}
         }
     }, a;
 }(), HSLinkedList = function() {
