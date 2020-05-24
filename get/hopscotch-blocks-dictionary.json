@@ -1102,7 +1102,7 @@
 		"about": "Sets the point at which the image of the object is drawn (the top left corner).",
 		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Origin&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
 		"collapsible": false,
-		"availability": "beta",
+		"availability": "all",
 		"parameters": [
 			{
 				"type": "num",
@@ -1121,6 +1121,38 @@
 		"other_info": [],
 		"community_links": [
 			"There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Set%20Origin%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?",
+			"Under Construction"
+		]
+	},
+	"60": {
+		"id": 60,
+		"type": "move",
+		"name": "Set Center",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Set Center to x <i class=\"ps fa fa-hashtag\"></i> y <i class=\"ps fa fa-hashtag\"></i> ",
+		"about": "Sets the center position of the current object to the specified coordinates.",
+		"app_description": "N/A – This block was deprecated and never had a description",
+		"collapsible": false,
+		"availability": "old",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "X-Coordinate – Determines how far to the left or right your object will be centered at."
+			},
+			{
+				"type": "num",
+				"description": "Y-Coordinate – Determines how far up or down your object will be centered at."
+			}
+		],
+		"useful_for": [
+			"Moving objects instantly",
+			"Setting objects to positions in a non-linear fashion. Sine and cosine use this technique to draw rings.",
+			"Positioning objects relative to an anchor point."
+		],
+		"other_info": [],
+		"community_links": [
 			"Under Construction"
 		]
 	},
