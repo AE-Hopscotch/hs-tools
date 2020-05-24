@@ -381,6 +381,38 @@ html[style*="--col-bg-main:black;"] .resize-drag {
 	display: none;
 }
 
+#drawer-resizer .bl-container bl {
+	display: inline-flex;
+	padding: 2px 6px 2px 6px;
+	border-radius: 8px;
+	font-size: 12px;
+	align-items: center;
+	height: 28px;
+	position: relative;
+	margin: 6px;
+	overflow-x: hidden;
+	max-width: calc(100% - 40px);
+	background-size: 32px 32px;
+}
+#drawer-resizer bl ps {
+	min-height: 21px;
+}
+#drawer-resizer bl op.cm {
+	height: 24px;
+}
+#drawer-resizer bl ps span {
+	min-width: 24px;
+}
+#drawer-resizer bl .editbtn, #drawer-resizer bl .openbtn {
+	display: none;
+	pointer-events: none;
+	touch-action: none;
+}
+#drawer-resizer bl b::before {
+	font-size: 15px;
+}
+
+
 bl c {
 	white-space: nowrap;
 	overflow-x: auto;
