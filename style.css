@@ -98,6 +98,9 @@ a {
 .searchItems hstoolsblocks li a, bl[type="hs-tools"] {
 	background-color: #0d6f62;
 }
+.searchItems hstoolsblocks li a, bl[type="hs-bg"] {
+	background-color: #332932;
+}
 .searchItems dottedblocks li a, bl[type=dotted] {
 	background-color: white;
 	border: 2px dashed black;
