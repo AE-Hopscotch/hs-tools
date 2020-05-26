@@ -46,6 +46,23 @@
 				color: #666;
 			}
 			
+			.play-button.has-keyboard::before {
+				content: "\f11c";
+				background-color: rgb(180,180,180);
+				width: 30px;
+				height: 24px;
+				display: flex;
+				position: absolute;
+				right: -8px;
+				top: -6px;
+				font-family: FontAwesome;
+				padding: 2px;
+				justify-content: center;
+				align-items: center;
+				border-radius: 6px;
+				pointer-events: none;
+			}
+			
 			.achievement-banner {
 				position: absolute;
 				top: -96px;
@@ -236,6 +253,12 @@
 		var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 		var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
 		function init() {
+			(AE_MOD.projectData.abilities||[]).forEach(a=>{
+				(a.blocks||[]).forEach(b=>{
+					//Lazy Check Each block
+					if (JSON.stringify(b).match(/"type":22.*?ae_webplayer_action:\{\\"name\\":\\"checkKey(All|Data)?\\".*?\}/)) document.querySelector(".play-button").classList.add("has-keyboard");
+				});
+			});
 			document.getElementById('hopscotch-link').href = "https://c.gethopscotch.com/p/" + AE_MOD.uuid;
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
