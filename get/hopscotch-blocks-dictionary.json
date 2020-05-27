@@ -1224,6 +1224,64 @@
 			"<a href=\"https://forum.gethopscotch.com/t/gwetvs-guide-to-coding-music/53322\">Coding Music</a> – GweTV made a great and easy-to-follow guide on how to recreate songs in Hopscotch. Go give it a read!"
 		]
 	},
+	"63": {
+		"id": 63,
+		"type": "var",
+		"name": "Save Input",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Save Input <i class=\"ps fa fa-sliders\"></i>",
+		"about": "Saves a user text input to a variable",
+		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Save%20Input&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "var",
+				"description": "Variable – Defines which variable the user input should be saved to."
+			}
+		],
+		"useful_for": [
+			"Saving a username",
+			"Creating names within a project",
+			"Creating a proper typing system",
+			"Creating a search system",
+			"Making a text-based adventure"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	},
+	"64": {
+		"id": 64,
+		"type": "looks",
+		"name": "Set Text to Input",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Set Text to Input <i class=\"ps fa fa-eyedropper\"></i>",
+		"about": "Sets the object's text to a user input, which can later be read using the orange text trait",
+		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Text%20to%20Input&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "col",
+				"description": "Color – Defines the color that the text should be"
+			}
+		],
+		"useful_for": [
+			"Instant text relaying / creating a messaging system",
+			"Renamble shapes in a playground-type project",
+			"Renaming things on the spot that do not require storing to a variable"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	},
 	"120": {
 		"id": 120,
 		"type": "ctrl",
@@ -1389,6 +1447,34 @@
 		"community_links": [
 			"<a href=\"https://forum.gethopscotch.com/t/this-siri-shortcut-can-modify-your-projects/50533\">Hopscotch JSON Siri Shortcut Topic</a> – Here you can ask me things about the properties of the block as well as why the parameter works better as a number.",
 			"There are no tutorials on this block yet. Why not <a href=\"https://forum.gethopscotch.com/new-topic?title=How%20to%20use%20the%20Change%20Scene%20Block&amp;category=open-source-code&amp;tags=howto\">create one</a>?",
+			"Under Construction"
+		]
+	},
+	"126": {
+		"id": 126,
+		"type": "ctrl",
+		"name": "Broadcast Message",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Broadcast Message named <i class=\"ps fa fa-i-cursor\"></i>",
+		"about": "Triggers a global listener for that same message",
+		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Broadcast%20Message&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "var",
+				"description": "Name – Defines the name to broadcast to"
+			}
+		],
+		"useful_for": [
+			"Custom event triggers that can change as the project is played",
+			"Event triggers without using variables",
+			"Under Contruction"
+		],
+		"other_info": [],
+		"community_links": [
 			"Under Construction"
 		]
 	}
