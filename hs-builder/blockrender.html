@@ -321,9 +321,9 @@
 						activeEditBlock = e;
 						editdelete();
 					});
+				}
 				if (!activeEditBlock) return;
 				if (e.keyCode == 27) editclose();
-				}
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
 			function writedata(type, web_id, newdata) {
@@ -339,33 +339,42 @@
 						break;
 					case "scene":
 						projectDict.scenes[web_id] = newdata;
+						var added = false;
 						for (i = 0; i < (hsProject.scenes||[]).length; i++){
 							if (hsProject.scenes[i].web_id == web_id) {
+								added = true;
 								hsProject.scenes[i] = newdata;
 								hsProject.scenes[i].web_id = web_id;
 							}
 						}
+						if (!added) {
+							newdata.web_id = web_id;
+							hsProject.scenes.push(newdata);
+						}
 						break;
 					case "object":
 						projectDict.objects[web_id] = newdata;
-						//(hsProject.objects||[]).forEach(o=>{
+						var added = false;
 						for (i = 0; i < (hsProject.objects||[]).length; i++) {
-							if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata;
+							if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata, added = true;
 						};
+						if (!added) hsProject.objects.push(newdata);
 						break;
-					case "crule": //incomplete
+					case "crule":
 						projectDict.customRules[web_id] = newdata;
-						//(hsProject.customRules||[]).forEach(r=>{
+						var added = false;
 						for (i = 0; i < (hsProject.customRules||[]).length; i++) {
-							if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata;
+							if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata, added = true;
 						};
+						if (!added) hsProject.customRules.push(newdata);
 						break;
 					case "rule":
 						projectDict.rules[web_id] = newdata;
-						//(hsProject.rules||[]).forEach(r=>{
+						var added = false;
 						for (i = 0; i < (hsProject.rules||[]).length; i++) {
-							if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata;
+							if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata, added = true;
 						};
+						if (!added) hsProject.rules.push(newdata);
 						break;
 					case "ability": //Input the whole new ability
 						projectDict.abilities[web_id] = projectDict.abilities[web_id]||{},
@@ -378,17 +387,24 @@
 							newblock.web_id = web_id + "_b" + i;
 							projectDict.abilities[web_id].blocks[newblock.web_id] = newblock;
 						}
+						var added = false;
 						for (i = 0; i < (hsProject.abilities||[]).length; i++) {
-							var a = hsProject.abilities[i];
 							if (hsProject.abilities[i].abilityID == web_id) {
+								added = true;
 								for (j = 0; j < (newdata.blocks||[]).length; j++) {
-									var b = newdata.blocks[j];
-									b.web_id = web_id + "_b" + j;
+									newdata.blocks[j].web_id = web_id + "_b" + j;
 								}
 								hsProject.abilities[i] = newdata;
 								hsProject.abilities[i].blocks = newdata.blocks;
 							}
 						};
+						if (!added) {
+							for (i = 0; i < (newdata.blocks||[]).length; i++) {
+								newdata.blocks[i].web_id = web_id + "_b" + i;
+							};
+							hsProject.abilities.push(newdata);
+							console.log("new ability", newdata)
+						}
 						break;
 					//There is no need to update a block because it updates the ability regardless
 				}
@@ -548,7 +564,7 @@
 				draggables[i].onmousedown = draggables[i].onclick =  draggables[i].ontouchstart = function(event) {
 					var target = event.target;
 					while (!target.classList.contains("resize-drag")) {
-						target = target.parentNode;
+						if (target.parentNode) target = target.parentNode; else break;
 					}
 					//Set Z Index of the elements
 					for (i = 0; i < draggables.length; i++) {
@@ -639,7 +655,7 @@
 					fallbackOnBody: true,
 					onEnd: function(e){
 						if (e.from == e.to) return;
-						e.item.setAttribute("data",e.item.getAttribute("data").replace(/\{/g,'{"web_id":"s' + (hsProject.scenes||[]).length + '",'));
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/\{/g,'{"web_id":"s' + (hsProject.scenes||[]).length + '",')); /\}/;
 						activeEditBlock = e.item;
 						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
 						editsave();
@@ -647,9 +663,9 @@
 						updatescript(e.to);
 					}
 				});
-				window.addEventListener("blur",function(){
-					if (document.activeElement.parentNode.parentNode.classList.contains("resize-drag")) document.activeElement.parentNode.parentNode.click();
-				});
+			window.addEventListener("blur",function(){
+				if ((document.activeElement.parentNode.parentNode.classList||document.body.classList).contains("resize-drag")) document.activeElement.parentNode.parentNode.click();
+			});
 		</script>
 	</body>
 </html>
