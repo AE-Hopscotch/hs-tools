@@ -276,6 +276,7 @@ html[style*="--col-bg-main:black;"] .resize-drag {
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 	touch-action: none;
+	user-select: none;
 }
 .drag-handle a {
 	color: white;
@@ -343,7 +344,7 @@ html[style*="--col-bg-main:black;"] .resize-drag {
 	--col-frame: #be2961;
 }
 .collapsible-container.obj {
-	--col-frame: #6BDAED;
+	--col-frame: #6bdaed;
 }
 
 .collapsible-container > bl {
@@ -547,8 +548,8 @@ bl.rule {
 	--col-bg-inherited: #be2961;
 }
 bl.obj {
-	background-color: #6BDAED;
-	--col-bg-inherited: #6BDAED;
+	background-color: #6bdaed;
+	--col-bg-inherited: #6bdaed;
 }
 
 ps {
