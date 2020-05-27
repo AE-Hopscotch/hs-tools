@@ -42,11 +42,14 @@
 			.sidenav {
 				left: -250px;
 			}
+			.sidenav a.GROUPED_ {
+				padding-left: 8px;
+			}
 		</style>
 	</head>
 	<body>
 		<a href="javascript:home()"><svg id="homeSvg" style="fill:white; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 10;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
-		<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."></input>
+		<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."/>
 		<div hidden id="page" style="width: 100%; height: 100%;">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
 				
@@ -76,6 +79,7 @@
 				<a title="April 2, 2019" href="javascript:video('2')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> App Download Sim</a>
 				<a title="March 30, 2019" href="javascript:video('1')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Navigation 3/30/19</a>
 				
+				<a title="May 26, 2020" href="javascript:video('21')" class="_"><i class="fa fa-fw fa-wrench"> </i> Free the Animals</a>
 				<a title="May 23, 2020" href="javascript:video('20')" class="_"><i class="fa fa-fw fa-wrench"> </i> Block Rendering 2</a>
 				<a title="May 2, 2020" href="javascript:video('19')" class="_"><i class="fa fa-fw fa-file"> </i> Platformer!</a>
 				<a title="May 1, 2020" href="javascript:video('18')" class="_"><i class="fa fa-fw fa-wrench"> </i> Soccer Balls</a>
@@ -97,9 +101,48 @@
 				<a title="August 9, 2019" href="javascript:video('2')" class="_"><i class="fa fa-fw fa-bug"> </i> Publish Buttons</a>
 				<a title="July 18, 2019" href="javascript:video('1')" class="_"><i class="fa fa-fw fa-file"> </i> E-Pad News Flash!</a>
 				
+				<!-- DIVIDED INTO GROUPS -->
+				
+				<a href="javascript:void(0)" onclick="sub('1')" class="GROUPED_"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Modding</a>
+				<div id="g1" style="margin-left:10px;" hidden>
+					<a title="May 26, 2020" href="javascript:video('21')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Free the Animals</a>
+					<a title="May 23, 2020" href="javascript:video('20')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Block Rendering 2</a>
+					<a title="May 1, 2020" href="javascript:video('18')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Soccer Balls</a>
+					<a title="April 28, 2020" href="javascript:video('17')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Peak Platformers</a>
+					<a title="April 10, 2020" href="javascript:video('16')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Block Rendering 1</a>
+					<a title="March 15, 2020" href="javascript:video('15')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Improved Sounds</a>
+					<a title="December 30, 2019" href="javascript:video('14')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Form Concept Rehash</a>
+					<a title="November 17, 2019" href="javascript:video('12')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Ability Dictionaries</a>
+					<a title="November 7, 2019" href="javascript:video('11')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Form Concept</a>
+					<a title="August 31, 2019" href="javascript:video('6')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Potential Text Editor</a>
+					<a title="August 9, 2019" href="javascript:video('5')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Hidden Abilities</a>
+					<a title="August 9, 2019" href="javascript:video('4')" class="GROUPED_"><i class="fa fa-fw fa-wrench"> </i> Secret Blocks (66s)</a>
+				</div>
+				<a href="javascript:void(0)" onclick="sub('2')" class="GROUPED_"><i id="c2" class="fa fa-fw fa-caret-right"> </i> Project Updates</a>
+				<div id="g2" style="margin-left:10px;" hidden>
+					<a title="May 2, 2020" href="javascript:video('19')" class="GROUPED_"><i class="fa fa-fw fa-file"> </i> Platformer!</a>
+					<a title="December 1, 2019" href="javascript:video('13')" class="GROUPED_"><i class="fa fa-fw fa-file"> </i> Perilous Penguins</a>
+					<a title="October 17, 2019" href="javascript:video('10')" class="GROUPED_"><i class="fa fa-fw fa-file"> </i> HHC Guide Video</a>
+					<a title="October 17, 2019" href="javascript:video('8')" class="GROUPED_"><i class="fa fa-fw fa-file"> </i> HHC Room Jumping</a>
+					<a title="July 18, 2019" href="javascript:video('1')" class="GROUPED_"><i class="fa fa-fw fa-file"> </i> E-Pad News Flash!</a>
+				</div>
+				<a href="javascript:void(0)" onclick="sub('3')" class="GROUPED_"><i id="c3" class="fa fa-fw fa-caret-right"> </i> Bug Clips</a>
+				<div id="g3" style="margin-left:10px;" hidden>
+					<a title="August 9, 2019" href="javascript:video('3')" class="GROUPED_"><i class="fa fa-fw fa-bug"> </i> Editor Color Slot</a>
+					<a title="August 9, 2019" href="javascript:video('2')" class="GROUPED_"><i class="fa fa-fw fa-bug"> </i> Publish Buttons</a>
+				</div>
+				<a href="javascript:void(0)" onclick="sub('4')" class="GROUPED_"><i id="c4" class="fa fa-fw fa-caret-right"> </i> Other</a>
+				<div id="g4" style="margin-left:10px;" hidden>
+					<a title="October 17, 2019" href="javascript:video('9')" class="GROUPED_"><i class="fa fa-fw fa-globe"> </i> Story Time</a>
+					<a title="September 2, 2019" href="javascript:video('7')" class="GROUPED_"><i class="fa fa-fw fa-globe"> </i> Main Page Menu</a>
+				</div>
+				
+				<!-- END GROUPS -->
+				
 				<a title="August 9, 2019" href="javascript:video('2')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Editor Color Slot</a>
 				<a title="August 9, 2019" href="javascript:video('1')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Publish Buttons</a>
 				
+				<a title="May 26, 2020" href="javascript:video('12')" class="aeMD_"><i class="fa fa-fw fa-film"> </i> Free the Animals</a>
 				<a title="May 23, 2020" href="javascript:video('11')" class="aeMD_"><i class="fa fa-fw fa-film"> </i> Block Rendering 2</a>
 				<a title="May 1, 2020" href="javascript:video('10')" class="aeMD_"><i class="fa fa-fw fa-film"> </i> Soccer Balls</a>
 				<a title="April 28, 2020" href="javascript:video('9')" class="aeMD_"><i class="fa fa-fw fa-film"> </i> Peak Platformers</a>
@@ -162,21 +205,9 @@
 			function openNav_() {
 				document.getElementById("mySidenav").style.left = "0px";
 				document.getElementById("topSideNavBar").style.left = "0px";
-				/*if (window.innerWidth > 880){
-					document.getElementById('themebtn').style.opacity = "1";
-				} else {
-					document.getElementById('themebtn').style.opacity = "0.99";
-				}/**/
 			}
 			
 			var trueLoad = true;
-			/*document.getElementById('i1').onload = function() {
-				setTimeout(function(){console.warn("frame loaded"); console.log('frame loaded');}, 0);
-				if (!trueLoad) {
-					//show();
-				}
-				trueLoad = false;
-			}*/
 			
 			document.getElementById("videoPlayer").onloadeddata = function() {
 				console.log("on data loaded event fired");
@@ -206,41 +237,18 @@
 
 			var v;
 			function video(id) {
-				//REMNANTS; KEEP IN CASE OF REVERTING TO STREAMABLE
-				//(betaView) ? setLocation('?beta-view&video-set=' + vidSet + '&id=' + id) : 
 				setLocation('?video-set=' + vidSet + '&id=' + id);
 				setCookie('lastPage', 'https://awesome-e.github.io/hs-tools/videos/?video-set=' + vidSet + '&id=' + id, 30);
 				setTimeout(show(), 20);
 			}
 			
-			
-			
 			function show() {
 			setTimeout(function(){
-				//if (document.getElementsByClassName("nobar")[0].style.left != "250px") closeNav();
 				var url = new URL(window.location.href);
 				var id = Number(url.searchParams.get("id"));
 				var urlList = videoURLS[vidSet];
 				
 				document.getElementById("v0").hidden = true;
-				//document.getElementById("v1").hidden = false;
-				
-				//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
-				//-=-=-=-=-=-=-=-=-=-=-=-=-= DEPRECATED -=-=-=-=-=-=-=-=-=-=-=-=-\\
-				//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
-				
-				//Replace the iFrame
-				/*if (!betaView||urlList[id].includes("streamable")) {
-					var original = document.getElementById("i1");
-					var newFrame = document.createElement("iframe");
-					newFrame.id = "i1";
-					newFrame.src = urlList[id];
-					newFrame.width = "100%";
-					newFrame.height = "100%";
-					newFrame.allowfullscreen = "";
-					newFrame.scrolling = "no";
-					newFrame.setAttribute("frameborder", "0");
-				} else {*/
 					var original = document.getElementById("videoPlayer");
 					var newFrame = document.createElement("video");
 					newFrame.id = "videoPlayer";
@@ -260,7 +268,6 @@
 					document.getElementById("mainSpan").style.margin = "8px";
 					document.getElementById("mainSpan").style.overflow = "visible";
 					document.getElementById("mainSpan").style.overflow = "visible";
-				//}
 				var parent = original.parentNode;
 				parent.replaceChild(newFrame, original);
 				
@@ -269,21 +276,6 @@
 				root.style.setProperty("--navCloseable", "true");
 				root.style.setProperty("--closeBtnColor", "white");
 				root.style.setProperty("--closeBtnIdle", "1");
-				//document.getElementById('v1').contentWindow.function(){var darkMode = getCookie('dark_mode') ;if ('true' == 'true') {  document.body.style.backgroundColor = "black";  document.body.className = "dark";}};
-				
-				/*setTimeout(function(){
-					var doc = document.getElementById('i1').contentWindow.document;
-					console.log(doc);
-					var node = doc.createElement("script");
-					node.appendChild(document.createTextNode("var darkMode = 'true'; if (darkMode == 'true') {document.body.style.backgroundColor = 'black'; document.body.className = 'dark';}"));
-					doc.body.appendChild(node);
-					console.log(doc);
-				}, 500);/**/
-				//console.log(doc);
-				
-				//document.getElementById('v1').getElementsByTag('html')[0].getElementsByTag('body')[0].innerHTML = "hi";
-				
-				//trueLoad = true;
 			},10);
 			}
 			
@@ -292,13 +284,13 @@
 			var url = new URL(window.location.href);
 			
 			//REMNANTS; KEEP IN CASE OF REVERTING TO STREAMABLE
-			//var betaView = !(url.searchParams.get("beta-view") == null);
 			var vidSet = url.searchParams.get("video-set")||"";
 			console.log("Video Set ID: " + vidSet);
 			
 			console.log(vidSet+"_");
 			var titles = {
 				"": "Video Clips",
+				"GROUPED": "Clips (Grouped)",
 				"ePC2019": "E-Pad Clips",
 				"bugCh": "Bug Clips",
 				"aeMD": "Modding Clips",
@@ -306,10 +298,13 @@
 			};
 			document.title = titles[vidSet];
 			
-			if (window.btoa(vidSet) != "ZVBDMjAxOQ=="){
+			if (window.btoa(vidSet) != "ZVBDMjAxOQ==") {
 				document.getElementById("pin1").hidden = true;
 				document.getElementById("page").hidden = false;
 				document.getElementsByClassName(window.atob("ZVBDMjAxOV8=")).remove();
+				if (vidSet == "GROUPED") {
+					document.getElementById("closebtn").style.paddingLeft = "8px";
+				}
 			}
 			
 			//Show Video
@@ -319,20 +314,6 @@
 			}, 200);
 			
 			//Video List
-			
-			/*
-			
-			var videoURLS = {
-				"": ["","https://streamable.com/2lxis", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf", "https://streamable.com/i9wo9", "https://streamable.com/jcmk2"],
-				"ePC2019": ["","https://streamable.com/a931k", "https://streamable.com/9l5ey", "https://streamable.com/hhs0o", "https://streamable.com/61g4u", "https://streamable.com/y0cql", "https://streamable.com/9metd", "https://streamable.com/szb1r", "https://streamable.com/2lxis", "https://streamable.com/vmgfw", "https://streamable.com/xw4c5"],
-				"bugCh": ["", "https://streamable.com/vnzmc", "https://streamable.com/k9wb8"],
-				"aeMD": ["", "https://streamable.com/qy4it","https://streamable.com/a4ld9", "https://streamable.com/gstvf"],
-				"prjUpd": ["", "https://streamable.com/2lxis", "https://streamable.com/jcmk2"]
-			};
-			
-			//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\\
-			//-=-=-=-=-=-=-=-=-=-=-=-=-= DEPRECATED -=-=-=-=-=-=-=-=-=-=-=-=-\\
-			//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 			
 			var videoURLS = {
 				"ePC2019": 	["","https://s.put.re/wZBC233f.mp4", "https://s.put.re/JDZggGd7.mp4", "https://s.put.re/cTj8C5As.mp4",
@@ -347,15 +328,16 @@
 								"https://s.put.re/r9scsjRW.mov", "https://s.put.re/5RXRrN9j.mp4", "https://s.put.re/8jyi47yu.mp4",
 								"https://s.put.re/7CRojiqq.mov", "https://s.put.re/kf8Xf83T.MOV", "https://z.zz.ht/Rvmuk.mp4",
 								"https://z.zz.ht/rNDSD.mp4","https://files.catbox.moe/t96q3d.mp4","https://files.catbox.moe/9sxxer.mp4",
-						                "https://files.catbox.moe/fvbial.MOV", "https://files.catbox.moe/5d366l.mp4"],
+						                "https://files.catbox.moe/fvbial.MOV", "https://files.catbox.moe/5d366l.mp4","https://files.catbox.moe/v5i3gh.mp4"],
 				"bugCh": 	["","https://s.put.re/GBbwbT26.mp4", "https://s.put.re/943dVcqM.mp4"],
 				"aeMD": 	["", "https://s.put.re/LQcZTBz1.mp4","https://s.put.re/Ke7kzunP.mp4", "https://s.put.re/7KBZPZrB.mp4",
 								"https://s.put.re/5RXRrN9j.mp4", "https://s.put.re/8jyi47yu.mp4", "https://s.put.re/kf8Xf83T.MOV",
 								"https://z.zz.ht/Rvmuk.mp4", "https://z.zz.ht/rNDSD.mp4","https://files.catbox.moe/t96q3d.mp4",
-								"https://files.catbox.moe/9sxxer.mp4", "https://files.catbox.moe/5d366l.mp4"],
+								"https://files.catbox.moe/9sxxer.mp4", "https://files.catbox.moe/5d366l.mp4", "https://files.catbox.moe/v5i3gh.mp4"],
 				"prjUpd": 	["","https://s.put.re/Kcrohvyc.mp4", "https://s.put.re/6yBBSvzg.mp4", "https://s.put.re/r9scsjRW.mov",
 								"https://s.put.re/7CRojiqq.mov","https://files.catbox.moe/fvbial.MOV"]
 			}
+			videoURLS.GROUPED = videoURLS[""];
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
 			//console.log(navElements);
@@ -382,14 +364,12 @@
 					document.getElementsByClassName("nobar")[0].style.top = "0px";
 					document.getElementById("topSideNavBar").hidden = "true";
 					document.getElementById("NavHead").style.marginTop = "-30px";
-					//document.getElementById("mainSpan").style.top = "0px";
 					openNav_();
 				} else {
 					document.getElementsByClassName("nobar")[0].style.left = "0px";
 					document.getElementsByClassName("nobar")[0].style.top = "42px";
 					document.getElementById("topSideNavBar").removeAttribute("hidden");
 					document.getElementById("NavHead").style.marginTop = "0px";
-					//document.getElementById("mainSpan").style.top = "10%";
 					closeNav();
 				}
 			}
