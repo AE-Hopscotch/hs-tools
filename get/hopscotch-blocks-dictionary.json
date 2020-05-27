@@ -1268,8 +1268,8 @@
 		"availability": "beta",
 		"parameters": [
 			{
-				"type": "col",
-				"description": "Color – Defines the color that the text should be"
+				"type": "clr",
+				"description": "Color – Defines the color that the text should be."
 			}
 		],
 		"useful_for": [
@@ -1464,8 +1464,8 @@
 		"availability": "beta",
 		"parameters": [
 			{
-				"type": "var",
-				"description": "Name – Defines the name to broadcast to"
+				"type": "txt",
+				"description": "Name – Defines the name to broadcast to."
 			}
 		],
 		"useful_for": [
