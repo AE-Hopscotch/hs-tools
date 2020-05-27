@@ -42,12 +42,15 @@ const blockLabels = {
 	60: ["move","Set Center","to x","y"],
 	61: ["ctrl","Wait","seconds"],
 	62: ["looks","Start Sound"," ","wait"], //Start Sound Seconds
+	63: ["var","Save Input"," "],
+	64: ["looks","Set Text to Input","color"],
 	120: ["ctrl","Repeat","times"],
 	121: ["ctrl","Repeat Forever"],
 	122: ["ctrl","Check Once If"," "],
 	123: ["abl","Ability"],
 	124: ["ctrl","Check If Else"," "],
 	125: ["ctrl","Change Scene","to"],
+	125: ["ctrl","Broadcast Message","named"],
 	233: ["Random"],
 	234: ["XPos"],
 	235: ["YPos"],
@@ -63,7 +66,8 @@ const blockLabels = {
 	1005: [""," "," ","or"],
 	1006: [""," "," ","\u2265"],
 	1007: [""," "," ","\u2264"],
-	1008: ["HS_END_OF_CONDITIONAL_OPERATORS"],
+	1008: [""," "," ","matches"],
+	1009: ["HS_END_OF_CONDITIONAL_OPERATORS"],
 	2e3: ["Rotation"],
 	2001: ["X Position"],
 	2002: ["Y Position"],
@@ -79,7 +83,8 @@ const blockLabels = {
 	2012: ["Origin Y"],
 	2013: ["Center X"],
 	2014: ["Center Y"],
-	2015: ["HS_END_OF_OBJECT_TRAITS"],
+	2015: ["Text"],
+	2016: ["HS_END_OF_OBJECT_TRAITS"],
 	3e3: ["\uD83D\uDCF1 Width"],
 	3001: ["\uD83D\uDCF1 Height"],
 	3002: ["\uD83D\uDCF1 Tilt Up %"],
@@ -140,7 +145,8 @@ const blockLabels = {
 	7020: ["event","is not pressed \u2063"," "],
 	7021: ["event","\u2063 game is playing \u2063"],
 	7022: ["event","\u2063 touch ends \u2063"],
-	7023: ["HS_END_OF_EVENT_OPERATORS"],
+	7023: ["event"," ","\u2063 I hear \u2063"],
+	7024: ["HS_END_OF_EVENT_OPERATORS"],
 	8e3: ["<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object</span></ps>"],
 	8001: ["<i class=\"fa fa-fw fa-question-circle\"></i> Anything"],
 	8002: ["<i class=\"fa fa-mobile\"></i> Edge"],
@@ -466,7 +472,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?projectDict.abilities[block.controlScript.abilityID].name||block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
