@@ -256,7 +256,7 @@
 			(AE_MOD.projectData.abilities||[]).forEach(a=>{
 				(a.blocks||[]).forEach(b=>{
 					//Lazy Check Each block
-					if (JSON.stringify(b).match(/"type":22.*?ae_webplayer_action:\{\\"name\\":\\"checkKey(All|Data)?\\".*?\}/)) document.querySelector(".play-button").classList.add("has-keyboard");
+					if (JSON.stringify(b).match(/"type":22[^\{\}]*?"param(s|eters)?":\[\{[^\{\}]*?"value":"_ae_webplayer_action:\{.*?\\"name\\":\\"checkKey(All|Data)?\\".*?\}.*?\]\}/)) document.querySelector(".play-button").classList.add("has-keyboard");
 				});
 			});
 			document.getElementById('hopscotch-link').href = "https://c.gethopscotch.com/p/" + AE_MOD.uuid;
@@ -283,7 +283,7 @@
 		
 		function doCORSRequest(options, printResult) {
 			var x = new XMLHttpRequest();
-			x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+			x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?url=' + encodeURIComponent(options.url));
 			x.onload = x.onerror = function() { printResult(
 					//options.method + ' ' + options.url + '\n' +
 					//x.status + ' ' + x.statusText + '\n\n' +
