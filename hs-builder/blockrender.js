@@ -50,7 +50,7 @@ const blockLabels = {
 	123: ["abl","Ability"],
 	124: ["ctrl","Check If Else"," "],
 	125: ["ctrl","Change Scene","to"],
-	125: ["ctrl","Broadcast Message","named"],
+	126: ["ctrl","Broadcast Message","named"],
 	233: ["Random"],
 	234: ["XPos"],
 	235: ["YPos"],
