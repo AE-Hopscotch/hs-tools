@@ -29,10 +29,10 @@ function formatProject(p) {
 			
 			projectDict.abilities[a.abilityID].blocks[b.web_id] = b;
 			
-			var type = blockLabels[b.type][0];
+			var type = (blockLabels[b.type]||[])[0];
 			(blockTypeCounts[type]) ? blockTypeCounts[type]++ : blockTypeCounts[type]=1;
 			
-			var name = blockLabels[b.type][1];
+			var name = (blockLabels[b.type]||[])[1];
 			(blockDescCounts[name]) ? blockDescCounts[name]++ : blockDescCounts[name]=1;
 		}
 	});
