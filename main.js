@@ -187,6 +187,13 @@ Array.prototype.repeatEach = NodeList.prototype.repeatEach = HTMLCollection.prot
 	}
 	return outputs;
 }
+Array.prototype.removeNull = NodeList.prototype.removeNull = HTMLCollection.prototype.removeNull = function() {
+	var outputs = [];
+	for(var i = 0; i < this.length; i++) {
+		if (this[i] != null) outputs.push(this[i]);
+	}
+	return outputs;
+}
 
 //Remove Duplicates
 function removeDuplicates(arr) {
