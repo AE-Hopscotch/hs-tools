@@ -2476,7 +2476,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 
               case D.HSBlockType.SetTextToInput:
                 h = g.HSColor.rgbTextColor, p.length >= 1 && (h = p[0].computedColorString(this));
-                var f = prompt("Type here");
+                //var f = prompt("Type here"); AE_MOD better prompts
+                var f = prompt(p[1]?p[1].computedStringValue(this):"Type here",p[2]?p[2].computedStringValue(this):"");
                 this.setText(r.HSVariable.parseValue(f).toString(), h);
                 break;
 
@@ -2487,7 +2488,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 
               case D.HSBlockType.SaveInput:
                 if (c = p[0].variable()) {
-                    var y = prompt("Type here");
+                    //var y = prompt("Type here"); AE_MOD better prompts
+					var y = prompt(p[1]?p[1].computedStringValue(this):"Type here",p[2]?p[2].computedStringValue(this):"");
                     c.setValue(y, this);
                 }
                 break;
