@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.5.3 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.5.4 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -611,7 +611,7 @@ function getColorPallet(url, nomsg, p) {
 	});
 
 	let imageURL = url;
-	let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+	let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?gadget=a&container=focus&refresh=86400&url=';
 
 	img.crossOrigin = 'Anonymous';
 	img.src = googleProxyURL + encodeURIComponent(imageURL);
@@ -676,3 +676,11 @@ document.querySelector('html').addEventListener('keyup',function(){
 });
 
 if (prefVal("retro_pTiles")=="retro") document.querySelector("html").classList.add("retro");
+var webExpZoom = localStorage.getItem("webExpZoom");
+if (webExpZoom) {
+	document.documentElement.style.setProperty("--x-ray-zoom", webExpZoom);
+	document.querySelector(".xray-contents input").value = webExpZoom;
+	//Deal with auto fill inputs
+	setTimeout(function(){document.querySelector(".xray-contents input").value = webExpZoom;},100);
+	document.getElementById("zoom-display").innerHTML = Math.round(webExpZoom*100);
+}
