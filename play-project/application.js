@@ -36023,7 +36023,7 @@ var fullscreenButton = document.getElementById("fullscreen-button");
 function fullscreenExitHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  fullscreenButton.src = isFullscreen() ? "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
+  fullscreenButton.src = (!!document.fullscreenElement || !!document.webkitFullscreenElement || !!document.mozFullScreenElement || !!document.msFullScreenElement || main.isMaximized) ? "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
   return false;
 };
 
