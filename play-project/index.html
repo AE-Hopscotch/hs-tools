@@ -61,6 +61,7 @@
 				align-items: center;
 				border-radius: 6px;
 				pointer-events: none;
+				font-size: 18px;
 			}
 			
 			.achievement-banner {
@@ -194,7 +195,7 @@
 						alert("Session ID copied to clipboard: " + session.gameId);
 						
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
-							session.data = s.val();
+							if (session.userJoined) session.data = s.val();
 						});
 						return 0;
 						break;
@@ -214,7 +215,7 @@
 								if (s.val()) {
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
-										session.data = s.val();
+										if (session.userJoined) session.data = s.val();
 										if(!s.val()) {
 											alert("The host has ended the session");
 											session.leave();
@@ -387,6 +388,7 @@
 				session.isHost = false;
 				session.gameId = null;
 				if (session.data) session.data = null;
+				if (session.userJoined) session.userJoined = null;
 			},
 			getUser: function(u, id_not_string){
 				if (u == -2) return "";
