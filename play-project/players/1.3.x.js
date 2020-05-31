@@ -3375,7 +3375,7 @@ console.log("Webplayer v1.3.9 - 2020/05/13 (production)");
             "./index.js": 1
         } ],
         3: [ function(t, e, i) {
-            e.exports = /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u2000-\u2200\u23e9-\u2400\u2460-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|[\u2000-\u2200\u23e9-\u2400\u2460-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
+            e.exports = /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u203C-\u2049\u2100-\u2200\u23e9-\u2400\u2460-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|[\u203C-\u2049\u2100-\u2200\u23e9-\u2400\u2460-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
 			//AE_MOD EMOJI REGEX [col 10735 split]
         }, {} ],
         4: [ function(t, e, i) {
