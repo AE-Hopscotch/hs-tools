@@ -187,16 +187,18 @@
 						}
 						session.isHost = true;
 						session.maxSize = a.args[0];
-						session.gameId = Math.round(Math.random()*Math.pow(10,12)).toString(36);
+						session.gameId = Math.round(Math.random()*36**6).toString(36);
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(true);
+						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/createdAt").set(new Date().toISOString());
 						copyText(session.gameId);
-						alert("Session ID copied to clipboard: " + session.gameId);
+						setTimeout(function(){alert("Session ID copied to clipboard: " + session.gameId)},10);
 						
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
 							if (session.userJoined) session.data = s.val();
 						});
+						//AE_MOD.webplayer_action('{"name":"session-write","args":[-2,"createdAt","' + new Date().toISOString() + '"]}');
 						return 0;
 						break;
 					case "session-join":
@@ -207,7 +209,7 @@
 							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) break;
 							session.leave();
 						}
-						session.gameId = (prompt("Enter Session ID:")||"").replace(/[\s\-\.#\$\[\]]/g,"");
+						session.gameId = (prompt("Enter Session ID:")||"").toLowerCase().replace(/[\s\-\.#\$\[\]]/g,"");
 						if (session.gameId) {
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
@@ -216,8 +218,8 @@
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
 										if (session.userJoined) session.data = s.val();
-										if(!s.val()) {
-											alert("The host has ended the session");
+										if(!s.val()||!s.val().users) {
+											if (!s.val() && session.userJoined) alert("The host has ended the session");
 											session.leave();
 										}
 									});
@@ -232,14 +234,14 @@
 						if (!session.data) break;
 						try {return eval(a.args.join(""));}catch(e){return 0;}
 					case "session-write":
-						if (!session.data || !session.gameId) break;
+						if (!session.data || !session.gameId || !session.data.users || !session.data.game) break;
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
 							a.args[2]
 						);
 						break;
 					case "session-myindex":
 						if (!session.data) return 0;
-						return session.getUser(-1, true);
+						try {return session.getUser(-1, true);}catch(e){return 0;}
 					case "session-leave":
 						session.leave();
 						break;
@@ -391,9 +393,13 @@
 				if (session.userJoined) session.userJoined = null;
 			},
 			getUser: function(u, id_not_string){
-				if (u == -2) return "";
-				if (u == -1) u = Object.keys(session.data.users).sort().indexOf(session.userJoined);
-				return (id_not_string) ? u : Object.keys(session.data.users)[u];
+				try {
+					if (u == -2) return "";
+					if (u == -1) u = Object.keys(session.data.users).sort().indexOf(session.userJoined);
+					return (id_not_string) ? u : Object.keys(session.data.users)[u];
+				} catch (e) {
+					return "error";
+				}
 			}
 		};
 		firebase.auth().onAuthStateChanged(function(user) {
@@ -415,6 +421,12 @@
 		});
 		document.body.onunload = function(){
 			session.leave();
+		};
+		document.body.onblur = function(){
+			AE_MOD.webplayer_action('{"name":"session-write","args":[-1,"lastInactive","' + new Date().toISOString() + '"]}');
+		};
+		document.body.onfocus = function(){
+			AE_MOD.webplayer_action('{"name":"session-write","args":[-1,"lastInactive",null]}');
 		};
 	</script>
 
