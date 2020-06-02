@@ -884,7 +884,7 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
 
 			  case S.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined),this);
 				}
 				return 0;
               case S.HSBlockType.MathOperatorAdd:
@@ -2371,7 +2371,7 @@ console.log("Webplayer v1.4.3 - 2020/05/13 (production)");
 				
 			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(u[0].value)){
-					AE_MOD.webplayer_action(u[0].value.split('_ae_webplayer_action:')[1], ((u[1])?u[1].computedValue(this):undefined));
+					AE_MOD.webplayer_action(u[0].value.split('_ae_webplayer_action:')[1], ((u[1])?u[1].computedValue(this):undefined),this);
 				}
 				break;
             }

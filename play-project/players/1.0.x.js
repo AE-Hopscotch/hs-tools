@@ -7895,7 +7895,7 @@ var __extends = this && this.__extends || function(a, b) {
 
 		  case HSBlockType.None: //AE_MOD
 			if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined));
+				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined),this);
 			}
 			return 0;
           case HSBlockType.MathOperatorAdd:
@@ -10344,7 +10344,7 @@ var HSPathDrawer = function() {
 			
           case HSBlockType.None: //AE_MOD
 			if (/^_ae_webplayer_action:/g.test(d[0].value)){
-				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined));
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined),this);
 			}
 			break;
         }
