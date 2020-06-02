@@ -136,7 +136,8 @@
 			"uuid": "",
 			"playerVersion": "",
 			"webplayer_action": function(a, b, c) {
-				if (!typeof c == "object" || !/^.$/.test(Object.getPrototypeOf(c||{}).constructor.name)) console.warn("Untrusted Event");
+				isTrusted = !AE_MOD.isCustom;
+				if (!typeof c == "object" || !/^.$/.test(Object.getPrototypeOf(c||{}).constructor.name)) isTrusted = false, console.warn("Untrusted Event");
 				try {
 					a = JSON.parse(a.replace(/"_data"/g,b));
 					a.args = a.args || [];
@@ -179,6 +180,7 @@
 						banner(true);
 						break;
 					case "session-new":
+						if (!isTrusted) alert("Cannot start session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?")) break;
 							session.leave();
@@ -187,12 +189,13 @@
 							session.leave();
 						}
 						session.isHost = true;
-						session.maxSize = a.args[0]||256;
+						session.maxSize = Number(a.args[0])||256;
 						session.gameId = Math.round(Math.random()*36**6).toString(36);
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).set({
 							"createdAt": new Date().toISOString(),
+							"canJoin": true,
 							"maxSize": session.maxSize
 						});
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(true);
@@ -205,6 +208,7 @@
 						return session.gameId;
 						break;
 					case "session-join":
+						if (!isTrusted) alert("Cannot join session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to join a new session anyways?")) break;
 							session.leave();
@@ -234,24 +238,32 @@
 						}
 						break;
 					case "session-read":
+						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot simulate read: untrusted non-host code execution");
 						if (!session.data) break;
 						try {return eval(a.args.join(""));}catch(e){return 0;}
 					case "session-write":
+						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot simulate read: untrusted code execution");
 						if (!session.data || !session.gameId || !session.data.users) break;
-						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
-							a.args[2]
-						);
+						try {
+							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
+								a.args[2]
+							);
+						} catch (e) {
+							return 0;
+						}
 						break;
 					case "session-myindex":
 						if (!session.data) return 0;
 						try {return session.getUser(-1, true);}catch(e){return 0;}
 					case "session-open":
+						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot open session: untrusted non-host code execution");
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).set({
 							"createdAt": new Date().toISOString(),
 							"maxSize": session.maxSize
 						});
 						break;
 					case "session-close":
+						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot close session: untrusted non-host code execution");
 						session.leave();
 						break;
 					case "session-leave":
@@ -278,7 +290,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = "https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = https://awesome-e.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
