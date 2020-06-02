@@ -953,7 +953,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 
 			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(t):undefined));
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(t):undefined),this);
 				}
 				return 0;
 				
@@ -2536,7 +2536,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 				
 			  case D.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(p[0].value)){
-					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], ((p[1])?p[1].computedValue(this):undefined));
+					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], ((p[1])?p[1].computedValue(this):undefined),this);
 				}
 				break;
             }
