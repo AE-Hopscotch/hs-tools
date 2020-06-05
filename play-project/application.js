@@ -36028,7 +36028,7 @@ function fullscreenExitHandler(event) {
 };
 
 var muteButton = document.getElementById("mute-button");
-if(locaStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
+if(localStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
 
 function muteHandler(event) {
   if (event) {
