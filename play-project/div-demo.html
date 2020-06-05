@@ -88,6 +88,7 @@
 				<button onclick="loadPlayer('1.2.0');">1.2</button>
 				<button onclick="loadPlayer('1.3.0');">1.3</button>
 				<button onclick="loadPlayer('1.4.0');">1.4</button>
+				<button onclick="loadPlayer('1.5.0');">1.5</button>
 			</span>
 		</div>
 		<script>
@@ -99,7 +100,8 @@
 			//Set the player version to the latest if it is not specified in the import
 			projectImport.playerVersion = projectImport.playerVersion || (urlVersion||"1.3.4");
 		</script>
-		<script src="https://awesome-e.github.io/hs-tools/play-project/insert-to-div.js"></script>
+		<!-- <script src="https://awesome-e.github.io/hs-tools/play-project/insert-to-div.js"></script> -->
+		<script src="insert-to-div.js"></script>
 		<script src="../main.js"></script>
 		<script>
 			//Text area value
@@ -119,7 +121,11 @@
 			if (url.searchParams.get("loadCode") != null) {
 				//Load the code we just saved
 				textVal.value = localStorage.getItem("pCode");
-				projectImport.projectData = JSON.parse(textVal.value);
+				try {
+					projectImport.projectData = JSON.parse(textVal.value||"{}");
+				} catch (e) {
+					alert("Invalid JSON data");
+				}
 				//Erase cookie from memory
 				localStorage.removeItem("pCode");
 			}
@@ -168,9 +174,9 @@
 								return Number(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 						}
 					};
-					initWebplayer(HS_WEBPLAYER_VERSION);
+					setTimeout(function(){initWebplayer(HS_WEBPLAYER_VERSION);},1000);
 				} catch (e) {
-					alert("Invalid JSON data");
+					//alert("Invalid JSON data");
 					console.error(e);
 				}
 			}

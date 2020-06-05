@@ -36028,6 +36028,7 @@ function fullscreenExitHandler(event) {
 };
 
 var muteButton = document.getElementById("mute-button");
+if(locaStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
 
 function muteHandler(event) {
   if (event) {
@@ -36038,9 +36039,11 @@ function muteHandler(event) {
   if (main.isMuted()) {
     main.unmute();
     muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
+    localStorage.setItem("muted","false") //AE_MOD
   } else {
     main.mute();
     muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
+    localStorage.setItem("muted","true") //AE_MOD
   }
   return false;
 }

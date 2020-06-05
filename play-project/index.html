@@ -36,8 +36,11 @@
 		<meta name="csrf-param" content="authenticity_token" />
 		<meta name="csrf-token" content="Xonf2Bn4pgVRZobpf3Nfuzvd7P3rCyCySJSHi4S9XQRNoKQiOrWClrrw8ll6ZBVi/p6ryAbAAhOvDCMEw9VlOw==" />
 		<link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" />
-		<script src="../main.js"></script><!-- AE MOD -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- AE MOD -->
+		<!-- AE MOD -->
+		<script src="../main.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- AE MOD -->
 		<style>
 			* body.embedded #fullscreen-button {
 				display: inline-block;
@@ -188,8 +191,7 @@
 							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) break;
 							session.leave();
 						}
-						session.isHost = true;
-						session.maxSize = Number(a.args[0])||256;
+						session.isHost = true;						session.maxSize = Number(a.args[0])||256;
 						session.gameId = Math.round(Math.random()*36**6).toString(36);
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
@@ -221,8 +223,7 @@
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
 							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).once("value").then(s=>{
-								if (s.val() && Object.keys(s.val().users||{}).length < s.val().maxSize) {
-									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
+								if (s.val() && Object.keys(s.val().users||{}).length < s.val().maxSize) {									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
 										if (session.userJoined) session.data = s.val();
 										if(!s.val()||!s.val().users) {
@@ -244,8 +245,7 @@
 					case "session-write":
 						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot simulate read: untrusted code execution");
 						if (!session.data || !session.gameId || !session.data.users) break;
-						try {
-							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
+						try {							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
 								a.args[2]
 							);
 						} catch (e) {
@@ -334,10 +334,9 @@
 					AE_MOD.isCustom = false;
 					//Authorize if Project contains session blocks.
 					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) {
-						// Handle Errors here.
+						//Handle Errors here
 						var errorCode = error.code;
 						var errorMessage = error.message;
-						// ...
 					});
 					init();
 				} catch (SyntaxError) {
@@ -353,20 +352,24 @@
 		var url = new URL(window.location.href);
 		var customUUID = url.searchParams.get("id");
 		
-		if (JSON.stringify(projectImport) != '{}' || localStorage.getItem("projectFromStorage")) {
+		if (JSON.stringify(projectImport) != '{}' || (localStorage.getItem("projectFromStorage") && url.searchParams.get("play") == 1)) {
 			try {
-				var p = JSON.stringify(projectImport) != '{}' ? projectImport : JSON.parse(localStorage.getItem("projectFromStorage"));
-				p = JSON.parse(localStorage.getItem("projectFromStorage"));
-				AE_MOD.projectData = p;
-				AE_MOD.uuid = p.uuid;
-				AE_MOD.playerVersion = p.playerVersion||"1.0.0";
-				AE_MOD.isCustom = true;
-				setTimeout(function(){init();},200);
+				setTimeout(function(){
+					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16)))));
+					var p = JSON.stringify(projectImport) != '{}' ? projectImport : JSON.parse(localStorage.getItem("projectFromStorage"));
+					//p = JSON.parse(localStorage.getItem("projectFromStorage"));
+					AE_MOD.projectData = p;
+					AE_MOD.uuid = p.uuid;
+					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+					AE_MOD.isCustom = true;
+					init();
+				},100);
 			} catch (SyntaxError) {
 				document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
 				console.error(SyntaxError);
 			}
 		} else {
+			localStorage.removeItem("projectFromStorage");
 			var req_uuid = customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'');
 			request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
 			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : ""));
@@ -400,8 +403,7 @@
 		var session = {
 			isHost: false,
 			userId: null,
-			gameId: null,
-			maxSize: 256,
+			gameId: null,			maxSize: 256,
 			leave: function(){
 				if (session.gameId && session.isHost) firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).remove();
 				else if (session.gameId){
@@ -409,8 +411,7 @@
 					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).remove();
 				}
 				session.isHost = false;
-				session.gameId = null;
-				if (session.data) session.data = null;
+				session.gameId = null;				if (session.data) session.data = null;
 				if (session.userJoined) session.userJoined = null;
 			},
 			getUser: function(u, id_not_string){
