@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.5.4 r1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.5.5 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -195,7 +195,7 @@ function showProjects(chProjects) {
 			
 			if (p.uuid != "ae_web_info") {
 				//Title Regex
-				if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
+				if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b|\brepost\b|\bpl(s+|ease)\b|\blike for\b|\bart club\b|\b(just)? a notice\b|\bOC\b/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 				if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 				getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
@@ -556,9 +556,9 @@ function getColorPallet(url, nomsg, p) {
 
 	img.addEventListener('load', function() {
 		if (!nomsg) console.groupCollapsed('Color Palette');
-		if (/https:\/\//gi.test(location.href) && document.getElementById(p.uuid).getAttribute('data-show') != "false") Tesseract.recognize(img).then(function(result){
+		if (/*/https:\/\//gi.test(location.href) && */document.getElementById(p.uuid).getAttribute('data-show') != "false") Tesseract.recognize(img).then(function(result){
 			if (!nomsg) console.log(result.text);
-			var thumbnailRegex = /fan\s?art|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement\b|\bnew account\b|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\blike for part\b|\bfor a? follow\b|\bremix\b|\blike for\b|[0-9] likes\b|\blike\sbutton\b|\bfidget\b|\bspinner\b|(read|see) (in |the )? code|\bsubscribe to\b/i;
+			var thumbnailRegex = /fan\s?art|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement\b|\bnew account\b|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\blike for part\b|\bfor a? follow\b|\bremix\b|\blike for\b|[0-9] likes\b|\blike\sbutton\b|\bfidget\b|\bspinner\b|(read|see) (in |the )? code|\bsubscribe to\b|\brepost\b|\bpl(s+|ease)\b|\blike for\b/i;
 			if (thumbnailRegex.test(result.text.replace(/\n/gi,' '))) {
 				document.getElementById(p.uuid).setAttribute('data-show','false');
 				console.log(`Project x-ray removal due to string match in thumbnail: ${result.text.replace(/\n/gi,' ').match(thumbnailRegex)}`);
@@ -609,6 +609,7 @@ function getColorPallet(url, nomsg, p) {
 		if (previousColors.length == 1 || (previousColors.length == 2 && colors[0][3] > 0.9 && Math.max(colors[0][0],colors[0][1],colors[0][2]) - Math.min(colors[0][0],colors[0][1],colors[0][2]) < 30 /*If the most common > 90% and Saturation is extremely low*/) || !showProject[0]) document.getElementById(p.uuid).setAttribute('data-show', 'false');
 		if (p.number_of_stars > 50 && p.play_count > 20) try { document.getElementById(p.uuid).setAttribute('data-show', 'true') } catch (TypeError) { console.log('image no longer exists'); };
 	});
+	img.addEventListener('error',function(){throw new Error("Could not load image")})
 
 	let imageURL = url;
 	let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?gadget=a&container=focus&refresh=86400&url=';
@@ -658,6 +659,13 @@ function toggleRender() {
 		iframe.src = "../play-project/index.html?id=" + iframe.src.replace(/.*id=/,"");
 	}
 }
+
+window.addEventListener("storage", function(){
+	var pState = localStorage.getItem("projectStorageState");
+	//Listen for project storage state
+	document.getElementById("show-render-btn").querySelector(".fa").setAttribute("class", (pState=="saving"?"fa fa-spinner fa-pulse":"fa fa-list-ul"));
+	document.getElementById("show-render-btn").style.pointerEvents = (pState=="saving"?"none":"");
+});
 
 if ((new URL(window.location.href)).searchParams.get('xRay') != null) {
 	xray('toggle-status');
