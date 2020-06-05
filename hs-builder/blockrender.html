@@ -10,6 +10,8 @@
 		
 		<!-- BEGIN CDN SCRIPTS -->
 		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+		
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
 		
@@ -144,6 +146,7 @@
 		</div>
 		<script src="../sidenav.min.js"></script>
 		<script src="editor.js"></script>
+		<script src="worker.js"></script>
 		<script>
 			var hsProject, projectDict = {};
 			
@@ -239,7 +242,9 @@
 			setTimeout(function(){
 				var url = new URL(location.href);
 				if (localStorage.getItem("projectFromStorage") &&  url.searchParams.get("play") == "1") {
-					hsProject = JSON.parse(localStorage.getItem("projectFromStorage"));
+					var projectImport;
+					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16)))));
+					hsProject = projectImport || JSON.parse(localStorage.getItem("projectFromStorage"));
 					formatProject(hsProject);
 					replaceRender(-1); //-1 means top (entire project)
 				} else {
@@ -341,7 +346,7 @@
 				if (e.keyCode == 27) editclose();
 				if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editsave();
 			}
-			function writedata(type, web_id, newdata) {
+			function writedata(type, web_id, newdata, isParent) {
 				switch (type) {
 					case "project":
 						if (newdata[0].objects) {
@@ -362,7 +367,7 @@
 								hsProject.scenes[i].web_id = web_id;
 							}
 						}
-						if (!added) {
+						if (!added && !isParent) {
 							newdata.web_id = web_id;
 							hsProject.scenes.push(newdata);
 						}
@@ -370,10 +375,10 @@
 					case "object":
 						projectDict.objects[web_id] = newdata;
 						var added = false;
-						for (i = 0; i < (hsProject.objects||[]).length; i++) {
+						for (i = 0; i < (hsProject.objects.removeNull()||[]).length; i++) {
 							if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata, added = true;
 						};
-						if (!added) hsProject.objects.push(newdata);
+						if (!added && !isParent) hsProject.objects.push(newdata);
 						break;
 					case "crule":
 						projectDict.customRules[web_id] = newdata;
@@ -381,7 +386,7 @@
 						for (i = 0; i < (hsProject.customRules||[]).length; i++) {
 							if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata, added = true;
 						};
-						if (!added) hsProject.customRules.push(newdata);
+						if (!added && !isParent) hsProject.customRules.push(newdata);
 						break;
 					case "rule":
 						projectDict.rules[web_id] = newdata;
@@ -389,7 +394,7 @@
 						for (i = 0; i < (hsProject.rules||[]).length; i++) {
 							if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata, added = true;
 						};
-						if (!added) hsProject.rules.push(newdata);
+						if (!added && !isParent) hsProject.rules.push(newdata);
 						break;
 					case "ability": //Input the whole new ability
 						newdata.name = (projectDict.abilities[web_id]||{}).name;
@@ -414,7 +419,7 @@
 								hsProject.abilities[i].blocks = newdata.blocks;
 							}
 						};
-						if (!added) {
+						if (!added && !isParent) {
 							for (i = 0; i < (newdata.blocks||[]).length; i++) {
 								newdata.blocks[i].web_id = web_id + "_b" + i;
 							};
@@ -426,10 +431,32 @@
 				}
 				var url = new URL(location.href);
 				if (url.searchParams.get("play") == "1") {
-					console.log("%cProject Instance Saved","color:lime;font-weight:600;");
-					localStorage.setItem("projectFromStorage", JSON.stringify(hsProject));
+					try {
+						localStorage.setItem("projectFromStorage", JSON.stringify(hsProject));
+						console.log("%cProject Instance Saved","color:lime;font-weight:600;");
+						console.log(hsProject);
+					} catch (e) {
+						try {
+							localStorage.setItem("projectStorageState","saving");
+							saveCompressed();
+						} catch (e) {
+							if (!storageWarning) alert("Data cannot be written to this project")
+							storageWarning = true;
+						}
+					}
 				}
 			}
+			function saveCompressed() {
+				//Calls the worker function
+				var worker = new Worker(URL.createObjectURL(new Blob(["("+compress.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
+				worker.onmessage = function(e) {
+					localStorage.setItem("projectFromStorage", e.data.value.replace(/\s/g,""));
+					console.log("%cProject Instance Saved","color:green;font-weight:600;");
+					console.log(hsProject);
+					localStorage.setItem("projectStorageState","saved");
+				}
+			}
+			var storageWarning = false;
 			function updatescript(container, isBlock) {
 				isBlock = isBlock||false;
 				var cp = (!isBlock) ? container.parentNode : container;
@@ -490,7 +517,7 @@
 						break;
 				}
 				if (scType == "crule" || scType == "object") cp.setAttribute("data", JSON.stringify(newdata));
-				writedata(scType, scId, newdata);
+				writedata(scType, scId, newdata, !isBlock);
 			}
 			/* CodeMirror */
 			var editor = CodeMirror.fromTextArea(document.querySelector("textarea"), {
