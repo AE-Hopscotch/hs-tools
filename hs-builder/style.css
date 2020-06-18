@@ -528,6 +528,7 @@ html[style*="--col-bg-main:black;"] .resize-drag {
 	display: block;
 	top: 0; left: 0;
 	background-color: rgba(80,80,80,0.8);
+	box-shadow: 0 -128px 0 128px rgba(80,80,80,0.8); /* In case of iOS scroll misalignment, the background color will still show */
 	color: white;
 	padding: 4px 8px;
 	box-sizing: border-box;
