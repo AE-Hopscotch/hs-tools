@@ -58,15 +58,15 @@ const blockLabels = {
 	237: ["Random1100"],
 	238: ["Random11000"],
 	239: ["Variable"],
-	1e3: [""," "," ","="],
-	1001: [""," "," ","\u2260"],
-	1002: [""," "," ","<"],
-	1003: [""," "," ",">"],
-	1004: [""," "," ","and"],
-	1005: [""," "," ","or"],
-	1006: [""," "," ","\u2265"],
-	1007: [""," "," ","\u2264"],
-	1008: [""," "," ","matches"],
+	1e3: ["conditional"," "," ","="],
+	1001: ["conditional"," "," ","\u2260"],
+	1002: ["conditional"," "," ","<"],
+	1003: ["conditional"," "," ",">"],
+	1004: ["conditional"," "," ","and"],
+	1005: ["conditional"," "," ","or"],
+	1006: ["conditional"," "," ","\u2265"],
+	1007: ["conditional"," "," ","\u2264"],
+	1008: ["conditional"," "," ","matches"],
 	1009: ["HS_END_OF_CONDITIONAL_OPERATORS"],
 	2e3: ["Rotation"],
 	2001: ["X Position"],
@@ -364,7 +364,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 	var parentUids = [];
 	if (activeEditBlock) {
 		var myData = JSON.parse(activeEditBlock.getAttribute("data"));
-		var myScripts = (myData.controlScript) ? new RegExp (("^("+myData.controlScript.abilityID+"|"+(myData.controlFalseScript||{abilityID:""}).abilityID).replace(/\|$/,"")+")$","m"):/$.^/;
+		if (myData) var myScripts = (myData.controlScript) ? new RegExp (("^("+myData.controlScript.abilityID+"|"+(myData.controlFalseScript||{abilityID:""}).abilityID).replace(/\|$/,"")+")$","m"):/$.^/;
 	}
 	while (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer")) {
 		//Check if a block is nested
@@ -439,7 +439,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 			if (d.datum.HSTraitTypeKey >= 2e3 && d.datum.HSTraitTypeKey < 4e3) {
 				var objectLabel = objectLabel = (blockLabels[d.datum.HSTraitObjectParameterTypeKey]||"");
 				if (d.datum.HSTraitObjectParameterTypeKey==8e3) {
-					var o = projectDict.objects[d.datum.HSTraitObjectIDKey];
+					var o = projectDict.objects[d.datum.HSTraitObjectIDKey]||{"name":"Object"};
 					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 				}
 				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
@@ -466,13 +466,13 @@ function jsonToHtml(block, isNested, keepClosed) {
 			//None Block, Math, Conditionals, Game Rules
 			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
 				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3);
-				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"") + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"") + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
+				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
-		paramString += " " + (labels[i+2]||p.key||"") + " " + doParameter(p);
+		paramString += " " + (labels[i+2]||p.key||"").htmlEscape() + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||block.description:((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||block.description||""}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
@@ -498,7 +498,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 				(block.objects||[]).repeatEach((o)=>{
 					nestedUuidList.push(o);
 					var blockInfo = jsonToHtml(o,true,true);
-					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+					nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
 				});
 			} else {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
@@ -510,7 +510,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 			if (!keepClosed&&a&&nestedUuidList.indexOf(trueScript)==-1) {
 				nestedUuidList.push(a.abilityID);
 				
-				(Object.keys(a.blocks)||[]).repeatEach((k)=>{
+				(Object.keys(a.blocks||{})).repeatEach((k)=>{
 					var b = a.blocks[k]||{};
 					var blockInfo = jsonToHtml(b,true,(b.type==123));
 					if (blockInfo.innerHTML) nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
@@ -557,6 +557,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 	}
 	block = Object.detach(block);
 	var web_id = block.web_id;
-	delete block.web_id;
-	return {"id":web_id||"","classList":elmClass||"","data":JSON.stringify(block),"innerHTML":innerHTML,"sortGroup":sortGroup,"focusType":myBlockType};
+	if (!block.objects) delete block.web_id;
+	var cs = block.controlScript, myScripts = null;
+	if (cs) myScripts = "(" + cs.abilityID + (block.controlFalseScript ? "|" + block.controlFalseScript.abilityID : "") + ")";
+	return {"id":myScripts||web_id||block.id||block.objectID||"","classList":elmClass||"","data":JSON.stringify(block),"innerHTML":innerHTML,"sortGroup":sortGroup,"focusType":myBlockType,"scripts":myScripts};
 }

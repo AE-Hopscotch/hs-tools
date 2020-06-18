@@ -39,7 +39,7 @@
 		}
 		</pre>
 
-		<input id="project-search-input" type="text"/><button onclick="findText()">Find</button>
+		<input id="project-search-input" type="text" onkeydown="if(event.keyCode==13)console.log(findText(this.value))"/><button onclick="console.log(findText(this.previousElementSibling.value))">Find</button>
 		
 		<table>
 			<tr>
@@ -48,18 +48,32 @@
 					<br/><input type="checkbox" id="opt_cs"/><label for="opt_cs">Case Sensitive</label>
 					<br/><input type="checkbox" id="opt_nl"/><label for="opt_nl">\n matches new line</label>
 					<br/><input type="checkbox" id="opt_ev"/><label for="opt_ev">Match entire value only</label>
-					<br/><input type="checkbox" id="opt_dc"/><label for="opt_dc">Match deleted code</label>
 					<br/><input type="checkbox" id="opt_rg"/><label for="opt_rg">Regular expression</label>
-					<br/><input type="checkbox" id=""/><label for="">idk, another checkbox</label>
+					<br/><input type="checkbox" id="opt_dc"/><label for="opt_dc">Match deleted code</label>
 				</td>
 				<td>
-					<br/><input type="checkbox" id="ft_ab" checked /><label for="ft_ab">Match ability names</label>
+					<br/><input type="checkbox" id="ft_ai" checked /><label for="ft_ai">Match ability IDs</label>
 					<br/><input type="checkbox" id="ft_bn" checked /><label for="ft_bn">Match block names</label>
+					<br/><input type="checkbox" id="ft_ci" checked /><label for="ft_ci">Match Custom Rule IDs</label>
+					<br/><input type="checkbox" id="ft_oi" checked /><label for="ft_oi">Match object IDs</label>
+					<br/><input type="checkbox" id="ft_ri" checked /><label for="ft_ri">Match rule IDs</label>
+					<br/><input type="checkbox" id="ft_vi" checked /><label for="ft_vi">Match variable IDs</label>
+				</td>
+				<td>
+					<br/><input type="checkbox" id="ft_cs" checked /><label for="ft_cs">Match control scripts</label>
 					<br/><input type="checkbox" id="ft_pv" checked /><label for="ft_pv">Match parameter values</label>
 					<br/><input type="checkbox" id="ft_cr" checked /><label for="ft_cr">Match custom rule names</label>
-					<br/><input type="checkbox" id="ft_ob" checked /><label for="ft_ob">Match objects</label>
-					<br/><input type="checkbox" id="ft_sc" checked /><label for="ft_sc">Match scene names</label>
+					<br/><input type="checkbox" id="ft_ob" checked /><label for="ft_ob">Match object names</label>
+					<br/><input type="checkbox" id="ft_rs" checked /><label for="ft_rs">Match rule scripts</label>
 					<br/><input type="checkbox" id="ft_vr" checked /><label for="ft_vr">Match variable names</label>
+				</td>
+				<td>
+					<br/><input type="checkbox" id="ft_fs" checked /><label for="ft_fs">Match false scripts</label>
+					<br/><input type="checkbox" id="ft_dd" checked /><label for="ft_dd">Match data descriptions</label>
+					<br/><input type="checkbox" id="ft_sc" checked /><label for="ft_sc">Match scene names</label>
+					<br/><input type="checkbox" id="ft_on" checked /><label for="ft_on">Match object texts</label>
+					<br/><input type="checkbox" id="ft_rd" checked /><label for="ft_rd">Match rule descriptions</label>
+					<br/><input type="checkbox" id="ft_ab" checked /><label for="ft_ab">Match ability names</label>
 				</td>
 			</tr>
 		</table>
@@ -82,7 +96,7 @@
 			
 			var blockTypeCounts = {};
 			var blockDescCounts = {};
-			function formatProject(p) {
+			/* function formatProject(p) {
 				//Assign each block its own ID
 				projectDict = {
 					"abilities": {},
@@ -149,41 +163,62 @@
 				//Remove IDs of Individual Blocks and Scenes
 				p = JSON.stringify(p).replace(/,"web_id":"[0-9A-F_\-]*?",/gi,",").replace(/,?"web_id":"[0-9A-F_\-]*?",?/gi,"");
 				try {return JSON.parse(p);} catch(E){console.log(E, p);}
-			}
+			} */
 			
 			function findText() {
 				var searchText = document.getElementById("project-search-input").value;
-				textItems = [];
+				let textItems = [], searchResults = [];
 				
 				(hsProject.abilities||[]).forEach((a)=>{
-					if (a.name && optVal("ft_ab")) textItems.push({"type":"ability","value":a.name,"id":a.abilityID});
+					if (a.name && optVal("ft_ab")) textItems.push({"type":"ability_name","value":a.name,"id":a.abilityID});
+					if (a.name && optVal("ft_ai")) textItems.push({"type":"ability_id","value":a.abilityID,"id":a.abilityID});
 					for (i = 0; i < (a.blocks||[]).length; i++) {
 						b = a.blocks[i];
 						if (optVal("ft_bn")) textItems.push({"type":"blockName","value":blockLabels[b.type][1],"id":b.web_id});
 						if (optVal("ft_pv")) (JSON.stringify(b).match(/"value":".*?(?<!\\)(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse('{"type":"block",' + m + ',"id":"' + b.web_id + '"}'));});
+						if (optVal("ft_dd")) (JSON.stringify(b).match(/"description":".*?(?<!\\)(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse('{"type":"data",' + m.replace(/^"description"/,'"value"') + ',"id":"' + b.web_id + '"}'));});
+						if (optVal("ft_cs") && b.controlScript) textItems.push({"type":"controlScript","value":b.controlScript.abilityID||"","id":b.web_id});
+						if (optVal("ft_fs") && b.controlFalseScript) textItems.push({"type":"controlScript","value":b.controlFalseScript.abilityID||"","id":b.web_id});
 					}
 				});
-				if (optVal("ft_cr")) (hsProject.customRules||[]).forEach((c)=>{
-					textItems.push({"type":"customRule","value":c.name,"id":c.id});
+				(hsProject.customRules||[]).forEach((c)=>{
+					if (optVal("ft_cr")) textItems.push({"type":"customRule","value":c.name,"id":c.id});
+					if (optVal("ft_ci")) textItems.push({"type":"customRule","value":c.id,"id":c.id});
 				});
-				if (optVal("ft_ob")) (hsProject.objects||[]).forEach((o)=>{
-					textItems.push({"type":"object_name","value":o.name,"id":o.objectID});
-					textItems.push({"type":"object_text","value":o.text,"id":o.objectID});
+				(hsProject.objects||[]).forEach((o)=>{
+					if (optVal("ft_ob")) textItems.push({"type":"object_name","value":o.name,"id":o.objectID});
+					if (optVal("ft_on")) textItems.push({"type":"object_text","value":o.text,"id":o.objectID});
+					if (optVal("ft_oi")) textItems.push({"type":"object_id","value":o.objectID,"id":o.objectID});
+				});
+				(hsProject.rules||[]).forEach((r)=>{
+					if (optVal("ft_ri")) textItems.push({"type":"id","value":r.id,"id":r.id});
+					if (optVal("ft_rd")) textItems.push({"type":"rule_desc","value":(((r.parameters||[])[0]||{}).datum||{}).description||"","id":r.id});
+					if (optVal("ft_rs")) textItems.push({"type":"rule_script","value":r.abilityID,"id":r.id});
 				});
 				if (optVal("ft_sc")) (hsProject.scenes||[]).forEach((s)=>{
 					textItems.push({"type":"scene","value":s.name,"id":s.web_id});
 				});
-				if (optVal("ft_vr")) (hsProject.variables||[]).forEach((v)=>{
-					textItems.push({"type":"var","value":v.name,"id":v.objectIdString});
+				(hsProject.variables||[]).forEach((v)=>{
+					if (optVal("ft_vr")) textItems.push({"type":"var","value":v.name,"id":v.objectIdString});
+					if (optVal("ft_vi")) textItems.push({"type":"var","value":v.objectIdString,"id":v.objectIdString});
 				});
 				
 				console.log(textItems);
 				
-				searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ev")?"^":"")+(optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":"")+(optVal("opt_ev")?"$":"")||"$.^", (optVal("opt_cs")?"":"i"));
+				try {
+					searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ev")?"^":"")+(optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":"")+(optVal("opt_ev")?"$":"")||"$.^", (optVal("opt_cs")?"":"i"));
+				} catch (e) {
+					console.error(e);
+					return alert("Invalid Expression");
+				}
 				console.log(searchRegex);
 				textItems.forEach((t)=>{
-					if (t.value.match(searchRegex)) console.log(t);
+					if (t.value.match(searchRegex)) {
+						//console.log(t);
+						searchResults.push(t)
+					}
 				});
+				return searchResults;
 			}
 			
 			function optVal(id){
