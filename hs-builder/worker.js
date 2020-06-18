@@ -235,7 +235,7 @@ function doMathOperators(project) {
 					break;
 			}
 			if (typeof param.value == "number") {
-				var sciPwr = Number(String(param.value).match(/(?<=e)[+-]\d+/))
+				var sciPwr = Number(((String(param.value).match(/(e)[+-]\d+/)||[])[0]||"").replace(/^e/,""));
 				param.value = ((Math.round(Number(String(param.value).replace(/e.*$/,""))*10**12)/10**12)*10**sciPwr).toLocaleString('fullwide', {useGrouping:false});
 			//	param.value = (Math.round(param.value*10**12)/10**12)//.toLocaleString('fullwide', {useGrouping:false});
 			}
@@ -437,7 +437,7 @@ function loadPreset(project, presetArray, options) {
 				});
 			}
 		});
-		preset = JSON.parse( JSON.stringify(preset).replace(new RegExp('"('+Object.keys(newIdDictionary).join("|")+')"',"g"), function(m0){return JSON.stringify(newIdDictionary[m0.replace(/"/g,"")])}).replace(/(".*?(?<!\\)(?:\\\\)*"):undefined/g,'$1:""') );
+		preset = JSON.parse( JSON.stringify(preset).replace(new RegExp('"('+Object.keys(newIdDictionary).join("|")+')"',"g"), function(m0){return JSON.stringify(newIdDictionary[m0.replace(/"/g,"")])}).replace(/(".*?[^\\](?:\\\\)*"):undefined/g,'$1:""') );
 		console.log(preset);
 		if (preset.playerVersion === project.playerVersion || options.alwaysMerge) {
 			Object.keys(preset).forEach(key=>{
