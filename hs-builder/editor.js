@@ -508,11 +508,23 @@ if (editor.useBlockRender) {
 		},
 		"close": function() {
 			document.querySelector(".edit-box").style.display = "none";
-			activeEditBlock = null;
 			bodyScroll.enable();
 		},
 		"save": function() {
-			
+			const traitName = document.getElementById("traits-other").querySelector("select").value;
+			try {
+				if (traitName=="project") {
+					hsProject = JSON.parse(cmEditor.getValue()||'{}');
+				} else {
+					hsProject[traitName] = JSON.parse(cmEditor.getValue()||'{}');
+				}
+				editor.traits.updateFields();
+				updateDrawers();
+				document.querySelector(".edit-box").style.display = "none";
+				bodyScroll.enable();
+			} catch(e) {
+				alert("Invalid JSON");
+			}
 		}
 	};
 	editor.codemirror = {
@@ -740,6 +752,8 @@ if (editor.useBlockRender) {
 		if (activeEditBlock) {
 			if (e.keyCode == 27) editor.blockrender.editclose();
 			if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editor.blockrender.editsave();
+		} else if (document.querySelector(".edit-box").style.display == "block") {
+			if ((e.ctrlKey||e.metaKey)&&e.keyCode == 13) editor.jsonEditor.save();
 		}
 	}
 	function updateDrawers() {
