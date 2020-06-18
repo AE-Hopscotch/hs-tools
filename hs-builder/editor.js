@@ -102,7 +102,7 @@ function getProjectDistributions(p) {
 					const item = blockLabels[oType]||[], opCatg = (blockLabels[oType]||[])[0];
 					const opName = (
 							(oType<5e3) ? (item[0+3*(oType>=1e3)-3*(oType>=2e3)+(oType>=4e3)].replace(/^\s$/,"")||item[3]).replace(/(Random)1/,"$1<br/>1-") :
-							(oType<6e3) ? ["Random","RGB","HSB"][oType-5e3] : ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||item[0].replace(/\u2063\s|\s\u2063|^\s$/g,""))
+							(oType<6e3) ? ["Random","RGB","HSB"][oType-5e3] : ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||(item[0]||"").replace(/\u2063\s|\s\u2063|^\s$/g,""))
 						).replace(/\u2063\s|\s\u2063/g,""); //Taken from Full Reference
 					(distributionCounts.operatorCatgCounts[opCatg]) ? distributionCounts.operatorCatgCounts[opCatg]++ : distributionCounts.operatorCatgCounts[opCatg] = 1;
 					(distributionCounts.operatorDescCounts[opName]) ? distributionCounts.operatorDescCounts[opName]++ : distributionCounts.operatorDescCounts[opName] = 1;
@@ -1756,12 +1756,13 @@ if (editor.useFileSysCode) {
 			document.getElementById("pAct-preset-file-label").innerText = "No file chosen";
 			let invalidPresetCount = 0, presetArray = [];
 			function contentHandler(content, filename, ext) {
+				console.log(filename, ext, content);
 				if (!/^\.(hspre|txt|json|hopscotch)$/.test(ext)) return invalidPresetCount++;
 				//These are the individual preset files
-				let presetProject = {};
+				var presetProject = {};
 				try {
 					//Old .hspre format
-					presetProject = JSON.parse(Base64.decode(Base64.decode(content)));
+					presetProject = JSON.parse(Base64.decode(Base64.decode(content)).replace(/_\\EQUALS/g,"="));
 				} catch (e) {
 					try {
 						//New .hspre format
