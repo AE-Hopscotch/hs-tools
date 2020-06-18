@@ -58,10 +58,10 @@
 		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
 		
-		<meta name="description" content="An online tool that can help you build Hopscotch projects and save lots of hassle"/>
+		<meta name="description" content="An online tool that can help you build Hopscotch projects and save lots of hassle!"/>
 		<meta name="keywords" content="build, mod, text, project, hopscotch"/>
 		<meta property="og:title" content="Hopscotch Project Builder">
-		<meta property="og:description" content="An online tool that can help you build Hopscotch projects and save lots of hassle">
+		<meta property="og:description" content="An online tool that can help you build Hopscotch projects and save lots of hassle!">
 		<meta property="og:image" content="/hs-tools/images/hs-blueprint-file.png">
 		
 		<style>
@@ -194,6 +194,7 @@
 					"Why didn’t I buy velcro yesterday? It was such a rip-off!",
 					"Doesn’t this remind you of Hopscotch’s loading screen?",
 					"Hopscotch features bug hunters on their App Store changelog!",
+					//"Hopscotch Web Explorer: Coming Soon...", //REMINDER THAT THIS IS STILL HERE LOL IDK IF THIS IS HAPPENING
 					"Hopscotch was downloaded over 14 million times!",
 					"Over 35 Million projects were created using Hopscotch.",
 					"The \u201CFeatured\u201D page used to be called \u201CGame Changers\u201D",
@@ -415,6 +416,9 @@
 		
 		<!-- FLOATING WINDOWS -->
 		<!-- <div class="float-container"> -->
+			<div id="home-btn-resizer" class="page-controls float" style="top:-512px;left:-512px;width:64px;height:64px;">
+				<sq class="mobile-appear" style="position:fixed;bottom:4px;right:4px;"><a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#fff;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a></sq>
+			</div>
 			<div id="project-controls-resizer" class="page-controls float" style="left: 16px; top: 16px;">
 				<span>&ic; &ic;</span><img src="../images/hs-blueprint-file.png" width="48"/>
 				<h1>Project Builder</h1><br/>
@@ -429,7 +433,7 @@
 						<tr><th>Window Controls</th><td>
 							<i title="Reset the position of all windows" class="fa fa-refresh" style="width:16px;" onclick="floatWindow.resetAll()"></i>
 							<i title="Save the current window layout" class="fa fa-save" style="width:16px;" onclick="floatWindow.saveCurrent()"></i>
-							<i title="Reset the position of this window" class="fa fa-repeat" onclick="floatWindow.reset(&quot;window-controls&quot;,this)"></i>
+							<i title="Reset the position of this window" class="fa fa-repeat" onclick="floatWindow.reset(&quot;window-controls&quot;,this,event)"></i>
 						</td></tr>
 						<tr><th>Project Controls</th><td data-for="project-controls"></td></tr>
 						<tr><th>Basic Traits Modifier</th><td data-for="basic-traits"></td></tr>
@@ -440,8 +444,6 @@
 					</tbody>
 				</table>
 				<span class="center">To bring this window into focus, press the control key twice.</span>
-				<!-- For some reason this works? -->
-				<sq class="mobile-appear" style="position:fixed;bottom:4px;right:4px;"><a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#fff;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a></sq>
 			</div>
 			<div id="search-box-resizer" class="page-controls float" style="left: 16px; top: 474px;">
 				<h2>Search Project</h2>

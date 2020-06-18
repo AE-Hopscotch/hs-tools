@@ -260,7 +260,7 @@ if (typeof interact != "undefined") {
 	});
 	if (document.getElementById("window-controls-resizer")) document.getElementById("window-controls-resizer").querySelectorAll("td[data-for]").forEach(cell=>{
 		var owner = cell.getAttribute("data-for");
-		cell.innerHTML = '<i title="Toggle visibility" class="fa fa-eye" onclick="floatWindow.invis(&quot;'+owner+'&quot;,this)"></i> <i title="Bring in front of other windows" class="fa fa-clone fa-flip-horizontal" onclick="floatWindow.front(&quot;'+owner+'&quot;,this)"></i> <i title="Reset position" class="fa fa-repeat" onclick="floatWindow.reset(&quot;'+owner+'&quot;,this)"></i>';
+		cell.innerHTML = '<i title="Toggle visibility" class="fa fa-eye" onclick="floatWindow.invis(&quot;'+owner+'&quot;,this)"></i> <i title="Bring in front of other windows" class="fa fa-clone fa-flip-horizontal" onclick="floatWindow.front(&quot;'+owner+'&quot;,this)"></i> <i title="Reset position" class="fa fa-repeat" onclick="floatWindow.reset(&quot;'+owner+'&quot;,this,event)"></i>';
 	});
 }
 if (editor.useBlockRender) {
@@ -1187,14 +1187,14 @@ if (editor.useBlockRender) {
 			block.click();
 			showElm(block);
 		},
-		"reset": function(name, elm) {
+		"reset": function(name, elm, event) {
 			var block = document.getElementById(name + "-resizer");
 			block.style = block.getAttribute("data-init-style");
 			block.removeAttribute("data-x");
 			block.removeAttribute("data-y");
 			block.click();
-			showElm(block);
-			var scrollInt = setInterval(function(){
+			showElm(block, event.isTrusted);
+			if (event.isTrusted) var scrollInt = setInterval(function(){
 				block.style.overflow = "visible";
 				block.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
 				block.style.overflow = "";
@@ -1208,7 +1208,8 @@ if (editor.useBlockRender) {
 				block.removeAttribute("data-x");
 				block.removeAttribute("data-y");
 				block.click();
-				showElm(block, false);
+				//showElm(block, false);
+					
 				var scrollInt = setInterval(function(){
 					block.style.overflow = "visible";
 					//block.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
