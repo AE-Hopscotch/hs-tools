@@ -1234,6 +1234,7 @@ if (editor.useBlockRender) {
 		elm.setAttribute("data-init-style",elm.getAttribute("style"));
 	});
 	replaceRender(-1);
+	if (typeof DeviceOrientationEvent.requestPermission == "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
 	window.addEventListener("devicemotion",function(e){
 		//Focus Window Controls on shake
 		const a = e.acceleration;
