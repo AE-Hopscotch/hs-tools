@@ -1,0 +1,11 @@
+<script>
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.style.backgroundColor = "black";
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const newColorScheme = e.matches ? "dark" : "light";
+    document.body.style.backgroundColor = newColorScheme === "dark" ? "black" : "white" ;
+	alert("System Theme Preference Changed");
+});
+</script>
