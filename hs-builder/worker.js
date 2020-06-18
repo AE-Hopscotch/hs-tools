@@ -156,6 +156,7 @@ function doMathOperators(project) {
 			dParams[0] = dParams[0]||{},dParams[1] = dParams[1]||{};
 			if (dParams[0].datum || dParams[1].datum) dParams = dParams.repeatEach(p=>{return calcParameter(p)});
 			if (dParams[0].datum || dParams[1].datum || dParams[0].variable || dParams[1].variable) return param; //After simplifying math inside these parameters, quit if there is still data
+			if (dParams[0].type === 49 || dParams[1].type === 49) return param; //Return if either parameter slot is a conditional (to keep multiplying by conditional in secret blocks)
 			function numVal(p) {
 				return (Number(p.value)||0);
 			}
