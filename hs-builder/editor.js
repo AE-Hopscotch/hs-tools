@@ -1922,7 +1922,7 @@ if (editor.useFileSysCode) {
 		var jsonse = JSON.stringify(hsProject);
 		const blob = new Blob([jsonse], {type: "application/json"}), filename = (hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch");
 		const responseFn = function(xhr){
-			if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+			if (onIos) {
 				localStorage.setItem("hsProject",JSON.stringify(hsProject));
 				setTimeout(function(){location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
 				setTimeout(function(){location.href = "?r=1";},150);
