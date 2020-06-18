@@ -1900,7 +1900,11 @@ if (editor.useFileSysCode) {
 	var url = new URL(location.href);
 	if (url.searchParams.get("r") == "1" || localStorage.getItem("hsProject")) {
 		hsProject = JSON.parse(localStorage.getItem("hsProject"));
-		updateFields();
+		formatProject(hsProject);
+		//updateFields();
+		editor.traits.updateFields();
+		updateDrawers();
+		replaceRender(-1);
 		localStorage.removeItem("hsProject");
 		replaceLocation("?r=0");
 		popup.download();
@@ -1924,7 +1928,7 @@ if (editor.useFileSysCode) {
 		const responseFn = function(xhr){
 			if (onIos) {
 				localStorage.setItem("hsProject",JSON.stringify(hsProject));
-				setTimeout(function(){location.href = 'workflow://run-workflow?name=Import%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
+				setTimeout(function(){location.href = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
 				setTimeout(function(){location.href = "?r=1";},150);
 			} else {
 				location.href = JSON.parse(xhr.responseText).link;
