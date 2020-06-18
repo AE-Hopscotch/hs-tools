@@ -1058,6 +1058,9 @@ if (editor.useBlockRender) {
 		}
 		draggables[i].onmousedown = draggables[i].onclick = function(event){reorganizefloatingZ(event)};
 		draggables[i].addEventListener("touchstart",function(event){reorganizefloatingZ(event)});
+		draggables[i].addEventListener("touchend",function(){
+			if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
+		});
 	};
 	/* Sortable JS */
 	(function(){
@@ -1234,9 +1237,6 @@ if (editor.useBlockRender) {
 		elm.setAttribute("data-init-style",elm.getAttribute("style"));
 	});
 	replaceRender(-1);
-	document.body.addEventListener("touchstart", function(){
-		if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
-	});
 	window.addEventListener("devicemotion",function(e){
 		//Focus Window Controls on shake
 		const a = e.acceleration;
