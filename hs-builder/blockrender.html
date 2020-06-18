@@ -152,6 +152,12 @@
 			
 			var COUNT = 0;
 			
+			//Use Javascript window width instead to calculate position if inside an iframe on iOS
+			if (onIos && self !== top) {
+				document.getElementById("iframe-resizer").style.left = Math.max(Math.min(window.innerWidth||10**16,window.outerWidth||10**16)/2 - 360, 0) + "px";
+				document.getElementById("drawer-resizer").style.left = Math.max(Math.min(window.innerWidth||10**16,window.outerWidth||10**16) - 266, 0) + "px";
+			}
+			
 			function addBlockFunctions(parent) {
 				parent.querySelectorAll(".editbtn").forEach((elm)=>{
 					elm.onclick = function(e){
