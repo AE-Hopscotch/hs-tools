@@ -158,6 +158,12 @@
 				document.getElementById("drawer-resizer").style.left = Math.max(Math.min(window.innerWidth||10**16,window.outerWidth||10**16) - 266, 0) + "px";
 			}
 			
+			//Scale down if on a small screen
+			if (Math.min(window.outerWidth,window.outerHeight,window.innerWidth||10**16,window.innerHeight||10**16) < 384) {
+				document.querySelector("meta[name=viewport]").setAttribute("content","width=device-width,initial-scale=0.65,minimum-scale=0.65,maximum-scale=0.65");
+				document.documentElement.style.setProperty("--viewport-scale","0.65");
+			}
+			
 			function addBlockFunctions(parent) {
 				parent.querySelectorAll(".editbtn").forEach((elm)=>{
 					elm.onclick = function(e){
