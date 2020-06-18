@@ -36028,7 +36028,6 @@ function fullscreenExitHandler(event) {
 };
 
 var muteButton = document.getElementById("mute-button");
-if(localStorage.getItem("muted") == "true") setTimeout(function(){muteButton.click();},100); //AE_MOD
 
 function muteHandler(event) {
   if (event) {
@@ -36227,7 +36226,9 @@ $('#google-plus-share-button').click(function (event) {
       }
       console.log("Made with love by Hopscotch. (Webplayer: " + version + ")");
 	  //AE_MOD preplay project if specified in uuid
+	  if (typeof AE_MOD.load_function == "function" && AE_MOD.initiated === true) AE_MOD.load_function(); 
 	  var url = new URL(window.location.href);
+	  if (localStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
 	  if (url.searchParams.get('play') == '1') playContainer.click();
 	  if (!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
 		  //Resize the screen right away
