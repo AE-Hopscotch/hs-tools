@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.5.5 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.5.5 r3"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -625,9 +625,9 @@ function showEmbeddedPlayer(uuid) {
 		localStorage.removeItem("projectFromStorage"); //Make sure there is no data from storage when loading
 		var playFrame = document.createElement('div');
 		playFrame.id = "embed-container";
-		playFrame.style = "display:block;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;";
+		playFrame.style = "display:block;position:fixed;width:100vw;height:100vh;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;overflow:auto;-webkit-overflow-scrolling:touch;";
 		var src = ((uuid == "ae_web_info") ? "about.html?h="+window.innerHeight : "../play-project/index.html?id=" + uuid + "&play=1");
-		playFrame.innerHTML = `<iframe id="project-player" src="${src}" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>
+		playFrame.innerHTML = `<iframe id="project-player" src="${src}" style="position:absolute;display:block;width:100vw;height:100vh;border:none;top:0;left:0;z-index:1;"></iframe>
 		<button onclick="removeEmbeddedPlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-close' style='color:white;font-size:32px;position:relative;top:-1px;left:-${Number(onIos)}px;'></i></button>
 		<button onclick="toggleRender()" id="show-render-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:56px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-list-ul' style='color:white;font-size:32px;position:relative;top:0;left:-${4*Number(onIos)}px;'></i></button>`;
 		document.body.appendChild(playFrame);
