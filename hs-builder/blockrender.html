@@ -7,10 +7,11 @@
 		<link href='https://fonts.googleapis.com/css?family=Francois%20One' rel='stylesheet'>
 		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- BEGIN CDN SCRIPTS -->
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script> <!-- DO I NEED THIS -->
 		
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
@@ -142,7 +143,6 @@
 				<button id="copy-btn" onclick="editcopy()" title="" class=""><i class="fa fa-copy"></i> DUPLICATE </button>
 				<button onclick="editdelete()" title="Delete Block" class="danger"><i class="fa fa-trash"></i> DELETE </button>
 			</span>
-			</div>
 		</div>
 		<script src="../sidenav.min.js"></script>
 		<script src="editor.js"></script>
@@ -419,7 +419,7 @@
 								hsProject.abilities[i].blocks = newdata.blocks;
 							}
 						};
-						if (!added && !isParent) {
+						if (!added ){//&& !isParent) {
 							for (i = 0; i < (newdata.blocks||[]).length; i++) {
 								newdata.blocks[i].web_id = web_id + "_b" + i;
 							};
@@ -434,7 +434,6 @@
 					try {
 						localStorage.setItem("projectFromStorage", JSON.stringify(hsProject));
 						console.log("%cProject Instance Saved","color:lime;font-weight:600;");
-						console.log(hsProject);
 					} catch (e) {
 						try {
 							localStorage.setItem("projectStorageState","saving");
@@ -465,6 +464,7 @@
 				scId = (!scData ? "none" : scData.web_id||scData.id||scData.abilityID||scData.objectID||cp.getAttribute("data-id"));
 				if (scData && (scData.controlScript || scData.controlFalseScript)) scId = (container.previousElementSibling && container.previousElementSibling.classList.contains("collapsible")) ? scData.controlFalseScript.abilityID : scData.controlScript.abilityID
 				var newdata = {};
+				//console.warn(newdata, isBlock, scType)
 				if (isBlock && scType == "ability") return;
 				switch (scType) {
 					case "ability": //Change the parent ability
@@ -516,7 +516,7 @@
 						});
 						break;
 				}
-				if (scType == "crule" || scType == "object") cp.setAttribute("data", JSON.stringify(newdata));
+				if (scType == "crule" || scType == "object" || scType == "scene") cp.setAttribute("data", JSON.stringify(newdata));
 				writedata(scType, scId, newdata, !isBlock);
 			}
 			/* CodeMirror */
