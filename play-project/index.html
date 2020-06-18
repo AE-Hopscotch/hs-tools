@@ -191,7 +191,8 @@
 							if (!confirm("You are currently in a session (" + session.gameId + ")! Are you sure you want to leave?")) break;
 							session.leave();
 						}
-						session.isHost = true;						session.maxSize = Number(a.args[0])||256;
+						session.isHost = true;
+						session.maxSize = Number(a.args[0])||256;
 						session.gameId = Math.round(Math.random()*36**6).toString(36);
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
@@ -223,7 +224,8 @@
 							var now = Math.round(Date.now()/1000).toString(36);
 							session.userJoined = now + session.userId;
 							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).once("value").then(s=>{
-								if (s.val() && Object.keys(s.val().users||{}).length < s.val().maxSize) {									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
+								if (s.val() && Object.keys(s.val().users||{}).length < s.val().maxSize) {
+									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).set(false);
 									firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).on("value",function(s){
 										if (session.userJoined) session.data = s.val();
 										if(!s.val()||!s.val().users) {
@@ -245,7 +247,8 @@
 					case "session-write":
 						if (!isTrusted && !session.data.users[session.getUser(-1)]) alert("Cannot write code: untrusted code execution");
 						if (!session.data || !session.gameId || !session.data.users) break;
-						try {							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
+						try {
+							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
 								a.args[2]
 							);
 						} catch (e) {
@@ -295,7 +298,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = "local_application.js"//"https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = "https://awesome-e.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
@@ -412,7 +415,8 @@
 		var session = {
 			isHost: false,
 			userId: null,
-			gameId: null,			maxSize: 256,
+			gameId: null,
+			maxSize: 256,
 			leave: function(){
 				if (session.gameId && session.isHost) firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId).remove();
 				else if (session.gameId){
@@ -420,7 +424,8 @@
 					firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/users/"+session.userJoined).remove();
 				}
 				session.isHost = false;
-				session.gameId = null;				if (session.data) session.data = null;
+				session.gameId = null;
+				if (session.data) session.data = null;
 				if (session.userJoined) session.userJoined = null;
 			},
 			getUser: function(u, id_not_string){
