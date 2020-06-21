@@ -416,9 +416,12 @@
 			var emojiSetting = 0; //0 = Normal, 1 = Keep Emoji, 2 = Emoji Only
 			
 			//Copy Button Placement if on iOS
-			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+			if((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) {
 				document.getElementById("copybtn").style.top = "-46px";
 				document.getElementById("copybtn").style.top = "-66px";
+				document.querySelectorAll("input[type=file][accept]").forEach(input=>{
+					input.accept = ""; //Unfortunately, I have to do this to allow files to be selected.
+				});
 			}
 		</script>
 	</body>
