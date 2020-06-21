@@ -625,13 +625,14 @@
 			}
 			
 			//Text Down if on iOS
-			if(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+			if((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) {
 				document.getElementById("indCnt").style.bottom = "-14px";
 				document.querySelector("#indCnt b").style.marginTop = "-4px";
 				document.getElementById("content-target").style.height = "calc(100% - 62px)";
+				document.querySelectorAll("input[type=file][accept]").forEach(input=>{
+					input.accept = ""; //Unfortunately, I have to do this to allow files to be selected.
+				});
 			}
-			
-			
 			//Log Site Update Time and Device
 			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
