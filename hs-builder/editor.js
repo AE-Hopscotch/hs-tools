@@ -117,7 +117,7 @@ function getProjectDistributions(p) {
 	});
 	(p.rules||[]).forEach(r=>{
 		r = (r.parameters[0]||{}).datum||{};
-		const item = blockLabels[r.type]||[], name = ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||item[0].replace(/\u2063\s|\s\u2063|^\s$/g,"")); //From Full Reference
+		const item = blockLabels[r.type]||[], name = ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||(item[0]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")); //From Full Reference
 		(distributionCounts.ruleDescCounts[name]) ? distributionCounts.ruleDescCounts[name]++ : distributionCounts.ruleDescCounts[name] = 1;			//Name
 		(distributionCounts.ruleTypeCounts[r.type]) ? distributionCounts.ruleTypeCounts[r.type]++ : distributionCounts.ruleTypeCounts[r.type] = 1;		//Type
 	});
@@ -215,6 +215,15 @@ function formatProject(p) {
 	return p;
 }
 function unformatProject(p) {
+	//Remove Null
+	if (p.abilities) p.abilities = p.abilities.removeNull();
+	if (p.eventParameters) p.eventParameters = p.eventParameters.removeNull();
+	if (p.objects) p.objects = p.objects.removeNull();
+	if (p.rules) p.rules = p.rules.removeNull();
+	if (p.customRules) p.customRules = p.customRules.removeNull();
+	if (p.variables) p.variables = p.variables.removeNull();
+	if (p.scenes) p.scenes = p.scenes.removeNull();
+	if (p.traits) p.traits = p.traits.removeNull();
 	//Remove IDs of Individual Blocks and Scenes
 	p = JSON.stringify(p).replace(/,"web_id":"[0-9A-F_\-]*?",/gi,",").replace(/,?"web_id":"[0-9A-F_\-]*?",?/gi,"");
 	try {return JSON.parse(p);} catch(E){console.log(E, p);}
@@ -341,7 +350,7 @@ if (editor.useBlockRender) {
 					(hsProject.abilities||[]).forEach(a=>{if (a.abilityID == (data.controlScript||{}).abilityID)added=true,before=a.name,a.name=data.description;});
 					if (!added) {
 						newAbil = {name:data.description,createdAt:hsProject.abilities.repeatEach(a=>{return a.createdAt||0}).sort((a,b)=>b-a)[0]+12.345678||0,abilityID:(data.controlScript||{}).abilityID};
-						hsProject.abilities.push(newAbil);
+						if (newAbil) hsProject.abilities.push(newAbil);
 						projectDict.abilities[(data.controlScript||{}).abilityID] = newAbil;
 					} else {
 						//Renamed Ability means project needs to refresh
@@ -777,7 +786,7 @@ if (editor.useBlockRender) {
 	}
 	function saveCompressed() {
 		//Calls the worker function
-		var worker = new Worker(URL.createObjectURL(new Blob(["("+compress.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
+		var worker = new Worker(URL.createObjectURL(new Blob(["("+compress.toString()+")("+JSON.stringify(unformatProject(hsProject))+")"], {type: 'text/javascript'})));
 		worker.onmessage = function(e) {
 			localStorage.setItem("projectFromStorage", e.data.value.replace(/\s/g,""));
 			console.log("%cProject Instance Saved","color:green;font-weight:600;");
@@ -807,7 +816,7 @@ if (editor.useBlockRender) {
 						hsProject.scenes[i].web_id = web_id;
 					}
 				}
-				if (!added && !isParent) {
+				if (!added && !isParent && newdata) {
 					newdata.web_id = web_id;
 					hsProject.scenes.push(newdata);
 				}
@@ -818,7 +827,7 @@ if (editor.useBlockRender) {
 				for (i = 0; i < (hsProject.objects.removeNull()||[]).length; i++) {
 					if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata, added = true;
 				};
-				if (!added && !isParent) hsProject.objects.push(newdata);
+				if (!added && !isParent && newdata) hsProject.objects.push(newdata);
 				break;
 			case "crule":
 				projectDict.customRules[web_id] = newdata;
@@ -826,7 +835,7 @@ if (editor.useBlockRender) {
 				for (i = 0; i < (hsProject.customRules||[]).length; i++) {
 					if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata, added = true;
 				};
-				if (!added && !isParent) hsProject.customRules.push(newdata);
+				if (!added && !isParent && newdata) hsProject.customRules.push(newdata);
 				break;
 			case "rule":
 				projectDict.rules[web_id] = newdata;
@@ -834,7 +843,7 @@ if (editor.useBlockRender) {
 				for (i = 0; i < (hsProject.rules||[]).length; i++) {
 					if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata, added = true;
 				};
-				if (!added && !isParent) hsProject.rules.push(newdata);
+				if (!added && !isParent && newdata) hsProject.rules.push(newdata);
 				break;
 			case "ability": //Input the whole new ability
 				if (!newdata.name) newdata.name = (projectDict.abilities[web_id]||{}).name;
@@ -867,7 +876,7 @@ if (editor.useBlockRender) {
 						hsProject.abilities[i].name = newdata.name;
 					}
 				};
-				if (!added) {
+				if (!added && newdata) {
 					for (i = 0; i < (newdata.blocks||[]).length; i++) {
 						newdata.blocks[i].web_id = web_id + "_b" + i;
 					};
@@ -1197,6 +1206,8 @@ if (editor.useBlockRender) {
 			block.removeAttribute("data-y");
 			block.click();
 			showElm(block, event.isTrusted);
+			const viewBtn = elm.previousElementSibling.previousElementSibling;
+			if (viewBtn.classList.contains("fa-eye-slash")) viewBtn.classList.replace("fa-eye-slash","fa-eye")
 			if (event.isTrusted) var scrollInt = setInterval(function(){
 				block.style.overflow = "visible";
 				block.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });

@@ -379,7 +379,7 @@
 								hsProject.scenes[i].web_id = web_id;
 							}
 						}
-						if (!added && !isParent) {
+						if (!added && !isParent && newdata) {
 							newdata.web_id = web_id;
 							hsProject.scenes.push(newdata);
 						}
@@ -390,7 +390,7 @@
 						for (i = 0; i < (hsProject.objects.removeNull()||[]).length; i++) {
 							if (hsProject.objects[i].objectID == web_id) hsProject.objects[i] = newdata, added = true;
 						};
-						if (!added && !isParent) hsProject.objects.push(newdata);
+						if (!added && !isParent && newdata) hsProject.objects.push(newdata);
 						break;
 					case "crule":
 						projectDict.customRules[web_id] = newdata;
@@ -398,7 +398,7 @@
 						for (i = 0; i < (hsProject.customRules||[]).length; i++) {
 							if (hsProject.customRules[i].id == web_id) hsProject.customRules[i] = newdata, added = true;
 						};
-						if (!added && !isParent) hsProject.customRules.push(newdata);
+						if (!added && !isParent && newdata) hsProject.customRules.push(newdata);
 						break;
 					case "rule":
 						projectDict.rules[web_id] = newdata;
@@ -406,7 +406,7 @@
 						for (i = 0; i < (hsProject.rules||[]).length; i++) {
 							if (hsProject.rules[i].id == web_id) hsProject.rules[i] = newdata, added = true;
 						};
-						if (!added && !isParent) hsProject.rules.push(newdata);
+						if (!added && !isParent && newdata) hsProject.rules.push(newdata);
 						break;
 					case "ability": //Input the whole new ability
 						newdata.name = (projectDict.abilities[web_id]||{}).name;
@@ -431,7 +431,7 @@
 								hsProject.abilities[i].blocks = newdata.blocks;
 							}
 						};
-						if (!added ){//&& !isParent) {
+						if (!added && newdata){//&& !isParent) {
 							for (i = 0; i < (newdata.blocks||[]).length; i++) {
 								newdata.blocks[i].web_id = web_id + "_b" + i;
 							};
@@ -444,7 +444,7 @@
 				var url = new URL(location.href);
 				if (url.searchParams.get("play") == "1") {
 					try {
-						localStorage.setItem("projectFromStorage", JSON.stringify(hsProject));
+						localStorage.setItem("projectFromStorage", JSON.stringify(unformatProject(hsProject)));
 						console.log("%cProject Instance Saved","color:lime;font-weight:600;");
 					} catch (e) {
 						try {
@@ -459,7 +459,7 @@
 			}
 			function saveCompressed() {
 				//Calls the worker function
-				var worker = new Worker(URL.createObjectURL(new Blob(["("+compress.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
+				var worker = new Worker(URL.createObjectURL(new Blob(["("+compress.toString()+")("+JSON.stringify(unformatProject(hsProject))+")"], {type: 'text/javascript'})));
 				worker.onmessage = function(e) {
 					localStorage.setItem("projectFromStorage", e.data.value.replace(/\s/g,""));
 					console.log("%cProject Instance Saved","color:green;font-weight:600;");
