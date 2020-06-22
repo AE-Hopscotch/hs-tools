@@ -1955,7 +1955,7 @@ if (editor.useFileSysCode) {
 		const responseFn = function(xhr){
 			if (onIos) {
 				localStorage.setItem("hsProject",JSON.stringify(hsProject));
-				setTimeout(function(){location.href = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
+				setTimeout(function(){location.href = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
 				setTimeout(function(){location.href = "?r=1";},150);
 			} else {
 				location.href = JSON.parse(xhr.responseText).link;
