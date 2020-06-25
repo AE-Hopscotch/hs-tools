@@ -93,7 +93,7 @@
 			  position: fixed;
 			  top: 8px;
 			  width: calc(50% - 16px);
-			  height: calc(100% - 155px);
+			  height: calc(100% - 175px);
 			  left: 8px;
 			  overflow: auto;
 			  border: 2px solid gray;
@@ -278,8 +278,8 @@
 				#urlChecker {
 					position: static;
 					width: calc(100% - 0px);
-					height: 150px;
-					margin-bottom: 8px;
+					height: 200px;
+					margin-bottom: -8px;
 					overflow: hidden;
 				}
 				
@@ -315,7 +315,7 @@
 			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 2px 0px; margin-bottom: 4px; width: 215px;"></span>
 			
 			<br>
-			<textarea style="resize: none; width: 100%; height: calc(100% - 56px); 348px; background: none; color: #888;" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
+			<textarea style="resize: none; width: 100%; height: calc(100% - 72px); 348px; background: none; color: #888; outline: none;" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
 		</div>
 		
 		<span id="searchBar">
@@ -329,8 +329,7 @@
 				<lb>A <t style="display: none;">address</t></lb>
 				<li><t>Address</t> <sub>1, 3</sub></li>
 				
-				<lb>B<t style="display: none;">banged--beer--blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
-				<li><t>Banged</t> <sub>3</sub></li>
+				<lb>B<t style="display: none;">beer--blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
 				<li><t>Beer</t> <gray>(as in Root Beer)</gray></li>
 				<li><t>Blood</t></li>
 				<li><t>“Boys rule”, “Boys drool”</t> <sub>1</sub></li>
@@ -344,25 +343,19 @@
 				<li><t>Copying</t> <sub>3</sub></li>
 				<li><t>Cutting</t> <sub>3</sub></li>
 				
-				<lb>D<t style="display: none;">depression--drugs--drunk</t></lb>
-				<li><t>Depression</t> <sub>3</sub></li>
-				<li><t>Drug, drugs</t> <sub>1</sub></li>
-				<li><t>Drunk</t> <gray>(You probably meant to put the word “drank” if this got your project stuck)</gray></li>
+				<lb>D<t style="display: none;">drunk</t></lb>
+				<li><t>Drunk</t> <gray>(You meant to use “drank”)</gray></li>
 				
 				<lb>E<t style="display: none;">email--exe</t></lb>
 				<li><t>Email</t></li>
 				<li><t>exe</t></li>
 				
-				<lb>F<t style="display: none;">fingering</t></lb>
-				<li><t>Fingering</t> <gray>(from the Ukelele project)</gray></li>
+				<!-- <lb>F<t style="display: none;"></t></lb> -->
 				
 				<lb>G<t style="display: none;">“Girls rule”, “Girls drool”</t></lb>
 				<li><t>“Girls rule”, “Girls drool”</t> <sub>1</sub></li>
 				
-				<lb>H<t style="display: none;">hell--hoe--hump--hopscotch closing</t></lb>
-				<li><t>Hell</t> <gray>(Actually, it is not a bad word if used correctly)</gray></li>
-				<li><t>Hoe</t> <gray>(As in “diamond hoe” – Minecraft makers might use this)</gray></li>
-				<li><t>Hump</t> <gray>(“&#x1F42A; This camel has one hump”)</gray></li>
+				<lb>H<t style="display: none;">hopscotch closing</t></lb>
 				<li><t>Hopscotch Closing</t> <sub>2</sub></li>
 				
 				<lb>I<t style="display: none;">instagram--idiot--ipad away</t></lb>
@@ -384,9 +377,8 @@
 				<lb>M<t style="display: none;">massage</t></lb>
 				<li><t>Massage</t></li>
 				
-				<lb>N<t style="display: none;">“Real Name”, “Full Name”, “Last Name”--negro</t></lb>
+				<lb>N<t style="display: none;">“Real Name”, “Full Name”, “Last Name”</t></lb>
 				<li><t>“Real Name”, “Full Name”, “Last Name”</t> <sub>1</sub></li>
-				<li><t>Negro</t> <gray>(Spanish color translation though sometimes offensive)</gray></li>
 				
 				<lb>O<t style="display: none;">orphan</t></lb>
 				<li><t>Orphan</t> <gray>(you might use this in a story plot)</gray> <sub>3</sub></li>
@@ -431,7 +423,7 @@
 		</span>
 		
 		<span id="indCnt">
-			<span style="position: relative; left: 10px; margin-right: 10px; display: block; bottom: -12px;">To extract all text from a project, use the <a href="extract-text">Text Extractor Tool</a>.</span><br>
+			<span style="position: relative; left: 10px; margin-right: 10px; display: block; bottom: -12px; min-height: 26px;">To extract all text from a project, use the <a href="extract-text">Text Extractor Tool</a>. Also, some filtered words are not in the list due to inappropriate secondary definitions.</span><br>
 			
 			<b style="top: 8px; text-align: center; display: inline-block; width: 100%; max-width: 620px; margin-top: -6px;">Orange Indicator Rules:</b>
 			<div style="display: block; position: relative; bottom: 8px; left: 8px; max-width: calc(100% - 16px); overflow: visible; overflow-x: auto; z-index: 20; margin-top: -4px;">
@@ -463,7 +455,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("XGJhZGRyZXNzXGJ8XGJiYW5nZWRcYnxcYmJlZXJcYnxcYmJsb29kXGJ8KFxiKGdpcmxzfGJveXMpIChydWxlfGRyb29sKVxiKXxcYmJ1bGx5XGJ8XGJidXJuZWRcYnxcYmNoYXQodGluZyk/XGJ8XGJjKFwuKT9oYXRcYnxcYmNoKFwuKT9hdFxifFxiY2hhKFwuKT90XGJ8XGJjaGVzdFxifFxiY29weWluZ1xifFxiY3V0dGluZ1xifFxiZGVwcmVzc2lvblxifFxiZHJ1Z3M/XGJ8XGJkcnVua1xifFxiZW1haWxcYnxcYmV4ZVxifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoaW5nKT9cYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYlx3KmlkaW90XHcqXGJ8XGJpUGFkIGF3YXlcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIocmVhbHxmdWxsfGxhc3QpIG5hbWVcYnxcYm5lZ3JvXGJ8XGJvcnBoYW5cYnxcYnBhbnRzXGJ8XGJwaG9uZSAoaXMgZGVhZHxudW1iZXIpXGJ8XGJycFxifFxicm9sZXBsYXlcYnxcYnNob290aW5nXGJ8XGJzcGFtbWluZ1xifFxic3RhbGsoaW5nfGVyKVxifFxic3RyYW5nbGVcYnxcYlx3KnN0dXBpZFx3KlxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxiXHcqdGV4dCBtZVx3KlxifFxidGV4dCB5b3VcYnxcYnRocnVzdFxifFxidHJpZ2dlclxifFxidHh0XGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYnxcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xi"), "gi");
+				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZXhlXGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJpUGFkIGF3YXlcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIoPzpyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKD86aXMgZGVhZHxudW1iZXIpXGJ8XGJyb2xlcGxheVxifFxicnBcYnxcYnNob290aW5nXGJ8XGJzcGFtbWluZ1xifFxic3RhbGsoPzppbmd8ZXIpXGJ8XGJzdHJhbmdsZVxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxiXHcqdGV4dCBtZVx3KlxifFxidGV4dCB5b3VcYnxcYnRocnVzdFxifFxidHJpZ2dlclxifFxidHh0XGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYil8KFxiXHcqaWRpb3RcdypcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYlx3KnN0dXBpZFx3KlxiKXwoXGJiYW5nZWRcYnxcYmRlcHJlc3Npb25cYnxcYmRydWdzP1xifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoPzppbmcpP1xifFxibmVncm9cYil8KFxiXHcrZGlja1x3KlxifFxiZGlja1x3K1xifFxiXHcrcmFwaW5nXHcqXGJ8XGJyYXBpbmdcdytcYnxcYlx3K3NoaXRcdypcYnxcYnNoaXRcdytcYnxcYlx3K3NleFx3KlxifFxic2V4XHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGJ8XGJcdypzbXV0XHcqXGIp"), "gi");
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
@@ -476,9 +468,6 @@
 			function filterUrl(url){
 				var target = document.getElementById('content-target');
 				target.value = "Downloading...";
-				/*$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
-					testFilter(data);
-				});*/
 				
 				function doCORSRequest(options, printResult) {
 					var x = new XMLHttpRequest();
@@ -486,8 +475,6 @@
 					x.onload = x.onerror = function() {
 						if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
 						printResult(
-							//options.method + ' ' + options.url + '\n' +
-							//x.status + ' ' + x.statusText + '\n\n' +
 							(x.responseText || '')
 						);
 					};
@@ -634,7 +621,6 @@
 				});
 			}
 			//Log Site Update Time and Device
-			console.log("Hello, World 00:58:20");
 			console.log(navigator.userAgent);
 		</script>
 	</body>
