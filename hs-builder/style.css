@@ -1063,7 +1063,7 @@ CODE MIRROR STYLES
 *****************/
 .CodeMirror{font-size:14px!important;background:#2e3836!important;box-shadow:2px 2px 10px #293d3a inset;font-family:'Source Code Pro',monospace;width:80%;height:75%!important;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:4px;padding-right:8px!important}
 .CodeMirror-cursor{height:17px!important;margin-top:4px!important;background:#fff!important;border-color:#fff!important}
-.CodeMirror-gutters{left:0!important;background:#3e4c49!important;border-right:1px solid #7b8a88!important;box-shadow:2px 0 10px #293d3a;margin-left:-1px}
+.CodeMirror-gutters{left:0!important;background:#3e4c49!important;border-right:1px solid #7b8a88!important;box-shadow:2px 0 10px #293d3a;margin-left:-1px;position:fixed!important}
 .CodeMirror-guttermarker-subtle{transform:translate(-6px,3px);}
 .CodeMirror-sizer{margin-left:3px!important;margin-bottom:-17px!important;border-right-width:13px!important;min-height:29px!important;min-width:7px!important;padding:5px 20px 0 5px !important}
 .CodeMirror-line{line-height:1.7!important;padding-left:52px!important}

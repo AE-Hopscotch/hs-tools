@@ -364,7 +364,7 @@ sq {
 	width: 100%;
 	color: gray;
 	font-family: Arial;
-	font-size: 13px;
+	font-size: 12px;
 }
 .info stats span {
 	margin: 4px;
@@ -544,6 +544,7 @@ sq {
 
 div.xray-contents {
 	height: 150px;
+	user-select: none;
 }
 .xray-contents {
 	display: var(--x-ray-elms);
@@ -694,10 +695,10 @@ ae[badge='6'] {
 	height: 40px;
 }
 .retro .sharelinkbtn .fa {
-	font-size: 75%;
-	width: 35px;
+    font-size: 72%;
+    width: 32px;
 }
-.retro .sharelinkbtn .fa-heart::before {
+.retro .sharelinkbtn .fa-heart::before, .retro .sharelinkbtn .fa-leaf::before {
 	opacity: 0.5;
 }
 .retro .sharelinkbtn .fa-link::before {
@@ -769,9 +770,9 @@ ae[badge='6'] {
 	justify-content: space-evenly;
 }
 .retro .info stats span {
-	width: 35px;
-	text-align: center;
-	margin: 4px 1px;
+    width: 32px;
+    text-align: center;
+    margin: 4px 1px;
 }
 .retro .info stats .fa {
 	display: none;
