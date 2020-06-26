@@ -36263,3 +36263,5 @@ $('#google-plus-share-button').click(function (event) {
 	document.body.onkeyup = function(e){
 		AE_MOD.keyboardKeys.splice(AE_MOD.keyboardKeys.indexOf(e.keyCode),1);
 	}
+	
+	window.focus();

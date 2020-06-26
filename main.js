@@ -64,15 +64,23 @@ function getCookie(cname) {
 }
 
 //Manage Preferences
-var prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}');
+var LS_ACCESS = true, prefs;
+try {
+	prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}');
+} catch (e) {
+	//If the Local Storage is unreachable
+	prefs = '{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}';
+	LS_ACCESS = false;
+}
 function getPref(name) {
-	return !!prefs[name];
+	return LS_ACCESS ? !!prefs[name] : false;
 }
 function prefVal(name) {
-	return prefs[name]||"";
+	return LS_ACCESS ? prefs[name]||"" : "";
 }
 
 function setPref(name, bool) {
+	if (!LS_ACCESS) return console.error(new DOMException("Could not save preference"));
 	prefs[name] = bool;
 	localStorage.setItem("preferences", JSON.stringify(prefs));
 }

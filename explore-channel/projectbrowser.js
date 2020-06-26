@@ -169,7 +169,7 @@ function showProjects(chProjects) {
 			} else {
 				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy(((event.shiftKey)?'https://awesome-e.github.io/hs-tools/play-project/?id=':'https://c.gethopscotch.com/p/') + '${p.uuid}')"></i></div>
 				<div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
-				<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
+				<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-leaf"></i> ${p.plants}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
 			}
 			
 			if (p.original_user != undefined && p.original_user.id != p.user.id) {	
@@ -186,9 +186,9 @@ function showProjects(chProjects) {
 			//Retro appearance changes
 			if (document.querySelector(".retro")) {
 				pCard.innerHTML = pCard.innerHTML.replace(/<ae badge="[12]".*?<\/ae>/,"")
-					.replace(/<\/div>[\s\n\t]*?<div class="info">/,'<i class="fa fa-fw fa-heart" title="You can&rsquo;t like a project from the Web Explorer"></i><i class="fa fa-fw fa-clock-o fa-flip-horizontal" title="'+(p.correct_published_at||'')+'"></i></div><div class="info">')
+					.replace(/<\/div>[\s\n\t]*?<div class="info">/,'<i class="fa fa-fw fa-leaf" title="You can&rsquo;t donate plants from the Web Explorer"></i><i class="fa fa-fw fa-heart" title="You can&rsquo;t like a project from the Web Explorer"></i><i class="fa fa-fw fa-clock-o fa-flip-horizontal" title="'+(new Date(p.correct_published_at).toLocaleString()||'')+'"></i></div><div class="info">')
 					.replace(/fa-link/,"fa-fw fa-link")
-					.replace(/No x-ray action/,"Copy</span><span>–")
+					.replace(/No x-ray action/,"Copy</span><span>" + p.play_count)
 					.replace(/<stats><span style=".*?x-ray-elms.*?"/,"<stats><span")
 					.replace(/<span><i class="fa fa-play">.*?<\/span>/,"");
 			}
@@ -199,6 +199,8 @@ function showProjects(chProjects) {
 				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 				if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 				getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
+			} else {
+				pCard.innerHTML = pCard.innerHTML.replace(/<i class="fa fa-fw fa-leaf".*?<\/i>.*?<\/i>/,'<i class="fa fa-fw fa-play"></i>');
 			}
 		});
 	}
