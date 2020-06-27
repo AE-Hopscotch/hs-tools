@@ -118,6 +118,9 @@
 					<div data="{&quot;block_class&quot;:&quot;method&quot;,&quot;description&quot;:&quot;Set Speed&quot;,&quot;type&quot;:34,&quot;parameters&quot;:[{&quot;defaultValue&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;key&quot;:&quot;to&quot;,&quot;type&quot;:42}]}" data-group="blocks"><bl class="move"><c>Set speed to <ps><span></span></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
 					<div data="{&quot;block_class&quot;:&quot;method&quot;,&quot;description&quot;:&quot;Set&quot;,&quot;type&quot;:45,&quot;parameters&quot;:[{&quot;defaultValue&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;key&quot;:&quot;&quot;,&quot;type&quot;:47},{&quot;defaultValue&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;key&quot;:&quot;to&quot;,&quot;type&quot;:48}]}" data-group="blocks"><bl class="var"><c>Set <ps><span></span></ps> to <ps><span></span></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
 				</div>
+				<div id="abilities-drawer" style="padding: 16px 8px 4px; height: auto;">
+					<div data="{&quot;block_class&quot;:&quot;control&quot;,&quot;description&quot;:&quot;&quot;,&quot;type&quot;:123,&quot;controlScript&quot;:{&quot;abilityID&quot;:&quot;&quot;}}" data-group="blocks"><bl class="abl"><b class="openbtn"></b><c>New Ability</c><b class="editbtn"></b><b class="handle"></b></bl></div>
+				</div>
 				<div id="rules-drawer" style="padding: 16px 8px 4px; height: auto;">
 					<div data="{&quot;ruleBlockType&quot;:6000,&quot;id&quot;:&quot;&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;abilityID&quot;:&quot;&quot;,&quot;parameters&quot;:[{&quot;defaultValue&quot;:&quot;&quot;,&quot;datum&quot;:{&quot;type&quot;:7000,&quot;block_class&quot;:&quot;operator&quot;,&quot;description&quot;:&quot;Game Starts&quot;},&quot;key&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;type&quot;:52}],&quot;type&quot;:6000}" data-group="blocks"><bl class="rule"><b class="openbtn"></b><c>When <ps><op class="cm">&ic; game starts &ic;</op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
 				</div>
@@ -250,19 +253,20 @@
 				document.querySelector(".bl-container").setAttribute("data-group", tct);
 				
 				addBlockFunctions(document);
+				updateDrawers();
 			}
 			setTimeout(function(){
 				var url = new URL(location.href);
 				if (localStorage.getItem("projectFromStorage") &&  url.searchParams.get("play") == "1") {
 					var projectImport;
-					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16)))));
+					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16))))); /\}/
 					hsProject = projectImport || JSON.parse(localStorage.getItem("projectFromStorage"));
 					formatProject(hsProject);
 					replaceRender(-1); //-1 means top (entire project)
 				} else {
 					req_id = (new URL(location.href)).searchParams.get("id") || localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
 					req_id = (new URL(location.href)).searchParams.get("id") || req_id;
-					if (req_id) XHR.get(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
+					if (req_id) XHR.fetch(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
 						try {
 							hsProject = JSON.parse(r);
 						} catch (E) {
@@ -456,6 +460,26 @@
 						}
 					}
 				}
+				updateDrawers();
+			}
+			function updateDrawers() {
+				document.getElementById("abilities-drawer").innerHTML = '<div data="{&quot;block_class&quot;:&quot;control&quot;,&quot;description&quot;:&quot;&quot;,&quot;type&quot;:123,&quot;controlScript&quot;:{&quot;abilityID&quot;:&quot;&quot;}}" data-group="blocks"><bl class="abl"><b class="openbtn"></b><c>New Ability</c><b class="editbtn"></b><b class="handle"></b></bl></div>';
+				document.getElementById("customRules-drawer").innerHTML = '<div data="{&quot;name&quot;:&quot;New Custom Rule&quot;,&quot;rules&quot;:[],&quot;id&quot;:&quot;&quot;}" data-group="rules"><bl class="crule"><b class="openbtn"></b><c>New Custom Rule</c><b class="editbtn"></b><b class="handle"></b></bl></div>';
+				(hsProject.abilities||[]).forEach(ab=>{
+					if (!ab.name) return;
+					var abBlock = document.createElement("div");
+					abBlock.setAttribute("data",JSON.stringify({"block_class":"control","description":ab.name,"type":123,"controlScript":{"abilityID":ab.abilityID}}));
+					abBlock.setAttribute("data-group","blocks");
+					abBlock.innerHTML = '<bl class="abl"><b class="openbtn"></b><c>'+ab.name+'</c><b class="editbtn"></b><b class="handle"></b></bl>';
+					document.getElementById("abilities-drawer").appendChild(abBlock);
+				});
+				(hsProject.customRules||[]).forEach(cr=>{
+					var crBlock = document.createElement("div");
+					crBlock.setAttribute("data",JSON.stringify({"name":cr.name,"rules":cr.rules,"id":cr.id}));
+					crBlock.setAttribute("data-group","rules");
+					crBlock.innerHTML = '<bl class="crule"><b class="openbtn"></b><c>'+cr.name+'</c><b class="editbtn"></b><b class="handle"></b></bl>';
+					document.getElementById("customRules-drawer").appendChild(crBlock);
+				});
 			}
 			function saveCompressed() {
 				//Calls the worker function
