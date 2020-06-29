@@ -266,7 +266,7 @@
 				} else {
 					req_id = (new URL(location.href)).searchParams.get("id") || localStorage.getItem("defaultProjUrl")?localStorage.getItem("defaultProjUrl"):(prompt("Project UUID","test")||"").replace(/.*\//,"");
 					req_id = (new URL(location.href)).searchParams.get("id") || req_id;
-					if (req_id) XHR.fetch(/*"https://c.gethopscotch.com/api/v1/projects/test"*/"https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
+					if (req_id) XHR.fetch("https://c.gethopscotch.com/api/v1/projects/"+req_id, function(r){
 						try {
 							hsProject = JSON.parse(r);
 						} catch (E) {
@@ -274,7 +274,7 @@
 						}
 						formatProject(hsProject);
 						replaceRender(-1); //-1 means top (entire project)
-					},false);//true);
+					},true);
 					else {
 						replaceRender([],"","No project loaded");
 					}
