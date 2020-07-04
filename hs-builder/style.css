@@ -307,6 +307,9 @@ sq {
 	margin: 0 4px 0;
 	width: auto;
 }
+.container#stats-popup h3 {
+	margin: 12px 0 4px;
+}
 
 #traits-table {
 	width: 100%;
@@ -501,7 +504,7 @@ sq {
 	-webkit-backdrop-filter: blur(4px);
 	animation-duration: 3s;
 }
-html[style*="--col-bg-main:black;"] .resize-drag {
+html.dark-mode .resize-drag {
 	background-color: #000000d4;
 }
 .resizer {
@@ -1033,27 +1036,42 @@ html[style*="--col-bg-main:black;"] #renderjson-container {
 }
 .renderjson .syntax {
 	color: grey;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .string {
 	color: pink;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .number  {
 	color: cyan;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .boolean {
 	color: plum;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .key {
 	color: lightblue;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .keyword {
 	color: lightgoldenrodyellow;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .renderjson .object.syntax {
 	color: lightseagreen;
 }
 .renderjson .array.syntax {
 	color: lightsalmon;
+}
+.renderjson ::selection {
+	background-color: lightskyblue;
 }
 
 

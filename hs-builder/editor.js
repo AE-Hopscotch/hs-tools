@@ -11,22 +11,8 @@ const letterCasing = {
 		return string.replace(/(^\w)|([a-z])([A-Z])/g,function(m0,m1,m2,m3){return m1?m1.toUpperCase():m2+" "+m3;})
 	}
 }
-var distributionCounts = {
-	blockCatgCounts: {},
-	blockDescCounts: {},
-	blockTypeCounts: {},
-	totalBlockCount: 0,
-	operatorCatgCounts: {},
-	operatorDescCounts: {},
-	operatorTypeCounts: {},
-	operatorBlockCount: 0
-};
-function uuidv4() {
-	return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/x/g, function(c) {
-		var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-		return v.toString(16);
-	});
-}
+let distributionCounts = {};
+let projectQuickStats = {};
 const bodyScroll = {
 	enable: function(){
 		document.body.style.overflow = "";
@@ -53,6 +39,12 @@ const bodyScroll = {
 		document.documentElement.style.setProperty("--scroll-y", (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) + "px");
 	},
 	coordsInterval: null
+}
+function uuidv4() {
+	return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/x/g, function(c) {
+		var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+		return v.toString(16);
+	});
 }
 if (onIos) {
 	window.addEventListener("touchstart", function(){
@@ -82,12 +74,18 @@ function getProjectDistributions(p) {
 		operatorTypeCounts: {},
 		operatorBlockCount: 0,
 		ruleDescCounts: {},
-		ruleTypeCounts: {}
+		ruleTypeCounts: {},
+		abilitiesUseCount: {},
+		cstmRulesUseCount: {},
+		variablesUseCount: {}
 	};
-	//Get the Block Distribution within the project
-	(p.abilities||[]).forEach((a)=>{
+	//Get the Ability Usage and Block Distribution within the project
+	(p.abilities||[]).forEach(a=>{
+		if (a.name && !distributionCounts.abilitiesUseCount[a.name]) distributionCounts.abilitiesUseCount[a.name] = 0;
 		for (i = 0; i < (a.blocks||[]).length; i++) {
 			b = a.blocks[i];
+			//Get Ability Usage
+			if (b.type === 123 && b.controlScript && b.controlScript.abilityID) hsProject.abilities.forEach(ability=>{if(ability.name&&ability.abilityID===b.controlScript.abilityID)distributionCounts.abilitiesUseCount[ability.name]?distributionCounts.abilitiesUseCount[ability.name]++:distributionCounts.abilitiesUseCount[ability.name]=1});
 			//Get Block Type Distribution
 			distributionCounts.totalBlockCount ++;
 			const category = (blockLabels[b.type]||[])[0], name = (blockLabels[b.type]||[])[1];
@@ -110,20 +108,66 @@ function getProjectDistributions(p) {
 				});
 		}
 	});
+	//Get the Object Type Distribution
 	(p.objects||[]).forEach(o=>{
 		const name = charLabels[o.type]||"";
 		(distributionCounts.objectCharCounts[name]) ? distributionCounts.objectCharCounts[name]++ : distributionCounts.objectCharCounts[name] = 1;			//Name
 		(distributionCounts.objectTypeCounts[o.type]) ? distributionCounts.objectTypeCounts[o.type]++ : distributionCounts.objectTypeCounts[o.type] = 1;	//Type
 	});
+	(p.customRules||[]).forEach(cr=>{
+		//distributionCounts.variablesUseCount[cr.name] = 0;
+		distributionCounts.cstmRulesUseCount[cr.name] = (p.objects||[]).repeatEach(o=>{ return (o.rules && o.rules.indexOf(cr.id) !== -1) || null; }).removeNull().length + (p.customRules||[]).repeatEach(r=>{ return (r.rules && r.rules.indexOf(cr.id) !== -1) || null; }).removeNull().length;
+		//(JSON.stringify(hsProject).match(RegExp('"rules":\[[^\{\}\[\]]*?"'+v.objectIdString+'"\]',"g"))||[]).length;
+	});
+	//Get the Rule Type Distribution
 	(p.rules||[]).forEach(r=>{
 		r = (r.parameters[0]||{}).datum||{};
 		const item = blockLabels[r.type]||[], name = ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||(item[0]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")); //From Full Reference
 		(distributionCounts.ruleDescCounts[name]) ? distributionCounts.ruleDescCounts[name]++ : distributionCounts.ruleDescCounts[name] = 1;			//Name
 		(distributionCounts.ruleTypeCounts[r.type]) ? distributionCounts.ruleTypeCounts[r.type]++ : distributionCounts.ruleTypeCounts[r.type] = 1;		//Type
 	});
+	//Get the Variable Usage per Variable
+	(p.variables||[]).forEach(v=>{
+		distributionCounts.variablesUseCount[(v.type===8003||p.version===24&&!v.HSObjectIDString?"\uD83D\uDCF1 ":"")+v.name] = (JSON.stringify(hsProject).match(RegExp('"variable":"'+v.objectIdString+'"',"g"))||[]).length;
+	});
+	let filesize = Math.round(JSON.stringify(unformatProject(hsProject)).length/10)/100;
+	function getSpecialBlockAbilityNames(){
+		const hasSbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.secretBlocks(a).contains) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
+		const fullSbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.secretBlocks(a).newest) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
+		editor.project.secretBlocks = fullSbAbilityName ? "new" : hasSbAbilityName ? "old" : "none";
+		const hasIbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.setImgBlocks(a).contains) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
+		const fullIbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.setImgBlocks(a).newest) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
+		editor.project.secretBlocks = fullIbAbilityName ? "new" : hasIbAbilityName ? "old" : "none";
+		return {
+			imageBlocks: fullIbAbilityName ? fullIbAbilityName.replace(/(^.{20})(.+)/,"$1\u2026") + ' <i title="Up to date" class="fa fa-fw fa-check"></i>' : hasIbAbilityName ? hasIbAbilityName.replace(/(^.{13})(.+)/,"$1\u2026") + ' <i title="Out of date" class="fa fa-fw fa-refresh"></i>' : '<i>Not added</i>',
+			secretBlocks: fullSbAbilityName ? fullSbAbilityName.replace(/(^.{20})(.+)/,"$1\u2026") + ' <i title="Up to date" class="fa fa-fw fa-check"></i>' : hasSbAbilityName ? hasSbAbilityName.replace(/(^.{13})(.+)/,"$1\u2026") + ' <i title="Out of date" class="fa fa-fw fa-refresh"></i>' : '<i>Not added</i>'
+		}
+	}
+	projectQuickStats = {
+		"uuid": hsProject.uuid||"",
+		"filesize": ((filesize < 1000) ? filesize + " KB" : Math.round(filesize/10)/100 + " MB"),
+		"stageSize": (hsProject.stageSize.width||1024)+'x'+(hsProject.stageSize.height||768),
+		"version": hsProject.version,
+		"playerVersion": hsProject.playerVersion,
+		"edited_at": hsProject.edited_at,
+		"baseObjectScale": hsProject.baseObjectScale,
+		"fontSize": hsProject.fontSize,
+		"requires_beta_editor": hsProject.requires_beta_editor,
+		"abilities": (hsProject.abilities||[]).length,
+		"customRules": (hsProject.customRules||[]).length,
+		"eventParameters": (hsProject.eventParameters||[]).length,
+		"objects": (hsProject.objects||[]).length,
+		"rules": (hsProject.rules||[]).length,
+		"scenes": (hsProject.scenes||[]).length,
+		"traits": (hsProject.traits||[]).length,
+		"variables": (hsProject.variables||[]).length,
+		"sbAbilityName": getSpecialBlockAbilityNames().secretBlocks,
+		"ibAbilityName": getSpecialBlockAbilityNames().imageBlocks
+	}
 }
 function formatProject(p) {
 	//Backwards compatibility with standalone block rendering page
+	console.log(projectDict);
 	if (typeof projectDict == "undefined" || JSON.stringify(projectDict) == "{}") projectDict = {
 		"abilities": {},
 		"eventParameters": {},
@@ -189,11 +233,13 @@ function formatProject(p) {
 			//Assign UUID if it does not exist, then add that to the object
 			r.id = uuidv4().toUpperCase();
 			var obj = projectDict.objects[r.objectID];
-			if (!obj.rules) obj.rules = {};
-			obj.rules[r.id] = Object.detach(r);
-			p.objects.forEach(o=>{
-				if (o.objectID == r.objectID) o.rules.push(r.id);
-			});
+			if (obj) {
+				if (!obj.rules) obj.rules = {};
+				obj.rules[r.id] = Object.detach(r);
+				p.objects.forEach(o=>{
+					if (o.objectID == r.objectID) o.rules.push(r.id);
+				});
+			}
 		}
 		projectDict.rules[r.id] = Object.detach(r);
 	}
@@ -1744,6 +1790,7 @@ if (editor.useFileSysCode) {
 				indicator.setAttribute("hidden","");
 				//updateFields();
 				editor.traits.updateFields();
+				copyText(JSON.stringify(hsProject));
 				formatProject(hsProject);
 				replaceRender(-1);
 				updateDrawers();
@@ -1897,6 +1944,29 @@ if (editor.useFileSysCode) {
 		"projectStats": function() {
 			document.querySelector("#stats-popup").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
+			getProjectDistributions(hsProject);
+			document.querySelector("#stats-popup").querySelector(".center div").style.textAlign = "left";
+			document.querySelector("#stats-popup").querySelector(".center div").innerHTML = '<h3>Basic Traits:</h3><span>'
+				+ '<i class="fa fa-fw fa-link fa-flip-horizontal"></i> Project ID: '+(projectQuickStats.uuid||"<i>No UUID present</i>")+'<br/>'
+				+ '<i class="fa fa-fw fa-info-circle"></i> File Size: '+ projectQuickStats.filesize +'<br/>'
+				+ '<i class="fa fa-fw fa-arrows"></i> Stage Size: '+(projectQuickStats.stageSize.width||1024)+'x'+(projectQuickStats.stageSize.height||768)+'<br/>'
+				+ '<i class="fa fa-fw fa-history"></i> Version: Editor '+projectQuickStats.version+', Player '+(projectQuickStats.playerVersion||"1.0.0")+'<br/>'
+				+ '<i class="fa fa-fw fa-pencil"></i> Edited: '+new Date(projectQuickStats.edited_at).toString().replace(/^\w{3}\s|\sGMT.*$/g,"")+'<br/>'
+				+ '<i class="fa fa-fw fa-arrows-alt"></i> Base Object Scale: '+(projectQuickStats.baseObjectScale||1)+'<br/>'
+				+ '<i class="fa fa-fw fa-text-height"></i> Font Size: '+(projectQuickStats.fontSize||80)+'<br/>'
+				+ '<i class="fa fa-fw fa-star-o"></i> Requires Beta Editor: '+(projectQuickStats.requires_beta_editor||false)+'<br/>'
+				+ '<i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+projectQuickStats.sbAbilityName+'<br/>'
+				+ '<i class="fa fa-fw fa-photo"></i> Set Image Blocks: '+projectQuickStats.ibAbilityName+'<br/>'
+				+ '</span><h3>Quick Statistics:</h3><span>'
+				+ 'Number of Abilities: '+projectQuickStats.abilities+'<br/>'
+				+ 'Number of Custom Rules: '+projectQuickStats.customRules+'<br/>'
+				+ 'Number of Event Parameters: '+projectQuickStats.eventParameters+'<br/>'
+				+ 'Number of Objects: '+projectQuickStats.objects+'<br/>'
+				+ 'Number of Rules: '+projectQuickStats.rules+'<br/>'
+				+ 'Number of Scenes: '+projectQuickStats.scenes+'<br/>'
+				+ 'Number of Traits: '+projectQuickStats.traits+'<br/>'
+				+ 'Number of Variables: '+projectQuickStats.variables+'<br/>'
+				
 			bodyScroll.disable();
 		},
 		"playProject": function() {
@@ -1906,6 +1976,7 @@ if (editor.useFileSysCode) {
 		}
 	}
 	function updateFields() {
+		alert("wrong function called");
 		document.getElementById("stageSize.width").value = hsProject.stageSize.width;
 		document.getElementById("stageSize.height").value = hsProject.stageSize.height;
 		document.getElementById("version").value = hsProject.version;
@@ -1948,7 +2019,7 @@ if (editor.useFileSysCode) {
 		e.onchange = function(){if (hsProject.uuid /*If project exists*/) updateProject(e.id)}; //Might change if exists later
 	});
 	//Reload Import
-	var url = new URL(location.href);
+	let url = new URL(location.href);
 	if (url.searchParams.get("r") == "1" || localStorage.getItem("hsProject")) {
 		hsProject = JSON.parse(localStorage.getItem("hsProject"));
 		formatProject(hsProject);
@@ -1997,5 +2068,5 @@ if (editor.useFileSysCode) {
 }
 if (editor.logConsoleMesg){
 	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;")
-	console.log('%cHopscotch Project Builder, beta 1.1.0 r2 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
+	console.log('%cHopscotch Project Builder, beta 1.1.1 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 }

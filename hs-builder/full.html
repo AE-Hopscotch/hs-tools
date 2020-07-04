@@ -191,7 +191,7 @@
 					if (optVal("ft_oi")) textItems.push({"type":"object_id","value":o.objectID,"id":o.objectID});
 				});
 				(hsProject.rules||[]).forEach((r)=>{
-					if (optVal("ft_ri")) textItems.push({"type":"id","value":r.id,"id":r.id});
+					if (optVal("ft_ri")) textItems.push({"type":"rule_id","value":r.id,"id":r.id});
 					if (optVal("ft_rd")) textItems.push({"type":"rule_desc","value":(((r.parameters||[])[0]||{}).datum||{}).description||"","id":r.id});
 					if (optVal("ft_rs")) textItems.push({"type":"rule_script","value":r.abilityID,"id":r.id});
 				});
