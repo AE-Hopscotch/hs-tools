@@ -253,6 +253,11 @@ sq {
 	padding: 0;
 	display:none; /**/
 }
+.project-card a[disabled] {
+	cursor: default;
+	color: gray;
+	display: inline-flex;
+}
 
 .remixbar:before {
 	content: url('../images/remix-icon.png');
@@ -661,7 +666,9 @@ ae[badge='6'] {
 .retro .project-card a.thumbnail img {
 	
 }
-
+.retro .project-card a[disabled] {
+	display: inherit;
+}
 .retro .remixbar:before {
 	background: none;
 	font-family: FontAwesome;
