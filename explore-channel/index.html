@@ -137,7 +137,7 @@
 			
 			//Request Channels if 30 minute token not present
 			if (getCookie("channelUpdateTime") != String(Date.now()/1800000)) {
-				XHR.get("https://c.gethopscotch.com/api/v2/channels/",function(r,s){
+				XHR.fetch("https://c.gethopscotch.com/api/v2/channels/",function(r,s){
 					if (s != 200) return document.querySelector('#loadingBear').innerHTML = dinoSvg;
 					try {
 						var channels = JSON.parse(r).channels;
