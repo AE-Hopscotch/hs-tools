@@ -100,6 +100,12 @@
 				#stats-popup, .container#stats-popup .flex {
 					overflow: scroll;
 					-webkit-overflow-scrolling: touch;
+					position: relative;
+					height: auto;
+				}
+				#stats-info-container {
+					position: relative;
+					height: 100%;
 				}
 			}
 			@supports not (-webkit-touch-callout: none) {
@@ -397,9 +403,9 @@
 				</div>
 				<div hidden class="container" id="stats-popup">
 					<i class="fa fa-close" onclick="popup.close()"></i>
-					<div class="center">
-						<span class="label" style="text-align:center;margin-bottom:24px;">Project Statistics</span>
-						<div style="-webkit-overflow-scrolling:touch;overflow-y:scroll;"><div class="flex">
+					<div id="stats-info-container" class="center">
+						<span class="label" style="text-align:center;margin-bottom:20px;">Project Statistics</span>
+						<div style="-webkit-overflow-scrolling:touch;overflow-y:scroll;height:calc(100% - 60px);"><div class="flex">
 							<div id="stats-quickInfo" class="indent"></div>
 							<div id="stats-moreInfo1" class="indent"></div>
 							<div id="stats-distributions1">
