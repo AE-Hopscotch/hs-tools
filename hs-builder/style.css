@@ -330,7 +330,7 @@ sq {
 	position: absolute;
 	width: calc(100% - 32px);
 	height: calc(100% - 31px);
-	overflow: auto;
+	overflow: visible;
 	padding: 16px;
 	left: 0;
 	flex-wrap: wrap;
