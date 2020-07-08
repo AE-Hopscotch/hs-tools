@@ -98,17 +98,19 @@
 					display: inline-block;
 				}
 				#stats-popup, .container#stats-popup .flex {
-					overflow: scroll;
+					overflow-y: scroll;
 					-webkit-overflow-scrolling: touch;
 					position: relative;
-					height: calc(100% - 31px);
+					height: auto;
 				}
 				#stats-info-container {
 					overflow: scroll;
 					-webkit-overflow-scrolling: touch;
+					height: auto;
 				}
 				#stats-info-container > div {
 					position: relative;
+					overflow: visible;
 				}
 			}
 			@supports not (-webkit-touch-callout: none) {
@@ -408,7 +410,7 @@
 					<i class="fa fa-close" onclick="popup.close()"></i>
 					<div id="stats-info-container" class="center" style="position:relative;height:100%;">
 						<span class="label" style="text-align:center;margin-bottom:20px;">Project Statistics</span>
-						<div style="-webkit-overflow-scrolling:touch;overflow-y:scroll;height:calc(100% - 60px);position:relative;"><div class="flex">
+						<div style="-webkit-overflow-scrolling:touch;height:calc(100% - 60px);position:relative;overflow:auto;"><div class="flex" style="position:relative;">
 							<div id="stats-quickInfo" class="indent"></div>
 							<div id="stats-moreInfo1" class="indent"></div>
 							<div id="stats-distributions1">
