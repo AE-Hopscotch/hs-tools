@@ -409,7 +409,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 				} else {
 					switch (d.type) {
 						case 50:
-							var ep = projectDict.eventParameters[d.variable];
+							var ep = projectDict.eventParameters[d.variable]||{};
 							ep.type = ep.type||ep.blockType;
 							if (ep.type == 8e3){
 								var o = projectDict.objects[ep.objectID];
@@ -419,7 +419,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 									console.log("no type", o);//var innerText = "<ps><op class=\"val\">\u2063 THIS ONE" + (getVar(d.variable)||"TEST") + " \u2063</op></ps>";
 								}
 							} else {
-								var innerText = "<ps><span>" + (ep.description||blockLabels[projectDict.eventParameters[ep.id].type]) + "</span></ps>";
+								var innerText = "<ps><span>" + (ep.description||blockLabels[(projectDict.eventParameters[ep.id]||{}).type]) + "</span></ps>";
 							}
 							return innerText;
 						default:
