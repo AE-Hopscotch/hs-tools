@@ -291,6 +291,35 @@
 				var savetext = editor.getValue()/*document.querySelector(".edit-box textarea").value*/||'{}';
 				try {
 					//Valid Block
+					if (JSON.parse(savetext).type == 123) {
+						var data = JSON.parse(savetext);
+						//Create New Ability with name if it does not exist already
+						var added = false, before = "";
+						(hsProject.abilities||[]).forEach(a=>{if (a.abilityID == (data.controlScript||{}).abilityID) {
+							added=true,before=a.name;
+							a.name=data.description;
+						}});
+						if (!added) {
+							newAbil = {name:data.description,createdAt:hsProject.abilities.repeatEach(a=>{return a.createdAt||0}).sort((a,b)=>b-a)[0]+12.345678||0,abilityID:(data.controlScript||{}).abilityID};
+							if (newAbil) hsProject.abilities.push(newAbil);
+							projectDict.abilities[(data.controlScript||{}).abilityID] = newAbil;
+						} else {
+							//Renamed Ability means project needs to refresh
+							if (before != data.description) {
+								var currentActive = activeEditBlock;
+								//Update each visible ability block with that same control script ID
+								document.querySelectorAll('.abl[data-group="blocks"][data-id="('+data.controlScript.abilityID+')"]').forEach(abl=>{
+									activeEditBlock = abl;
+									var blockData = JSON.parse(abl.getAttribute("data"));
+									blockData.description = data.description;
+									editor.getDoc().setValue(JSON.stringify(blockData));
+									editsave();
+								});
+								activeEditBlock = currentActive;
+							}
+						}
+						if (data.description != null) (projectDict.abilities[(data.controlScript||{}).abilityID]||{}).name = data.description;
+					}
 					var info = jsonToHtml(JSON.parse(savetext), undefined, !(forceOpen||activeEditBlock.classList.contains("collapsible-container")));
 					//Open the block if forced to open or is already open
 					activeEditBlock.innerHTML = info.innerHTML;

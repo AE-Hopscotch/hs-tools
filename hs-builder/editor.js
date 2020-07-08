@@ -77,11 +77,19 @@ function getProjectDistributions(p) {
 		ruleTypeCounts: {},
 		abilitiesUseCount: {},
 		cstmRulesUseCount: {},
-		variablesUseCount: {}
+		variablesUseCount: {},
+		variablesTotalUse: 0,
+		traitsTypeCounts: {},
+		traitsTotalUsage: 0
+		//Add traits some time
 	};
 	//Get the Ability Usage and Block Distribution within the project
 	(p.abilities||[]).forEach(a=>{
 		if (a.name && !distributionCounts.abilitiesUseCount[a.name]) distributionCounts.abilitiesUseCount[a.name] = 0;
+		(JSON.stringify(a.blocks||[]).match(/"HSTraitTypeKey":[23]\d\d\d\D/g)||[]).forEach(tr=>{
+			distributionCounts.traitsTotalUsage ++;
+			distributionCounts.traitsTypeCounts[blockLabels[tr.match(/[23]\d\d\d/)[0]]] ? distributionCounts.traitsTypeCounts[blockLabels[tr.match(/[23]\d\d\d/)[0]]]++ : distributionCounts.traitsTypeCounts[blockLabels[tr.match(/[23]\d\d\d/)[0]]] = 1;
+		});
 		for (i = 0; i < (a.blocks||[]).length; i++) {
 			b = a.blocks[i];
 			//Get Ability Usage
@@ -128,7 +136,12 @@ function getProjectDistributions(p) {
 	});
 	//Get the Variable Usage per Variable
 	(p.variables||[]).forEach(v=>{
-		distributionCounts.variablesUseCount[(v.type===8003||p.version===24&&!v.HSObjectIDString?"\uD83D\uDCF1 ":"")+v.name] = (JSON.stringify(hsProject).match(RegExp('"variable":"'+v.objectIdString+'"',"g"))||[]).length;
+		distributionCounts.variablesTotalUse += distributionCounts.variablesUseCount[(v.type===8003||p.version===24&&!v.HSObjectIDString?"\uD83D\uDCF1 ":"")+v.name] = (JSON.stringify(hsProject).match(RegExp('"variable":"'+v.objectIdString+'"',"g"))||[]).length;
+	});
+	//Get the Trait Usage per trait for old projects
+	(p.traits||[]).forEach(t=>{
+		distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]?distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]+=(JSON.stringify(hsProject).match(RegExp('"variable":"'+t.HSTraitIDKey+'"',"g"))||[]).length:distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]=(JSON.stringify(hsProject).match(RegExp('"variable":"'+t.HSTraitIDKey+'"',"g"))||[]).length;
+		distributionCounts.traitsTotalUsage = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{return distributionCounts.traitsTypeCounts[key]}).reduce((a,b)=>{return a+b});
 	});
 	let filesize = Math.round(JSON.stringify(unformatProject(hsProject)).length/10)/100;
 	if (editor.useBlockRender) {
@@ -181,6 +194,7 @@ function formatProject(p) {
 		"stageSize": {"width":1024,"height":768},
 		"version": 31,
 		"playerVersion": "1.5.0",
+		"playerUpgrades": {},
 		"edited_at": new Date().toISOString().replace(/\.\d{1,3}Z/,"Z"),
 		"baseObjectScale": 1,
 		"fontSize": 80,
@@ -198,7 +212,7 @@ function formatProject(p) {
 	if (p.scenes) p.scenes = p.scenes.removeNull();
 	if (p.traits) p.traits = p.traits.removeNull();
 	
-	getProjectDistributions(p);
+	if (editor.useBlockRender) getProjectDistributions(p);
 	
 	(p.abilities||[]).forEach(a=>{
 		projectDict.abilities[a.abilityID] = {abilityID:a.abilityID,createdAt:a.createdAt,name:a.name,blocks:{}};
@@ -231,6 +245,7 @@ function formatProject(p) {
 	for (i = 0; i < (p.rules||[]).length; i++) {
 		var r = p.rules[i];
 		if (!r.id) {
+			console.log('test')
 			//Assign UUID if it does not exist, then add that to the object
 			r.id = uuidv4().toUpperCase();
 			var obj = projectDict.objects[r.objectID];
@@ -260,6 +275,9 @@ function formatProject(p) {
 		projectDict.traits[t.HSTraitIDKey] = t;
 	}
 	return p;
+}
+function formatProjectWorker(p) {
+	return new Worker(URL.createObjectURL(new Blob(["("+workerFormatProject.toString()+")("+JSON.stringify(p)+","+JSON.stringify(projectDict)+",{blockLabels:"+JSON.stringify(blockLabels)+",charLabels:"+JSON.stringify(charLabels)+",unformatFn:"+unformatProject.toString()+"})"], {type: 'text/javascript'})));
 }
 function unformatProject(p) {
 	//Remove Null
@@ -332,6 +350,7 @@ if (editor.useBlockRender) {
 		"stageSize": {"width":1024,"height":768},
 		"version": 31,
 		"playerVersion": "1.5.0",
+		"playerUpgrades": {},
 		"edited_at": new Date().toISOString().replace(/\.\d{1,3}Z/,"Z"),
 		"baseObjectScale": 1,
 		"fontSize": 80,
@@ -350,6 +369,7 @@ if (editor.useBlockRender) {
 		"stageSize": {"width":1024,"height":768},
 		"version": 31,
 		"playerVersion": "1.5.0",
+		"playerUpgrades": {},
 		"edited_at": new Date().toISOString().replace(/\.\d{1,3}Z/,"Z"),
 		"baseObjectScale": 1,
 		"fontSize": 80,
@@ -394,7 +414,10 @@ if (editor.useBlockRender) {
 					var data = JSON.parse(savetext);
 					//Create New Ability with name if it does not exist already
 					var added = false, before = "";
-					(hsProject.abilities||[]).forEach(a=>{if (a.abilityID == (data.controlScript||{}).abilityID)added=true,before=a.name,a.name=data.description;});
+					(hsProject.abilities||[]).forEach(a=>{if (a.abilityID == (data.controlScript||{}).abilityID) {
+						added=true,before=a.name;
+						a.name=data.description;
+					}});
 					if (!added) {
 						newAbil = {name:data.description,createdAt:hsProject.abilities.repeatEach(a=>{return a.createdAt||0}).sort((a,b)=>b-a)[0]+12.345678||0,abilityID:(data.controlScript||{}).abilityID};
 						if (newAbil) hsProject.abilities.push(newAbil);
@@ -414,7 +437,7 @@ if (editor.useBlockRender) {
 							activeEditBlock = currentActive;
 						}
 					}
-					(projectDict.abilities[(data.controlScript||{}).abilityID]||{}).name = data.description;
+					if (data.description != null) (projectDict.abilities[(data.controlScript||{}).abilityID]||{}).name = data.description;
 				}
 				var info = jsonToHtml(JSON.parse(savetext), undefined, !(forceOpen||activeEditBlock.classList.contains("collapsible-container")));
 				//Open the block if forced to open or is already open
@@ -505,7 +528,7 @@ if (editor.useBlockRender) {
 					console.log("%cProject Build Time: " + buildTime + "ms", "color: teal; font-weight: 600");
 					var playFrame = document.createElement('div');
 					playFrame.id = "embed-container";
-					playFrame.style = "display:absolute;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;";
+					playFrame.style = "display:absolute;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:101;";
 					playFrame.innerHTML = '<iframe id="project-player" src="../play-project/index.html?play=1&from=hsBuilder" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>'
 						+ '<button onclick="editor.project.removePlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class="fa fa-close" style="color:white;font-size:32px;position:relative;top:-1px;left:-'+Number(onIos)+'px;"></i></button>';
 					document.querySelector(".fullscreen-elms").appendChild(playFrame);
@@ -1785,20 +1808,36 @@ if (editor.useFileSysCode) {
 		XHR.fetch("https://c.gethopscotch.com/api/v1/projects/" + input, function(r,s){
 			if (s != 200) {
 				indicator.innerHTML = (s == 500) ? "This project does not exist" : "Server Error";
+				goButton.removeAttribute("disabled");
+				goButton.style.cursor = "";
 			} else {
-				hsProject = JSON.parse(r);
-				if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
-				indicator.setAttribute("hidden","");
-				//updateFields();
-				editor.traits.updateFields();
-				copyText(JSON.stringify(hsProject));
-				formatProject(hsProject);
-				replaceRender(-1);
-				updateDrawers();
-				popup.close();
+				indicator.innerHTML = "Loading...";
+				setTimeout(function(){
+					hsProject = JSON.parse(r);
+					if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
+					//updateFields();
+					editor.traits.updateFields();
+					let worker = formatProjectWorker(hsProject);
+					worker.onmessage = function(msg) {
+						if (msg.data.status === "in progress") {
+							document.getElementById("link-ind").innerHTML = "Loading (" + msg.data.percent + "%)...";
+						} else if (msg.data.status === "done") {
+							indicator.setAttribute("hidden","");
+							p = msg.data.hsProject, projectDict = msg.data.projectDict;
+							replaceRender(-1);
+							updateDrawers();
+							popup.close();
+							goButton.removeAttribute("disabled");
+							goButton.style.cursor = "";
+						}
+					};
+					worker.onerror = function(msg) {
+						indicator.innerHTML = "Loading Error";
+						goButton.removeAttribute("disabled");
+						goButton.style.cursor = "";
+					}
+				},0);
 			}
-			goButton.removeAttribute("disabled");
-			goButton.style.cursor = "";
 		}, true);
 	}
 	
@@ -1946,8 +1985,7 @@ if (editor.useFileSysCode) {
 			document.querySelector("#stats-popup").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			getProjectDistributions(hsProject);
-			document.querySelector("#stats-popup").querySelector(".center div").style.textAlign = "left";
-			document.querySelector("#stats-popup").querySelector(".center div").innerHTML = '<h3>Basic Traits:</h3><span>'
+			document.getElementById("stats-quickInfo").innerHTML = '<h3>Basic Traits:</h3><div>'
 				+ '<i class="fa fa-fw fa-link fa-flip-horizontal"></i> Project ID: '+(projectQuickStats.uuid||"<i>No UUID present</i>")+'<br/>'
 				+ '<i class="fa fa-fw fa-info-circle"></i> File Size: '+ projectQuickStats.filesize +'<br/>'
 				+ '<i class="fa fa-fw fa-arrows"></i> Stage Size: '+(projectQuickStats.stageSize.width||1024)+'x'+(projectQuickStats.stageSize.height||768)+'<br/>'
@@ -1958,16 +1996,264 @@ if (editor.useFileSysCode) {
 				+ '<i class="fa fa-fw fa-star-o"></i> Requires Beta Editor: '+(projectQuickStats.requires_beta_editor||false)+'<br/>'
 				+ '<i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+projectQuickStats.sbAbilityName+'<br/>'
 				+ '<i class="fa fa-fw fa-photo"></i> Set Image Blocks: '+projectQuickStats.ibAbilityName+'<br/>'
-				+ '</span><h3>Quick Statistics:</h3><span>'
-				+ 'Number of Abilities: '+projectQuickStats.abilities+'<br/>'
-				+ 'Number of Custom Rules: '+projectQuickStats.customRules+'<br/>'
-				+ 'Number of Event Parameters: '+projectQuickStats.eventParameters+'<br/>'
-				+ 'Number of Objects: '+projectQuickStats.objects+'<br/>'
-				+ 'Number of Rules: '+projectQuickStats.rules+'<br/>'
-				+ 'Number of Scenes: '+projectQuickStats.scenes+'<br/>'
-				+ 'Number of Traits: '+projectQuickStats.traits+'<br/>'
-				+ 'Number of Variables: '+projectQuickStats.variables+'<br/>'
+				+ '</div><h3>Quick Statistics:</h3><div>'
+				+ '<h>\u200B </h>Number of Abilities: '+projectQuickStats.abilities+'<br/>'
+				+ '<h>\u200B </h>Number of Custom Rules: '+projectQuickStats.customRules+'<br/>'
+				+ '<h>\u200B </h>Number of Event Parameters: '+projectQuickStats.eventParameters+'<br/>'
+				+ '<h>\u200B </h>Number of Objects: '+projectQuickStats.objects+'<br/>'
+				+ '<h>\u200B </h>Number of Rules: '+projectQuickStats.rules+'<br/>'
+				+ '<h>\u200B </h>Number of Scenes: '+projectQuickStats.scenes+'<br/>'
+				+ '<h>\u200B </h>Number of Traits: '+projectQuickStats.traits+'<br/>'
+				+ '<h>\u200B </h>Number of Variables: '+projectQuickStats.variables+'</div>'
 				
+			google.charts.load('current', {'packages':['corechart','bar']});
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var arr;
+				
+				//Category Distributions (Blocks and Operators)
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', '');
+				data.addColumn('number', '');
+				data.addRows(Object.keys(distributionCounts.blockCatgCounts).length===0?[]:["abl", "move", "looks", "draw", "var", "ctrl", "old"].repeatEach(key=>{return [
+					({ctrl:"Control",abl:"Ability",looks:"Looks",move:"Movement",draw:"Draw","var":"Variable","old":"Non-Editor"})[key],
+					distributionCounts.blockCatgCounts[key]
+				]}));
+				var options = {
+					textStyle: {color: "white"},
+					titleTextStyle: {color: "white",fontSize: 16},
+					width: 350, height: 180, is3D: true,
+					backgroundColor: "transparent",
+					chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
+					legend: {textStyle: {color: "white", fontSize: 14}},
+					sliceVisibilityThreshold: 0,
+					colors: ["#f2f2f2", "#d73e1e", "#63ae1e", "#a6006e", "#e7b601", "#3e83be", "#647f96"]
+				};
+				var chart = new google.visualization.PieChart(document.getElementById('stats-chart1'));
+				chart.draw(data, options);
+				data = new google.visualization.DataTable();
+				data.addColumn('string', '');
+				data.addColumn('number', '');
+				data.addRows(Object.keys(distributionCounts.operatorCatgCounts).length===0?[]:["math", "conditional", "color", "old"].repeatEach(key=>{return [
+					({math:"Math",conditional:"Conditional",color:"Color",old:"Non-Editor"})[key],
+					distributionCounts.operatorCatgCounts[key]
+				]}));
+				options = {
+					textStyle: {color: "white"},
+					titleTextStyle: {color: "white",fontSize: 16},
+					width: 350, height: 180, is3D: true,
+					backgroundColor: "transparent",
+					chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
+					legend: {textStyle: {color: "white", fontSize: 14}},
+					sliceVisibilityThreshold: 0,
+					colors: ["#733977", "#be2961", "#1acfff", "#647f96"]
+				};
+				chart = new google.visualization.PieChart(document.getElementById('stats-chart3'));
+				chart.draw(data, options);
+				
+				//Bar Chart (Rules and Objects)
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.ruleDescCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.ruleDescCounts).repeatEach(key=>{arr.push([
+						key,
+						distributionCounts.ruleDescCounts[key]||0,
+						"color:#be2961;stroke-color:transparent;stroke-width:2px"
+					])}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: 280, is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Rule Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 8 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				chart = new google.visualization.BarChart(document.getElementById('stats-chart2'));
+				chart.draw(data, options);
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.objectCharCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.objectCharCounts).repeatEach(key=>{arr.push([
+						key,
+						distributionCounts.objectCharCounts[key]||0,"color:#6bdaed;stroke-color:transparent;stroke-width:2px"
+					])}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: 280, is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Object Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				chart = new google.visualization.BarChart(document.getElementById('stats-chart4'));
+				chart.draw(data, options);
+				
+				let usedVars = Object.keys(distributionCounts.variablesUseCount).repeatEach(key=>{if (distributionCounts.variablesUseCount[key]) return [
+						key,
+						distributionCounts.variablesUseCount[key],
+						"color:#f9cc1e;stroke-color:transparent;stroke-width:2px"
+					]}).removeNull();
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.variablesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedVars.forEach(v=>{arr.push(v)}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: Math.max(70+12*usedVars.length,200), is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedVars.length,150)},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Variable Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 9 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				chart = new google.visualization.BarChart(document.getElementById('stats-chart5'));
+				chart.draw(data, options);
+				var usedTraits = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{if (distributionCounts.traitsTypeCounts[key]) return [
+						key,
+						distributionCounts.traitsTypeCounts[key],
+						"color:#f9ad1e;stroke-color:transparent;stroke-width:2px"
+					]}).removeNull();
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.traitsTypeCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedTraits.forEach(t=>{arr.push(t)}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: Math.max(70+12*usedTraits.length,200), is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedTraits.length,150)},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Trait Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				chart = new google.visualization.BarChart(document.getElementById('stats-chart6'));
+				chart.draw(data, options);
+				var usedAbils = Object.keys(distributionCounts.abilitiesUseCount).repeatEach(key=>{if (distributionCounts.abilitiesUseCount[key]) return [
+						key,
+						distributionCounts.abilitiesUseCount[key],
+						"color:#f2f2f2;stroke-color:transparent;stroke-width:2px"
+					]}).removeNull();
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.abilitiesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedAbils.forEach(a=>{arr.push(a)}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: Math.max(70+12*usedAbils.length,200), is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedAbils.length,150)},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Ability Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				chart = new google.visualization.BarChart(document.getElementById('stats-chart7'));
+				chart.draw(data, options);
+				var usedCrules = Object.keys(distributionCounts.cstmRulesUseCount).repeatEach(key=>{if (distributionCounts.cstmRulesUseCount[key]) return [
+						key,
+						distributionCounts.cstmRulesUseCount[key],
+						"color:#ce628a;stroke-color:transparent;stroke-width:2px"
+					]}).removeNull();
+				data = google.visualization.arrayToDataTable(
+					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.cstmRulesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedCrules.forEach(cr=>{arr.push(cr)}), arr)
+				);
+				options = {
+					textStyle: {color: "white"},
+					width: 350, height: Math.max(70+12*usedCrules.length,200), is3D: true,
+					backgroundColor: {fill: "transparent"},
+					legend: { position: 'none' },
+					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedCrules.length,150)},
+					bars: 'horizontal',
+					axes: {
+						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+					},
+					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+					vAxis: { title: "Custom Rule Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+					bar: { groupWidth: "90%" }
+				};
+				var chart = new google.visualization.BarChart(document.getElementById('stats-chart8'));
+				chart.draw(data, options);
+				
+				//Show or hide carets that allow for expansion of graphs
+				document.querySelectorAll(".gchart.gchart-expandable > div").forEach(div => {
+					div.classList.remove("gchart-expanded");
+					let caretBtn = div.parentNode.previousElementSibling.querySelector("i.fa");
+					caretBtn.style.display = (div.scrollHeight > 280) ? "inline-block" : "none";
+					caretBtn.onclick = function() {
+						if (caretBtn.classList.contains("fa-caret-down")) {
+							caretBtn.classList.replace("fa-caret-down", "fa-caret-up");
+							caretBtn.parentNode.nextElementSibling.classList.add("gchart-expanded");
+						} else {
+							caretBtn.classList.replace("fa-caret-up", "fa-caret-down");
+							caretBtn.parentNode.nextElementSibling.classList.remove("gchart-expanded");
+						}
+					};
+				});
+			}
+			
+			function getMostUsed(key, index) {
+				index = index || 1;
+				var highestCount = Object.keys(distributionCounts[key]).repeatEach(k=>{return distributionCounts[key][k]}).sort((a,b)=>{return b-a})[index-1];
+				return Object.keys(distributionCounts[key]).repeatEach(k=>{if(distributionCounts[key][k]===highestCount)return k}).removeNull().join(", ")||"–";
+			}
+			var mostUsedBlocks = [getMostUsed("blockDescCounts"),getMostUsed("blockDescCounts",2),getMostUsed("blockDescCounts",3)].repeatEach(item=>{if(item&&item!="–")return item}).removeNull().join(", ")||"–";
+			
+			document.getElementById("stats-moreInfo1").innerHTML = '<h3>Usage Statistics:</h3><div>'
+				+ '<h>\u200B </h>Number of Player Upgrades: '+Object.keys(hsProject.playerUpgrades||{}).length+'<br/>'
+				+ '<h>\u200B </h>Number of Blocks: '+distributionCounts.totalBlockCount+'<br/>'
+				+ '<h>\u200B </h>Number of Operators: '+distributionCounts.operatorBlockCount+'<br/>'
+				+ '<h>\u200B </h>Number of Variables in code: '+distributionCounts.variablesTotalUse+'<br/>'
+				+ '<h>\u200B </h>Number of Traits in code: '+distributionCounts.traitsTotalUsage+'<br/>'
+				+ '<h>\u200B </h>Most Used Ability: '+getMostUsed("abilitiesUseCount")+'<br/>'
+				+ '<h>\u200B </h>Most Used Custom Rule: '+getMostUsed("cstmRulesUseCount")+'<br/>'
+				+ '<h>\u200B </h>Most Used Variable: '+getMostUsed("variablesUseCount")+'<br/>'
+				+ '<h>\u200B </h>Most Common Blocks: '+mostUsedBlocks+'<br/>'
+				+ '<h>\u200B </h>Has Filtered Words: Checking...</div>'
+			
+			XHR.get("https://awesome-e.github.io/hs-tools/json-shortcut/shortcut-info.json", function(r,s) {
+				document.getElementById("stats-moreInfo1").innerHTML = '<h3>Usage Statistics:</h3><div>'
+					+ '<h>\u200B </h>Number of Player Upgrades: '+Object.keys(hsProject.playerUpgrades||{}).length+'<br/>'
+					+ '<h>\u200B </h>Number of Blocks: '+distributionCounts.totalBlockCount+'<br/>'
+					+ '<h>\u200B </h>Number of Operators: '+distributionCounts.operatorBlockCount+'<br/>'
+					+ '<h>\u200B </h>Number of Variables in code: '+distributionCounts.variablesTotalUse+'<br/>'
+					+ '<h>\u200B </h>Number of Traits in code: '+distributionCounts.traitsTotalUsage+'<br/>'
+					+ '<h>\u200B </h>Most Used Ability: '+getMostUsed("abilitiesUseCount")+'<br/>'
+					+ '<h>\u200B </h>Most Used Custom Rule: '+getMostUsed("cstmRulesUseCount")+'<br/>'
+					+ '<h>\u200B </h>Most Used Variable: '+getMostUsed("variablesUseCount")+'<br/>'
+					+ '<h>\u200B </h>Most Common Blocks: '+mostUsedBlocks+'<br/>'
+					+ '<h>\u200B </h>Has Filtered Words: '+RegExp(JSON.parse(r).filterRegexB64).test(JSON.stringify(hsProject))+'</div>'
+			}, false);
+			
+			document.getElementById("stats-renderjson").innerHTML = '<b class="center" style="text-align:center;">Full Distribution Dictionary</b>';
+			document.getElementById("stats-renderjson").appendChild(renderjson(unformatProject(distributionCounts)));
+			
 			bodyScroll.disable();
 		},
 		"playProject": function() {
