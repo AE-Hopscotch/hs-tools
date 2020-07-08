@@ -23,7 +23,7 @@ const bodyScroll = {
 	disable: function(){
 		document.body.style.overflow = "hidden";
 		document.body.style.touchAction = "none";
-		document.body.ontouchmove = (e) => {e.preventDefault()};
+		document.body.ontouchmove = (e) => {if(!document.querySelector(".fullscreen-elms").contains(e.target))e.preventDefault()};
 		document.querySelector(".fullscreen-elms").style.pointerEvents = "auto";
 	},
 	getX: function() {
@@ -1648,7 +1648,7 @@ if (editor.useFileSysCode) {
 		loadPreset: function() {
 			//Read files from the input, which gives a list of presets to import
 			document.getElementById("pAct-loadPreset").querySelector("button:not(.file-btn)").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Importing';
-			const performanceStart = performance.now(); //NOTE TO SELF: OPTIONS DICTIONARY with MERGE ANYWAYS
+			const performanceStart = performance.now();
 			var worker = new Worker(URL.createObjectURL(new Blob(["("+loadPreset.toString()+")("
 				+JSON.stringify(unformatProject(hsProject))+","+document.getElementById("pAct-loadPreset0").value
 				+","+JSON.stringify({newVarNames:document.getElementById("pAct-loadPreset-c0").checked,alwaysMerge:document.getElementById("pAct-loadPreset-c1").checked,originalCreateDates:document.getElementById("pAct-loadPreset-c2").checked})+")"], {type: 'text/javascript'})));
