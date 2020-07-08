@@ -329,7 +329,7 @@ sq {
 .container#stats-popup .flex {
 	position: absolute;
 	width: calc(100% - 32px);
-	height: calc(100% - 112px);
+	height: calc(100% - 31px);
 	overflow: auto;
 	padding: 16px;
 	left: 0;
