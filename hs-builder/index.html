@@ -37,6 +37,8 @@
 		<script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css" />
 		
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		
 		<!-- END CDN SCRIPTS -->
 		
 		<script src="../main.js"></script>
@@ -72,6 +74,9 @@
 				height: 100%;
 					width: 10000px;
 					height: 4000px;
+			}
+			h {
+				font-size: 0;
 			}
 			@supports (-webkit-touch-callout: none) {
 				.page-controls h1, .page-controls h2 {
@@ -142,7 +147,7 @@
 				loaderTexts = [
 					"Awesome_E has been Hopscotchin\u2019 since November of 2014!",
 					"Awesome_E actually taught MagmaPOP how to use custom HSB colors.",
-					"The Hopscotch Tools webpage has been visited over 2400 times!",
+					"The Hopscotch Tools webpage has been visited over 3400 times!",
 					"This site only exists because Google Sites were banned in 2019 :)",
 					"Awesome_E\u2019s first project on Hopscotch was Whacka, and it was made from a template.",
 					"Hopscotch has gone through several different interface changes, most notably in 2014 and 2016.",
@@ -194,7 +199,6 @@
 					"Why didn’t I buy velcro yesterday? It was such a rip-off!",
 					"Doesn’t this remind you of Hopscotch’s loading screen?",
 					"Hopscotch features bug hunters on their App Store changelog!",
-					//"Hopscotch Web Explorer: Coming Soon...", //REMINDER THAT THIS IS STILL HERE LOL IDK IF THIS IS HAPPENING
 					"Hopscotch was downloaded over 14 million times!",
 					"Over 35 Million projects were created using Hopscotch.",
 					"The \u201CFeatured\u201D page used to be called \u201CGame Changers\u201D",
@@ -203,7 +207,7 @@
 					"The nickname \u201CAwesome_E\u201D has been around with me since 2013!",
 					"Gullible is actually not in the dictionary but instead is a colloquial word.",
 					"Despite people always asking Awesome_E about secret blocks, Petrichor found them first in October 2018.",
-					"Pancakes like me like cakes that are beautifully made."
+					"Pancakes like me like cakes that are beautifully made.",
 				];
 				document.querySelector(".loading-screen span").innerHTML = "Did you know? " + loaderTexts[Math.floor(Math.random()*loaderTexts.length)];
 				delete loaderTexts;
@@ -339,12 +343,6 @@
 							<br/>
 							<input type="checkbox" id="pAct-loadPreset-c2" name="pAct-loadPreset-c2"/><label for="pAct-loadPreset-c2">Use the original createdAt date for abilities rather<br/>than pushing setting new abilities as created last</label>
 							<br/><br/><br/>
-							<!-- 
-								PRESET TASKS:
-									- Shuffle UUIDs on everything except variables
-									- Unzip files, allow for multiple files
-									- Easy part: do the merging
-							-->
 							<input hidden multiple id="pAct-preset-file" type="file" accept=".hopscotch,.hspre,.hsprez,.zip,.txt,.json" name="pAct-preset-file"/>
 							<button class="file-btn" id="pAct-preset-file-btn" style="margin-top:4px;"><i class="fa fa-upload"></i> Choose File</button>
 							<span id="pAct-preset-file-label">No file chosen</span>
@@ -393,11 +391,41 @@
 						</div>
 					</div>
 				</div>
-				<div hidden class="container" width="440" id="stats-popup">
+				<div hidden class="container" id="stats-popup">
 					<i class="fa fa-close" onclick="popup.close()"></i>
 					<div class="center">
-						<span class="label">Project Stats</span><br/>
-						<div style="font-size:20px;">Currently, there is nothing to see here. However, project statistics are likely going to appear here</div>
+						<span class="label" style="text-align:center;margin-bottom:24px;">Project Statistics</span>
+						<div class="flex">
+							<div id="stats-quickInfo" class="indent"></div>
+							<div id="stats-moreInfo1" class="indent"></div>
+							<div id="stats-distributions1">
+								<h3>Block Type Distributions:</h3>
+								<div id="stats-chart1" class="gchart"><div class="gchart-loader">Loading...</div></div>
+								<h3>Rule Type Frequency:</h3>
+								<div id="stats-chart2" class="gchart"><div class="gchart-loader">Loading...</div></div>
+							</div>
+							<div id="stats-distributions2">
+								<h3>Operator Type Distributions:</h3>
+								<div id="stats-chart3" class="gchart"><div class="gchart-loader">Loading...</div></div>
+								<h3>Object Type Frequency:</h3>
+								<div id="stats-chart4" class="gchart"><div class="gchart-loader">Loading...</div></div>
+							</div>
+							<div id="stats-distributions3">
+								<h3><i class="fa fa-caret-down"></i> Variable Usage:</h3>
+								<div id="stats-chart5" class="gchart gchart-expandable"><div class="gchart-loader">Loading...</div></div>
+								<h3><i class="fa fa-caret-down"></i> Traits Usage:</h3>
+								<div id="stats-chart6" class="gchart gchart-expandable"><div class="gchart-loader">Loading...</div></div>
+							</div>
+							<div id="stats-distributions4">
+								<h3><i class="fa fa-caret-down"></i> Ability Usage:</h3>
+								<div id="stats-chart7" class="gchart gchart-expandable"><div class="gchart-loader">Loading...</div></div>
+								<h3><i hidden class="fa fa-caret-down"></i> Custom Rule Usage:</h3>
+								<div id="stats-chart8" class="gchart gchart-expandable"><div class="gchart-loader">Loading...</div></div>
+							</div>
+							<div style="width:unset;">
+								<div id="stats-renderjson"><b class="center" style="text-align:center;">Full Distribution Dictionary</b></div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div hidden class="container" width="440" id="playProjectLoader">
@@ -436,7 +464,7 @@
 							<i title="Reset the position of this window" class="fa fa-repeat" onclick="floatWindow.reset(&quot;window-controls&quot;,this,event)"></i>
 						</td></tr>
 						<tr><th>Project Controls</th><td data-for="project-controls"></td></tr>
-						<tr><th>Basic Traits Modifier</th><td data-for="basic-traits"></td></tr>
+						<tr><th>Traits Modifier</th><td data-for="basic-traits"></td></tr>
 						<tr><th>Block Rendering</th><td data-for="blocks-container"></td></tr>
 						<tr><th>Blocks Drawer</th><td data-for="drawer"></td></tr>
 						<tr><th>Reference Chart</th><td data-for="reference-frame"></td></tr>

@@ -14,7 +14,7 @@ const blockLabels = {
 	32: ["draw","Set Trail Color", "to"],
 	33: ["looks","Change Pose"],
 	34: ["move","Set Speed", "to"],
-	35: ["old","Wait", "milliseconds"],
+	35: ["ctrl","Wait", "milliseconds"],
 	36: ["old","Set Opacity", "to"],
 	37: ["old","Pen Down"],
 	38: ["old","Pen Up"],
@@ -472,7 +472,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 		paramString += " " + (labels[i+2]||p.key||"").htmlEscape() + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||(block.controlScript&&block.controlScript.abilityID?projectDict.abilities[block.controlScript.abilityID].name:"")||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
