@@ -23,7 +23,7 @@ const bodyScroll = {
 	disable: function(){
 		document.body.style.overflow = "hidden";
 		document.body.style.touchAction = "none";
-		document.body.ontouchmove = (e) => {if(!document.querySelector(".fullscreen-elms").contains(e.target))e.preventDefault()};
+		document.body.ontouchmove = (e) => {if(e.target.classList.contains("touch-scroll"))e.preventDefault()};
 		document.querySelector(".fullscreen-elms").style.pointerEvents = "auto";
 	},
 	getX: function() {
