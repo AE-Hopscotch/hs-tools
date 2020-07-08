@@ -599,6 +599,7 @@ if (editor.useBlockRender) {
 				} else {
 					hsProject[traitName] = JSON.parse(cmEditor.getValue()||'{}');
 				}
+				formatProject(hsProject);
 				editor.traits.updateFields();
 				updateDrawers();
 				document.querySelector(".edit-box").style.display = "none";
