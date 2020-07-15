@@ -32,7 +32,7 @@
 		<meta content="This tool allows you to play any Hopscotch project, regardless of whether or not it is published, filtered, or custom data." property="og:description" />
 		<meta content="/hs-tools/images/hs-logo-h.png"" property="og:image" /> <!--AE_MOD -->
 		<meta content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" name="viewport" />
-		<link rel="stylesheet" media="screen" href="https://c.gethopscotch.com/assets/application-c0d659f5bf18bd7a23099c762e7492f3961d34062add260f1d80d101fd5db01e.css" />
+		<link rel="stylesheet" media="screen" href="https://c.gethopscotch.com/assets/application-6f6fe4d6bbfa0bb15a1603f8efd7b8bbea0c03f7399ade40e668ad77150499ce.css" />
 		<meta name="csrf-param" content="authenticity_token" />
 		<meta name="csrf-token" content="Xonf2Bn4pgVRZobpf3Nfuzvd7P3rCyCySJSHi4S9XQRNoKQiOrWClrrw8ll6ZBVi/p6ryAbAAhOvDCMEw9VlOw==" />
 		<link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" />
@@ -170,6 +170,8 @@
 						return Number(!a.args.repeatEach(function(k){
 							return AE_MOD.keyboardKeys.includes(k);
 						}).includes(false));
+					case "scrollData":
+						return AE_MOD.mouseWheelData[a.args[0]];
 					case "isWebExp":
 						return 1;
 					case "isComputer":
@@ -266,7 +268,8 @@
 					case "session-leave":
 						session.leave();
 						break;
-					
+					default:
+						console.error("Unknown webplayer action:", a)
 				}
 			},
 			"load_function": function() {
@@ -315,7 +318,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = "https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = (location.protocol == "file:") ? "local_application.js" : "https://awesome-e.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);

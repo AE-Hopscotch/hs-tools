@@ -344,9 +344,11 @@ var XHR = {
 	fetch: function(url, fn, useAllOrigins) {
 		fetch((useAllOrigins)?"https://api.allorigins.win/get?url="+encodeURIComponent(url):url)
 			.then(response => {
-			  if (response.ok) return response.json()
-			  throw new Error('Network response was not ok.')
+				if (response.ok) return response.json();
+				throw new Error('Network response was not ok.')
 			})
-			.then(data => fn(data.contents, data.status.http_code));
-	}	
+			.then(data => fn(data.contents, data.status.http_code))
+			.catch(fn(null, 521));
+	}
 }
+
