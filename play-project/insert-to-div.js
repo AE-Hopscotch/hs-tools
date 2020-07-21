@@ -1,6 +1,6 @@
 function initPage(runApp) {	
 	setInnerHTML(document.querySelector('head'),document.querySelector('head').innerHTML + `<meta content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" name="viewport" />
-		<link rel="stylesheet" media="screen" href="https://c.gethopscotch.com/assets/application-c0d659f5bf18bd7a23099c762e7492f3961d34062add260f1d80d101fd5db01e.css" />
+		<link rel="stylesheet" media="screen" href="https://awesome-e.github.io/play-project/application.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<style>body{background-color:#FFFFFF;color:#4D4D4D;font-family:'Avenir W02', 'Montserrat', "HelveticaNeue", sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:62.5%;line-height:1;}#AE_MOD--play-project-div.embedded #player{position:relative;top:0;left:0;right:0;bottom:0;width:100%;height:100%;}#AE_MOD--play-project-div.embedded .player-icon-toolbar{position: absolute}#AE_MOD--play-project-div.embedded #project-image{width:100%}#AE_MOD--play-project-div.embedded #fullscreen-button{display:inline-block}#AE_MOD--play-project-div.embedded #hopscotch-link{display:none}h2{font-size:2em;font-weight:600}hopscotch-player#player:before{padding:0;}#player{overflow: hidden;}</style>`);
 
