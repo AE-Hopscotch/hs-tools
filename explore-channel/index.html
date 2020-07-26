@@ -77,6 +77,7 @@
 			<input tabindex="4" onfocusin="if(!search_open)toggleSearch()" type="search" id="projectSearchBox" placeholder="Search..." onsearch="searchForItems()">
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(0)" class="selected" title="Search for Projects"><i class="fa fa-file" title=""></i></button></span>
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(1)" class="" title="Search for Hopscotchers"><i class="fa fa-group" title=""></i></button></span>
+<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(2)" class="" title="Search for Hopscotchers by id"><i class="fa fa-rebel" title=""></i></button></span>
 		</div>
 		<div class="topnav" onfocusin="if(search_open)toggleSearch();">
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span>
@@ -273,6 +274,7 @@
 					function showReq(bool){
 						if (bool) result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
 						result = result.replace(/^.*?,/,"");
+
 						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 					}
 					if (/best_of\/.*?page=1/.test(result)) {
@@ -338,8 +340,9 @@
 			var searchGroupType = 0;
 			function searchGroup(g) {
 				searchGroupType = g;
+
+				document.querySelectorAll('.search-bar button ').forEach(b=>{b.classList.remove('selected');})
 				document.querySelectorAll('.search-bar button')[g].classList.add('selected');
-				document.querySelectorAll('.search-bar button')[1-g].classList.remove('selected');
 				searchForItems();
 			}
 			
@@ -351,10 +354,11 @@
 					if (searchGroupType == 0) {
 						console.log('projects/search?title=' + encodeURIComponent(searchText));
 						showChannel('Search', false, 'projects/search?title=' + encodeURIComponent(searchText));
-					} else {
+					} else if (searchGroupType==1){
 						console.log('users/search?nickname=' + encodeURIComponent(searchText));
 						showChannel('Search_Users', false, 'users/search?nickname=' + encodeURIComponent(searchText));
-					}
+					} else {
+						const a = document.createElement('a');a.href="user.html?id="+searchText+"&cd=May%202014&a=0";a.click()				}
 				}
 			}
 			

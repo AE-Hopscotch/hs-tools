@@ -18,7 +18,7 @@ const badges = {
 		"1919603":	[5],	//MISSION_IMPOSSIBLE
 		"2150931":	[6],	//My_Pizza
 		"3944888":	[4],	//Nobody
-		"670723":	[4,5],	//Petrichor
+		"670723":	[4,5/*,6 😏*/],	//Petrichor
 		"52351":	[6],	//Pi Studios
 		"282985":	[5],	//PumpkinPi
 		"3203804":	[5],	//Reffy
