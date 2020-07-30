@@ -177,13 +177,19 @@ Object.detach = function(o) {
 }
 
 //Space or Enter -> Click Child Element
+function add_keyboardClickChild(elm){
+	elm.addEventListener('keydown', function(event){if(event.keyCode == 13 || event.keyCode == 32) elm.querySelector('*').click();});
+}
 document.querySelectorAll('*[AE-STCE]').forEach(function(elm){
-	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.querySelector('*').click();});
+	add_keyboardClickChild(elm);
 });
 
 //Space or Enter -> Click Current Element
+function add_keyboardClickElement(elm){
+	elm.addEventListener('keydown', function(event){if(event.keyCode == 13 || event.keyCode == 32) elm.click();});
+}
 document.querySelectorAll('*[AE-STSE]').forEach(function(elm){
-	elm.addEventListener('keydown', function(){if(event.keyCode == 13 || event.keyCode == 32) this.click();});
+	add_keyboardClickElement(elm);
 });
 
 //For Each but with output
