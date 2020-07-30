@@ -144,7 +144,7 @@ sq {
 .topnav span {
 	outline: none;
 }
-.topnav span:focus button {
+.topnav span:focus button, .retro .topnav span:focus button {
 	color: #50D8BB;
 }
 .topnav button {

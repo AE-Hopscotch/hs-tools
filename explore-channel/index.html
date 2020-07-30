@@ -87,6 +87,7 @@
 				.search-bar {									
 					top: 0!important;
 					width: calc(100% - 78px);
+					z-index: 12;
 				}
 				.topnav {
 					position: fixed;
@@ -147,13 +148,13 @@
 		<div class="proj-search-div">
 			<span AE-STCE tabindex="3"><i tabindex="-1" class="fa fa-search fa-flip-horizontal" title="Search for a project or Hopscotcher" onclick="toggleSearch()" onkeydown="if(event.keyCode == 13 || event.keyCode == 32) this.click();"></i></span>
 		</div>
-		<div class="search-bar">
-			<input tabindex="4" onfocusin="if(!search_open)toggleSearch()" type="search" id="projectSearchBox" placeholder="Search..." onsearch="searchForItems()" inputmode="search">
+		<div class="search-bar" onfocusin="if(!search_open)toggleSearch()">
+			<input tabindex="4" type="search" id="projectSearchBox" placeholder="Search..." onsearch="searchForItems()" inputmode="search">
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(0)" class="selected" title="Search for Projects"><i class="fa fa-file" title=""></i></button></span>
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(1)" class="" title="Search for Hopscotchers"><i class="fa fa-group" title=""></i></button></span>
 		</div>
 		<div id="menu-btn" style="top:-51px;" onclick="this.nextElementSibling.classList.toggle('open')"><i class="fa fa-bars"></i></div>
-		<div class="topnav" onfocusin="if(search_open)toggleSearch();">
+		<div class="topnav" onfocusin="if(search_open)toggleSearch();this.classList.add('open')" onfocusout="this.classList.remove('open');">
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Announcements')">Announcements</button></span>
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span>
