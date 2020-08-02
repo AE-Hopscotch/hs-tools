@@ -1,49 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 	<head>
 		<title>Hopscotch Project Builder</title>
+		<link rel="preload" href="../main.js" as="script">
+		<link rel="preload" href="../sidenav.min.js" as="script">
+		<link rel="preload" href="blockrender.js" as="script">
+		<link rel="preload" href="style.css" as="style">
 		<link rel="stylesheet" href="style.css">
-		<!--link rel="stylesheet" href="../style.css"-->
-		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-		<link href='https://fonts.googleapis.com/css?family=Francois%20One' rel='stylesheet'>
-		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
+		<!-- < link rel="stylesheet" ref="../style.css"> -->
+		<!-- < link ref='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'> -->
+		<!-- < link ref='https://fonts.googleapis.com/css?family=Francois%20One' rel='stylesheet'> -->
+		<!-- < link ref='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'> -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
 		
 		<!-- BEGIN CDN SCRIPTS -->
 		
-		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js"></script>
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/javascript/javascript.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/edit/matchbrackets.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/javascript/javascript.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/edit/matchbrackets.min.js"></script>
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/edit/matchtags.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/xml-fold.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/search/searchcursor.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/edit/matchtags.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/xml-fold.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/search/searchcursor.min.js"></script>
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/brace-fold.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldcode.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/brace-fold.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldcode.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.js"></script>
+		
 				
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.js"></script>
-		<script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/json-lint.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.js"></script>
+		<script defer src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
 		
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script defer type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		
+		<noscript>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css" />
+		</noscript>
+		<script id="stylesheets-script">
+			setTimeout(()=>{(["https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/codemirror.min.css","https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/fold/foldgutter.min.css","https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/addon/lint/lint.min.css"]).forEach(url=>{var elm=document.createElement("link");elm.href=url,elm.setAttribute("rel","stylesheet"),document.querySelector("head").insertBefore(elm,document.getElementById("stylesheets-script"));});document.getElementById("stylesheets-script").parentNode.removeChild(document.getElementById("stylesheets-script"));},600);
+		</script>
 		
 		<!-- END CDN SCRIPTS -->
 		
 		<script src="../main.js"></script>
-		<script src="blockrender.js"></script>
-		<script src="../lib/renderjson.js"></script>
+		<script defer src="blockrender.js"></script>
+		<script defer src="../lib/renderjson.js"></script>
+		<script defer src="../lib/jscolor.js"></script>
 		
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
@@ -153,16 +165,17 @@
 			<!-- FULLSCREEN UI ELEMENTS -->
 			<div class="loading-screen">
 				<div>
-					<img src="../images/web-badges/robo.png" width="128" height="128"><br/>
+					<img src="../images/web-badges/robo.png" width="128" height="128" alt="loader"><br/>
 					<h2>Loading...</h2>
 					<span></span>
 				</div>
 			</div>
 			<script>
 				loaderTexts = [
+					"",
 					"Awesome_E has been Hopscotchin\u2019 since November of 2014!",
 					"Awesome_E actually taught MagmaPOP how to use custom HSB colors.",
-					"The Hopscotch Tools webpage has been visited over 3400 times!",
+					"The Hopscotch Tools webpage has been visited over 4000 times!",
 					"This site only exists because Google Sites were banned in 2019 :)",
 					"Awesome_E\u2019s first project on Hopscotch was Whacka, and it was made from a template.",
 					"Hopscotch has gone through several different interface changes, most notably in 2014 and 2016.",
@@ -222,7 +235,7 @@
 					"The nickname \u201CAwesome_E\u201D has been around with me since 2013!",
 					"Gullible is actually not in the dictionary but instead is a colloquial word.",
 					"Despite people always asking Awesome_E about secret blocks, Petrichor found them first in October 2018.",
-					"Pancakes like me like cakes that are beautifully made.",
+					"Pancakes like me like cakes that are beautifully made."
 				];
 				document.querySelector(".loading-screen span").innerHTML = "Did you know? " + loaderTexts[Math.floor(Math.random()*loaderTexts.length)];
 				delete loaderTexts;
@@ -266,9 +279,9 @@
 				<div hidden class="container" id="download">
 					<i class="fa fa-close" onclick="popup.close()"></i>
 					<span class="label" style="width:350px;text-align:center;margin:0 auto 8px;">Your download will begin shortly</span>
-					<span style="display:block;margin:auto;text-align:center;max-width:365px;">You will be redirected to the &ldquo;Import HS Project&rdquo; shortcut. In the case that you do not have the shortcut yet, download it <a href="https://www.icloud.com/shortcuts/01a964ae7ad54e2e8ef76deb5668d3f9">here</a>.<br/><br/>
+					<span style="display:block;margin:auto;text-align:center;max-width:365px;">You will be redirected to the &ldquo;Import HS Project&rdquo; shortcut. In the case that you do not have the shortcut yet, download it <a href="https://www.icloud.com/shortcuts/01a964ae7ad54e2e8ef76deb5668d3f9">here<h> (Import Hopscotch Project Shortcut)</h></a>.<br/><br/>
 					<span>If you are saving a draft, choose &ldquo;This is my draft,&rdquo; and save it to the location below:</span>
-					<img class="center" src="../images/save-location.jpg" width="250" style="border-radius:8px;">
+					<img class="center popup-lazyimg" data-src="../images/save-location.jpg" width="250" style="border-radius:8px;" alt="Save Location"/>
 					<span>If you are importing the project, choose &ldquo;I downloaded another project.&rdquo;</span>
 					</span>
 				</div>
@@ -305,9 +318,9 @@
 						<div style="line-height:80%;"><br/></div>
 						<div class="center">
 							<span>You are about to change all color operators without any variables or math in them</span>
-							<img class="center" height="48" src="../images/hs-builder/operator-rgb.png"/><img class="center" height="48" src="../images/hs-builder/operator-hsb.png"/>
+							<img class="center popup-lazyimg" height="48" data-src="../images/hs-builder/operator-rgb.png"/><img class="center popup-lazyimg" height="48" data-src="../images/hs-builder/operator-hsb.png" alt="Color Operators"/>
 							<span>into color slots like the one shown below.</span>
-							<img class="center" height="40" src="../images/hs-builder/param-color.png"/>
+							<img class="center popup-lazyimg" height="40" data-src="../images/hs-builder/param-color.png" alt="Color Parameter Value"/>
 							<span>Are you sure you want to continue?</span><div style="line-height:80%"><br/></div>
 							<button onclick="editor.presetActions.colorSlots()">Optimize</button>
 						</div>
@@ -386,6 +399,35 @@
 							<button onclick="editor.presetActions.removeUnused()">Continue</button>
 						</div>
 					</div>
+					<div id="pAct-gradientBg">
+						<span class="label center">Add Gradient Background</span>
+						<div style="line-height:80%;"><br/></div>
+						<div class="center">
+							<span>Configure your instant background</span>
+							<span class="small-label">Gradient Type</span>
+							<table>
+								<tr><td><input type="radio" name="bg-type" id="bg1" value="quad" checked /><label for="bg1">Four Corners</label></td>
+								<td><input type="radio" name="bg-type" id="bg2" value="radial"/><label for="bg2">Radial Graident</label></td></tr>
+								<tr><td><input type="radio" name="bg-type" id="bg3" value="horizontal"/><label for="bg3">Horizontal Gradient</label></td>
+								<td><input type="radio" name="bg-type" id="bg4" value="vertical"/><label for="bg4">Vertical Gradient</label></td></tr>
+								<tr><td><input type="radio" name="bg-type" id="bg5" value="nesw"/><label for="bg5">NE-SW Diagonal</label></td>
+								<td><input type="radio" name="bg-type" id="bg6" value="nwse"/><label for="bg6">NW-SE Diagonal</label></td></tr>
+							</table>
+							<span class="small-label"><span class="small-label" style="display:inline-block;width:auto;margin:0;">HS Color Mode:</span>
+								<input type="radio" name="bg-clr" id="bg-c1" value="rgb" oninput="document.getElementById('gradient-preview').setAttribute('class',this.value)" checked /><label for="bg-c1">RGB (Blend)</label>
+								<input type="radio" name="bg-clr" id="bg-c2" value="hsb" oninput="document.getElementById('gradient-preview').setAttribute('class',this.value)"/><label for="bg-c2">HSB (Shift)</label>
+							</span>
+							<span class="small-label">Custom Rule Name</span>
+							<input id="pAct-gradientBg0" type="text" placeholder="Custom Rule Name"/>
+							<span class="small-label">Preview and Colors</span>
+							<div style="display:flex;justify-content:space-evenly;height:90px;">
+								<div id="pAct-gradientBg1" style="display:unset;"><div id="gradient-preview" class="rgb" type="quad"><p>&#x26A0; Preview may<br>not be accurate</p></div></div>
+								<div id="color-preview-box" type="quad"></div>
+							</div>
+							<br/>
+							<button id="insert-gradient-bg-btn" onclick="editor.presetActions.gradientBg()">Insert Custom Rule</button>
+						</div>
+					</div>
 					<div id="pAct-midiHack">
 						<span class="label center">Hopscotch MIDI Hack</span>
 						<div style="line-height:80%;"><br/></div>
@@ -455,7 +497,7 @@
 				</div>
 			</div>
 		</div>
-		<sq><a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#eee;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a></sq>
+		<sq><a href="javascript:home()" style="display:block;"><h>Home</h><svg id="homeSvg" style="fill:#eee;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a></sq>
 		
 		<!-- FLOATING WINDOWS -->
 		<!-- <div class="float-container"> -->
@@ -463,11 +505,11 @@
 				<sq class="mobile-appear" style="position:fixed;bottom:4px;right:4px;"><a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#fff;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a></sq>
 			</div>
 			<div id="project-controls-resizer" class="page-controls float" style="left: 16px; top: 16px;">
-				<span>&ic; &ic;</span><img src="../images/hs-blueprint-file.png" width="48"/>
+				<span>&ic; &ic;</span><img src="../images/hs-blueprint-file.png" width="48" alt="HS Builder Logo"/>
 				<h1>Project Builder</h1><br/>
 				<button id="upload-btn" onclick="popup.importProject()"><i class="fa fa-upload"></i> Open</button>
 				<button id="download-btn" onclick="downloadProject()" style="width: 90px;"><i class="fa fa-download"></i> Save</button>
-				<button onclick="theme()" id="themebtn" style="width:auto;font-size:20px;position:relative;right:0;margin:8px;"><i class="fa fa-fw fa-moon-o"> </i></button>
+				<button onclick="theme()" id="themebtn" style="width:auto;font-size:20px;position:relative;right:0;margin:8px;" aria-label="Change Theme"><i class="fa fa-fw fa-moon-o"> </i></button>
 			</div>
 			<div id="window-controls-resizer" class="page-controls float" style="top: 182px; left: 16px;">
 				<h2>Window Controls</h2>
@@ -497,7 +539,7 @@
 				<a class="anchor-btn" style="position:absolute;top:4px;right:4px;" href="javascript:popup.projectStats()" title="View Project Statistics"><i class="fa fa-fw fa-bar-chart"></i></a>
 				<div class="traits-info"></div>
 				<span class="center">Select a trait to modify it:</span>
-				<select id="traits-selector" class="center" style="margin:8px auto;font-size:18px;padding:1px;" oninput="editor.traits.showFields()">
+				<select id="traits-selector" class="center" style="margin:8px auto;font-size:18px;padding:1px;" oninput="editor.traits.showFields()" aria-label="Select Trait">
 					<option value="stageSize">Stage Size</option>
 					<option value="version">Editor Version</option>
 					<option value="playerVersion">Player Version</option>
@@ -509,19 +551,20 @@
 					<option value="other">Other (Raw JSON)</option>
 				</select>
 				<div class="traits-editor">
-					<div style="--w:80px;display:inline-block;" id="traits-stageSize"><input required type="number" placeholder="1024"/> &times; <input required type="number" placeholder="768"/></div>
-					<div style="--w:80px;" id="traits-version"><input required type="number" placeholder="31"/></div>
-					<div style="--w:80px;" id="traits-playerVersion"><input required type="text" placeholder="1.5.0" pattern="^\d+\.\d+\.\d+"/></div>
-					<div style="--w:230px;" id="traits-edited_at"><input required type="text" placeholder="ISO Time String" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"/></div>
-					<div style="--w:80px;" id="traits-baseObjectScale"><input required type="number" placeholder="1" step="any"/></div>
-					<div style="--w:80px;" id="traits-fontSize"><input required type="number" placeholder="80"/></div>
-					<div style="--w:100px;" id="traits-requires_beta_editor"><select><option>false</option><option>true</option></select></div>
+					<div style="--w:80px;display:inline-block;" id="traits-stageSize"><input required type="number" placeholder="1024" value="1024" aria-label="Stage Width"/> &times; <input required type="number" placeholder="768" value="768" aria-label="Stage Height"/></div>
+					<div style="--w:80px;" id="traits-version"><input required type="number" placeholder="31" aria-label="Editor Version"/></div>
+					<div style="--w:80px;" id="traits-playerVersion"><input required type="text" placeholder="1.5.0" pattern="^\d+\.\d+\.\d+" aria-label="Player Version"/></div>
+					<div style="--w:230px;" id="traits-edited_at"><input required type="text" placeholder="ISO Time String" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" aria-label="Edited Date"/></div>
+					<div style="--w:80px;" id="traits-baseObjectScale"><input required type="number" placeholder="1" step="any" aria-label="Base Object Scale"/></div>
+					<div style="--w:80px;" id="traits-fontSize"><input required type="number" placeholder="80" aria-label="Font Size"/></div>
+					<div style="--w:100px;" id="traits-requires_beta_editor"><select aria-label="Beta Editor Enabled"><option>false</option><option>true</option></select></div>
 					<div style="--w:230px;" id="traits-presetActions"><select style="font-size:18px;">
 						<optgroup label="Project Enhancements">
 							<option value="secret-blocks">Add Secret Blocks</option>
 							<option value="image-blocks">Add Image Blocks</option>
 							<option value="color-slots">Optimize Color Slots</option>
 							<option value="math-operators">Evaluate Math Blocks</option>
+							<option value="remove-defaultValues">Remove Default Values</option><!-- NOT DONE -->
 						</optgroup>
 						<optgroup label="Code Management">
 							<option value="save-preset">Save a Preset</option>
@@ -536,6 +579,7 @@
 							<option value="lock-project">Lock Project</option><!-- Toggles Locking of the Project -->
 							<option value="variable-setter">Open Variable Setter</option>
 							<option value="dictionary-ability">Add Dictionary Ability</option>
+							<option value="gradient-bg">Gradient Background</option>
 							<option value="midi-hack">Import a MIDI file</option>
 						</optgroup>
 					</select></div>
@@ -553,7 +597,7 @@
 						<option value="customObjects">Custom Objects</option>
 						<option value="remote_asset_urls">Remote Asset URLs</option>
 					</select></div>
-					<button onclick="editor.traits.updateTrait()" class="traits-confirm"><i class="fa fa-fw fa-check"></i></button>
+					<button onclick="editor.traits.updateTrait()" class="traits-confirm" aria-label="Confirm Trait Modification"><i class="fa fa-fw fa-check"></i></button>
 				</div>
 			</div>
 			<div id="blocks-container-resizer" class="resize-drag float" style="min-width: 300px; left: 332px; top: 16px; height: 530px;">
@@ -565,7 +609,7 @@
 			<div id="reference-frame-resizer" class="resize-drag float" style="width: 300px; min-width: 220px; height: 230px; left: 1048px; top: 16px;">
 				<div class="drag-handle">Reference Chart</div>
 				<div id="blocks-container" class="bl-container" style="padding:27px 0 0;overflow:auto;-webkit-overflow-scrolling:touch;">
-					<iframe frameborder="0" src="../hs-help-guide/full-reference.html" id="iframe" class="bl-container" style="padding: 0; height: calc(100% - 27px); position: absolute;"></iframe>
+					<iframe src="../hs-help-guide/full-reference.html" frameborder="0" id="iframe" class="bl-container" style="padding: 0; height: calc(100% - 27px); position: absolute;" title="Reference Chart" name="reference-chart"></iframe>
 				</div>
 				<div class="resizer"></div>
 			</div>
@@ -588,7 +632,7 @@
 					</div>
 					<div id="objects-drawer" style="padding: 16px 8px 4px; height: auto;">
 						<div data="{&quot;height&quot;:&quot;55&quot;,&quot;xPosition&quot;:&quot;512&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;width&quot;:&quot;74&quot;,&quot;text&quot;:&quot;&quot;,&quot;filename&quot;:&quot;text-object.png&quot;,&quot;type&quot;:1,&quot;rules&quot;:[],&quot;name&quot;:&quot;Text&quot;,&quot;yPosition&quot;:&quot;384&quot;}" data-group="rules"><bl class="obj"><b class="openbtn"></b><c>Text <ps><op class="cm">&ic; Text &ic;<ps><span></span></ps></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
-						<div data="{&quot;height&quot;:&quot;150&quot;,&quot;filename&quot;:&quot;fullSizeSquare.png&quot;,&quot;type&quot;:101,&quot;name&quot;:&quot;Square&quot;,&quot;xPosition&quot;:&quot;100&quot;,&quot;width&quot;:&quot;150&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;rules&quot;:[],&quot;yPosition&quot;:&quot;100&quot;}" data-group="rules"><bl class="obj"><b class="openbtn"></b><c>Square<ps><op class="fw cm"><img style="object-position:0 -3030px" src="../images/character_sprite_strip.png" width="36"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
+						<div data="{&quot;height&quot;:&quot;150&quot;,&quot;filename&quot;:&quot;fullSizeSquare.png&quot;,&quot;type&quot;:101,&quot;name&quot;:&quot;Square&quot;,&quot;xPosition&quot;:&quot;100&quot;,&quot;width&quot;:&quot;150&quot;,&quot;objectID&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;rules&quot;:[],&quot;yPosition&quot;:&quot;100&quot;}" data-group="rules"><bl class="obj"><b class="openbtn"></b><c>Square<ps><op class="fw cm"><img style="object-position:0 -3030px" src="../images/character_sprite_strip.png" width="36" alt="Square"></op></ps></c><b class="editbtn"></b><b class="handle"></b></bl></div>
 					</div>
 					<div id="scenes-drawer" style="padding: 16px 8px 4px; height: auto;">
 						<div data="{&quot;objects&quot;:[],&quot;name&quot;:&quot;New Scene&quot;}" data-group="objects"><bl class="scn"><b class="openbtn"></b><c>New Scene</c><b class="editbtn"></b><b class="handle"></b></bl></div>
@@ -603,7 +647,8 @@
 				useBlockRender: true,
 				useFileSysCode: true,
 				useSearchStuff: true,
-				logConsoleMesg: true
+				logConsoleMesg: true,
+				modulesScripts: true
 			}
 			window.addEventListener("load",function(){
 				document.querySelector(".loading-screen").style.animationName = "fadeout";
@@ -617,9 +662,10 @@
 			});
 		</script>
 		<script src="../sidenav.min.js"></script>
-		<script src="editor.js"></script>
-		<script src="worker.js"></script>
+		<script defer src="editor.js"></script>
+		<script defer src="worker.js"></script>
 		<script>
+			document.getElementById("traits-selector").addEventListener("input",function(e){if (e.target.value == "presetActions")document.querySelectorAll(".popup-lazyimg").forEach(img=>{img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); img.classList.remove("popup-lazyimg");});})
 		</script>
 	</body>
 </html>

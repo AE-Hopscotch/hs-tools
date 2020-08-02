@@ -10,7 +10,7 @@ const letterCasing = {
 		//Converts pascal capitalization to title casing
 		return string.replace(/(^\w)|([a-z])([A-Z])/g,function(m0,m1,m2,m3){return m1?m1.toUpperCase():m2+" "+m3;})
 	}
-}
+};
 let distributionCounts = {};
 let projectQuickStats = {};
 const bodyScroll = {
@@ -407,7 +407,7 @@ if (editor.useBlockRender) {
 		},
 		editsave: function(forceOpen) {
 			forceOpen = forceOpen||false; // swap state?
-			var savetext = cmEditor.getValue()/*document.querySelector(".edit-box textarea").value*/||'{}';
+			var savetext = cmEditor.getValue()||'{}';
 			try {
 				//Valid Block
 				if (JSON.parse(savetext).type == 123) {
@@ -694,7 +694,7 @@ if (editor.useBlockRender) {
 		parent.querySelectorAll("*:not(.disabled) > bl .openbtn").forEach((elm)=>{
 			elm.onclick = function(e){
 				var parentBlock = e.target.parentNode.parentNode;
-				var hasDomInside = Boolean(parentBlock.childElementCount>1/*&&parentBlock.querySelector("div.collapsible").innerHTML.match(/"/)*/);
+				var hasDomInside = Boolean(parentBlock.childElementCount>1);
 				if (hasDomInside) {
 					parentBlock.classList.toggle("collapsible-container");
 					parentBlock.querySelectorAll("div.collapsible").remove();
@@ -785,8 +785,7 @@ if (editor.useBlockRender) {
 		addBlockFunctions(document);
 	}
 	replaceRender([],"","No project loaded");
- 		/* formatProject(hsProject);
-		replaceRender(-1); */
+ 		
 	var activeEditBlock;
 	editclose = editsave = editdelete = editfocus = editcopy = function() {
 		console.trace("NO");
@@ -936,13 +935,7 @@ if (editor.useBlockRender) {
 						added = true;
 						for (j = 0; j < (newdata.blocks||[]).length; j++) {
 							newdata.blocks[j].web_id = web_id + "_b" + j;
-							/* if (newdata.blocks[j].type == 123) {
-								console.log(newdata);
-								(hsProject.abilities||[]).forEach(a=>{
-									if (a.abilityID == (newdata.blocks[j].controlScript||{}).abilityID) a.name = newdata.blocks[j].name;
-								});
-								(projectDict.abilities[(newdata.blocks[j].controlScript||{}).abilityID]||{}).name = newdata.blocks[j].name;
-							} */
+							
 						}
 						hsProject.abilities[i] = newdata;
 						hsProject.abilities[i].blocks = newdata.blocks;
@@ -1139,7 +1132,8 @@ if (editor.useBlockRender) {
 			};
 			target.style.zIndex = document.querySelectorAll(".float").length;
 		}
-		draggables[i].onmousedown = draggables[i].onclick = function(event){reorganizefloatingZ(event)};
+		draggables[i].addEventListener("mousedown",function(event){reorganizefloatingZ(event)});
+		draggables[i].addEventListener("click",function(event){reorganizefloatingZ(event)});
 		draggables[i].addEventListener("touchstart",function(event){reorganizefloatingZ(event)});
 		draggables[i].addEventListener("touchend",function(){
 			if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
@@ -1343,7 +1337,7 @@ if (editor.useBlockRender) {
 				delete editor.project.buildStartTime;
 				//Manually Close Popup so scrolling stays locked
 				document.querySelectorAll(".popup .container").forEach(e=>{e.setAttribute("hidden","")});
-				document.querySelectorAll(".popup input").forEach(e=>{e.value=""});
+				document.querySelectorAll(".popup input:not([type=checkbox]):not([type=radio]):not(.noEmpty)").forEach(e=>{e.value=""});
 				document.querySelector(".popup").setAttribute("hidden","");
 				break;
 			default:
@@ -1444,6 +1438,10 @@ if (editor.useFileSysCode) {
 						case "remove-unused":
 							popup.presetActions("removeUnused");
 							break;
+						case "gradient-bg":
+							popup.presetActions("gradientBg");
+							document.getElementById("pAct-gradientBg0").value = "";
+							break;
 						case "midi-hack":
 							popup.presetActions("midiHack");
 							document.getElementById("pAct-midiHack0").value = "";
@@ -1533,42 +1531,6 @@ if (editor.useFileSysCode) {
 				updateDrawers();
 				popup.close();
 			} else return alert("There is already an ability with that ID");
-		},
-		midiHack: function() {
-			document.getElementById("insert-midi-btn").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Generating Code...';
-			document.getElementById("insert-midi-btn").setAttribute("disabled","");
-			document.getElementById("presetActions").querySelector(".fa-close").classList.add("disabled");
-			var worker = new Worker(URL.createObjectURL(new Blob(["("+doMidiHack.toString()+")('"+document.getElementById("pAct-midiHack3").value+"')"], {type: 'text/javascript'})));
-			worker.onmessage = function(msg) {
-				document.getElementById("insert-midi-btn").innerHTML = "Insert Song Ability";
-				document.getElementById("insert-midi-btn").removeAttribute("disabled");
-				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
-				var midiAbility = {
-					"name": document.getElementById("pAct-midiHack0").value,
-					"createdAt": Number(document.getElementById("pAct-midiHack1").value),
-					"abilityID": document.getElementById("pAct-midiHack2").value,
-					"blocks": JSON.parse("[" + msg.data + "]")
-				};
-				if (!projectDict.abilities[midiAbility.abilityID]) {
-					hsProject.abilities.push(midiAbility);
-					projectDict.abilities[midiAbility.abilityID] = midiAbility;
-					editor.traits.updateFields();
-					updateDrawers();
-					popup.close();
-				} else return alert("There is already an ability with that ID");
-				document.getElementById("pAct-midiHack3").value = "";
-				document.getElementById("pAct-midi-file").value = "";
-				document.getElementById("pAct-midi-file-label").innerHTML = "No file chosen";
-			}
-			worker.onerror = function(){
-				document.getElementById("pAct-midi-file-label").innerHTML = "Invalid File";
-				document.getElementById("insert-midi-btn").innerHTML = "Insert Song Ability";
-				document.getElementById("insert-midi-btn").removeAttribute("disabled");
-				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
-				document.getElementById("pAct-midiHack3").value = "";
-				document.getElementById("pAct-midi-file").value = "";
-				document.getElementById("pAct-midi-file-label").innerHTML = "No file chosen";
-			}
 		},
 		colorSlots: function() {
 			document.getElementById("pAct-colSlots").querySelector("button").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Optimizing';
@@ -1739,6 +1701,80 @@ if (editor.useFileSysCode) {
 				alert("Your project encountered an error");
 			};
 			editor.traits.updateFields();
+		},
+		gradientBg: function() {
+			document.getElementById("insert-gradient-bg-btn").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Generating Code...';
+			document.getElementById("insert-gradient-bg-btn").setAttribute("disabled","");
+			document.getElementById("presetActions").querySelector(".fa-close").classList.add("disabled");
+			//Call the worker to load a preset with the background color
+			const performanceStart = performance.now();
+			var worker = new Worker(URL.createObjectURL(new Blob(["("+loadPreset.toString()+")("
+				+JSON.stringify(unformatProject(hsProject))+',"bg-'+document.getElementById("gradient-preview").getAttribute("type")
+				+'",'+JSON.stringify({newVarNames:false,alwaysMerge:true,originalCreateDates:false,name:document.getElementById("pAct-gradientBg0").value||"Gradient Background",bgHsv:document.getElementById("bg-c2").checked,colors:document.getElementById("color-preview-box").querySelectorAll("input").repeatEach(input=>input.value)})+")"], {type: 'text/javascript'})));
+			worker.onmessage = function(msg) {
+				document.getElementById("insert-gradient-bg-btn").innerHTML = 'Insert Custom Rule';
+				document.getElementById("insert-gradient-bg-btn").removeAttribute("disabled");
+				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
+				myProject = msg.data.project;
+				hsProject = unformatProject(hsProject);
+					hsProject.abilities = myProject.abilities,
+					hsProject.rules = myProject.rules,
+					hsProject.customRules = myProject.customRules,
+					hsProject.objects = myProject.objects,
+					hsProject.scenes = myProject.scenes,
+					hsProject.eventParameters = myProject.eventParameters,
+					hsProject.customObjects = myProject.customObjects,
+					hsProject.remote_asset_urls = myProject.remote_asset_urls,
+					hsProject.variables = myProject.variables;
+				console.log("%cLoaded Gradient Background in "+ Math.round((performance.now() - performanceStart)*100)/100 + "ms", "color:teal;font-weight:600;");
+				formatProject(hsProject);
+				editor.traits.updateFields();
+				updateDrawers();
+				replaceRender(-1);
+				popup.close();
+			};
+			worker.onerror = function() {
+				document.getElementById("insert-gradient-bg-btn").innerHTML = 'Insert Custom Rule';
+				document.getElementById("insert-gradient-bg-btn").removeAttribute("disabled");
+				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
+				alert("Your project encountered an error");
+			};
+		},
+		midiHack: function() {
+			document.getElementById("insert-midi-btn").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Generating Code...';
+			document.getElementById("insert-midi-btn").setAttribute("disabled","");
+			document.getElementById("presetActions").querySelector(".fa-close").classList.add("disabled");
+			var worker = new Worker(URL.createObjectURL(new Blob(["("+doMidiHack.toString()+")('"+document.getElementById("pAct-midiHack3").value+"')"], {type: 'text/javascript'})));
+			worker.onmessage = function(msg) {
+				document.getElementById("insert-midi-btn").innerHTML = "Insert Song Ability";
+				document.getElementById("insert-midi-btn").removeAttribute("disabled");
+				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
+				var midiAbility = {
+					"name": document.getElementById("pAct-midiHack0").value,
+					"createdAt": Number(document.getElementById("pAct-midiHack1").value),
+					"abilityID": document.getElementById("pAct-midiHack2").value,
+					"blocks": JSON.parse("[" + msg.data + "]")
+				};
+				if (!projectDict.abilities[midiAbility.abilityID]) {
+					hsProject.abilities.push(midiAbility);
+					projectDict.abilities[midiAbility.abilityID] = midiAbility;
+					editor.traits.updateFields();
+					updateDrawers();
+					popup.close();
+				} else return alert("There is already an ability with that ID");
+				document.getElementById("pAct-midiHack3").value = "";
+				document.getElementById("pAct-midi-file").value = "";
+				document.getElementById("pAct-midi-file-label").innerHTML = "No file chosen";
+			}
+			worker.onerror = function(){
+				document.getElementById("pAct-midi-file-label").innerHTML = "Invalid File";
+				document.getElementById("insert-midi-btn").innerHTML = "Insert Song Ability";
+				document.getElementById("insert-midi-btn").removeAttribute("disabled");
+				document.getElementById("presetActions").querySelector(".fa-close").classList.remove("disabled");
+				document.getElementById("pAct-midiHack3").value = "";
+				document.getElementById("pAct-midi-file").value = "";
+				document.getElementById("pAct-midi-file-label").innerHTML = "No file chosen";
+			}
 		}
 	};
 	editor.fileReader = {
@@ -1755,17 +1791,7 @@ if (editor.useFileSysCode) {
 			var file = input.files[0];
 			if ('files' in input && input.files.length > 0) {
 				editor.fileReader.readFile(method,file).then(content => {
-					/* try {
-						hsProject = JSON.parse(content);
-						if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
-						hsProject.filename = input.value.replace(/^.*(\/|\\)/,"");	
-						editor.traits.updateFields();
-						formatProject(hsProject);
-						replaceRender(-1);
-						updateDrawers();
-						popup.close();
-						document.getElementById('hs-project-file').value = "";
-					} catch (SyntaxError) { console.log('Invalid File'); document.getElementById("file-label").innerHTML = "Invalid File"; } */
+					
 					fn(content, filename.replace(/\..*?$/,""), "." + ext);
 				}).catch(error => console.log(error))
 			} else if ('files' in input && input.files.length > 0) console.log('Invalid File');
@@ -1961,7 +1987,7 @@ if (editor.useFileSysCode) {
 	var popup = {
 		"close": function() {
 			document.querySelectorAll(".popup .container").forEach(e=>{e.setAttribute("hidden","")});
-			document.querySelectorAll(".popup input").forEach(e=>{e.value=""});
+			document.querySelectorAll(".popup input:not([type=checkbox]):not([type=radio]):not(.noEmpty)").forEach(e=>{e.value=""});
 			document.querySelector(".popup").setAttribute("hidden","");
 			bodyScroll.enable();
 		},
@@ -2354,7 +2380,23 @@ if (editor.useFileSysCode) {
 		input.accept = ""; //Unfortunately, I have to do this to allow files to be selected.
 	});
 }
-if (editor.logConsoleMesg){
+if (editor.modulesScripts) {
+	//JS Color Inputs
+	for (i = 1; i < 5; i++) {
+		var colorVal = 'xxxxxx'.split("").repeatEach(x=>{return"0123456789ABCDEF".substr(Math.round(Math.random()*6),1)}).join("");
+		var input = document.createElement('input');
+		var picker = new jscolor(input, {backgroundColor: "rgba(32, 90, 82, 0.85)", borderColor: "rgba(46, 132, 121, 0.9)", hash: true, closable: true, inI: true, closeText: 'Close Color Picker', value: colorVal, scrollKeepLocked: true});
+		input.id = "bg-col" + i;
+		input.classList.add("noEmpty");
+		document.getElementById("gradient-preview").style.setProperty("--col-g"+i, "#"+colorVal);
+		input.addEventListener("change", (e)=>{document.getElementById("gradient-preview").style.setProperty("--col-g"+e.target.id.replace(/^bg-col/,""), e.target.value);});
+		document.getElementById('color-preview-box').appendChild(input);
+	}
+	document.getElementById("pAct-gradientBg").querySelectorAll("table input").forEach(elm=>{
+		elm.oninput = (e)=>{document.getElementById('gradient-preview').setAttribute("type",e.target.value); document.getElementById('color-preview-box').setAttribute("type",e.target.value);};
+	});
+}
+if (editor.logConsoleMesg) {
 	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;")
-	console.log('%cHopscotch Project Builder, beta 1.1.2 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
+	console.log('%cHopscotch Project Builder, beta 1.2.0 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 }
