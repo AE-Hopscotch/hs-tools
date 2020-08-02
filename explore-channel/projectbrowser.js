@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.5.7 r1"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.6.0 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -142,6 +142,8 @@ function showProjects(chProjects) {
 			var d = p.correct_published_at.replace("Z",":00").replace(/[T:]/gi,"-").split('-');
 			var hiddenElm = document.getElementById("ins-before");
 			var pCard = document.createElement("div");
+			var age = (new Date(p.correct_published_at).getTime() - new Date(parseInt(p.uuid,36)/65.536).getTime())/1000;
+			var ageText = timeDifference(new Date(p.correct_published_at).getTime()-new Date().getTimezoneOffset()*60000, new Date(parseInt(p.uuid,36)/65.536));
 			
 			//If author undefined
 			if (typeof(p.user) == 'undefined') {
@@ -172,10 +174,15 @@ function showProjects(chProjects) {
 				<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-leaf"></i> ${p.plants}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
 			}
 			
-			if (p.original_user != undefined && p.original_user.id != p.user.id) {	
-				pCard.innerHTML = `<a tabindex="7" href="user.html?u=${generateUserLink(p.original_user)}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile">${p.original_user.nickname}</a>`
+			if (p.original_user != undefined && p.original_user.id != p.user.id) {
+				pCard.innerHTML = `<a tabindex="7" href="user.html?u=${generateUserLink(p.original_user)}" class="remixbar" title="Visit ${p.original_user.nickname}&rsquo;s Profile"><i class="fa fa-random"></i> ${p.original_user.nickname}</a>`
 					+ baseCode.replace(/user-container"/,'user-container" re="1"');
 				pCard.setAttribute('data-show', 'false');
+			} else if (age < 180 && p.uuid != "ae_web_info"/* && (new URL(location.href).searchParams.get("channel") !== "Featured" || search_open) */) {
+				//Draft Age < 3 mins /*and not on featured*/
+				pCard.innerHTML = `<a tabindex="7" href="javascript:void(0);" class="remixbar" title="Time spent as a draft" onclick="alert('This project was either never saved as a draft or stood as a draft for less than 3 minutes')">${document.querySelector(".retro")?'Time as Draft: ':'<i class="fa fa-clock-o"></i>'} ${ageText}</a>`
+					+ baseCode.replace(/user-container"/,'user-container" re="2"'); //Remix State = Direct Republish
+				
 			} else {
 				pCard.innerHTML = baseCode;
 			}
@@ -194,6 +201,10 @@ function showProjects(chProjects) {
 			}
 			
 			if (p.uuid != "ae_web_info") {
+				//console.log("%c" + age + " - " + ageText, age < 180 ? "color:red" : "color:black");
+				pCard.setAttribute("age",ageText);
+				//Age Test (Draft -> Publish Time)
+				if (age < 180) pCard.setAttribute('data-show', 'false');
 				//Title Regex
 				if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?outs?\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}likes?\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|(\s|^)[bcdefghjklmnpqrtuwxyz](\s|$)|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b|\brepost\b|\bpl(s+|ease)\b|\blike for\b|\b(just)? a notice\b|\bOC\b|\btoo many\b|\bi ship\b|\bships\b|\bignore\b|\bemoji draw\b|\b(art|my|our|your|the) club\b|\sRemix\b|\bccool thing\b|^[aeh]+$|^[uhm\.]+$|\bmy motto is\b|\bcome back for part\b|\bI guess\b|\bt?hat face\b|\bbruh\b|^rip$/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
@@ -389,10 +400,12 @@ function xray(action, keyIn) {
 			xRay = !xRay;
 			if (xRay) {
 				document.documentElement.style.setProperty('--x-ray-elms', 'block');
+				document.body.classList.add("xray");
 				(xRayView == 0) ? xRayView = 2 : xRayView --;
 				xray('toggle-show');
 			} else {
 				document.querySelector('#xray-show-btn').innerHTML = '<i class="fa fa-fw fa-eye"> </i>';
+				document.body.classList.remove("xray");
 				document.documentElement.style.setProperty('--x-ray-elms', 'none');
 				document.documentElement.style.setProperty('--x-ray-show', 'ignore');
 				document.documentElement.style.setProperty('--x-ray-opacity', 'ignore');
