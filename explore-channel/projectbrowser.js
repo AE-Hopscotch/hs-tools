@@ -576,6 +576,7 @@ function getColorPallet(url, nomsg, p) {
 
 	img.addEventListener('load', function() {
 		if (!nomsg) console.groupCollapsed('Color Palette');
+		if (!document.getElementById(p.uuid)) return;
 		if (/*/https:\/\//gi.test(location.href) && */document.getElementById(p.uuid).getAttribute('data-show') != "false") Tesseract.recognize(img).then(function(result){
 			if (!nomsg) console.log(result.text);
 			var thumbnailRegex = /fan\s?art|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement\b|\bnew account\b|\bshout\s*?outs?\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\blike for part\b|\bfor a? follow\b|\bremix\b|\blike for\b|[0-9] likes\b|\blike\sbutton\b|\bfidget\b|\bspinner\b|(read|see) (in |the )? code|\bsubscribe to\b|\brepost\b|\bpl(s+|ease)\b|\blike for\b|\btoo many\b|\bi ship\b|\bships\b|\bignore\b|\b(that|the)? moment when\b|\bmy motto is\b|\bcome back for part\b|\bt?hat face\b/i;

@@ -74,7 +74,7 @@
 					color: #aaa;
 					font-size: 20px;
 					padding-top: 1.4px;
-					display: flex;
+					display: flex!important;
 					justify-content: center;
 					align-items: center;
 					height: 50px;
@@ -110,7 +110,7 @@
 					border-width: 0 0 0 2px;
 				}
 				.topnav.open {				
-					height: 60%;
+					height: 240px;
 					padding: 4px 8px 8px 12px;
 					border-bottom-width: 2px;
 				}
@@ -153,11 +153,11 @@
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(0)" class="selected" title="Search for Projects"><i class="fa fa-file" title=""></i></button></span>
 			<span AE-STCE tabindex="5"><button tabindex="-1" onclick="searchGroup(1)" class="" title="Search for Hopscotchers"><i class="fa fa-group" title=""></i></button></span>
 		</div>
-		<div id="menu-btn" style="top:-51px;" onclick="this.nextElementSibling.classList.toggle('open')"><i class="fa fa-bars"></i></div>
+		<div id="menu-btn" style="top:-51px;display:none;" onclick="this.nextElementSibling.classList.toggle('open')"><i class="fa fa-bars"></i></div>
 		<div class="topnav" onfocusin="if(search_open)toggleSearch();this.classList.add('open')" onfocusout="this.classList.remove('open');">
-			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span>
-			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Announcements')">Announcements</button></span>
-			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span>
+			<!-- <span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Featured')">Featured</button></span> -->
+			<!-- <span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Announcements')">Announcements</button></span> -->
+			<!-- <span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span> -->
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span>
 			<span id="newest-btn" AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Newest')">Newest</button></span>
 		</div><br><br><br>
@@ -199,16 +199,14 @@
 		<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
 		<script>
 			var channelList = JSON.parse(localStorage.getItem("WebExpChannels"))||([
-				{"Action": "categories/action/newest"},
-				{"Animation": "categories/animation/newest"},
-				{"Art": "categories/drawnart/newest"},
-				{"Build": "categories/build/newest"},
-				{"Education": "categories/science/newest"},
-				{"Ideas": "categories/hopscotch/newest"},
-				{"Music": "categories/music/newest"},
-				{"Puzzles": "categories/puzzles/newest"},
-				{"Simulation": "categories/simulations/newest"},
-				{"Random": "categories/other/newest"}
+				{"Jumps":"categories/jumps/featured"},
+				//{"Following":"users/stream"},
+				{"Masterpieces":"categories/best_of/featured"},
+				{"Excellent":"categories/newest_featured/newest"},
+				{"Rising":"categories/rising/newest"},
+				{"Newest":"projects/newest"},
+				{"Learn Hopscotch":"categories/challenges_from_the_hopscotch_team/featured"},
+				{"Announcements":"categories/announcements/newest"}
 			]);
 			
 			//Request Channels if 30 minute token not present
@@ -219,7 +217,7 @@
 						var channels = JSON.parse(r).channels;
 						var newChannelList = [];
 						channels.forEach((c)=>{
-							if (!/^(Featured|Newest|Announcements|Following|Latest Feed)$/.test(c.title)) newChannelList.push(JSON.parse(`{"${c.title}":"${c.path}"}`));
+							if (!/^(Following|Latest Feed)$/.test(c.title)) newChannelList.push(JSON.parse(`{"${c.title}":"${c.path}"}`));
 						});
 						updateChannels(newChannelList);
 						replaceChannelPaths();
@@ -234,11 +232,12 @@
 			}
 			
 			var names = {
-				"Featured": "categories/best_of/featured",
-				"Announcements": "categories/announcements/newest",
-				"Curated": "categories/newest_featured/newest",
+				"Masterpieces": "categories/best_of/featured",
+				"Excellent": "categories/newest_featured/newest",
 				"E’s Picks": "users/5757897/favorite_projects",
-				"Newest": "projects/newest",
+				"Rising": "categories/rising/newest",
+				"Learn Hopscotch": "categories/challenges_from_the_hopscotch_team/featured",
+				"Announcements": "categories/announcements/newest",
 				"Search": "projects/search",
 				"Search_Users": "users/search"
 			};
@@ -254,11 +253,12 @@
 			//Update Channel Buttons and Dictionary
 			function updateChannels(channels){
 				names = {
-					"Featured": "categories/best_of/featured",
-					"Announcements": "categories/announcements/newest",
-					"Curated": "categories/newest_featured/newest",
+					"Masterpieces":"categories/best_of/featured",
+					"Excellent":"categories/newest_featured/newest",
 					"E’s Picks": "users/5757897/favorite_projects",
-					"Newest": "projects/newest",
+					"Rising":"categories/rising/newest",
+					"Learn Hopscotch":"categories/challenges_from_the_hopscotch_team/featured",
+					"Announcements":"categories/announcements/newest",
 					"Search": "projects/search",
 					"Search_Users": "users/search"
 				};
@@ -266,18 +266,22 @@
 					names[Object.keys(c)[0]] = c[Object.keys(c)];
 				});
 				
-				document.querySelector(".topnav").innerHTML = '<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel(\'Featured\')">Featured</button></span>'
-					+ '<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel(\'Announcements\')">Announcements</button></span>'
-					+ '<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel(\'Curated\')">Curated</button></span>'
-					+ '<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel(\'E’s Picks\')">E&rsquo;s Picks</button></span>'
-					+ '<span id="newest-btn" AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel(\'Newest\')">Newest</button></span>';
+				document.querySelector(".topnav").innerHTML = '<span id="newest-btn" tabindex="6"><button tabindex="-1" onclick="showChannel(\'Masterpieces\')">Masterpieces</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Excellent\')">Excellent</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'E’s Picks\')">E&rsquo;s Picks</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Rising\')">Rising</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Announcements\')">Announcements</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Learn Hopscotch\')">Learn Hopscotch</button></span>'
+					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Newest\')">Newest</button></span>';
 				Object.keys(names).forEach((c)=>{
-					if (/^(Featured|Newest|Announcements|Curated|E’s Picks|Search(_Users)?)$/.test(c)) return;
+					if (/^(Masterpieces|Excellent|Rising|Learn Hopscotch|Announcements|Newest|E’s Picks|Search(_Users)?)$/.test(c)) return;
 					var span = document.createElement("span");
-					span.setAttribute("AE-STCE","");
+					//span.setAttribute("AE-STCE","");
 					span.setAttribute("tabindex","6");
 					span.innerHTML = '<button tabindex="-1" onclick="showChannel(\''+c+'\')">'+c+'</button>';
 					document.querySelector(".topnav").insertBefore(span,document.getElementById("newest-btn"));
+				});
+				document.querySelectorAll(".topnav > span").forEach(span=>{
 					add_keyboardClickChild(span);
 				});
 			}
@@ -290,7 +294,7 @@
 				document.querySelectorAll(".topnav button").forEach(function(btn){
 					if (btn.innerHTML == channel) {
 						btn.setAttribute("class", "selected");
-						if ((window.innerWidth||window.outerWidth) <= 480 && !document.querySelector(".topnav").classList.contains("open")){
+						if ((window.innerWidth||window.outerWidth) > 480 || !document.querySelector(".topnav").classList.contains("open")){
 						//	btn.style.marginTop = "-8px"; setTimeout(()=>{btn.style.paddingTop = "1px";},1000);
 							btn.scrollIntoView();
 						}
@@ -307,7 +311,7 @@
 				document.getElementById("loadingBear").style.display = "";
 				document.body.scrollTop = 0; // For Safari
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-				request(`http://community.gethopscotch.com/api/v2/${path}${(customPath != undefined) ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				request(`https://community.gethopscotch.com/api/v2/${path}${(customPath != undefined) ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
 				if (addHistoryEntry != false) {
 					(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) ? location.href = "?channel=" + encodeURIComponent(channel) : setLocation("?channel=" + encodeURIComponent(channel));
@@ -316,12 +320,12 @@
 				}			
 				channelName = channel;
 			}
-			var channelName = "Featured";
+			var channelName = "Masterpieces";
 			
 			//Request Functions
 			$(window).scroll(function() {
 			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy) {
-				   request(`http://community.gethopscotch.com/api/v2/${path}${(channelName == 'Search' || channelName == 'Search_Users') ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				   request(`https://community.gethopscotch.com/api/v2/${path}${(channelName == 'Search' || channelName == 'Search_Users') ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 			   }
 			});
 			
@@ -376,7 +380,7 @@
 			setTimeout(function(){
 				if (names[channel]) showDefaultChannel();
 				if (window.history && window.history.pushState) {
-					$(window).on('popstate', function() {   
+					$(window).on('popstate', function() {
 						var url = new URL(window.location.href);
 						channel = url.searchParams.get("channel");   
 						showDefaultChannel();
@@ -388,7 +392,7 @@
 					showChannel(channel, false);
 				} else {
 					if (!search_open) previousChannel = channel;
-					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchGroup(Number(/_Users/.test(channel))) : showChannel("Featured", false);
+					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchGroup(Number(/_Users/.test(channel))) : showChannel(document.querySelector(".topnav button").innerHTML||"Masterpieces", false);
 				}
 			}
 			

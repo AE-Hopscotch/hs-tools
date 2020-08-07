@@ -139,7 +139,8 @@ sq {
 }
 
 .topnav::-webkit-scrollbar {
-	height: 0px;
+	width: 0;
+	height: 0;
 }
 .topnav span {
 	outline: none;
