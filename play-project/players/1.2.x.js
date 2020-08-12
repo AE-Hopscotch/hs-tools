@@ -157,7 +157,7 @@ function getImageFromUri(a) {
     return a.startsWith("data:") || (b.crossOrigin = "Anonymous"), new Promise(function(c, d) {
         b.onload = function() {
             return c(b);
-        }, b.onerror = d, b.src = a.replace(/-?200d/g,""); //AE_MOD this makes requests not include the zero-width joiner
+        }, b.onerror = d, b.src = a.replace(/-?200d/g, "");
     });
 }
 
@@ -223,7 +223,8 @@ function hsIsFullSizeShape(a) {
 
 function hsCanLoadEmojis(a) {
     var b = new XMLHttpRequest();
-    b.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), b.onreadystatechange = function() {
+    b.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png", !0), 
+    b.onreadystatechange = function() {
         4 == b.readyState && a(200 === b.status);
     }, b.onerror = function() {
         a(!1);
@@ -5708,7 +5709,6 @@ function UIRegisterEventCallbacks(a, b) {
     } ],
     3: [ function(a, b, c) {
         b.exports = /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2640\u2642\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303d\u3297\u3299]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|\u2695\uFE0F|\uD83C\uDF93|\uD83C\uDFEB|\u2696\uFE0F|\uD83C\uDF3E|\uD83C\uDF73|\uD83D\uDD27|\uD83C\uDFED|\uD83D\uDCBC|\uD83D\uDD2C|\uD83D\uDCBB|\uD83C\uDFA4|\uD83C\uDFA8|\u2708\uFE0F|\uD83D\uDE80|\uD83D\uDC8B|\uD83D\uDE92|\u2764\uFE0F|\uD83D\uDC66|\uD83D\uDC67|\uD83D\uDC68|\uD83D\uDC69|\uD83D\uDC6A|\uD83D\uDC91|\u2640|\u2642|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
-		//AE_MOD EMOJI REGEX [col 10735 split]
     }, {} ],
     4: [ function(a, b, c) {
         (function(a) {
@@ -7912,6 +7912,7 @@ var __extends = this && this.__extends || function(a, b) {
 				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined),this);
 			}
 			return 0;
+
           case HSBlockType.MathOperatorAdd:
             return this.secondParameterValue(a) + this.firstParameterValue(a);
 
@@ -8157,7 +8158,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
 
 var HSTextNodeKind;
 
@@ -8225,7 +8226,7 @@ HSTokenizer.GEOMETRIC_SHAPES = /[\u25A0-\u25CF\u25E0-\u25E1\u25E6-\u25FF]/, HSTo
 HSTokenizer.surrogateRegex = RegExp("[" + HSTokenizer.lowSurrogates + HSTokenizer.highSurrogates + "]"), 
 HSTokenizer.highSurrogates = "�-�", HSTokenizer.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
 HSTokenizer.secondCharIsSurrogate = RegExp("^.[" + HSTokenizer.lowSurrogates + "]"), 
-HSTokenizer.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/, HSTokenizer.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
+HSTokenizer.startsWithEmojiRegex = RegExp("^" + emoji.regex.source), HSTokenizer.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
 HSTokenizer.fitzRegex = RegExp("" + HSTokenizer.fitzpatricks);
 
 var HSRuleActivator = function() {
@@ -8650,7 +8651,7 @@ var HSImageTextureFactory = function() {
     }, a.prototype.resizeImage = function(a, b, c) {
         return a.width = b, a.height = c, Promise.resolve(a);
     }, a.prototype.getImageUrl = function(a) {
-        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(a)?this.getImageUrlFromBaseUrl(a):Promise.resolve(a)) /* AE_MOD custom custom */ : this.getImageUrlFromApp(a);
+        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? this.getImageUrlFromBaseUrl(a) : this.getImageUrlFromApp(a);
     }, a.prototype.getImageUrlFromBaseUrl = function(a) {
         return Promise.resolve(BASE_IMAGE_URL + a);
     }, a.prototype.getImageUrlFromApp = function(a) {
@@ -8908,10 +8909,8 @@ var HSMain = function() {
     function a(b) {
         this.root = b, this.context = new HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
         this.setiOSStageSizeIfNecessary();
-        var c = document.getElementById("project_data")//, d = b.dataset.projectJson || c && c.getAttribute("data");
-		
+        var c = document.getElementById("project_data");//, d = b.dataset.projectJson || c && c.getAttribute("data");
 		var d = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
-		
         d && (this.load(JSON.parse(d)), sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
         this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
         this.canvas = this.createCanvas("foreground"), window.gliEmbedDebug ? this.renderer = new PIXI.WebGLRenderer(HSStageScene.stageWidth, HSStageScene.stageHeight, {
@@ -9920,11 +9919,10 @@ var HSExecutable = function() {
 			function notePath (val) {
 				//AE_MOD find path of note
 				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-				var i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
-				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : i;
+				var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
 			}
-            var d = HSSoundManager.sharedInstance//, e = c[0].computedStringValue(b);
-			var e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);
+            var d = HSSoundManager.sharedInstance, e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);//e = c[0].computedStringValue(b);
             d.play(e);
             break;
 
@@ -9954,7 +9952,7 @@ var HSExecutable = function() {
 				b.executeBlock(a);
 			} catch (E) {
 				//AE_MOD
-				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene, Broadcast Message
 				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
 				console.log("Block Code:", a);
 				console.log("Active Object UUID: " + b.objectID);
@@ -10388,7 +10386,7 @@ var HSPathDrawer = function() {
 
           case HSBlockType.SetText:
             var g = HSColor.rgbTextColor;
-            d.length >= 2 && (g = d[1].computedColorString(this)), this.setText(d[0].computedStringValue(this)||d[0].computedColorString(this), g); //AE_MOD use color string fallback
+            d.length >= 2 && (g = d[1].computedColorString(this)), this.setText(d[0].computedStringValue(this), g);
             break;
 
           case HSBlockType.SetVariable:

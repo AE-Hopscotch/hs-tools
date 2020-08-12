@@ -118,6 +118,26 @@ input[type=range]::-webkit-slider-runnable-track {
 	height: 8px;
 	border-radius: 4px;
 }
+::-webkit-scrollbar {
+	width: 14px;
+	z-index:1001;
+}
+::-webkit-scrollbar-track {
+	background-color: #eee;
+	border-radius: 0;
+}
+::-webkit-scrollbar-thumb {
+	background-color: rgba(100,100,100,0.8); /*#e6d700;*/
+	border-radius: 10px;
+	opacity: 0.75;
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(100,100,100,0.7); /*#e6cf00;*/
+	opacity:1;
+}
+::-webkit-scrollbar-corner {
+  background-color: #eee;
+}
 
 #loadingBear {
 	width: 120px;
@@ -443,6 +463,7 @@ a.remixbar[onclick*="draft"] {
 	height: 100%;
 	align-items: center;
 	padding: 12px;
+	transition: color var(--transition-time);
 }
 
 /* Search Controls */
@@ -553,6 +574,10 @@ a.remixbar[onclick*="draft"] {
 }
 .search-bar button.selected {
 	color: #0b8e7d;
+}
+
+body .flex div.project-card.id-result, body .flex a.user-card.id-result {
+	background-color: #add8e64f;
 }
 
 /* X-Ray */
@@ -674,6 +699,7 @@ ae[badge='6'] {
 	width: 150px;
 	height: 100px;
 	margin: 32px auto 4px;
+	transition: opacity var(--transition-time), background-color var(--transition-time);
 }
 .retro .project-card a[disabled] {
 	display: inherit;

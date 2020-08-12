@@ -157,7 +157,7 @@ function getImageFromUri(a) {
     return a.startsWith("data:") || (b.crossOrigin = "Anonymous"), new Promise(function(c, d) {
         b.onload = function() {
             return c(b);
-        }, b.onerror = d, b.src = a.replace(/-?200d/g,""); //AE_MOD this makes requests not include the zero-width joiner
+        }, b.onerror = d, b.src = a.replace(/-?200d/g, "");
     });
 }
 
@@ -167,6 +167,10 @@ function degreesToRadians(a) {
 
 function radiansToDegrees(a) {
     return a / Math.PI * 180;
+}
+
+function isIOSApp() {
+    return iOSApp || !!window.HS_IS_IOS_APP;
 }
 
 function blockTypeForLegacyEventType(a) {
@@ -5695,7 +5699,6 @@ function UIRegisterEventCallbacks(a, b) {
     } ],
     3: [ function(a, b, c) {
         b.exports = /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2640\u2642\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303d\u3297\u3299]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|\u2695\uFE0F|\uD83C\uDF93|\uD83C\uDFEB|\u2696\uFE0F|\uD83C\uDF3E|\uD83C\uDF73|\uD83D\uDD27|\uD83C\uDFED|\uD83D\uDCBC|\uD83D\uDD2C|\uD83D\uDCBB|\uD83C\uDFA4|\uD83C\uDFA8|\u2708\uFE0F|\uD83D\uDE80|\uD83D\uDC8B|\uD83D\uDE92|\u2764\uFE0F|\uD83D\uDC66|\uD83D\uDC67|\uD83D\uDC68|\uD83D\uDC69|\uD83D\uDC6A|\uD83D\uDC91|\u2640|\u2642|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
-		//AE_MOD EMOJI REGEX [col 10735 split]
     }, {} ],
     4: [ function(a, b, c) {
         (function(a) {
@@ -7362,7 +7365,8 @@ var HSBlockType;
     a[a.MathOperatorModulo = 4011] = "MathOperatorModulo", a[a.MathOperatorTangent = 4012] = "MathOperatorTangent", 
     a[a.MathOperatorInverseSine = 4013] = "MathOperatorInverseSine", a[a.MathOperatorInverseCosine = 4014] = "MathOperatorInverseCosine", 
     a[a.MathOperatorInverseTangent = 4015] = "MathOperatorInverseTangent", a[a.MathOperatorMaximum = 4016] = "MathOperatorMaximum", 
-    a[a.MathOperatorMinimum = 4017] = "MathOperatorMinimum", a[a.HS_END_OF_MATH_OPERATORS = 4018] = "HS_END_OF_MATH_OPERATORS", 
+    a[a.MathOperatorMinimum = 4017] = "MathOperatorMinimum", a[a.MathOperatorFloor = 4018] = "MathOperatorFloor", 
+    a[a.MathOperatorCeiling = 4019] = "MathOperatorCeiling", a[a.HS_END_OF_MATH_OPERATORS = 4020] = "HS_END_OF_MATH_OPERATORS", 
     a[a.ColorOperatorRandom = 5e3] = "ColorOperatorRandom", a[a.ColorOperatorRGB = 5001] = "ColorOperatorRGB", 
     a[a.ColorOperatorHSB = 5002] = "ColorOperatorHSB", a[a.HS_END_OF_COLOR_OPERATORS = 5003] = "HS_END_OF_COLOR_OPERATORS", 
     a[a.Rule = 6e3] = "Rule", a[a.RulePreview = 6001] = "RulePreview", a[a.EventOperatorStart = 7e3] = "EventOperatorStart", 
@@ -7898,6 +7902,7 @@ var __extends = this && this.__extends || function(a, b) {
 				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined),this);
 			}
 			return 0;
+			
           case HSBlockType.MathOperatorAdd:
             return this.secondParameterValue(a) + this.firstParameterValue(a);
 
@@ -7943,6 +7948,12 @@ var __extends = this && this.__extends || function(a, b) {
 
           case HSBlockType.MathOperatorRound:
             return Math.round(this.firstParameterValue(a));
+
+          case HSBlockType.MathOperatorFloor:
+            return Math.floor(this.firstParameterValue(a));
+
+          case HSBlockType.MathOperatorCeiling:
+            return Math.ceil(this.firstParameterValue(a));
 
           case HSBlockType.MathOperatorAbs:
             return Math.abs(this.firstParameterValue(a));
@@ -8134,7 +8145,7 @@ var __extends = this && this.__extends || function(a, b) {
     }, b;
 }(HSBlock);
 
-HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/;
+HSParameterBlock.key = "HSParameterBlock", emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/";
 
 var HSTextNodeKind;
 
@@ -8202,7 +8213,7 @@ HSTokenizer.GEOMETRIC_SHAPES = /[\u25A0-\u25CF\u25E0-\u25E1\u25E6-\u25FF]/, HSTo
 HSTokenizer.surrogateRegex = RegExp("[" + HSTokenizer.lowSurrogates + HSTokenizer.highSurrogates + "]"), 
 HSTokenizer.highSurrogates = "�-�", HSTokenizer.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
 HSTokenizer.secondCharIsSurrogate = RegExp("^.[" + HSTokenizer.lowSurrogates + "]"), 
-HSTokenizer.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/, HSTokenizer.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
+HSTokenizer.startsWithEmojiRegex = RegExp("^" + emoji.regex.source), HSTokenizer.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
 HSTokenizer.fitzRegex = RegExp("" + HSTokenizer.fitzpatricks);
 
 var HSRuleActivator = function() {
@@ -8601,7 +8612,7 @@ var HSImageTextureFactory = function() {
     }, a.prototype.resizeImage = function(a, b, c) {
         return a.width = b, a.height = c, Promise.resolve(a);
     }, a.prototype.getImageUrl = function(a) {
-        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(a)?this.getImageUrlFromBaseUrl(a):Promise.resolve(a)) : this.getImageUrlFromApp(a);
+        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? this.getImageUrlFromBaseUrl(a) : this.getImageUrlFromApp(a);
     }, a.prototype.getImageUrlFromBaseUrl = function(a) {
         return Promise.resolve(BASE_IMAGE_URL + a);
     }, a.prototype.getImageUrlFromApp = function(a) {
@@ -8802,16 +8813,18 @@ var HSCollisionImageFactory = function() {
     }, a;
 }(), HSAccelerometerManager = function() {
     function a() {}
-    return a.listener = function(a) {
+    return a.accelerometerFromIOSApp = function(a, b) {
+        this.listener(a), this.isShakingFromApp = b;
+    }, a.listener = function(a) {
         var b = a.accelerationIncludingGravity, c = Math.hypot(b.x, b.y, b.z) || 9.8, d = Math.round(100 * b.x / c), e = Math.round(100 * b.y / c), f = window.orientation;
         null === f || void 0 === f || -90 === f ? (this.tiltUp = d, this.tiltRight = e) : 90 === f ? (this.tiltUp = -d, 
         this.tiltRight = -e) : 0 === f ? (this.tiltUp = -e, this.tiltRight = d) : (this.tiltUp = e, 
         this.tiltRight = -d), this.tiltDown = -this.tiltUp, this.tiltLeft = -this.tiltRight, 
-        this.updateShakeData(a.acceleration.x, a.acceleration.y, a.acceleration.z);
+        isIOSApp() || this.updateShakeData(a.acceleration.x, a.acceleration.y, a.acceleration.z);
     }, a.startAccelerometerUpdates = function() {
         "DeviceMotionEvent" in window && !this.isListening && ("function" == typeof DeviceMotionEvent.requestPermission ? this.enableIOS13Accelerometer() : this.enableAccelerometer());
     }, a.enableIOS13Accelerometer = function() {
-        this.isListening || window.addEventListener("touchstart", a.deviceRequestPermissionIOS13);
+        this.isListening || isIOSApp() || window.addEventListener("touchend", a.deviceRequestPermissionIOS13);
     }, a.enableAccelerometer = function() {
         this.isListening || (this.isListening = !0, window.addEventListener("devicemotion", this.listener.bind(this), !1));
     }, a.tiltDirection = function() {
@@ -8823,17 +8836,17 @@ var HSCollisionImageFactory = function() {
         this.yAccelerations.length > a.SHAKE_MEMORY_COUNT && this.yAccelerations.shift(), 
         this.zAccelerations.length > a.SHAKE_MEMORY_COUNT && this.zAccelerations.shift();
     }, a.isShaking = function() {
-        return [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(b) {
+        return isIOSApp() ? this.isShakingFromApp : [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(b) {
             return Math.abs(mean(b)) < a.SUDDEN_ACCEL_THRESHOLD && variance(b) > a.SHAKE_SENSITIVITY;
         });
     }, a;
 }();
 
 HSAccelerometerManager.isListening = !1, HSAccelerometerManager.tiltUp = 0, HSAccelerometerManager.tiltDown = 0, 
-HSAccelerometerManager.tiltLeft = 0, HSAccelerometerManager.tiltRight = 0, HSAccelerometerManager.deviceRequestPermissionIOS13 = function() {
-    window.removeEventListener("touchstart", HSAccelerometerManager.deviceRequestPermissionIOS13), 
+HSAccelerometerManager.tiltLeft = 0, HSAccelerometerManager.tiltRight = 0, HSAccelerometerManager.isShakingFromApp = !1, 
+HSAccelerometerManager.deviceRequestPermissionIOS13 = function() {
     DeviceMotionEvent.requestPermission().then(function(a) {
-        "granted" === a && HSAccelerometerManager.enableAccelerometer();
+        "granted" === a && (HSAccelerometerManager.enableAccelerometer(), window.removeEventListener("touchend", HSAccelerometerManager.deviceRequestPermissionIOS13));
     }).catch(console.error);
 }, HSAccelerometerManager.xAccelerations = [], HSAccelerometerManager.yAccelerations = [], 
 HSAccelerometerManager.zAccelerations = [], HSAccelerometerManager.SHAKE_MEMORY_COUNT = 10, 
@@ -8857,10 +8870,8 @@ var HSMain = function() {
     function a(b) {
         this.root = b, this.context = new HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
         this.setiOSStageSizeIfNecessary();
-        var c = document.getElementById("project_data")//, d = b.dataset.projectJson || c && c.getAttribute("data");
-		
+        var c = document.getElementById("project_data");//, d = b.dataset.projectJson || c && c.getAttribute("data");
 		var d = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
-		
         d && (this.load(JSON.parse(d)), sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
         this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
         this.canvas = this.createCanvas("foreground"), window.gliEmbedDebug ? this.renderer = new PIXI.WebGLRenderer(HSStageScene.stageWidth, HSStageScene.stageHeight, {
@@ -8899,18 +8910,34 @@ var HSMain = function() {
     }, a.prototype.toggleFullscreen = function() {
         isFullscreen() ? this.exitFullscreen() : this.enterFullscreen(window.innerWidth, window.innerHeight);
     }, a.prototype.enterFullscreen = function(a, b) {
-        HSCollisionContext.DEBUG || enterFullscreen(this.root, a, b);
+        HSCollisionContext.DEBUG || this.enterFullscreenAction(this.root, a, b);
+    }, a.prototype.enterFullscreenAction = function(a, b, c) {
+        var d = b || window.innerWidth, e = c || window.innerHeight;
+        this.resizeRoot(d, e);
+        var f = a.parentElement;
+        if (f.requestFullscreen) f.requestFullscreen(); else if (f.mozRequestFullScreen) f.mozRequestFullScreen(); else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen(); else if (f.msRequestFullscreen) f.parent.msRequestFullscreen(); else {
+            this.isMaximized = !0, this.resizeRoot(d, e), this.root.style.position = "absolute", 
+            this.centerOnScreen(d, e);
+            for (var g = 0; g < document.body.children.length; g++) document.body.children[g].style.visibility = "hidden";
+            document.body.style.backgroundColor = "black", this.root.style.visibility = "visible", 
+            document.dispatchEvent(new Event("fullscreenchange"));
+        }
     }, a.prototype.exitFullscreen = function() {
         exitFullscreen();
-    }, a.prototype.resizeRoot = function(b, c) {
-        void 0 === b && (b = this._oldWidth), void 0 === c && (c = this._oldHeight), this._oldWidth = b, 
-        this._oldHeight = c;
-        var d, e = HSStageScene.stageWidth, f = HSStageScene.stageHeight;
-        b || c ? b && !c ? c = b * f / e : !b && c && (b = c * e / f) : (b = window.innerWidth - 20, 
-        c = window.innerHeight - 250), d = Math.min(c / f, b / e);
-        var g = Math.max(Math.floor(e * d), a.MIN_STAGE_WIDTH), h = g * f / e;
+    }, a.prototype.resizeRoot = function(a, b) {
+        void 0 === a && (a = this._oldWidth), void 0 === b && (b = this._oldHeight), this._oldWidth = a, 
+        this._oldHeight = b;
+        var c = HSStageScene.stageWidth, d = HSStageScene.stageHeight;
+        a || b ? a && !b ? b = a * d / c : !a && b && (a = b * c / d) : (a = window.innerWidth - 20, 
+        b = window.innerHeight - 250), c > d ? this.resizeRootLandscape(a, b, c, d) : this.resizeRootPortrait(a, b, c, d);
+    }, a.prototype.resizeRootLandscape = function(b, c, d, e) {
+        var f = Math.min(c / e, b / d), g = Math.max(Math.floor(d * f), a.MIN_STAGE_WIDTH), h = g * (e / d);
         this.root.style.width = Math.floor(g) + "px", this.root.style.height = Math.floor(h) + "px", 
         this.isMaximized && this.centerOnScreen(b, c);
+    }, a.prototype.resizeRootPortrait = function(a, b, c, d) {
+        var e = Math.min(b / d, a / c), f = Math.floor(d * e), g = f * (c / d);
+        this.root.style.width = Math.floor(g) + "px", this.root.style.height = Math.floor(f) + "px", 
+        this.isMaximized && this.centerOnScreen(a, b);
     }, a.prototype.centerOnScreen = function(a, b) {
         var c = a || window.innerWidth, d = b || window.innerHeight;
         this.root.style.top = Math.floor((d - main.root.offsetHeight) / 2) + "px", this.root.style.left = Math.floor((c - main.root.offsetWidth) / 2) + "px";
@@ -9591,7 +9618,7 @@ var HSSound = function() {
     }
     return a.prototype.play = function() {
         var a = this;
-        if (iOSApp) sendToApp("sound", this.name); else if (this.buffer) {
+        if (isIOSApp()) sendToApp("sound", this.name); else if (this.buffer) {
             var b = this.context.createBufferSource();
             b.buffer = this.buffer, b.connect(this.context.destination), b.start(0), this.sources.add(b), 
             b.onended = function() {
@@ -9844,11 +9871,10 @@ var HSExecutable = function() {
 			function notePath (val) {
 				//AE_MOD find path of note
 				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-				var i = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
-				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : i;
+				var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
 			}
-            var d = HSSoundManager.sharedInstance//, e = c[0].computedStringValue(b);
-			var e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);
+            var d = HSSoundManager.sharedInstance, e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);//e = c[0].computedStringValue(b);
             d.play(e);
             break;
 
@@ -9878,7 +9904,7 @@ var HSExecutable = function() {
 				b.executeBlock(a);
 			} catch (E) {
 				//AE_MOD
-				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene, Broadcast Message
 				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
 				console.log("Block Code:", a);
 				console.log("Active Object UUID: " + b.objectID);
@@ -10852,7 +10878,7 @@ var HSEmojiTextNode = function(a) {
             text: this.text,
             color: HSColor.hsbStringFromRgbString(c.fillStyle)
         }).then(function(a) {
-            if (iOSApp) c.drawImage(a, d.x, d.y, a.width, a.height); else {
+            if (isIOSApp()) c.drawImage(a, d.x, d.y, a.width, a.height); else {
                 var e = a.width - 2 * b.EMOJI_IMAGE_BORDER_SIZE, f = a.height - 2 * b.EMOJI_IMAGE_BORDER_SIZE;
                 c.drawImage(a, b.EMOJI_IMAGE_BORDER_SIZE, b.EMOJI_IMAGE_BORDER_SIZE, e, f, d.x, d.y + b.HEIGHT_OFFSET, b.WIDTH, b.HEIGHT);
             }
@@ -10860,7 +10886,7 @@ var HSEmojiTextNode = function(a) {
             return a.prototype.drawNode.call(d, c);
         });
     }, b.getImageInfo = function(a) {
-        return iOSApp ? requestTextureFromApp({
+        return isIOSApp() ? requestTextureFromApp({
             type: "emoji",
             props: a
         }).then(function(a) {

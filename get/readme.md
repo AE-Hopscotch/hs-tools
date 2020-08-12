@@ -10,7 +10,7 @@ JavaScript
 var x = new XMLHttpRequest();
 x.open('GET', '' + 'https://awesome-e.github.io/hs-tools/get/hopscotch-blocks-list.json', true);
 x.onload = x.onerror = function() {
-	//Keep in  mind, this is received as plain text. You may want to use JSON.parse() to with the data
+	//Keep in  mind, this is received as plain text. You may want to use JSON.parse() with the data
 	alert(x.responseText||"");
 };
 if (/^POST/i.test('GET')) {

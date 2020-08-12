@@ -1,4 +1,4 @@
-console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
+console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
 
 !function(t) {
     var e = {};
@@ -49,10 +49,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     }), function(t) {
-        t[t.WaitTilTimestamp = 19] = "WaitTilTimestamp", t[t.None = 22] = "None", t[t.Move = 23] = "Move", 
-        t[t.Rotate = 24] = "Rotate", t[t.ChangeX = 27] = "ChangeX", t[t.ChangeY = 28] = "ChangeY", 
-        t[t.Scale = 29] = "Scale", t[t.Clear = 30] = "Clear", t[t.StrokeWidth = 31] = "StrokeWidth", 
-        t[t.StrokeColor = 32] = "StrokeColor", t[t.ChangeCostume = 33] = "ChangeCostume", 
+        t[t.WaitTilTimestamp = 19] = "WaitTilTimestamp", t[t.WaitUntilInputIsDone = 20] = "WaitUntilInputIsDone", 
+        t[t.None = 22] = "None", t[t.Move = 23] = "Move", t[t.Rotate = 24] = "Rotate", t[t.ChangeX = 27] = "ChangeX", 
+        t[t.ChangeY = 28] = "ChangeY", t[t.Scale = 29] = "Scale", t[t.Clear = 30] = "Clear", 
+        t[t.StrokeWidth = 31] = "StrokeWidth", t[t.StrokeColor = 32] = "StrokeColor", t[t.ChangeCostume = 33] = "ChangeCostume", 
         t[t.ChangeSpeed = 34] = "ChangeSpeed", t[t.Wait = 35] = "Wait", t[t.SetOpacity = 36] = "SetOpacity", 
         t[t.PenDown = 37] = "PenDown", t[t.PenUp = 38] = "PenUp", t[t.SetHeading = 39] = "SetHeading", 
         t[t.SetText = 40] = "SetText", t[t.SetPosition = 41] = "SetPosition", t[t.SendToBack = 42] = "SendToBack", 
@@ -114,10 +114,12 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         t[t.EventOperatorTiltLeftEditor = 7017] = "EventOperatorTiltLeftEditor", t[t.EventOperatorTiltUpEditor = 7018] = "EventOperatorTiltUpEditor", 
         t[t.EventOperatorTiltDownEditor = 7019] = "EventOperatorTiltDownEditor", t[t.EventOperatorNotPressed = 7020] = "EventOperatorNotPressed", 
         t[t.EventOperatorGamePlaying = 7021] = "EventOperatorGamePlaying", t[t.EventOperatorTouchEnds = 7022] = "EventOperatorTouchEnds", 
-        t[t.EventOperatorHearMessage = 7023] = "EventOperatorHearMessage", t[t.HS_END_OF_EVENT_OPERATORS = 7024] = "HS_END_OF_EVENT_OPERATORS", 
-        t[t.Object = 8e3] = "Object", t[t.AnyObject = 8001] = "AnyObject", t[t.ScreenEdge = 8002] = "ScreenEdge", 
-        t[t.Device = 8003] = "Device", t[t.Self = 8004] = "Self", t[t.OriginalObject = 8005] = "OriginalObject", 
-        t[t.HS_END_OF_EVENT_PARAMETER_BLOCKS = 8006] = "HS_END_OF_EVENT_PARAMETER_BLOCKS";
+        t[t.EventOperatorHearMessage = 7023] = "EventOperatorHearMessage", t[t.EventOperatorMessageMatches = 7024] = "EventOperatorMessageMatches", 
+        t[t.HS_END_OF_EVENT_OPERATORS = 7025] = "HS_END_OF_EVENT_OPERATORS", t[t.Object = 8e3] = "Object", 
+        t[t.AnyObject = 8001] = "AnyObject", t[t.ScreenEdge = 8002] = "ScreenEdge", t[t.Device = 8003] = "Device", 
+        t[t.Self = 8004] = "Self", t[t.OriginalObject = 8005] = "OriginalObject", t[t.HS_END_OF_EVENT_PARAMETER_BLOCKS = 8006] = "HS_END_OF_EVENT_PARAMETER_BLOCKS", 
+        t[t.TextOperatorCharAtIndex = 9e3] = "TextOperatorCharAtIndex", t[t.TextOperatorCharsInRange = 9001] = "TextOperatorCharsInRange", 
+        t[t.TextOperatorLength = 9002] = "TextOperatorLength", t[t.HS_END_OF_TEXT_OPERATOR_BLOCKS = 9003] = "HS_END_OF_TEXT_OPERATOR_BLOCKS";
     }(r = e.HSBlockType || (e.HSBlockType = {})), function(t) {
         t[t.HSEventOnStart = 1239] = "HSEventOnStart", t[t.HSEventTouchedObject = 1240] = "HSEventTouchedObject", 
         t[t.HSEventTapStage = 1241] = "HSEventTapStage", t[t.HSEventShake = 1242] = "HSEventShake", 
@@ -170,8 +172,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     }
     Object.defineProperty(e, "__esModule", {
         value: !0
-    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), 
-    e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent), 
+    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis", 
+    e.hs_random_id = function() {
+        return (1e7 * Math.random()).toString();
+    }, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent), 
     e.isIOSApp = r;
     var n = function() {
         function t() {}
@@ -180,12 +184,21 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.sendToApp = function() {
             for (var e = [], i = 0; i < arguments.length; i++) e[i] = arguments[i];
             t.instance.sendToApp.apply(t.instance, e);
+        }, t.addResetCallback = function(e, i) {
+            t.resetCallback[e] = i;
         }, t.prototype.sendToApp = function(t, e, i) {
             var r;
             void 0 === i && (i = "hopscotch");
             var n = window.webkit;
             n && n.messageHandlers && n.messageHandlers[i].postMessage(((r = {})[t] = e, r));
-        }, t.instance = new t(), t;
+        }, t.reset = function() {
+            for (var e in t.appCallbacks = {}, t.resetCallback) t.resetCallback.hasOwnProperty(e) && t.resetCallback[e]();
+        }, t.readFromAppOnce = function(e, i) {
+            t.appCallbacks[e] = i;
+        }, t.executeCallback = function(e, i) {
+            t.appCallbacks[e] && (t.appCallbacks[e](i), delete t.appCallbacks[e]);
+        }, t.instance = new t(), t.isRunning = !0, t.appCallbacks = {}, t.resetCallback = {}, 
+        t;
     }();
     function o(t) {
         return null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t));
@@ -195,7 +208,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     }
     e.HSApp = n, e.hasEmoji = o, e.onlyEmoji = a;
     var s = 0;
-    function u(t, i) {
+    function c(t, i) {
         if (void 0 === i && (i = JSON.stringify(t)), !e.appRequestCache.get(i)) {
             var r = s++;
             e.appRequestCache.set(i, new Promise(function(i) {
@@ -208,9 +221,9 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }
         return e.appRequestCache.get(i);
     }
-    function c() {
+    function u() {
         for (var t = [], e = 0; e < arguments.length; e++) t[e] = arguments[e];
-        console.log.apply(console, arguments), n.sendToApp("log", Array.prototype.join.call(arguments, " "));
+        n.sendToApp("log", Array.prototype.join.call(arguments, " "));
     }
     function h(t, e, i) {
         var r = Math.max(e, t);
@@ -230,83 +243,85 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     function d(t, e) {
         for (var i = t.length - 1; i >= 0; i--) if (e(t[i], i, t)) return t[i];
     }
-    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = u, 
-    e.log = c, e.clamp = h, e.mean = l, e.variance = p, e.findLast = d;
-    var S, f, D, g = [], y = 0;
-    function E() {
-        y = performance.now();
-    }
+    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = c, 
+    e.log = u, e.clamp = h, e.mean = l, e.variance = p, e.findLast = d;
+    var S, f, g, y = [], v = 0;
     function b() {
+        v = performance.now();
+    }
+    function m() {
         var t = performance.now();
-        if (g.length >= 100) {
-            for (var e = 0, i = 0; i < g.length; i++) e += g[i];
+        if (y.length >= 100) {
+            for (var e = 0, i = 0; i < y.length; i++) e += y[i];
             var r = document.getElementById("time").innerText;
             r.length > 130 && (r = r.substring(50, 130));
-            var n = Math.round(e / g.length * 1e3) / 1e3;
-            document.getElementById("time").innerText = r + " " + n + "ms", g = [];
+            var n = Math.round(e / y.length * 1e3) / 1e3;
+            document.getElementById("time").innerText = r + " " + n + "ms", y = [];
         }
-        var o = t - y;
-        g.push(o);
-    }
-    function v(t, e) {
-        return Math.abs(t) >= Math.abs(e) ? S.horizontal : S.vertical;
+        var o = t - v;
+        y.push(o);
     }
     function T(t, e) {
+        return Math.abs(t) >= Math.abs(e) ? S.horizontal : S.vertical;
+    }
+    function O(t, e) {
         return Math.abs(t) < e ? f.none : t > 0 ? f.positive : f.negative;
     }
-    function m(t, e, i) {
-        var r, n = v(t, e);
+    function H(t, e, i) {
+        var r, n = T(t, e);
         switch (n) {
           case S.horizontal:
-            r = T(t, i);
+            r = O(t, i);
             break;
 
           case S.vertical:
-            r = T(e, i);
+            r = O(e, i);
         }
-        return O(r, n);
+        return E(r, n);
     }
-    function O(t, e) {
-        return t === f.positive && e === S.horizontal ? D.right : t === f.positive && e === S.vertical ? D.up : t === f.negative && e === S.horizontal ? D.left : t === f.negative && e === S.vertical ? D.down : null;
+    function E(t, e) {
+        return t === f.positive && e === S.horizontal ? g.right : t === f.positive && e === S.vertical ? g.up : t === f.negative && e === S.horizontal ? g.left : t === f.negative && e === S.vertical ? g.down : null;
     }
-    function H() {}
-    function C(t) {
+    function w() {}
+    function _(t) {
         var e = new Image();
         return t.startsWith("data:") || (e.crossOrigin = "Anonymous"), new Promise(function(i, r) {
             e.onload = function() {
                 return i(e);
-            }, e.onerror = r, e.src = t.replace(/-?200d/g,""); //AE_MOD this makes requests not include the zero-width joiner
+            }, e.onerror = r, e.src = t.replace(/-?200d/g, "");
         });
     }
-    function w(t) {
+    function x(t) {
         return t * Math.PI / 180;
     }
-    function B(t) {
+    function C(t) {
         return t / Math.PI * 180;
     }
-    e.benchmarkStart = E, e.benchmarkEnd = b, function(t) {
+    e.benchmarkStart = b, e.benchmarkEnd = m, function(t) {
         t[t.horizontal = 0] = "horizontal", t[t.vertical = 1] = "vertical";
     }(S = e.HSPlane || (e.HSPlane = {})), function(t) {
         t[t.positive = 0] = "positive", t[t.negative = 1] = "negative", t[t.none = 2] = "none";
     }(f = e.HSMagnitude || (e.HSMagnitude = {})), function(t) {
         t[t.up = 0] = "up", t[t.down = 1] = "down", t[t.left = 2] = "left", t[t.right = 3] = "right";
-    }(D = e.HSDirection || (e.HSDirection = {})), e.hs_plane = v, e.hs_magnitude = T, 
-    e.hs_direction = m, e.hs_directionForMagnitudeAndPlane = O, e.exitFullscreen = H, 
-    e.getImageFromUri = C, e.degreesToRadians = w, e.radiansToDegrees = B, Array.prototype.remove = function(t) {
+    }(g = e.HSDirection || (e.HSDirection = {})), e.hs_plane = T, e.hs_magnitude = O, 
+    e.hs_direction = H, e.hs_directionForMagnitudeAndPlane = E, e.exitFullscreen = w, 
+    e.getImageFromUri = _, e.degreesToRadians = x, e.radiansToDegrees = C, Array.prototype.remove = function(t) {
         var e = this.indexOf(t);
         void 0 !== e && this.splice(e, 1);
-    }, window.isIOSApp = r, window.HSPlane = S, window.HSMagnitude = f, window.HSDirection = D, 
-    window.hasEmoji = o, window.onlyEmoji = a, window.requestTextureFromApp = u, window.log = c, 
-    window.clamp = h, window.mean = l, window.variance = p, window.findLast = d, window.benchmarkStart = E, 
-    window.benchmarkEnd = b, window.hs_plane = v, window.hs_magnitude = T, window.hs_direction = m, 
-    window.hs_directionForMagnitudeAndPlane = O, window.exitFullscreen = H, window.getImageFromUri = C, 
-    window.degreesToRadians = w, window.radiansToDegrees = B, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
+    }, e.checkMatches = function(t, e) {
+        return new RegExp(e, "gi").test(t);
+    }, window.isIOSApp = r, window.HSPlane = S, window.HSMagnitude = f, window.HSDirection = g, 
+    window.hasEmoji = o, window.onlyEmoji = a, window.requestTextureFromApp = c, window.log = u, 
+    window.clamp = h, window.mean = l, window.variance = p, window.findLast = d, window.benchmarkStart = b, 
+    window.benchmarkEnd = m, window.hs_plane = T, window.hs_magnitude = O, window.hs_direction = H, 
+    window.hs_directionForMagnitudeAndPlane = E, window.exitFullscreen = w, window.getImageFromUri = _, 
+    window.degreesToRadians = x, window.radiansToDegrees = C, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r, n = i(20), o = i(6), a = i(11), s = i(12), u = i(10), c = i(58), h = i(15), l = i(0);
+    var r, n = i(20), o = i(4), a = i(11), s = i(12), c = i(10), u = i(59), h = i(15), l = i(0);
     e.VERSION_KEY = "version", e.CUSTOM_OBJECTS_KEY = "customObjects", e.SCALE_KEY = "baseObjectScale", 
     e.FONT_SIZE_KEY = "fontSize", e.STAGE_SIZE = "stageSize", function(t) {
         t[t.V13 = 13] = "V13", t[t.V14 = 14] = "V14", t[t.V15 = 15] = "V15", t[t.V16 = 16] = "V16", 
@@ -338,17 +353,17 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             this.version >= r.V19) {
                 var a = i[e.STAGE_SIZE];
                 a && (o.HSStageScene.stageWidth = a.width, o.HSStageScene.stageHeight = a.height, 
-                n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, a.width));
+                n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, 512), n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, a.width));
             }
             Array.isArray(i[e.CUSTOM_OBJECTS_KEY]) && i[e.CUSTOM_OBJECTS_KEY].forEach(function(e) {
-                var i = new c.HSCustomObject(e.fileName, e.size.width, e.size.height);
+                var i = new u.HSCustomObject(e.fileName, e.size.width, e.size.height);
                 t.customObjectMap.set(e.id, i);
             });
         }, t.prototype.allSoundNames = function() {
             for (var t = this.findAllForClassName(s.HSParameter.key), e = [], i = 0; i < t.length; i++) {
                 var r = t[i];
 				//AE_MOD Load multiple sounds
-				if (r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value)) {
+				if (r.type === HSParameterType.Sound && -1 === e.indexOf(r.value)) {
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
 					e.push(((isCustom) ? "custom/":"") + r.value);
 					if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
@@ -370,7 +385,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return !1;
         }, t.prototype.hasAccelerometerTrait = function() {
             if (null != this._hasAccelerometerTrait) return this._hasAccelerometerTrait;
-            for (var t = this.findAllForClassName(u.HSParameterBlock.key), e = 0; e < t.length; e++) switch (t[e].type) {
+            for (var t = this.findAllForClassName(c.HSParameterBlock.key), e = 0; e < t.length; e++) switch (t[e].type) {
               case l.HSBlockType.StageTraitTiltUp:
               case l.HSBlockType.StageTraitTiltDown:
               case l.HSBlockType.StageTraitTiltLeft:
@@ -385,137 +400,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     window.SCALE_KEY = e.SCALE_KEY, window.FONT_SIZE_KEY = e.FONT_SIZE_KEY, window.STAGE_SIZE = e.STAGE_SIZE;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(1), u = i(23), c = i(27), h = i(4);
-    e.OBJECT_ID_KEY = "objectID", e.X_POSITION_KEY = "xPosition", e.Y_POSITION_KEY = "yPosition", 
-    e.TEXT_KEY = "text", e.TYPE_KEY = "type", e.IMAGE_ID_KEY = "customObjectID";
-    var l = function(t) {
-        function i() {
-            var e = null !== t && t.apply(this, arguments) || this;
-            return e.rules = [], e.heading = 0, e.customObject = null, e.willChangeCostume = !1, 
-            e._stageObjects = [], e.mostRecentCloneCache = new Map(), e;
-        }
-        return n(i, t), i.prototype.stageObject = function(t) {
-            return this._stageObjects.length || this.rebuildStageObject(), t && t.objectID === this.objectID ? t : t && null != t.creationTick ? this.mostRecentCloneBeforeTimestamp(t.creationTick) : this.context.version < a.HSProjectVersion.ADD_SELF ? this.mostRecentClone() : this.originalStageObject();
-        }, i.prototype.rebuildStageObject = function() {
-            var t = new u.HSStageObject(this.x, this.y, this.text, this.type, this.context.baseObjectScale, this.context.fontSize, this.objectID, this.fileName(), this.willChangeCostume, this.width, this.height);
-            this.latestCloneIndex = 1, t.stageRules = this.rules.reduce(function(e, i) {
-                return i ? e.concat(i.stageRules(t)) : e;
-            }, []), this._stageObjects = [ t ], this.mostRecentCloneCache = new Map();
-        }, i.prototype.parseJSON = function(t) {
-            void 0 === t && (t = {}), this.x = parseFloat(t[e.X_POSITION_KEY]), this.y = parseFloat(t[e.Y_POSITION_KEY]), 
-            this.text = t[e.TEXT_KEY], this.type = t[e.TYPE_KEY], this.width = parseFloat(t.width), 
-            this.height = parseFloat(t.height), this.objectID = t[e.OBJECT_ID_KEY], this.customObject = a.HSProjectContext.customObjectMap.get(t[e.IMAGE_ID_KEY]), 
-            this.customObject && c.HSImageTextureFactory.instance.prefetchImage(this.customObject);
-        }, i.prototype.fileName = function() {
-            if (this.customObject) return this.customObject.fileName;
-        }, i.prototype.addRule = function(t) {
-            this.rules.push(t);
-        }, i.prototype.allStageObjects = function() {
-            return this._stageObjects;
-        }, i.prototype.addStageObject = function(t) {
-            this.latestCloneIndex++, this.allStageObjects().push(t), t.cloneIndex = this.latestCloneIndex;
-        }, i.prototype.removeStageObject = function(t) {
-            this._stageObjects.remove(t);
-        }, i.prototype.mostRecentClone = function() {
-            var t = this.allStageObjects();
-            return t[t.length - 1];
-        }, i.prototype.originalStageObject = function() {
-            return this.allStageObjects()[0];
-        }, i.prototype.mostRecentCloneBeforeTimestamp = function(t) {
-            return this.mostRecentCloneCache.has(t) || this.mostRecentCloneCache.set(t, s.findLast(this.allStageObjects(), function(e) {
-                return e.creationTick <= t;
-            })), this.mostRecentCloneCache.get(t);
-        }, i.prototype.canChangeCostume = function() {
-            return this.type !== h.HSObjectType.text && (!h.hsIsShapeType(this.type) && this.type <= h.HSObjectType.HS_NUMBER_OF_OBJECTS);
-        }, i.key = "HSObject", i;
-    }(o.HSManagedObject);
-    e.HSObject = l, window.HSObject = l;
-}, function(t, e, i) {
-    "use strict";
-    var r;
-    function n(t) {
-        return t >= r.roundedSquareFullSize && t < r.HS_END_OF_FULL_SIZE_SHAPES;
-    }
-    Object.defineProperty(e, "__esModule", {
-        value: !0
-    }), function(t) {
-        t[t.monkey = 0] = "monkey", t[t.text = 1] = "text", t[t.octopus = 2] = "octopus", 
-        t[t.gorilla = 3] = "gorilla", t[t.cupcake = 4] = "cupcake", t[t.bear = 5] = "bear", 
-        t[t.dino = 6] = "dino", t[t.frog = 7] = "frog", t[t.greenman = 8] = "greenman", 
-        t[t.mustache = 9] = "mustache", t[t.spacepod = 10] = "spacepod", t[t.zombieBear = 11] = "zombieBear", 
-        t[t.ghoulopus = 12] = "ghoulopus", t[t.bats = 13] = "bats", t[t.frankenrilla = 14] = "frankenrilla", 
-        t[t.jodyWitch = 15] = "jodyWitch", t[t.cauldron = 16] = "cauldron", t[t.pumpkin = 17] = "pumpkin", 
-        t[t.broom = 18] = "broom", t[t.lantern = 19] = "lantern", t[t.parrotFlying = 20] = "parrotFlying", 
-        t[t.mandrill = 21] = "mandrill", t[t.mosquito = 22] = "mosquito", t[t.missChief = 23] = "missChief", 
-        t[t.venus = 24] = "venus", t[t.jeepers = 25] = "jeepers", t[t.banyan = 26] = "banyan", 
-        t[t.stargirl = 27] = "stargirl", t[t.astro = 28] = "astro", t[t.chillanna = 29] = "chillanna", 
-        t[t.robo = 30] = "robo", t[t.raccoon = 31] = "raccoon", t[t.bird = 32] = "bird", 
-        t[t.HS_END_OF_CHARACTERS = 33] = "HS_END_OF_CHARACTERS", t[t.square = 34] = "square", 
-        t[t.circle = 35] = "circle", t[t.hexagon = 36] = "hexagon", t[t.triangle = 37] = "triangle", 
-        t[t.rightTriangle = 38] = "rightTriangle", t[t.rectangle = 39] = "rectangle", t[t.heart = 40] = "heart", 
-        t[t.star = 41] = "star", t[t.arch = 42] = "arch", t[t.parallelogram = 43] = "parallelogram", 
-        t[t.squiggle = 44] = "squiggle", t[t.donut = 45] = "donut", t[t.tetrisZ = 46] = "tetrisZ", 
-        t[t.tetrisT = 47] = "tetrisT", t[t.tetrisL = 48] = "tetrisL", t[t.corner = 49] = "corner", 
-        t[t.flower = 50] = "flower", t[t.threeProngedBoomerang = 51] = "threeProngedBoomerang", 
-        t[t.squishedBox = 52] = "squishedBox", t[t.bead = 53] = "bead", t[t.chevron = 54] = "chevron", 
-        t[t.xShape = 55] = "xShape", t[t.tetrisLine = 56] = "tetrisLine", t[t.HS_END_OF_SHAPES = 57] = "HS_END_OF_SHAPES", 
-        t[t.toucan = 58] = "toucan", t[t.anteater = 59] = "anteater", t[t.crocodile = 60] = "crocodile", 
-        t[t.sloth = 61] = "sloth", t[t.iguana = 62] = "iguana", t[t.hut = 63] = "hut", t[t.penguin = 64] = "penguin", 
-        t[t.winterQueen = 65] = "winterQueen", t[t.shyYeti = 66] = "shyYeti", t[t.deer = 67] = "deer", 
-        t[t.elf = 68] = "elf", t[t.snowGlobe = 69] = "snowGlobe", t[t.polarbear = 70] = "polarbear", 
-        t[t.sleigh = 71] = "sleigh", t[t.mistletoe = 72] = "mistletoe", t[t.snowMan = 73] = "snowMan", 
-        t[t.snowflake = 74] = "snowflake", t[t.roundedSquareFullSize = 100] = "roundedSquareFullSize", 
-        t[t.squareFullSize = 101] = "squareFullSize", t[t.circleFullSize = 102] = "circleFullSize", 
-        t[t.hexagonFullSize = 103] = "hexagonFullSize", t[t.triangleFullSize = 104] = "triangleFullSize", 
-        t[t.rightTriangleFullSize = 105] = "rightTriangleFullSize", t[t.rectangleFullSize = 106] = "rectangleFullSize", 
-        t[t.heartFullSize = 107] = "heartFullSize", t[t.starFullSize = 108] = "starFullSize", 
-        t[t.archFullSize = 109] = "archFullSize", t[t.parallelogramTallFullSize = 110] = "parallelogramTallFullSize", 
-        t[t.squiggleFullSize = 111] = "squiggleFullSize", t[t.donutFullSize = 112] = "donutFullSize", 
-        t[t.tetrisZFullSize = 113] = "tetrisZFullSize", t[t.tetrisTFullSize = 114] = "tetrisTFullSize", 
-        t[t.tetrisLFullSize = 115] = "tetrisLFullSize", t[t.cornerFullSize = 116] = "cornerFullSize", 
-        t[t.flowerFullSize = 117] = "flowerFullSize", t[t.fanbladeFullSize = 118] = "fanbladeFullSize", 
-        t[t.squishedBoxFullSize = 119] = "squishedBoxFullSize", t[t.roundedRightTriangleFullSize = 120] = "roundedRightTriangleFullSize", 
-        t[t.arrowRoundedFullSize = 121] = "arrowRoundedFullSize", t[t.beadFullSize = 122] = "beadFullSize", 
-        t[t.parallelogramWideFullSize = 123] = "parallelogramWideFullSize", t[t.chevronFullSize = 124] = "chevronFullSize", 
-        t[t.xFullSize = 125] = "xFullSize", t[t.tetrisLineFullSize = 126] = "tetrisLineFullSize", 
-        t[t.hexagonV3 = 150] = "hexagonV3", t[t.triangleV3 = 151] = "triangleV3", t[t.rectangleV3 = 152] = "rectangleV3", 
-        t[t.heartV3 = 153] = "heartV3", t[t.starV3 = 154] = "starV3", t[t.archV3 = 155] = "archV3", 
-        t[t.squiggleV3 = 156] = "squiggleV3", t[t.tetrisZV3 = 157] = "tetrisZV3", t[t.tetrisTV3 = 158] = "tetrisTV3", 
-        t[t.tetrisLV3 = 159] = "tetrisLV3", t[t.fanbladeV3 = 160] = "fanbladeV3", t[t.arrowRoundedV3 = 161] = "arrowRoundedV3", 
-        t[t.beadV3 = 162] = "beadV3", t[t.parallelogramWideV3 = 163] = "parallelogramWideV3", 
-        t[t.chevronV3 = 164] = "chevronV3", t[t.HS_END_OF_FULL_SIZE_SHAPES = 165] = "HS_END_OF_FULL_SIZE_SHAPES", 
-        t[t.HS_NUMBER_OF_OBJECTS = 166] = "HS_NUMBER_OF_OBJECTS", t[t.image = 2e3] = "image", 
-        t[t.HS_START_OF_CHARACTERS2 = 3e3] = "HS_START_OF_CHARACTERS2", t[t.crocodileJaws = 3001] = "crocodileJaws", 
-        t[t.lanternFullSize = 3002] = "lanternFullSize", t[t.HS_END_OF_CHARACTERS2 = 3003] = "HS_END_OF_CHARACTERS2", 
-        t[t.nil = 1e4] = "nil", t[t.edgeOfScreen = 3e4] = "edgeOfScreen";
-    }(r = e.HSObjectType || (e.HSObjectType = {})), e.hsIsShapeType = function(t) {
-        var e = n(t);
-        return t > r.HS_END_OF_CHARACTERS && t < r.HS_END_OF_SHAPES || e;
-    }, e.hsIsFullSizeShape = n, window.HSObjectType = r;
-}, function(t, e, i) {
-    "use strict";
-    Object.defineProperty(e, "__esModule", {
-        value: !0
-    });
-    var r = i(64), n = function() {
+    var r = i(65), n = function() {
         function t() {}
         return t.textColor = function() {
             return t.rgbTextColor;
@@ -604,10 +492,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(1), a = i(22), s = i(3), u = i(53), c = i(55), h = i(0), l = function(t) {
+    var o = i(1), a = i(22), s = i(5), c = i(54), u = i(56), h = i(0), l = function(t) {
         function e(i) {
             var r = t.call(this) || this;
-            return r.scene = i, r.renderList = new c.HSLinkedList(), r.pointers = [], r.currentlyPressedObjects = [], 
+            return r.scene = i, r.renderList = new u.HSLinkedList(), r.pointers = [], r.currentlyPressedObjects = [], 
             r.tickCount = 0, r.nextEvents = new Set(), r.currentEvents = new Set(), r.container = new PIXI.Container(), 
             i.objects.forEach(function(t) {
                 t.rebuildStageObject(), r.addStageObject(t.stageObject());
@@ -652,6 +540,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, e.prototype.activateEventMessageRules = function() {
             var t = this;
             this.allStageRulesForEventType(h.HSBlockType.EventOperatorHearMessage).forEach(function(e) {
+                t.currentEvents.forEach(e.activateIfEqualsEventMessage);
+            }), this.allStageRulesForEventType(h.HSBlockType.EventOperatorMessageMatches).forEach(function(e) {
                 t.currentEvents.forEach(e.activateIfMatchesEventMessage);
             });
         }, e.prototype.activateAllNotPressedRules = function() {
@@ -804,10 +694,137 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             },
             enumerable: !0,
             configurable: !0
-        }), e.dirtySort = !1, e.stageHeight = 768, e.stageWidth = 1024, e.MAX_CLONES = 4096, 
-        e;
-    }(u.HSRuleActivator);
+        }), e.dirtySort = !1, e.promptsToExecute = [], e.stageHeight = 768, e.stageWidth = 1024, 
+        e.MAX_CLONES = 4096, e;
+    }(c.HSRuleActivator);
     e.HSStageScene = l, window.HSStageScene = l;
+}, function(t, e, i) {
+    "use strict";
+    var r, n = this && this.__extends || (r = function(t, e) {
+        return (r = Object.setPrototypeOf || {
+            __proto__: []
+        } instanceof Array && function(t, e) {
+            t.__proto__ = e;
+        } || function(t, e) {
+            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+        })(t, e);
+    }, function(t, e) {
+        function i() {
+            this.constructor = t;
+        }
+        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
+        new i());
+    });
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var o = i(7), a = i(2), s = i(1), c = i(23), u = i(27), h = i(6);
+    e.OBJECT_ID_KEY = "objectID", e.X_POSITION_KEY = "xPosition", e.Y_POSITION_KEY = "yPosition", 
+    e.TEXT_KEY = "text", e.TYPE_KEY = "type", e.IMAGE_ID_KEY = "customObjectID";
+    var l = function(t) {
+        function i() {
+            var e = null !== t && t.apply(this, arguments) || this;
+            return e.rules = [], e.heading = 0, e.customObject = null, e.willChangeCostume = !1, 
+            e._stageObjects = [], e.mostRecentCloneCache = new Map(), e;
+        }
+        return n(i, t), i.prototype.stageObject = function(t) {
+            return this._stageObjects.length || this.rebuildStageObject(), t && t.objectID === this.objectID ? t : t && null != t.creationTick ? this.mostRecentCloneBeforeTimestamp(t.creationTick) : this.context.version < a.HSProjectVersion.ADD_SELF ? this.mostRecentClone() : this.originalStageObject();
+        }, i.prototype.rebuildStageObject = function() {
+            var t = new c.HSStageObject(this.x, this.y, this.text, this.type, this.context.baseObjectScale, this.context.fontSize, this.objectID, this.fileName(), this.willChangeCostume, this.width, this.height);
+            this.latestCloneIndex = 0, t.stageRules = this.rules.reduce(function(e, i) {
+                return i ? e.concat(i.stageRules(t)) : e;
+            }, []), this._stageObjects = [ t ], this.mostRecentCloneCache = new Map();
+        }, i.prototype.parseJSON = function(t) {
+            void 0 === t && (t = {}), this.x = parseFloat(t[e.X_POSITION_KEY]), this.y = parseFloat(t[e.Y_POSITION_KEY]), 
+            this.text = t[e.TEXT_KEY], this.type = t[e.TYPE_KEY], this.width = parseFloat(t.width), 
+            this.height = parseFloat(t.height), this.objectID = t[e.OBJECT_ID_KEY], this.customObject = a.HSProjectContext.customObjectMap.get(t[e.IMAGE_ID_KEY]), 
+            this.customObject && u.HSImageTextureFactory.instance.prefetchImage(this.customObject);
+        }, i.prototype.fileName = function() {
+            if (this.customObject) return this.customObject.fileName;
+        }, i.prototype.addRule = function(t) {
+            this.rules.push(t);
+        }, i.prototype.allStageObjects = function() {
+            return this._stageObjects;
+        }, i.prototype.addStageObject = function(t) {
+            this.latestCloneIndex++, this.allStageObjects().push(t), t.cloneIndex = this.latestCloneIndex;
+        }, i.prototype.removeStageObject = function(t) {
+            this._stageObjects.remove(t);
+        }, i.prototype.mostRecentClone = function() {
+            var t = this.allStageObjects();
+            return t[t.length - 1];
+        }, i.prototype.originalStageObject = function() {
+            return this.allStageObjects()[0];
+        }, i.prototype.mostRecentCloneBeforeTimestamp = function(t) {
+            return this.mostRecentCloneCache.has(t) || this.mostRecentCloneCache.set(t, s.findLast(this.allStageObjects(), function(e) {
+                return e.creationTick <= t;
+            })), this.mostRecentCloneCache.get(t);
+        }, i.prototype.canChangeCostume = function() {
+            return this.type !== h.HSObjectType.text && (!h.hsIsShapeType(this.type) && this.type <= h.HSObjectType.HS_NUMBER_OF_OBJECTS);
+        }, i.key = "HSObject", i;
+    }(o.HSManagedObject);
+    e.HSObject = l, window.HSObject = l;
+}, function(t, e, i) {
+    "use strict";
+    var r;
+    function n(t) {
+        return t >= r.roundedSquareFullSize && t < r.HS_END_OF_FULL_SIZE_SHAPES;
+    }
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    }), function(t) {
+        t[t.monkey = 0] = "monkey", t[t.text = 1] = "text", t[t.octopus = 2] = "octopus", 
+        t[t.gorilla = 3] = "gorilla", t[t.cupcake = 4] = "cupcake", t[t.bear = 5] = "bear", 
+        t[t.dino = 6] = "dino", t[t.frog = 7] = "frog", t[t.greenman = 8] = "greenman", 
+        t[t.mustache = 9] = "mustache", t[t.spacepod = 10] = "spacepod", t[t.zombieBear = 11] = "zombieBear", 
+        t[t.ghoulopus = 12] = "ghoulopus", t[t.bats = 13] = "bats", t[t.frankenrilla = 14] = "frankenrilla", 
+        t[t.jodyWitch = 15] = "jodyWitch", t[t.cauldron = 16] = "cauldron", t[t.pumpkin = 17] = "pumpkin", 
+        t[t.broom = 18] = "broom", t[t.lantern = 19] = "lantern", t[t.parrotFlying = 20] = "parrotFlying", 
+        t[t.mandrill = 21] = "mandrill", t[t.mosquito = 22] = "mosquito", t[t.missChief = 23] = "missChief", 
+        t[t.venus = 24] = "venus", t[t.jeepers = 25] = "jeepers", t[t.banyan = 26] = "banyan", 
+        t[t.stargirl = 27] = "stargirl", t[t.astro = 28] = "astro", t[t.chillanna = 29] = "chillanna", 
+        t[t.robo = 30] = "robo", t[t.raccoon = 31] = "raccoon", t[t.bird = 32] = "bird", 
+        t[t.HS_END_OF_CHARACTERS = 33] = "HS_END_OF_CHARACTERS", t[t.square = 34] = "square", 
+        t[t.circle = 35] = "circle", t[t.hexagon = 36] = "hexagon", t[t.triangle = 37] = "triangle", 
+        t[t.rightTriangle = 38] = "rightTriangle", t[t.rectangle = 39] = "rectangle", t[t.heart = 40] = "heart", 
+        t[t.star = 41] = "star", t[t.arch = 42] = "arch", t[t.parallelogram = 43] = "parallelogram", 
+        t[t.squiggle = 44] = "squiggle", t[t.donut = 45] = "donut", t[t.tetrisZ = 46] = "tetrisZ", 
+        t[t.tetrisT = 47] = "tetrisT", t[t.tetrisL = 48] = "tetrisL", t[t.corner = 49] = "corner", 
+        t[t.flower = 50] = "flower", t[t.threeProngedBoomerang = 51] = "threeProngedBoomerang", 
+        t[t.squishedBox = 52] = "squishedBox", t[t.bead = 53] = "bead", t[t.chevron = 54] = "chevron", 
+        t[t.xShape = 55] = "xShape", t[t.tetrisLine = 56] = "tetrisLine", t[t.HS_END_OF_SHAPES = 57] = "HS_END_OF_SHAPES", 
+        t[t.toucan = 58] = "toucan", t[t.anteater = 59] = "anteater", t[t.crocodile = 60] = "crocodile", 
+        t[t.sloth = 61] = "sloth", t[t.iguana = 62] = "iguana", t[t.hut = 63] = "hut", t[t.penguin = 64] = "penguin", 
+        t[t.winterQueen = 65] = "winterQueen", t[t.shyYeti = 66] = "shyYeti", t[t.deer = 67] = "deer", 
+        t[t.elf = 68] = "elf", t[t.snowGlobe = 69] = "snowGlobe", t[t.polarbear = 70] = "polarbear", 
+        t[t.sleigh = 71] = "sleigh", t[t.mistletoe = 72] = "mistletoe", t[t.snowMan = 73] = "snowMan", 
+        t[t.snowflake = 74] = "snowflake", t[t.roundedSquareFullSize = 100] = "roundedSquareFullSize", 
+        t[t.squareFullSize = 101] = "squareFullSize", t[t.circleFullSize = 102] = "circleFullSize", 
+        t[t.hexagonFullSize = 103] = "hexagonFullSize", t[t.triangleFullSize = 104] = "triangleFullSize", 
+        t[t.rightTriangleFullSize = 105] = "rightTriangleFullSize", t[t.rectangleFullSize = 106] = "rectangleFullSize", 
+        t[t.heartFullSize = 107] = "heartFullSize", t[t.starFullSize = 108] = "starFullSize", 
+        t[t.archFullSize = 109] = "archFullSize", t[t.parallelogramTallFullSize = 110] = "parallelogramTallFullSize", 
+        t[t.squiggleFullSize = 111] = "squiggleFullSize", t[t.donutFullSize = 112] = "donutFullSize", 
+        t[t.tetrisZFullSize = 113] = "tetrisZFullSize", t[t.tetrisTFullSize = 114] = "tetrisTFullSize", 
+        t[t.tetrisLFullSize = 115] = "tetrisLFullSize", t[t.cornerFullSize = 116] = "cornerFullSize", 
+        t[t.flowerFullSize = 117] = "flowerFullSize", t[t.fanbladeFullSize = 118] = "fanbladeFullSize", 
+        t[t.squishedBoxFullSize = 119] = "squishedBoxFullSize", t[t.roundedRightTriangleFullSize = 120] = "roundedRightTriangleFullSize", 
+        t[t.arrowRoundedFullSize = 121] = "arrowRoundedFullSize", t[t.beadFullSize = 122] = "beadFullSize", 
+        t[t.parallelogramWideFullSize = 123] = "parallelogramWideFullSize", t[t.chevronFullSize = 124] = "chevronFullSize", 
+        t[t.xFullSize = 125] = "xFullSize", t[t.tetrisLineFullSize = 126] = "tetrisLineFullSize", 
+        t[t.hexagonV3 = 150] = "hexagonV3", t[t.triangleV3 = 151] = "triangleV3", t[t.rectangleV3 = 152] = "rectangleV3", 
+        t[t.heartV3 = 153] = "heartV3", t[t.starV3 = 154] = "starV3", t[t.archV3 = 155] = "archV3", 
+        t[t.squiggleV3 = 156] = "squiggleV3", t[t.tetrisZV3 = 157] = "tetrisZV3", t[t.tetrisTV3 = 158] = "tetrisTV3", 
+        t[t.tetrisLV3 = 159] = "tetrisLV3", t[t.fanbladeV3 = 160] = "fanbladeV3", t[t.arrowRoundedV3 = 161] = "arrowRoundedV3", 
+        t[t.beadV3 = 162] = "beadV3", t[t.parallelogramWideV3 = 163] = "parallelogramWideV3", 
+        t[t.chevronV3 = 164] = "chevronV3", t[t.HS_END_OF_FULL_SIZE_SHAPES = 165] = "HS_END_OF_FULL_SIZE_SHAPES", 
+        t[t.HS_NUMBER_OF_OBJECTS = 166] = "HS_NUMBER_OF_OBJECTS", t[t.image = 2e3] = "image", 
+        t[t.HS_START_OF_CHARACTERS2 = 3e3] = "HS_START_OF_CHARACTERS2", t[t.crocodileJaws = 3001] = "crocodileJaws", 
+        t[t.lanternFullSize = 3002] = "lanternFullSize", t[t.HS_END_OF_CHARACTERS2 = 3003] = "HS_END_OF_CHARACTERS2", 
+        t[t.nil = 1e4] = "nil", t[t.edgeOfScreen = 3e4] = "edgeOfScreen";
+    }(r = e.HSObjectType || (e.HSObjectType = {})), e.hsIsShapeType = function(t) {
+        var e = n(t);
+        return t > r.HS_END_OF_CHARACTERS && t < r.HS_END_OF_SHAPES || e;
+    }, e.hsIsFullSizeShape = n, window.HSObjectType = r;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -840,7 +857,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(2), a = i(3), s = i(12), u = i(25), c = i(10), h = i(0), l = function(t) {
+    var o = i(2), a = i(5), s = i(12), c = i(25), u = i(10), h = i(0), l = function(t) {
         function e(e) {
             var i = t.call(this, e) || this;
             return i.type = h.HSBlockType.Variable, i;
@@ -849,7 +866,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i), this.blockType = i.type, 
             i.object && (this.object = this.context.findWithObjectID(a.HSObject.key, i.object)), 
             this.type = h.HSBlockType.Variable;
-            var r = this.context.findWithObjectID(u.HSVariablePrototype.key, i[s.VARIABLE_KEY]);
+            var r = this.context.findWithObjectID(c.HSVariablePrototype.key, i[s.VARIABLE_KEY]);
             r.name === e.skillComplete ? this.name = r.name : this.object && this.context.version < o.HSProjectVersion.ADD_SELF ? this.name = "_hs_" + this.object.objectID + "_" + r.name : this.name = "_hs_" + r.name;
         }, e.prototype.isSkillComplete = function() {
             return this.name === e.skillComplete;
@@ -864,14 +881,14 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, e.parseValue = function(t) {
             var e = parseFloat(t);
             return isNaN(e) || !/^\-?[0-9]+(e\+?[0-9]+)?(\.[0-9]+(e\+?[0-9]+)?)?$/.test(t) ? null == t ? 0 : t : (function(t) {
-                return t >= -c.MAX_FLOAT && t <= c.MAX_FLOAT;
-            }(e) || (e = e < 0 ? -c.MAX_FLOAT : c.MAX_FLOAT), Math.round(1e6 * e) / 1e6);
+                return t >= -u.MAX_FLOAT && t <= u.MAX_FLOAT;
+            }(e) || (e = e < 0 ? -u.MAX_FLOAT : u.MAX_FLOAT), Math.round(1e6 * e) / 1e6);
         }, e.parseNumberFrom = function(t) {
             var i = e.parseValue(t);
             return "string" == typeof i ? 0 : i;
         }, e.globalScope = {}, e.key = "HSVariable", e.skillComplete = "hsSkillComplete", 
         e;
-    }(c.HSParameterBlock);
+    }(u.HSParameterBlock);
     e.HSVariable = l, window.HSVariable = l;
 }, function(t, e, i) {
     "use strict";
@@ -924,10 +941,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(22), a = i(13), s = i(3), u = i(1), c = i(2), h = i(6), l = i(23), p = i(14), d = i(44), S = i(0), f = i(5), D = i(8);
+    var o = i(22), a = i(13), s = i(5), c = i(1), u = i(2), h = i(4), l = i(23), p = i(14), d = i(45), S = i(0), f = i(3), g = i(8);
     e.TRAIT_OBJECT_ID_KEY = "HSTraitObjectIDKey", e.TRAIT_ID_KEY = "HSTraitIDKey", e.TRAIT_TYPE_KEY = "HSTraitTypeKey", 
     e.MAX_FLOAT = 3.4028234663852886e38;
-    var g = function(t) {
+    var y = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
@@ -941,26 +958,36 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             this.object = this.context.findWithObjectID(s.HSObject.key, t[e.TRAIT_OBJECT_ID_KEY]), 
             this.objectID = t[e.TRAIT_ID_KEY], this.type = t[e.TRAIT_TYPE_KEY], this.objectReferenceType = t.HSTraitObjectParameterTypeKey;
         }, i.prototype.computedValue = function(t) {
-            var e, i, r, n, a, c, l, d, f, g, y, E, b, v;
+            var e, i, r, n, a, u, l, d, f, y, v, b, m, T, O;
             switch (this.type) {
               case S.HSBlockType.Random110:
               case S.HSBlockType.Random1100:
               case S.HSBlockType.Random11000:
               case S.HSBlockType.MathOperatorRandom:
               case S.HSBlockType.Random:
-                var T = this.secondParamNumberValue(t), m = this.firstParamNumberValue(t);
-                return Math.floor(Math.random() * (T - m + 1)) + m;
+                var H = this.secondParamNumberValue(t), E = this.firstParamNumberValue(t);
+                return Math.floor(Math.random() * (H - E + 1)) + E;
 
-			  case HSBlockType.None: //AE_MOD
+			  case S.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(t):undefined),this);
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(t):undefined),this);
 				}
 				return 0;
-				
+
               case S.HSBlockType.MathOperatorAdd:
-                var O = this.firstParamValue(t), H = this.secondParamValue(t);
-                return "string" != typeof O && "string" != typeof H || (O = O.toString(), H = H.toString()), 
-                O + H;
+                var w = this.firstParamValue(t), _ = this.secondParamValue(t);
+                return "string" != typeof w && "string" != typeof _ || (w = w.toString(), _ = _.toString()), 
+                w + _;
+
+              case S.HSBlockType.TextOperatorCharAtIndex:
+                return this.firstParameterStringValue(t)[this.secondParamNumberValue(t)] || "";
+
+              case S.HSBlockType.TextOperatorCharsInRange:
+                var x = this.firstParameterStringValue(t), C = this.secondParamNumberValue(t), k = this.endIndexValue(t);
+                return x.slice(C, k);
+
+              case S.HSBlockType.TextOperatorLength:
+                return (null === (e = w = this.firstParameterStringValue(t)) || void 0 === e ? void 0 : e.length) || 0;
 
               case S.HSBlockType.MathOperatorSubtract:
                 return this.firstParamNumberValue(t) - this.secondParamNumberValue(t);
@@ -969,39 +996,39 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return this.firstParamNumberValue(t) * this.secondParamNumberValue(t);
 
               case S.HSBlockType.MathOperatorDivide:
-                return 0 === (k = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) / k;
+                return 0 === (A = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) / A;
 
               case S.HSBlockType.MathOperatorSine:
-                return Math.sin(u.degreesToRadians(this.firstParamNumberValue(t)));
+                return Math.sin(c.degreesToRadians(this.firstParamNumberValue(t)));
 
               case S.HSBlockType.MathOperatorCosine:
-                return Math.cos(u.degreesToRadians(this.firstParamNumberValue(t)));
+                return Math.cos(c.degreesToRadians(this.firstParamNumberValue(t)));
 
               case S.HSBlockType.MathOperatorTangent:
-                return Math.tan(u.degreesToRadians(this.firstParamNumberValue(t)));
+                return Math.tan(c.degreesToRadians(this.firstParamNumberValue(t)));
 
               case S.HSBlockType.MathOperatorInverseSine:
-                return u.radiansToDegrees(Math.asin(this.firstParamNumberValue(t)) || 0);
+                return c.radiansToDegrees(Math.asin(this.firstParamNumberValue(t)) || 0);
 
               case S.HSBlockType.MathOperatorInverseCosine:
-                return u.radiansToDegrees(Math.acos(this.firstParamNumberValue(t)) || 0);
+                return c.radiansToDegrees(Math.acos(this.firstParamNumberValue(t)) || 0);
 
               case S.HSBlockType.MathOperatorInverseTangent:
-                return u.radiansToDegrees(Math.atan(this.firstParamNumberValue(t)) || 0);
+                return c.radiansToDegrees(Math.atan(this.firstParamNumberValue(t)) || 0);
 
               case S.HSBlockType.MathOperatorMaximum:
-                var C = this.firstParamValue(t), w = this.secondParamValue(t);
-                if ("string" == typeof C || "string" == typeof w) {
-                    var B = C.toString(), F = w.toString();
-                    return B.localeCompare(F) >= 0 ? B : F;
+                var B = this.firstParamValue(t), j = this.secondParamValue(t);
+                if ("string" == typeof B || "string" == typeof j) {
+                    var P = B.toString(), I = j.toString();
+                    return P.localeCompare(I) >= 0 ? P : I;
                 }
                 return Math.max(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
               case S.HSBlockType.MathOperatorMinimum:
-                var _ = this.firstParamValue(t), x = this.secondParamValue(t);
-                if ("string" == typeof _ || "string" == typeof x) {
-                    B = _.toString(), F = x.toString();
-                    return B.localeCompare(F) <= 0 ? B : F;
+                var M = this.firstParamValue(t), R = this.secondParamValue(t);
+                if ("string" == typeof M || "string" == typeof R) {
+                    P = M.toString(), I = R.toString();
+                    return P.localeCompare(I) <= 0 ? P : I;
                 }
                 return Math.min(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
@@ -1024,8 +1051,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return Math.abs(this.firstParamNumberValue(t));
 
               case S.HSBlockType.MathOperatorModulo:
-                var k;
-                return 0 === (k = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) % k;
+                var A;
+                return 0 === (A = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) % A;
 
               case S.HSBlockType.ConditionalOperatorEquals:
               case S.HSBlockType.ConditionalOperatorLessThan:
@@ -1039,54 +1066,54 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return this.computedBooleanValue(t) ? 1 : 0;
 
               case S.HSBlockType.TraitXPosition:
-                return Math.round((null === (e = this.stageObjects(t)[0]) || void 0 === e ? void 0 : e.x) || 0);
+                return Math.round((null === (i = this.stageObjects(t)[0]) || void 0 === i ? void 0 : i.x) || 0);
 
               case S.HSBlockType.TraitYPosition:
-                return Math.round((null === (i = this.stageObjects(t)[0]) || void 0 === i ? void 0 : i.y) || 0);
+                return Math.round((null === (r = this.stageObjects(t)[0]) || void 0 === r ? void 0 : r.y) || 0);
 
               case S.HSBlockType.TraitWidth:
-                return (null === (r = this.stageObjects(t)[0]) || void 0 === r ? void 0 : r.width()) || 0;
+                return (null === (n = this.stageObjects(t)[0]) || void 0 === n ? void 0 : n.width()) || 0;
 
               case S.HSBlockType.TraitHeight:
-                return (null === (n = this.stageObjects(t)[0]) || void 0 === n ? void 0 : n.height()) || 0;
+                return (null === (a = this.stageObjects(t)[0]) || void 0 === a ? void 0 : a.height()) || 0;
 
               case S.HSBlockType.TraitZIndex:
-                return (null === (a = this.stageObjects(t)[0]) || void 0 === a ? void 0 : a.zIndex) || 0;
+                return (null === (u = this.stageObjects(t)[0]) || void 0 === u ? void 0 : u.zIndex) || 0;
 
               case S.HSBlockType.TraitOriginX:
-                return Math.round((null === (c = this.stageObjects(t)[0]) || void 0 === c ? void 0 : c.originX) || 0);
+                return Math.round((null === (l = this.stageObjects(t)[0]) || void 0 === l ? void 0 : l.originX) || 0);
 
               case S.HSBlockType.TraitOriginY:
-                return Math.round((null === (l = this.stageObjects(t)[0]) || void 0 === l ? void 0 : l.originY) || 0);
+                return Math.round((null === (d = this.stageObjects(t)[0]) || void 0 === d ? void 0 : d.originY) || 0);
 
               case S.HSBlockType.TraitCenterX:
-                return Math.round((null === (d = this.stageObjects(t)[0]) || void 0 === d ? void 0 : d.x) || 0);
+                return Math.round((null === (f = this.stageObjects(t)[0]) || void 0 === f ? void 0 : f.x) || 0);
 
               case S.HSBlockType.TraitCenterY:
-                return Math.round((null === (f = this.stageObjects(t)[0]) || void 0 === f ? void 0 : f.y) || 0);
+                return Math.round((null === (y = this.stageObjects(t)[0]) || void 0 === y ? void 0 : y.y) || 0);
 
               case S.HSBlockType.TraitRotation:
-                return (null === (g = this.stageObjects(t)[0]) || void 0 === g ? void 0 : g.headingInDegrees) || 0;
+                return (null === (v = this.stageObjects(t)[0]) || void 0 === v ? void 0 : v.headingInDegrees) || 0;
 
               case S.HSBlockType.TraitSpeed:
-                return (null === (y = this.stageObjects(t)[0]) || void 0 === y ? void 0 : y.speed) || 0;
+                return (null === (b = this.stageObjects(t)[0]) || void 0 === b ? void 0 : b.speed) || 0;
 
               case S.HSBlockType.TraitCloneIndex:
-                return (null === (E = this.stageObjects(t)[0]) || void 0 === E ? void 0 : E.cloneIndex) || 0;
+                return (null === (m = this.stageObjects(t)[0]) || void 0 === m ? void 0 : m.cloneIndex) || 0;
 
               case S.HSBlockType.TraitText:
-                var j = (null === (b = this.stageObjects(t)[0]) || void 0 === b ? void 0 : b.text) || "";
-                return D.HSVariable.parseValue(j).toString();
+                var F = (null === (T = this.stageObjects(t)[0]) || void 0 === T ? void 0 : T.text) || "";
+                return g.HSVariable.parseValue(F).toString();
 
               case S.HSBlockType.TraitTotalClones:
-                var P = this.stageObjects(t)[0];
-                return this.context.findWithObjectID(s.HSObject.key, P.objectID).allStageObjects().length;
+                var D = this.stageObjects(t)[0];
+                return this.context.findWithObjectID(s.HSObject.key, D.objectID).allStageObjects().length;
 
               case S.HSBlockType.StageTraitTotalObjects:
                 return p.HSStageProject.sharedInstance.activeStageScene.stageObjects.length;
 
               case S.HSBlockType.TraitInvisibility:
-                return (null === (v = this.stageObjects(t)[0]) || void 0 === v ? void 0 : v.invisibilityPercent) || 0;
+                return (null === (O = this.stageObjects(t)[0]) || void 0 === O ? void 0 : O.invisibilityPercent) || 0;
 
               case S.HSBlockType.TraitSize:
                 return this.computedSizePercent(t);
@@ -1153,31 +1180,31 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             }
         }, i.prototype.computedStringValue = function(t) {
             var e = this.computedValue(t);
-            return D.HSVariable.parseValue(e).toString();
+            return g.HSVariable.parseValue(e).toString();
         }, i.prototype.computedBooleanValue = function(t) {
             var e, i, r = this.firstParamValue(t), n = this.secondParamValue(t);
             switch (this.type) {
               case S.HSBlockType.ConditionalOperatorMatches:
                 return e = this.firstParameterStringValue(t), i = this.secondParameterStringValue(t), 
-                new RegExp(i, "g").test(e);
+                new RegExp(i, "gi").test(e);
 
               case S.HSBlockType.ConditionalOperatorEquals:
-                return y(r, n);
+                return v(r, n);
 
               case S.HSBlockType.ConditionalOperatorLessThan:
-                return E(r, n) && !y(r, n);
+                return b(r, n) && !v(r, n);
 
               case S.HSBlockType.ConditionalOperatorLessThanOrEqualTo:
-                return y(r, n) || E(r, n);
+                return v(r, n) || b(r, n);
 
               case S.HSBlockType.ConditionalOperatorGreaterThan:
-                return b(r, n) && !y(r, n);
+                return m(r, n) && !v(r, n);
 
               case S.HSBlockType.ConditionalOperatorGreaterThanOrEqualTo:
-                return y(r, n) || b(r, n);
+                return v(r, n) || m(r, n);
 
               case S.HSBlockType.ConditionalOperatorNotEquals:
-                return !y(r, n);
+                return !v(r, n);
 
               case S.HSBlockType.ConditionalOperatorAnd:
                 return !(!this.firstParamNumberValue(t) || !this.secondParamNumberValue(t));
@@ -1194,7 +1221,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, i.prototype.usesOriginalObject = function() {
             return this.type === S.HSBlockType.OriginalObject || this.objectReferenceType === S.HSBlockType.OriginalObject;
         }, i.prototype.stageObjects = function(t) {
-            return this.type === S.HSBlockType.Self ? [ t ] : this.usesOriginalObject() ? [ t.originalObject(this.context) ] : this.object ? this.context.version >= c.HSProjectVersion.ADD_SELF ? this.object.allStageObjects() : [ this.object.stageObject(t) ] : this.type === S.HSBlockType.ScreenEdge ? [ l.HSStageObject.edgeOfScreenObject ] : this.type === S.HSBlockType.AnyObject ? p.HSStageProject.sharedInstance.activeStageScene.stageObjects : this.type >= S.HSBlockType.TraitRotation && this.type < S.HSBlockType.HS_END_OF_OBJECT_TRAITS ? [ t ] : [];
+            return this.type === S.HSBlockType.Self ? [ t ] : this.usesOriginalObject() ? [ t.originalObject(this.context) ] : this.object ? this.context.version >= u.HSProjectVersion.ADD_SELF ? this.object.allStageObjects() : [ this.object.stageObject(t) ] : this.type === S.HSBlockType.ScreenEdge ? [ l.HSStageObject.edgeOfScreenObject ] : this.type === S.HSBlockType.AnyObject ? p.HSStageProject.sharedInstance.activeStageScene.stageObjects : this.type >= S.HSBlockType.TraitRotation && this.type < S.HSBlockType.HS_END_OF_OBJECT_TRAITS ? [ t ] : [];
         }, i.prototype.firstParameterStringValue = function(t) {
             switch (this.type) {
               case S.HSBlockType.Random110:
@@ -1270,26 +1297,28 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
               default:
                 return this.parameters.length >= 2 ? this.parameters[1].stageParameter().computedNumberValue(t) : 0;
             }
+        }, i.prototype.endIndexValue = function(t) {
+            return this.parameters.length < 3 ? 0 : this.parameters[2].stageParameter().computedNumberValue(t);
         }, i.key = "HSParameterBlock", i;
     }(a.HSBlock);
-    function y(t, e) {
+    function v(t, e) {
         if ("number" == typeof t && "number" == typeof e) {
             var i = t, r = e;
             return Math.abs(i - r) <= Number.EPSILON;
         }
         return t.toString() === e.toString();
     }
-    function E(t, e) {
+    function b(t, e) {
         if ("number" == typeof t && "number" == typeof e) return t < e;
         var i = t.toString(), r = e.toString();
         return -1 === i.localeCompare(r);
     }
-    function b(t, e) {
+    function m(t, e) {
         if ("number" == typeof t && "number" == typeof e) return t > e;
         var i = t.toString(), r = e.toString();
         return 1 === i.localeCompare(r);
     }
-    e.HSParameterBlock = g, window.HSParameterBlock = g, window.MAX_FLOAT = e.MAX_FLOAT;
+    e.HSParameterBlock = y, window.HSParameterBlock = y, window.MAX_FLOAT = e.MAX_FLOAT;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -1310,7 +1339,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(3), a = i(2), s = i(12), u = i(13), c = i(10), h = i(56), l = i(26), p = i(0), d = i(15);
+    var o = i(5), a = i(2), s = i(12), c = i(13), u = i(10), h = i(57), l = i(26), p = i(0), d = i(15);
     e.SCRIPT_ID_KEY = "abilityID";
     var S = function(t) {
         function i(e) {
@@ -1334,7 +1363,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             t.prototype.parseJSON.call(this, i), this.childBlock() ? (this.script = r, n.willChangeCostume = n.canChangeCostume() && r.containsChangeCostume(), 
             n.addRule(this)) : this.context.deleteObject(this)) : this.context.deleteObject(this);
         }, i.prototype.parseLowerThanV14JSON = function(t, e) {
-            var i = t.eventType, r = p.blockTypeForLegacyEventType(i), n = new c.HSParameterBlock(this.context);
+            var i = t.eventType, r = p.blockTypeForLegacyEventType(i), n = new u.HSParameterBlock(this.context);
             n.type = r;
             var o = new s.HSParameter(this.context);
             switch (this.parameters = [ o ], o.childBlock = n, r) {
@@ -1381,7 +1410,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, i.prototype.conditionIsTrue = function(t) {
             return this.childBlock().computedBooleanValue(t);
         }, i.key = "HSRule", i;
-    }(u.HSBlock);
+    }(c.HSBlock);
     e.HSRule = S, window.HSRule = S, window.SCRIPT_ID_KEY = e.SCRIPT_ID_KEY;
 }, function(t, e, i) {
     "use strict";
@@ -1403,7 +1432,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(9), u = i(8), c = i(24), h = i(25), l = i(26), p = i(10), d = i(27), S = i(15);
+    var o = i(7), a = i(2), s = i(9), c = i(8), u = i(24), h = i(25), l = i(26), p = i(10), d = i(27), S = i(15);
     e.VALUE_KEY = "value", e.CHILD_BLOCK_KEY = "datum", e.VARIABLE_KEY = "variable", 
     e.PARAMETER_TYPE_KEY = "type";
     var f = function(t) {
@@ -1411,7 +1440,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return null !== t && t.apply(this, arguments) || this;
         }
         return n(i, t), i.prototype.stageParameter = function() {
-            return new c.HSStageParameter(this.value, this.childBlock);
+            return new u.HSStageParameter(this.value, this.childBlock);
         }, i.prototype.parseJSON = function(t) {
             if (void 0 === t && (t = {}), this.value = t[e.VALUE_KEY], this.type = t[e.PARAMETER_TYPE_KEY], 
             this.type === S.HSParameterType.Object && t[e.CHILD_BLOCK_KEY]) {
@@ -1431,7 +1460,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, i.prototype.setChildBlockToVariableIfPossible = function(t) {
             var i = t[e.VARIABLE_KEY];
             if (this.context.findWithObjectID(h.HSVariablePrototype.key, i)) {
-                var r = new u.HSVariable(this.context);
+                var r = new c.HSVariable(this.context);
                 r.parseJSON(t), this.childBlock = r;
             }
         }, i.prototype.setChildBlockToTraitIfPossible = function(t) {
@@ -1464,7 +1493,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o, a = i(7), s = i(12), u = i(9), c = i(0);
+    var o, a = i(7), s = i(12), c = i(9), u = i(0);
     e.BLOCK_TYPE_KEY = "type", e.PARAMETERS_KEY = "parameters", e.PARAMS_KEY = "params", 
     function(t) {
         t[t.Method = 0] = "Method", t[t.Control = 1] = "Control", t[t.ConditionalControl = 2] = "ConditionalControl", 
@@ -1487,17 +1516,17 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return t.stageParameter();
             });
         }, i.prototype.toString = function() {
-            return u.SourceFormatter.blockToSrc(this);
+            return c.SourceFormatter.blockToSrc(this);
         }, i.blockClassForDict = function(t) {
             switch (void 0 === t && (t = {}), t[e.BLOCK_TYPE_KEY]) {
-              case c.HSBlockType.Repeat:
-              case c.HSBlockType.LeaveATrail:
-              case c.HSBlockType.RepeatForever:
-              case c.HSBlockType.Ability:
+              case u.HSBlockType.Repeat:
+              case u.HSBlockType.LeaveATrail:
+              case u.HSBlockType.RepeatForever:
+              case u.HSBlockType.Ability:
                 return o.Control;
 
-              case c.HSBlockType.CheckOnceIf:
-              case c.HSBlockType.CheckIfElse:
+              case u.HSBlockType.CheckOnceIf:
+              case u.HSBlockType.CheckIfElse:
                 return o.ConditionalControl;
             }
             return o.Method;
@@ -1557,7 +1586,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(6), n = i(19), o = function() {
+    var r = i(4), n = i(19), o = function() {
         function t(t, e, i) {
             this.bgCanvas = t, this.drawBackground = e, this.visualContext = i, this.bgContext = this.layerFromCanvas2d(t), 
             this.clearBackground();
@@ -1668,7 +1697,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(40), s = i(11), u = i(13), c = i(33), h = i(61), l = i(41), p = i(0);
+    var o = i(7), a = i(40), s = i(11), c = i(13), u = i(33), h = i(62), l = i(41), p = i(0);
     e.BLOCKS_KEY = "blocks";
     var d = function(t) {
         function i() {
@@ -1701,16 +1730,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var i = this;
             void 0 === t && (t = {}), (t[e.BLOCKS_KEY] || []).forEach(function(t) {
                 var e;
-                switch (u.HSBlock.blockClassForDict(t)) {
-                  case u.HSBlockClass.Control:
-                    e = new c.HSControlBlock(i.context);
+                switch (c.HSBlock.blockClassForDict(t)) {
+                  case c.HSBlockClass.Control:
+                    e = new u.HSControlBlock(i.context);
                     break;
 
-                  case u.HSBlockClass.Method:
+                  case c.HSBlockClass.Method:
                     e = new l.HSMethodBlock(i.context);
                     break;
 
-                  case u.HSBlockClass.ConditionalControl:
+                  case c.HSBlockClass.ConditionalControl:
                     e = new a.HSConditionalControl(i.context);
                 }
                 e.parseJSON(t), i.blocks.push(e);
@@ -1723,28 +1752,29 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(2), n = i(22), o = i(1), a = i(59), s = i(6), u = i(23), c = i(38), h = i(29), l = i(14), p = i(28), d = i(0), S = i(17);
-    i(63);
+    var r = i(2), n = i(22), o = i(1), a = i(60), s = i(4), c = i(23), u = i(38), h = i(29), l = i(14), p = i(28), d = i(0), S = i(17);
+    i(64);
     var f = i(37);
-    function D(t) {
+    function g(t) {
         var e = new XMLHttpRequest();
-        e.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/, !0), e.onreadystatechange = function() {
+        e.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png", !0), 
+        e.onreadystatechange = function() {
             4 === e.readyState && t(200 === e.status);
         }, e.onerror = function() {
             t(!1);
         }, e.send(null);
     }
     window.addEventListener("load", function() {
-        for (var t = document.querySelectorAll("hopscotch-player"), i = t.length; --i >= 0; ) window.main = e.main = new g(t[i]), 
+        for (var t = document.querySelectorAll("hopscotch-player"), i = t.length; --i >= 0; ) window.main = e.main = new y(t[i]), 
         window.addEventListener("resize", function() {
             return o.HSApp.sendToApp("resize", "true");
         });
-    }), e.hsCanLoadEmojis = D, window.addEventListener("error", function(t) {
+    }), e.hsCanLoadEmojis = g, window.addEventListener("error", function(t) {
         var i = e.main.projectData.uuid;
         return console.error("ERROR", t, "uuid", i), o.HSApp.sendToApp("error", JSON.stringify(t) + ";uuid: " + i), 
         !1;
     });
-    var g = function() {
+    var y = function() {
         function t(e) {
             this.root = e, this.context = new r.HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
             this.setiOSStageSizeIfNecessary();
@@ -1769,9 +1799,9 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             });
             var a = document.getElementById("play_container");
             a && (a.style.width = "100%", a.style.height = "100%");
-            var u = this.drawBackground.bind(this);
+            var c = this.drawBackground.bind(this);
             try {
-                this.visualContext = new p.HSVisualContext(this.background, u);
+                this.visualContext = new p.HSVisualContext(this.background, c);
             } catch (t) {
                 console.log("No gl found in this context: ", t);
             }
@@ -1828,13 +1858,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             this.root.style.top = Math.floor((n - e.main.root.offsetHeight) / 2) + "px", this.root.style.left = Math.floor((r - e.main.root.offsetWidth) / 2) + "px";
         }, t.prototype.load = function(t) {
             this.projectData = t, this.context = new r.HSProjectContext(), this.project = new h.HSProject(this.context, t), 
-            c.HSSoundManager.sharedInstance = new c.HSSoundManager(this.context.allSoundNames());
+            u.HSSoundManager.sharedInstance = new u.HSSoundManager(this.context.allSoundNames());
         }, t.prototype.mute = function() {
-            c.HSSoundManager.sharedInstance.mute();
+            u.HSSoundManager.sharedInstance.mute();
         }, t.prototype.unmute = function() {
-            c.HSSoundManager.sharedInstance.unmute();
+            u.HSSoundManager.sharedInstance.unmute();
         }, t.prototype.isMuted = function() {
-            return c.HSSoundManager.sharedInstance.isMuted;
+            return u.HSSoundManager.sharedInstance.isMuted;
         }, t.prototype.setiOSStageSizeIfNecessary = function() {
             if ("container" === this.root.getAttribute("stage-size")) {
                 var t = this.root.getBoundingClientRect();
@@ -1860,10 +1890,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 });
             });
         }, t.prototype.startProject = function() {
-            this.animationTick();
+            o.HSApp.reset(), this.animationTick();
         }, t.prototype.play = function(e) {
             var i = this;
-            D(function(r) {
+            g(function(r) {
                 r || (t.HS_EMOJI_HOST = location.protocol + "//d2j12ek52gvmx9.cloudfront.net/emojis"), 
                 i.resetStage(), i.willPlay(e), i.startProject();
             });
@@ -1872,7 +1902,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             window.cancelAnimationFrame(this.animationFrameReq), this.animationFrameReq = null);
         }, t.prototype.drawBackground = function() {
             var t = this;
-            if (u.DEBUG_DRAW_BOUNDING_BOXES) {
+            if (c.DEBUG_DRAW_BOUNDING_BOXES) {
                 var e = this.background;
                 this.visualContext.drawingContext.bgContext.clearRect(0, 0, e.width, e.height);
             }
@@ -1899,11 +1929,14 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             });
         }, t.prototype.animationTick = function() {
             this.stageProject.animationTick(this.visualContext.collisionContext), this.renderer.render(this.stageProject.activeStageScene.container), 
-            this.visualContext.drawingContext.renderFrame(), this.requestNextFrame();
+            this.visualContext.drawingContext.renderFrame(), this.showPrompts(), this.requestNextFrame();
+        }, t.prototype.showPrompts = function() {
+            var t, e, i = s.HSStageScene.promptsToExecute[0];
+            null === (t = i) || void 0 === t || t.execute(), (null === (e = i) || void 0 === e ? void 0 : e.isDone) && s.HSStageScene.promptsToExecute.shift();
         }, t.prototype.requestNextFrame = function() {
             var t = this;
             this.animationFrameReq = window.requestAnimationFrame(function(e) {
-                t.animationTick();
+                o.HSApp.isRunning ? t.animationTick() : t.requestNextFrame();
             });
         }, t.prototype.takeScreenshot = function() {
             this.screenshotRenderer.render(this.stageProject.activeStageScene.container), this.screenshot.style.zIndex = "99999", 
@@ -1913,7 +1946,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.HS_EMOJI_HOST = "", t.MIN_STAGE_WIDTH = 210, t.dpi = Math.min(window.devicePixelRatio, 2), 
         t;
     }();
-    e.HSMain = g, window.HSMain = g, window.Vec2 = S.Vec2;
+    e.HSMain = y, window.HSMain = y, window.Vec2 = S.Vec2;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -1934,7 +1967,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o, a = i(1), s = i(19), u = i(21), c = i(5), h = function() {
+    var o, a = i(1), s = i(19), c = i(21), u = i(3), h = function() {
         this.width = 0;
     };
     e.HSLineBox = h, function(t) {
@@ -1942,10 +1975,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     }(o = e.HSTextJustify || (e.HSTextJustify = {}));
     var l = function() {
         function t(t, e) {
-            return this.text = t, this.kind = e, e === u.HSTextNodeKind.emoji ? new p(t) : e === u.HSTextNodeKind.geometricShape ? new d(t) : void 0;
+            return this.text = t, this.kind = e, e === c.HSTextNodeKind.emoji ? new p(t) : e === c.HSTextNodeKind.geometricShape ? new d(t) : void 0;
         }
         return t.prototype.prevWhitespace = function() {
-            return this.kind === u.HSTextNodeKind.whitespace ? this : this.kind !== u.HSTextNodeKind.newline && this.prev ? this.prev.prevWhitespace() : null;
+            return this.kind === c.HSTextNodeKind.whitespace ? this : this.kind !== c.HSTextNodeKind.newline && this.prev ? this.prev.prevWhitespace() : null;
         }, t.prototype.tail = function() {
             return this.next ? this.next.tail() : this;
         }, t.concat = function(t, e) {
@@ -1974,16 +2007,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 }, n = n.next;
             }
             for (;n; ) {
-                var c = n.measure(e);
+                var u = n.measure(e);
                 if (n.prev) {
                     var l = n.prev.measure(e).width;
                     n.x = n.prev.x + l, n.y = n.prev.y, n.lineBox = n.prev.lineBox;
                 } else n.x = 0, n.y = 0, n.lineBox = new h();
-                if (n.lineBox.width = n.x + c.width, n.kind === u.HSTextNodeKind.newline) n.y += t.LINE_HEIGHT, 
-                n.x = 0, n.lineBox = new h(), s(); else if (n.x + c.width > i) {
+                if (n.lineBox.width = n.x + u.width, n.kind === c.HSTextNodeKind.newline) n.y += t.LINE_HEIGHT, 
+                n.x = 0, n.lineBox = new h(), s(); else if (n.x + u.width > i) {
                     var p = n.prevWhitespace();
                     if (p) {
-                        var d = new t("\n", u.HSTextNodeKind.newline);
+                        var d = new t("\n", c.HSTextNodeKind.newline);
                         n = p.replace(d);
                     } else n = n.replace(n.forceLineBreak(e, i));
                 } else s();
@@ -1992,7 +2025,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.center = function(t) {
             this.x += (t.width - this.lineBox.width) / 2, this.next && this.next.center(t);
         }, t.prototype.measure = function(t) {
-            return this.kind === u.HSTextNodeKind.newline ? {
+            return this.kind === c.HSTextNodeKind.newline ? {
                 width: 0
             } : t.measureText(this.text);
         }, t.prototype.allNodes = function() {
@@ -2007,10 +2040,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             for (var r = "", n = this.text, o = 0; o !== n.length; ++o) {
                 var a = r + n[o];
                 if (e.measureText(a).width > i) {
-                    var s = t.parse(r).head, c = new t("\n", u.HSTextNodeKind.newline);
-                    s.concat(c);
+                    var s = t.parse(r).head, u = new t("\n", c.HSTextNodeKind.newline);
+                    s.concat(u);
                     var h = new t(this.text.substr(r.length), this.kind);
-                    return c.concat(h), s;
+                    return u.concat(h), s;
                 }
                 r = a;
             }
@@ -2021,7 +2054,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return t.parse(e).head;
         }, t.parse = function(e) {
             var i, r;
-            return u.HSTokenizer.tokenize(e).forEach(function(e) {
+            return c.HSTokenizer.tokenize(e).forEach(function(e) {
                 var n = new t(e.text, e.kind);
                 t.concat(i, n), i = n, r || (r = i);
             }), {
@@ -2034,13 +2067,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     var p = function(t) {
         function e(e) {
             var i = t.call(this, e, null) || this;
-            return i.kind = u.HSTextNodeKind.emoji, i;
+            return i.kind = c.HSTextNodeKind.emoji, i;
         }
         return n(e, t), e.prototype.drawNode = function(i) {
             var r = this;
             return e.getImage({
                 text: this.text,
-                color: c.HSColor.hsbStringFromRgbString(i.fillStyle)
+                color: u.HSColor.hsbStringFromRgbString(i.fillStyle)
             }).then(function(t) {
                 var n = a.isIOSApp() ? t.width : e.WIDTH, o = a.isIOSApp() ? t.height : e.HEIGHT;
                 i.drawImage(t, r.x, r.y, n, o);
@@ -2081,7 +2114,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     var d = function(t) {
         function e(e) {
             var i = t.call(this, e, null) || this;
-            return i.kind = u.HSTextNodeKind.geometricShape, i.kind = u.HSTextNodeKind.geometricShape, 
+            return i.kind = c.HSTextNodeKind.geometricShape, i.kind = c.HSTextNodeKind.geometricShape, 
             i;
         }
         return n(e, t), e.prototype.drawNode = function(t) {
@@ -2121,30 +2154,30 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return null != e && /\S/.test(e) && !t.ONLY_VARIATION_SELECTORS.test(e);
         }, t.tokenize = function(e) {
             if (this.tokenizedStringsCache.has(e)) return this.tokenizedStringsCache.get(e);
-            var i, a = [], s = 0, u = null;
-            for (i = 0; i < e.length; i++) if (" " === e[i] || "	" === e[i]) u !== r.whitespace && (i > s && a.push(new o(e.substring(s, i), u)), 
-            s = i, u = r.whitespace); else if ("\n" === e[i]) i > s && u !== r.whitespace && a.push(new o(e.substring(s, i), u)), 
-            s = i, u = r.newline; else if (t.ZERO_WIDTH_JOINER.test(e[i]) && u === r.emoji) {
+            var i, a = [], s = 0, c = null;
+            for (i = 0; i < e.length; i++) if (" " === e[i] || "	" === e[i]) c !== r.whitespace && (i > s && a.push(new o(e.substring(s, i), c)), 
+            s = i, c = r.whitespace); else if ("\n" === e[i]) i > s && c !== r.whitespace && a.push(new o(e.substring(s, i), c)), 
+            s = i, c = r.newline; else if (t.ZERO_WIDTH_JOINER.test(e[i]) && c === r.emoji) {
                 if (i += 1, this.isEmojiStartIndex(e, i)) {
-                    var c = e.slice(i, i + 5).match(n.emoji.regex);
-                    c && c[0] && (i += c[0].length - 1);
+                    var u = e.slice(i, i + 5).match(n.emoji.regex);
+                    u && u[0] && (i += u[0].length - 1);
                 }
-            } else if (t.ONLY_VARIATION_SELECTORS.test(e[i]) && u !== r.text) {
+            } else if (t.ONLY_VARIATION_SELECTORS.test(e[i]) && c !== r.text) {
                 if (i > s) {
                     var h = i;
-                    u === r.emoji && (h = i + 1), a.push(new o(e.substring(s, h), u));
+                    c === r.emoji && (h = i + 1), a.push(new o(e.substring(s, h), c));
                 }
-                s = i + 1, u = null;
+                s = i + 1, c = null;
             } else if (this.isEmojiStartIndex(e, i)) {
-                i > s && a.push(new o(e.substring(s, i), u)), s = i, u = r.emoji;
+                i > s && a.push(new o(e.substring(s, i), c)), s = i, c = r.emoji;
                 var l = 5;
                 this.isUnicodeEmojiStartIndex(e, i) && (l = 2);
                 var p = e.slice(i, i + l), d = t.emojiMatch(p);
                 if (d) i += p.indexOf(d[0]) + (d[0].length - 1);
-            } else !n.iOS && t.GEOMETRIC_SHAPES.test(e[i]) ? (i > s && a.push(new o(e.substring(s, i), u)), 
-            s = i, u = r.geometricShape) : u !== r.text && (i > s && a.push(new o(e.substring(s, i), u)), 
-            s = i, u = r.text);
-            return i > s && null !== u && a.push(new o(e.substring(s, i), u)), this.clearTokenCacheIfNecessary(), 
+            } else !n.iOS && t.GEOMETRIC_SHAPES.test(e[i]) ? (i > s && a.push(new o(e.substring(s, i), c)), 
+            s = i, c = r.geometricShape) : c !== r.text && (i > s && a.push(new o(e.substring(s, i), c)), 
+            s = i, c = r.text);
+            return i > s && null !== c && a.push(new o(e.substring(s, i), c)), this.clearTokenCacheIfNecessary(), 
             this.tokenizedStringsCache.set(e, a), a;
         }, t.clearTokenCacheIfNecessary = function() {
             this.tokenizedStringsCache.size > 30 && this.tokenizedStringsCache.delete(this.tokenizedStringsCache.keys().next().value);
@@ -2161,9 +2194,9 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return 0 === i.length ? e : t.indexOf(i[0]) + 1;
         }, t.ONLY_VARIATION_SELECTORS = /^[\ufe00-\ufe0f]*$/, t.ZERO_WIDTH_JOINER = /[\u200d]/, 
         t.GEOMETRIC_SHAPES = /[\u25A0-\u25CF\u25E0-\u25E1\u25E6-\u25FF]/, t.tokenizedStringsCache = new Map(), 
-        t.highSurrogates = "?-?", t.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
+        t.highSurrogates = "�-�", t.lowSurrogates = String.fromCharCode(56320) + "-" + String.fromCharCode(57343), 
         t.surrogateRegex = RegExp("[" + t.lowSurrogates + t.highSurrogates + "]"), t.secondCharIsSurrogate = RegExp("^.[" + t.lowSurrogates + "]"), 
-        t.startsWithEmojiRegex = RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/, t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
+        t.startsWithEmojiRegex = RegExp("^" + n.emoji.regex.source), t.fitzpatricks = String.fromCharCode(55356) + "[" + String.fromCharCode(57088) + "-" + String.fromCharCode(57343) + "]", 
         t.fitzRegex = RegExp("" + t.fitzpatricks), t;
     }();
     e.HSTokenizer = a, window.HSTextNodeKind = r, window.HSToken = o, window.HSTokenizer = a;
@@ -2214,30 +2247,30 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(34), o = i(3), a = i(1), s = i(21), u = i(6), c = i(35), h = i(20), l = i(16), p = i(47), d = i(48), S = i(4), f = i(52), D = i(0), g = i(5), y = i(17);
+    var r = i(34), n = i(5), o = i(1), a = i(21), s = i(4), c = i(44), u = i(35), h = i(20), l = i(16), p = i(48), d = i(49), S = i(6), f = i(53), g = i(0), y = i(3), v = i(17);
     e.BASE_SPEED = 400, e.BASE_STEP_SIZE = 10, e.EDGE_OF_SCREEN_OBJECT_ID = "zzzEdge", 
     e.DEBUG_DRAW_BOUNDING_BOXES = !1;
-    var E = function() {
-        function t(i, r, o, a, s, u, l, p, f, D, g) {
-            var y = this;
-            void 0 === D && (D = 1), void 0 === g && (g = 1), this.x = i, this.y = r, this.text = o, 
-            this.type = a, this.baseObjectScale = s, this.fontSize = u, this.objectID = l, this.imageName = p, 
-            this.willChangeCostume = f, this.originalWidth = D, this.originalHeight = g, this.createOrder = -1, 
+    var b = function() {
+        function t(i, n, o, a, s, c, l, p, f, g, y) {
+            var v = this;
+            void 0 === g && (g = 1), void 0 === y && (y = 1), this.x = i, this.y = n, this.text = o, 
+            this.type = a, this.baseObjectScale = s, this.fontSize = c, this.objectID = l, this.imageName = p, 
+            this.willChangeCostume = f, this.originalWidth = g, this.originalHeight = y, this.createOrder = -1, 
             this._animationNumber = 0, this.sizePercentWidth = 100, this.sizePercentHeight = 100, 
             this.headingInDegrees = 0, this.speed = e.BASE_SPEED, this.invisibilityPercent = 0, 
             this.isFlipped = !1, this.drawingRadius = null, this.drawingColor = null, this.penDown = !1, 
             this.creationTick = null, this.relatedCollisionRules = new Set(), this.collisionImageFactory = new d.HSCollisionImageFactory(), 
-            this.stageRules = [], this.cloneIndex = 1, this.zIndex = 0, this.isAlive = !0, this.resetTextSize = function() {
-                var t = h.HSTextNode.fromString(y.text), e = y.view.canvas;
+            this.stageRules = [], this.cloneIndex = 0, this.zIndex = 0, this.isAlive = !0, this.resetTextSize = function() {
+                var t = h.HSTextNode.fromString(v.text), e = v.view.canvas;
                 if (e) {
                     if (t) {
                         var i = t.flow(e.getContext("2d"), h.HSTextNode.MAX_LINE_WIDTH), r = i.width, n = i.height;
-                        y.originalWidth = r, y.originalHeight = n, y.collisionObject = null;
+                        v.originalWidth = r, v.originalHeight = n, v.collisionObject = null;
                     }
-                } else y.view.onTextureBuild = y.resetTextSize;
+                } else v.view.onTextureBuild = v.resetTextSize;
             }, t.initEdges(), this.createOrder = ++t.OBJECTS_CREATED, this.color = this.colorForType(a), 
             this.stageObjectID = t.uniqueIdCounter++, this.type === S.HSObjectType.text ? this.text = o : this.text = null, 
-            this.pathDrawer = new n.HSPathDrawer(this.currentPoint()), this.view = new c.HSView(this.viewProps());
+            this.pathDrawer = new r.HSPathDrawer(this.currentPoint()), this.view = new u.HSView(this.viewProps());
         }
         return t.initEdges = function() {
             t.initiatedEdgeOfScreen || (t.initiatedEdgeOfScreen = !0, t.edgeOfScreenObject = new t(0, 0, "", S.HSObjectType.edgeOfScreen, 1, 80, e.EDGE_OF_SCREEN_OBJECT_ID, null, !1));
@@ -2250,9 +2283,9 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.height = function() {
             return this.view.textureExists ? this.view.height() : Math.round(this.originalHeight * this.baseScale());
         }, t.prototype.colorForType = function(t) {
-            return this.type === S.HSObjectType.text ? g.HSColor.rgbTextColor : this.isShape() ? g.HSColor.rgbTextColor : g.HSColor.rgbWhiteColor;
+            return this.type === S.HSObjectType.text ? y.HSColor.rgbTextColor : this.isShape() ? y.HSColor.rgbTextColor : y.HSColor.rgbWhiteColor;
         }, t.prototype.originalObject = function(t) {
-            var e = t.findWithObjectID(o.HSObject.key, this.objectID);
+            var e = t.findWithObjectID(n.HSObject.key, this.objectID);
             return e ? e.stageObject() : null;
         }, t.prototype.baseScale = function() {
             return this.isFullSizeShape() ? .5 : 1;
@@ -2279,7 +2312,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 willChangeCostume: this.willChangeCostume,
                 imageName: this.imageName,
                 baseObjectScale: this.baseScale(),
-                stageHeight: u.HSStageScene.stageHeight,
+                stageHeight: s.HSStageScene.stageHeight,
                 originalHeight: this.originalHeight,
                 originalWidth: this.originalWidth
             };
@@ -2294,7 +2327,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.isBlankTextObject = function() {
             return this.type === S.HSObjectType.text && !this.shouldDrawText();
         }, t.prototype.shouldDrawText = function() {
-            return s.HSTokenizer.hasDrawableTokens(this.text);
+            return a.HSTokenizer.hasDrawableTokens(this.text);
         }, t.prototype.canDrawCharacter = function() {
             return this.type !== S.HSObjectType.text;
         }, t.prototype.canDrawImage = function() {
@@ -2361,10 +2394,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.normalizeHeading = function(t) {
             return (t % 360 + 360) % 360;
         }, t.prototype.currentPoint = function() {
-            return new n.HSLinePoint(new y.Vec2(this.x, this.y), this.drawingRadius, this);
+            return new r.HSLinePoint(new v.Vec2(this.x, this.y), this.drawingRadius, this);
         }, t.prototype.moveToWithinBoundary = function() {
-            this.x = Math.min(this.x, u.HSStageScene.stageWidth), this.x = Math.max(this.x, 0), 
-            this.y = Math.min(this.y, u.HSStageScene.stageHeight), this.y = Math.max(this.y, 0);
+            this.x = Math.min(this.x, s.HSStageScene.stageWidth), this.x = Math.max(this.x, 0), 
+            this.y = Math.min(this.y, s.HSStageScene.stageHeight), this.y = Math.max(this.y, 0);
         }, t.prototype.multiplier = function() {
             return this.isFlipped ? -1 : 1;
         }, t.prototype.activateAllStageRulesForEventType = function(t, e) {
@@ -2380,161 +2413,154 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return e.matchesEvent(t);
             });
         }, t.prototype.allPossibleCollisionPairs = function() {
-            return this.allStageRulesForEventType(D.HSBlockType.EventOperatorIsTouching).concat(this.allStageRulesForEventType(D.HSBlockType.EventOperatorBump)).reduce(function(t, e) {
+            return this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsTouching).concat(this.allStageRulesForEventType(g.HSBlockType.EventOperatorBump)).reduce(function(t, e) {
                 return t.concat(e.collisionPairs());
             }, []);
         }, t.prototype.executeActiveRules = function() {
             for (var t = this.stageRules, e = t.length, i = 0; i !== e; ++i) t[i].conditionIsTrue(this) && (t[i].hasBlocksToExecute() || (t[i].isActive = !1), 
             t[i].activate()), t[i].execute(this);
         }, t.prototype.executeBlock = function(e) {
-            var i, n, o, s, c, h, l = e.firstIntegerValue(this), p = e.parameters;
+            var i, r, n, a, u, h, l = e.firstIntegerValue(this), p = e.parameters;
             switch (e.type) {
-              case D.HSBlockType.Move:
+              case g.HSBlockType.Move:
                 this.moveBy(l);
                 break;
 
-              case D.HSBlockType.SetPosition:
+              case g.HSBlockType.SetPosition:
                 this.setPosition(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
                 break;
 
-              case D.HSBlockType.SetSize:
+              case g.HSBlockType.SetSize:
                 if (null === (i = p[0]) || void 0 === i ? void 0 : i.isSet(this)) {
-                    var d = null === (n = p[0]) || void 0 === n ? void 0 : n.computedValue(this);
+                    var d = null === (r = p[0]) || void 0 === r ? void 0 : r.computedValue(this);
                     "number" == typeof d && (this.sizePercentWidth = d, this.sizePercentHeight = d);
                 }
                 break;
 
-              case D.HSBlockType.Grow:
-                o = Math.max(100 + l, 0), this.sizePercentWidth *= .01 * o, this.sizePercentHeight *= .01 * o;
+              case g.HSBlockType.Grow:
+                n = Math.max(100 + l, 0), this.sizePercentWidth *= .01 * n, this.sizePercentHeight *= .01 * n;
                 break;
 
-              case D.HSBlockType.Scale:
+              case g.HSBlockType.Scale:
                 this.sizePercentWidth *= .01 * l, this.sizePercentHeight *= .01 * l;
                 break;
 
-              case D.HSBlockType.Shrink:
-                o = Math.max(100 - l, 0), s = this.sizePercentWidth * o * .01, this.sizePercentWidth = Math.max(s, 1e-7), 
-                s = this.sizePercentHeight * o * .01, this.sizePercentHeight = Math.max(s, 1e-7);
+              case g.HSBlockType.Shrink:
+                n = Math.max(100 - l, 0), a = this.sizePercentWidth * n * .01, this.sizePercentWidth = Math.max(a, 1e-7), 
+                a = this.sizePercentHeight * n * .01, this.sizePercentHeight = Math.max(a, 1e-7);
                 break;
 
-              case D.HSBlockType.SetHeading:
+              case g.HSBlockType.SetHeading:
                 this.headingInDegrees = t.normalizeHeading(l);
                 break;
 
-              case D.HSBlockType.ChangeX:
+              case g.HSBlockType.ChangeX:
                 this.changeXBy(l);
                 break;
 
-              case D.HSBlockType.ChangeY:
+              case g.HSBlockType.ChangeY:
                 this.changeYBy(l);
                 break;
 
-              case D.HSBlockType.Rotate:
+              case g.HSBlockType.Rotate:
                 this.rotateBy(l);
                 break;
 
-              case D.HSBlockType.ChangeSpeed:
+              case g.HSBlockType.ChangeSpeed:
                 this.speed = l;
                 break;
 
-              case D.HSBlockType.SetInvisibility:
+              case g.HSBlockType.SetInvisibility:
                 this.invisibilityPercent = l;
                 break;
 
-              case D.HSBlockType.Flip:
+              case g.HSBlockType.Flip:
                 this.isFlipped = !this.isFlipped;
                 break;
 
-              case D.HSBlockType.StrokeColor:
+              case g.HSBlockType.StrokeColor:
                 this.drawingColor = p[0].computedColorString(this);
                 break;
 
-              case D.HSBlockType.StrokeWidth:
+              case g.HSBlockType.StrokeWidth:
                 this.drawingRadius = l / 2;
                 break;
 
-              case D.HSBlockType.Clear:
+              case g.HSBlockType.Clear:
                 this.clear();
                 break;
 
-              case D.HSBlockType.PenDown:
+              case g.HSBlockType.PenDown:
                 this.penDown = !0;
                 break;
 
-              case D.HSBlockType.PenUp:
+              case g.HSBlockType.PenUp:
                 this.penDown = !1;
                 break;
 
-              case D.HSBlockType.ChangeCostume:
+              case g.HSBlockType.ChangeCostume:
                 this.changePose();
                 break;
 
-              case D.HSBlockType.SetText:
-                h = g.HSColor.rgbTextColor, p.length >= 2 && (h = p[1].computedColorString(this)), 
+              case g.HSBlockType.SetText:
+                h = y.HSColor.rgbTextColor, p.length >= 2 && (h = p[1].computedColorString(this)), 
                 this.setText(p[0].computedStringValue(this), h);
                 break;
 
-              case D.HSBlockType.SetTextToInput:
-                h = g.HSColor.rgbTextColor, p.length >= 1 && (h = p[0].computedColorString(this));
-                //var f = prompt("Type here"); AE_MOD better prompts
-                var f = prompt(p[1]?p[1].computedStringValue(this):"Type here",p[2]?p[2].computedStringValue(this):"");
-                this.setText(r.HSVariable.parseValue(f).toString(), h);
+              case g.HSBlockType.SetTextToInput:
+                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, e));
                 break;
 
-              case D.HSBlockType.SetVariable:
-                (c = p[0].variable()) && (c.isSkillComplete() && 1 === p[1].computedValue(this) && a.HSApp.sendToApp("hsSkillComplete", "1"), 
-                c.setValue(p[1].computedValue(this), this));
+              case g.HSBlockType.SetVariable:
+                (u = p[0].variable()) && (u.isSkillComplete() && 1 === p[1].computedValue(this) && o.HSApp.sendToApp("hsSkillComplete", "1"), 
+                u.setValue(p[1].computedValue(this), this));
                 break;
 
-              case D.HSBlockType.SaveInput:
-                if (c = p[0].variable()) {
-                    //var y = prompt("Type here"); AE_MOD better prompts
-					var y = prompt(p[1]?p[1].computedStringValue(this):"Type here",p[2]?p[2].computedStringValue(this):"");
-                    c.setValue(y, this);
+              case g.HSBlockType.SaveInput:
+                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, e));
+                break;
+
+              case g.HSBlockType.ChangeVariable:
+                if (u = p[0].variable()) {
+                    var f = u.computedNumberValue(this) + p[1].computedNumberValue(this);
+                    u.setValue(f, this);
                 }
                 break;
 
-              case D.HSBlockType.ChangeVariable:
-                if (c = p[0].variable()) {
-                    var E = c.computedNumberValue(this) + p[1].computedNumberValue(this);
-                    c.setValue(E, this);
-                }
-                break;
-
-              case D.HSBlockType.BringToFront:
+              case g.HSBlockType.BringToFront:
                 this.bringToFront();
                 break;
 
-              case D.HSBlockType.SendToBack:
+              case g.HSBlockType.SendToBack:
                 this.sendToBack();
                 break;
 
-              case D.HSBlockType.SetImage:
-                p[0].computedObjectType() === S.HSObjectType.text ? this.setText(p[0].value, g.HSColor.rgbTextColor) : p[0].computedObjectType() === S.HSObjectType.image ? this.setImage(p[0].childBlock) : this.setCharacter(p[0].computedObjectType());
+              case g.HSBlockType.SetImage:
+                p[0].computedObjectType() === S.HSObjectType.text ? this.setText(p[0].value, y.HSColor.rgbTextColor) : p[0].computedObjectType() === S.HSObjectType.image ? this.setImage(p[0].childBlock) : this.setCharacter(p[0].computedObjectType());
                 break;
 
-              case D.HSBlockType.SetColor:
+              case g.HSBlockType.SetColor:
                 this.color = p[0].computedColorString(this);
                 break;
 
-              case D.HSBlockType.SetWidthAndHeight:
+              case g.HSBlockType.SetWidthAndHeight:
                 p[0].isSet(this) && this.setWidth(p[0].computedNumberValue(this)), p[1].isSet(this) && this.setHeight(p[1].computedNumberValue(this));
                 break;
 
-              case D.HSBlockType.SetZIndex:
-                var b = p[0].computedNumberValue(this);
-                b !== this.zIndex && (this.zIndex = b, u.HSStageScene.dirtySort = !0);
+              case g.HSBlockType.SetZIndex:
+                var v = p[0].computedNumberValue(this);
+                v !== this.zIndex && (this.zIndex = v, s.HSStageScene.dirtySort = !0);
                 break;
 
-              case D.HSBlockType.SetOriginXY:
+              case g.HSBlockType.SetOriginXY:
                 this.setOrigin(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
                 break;
 
-              case D.HSBlockType.SetCenterXY:
+              case g.HSBlockType.SetCenterXY:
                 this.setPosition(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
 				break;
 				
-			  case D.HSBlockType.None: //AE_MOD
+			  case g.HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(p[0].value)){
 					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], ((p[1])?p[1].computedValue(this):undefined),this);
 				}
@@ -2555,7 +2581,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }), t.OBJECTS_CREATED = 0, t.uniqueIdCounter = 0, t.initiatedEdgeOfScreen = !1, 
         t;
     }();
-    e.HSStageObject = E, window.HSStageObject = E, window.BASE_SPEED = e.BASE_SPEED, 
+    e.HSStageObject = b, window.HSStageObject = b, window.BASE_SPEED = e.BASE_SPEED, 
     window.BASE_STEP_SIZE = e.BASE_STEP_SIZE, window.EDGE_OF_SCREEN_OBJECT_ID = e.EDGE_OF_SCREEN_OBJECT_ID, 
     window.DEBUG_DRAW_BOUNDING_BOXES = e.DEBUG_DRAW_BOUNDING_BOXES;
 }, function(t, e, i) {
@@ -2563,7 +2589,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(9), o = i(4), a = i(0), s = i(5), u = function() {
+    var r = i(8), n = i(9), o = i(6), a = i(0), s = i(3), c = function() {
         function t(t, e) {
             void 0 === e && (e = null), this.value = t, this.childBlock = e;
         }
@@ -2588,7 +2614,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return this.childBlock ? this.childBlock.computedValue(t) : null;
         }, t;
     }();
-    e.HSStageParameter = u, window.HSStageParameter = u;
+    e.HSStageParameter = c, window.HSStageParameter = c;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -2641,7 +2667,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(3), a = i(10);
+    var o = i(5), a = i(10);
     e.EVENT_PARAMETER_OBJECT_ID_KEY = "id", e.EVENT_PARAMETER_TYPE_KEY = "blockType", 
     e.EVENT_PARAMETER_OBJECT_KEY = "objectID";
     var s = function(t) {
@@ -2685,7 +2711,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.resizeImage = function(t, e, i) {
             return t.width = e, t.height = i, Promise.resolve(t);
         }, t.prototype.getImageUrl = function(t) {
-            return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */ : this.getImageUrlFromApp(t);
+            return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? this.getImageUrlFromBaseUrl(t) : this.getImageUrlFromApp(t);
         }, t.prototype.getImageUrlFromBaseUrl = function(t) {
             return Promise.resolve(BASE_IMAGE_URL + t);
         }, t.prototype.getImageUrlFromApp = function(t) {
@@ -2702,7 +2728,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(49), n = i(16), o = function() {
+    var r = i(50), n = i(16), o = function() {
         function t(t, e) {
             this.backgroundCanvas = t, this.drawingContext = new n.HopscotchDrawingContext(t, e, this), 
             this.collisionContext = new r.HSCollisionContext();
@@ -2730,7 +2756,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(3), u = i(39), c = i(11), h = i(18), l = i(25), p = i(26), d = i(10), S = i(62);
+    var o = i(7), a = i(2), s = i(5), c = i(39), u = i(11), h = i(18), l = i(25), p = i(26), d = i(10), S = i(63);
     e.OBJECTS_KEY = "objects", e.RULES_KEY = "rules", e.VARIABLES_KEY = "variables", 
     e.TRAITS_KEY = "traits", e.EVENT_PARAMETERS_KEY = "eventParameters", e.SCRIPTS_KEY = "abilities", 
     e.SCENES_KEY = "scenes";
@@ -2781,7 +2807,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 var i = e.findWithObjectID(s.HSObject.key, t.objectID);
                 if (!t.rules || !i || !i.rules) return "continue";
                 var r = i.canChangeCostume(), n = !1, o = t.rules.map(function(t) {
-                    var i = e.findWithObjectID(c.HSRule.key, t);
+                    var i = e.findWithObjectID(u.HSRule.key, t);
                     return !n && r && i && i.script.containsChangeCostume() && (n = !0), i || e.findWithObjectID(S.HSCustomRule.key, t);
                 });
                 i.rules = o.filter(function(t) {
@@ -2811,17 +2837,17 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             void 0 === t && (t = []);
             var e = this.context;
             t.forEach(function(t, i, r) {
-                new c.HSRule(e).parseJSON(t);
+                new u.HSRule(e).parseJSON(t);
             });
         }, i.prototype.parseScenesDictionaries = function(t) {
             if (void 0 === t && (t = []), t.length > 0) {
                 var e = this.context;
                 this.scenes = t.map(function(t) {
-                    var i = new u.HSScene(e);
+                    var i = new c.HSScene(e);
                     return i.parseJSON(t), i;
                 });
             } else {
-                var i = new u.HSScene(this.context);
+                var i = new c.HSScene(this.context);
                 i.parseJSON(), this.scenes = [ i ];
             }
         }, i;
@@ -2834,7 +2860,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(31), n = i(9), o = i(32), a = i(24), s = i(0), u = function() {
+    var r = i(31), n = i(9), o = i(32), a = i(24), s = i(0), c = function() {
         function t(t, e, i) {
             void 0 === i && (i = []), this.type = t, this.scripts = e, this.parameters = i, 
             this.isImmediate = !1;
@@ -2899,11 +2925,11 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var a = new o.HSStageMethod(s.HSBlockType.PenUp);
             return new r.HSExecutable(n.concat(i.blocksToExecuteNow), i.blocksToExecuteLater.concat(a));
         }, t.prototype.executableWithRepeatOnTheEnd = function(e, i) {
-            var r = this.script(i).executableForStepSize(e, i), n = this.integerValue(i) - 1, o = new a.HSStageParameter("" + n), s = new t(this.type, this.scripts, [ o ]), u = r.blocksToExecuteLater;
-            return u.push(s), r.newWithNewBlocksToExecuteLater(u);
+            var r = this.script(i).executableForStepSize(e, i), n = this.integerValue(i) - 1, o = new a.HSStageParameter("" + n), s = new t(this.type, this.scripts, [ o ]), c = r.blocksToExecuteLater;
+            return c.push(s), r.newWithNewBlocksToExecuteLater(c);
         }, t;
     }();
-    e.HSStageControl = u, window.HSStageControl = u;
+    e.HSStageControl = c, window.HSStageControl = c;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -2933,14 +2959,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 					var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
 					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
 				}
-                var r = o.HSSoundManager.sharedInstance;//, s = i[0].computedStringValue(e);
-				var s = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);
+                var r = o.HSSoundManager.sharedInstance, s = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);//s = i[0].computedStringValue(e);
                 r.play(s);
                 break;
 
               case a.HSBlockType.MakeAClone:
-                var u = 1;
-                i[0] && (u = i[0].computedNumberValue(e)), e.clone(u);
+                var c = 1;
+                i[0] && (c = i[0].computedNumberValue(e)), e.clone(c);
                 break;
 
               case a.HSBlockType.Destroy:
@@ -2951,8 +2976,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
               case a.HSBlockType.ChangeY:
               case a.HSBlockType.Move:
               case a.HSBlockType.Rotate:
-                var c = e.x, h = e.y, l = e.headingInDegrees;
-                e.executeBlock(t), e.x === c && e.y === h && e.headingInDegrees === l && this.blocksToExecuteLater.shift();
+                var u = e.x, h = e.y, l = e.headingInDegrees;
+                e.executeBlock(t), e.x === u && e.y === h && e.headingInDegrees === l && this.blocksToExecuteLater.shift();
                 break;
 
               case a.HSBlockType.ChangeScene:
@@ -2988,9 +3013,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(31), n = i(9), o = i(24), a = i(0), s = function() {
+    var r = i(31), n = i(9), o = i(24), a = i(0), s = i(4), c = i(1), u = function() {
         function t(t, e) {
-            void 0 === e && (e = []), this.type = t, this.parameters = e, this.isImmediate = [ a.HSBlockType.PenDown, a.HSBlockType.StrokeColor, a.HSBlockType.StrokeWidth, a.HSBlockType.PenUp, a.HSBlockType.SetVariable, a.HSBlockType.ChangeVariable ].includes(t);
+            void 0 === e && (e = []), this.type = t, this.parameters = e, this.id = c.hs_random_id(), 
+            this.isImmediate = [ a.HSBlockType.PenDown, a.HSBlockType.StrokeColor, a.HSBlockType.StrokeWidth, a.HSBlockType.PenUp, a.HSBlockType.SetVariable, a.HSBlockType.ChangeVariable ].includes(t);
         }
         return t.prototype.isOverStepSize = function(t, e) {
             return this.usesStepSize() && Math.abs(this.firstIntegerValue(e)) > t;
@@ -3027,16 +3053,44 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.signOfFirstValue = function(t) {
             var e = this.firstIntegerValue(t);
             return e / Math.abs(e);
+        }, t.prototype.isPromptDone = function() {
+            var t, e, i = (null === (t = this.parameters[0]) || void 0 === t ? void 0 : t.value) || "-1";
+            return null === (e = s.HSStageScene.promptsToExecute.find(function(t) {
+                return t.id === i;
+            })) || void 0 === e ? void 0 : e.isDone;
         }, t.prototype.blocksToExecuteLater = function(e, i) {
-            if (this.isUnfinishedTimestampBlock(i)) return [ this ];
-            if (this.type === a.HSBlockType.PlaySound) return [ new t(a.HSBlockType.Wait, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
-            if (this.type === a.HSBlockType.PlaySoundSeconds) return [ new t(a.HSBlockType.WaitSeconds, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
-            if (!this.usesStepSize()) return [];
-            var r = this.calculateValueMinusOneStep(e, i), n = new o.HSStageParameter("" + r);
-            return [ new t(this.type, [ n ]) ];
+            switch (this.type) {
+              case a.HSBlockType.WaitTilTimestamp:
+                return this.firstIntegerValue(i) > Date.now() ? [ this ] : [];
+
+              case a.HSBlockType.ChangeX:
+              case a.HSBlockType.Ability:
+              case a.HSBlockType.ChangeY:
+              case a.HSBlockType.AnyObject:
+              case a.HSBlockType.Move:
+              case a.HSBlockType.Rotate:
+                var r = this.calculateValueMinusOneStep(e, i), n = new o.HSStageParameter("" + r);
+                return [ new t(this.type, [ n ]) ];
+
+              case a.HSBlockType.WaitUntilInputIsDone:
+                return this.isPromptDone() ? [] : [ this ];
+
+              case a.HSBlockType.SaveInput:
+              case a.HSBlockType.SetTextToInput:
+                return [ new t(a.HSBlockType.WaitUntilInputIsDone, [ new o.HSStageParameter(this.id) ]) ];
+
+              case a.HSBlockType.PlaySound:
+                return [ new t(a.HSBlockType.Wait, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
+
+              case a.HSBlockType.PlaySoundSeconds:
+                return [ new t(a.HSBlockType.WaitSeconds, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
+
+              default:
+                return [];
+            }
         }, t;
     }();
-    e.HSStageMethod = s, window.HSStageMethod = s;
+    e.HSStageMethod = u, window.HSStageMethod = u;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -3057,23 +3111,23 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(30), a = i(11), s = i(13), u = i(18);
+    var o = i(30), a = i(11), s = i(13), c = i(18);
     e.CONTROL_SCRIPT_KEY = "controlScript";
-    var c = function(t) {
+    var u = function(t) {
         function i() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.scripts = [], e.isControl = !0, e;
         }
         return n(i, t), i.prototype.stageBlock = function() {
-            var t = this.scripts[0] || new u.HSScript(this.context);
+            var t = this.scripts[0] || new c.HSScript(this.context);
             return new o.HSStageControl(this.type, [ t ], this.stageParameters());
         }, i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i);
             var r = (i[e.CONTROL_SCRIPT_KEY] || [])[a.SCRIPT_ID_KEY] || "", n = this.context.findWithObjectID("HSScript", r);
-            this.scripts.push(n || new u.HSScript(this.context));
+            this.scripts.push(n || new c.HSScript(this.context));
         }, i.key = "HSControlBlock", i;
     }(s.HSBlock);
-    e.HSControlBlock = c, window.HSControlBlock = c;
+    e.HSControlBlock = u, window.HSControlBlock = u;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -3115,7 +3169,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(21), n = i(1), o = i(45), a = i(27), s = i(46), u = i(4), c = i(5), h = function() {
+    var r = i(21), n = i(1), o = i(46), a = i(27), s = i(47), c = i(6), u = i(3), h = function() {
         function t(t) {
             this.props = t, this.sprite = new PIXI.Sprite(), this.canvas = null, this.textureExists = !1, 
             this.onTextureBuild = null, this.buildTexture(), this.update(this.props);
@@ -3154,10 +3208,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.buildAllTextures = function() {
             return this.factory().buildAll(this.canvas, this.props);
         }, t.prototype.getOriginalScale = function(t, e, i) {
-            return isNaN(t) ? i === u.HSObjectType.text ? 1 / o.HSTextTextureFactory.scaleUp() : 1 : t / e;
+            return isNaN(t) ? i === c.HSObjectType.text ? 1 / o.HSTextTextureFactory.scaleUp() : 1 : t / e;
         }, t.prototype.getSpriteScale = function(t, e, i, r, n, o) {
             void 0 === o && (o = !1);
-            var a = this.getOriginalScale(e, t, n), s = i * r * .01 * this.scaleForObjectType(n), u = Math.abs(s), c = s / u, h = Math.min(u, 1024) * c * a;
+            var a = this.getOriginalScale(e, t, n), s = i * r * .01 * this.scaleForObjectType(n), c = Math.abs(s), u = s / c, h = Math.min(c, 1024) * u * a;
             return Math.round(t * h) / t * (o ? -1 : 1);
         }, t.prototype.update = function(t) {
             var e = this.props;
@@ -3168,7 +3222,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 this.sprite.position.x = Math.round(t.x), this.sprite.position.y = Math.round(t.stageHeight - t.y), 
                 this.sprite.alpha = t.opacity, this.sprite.rotation = -1 * t.headingInRadians;
                 var n = t.color;
-                this.hasEmoji && (n = c.HSColor.rgbWhiteColor), this.sprite.tint = c.HSColor.hexToTint(n);
+                this.hasEmoji && (n = u.HSColor.rgbWhiteColor), this.sprite.tint = u.HSColor.hexToTint(n);
             }
         }, t.prototype.needsNewTexture = function(t) {
             return t.text !== this.props.text || this.quantizedScaleY(t) !== this.quantizedScaleY(this.props) || this.quantizedScaleX(t) !== this.quantizedScaleX(this.props) || t.animationNumber !== this.props.animationNumber || t.type !== this.props.type || t.imageName !== this.props.imageName || t.color !== this.props.color && !n.onlyEmoji(t.text) && n.hasEmoji(t.text);
@@ -3179,7 +3233,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var e = t.sizePercentWidth || 100;
             return Math.ceil(.01 * e);
         }, t.prototype.scaleForObjectType = function(t) {
-            return t === u.HSObjectType.hexagon ? 1.05 : 1;
+            return t === c.HSObjectType.hexagon ? 1.05 : 1;
         }, t.xmlSerializer = new XMLSerializer(), t.svgCache = {}, t;
     }();
     e.HSView = h, window.HSView = h;
@@ -3188,7 +3242,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(4), n = i(50), o = i(51), a = i(37), s = function() {
+    var r = i(6), n = i(51), o = i(52), a = i(37), s = function() {
         function t() {
             this.cache = {}, this.tempRect = new PIXI.Rectangle(), this.currentTime = Date.now(), 
             this.canvas = document.createElement("canvas"), this.ctx = this.canvas.getContext("2d"), 
@@ -3208,18 +3262,18 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var s = i.texture.baseTexture.resolution;
             this.canvas.width = o, this.canvas.height = a, this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height), 
             this.ctx.drawImage(n, 0, 0, o * s, a * s, 0, 0, o, a);
-            var u = this.createCollisionInfo();
-            return this.cache[e] = u, u;
+            var c = this.createCollisionInfo();
+            return this.cache[e] = c, c;
         }, t.prototype.createCollisionInfo = function() {
-            for (var e = this.canvas.width, i = this.canvas.height, r = this.ctx.getImageData(0, 0, e, i).data, o = Number.MAX_SAFE_INTEGER, a = Number.MAX_SAFE_INTEGER, s = Number.MIN_SAFE_INTEGER, u = Number.MIN_SAFE_INTEGER, c = t.PIXEL_OFFSET, h = new Uint8ClampedArray(e * i / c | 0), l = 3; l < r.length; l += 4 * c) {
+            for (var e = this.canvas.width, i = this.canvas.height, r = this.ctx.getImageData(0, 0, e, i).data, o = Number.MAX_SAFE_INTEGER, a = Number.MAX_SAFE_INTEGER, s = Number.MIN_SAFE_INTEGER, c = Number.MIN_SAFE_INTEGER, u = t.PIXEL_OFFSET, h = new Uint8ClampedArray(e * i / u | 0), l = 3; l < r.length; l += 4 * u) {
                 var p = l / 4 | 0;
                 if (0 !== r[l]) {
-                    h[p / c | 0] = 255;
+                    h[p / u | 0] = 255;
                     var d = p % e, S = p / e | 0;
-                    d < o && (o = d), d > s && (s = d), S < a && (a = S), S > u && (u = S);
+                    d < o && (o = d), d > s && (s = d), S < a && (a = S), S > c && (c = S);
                 }
             }
-            return new n.CollisionInfo(h, 0 | e, 0 | i, 0 | o, 0 | a, 0 | s, 0 | u);
+            return new n.CollisionInfo(h, 0 | e, 0 | i, 0 | o, 0 | a, 0 | s, 0 | c);
         }, t.prototype.cleanCache = function() {
             for (var t in this.cache) this.cache[t].readyToDrop(this.currentTime) && delete this.cache[t];
         }, t.prototype.createCollisionObject = function(t) {
@@ -3240,16 +3294,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return !(!i || !r) && this.existsCollisionBetween(i, r);
         }, t.prototype.existsCollisionBetween = function(t, e) {
             return t !== e && (!!function(t, e) {
-                return u(t.sprite.getBounds(), e.sprite.getBounds());
+                return c(t.sprite.getBounds(), e.sprite.getBounds());
             }(t, e) && (!!function(t, e) {
-                return u(t.getMaskBounds(), e.getMaskBounds());
+                return c(t.getMaskBounds(), e.getMaskBounds());
             }(t, e) && this.existsMaskCollision(t, e)));
         }, t.prototype.existsMaskCollision = function(t, e) {
-            var i, r, n, o, s, u, c, h = t.getMaskBounds(), l = e.getMaskBounds(), p = (i = h, 
-            r = l, n = this.tempRect, o = Math.max(i.x, r.x), s = Math.max(i.y, r.y), u = Math.min(i.x + i.width, r.x + r.width), 
-            c = Math.min(i.y + i.height, r.y + r.height), n.x = o, n.y = s, n.width = u - o, 
-            n.height = c - s, n), d = 0 | p.x, S = 0 | p.y, f = d + p.width | 0, D = S + p.height | 0;
-            return a.CollisionManagerDebug.ENABLED ? this.debug.checkCollision(t, e, d, S, f, D) : !!this.intersectionCoverMoreThan(.5, p, h, l) || this.checkCollision(t, e, d, S, f, D);
+            var i, r, n, o, s, c, u, h = t.getMaskBounds(), l = e.getMaskBounds(), p = (i = h, 
+            r = l, n = this.tempRect, o = Math.max(i.x, r.x), s = Math.max(i.y, r.y), c = Math.min(i.x + i.width, r.x + r.width), 
+            u = Math.min(i.y + i.height, r.y + r.height), n.x = o, n.y = s, n.width = c - o, 
+            n.height = u - s, n), d = 0 | p.x, S = 0 | p.y, f = d + p.width | 0, g = S + p.height | 0;
+            return a.CollisionManagerDebug.ENABLED ? this.debug.checkCollision(t, e, d, S, f, g) : !!this.intersectionCoverMoreThan(.5, p, h, l) || this.checkCollision(t, e, d, S, f, g);
         }, t.prototype.intersectionCoverMoreThan = function(t, e, i, r) {
             var n = e.width * e.height, o = i.width * i.height * t, a = r.width * r.height * t;
             return o > a ? n > o : n > a;
@@ -3258,7 +3312,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return !1;
         }, t.PIXEL_OFFSET = 2, t;
     }();
-    function u(t, e) {
+    function c(t, e) {
         return !(t.x >= e.x + e.width || e.x >= t.x + t.width) && !(t.y >= e.y + e.height || e.y >= t.y + t.height);
     }
     e.CollisionManager = s, window.CollisionManager = s;
@@ -3303,8 +3357,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return !!t.ENABLED && (n(r, o, a - r, s - o, "#0000ff", this.ctx), function(t, e, i, r, n, o, a) {
                 var s = !1;
                 t.fillStyle = "#00ff00", t.beginPath();
-                for (var u = r; u < o; u++) for (var c = n; c < a; c++) {
-                    e.hit(u, c) && i.hit(u, c) && (s = !0, t.rect(u, c, 1, 1));
+                for (var c = r; c < o; c++) for (var u = n; u < a; u++) {
+                    e.hit(c, u) && i.hit(c, u) && (s = !0, t.rect(c, u, 1, 1));
                 }
                 return t.fill(), t.closePath(), s;
             }(this.ctx, e, i, r, o, a, s));
@@ -3320,7 +3374,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(60);
+    var r = i(61);
     e.AudioContext = window.AudioContext || window.webkitAudioContext;
     var n = function() {
         function t(e) {
@@ -3364,22 +3418,22 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(6), s = i(3), u = i(29), c = function(t) {
+    var o = i(7), a = i(4), s = i(5), c = i(29), u = function(t) {
         function e() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.objects = [], e;
         }
         return n(e, t), e.prototype.parseJSON = function(t) {
             var e = this;
-            void 0 === t && (t = {}), t[u.OBJECTS_KEY] && t[u.OBJECTS_KEY].length > 0 ? this.objects = t[u.OBJECTS_KEY].map(function(t) {
+            void 0 === t && (t = {}), t[c.OBJECTS_KEY] && t[c.OBJECTS_KEY].length > 0 ? this.objects = t[c.OBJECTS_KEY].map(function(t) {
                 return e.context.findWithObjectID(s.HSObject.key, t);
-            }) : t[u.OBJECTS_KEY] && 0 === t[u.OBJECTS_KEY].length ? this.objects = [] : this.objects = this.context.findAllForClassName(s.HSObject.key), 
+            }) : t[c.OBJECTS_KEY] && 0 === t[c.OBJECTS_KEY].length ? this.objects = [] : this.objects = this.context.findAllForClassName(s.HSObject.key), 
             this.name = t.name;
         }, e.prototype.stageScene = function() {
             return new a.HSStageScene(this);
         }, e.key = "HSScene", e;
     }(o.HSManagedObject);
-    e.HSScene = c, window.HSScene = c;
+    e.HSScene = u, window.HSScene = u;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -3400,16 +3454,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(11), a = i(30), s = i(33), u = i(18);
+    var o = i(11), a = i(30), s = i(33), c = i(18);
     e.FALSE_SCRIPT_KEY = "controlFalseScript";
-    var c = function(t) {
+    var u = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
         return n(i, t), i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i);
             var r = (i[e.FALSE_SCRIPT_KEY] || [])[o.SCRIPT_ID_KEY] || "", n = this.context.findWithObjectID("HSScript", r);
-            this.scripts.push(n || new u.HSScript(this.context));
+            this.scripts.push(n || new c.HSScript(this.context));
         }, i.prototype.stageBlock = function() {
             var t = this.trueScript(), e = this.falseScript();
             return new a.HSStageControl(this.type, [ t, e ], this.stageParameters());
@@ -3419,7 +3473,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return this.scripts[1];
         }, i.key = "HSConditionalControl", i;
     }(s.HSControlBlock);
-    e.HSConditionalControl = c, window.HSConditionalControl = c;
+    e.HSConditionalControl = u, window.HSConditionalControl = u;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -3455,13 +3509,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
 }, function(t, e, i) {
     var r;
     !function t(e, i, n) {
-        function o(s, u) {
+        function o(s, c) {
             if (!i[s]) {
                 if (!e[s]) {
-                    if (!u && ("function" == typeof r && r)) return r(s, !0);
+                    if (!c && ("function" == typeof r && r)) return r(s, !0);
                     if (a) return a(s, !0);
-                    var c = new Error("Cannot find module '" + s + "'");
-                    throw c.code = "MODULE_NOT_FOUND", c;
+                    var u = new Error("Cannot find module '" + s + "'");
+                    throw u.code = "MODULE_NOT_FOUND", u;
                 }
                 var h = i[s] = {
                     exports: {}
@@ -3513,7 +3567,6 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         } ],
         3: [ function(t, e, i) {
             e.exports = /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2640\u2642\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303d\u3297\u3299]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|\u2695\uFE0F|\uD83C\uDF93|\uD83C\uDFEB|\u2696\uFE0F|\uD83C\uDF3E|\uD83C\uDF73|\uD83D\uDD27|\uD83C\uDFED|\uD83D\uDCBC|\uD83D\uDD2C|\uD83D\uDCBB|\uD83C\uDFA4|\uD83C\uDFA8|\u2708\uFE0F|\uD83D\uDE80|\uD83D\uDC8B|\uD83D\uDE92|\u2764\uFE0F|\uD83D\uDC66|\uD83D\uDC67|\uD83D\uDC68|\uD83D\uDC69|\uD83D\uDC6A|\uD83D\uDC91|\u2640|\u2642|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
-			//AE_MOD EMOJI REGEX [col 10735 split]
         }, {} ],
         4: [ function(t, e, i) {
             (function(t) {
@@ -3563,13 +3616,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                         return e > i ? [] : t.slice(e, i - e + 1);
                     }
                     t = i.resolve(t).substr(1), e = i.resolve(e).substr(1);
-                    for (var n = r(t.split("/")), o = r(e.split("/")), a = Math.min(n.length, o.length), s = a, u = 0; u < a; u++) if (n[u] !== o[u]) {
-                        s = u;
+                    for (var n = r(t.split("/")), o = r(e.split("/")), a = Math.min(n.length, o.length), s = a, c = 0; c < a; c++) if (n[c] !== o[c]) {
+                        s = c;
                         break;
                     }
-                    var c = [];
-                    for (u = s; u < n.length; u++) c.push("..");
-                    return (c = c.concat(o.slice(s))).join("/");
+                    var u = [];
+                    for (c = s; c < n.length; c++) u.push("..");
+                    return (u = u.concat(o.slice(s))).join("/");
                 }, i.sep = "/", i.delimiter = ":", i.dirname = function(t) {
                     var e = n(t), i = e[0], r = e[1];
                     return i || r ? (r && (r = r.substr(0, r.length - 1)), i + r) : ".";
@@ -3591,12 +3644,12 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         } ],
         5: [ function(t, e, i) {
             var r, n = e.exports = {}, o = [], a = !1, s = -1;
-            function u() {
-                a = !1, r.length ? o = r.concat(o) : s = -1, o.length && c();
-            }
             function c() {
+                a = !1, r.length ? o = r.concat(o) : s = -1, o.length && u();
+            }
+            function u() {
                 if (!a) {
-                    var t = setTimeout(u);
+                    var t = setTimeout(c);
                     a = !0;
                     for (var e = o.length; e; ) {
                         for (r = o, o = []; ++s < e; ) r && r[s].run();
@@ -3612,7 +3665,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             n.nextTick = function(t) {
                 var e = new Array(arguments.length - 1);
                 if (arguments.length > 1) for (var i = 1; i < arguments.length; i++) e[i - 1] = arguments[i];
-                o.push(new h(t, e)), 1 !== o.length || a || setTimeout(c, 0);
+                o.push(new h(t, e)), 1 !== o.length || a || setTimeout(u, 0);
             }, h.prototype.run = function() {
                 this.fun.apply(null, this.array);
             }, n.title = "browser", n.browser = !0, n.env = {}, n.argv = [], n.version = "", 
@@ -3628,6 +3681,188 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             };
         }, {} ]
     }, {}, [ 2 ]);
+}, function(t, e, i) {
+    "use strict";
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var r = i(8), n = i(0), o = i(3), a = i(1), s = function() {
+        function t(e, i) {
+            var r;
+            this.object = e, this.isOnScreen = !1, t.enableAntiSpam(), this.type = i.type, this.id = i.id, 
+            this.parameters = i.parameters, this.promptText = (null === (r = i.parameters[1]) || void 0 === r ? void 0 : r.computedStringValue(e)) || "Type here", 
+            this.placeholderText = (i.parameters[2]||{value:""}).value;
+			this.view = new u(this.promptText, this.placeholderText);
+        }
+        return t.enableAntiSpam = function() {
+            null === t.antiSpam && (t.antiSpam = new h());
+        }, t.prototype.execute = function() {
+            this.displayIfNeeded(), this.checkValue();
+        }, t.prototype.checkSpam = function(t) {
+            this.antiSpam.check(t);
+        }, t.prototype.checkValue = function() {
+            var t, e;
+            if (!this.doesNotNeedToBeChecked()) switch (this.checkSpam(this.view.isSpam), this.type) {
+              case n.HSBlockType.SaveInput:
+                var i = null === (t = this.parameters[0]) || void 0 === t ? void 0 : t.variable();
+                if (!i) return;
+                i.setValue(this.view.value, this.object);
+                break;
+
+              case n.HSBlockType.SetTextToInput:
+                var a = (null === (e = this.parameters[0]) || void 0 === e ? void 0 : e.computedColorString(this.object)) || o.HSColor.rgbTextColor;
+                this.object.setText(r.HSVariable.parseValue(this.view.value).toString(), a);
+            }
+        }, t.prototype.displayIfNeeded = function() {
+            this.needsToBeDisplayed() && (this.isOnScreen = !0, this.view.show(t.antiSpam.askIfNextIsSpam));
+        }, t.prototype.doesNotNeedToBeChecked = function() {
+            return this.isOnScreen && !this.view.isDone;
+        }, t.prototype.needsToBeDisplayed = function() {
+            var t, e = this.type === n.HSBlockType.SaveInput && (null === (t = this.parameters[0]) || void 0 === t ? void 0 : t.variable()), i = this.type === n.HSBlockType.SetTextToInput;
+            return !this.isSpam && !this.isOnScreen && (e || i) && !this.isDone;
+        }, Object.defineProperty(t.prototype, "isDone", {
+            get: function() {
+                return this.view.isDone;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t.prototype, "antiSpam", {
+            get: function() {
+                return t.antiSpam;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t.prototype, "isSpam", {
+            get: function() {
+                return this.antiSpam.dontShowPrompts;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), t.antiSpam = null, t;
+    }();
+    function c(t, e) {
+        for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+    }
+    e.HSStagePrompt = s;
+    var u = function() {
+        function t(t, tu /* AE_MOD CUSTOM INPUT */) {
+			console.trace(t, tu);
+            void 0 === t && (t = "Type here"), this.text = t, this.isSpam = !1, this.isDone = !1, 
+            this.appValue = "", this.createHTMLView(t, tu /* AE_MOD CUSTOM INPUT */);
+        }
+        return t.prototype.createHTMLView = function(t, tu /* CUSTOM INPUT */) {
+            var e = this; console.log(t, tu);	
+            if (!a.isIOSApp()) {
+                var i = document.createElement("div");
+                i.id = "hs_parent_div" + a.hs_random_id(), c(i.style, {
+                    position: "absolute",
+                    top: "20%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    overflow: "hidden",
+                    padding: "10px 20px 10px 20px",
+                    borderRadius: "30px",
+                    background: "white",
+                    boxShadow: "2px 2px 8px 2px rgba(158, 158, 158, 0.47)",
+                    zIndex: "9",
+                    fontSize: "100%"
+                }), this.div = i;
+                var r = document.createElement("p");
+                c(r.style, {
+                    fontSize: "2em",
+                    fontFamily: "Avenir, sans-serif",
+                    fontWeight: "normal",
+                    color: "#000000c2",
+                    margin: "10px 0px",
+					textAlign: "center"
+                }), r.innerText = t, this.div.appendChild(r);
+                var n = document.createElement("input");
+                c(n.style, {
+                    width: "300px",
+                    height: "50px",
+                    type: "text",
+                    fontSize: "1.8em",
+                    fontFamily: "Avenir, sans-serif",
+                    borderWidth: "2px",
+                    borderStyle: "solid",
+                    borderRadius: "15px",
+                    borderImage: "none",
+                    outline: "none",
+                    padding: "10px",
+                    color: "#000000de"
+                }), this.input = n, this.div.appendChild(n);
+				setTimeout(()=>{n.value = tu;n.setSelectionRange(0, tu.length)},0);
+                var o = document.createElement("a");
+                c(o.style, {
+                    fontFamily: "Avenir, sans-serif",
+                    display: "block",
+                    position: "relative",
+                    textAlign: "center",
+                    padding: "10px 40px 10px 40px",
+                    background: "#1dd8be",
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: "1.8em",
+                    borderRadius: "19px",
+                    width: "120px",
+                    margin: "10px auto -1px",
+                    cursor: "pointer"
+                }), o.innerText = "OK", o.addEventListener("touchstart",function(){e.isDone=!0,e.hide();}), o.onclick = function() {
+                    e.isDone = !0, e.hide();
+                }, n.addEventListener("keyup", function(t) {
+                    13 === t.keyCode && (t.preventDefault(), o.click());
+                }), this.btn = o, this.div.appendChild(o);
+            }
+        }, t.prototype.show = function(t) {
+            this.showAppPromptIfNecessary(t), this.showBrowserPromptIfNecessary();
+        }, t.prototype.showBrowserPromptIfNecessary = function() {
+            a.isIOSApp() || (document.body.appendChild(this.div), this.input.value = "", this.input.focus());
+        }, t.prototype.showAppPromptIfNecessary = function(t) {
+            var e = this;
+            a.isIOSApp() && (a.HSApp.sendToApp("input_prompt" + (t ? ":spam" : ""), this.text), 
+            a.HSApp.readFromAppOnce("input_prompt", function(t) {
+                e.readInputFromIOSApp(t, !1);
+            }), t && a.HSApp.readFromAppOnce("input_prompt:spam", function(t) {
+                e.readInputFromIOSApp(t, !0);
+            }));
+        }, t.prototype.readInputFromIOSApp = function(t, e) {
+            this.appValue = t, this.isDone = !0, this.isSpam = e;
+        }, t.prototype.hide = function() {
+            a.isIOSApp() || this.div.remove();
+        }, t.prototype.isFilled = function() {
+            return "" !== this.value;
+        }, Object.defineProperty(t.prototype, "value", {
+            get: function() {
+                return a.isIOSApp() ? this.appValue : this.input.value;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), t;
+    }();
+    e.PromptView = u;
+    var h = function() {
+        function t() {
+            var t = this;
+            this.minTimeBeforeSpam = 1600, this.timeBeforeCheck = 2200, this.count = 0, this.lastTime = 0, 
+            this.elapsed = 0, this.askIfNextIsSpam = !1, this.dontShowPrompts = !1, this.reset = function() {
+                t.count = 0, t.elapsed = 0, t.lastTime = 0, t.askIfNextIsSpam = !1, t.dontShowPrompts = !1;
+            }, a.HSApp.addResetCallback("antispam", this.reset);
+        }
+        return t.prototype.check = function(t) {
+            t && (this.dontShowPrompts = !0), this.checkElapsedTime(), this.lastTime = Date.now(), 
+            this.askIfNextIsSpam = this.askUserIfNextIsSpam();
+        }, t.prototype.checkElapsedTime = function() {
+            if (0 !== this.lastTime) {
+                var t = this.lastTime, e = Date.now() - t;
+                this.elapsed += e, this.count += 1;
+            }
+        }, t.prototype.askUserIfNextIsSpam = function() {
+            if (this.elapsed <= this.timeBeforeCheck) return !1;
+            var t = this.elapsed, e = this.count;
+            return this.elapsed = 0, this.count = 0, t / e <= this.minTimeBeforeSpam;
+        }, t;
+    }();
+    window.HSStagePrompt = s, window.PromptView = u;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -3666,7 +3901,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(20), n = i(16), o = i(1), a = i(5), s = function() {
+    var r = i(20), n = i(16), o = i(1), a = i(3), s = function() {
         function t() {}
         return t.setFont = function(e, i) {
             e.font = i / 2 + "px " + t.FONT_FAMILIES.join(", "), e.textAlign = "left", e.textBaseline = "top";
@@ -3694,13 +3929,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.canvas = function(e, i, n) {
             var s = e.getContext("2d");
             t.setFont(s, i.fontSize);
-            var u = i.text, c = a.HSColor.rgbWhiteColor;
-            o.hasEmoji(u) && (c = i.color);
+            var c = i.text, u = a.HSColor.rgbWhiteColor;
+            o.hasEmoji(c) && (u = i.color);
             var h = n.flow(s, r.HSTextNode.MAX_LINE_WIDTH);
             if (0 === h.width || 0 === h.height) return null;
             var l = t.scaleUp();
             return e.width = Math.min(h.width * l, 4096), e.height = Math.min(h.height * l, 4096), 
-            t.setFont(s, i.fontSize), s.scale(l, l), s.fillStyle = a.HSColor.rgbStringFromHSBString(c), 
+            t.setFont(s, i.fontSize), s.scale(l, l), s.fillStyle = a.HSColor.rgbStringFromHSBString(u), 
             e;
         }, t.FONT_FAMILIES = [ "Avenir-Book", "Hiragino Sans", "sans-serif", "AppleSymbols" ], 
         t.instance = new t(), t.textureCache = {}, t;
@@ -3711,7 +3946,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(35), n = i(4), o = i(5), a = function() {
+    var r = i(35), n = i(6), o = i(3), a = function() {
         function t() {}
         return t.prototype.build = function(t, e) {
             return Promise.resolve(this._build(e));
@@ -3724,8 +3959,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 var n = parseFloat(t.getAttribute("width")) || e.originalWidth, o = parseFloat(t.getAttribute("height")) || e.originalHeight;
                 i = Math.max(e.originalWidth / n, e.originalHeight / o) * e.baseObjectScale, r = Math.floor(1024 / n);
             }
-            var a = Math.abs(e.sizePercentWidth), s = Math.abs(e.sizePercentHeight), u = Math.max(a, s), c = Math.max(Math.ceil(.01 * u), 1) * i;
-            return Math.min(c, r);
+            var a = Math.abs(e.sizePercentWidth), s = Math.abs(e.sizePercentHeight), c = Math.max(a, s), u = Math.max(Math.ceil(.01 * c), 1) * i;
+            return Math.min(u, r);
         }, t.prototype.buildAll = function(t, e) {
             for (var i = [], r = e.willChangeCostume ? 4 : 1, n = 0; n < r; n++) e.animationNumber = n, 
             i.push(this._build(e));
@@ -3749,7 +3984,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(34), n = i(5), o = i(17), a = function() {
+    var r = i(34), n = i(3), o = i(17), a = function() {
         function t(t, e, i, r) {
             void 0 === t && (t = 0), void 0 === e && (e = 0), void 0 === i && (i = 0), void 0 === r && (r = 0), 
             this.centerX = t, this.centerY = e, this.halfWidth = i, this.halfHeight = r, this.vertices = [ new o.Vec2(), new o.Vec2(), new o.Vec2(), new o.Vec2() ], 
@@ -3784,16 +4019,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             });
         }, t.prototype.containsPoint = function(t, e) {
             this.pointTestVecs || (this.pointTestVecs = [ new o.Vec2(), new o.Vec2(), new o.Vec2() ]);
-            var i = new o.Vec2(t, e), r = this.vertices[0], n = this.vertices[1], a = this.vertices[3], s = this.pointTestVecs[0].subtract(n, r), u = this.pointTestVecs[1].subtract(a, r), c = this.pointTestVecs[2].subtract(i, r), h = c.dot(s) / s.len(), l = c.dot(u) / u.len();
-            return h > 0 && h < s.len() && l > 0 && l < u.len();
+            var i = new o.Vec2(t, e), r = this.vertices[0], n = this.vertices[1], a = this.vertices[3], s = this.pointTestVecs[0].subtract(n, r), c = this.pointTestVecs[1].subtract(a, r), u = this.pointTestVecs[2].subtract(i, r), h = u.dot(s) / s.len(), l = u.dot(c) / c.len();
+            return h > 0 && h < s.len() && l > 0 && l < c.len();
         }, t.prototype.area = function() {
             return this.width() * this.height();
         }, t.prototype.overlapsWithOtherBoundingBox = function(t) {
             return this.maxX() > t.minX() && this.minX() < t.maxX() && this.maxY() > t.minY() && this.minY() < t.maxY();
         }, t.prototype.intersectionRectWithOtherBoundingBox = function(e) {
             if (this.surroundingBox || (this.surroundingBox = new t()), !this.overlapsWithOtherBoundingBox(e)) return t.zero;
-            var i = this.minX(), r = this.minY(), n = this.maxX(), o = this.maxY(), a = e.minX(), s = e.minY(), u = e.maxX(), c = e.maxY(), h = Math.max(i, a), l = Math.max(r, s), p = Math.min(n, u), d = Math.min(o, c), S = .5 * (h + p), f = .5 * (l + d), D = .5 * (p - h), g = .5 * (d - l);
-            return this.surroundingBox.update(S, f, D, g), this.surroundingBox;
+            var i = this.minX(), r = this.minY(), n = this.maxX(), o = this.maxY(), a = e.minX(), s = e.minY(), c = e.maxX(), u = e.maxY(), h = Math.max(i, a), l = Math.max(r, s), p = Math.min(n, c), d = Math.min(o, u), S = .5 * (h + p), f = .5 * (l + d), g = .5 * (p - h), y = .5 * (d - l);
+            return this.surroundingBox.update(S, f, g, y), this.surroundingBox;
         }, t.zero = new t(), t;
     }();
     e.HSBoundingBox = a, window.HSBoundingBox = a;
@@ -3820,8 +4055,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var e = document.createElement("canvas"), i = e.getContext("2d"), n = t.unscaledWidth(), o = t.unscaledHeight(), a = r.HSVisualContext.collisionResolution, s = this.getScaledImageDimensions({
                 width: n,
                 height: o
-            }, Math.pow(a, 2)), u = s.width, c = s.height;
-            return e.width = u, e.height = c, i.drawImage(t, 0, 0, n, o, 0, 0, u, c), this._image = e, 
+            }, Math.pow(a, 2)), c = s.width, u = s.height;
+            return e.width = c, e.height = u, i.drawImage(t, 0, 0, n, o, 0, 0, c, u), this._image = e, 
             e;
         }, t.prototype.getScaledImageDimensions = function(t, e) {
             var i = Math.max(Math.sqrt(t.width * t.height / e), 1);
@@ -3837,7 +4072,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(6), n = i(28), o = i(4), a = i(36);
+    var r = i(4), n = i(28), o = i(6), a = i(36);
     e.makeDebugCanvas = function(t, e) {
         var i = document.createElement("canvas");
         return i.style.position = "fixed", i.style.top = t + "px", i.style.left = e + "px", 
@@ -3855,8 +4090,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var r = this.boundingBoxForObject(t);
             if (r.containsPoint(e, i)) {
                 if (t.type === o.HSObjectType.text) return !0;
-                var n = this.generatePixelTestData(this.canvas1, t, r, r), a = n.width / (r.maxX() - r.minX()), s = n.height / (r.maxY() - r.minY()), u = (e - r.minX()) * a, c = n.height - (i - r.minY()) * s;
-                return e = Math.round(u), i = Math.round(c), this.pixelCoordinateHasAlpha(e, i, n);
+                var n = this.generatePixelTestData(this.canvas1, t, r, r), a = n.width / (r.maxX() - r.minX()), s = n.height / (r.maxY() - r.minY()), c = (e - r.minX()) * a, u = n.height - (i - r.minY()) * s;
+                return e = Math.round(c), i = Math.round(u), this.pixelCoordinateHasAlpha(e, i, n);
             }
             return !1;
         }, t.prototype.tick = function(t) {
@@ -3876,8 +4111,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.boundingBoxForObject = function(t) {
             return t.boundingBox();
         }, t.prototype.generatePixelTestData = function(t, e, i, r) {
-            var n = (t = this.prepareCanvasForPixelTest(t, e, i, r)).getContext("2d"), o = t.width / i.width(), a = t.height / i.height(), s = Math.round((r.minX() - i.minX()) * o), u = Math.round((i.maxY() - r.maxY()) * a), c = Math.max(Math.ceil((r.maxX() - r.minX()) * o), 1), h = Math.max(Math.ceil((r.maxY() - r.minY()) * a), 1);
-            return n.getImageData(s, u, c, h);
+            var n = (t = this.prepareCanvasForPixelTest(t, e, i, r)).getContext("2d"), o = t.width / i.width(), a = t.height / i.height(), s = Math.round((r.minX() - i.minX()) * o), c = Math.round((i.maxY() - r.maxY()) * a), u = Math.max(Math.ceil((r.maxX() - r.minX()) * o), 1), h = Math.max(Math.ceil((r.maxY() - r.minY()) * a), 1);
+            return n.getImageData(s, c, u, h);
         }, t.prototype.prepareCanvasForPixelTest = function(t, e, i, r) {
             var n = e.imageForCollision();
             if (!n) return t;
@@ -3892,8 +4127,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var a = t.getContext("2d");
             a.imageSmoothingEnabled = !1, a.oImageSmoothingEnabled = !1, a.msImageSmoothingEnabled = !1, 
             a.mozImageSmoothingEnabled = !1, a.webkitImageSmoothingEnabled = !1, a.clearRect(0, 0, t.width, t.height);
-            var s = t.width / 2, u = t.height / 2;
-            return a.translate(s, u), a.rotate(-e.headingInRadians()), e.isFlipped && a.scale(-1, 1), 
+            var s = t.width / 2, c = t.height / 2;
+            return a.translate(s, c), a.rotate(-e.headingInRadians()), e.isFlipped && a.scale(-1, 1), 
             n.width * n.height == 0 ? t : (a.drawImage(n, -n.width / 2, -n.height / 2), a.setTransform(1, 0, 0, 1, 0, 0), 
             t);
         }, t.PIXEL_TESTING_THRESHOLD = 10, t;
@@ -3940,12 +4175,12 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             var t = this.sprite.getLocalBounds(), e = t.left + this.info.minX, i = t.top + this.info.minY, r = t.right - (this.info.width - this.info.maxX), n = t.bottom - (this.info.height - this.info.maxY);
             this.tempPoints[0].set(e, i), this.tempPoints[1].set(r, i), this.tempPoints[2].set(r, n), 
             this.tempPoints[3].set(e, n);
-            var o = [ this.sprite.toGlobal(this.tempPoints[0], this.outputPoints[0]), this.sprite.toGlobal(this.tempPoints[1], this.outputPoints[1]), this.sprite.toGlobal(this.tempPoints[2], this.outputPoints[2]), this.sprite.toGlobal(this.tempPoints[3], this.outputPoints[3]) ], a = Number.MAX_SAFE_INTEGER, s = Number.MAX_SAFE_INTEGER, u = Number.MIN_SAFE_INTEGER, c = Number.MIN_SAFE_INTEGER;
+            var o = [ this.sprite.toGlobal(this.tempPoints[0], this.outputPoints[0]), this.sprite.toGlobal(this.tempPoints[1], this.outputPoints[1]), this.sprite.toGlobal(this.tempPoints[2], this.outputPoints[2]), this.sprite.toGlobal(this.tempPoints[3], this.outputPoints[3]) ], a = Number.MAX_SAFE_INTEGER, s = Number.MAX_SAFE_INTEGER, c = Number.MIN_SAFE_INTEGER, u = Number.MIN_SAFE_INTEGER;
             o.forEach(function(t) {
                 var e = t.x, i = t.y;
-                e < a && (a = e), e > u && (u = e), i < s && (s = i), i > c && (c = i);
+                e < a && (a = e), e > c && (c = e), i < s && (s = i), i > u && (u = i);
             });
-            var h = u - a, l = c - s;
+            var h = c - a, l = u - s;
             return this.tempRect.x = a, this.tempRect.y = s, this.tempRect.width = h, this.tempRect.height = l, 
             this.tempRect;
         }, t;
@@ -3956,7 +4191,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(4);
+    var r = i(6);
     e.HSOBJECT_SIZES = {}, e.HSOBJECT_SIZES[r.HSObjectType.text] = {
         width: 150,
         height: 150
@@ -4314,7 +4549,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(14), n = i(2), o = i(54), a = i(0), s = function() {
+    var r = i(14), n = i(2), o = i(55), a = i(0), s = function() {
         function t() {
             this.stageObjects = [], this.currentCollisions = new o.HSCollisionPairCollection([]), 
             this._stageObjectCache = new Set(), this._stageRulesCache = null, this._objectsToDestroy = [];
@@ -4544,13 +4779,16 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(14), n = i(2), o = i(57), a = i(0), s = function() {
+    var r = i(14), n = i(2), o = i(58), a = i(0), s = i(1), c = function() {
         function t(t, e) {
             var i = this;
             this.rule = t, this.currentObject = e, this.isActive = !1, this._collisionPairs = [], 
-            this.numFirstParamObjects = 0, this.numSecondParamObjects = 0, this.activateIfMatchesEventMessage = function(t) {
+            this.numFirstParamObjects = 0, this.numSecondParamObjects = 0, this.activateIfEqualsEventMessage = function(t) {
                 var e;
                 t.trim() === (null === (e = i.eventBlock.parameterBlockStringValues()[0]) || void 0 === e ? void 0 : e.trim()) && i.activate();
+            }, this.activateIfMatchesEventMessage = function(t) {
+                var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues()[0]) || void 0 === e ? void 0 : e.trim();
+                s.checkMatches(r, n) && i.activate();
             }, this.stageScript = this.rule.script.stageScript(), this.eventBlock = this.rule.childBlock().stageParameterBlock();
         }
         return t.prototype.reset = function() {
@@ -4576,7 +4814,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.collisionPairs = function() {
             var t = this, e = this.eventBlock.parameterBlocks()[0], i = this.eventBlock.parameterBlocks()[1], r = this.stageObjectsForParameter(e), n = this.stageObjectsForParameter(i);
             if (this._collisionPairs && this.numFirstParamObjects === r.length && this.numSecondParamObjects === n.length) return this._collisionPairs;
-            var a = r.slice(this.numFirstParamObjects), s = n.slice(this.numSecondParamObjects), u = r.slice(0, this.numFirstParamObjects);
+            var a = r.slice(this.numFirstParamObjects), s = n.slice(this.numSecondParamObjects), c = r.slice(0, this.numFirstParamObjects);
             return a.forEach(function(e) {
                 n.filter(function(t) {
                     return t !== e;
@@ -4584,7 +4822,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                     t._collisionPairs.push(new o.HSCollisionPair(e, i)), e.relatedCollisionRules.add(t), 
                     i.relatedCollisionRules.add(t);
                 });
-            }), u.forEach(function(e) {
+            }), c.forEach(function(e) {
                 s.filter(function(t) {
                     return t !== e;
                 }).forEach(function(i) {
@@ -4620,7 +4858,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return this.currentObject === t;
         }, t;
     }();
-    e.HSStageRule = s, window.HSStageRule = s;
+    e.HSStageRule = c, window.HSStageRule = c;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -4670,7 +4908,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(6), n = i(17), o = function(t, e, i) {
+    var r = i(4), n = i(17), o = function(t, e, i) {
         void 0 === i && (i = 0), this.id = i, this.id = i;
         var o = t.target, a = o.clientWidth, s = o.clientHeight;
         this.point = new n.Vec2(e[0] * r.HSStageScene.stageWidth / a, r.HSStageScene.stageHeight - e[1] * r.HSStageScene.stageHeight / s);
@@ -4717,13 +4955,13 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 }(t, r);
             });
         }
-        var u = !1;
+        var c = !1;
         return new a([ r(t, "mousedown", function(t) {
-            u && e.pointerUp(t), u = !0, e.pointerDown(t);
+            c && e.pointerUp(t), c = !0, e.pointerDown(t);
         }), r(t, "mousemove", function(t) {
-            u && e.pointerDrag(t);
+            c && e.pointerDrag(t);
         }), r(window, "mouseup", function(t) {
-            e.pointerUp(t), u = !1;
+            e.pointerUp(t), c = !1;
         }), n(t, "touchstart", e.pointerDown), n(t, "touchmove", e.pointerDrag), n(window, "touchend", e.pointerUp), n(window, "touchcancel", e.pointerCancel) ]);
     }, window.UIPointerEvent = o, window.UIEventListeners = a, window.UIEventListener = s;
 }, function(t, e, i) {
@@ -4766,7 +5004,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(30), o = i(32), a = i(31), s = i(9), u = i(0), c = function() {
+    var r = i(8), n = i(30), o = i(32), a = i(31), s = i(9), c = i(0), u = function() {
         function t(t) {
             this.script = t, this.reset();
         }
@@ -4782,7 +5020,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 return t.isImmediate;
             });
         }, t.prototype.blockIsVariable = function(t) {
-            return t === u.HSBlockType.SetVariable || t === u.HSBlockType.ChangeVariable;
+            return t === c.HSBlockType.SetVariable || t === c.HSBlockType.ChangeVariable;
         }, t.prototype.doesBlockAffectExecutionOrder = function(t) {
             return !!this.isControlBlock(t) && (!this.blockIsEmpty(t) && (!!this.blockHasAScriptThatContainsVariables(t) || this.blockUsesVariable(t)));
         }, t.prototype.blockHasAScriptThatContainsVariables = function(t) {
@@ -4817,21 +5055,21 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.executableForStepSize = function(t, e) {
             var i = this;
             if (!this.blocks.length) return new a.HSExecutable([], []);
-            for (var r = this.blocks.slice().reverse(), n = r.pop(), s = [], u = function(t) {
+            for (var r = this.blocks.slice().reverse(), n = r.pop(), s = [], c = function(t) {
                 if (!t) return !1;
                 var n = i.blockIsVariable(t.type) && i.doesBlockAffectExecutionOrder(r.length ? r[r.length - 1] : null), a = t.isImmediate, s = t instanceof o.HSStageMethod && t.isFinishedTimestampBlock(e);
                 return !n && (a || s);
-            }; u(n); ) s.push(n), n = r.pop();
+            }; c(n); ) s.push(n), n = r.pop();
             if (!n) return new a.HSExecutable(s, []);
-            var c = n.executableForStepSize(t, e);
-            return new a.HSExecutable(s.concat(c.blocksToExecuteNow), c.blocksToExecuteLater.concat(r.reverse()));
+            var u = n.executableForStepSize(t, e);
+            return new a.HSExecutable(s.concat(u.blocksToExecuteNow), u.blocksToExecuteLater.concat(r.reverse()));
         }, t.prototype.deepCopy = function() {
             return new t(this.script);
         }, t.prototype.toString = function() {
             return s.SourceFormatter.blocksToSrc(this.blocks);
         }, t;
     }();
-    e.HSStageScript = c, window.HSStageScript = c;
+    e.HSStageScript = u, window.HSStageScript = u;
 }, function(t, e, i) {
     "use strict";
     var r, n = this && this.__extends || (r = function(t, e) {
@@ -4880,7 +5118,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(2), n = i(40), o = i(39), a = i(18), s = i(11), u = i(3), c = i(33), h = i(29), l = i(12), p = i(10), d = i(41), S = i(4), f = i(0), D = i(8), g = function() {
+    var r = i(2), n = i(40), o = i(39), a = i(18), s = i(11), c = i(5), u = i(33), h = i(29), l = i(12), p = i(10), d = i(41), S = i(6), f = i(0), g = i(8), y = function() {
         function t() {
             this.context = new r.HSProjectContext(), this.scene = this.buildScene(), this.project = new h.HSProject(this.context), 
             this.project.scenes = [ this.scene ];
@@ -4896,7 +5134,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.buildObject = function(t, e, i, r) {
             void 0 === t && (t = S.HSObjectType.monkey), void 0 === e && (e = ""), void 0 === i && (i = 750), 
             void 0 === r && (r = 500);
-            var n = new u.HSObject(this.scene.context);
+            var n = new c.HSObject(this.scene.context);
             return n.type = t, n.text = e, n.x = i, n.y = r, n.objectID = Math.floor(Math.random() * Math.pow(2, 32)).toString(16), 
             n;
         }, t.prototype.buildObjectWithRule = function() {
@@ -4914,14 +5152,23 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             r;
         }, t.prototype.buildTapRule = function(t, e) {
             return this.buildRule(f.HSBlockType.EventOperatorTap, t, e);
+        }, t.prototype.buildMessageMatchesRule = function(t) {
+            var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
+            n.script = i, r.addRule(n);
+            var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
+            a.type = f.HSBlockType.EventOperatorMessageMatches, o.childBlock = a, n.parameters = [ o ], 
+            n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
+            var c = new g.HSVariable(n.context);
+            return c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
+            n;
         }, t.prototype.buildHeardMessageRule = function(t) {
             var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
             n.script = i, r.addRule(n);
             var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
             a.type = f.HSBlockType.EventOperatorHearMessage, o.childBlock = a, n.parameters = [ o ], 
             n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
-            var u = new D.HSVariable(n.context);
-            return u.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = u, 
+            var c = new g.HSVariable(n.context);
+            return c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
             n;
         }, t.prototype.buildRule = function(t, e, i) {
             var r = this.context;
@@ -4972,7 +5219,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             }), i;
         }, t.prototype.buildControlBlock = function(t, e, i) {
             void 0 === t && (t = f.HSBlockType.Repeat), void 0 === e && (e = []), i || (i = this.buildScript1());
-            var r = this.parametersFromValues(e), n = new c.HSControlBlock(this.context);
+            var r = this.parametersFromValues(e), n = new u.HSControlBlock(this.context);
             return n.type = t, n.parameters = r, n.scripts = [ i ], n;
         }, t.prototype.buildConditionalControlBlock = function(t, e, i) {
             void 0 === t && (t = f.HSBlockType.CheckOnceIf), void 0 === e && (e = []), i || (i = this.buildScript1());
@@ -4980,7 +5227,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return o.type = t, o.parameters = r, o.scripts = [ i ], o;
         }, t;
     }();
-    e.HSManagedObjectFactory = g, window.HSManagedObjectFactory = g;
+    e.HSManagedObjectFactory = y, window.HSManagedObjectFactory = y;
 }, function(t, e, i) {
     "use strict";
     function r(t, e) {
@@ -5005,36 +5252,12 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
     function s(t) {
         return 1 === t.length ? "0" + t : String(t);
     }
-    function u(t, e, i) {
-        t = r(t, 255), e = r(e, 255), i = r(i, 255);
-        var n = Math.max(t, e, i), o = Math.min(t, e, i), a = 0, s = 0, u = (n + o) / 2;
-        if (n === o) s = 0, a = 0; else {
-            var c = n - o;
-            switch (s = u > .5 ? c / (2 - n - o) : c / (n + o), n) {
-              case t:
-                a = (e - i) / c + (e < i ? 6 : 0);
-                break;
-
-              case e:
-                a = (i - t) / c + 2;
-                break;
-
-              case i:
-                a = (t - e) / c + 4;
-            }
-            a /= 6;
-        }
-        return {
-            h: a,
-            s: s,
-            l: u
-        };
-    }
     function c(t, e, i) {
         t = r(t, 255), e = r(e, 255), i = r(i, 255);
-        var n = Math.max(t, e, i), o = Math.min(t, e, i), a = 0, s = n, u = n - o, c = 0 === n ? 0 : u / n;
-        if (n === o) a = 0; else {
-            switch (n) {
+        var n = Math.max(t, e, i), o = Math.min(t, e, i), a = 0, s = 0, c = (n + o) / 2;
+        if (n === o) s = 0, a = 0; else {
+            var u = n - o;
+            switch (s = c > .5 ? u / (2 - n - o) : u / (n + o), n) {
               case t:
                 a = (e - i) / u + (e < i ? 6 : 0);
                 break;
@@ -5050,7 +5273,31 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }
         return {
             h: a,
-            s: c,
+            s: s,
+            l: c
+        };
+    }
+    function u(t, e, i) {
+        t = r(t, 255), e = r(e, 255), i = r(i, 255);
+        var n = Math.max(t, e, i), o = Math.min(t, e, i), a = 0, s = n, c = n - o, u = 0 === n ? 0 : c / n;
+        if (n === o) a = 0; else {
+            switch (n) {
+              case t:
+                a = (e - i) / c + (e < i ? 6 : 0);
+                break;
+
+              case e:
+                a = (i - t) / c + 2;
+                break;
+
+              case i:
+                a = (t - e) / c + 4;
+            }
+            a /= 6;
+        }
+        return {
+            h: a,
+            s: u,
             v: s
         };
     }
@@ -5221,65 +5468,65 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         yellow: "#ffff00",
         yellowgreen: "#9acd32"
     };
-    function D(t) {
+    function g(t) {
         var e, i, n, s = {
             r: 0,
             g: 0,
             b: 0
-        }, u = 1, c = null, h = null, l = null, p = !1, d = !1;
-        return "string" == typeof t && (t = v(t)), "object" == typeof t && (T(t.r) && T(t.g) && T(t.b) ? (e = t.r, 
+        }, c = 1, u = null, h = null, l = null, p = !1, d = !1;
+        return "string" == typeof t && (t = T(t)), "object" == typeof t && (O(t.r) && O(t.g) && O(t.b) ? (e = t.r, 
         i = t.g, n = t.b, s = {
             r: 255 * r(e, 255),
             g: 255 * r(i, 255),
             b: 255 * r(n, 255)
-        }, p = !0, d = "%" === String(t.r).substr(-1) ? "prgb" : "rgb") : T(t.h) && T(t.s) && T(t.v) ? (c = a(t.s), 
+        }, p = !0, d = "%" === String(t.r).substr(-1) ? "prgb" : "rgb") : O(t.h) && O(t.s) && O(t.v) ? (u = a(t.s), 
         h = a(t.v), s = function(t, e, i) {
             t = 6 * r(t, 360), e = r(e, 100), i = r(i, 100);
-            var n = Math.floor(t), o = t - n, a = i * (1 - e), s = i * (1 - o * e), u = i * (1 - (1 - o) * e), c = n % 6;
+            var n = Math.floor(t), o = t - n, a = i * (1 - e), s = i * (1 - o * e), c = i * (1 - (1 - o) * e), u = n % 6;
             return {
-                r: 255 * [ i, s, a, a, u, i ][c],
-                g: 255 * [ u, i, i, s, a, a ][c],
-                b: 255 * [ a, a, u, i, i, s ][c]
+                r: 255 * [ i, s, a, a, c, i ][u],
+                g: 255 * [ c, i, i, s, a, a ][u],
+                b: 255 * [ a, a, c, i, i, s ][u]
             };
-        }(t.h, c, h), p = !0, d = "hsv") : T(t.h) && T(t.s) && T(t.l) && (c = a(t.s), l = a(t.l), 
+        }(t.h, u, h), p = !0, d = "hsv") : O(t.h) && O(t.s) && O(t.l) && (u = a(t.s), l = a(t.l), 
         s = function(t, e, i) {
             var n, o, a;
             function s(t, e, i) {
                 return i < 0 && (i += 1), i > 1 && (i -= 1), i < 1 / 6 ? t + 6 * i * (e - t) : i < .5 ? e : i < 2 / 3 ? t + (e - t) * (2 / 3 - i) * 6 : t;
             }
             if (t = r(t, 360), e = r(e, 100), i = r(i, 100), 0 === e) o = i, a = i, n = i; else {
-                var u = i < .5 ? i * (1 + e) : i + e - i * e, c = 2 * i - u;
-                n = s(c, u, t + 1 / 3), o = s(c, u, t), a = s(c, u, t - 1 / 3);
+                var c = i < .5 ? i * (1 + e) : i + e - i * e, u = 2 * i - c;
+                n = s(u, c, t + 1 / 3), o = s(u, c, t), a = s(u, c, t - 1 / 3);
             }
             return {
                 r: 255 * n,
                 g: 255 * o,
                 b: 255 * a
             };
-        }(t.h, c, l), p = !0, d = "hsl"), Object.prototype.hasOwnProperty.call(t, "a") && (u = t.a)), 
-        u = o(u), {
+        }(t.h, u, l), p = !0, d = "hsl"), Object.prototype.hasOwnProperty.call(t, "a") && (c = t.a)), 
+        c = o(c), {
             ok: p,
             format: t.format || d,
             r: Math.min(255, Math.max(s.r, 0)),
             g: Math.min(255, Math.max(s.g, 0)),
             b: Math.min(255, Math.max(s.b, 0)),
-            a: u
+            a: c
         };
     }
-    var g = "(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)", y = "[\\s|\\(]+(" + g + ")[,|\\s]+(" + g + ")[,|\\s]+(" + g + ")\\s*\\)?", E = "[\\s|\\(]+(" + g + ")[,|\\s]+(" + g + ")[,|\\s]+(" + g + ")[,|\\s]+(" + g + ")\\s*\\)?", b = {
-        CSS_UNIT: new RegExp(g),
-        rgb: new RegExp("rgb" + y),
-        rgba: new RegExp("rgba" + E),
-        hsl: new RegExp("hsl" + y),
-        hsla: new RegExp("hsla" + E),
-        hsv: new RegExp("hsv" + y),
-        hsva: new RegExp("hsva" + E),
+    var y = "(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)", v = "[\\s|\\(]+(" + y + ")[,|\\s]+(" + y + ")[,|\\s]+(" + y + ")\\s*\\)?", b = "[\\s|\\(]+(" + y + ")[,|\\s]+(" + y + ")[,|\\s]+(" + y + ")[,|\\s]+(" + y + ")\\s*\\)?", m = {
+        CSS_UNIT: new RegExp(y),
+        rgb: new RegExp("rgb" + v),
+        rgba: new RegExp("rgba" + b),
+        hsl: new RegExp("hsl" + v),
+        hsla: new RegExp("hsla" + b),
+        hsv: new RegExp("hsv" + v),
+        hsva: new RegExp("hsva" + b),
         hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
         hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
         hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
         hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
     };
-    function v(t) {
+    function T(t) {
         if (0 === (t = t.trim().toLowerCase()).length) return !1;
         var e = !1;
         if (f[t]) t = f[t], e = !0; else if ("transparent" === t) return {
@@ -5289,66 +5536,66 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             a: 0,
             format: "name"
         };
-        var i = b.rgb.exec(t);
+        var i = m.rgb.exec(t);
         return i ? {
             r: i[1],
             g: i[2],
             b: i[3]
-        } : (i = b.rgba.exec(t)) ? {
+        } : (i = m.rgba.exec(t)) ? {
             r: i[1],
             g: i[2],
             b: i[3],
             a: i[4]
-        } : (i = b.hsl.exec(t)) ? {
+        } : (i = m.hsl.exec(t)) ? {
             h: i[1],
             s: i[2],
             l: i[3]
-        } : (i = b.hsla.exec(t)) ? {
+        } : (i = m.hsla.exec(t)) ? {
             h: i[1],
             s: i[2],
             l: i[3],
             a: i[4]
-        } : (i = b.hsv.exec(t)) ? {
+        } : (i = m.hsv.exec(t)) ? {
             h: i[1],
             s: i[2],
             v: i[3]
-        } : (i = b.hsva.exec(t)) ? {
+        } : (i = m.hsva.exec(t)) ? {
             h: i[1],
             s: i[2],
             v: i[3],
             a: i[4]
-        } : (i = b.hex8.exec(t)) ? {
+        } : (i = m.hex8.exec(t)) ? {
             r: S(i[1]),
             g: S(i[2]),
             b: S(i[3]),
             a: d(i[4]),
             format: e ? "name" : "hex8"
-        } : (i = b.hex6.exec(t)) ? {
+        } : (i = m.hex6.exec(t)) ? {
             r: S(i[1]),
             g: S(i[2]),
             b: S(i[3]),
             format: e ? "name" : "hex"
-        } : (i = b.hex4.exec(t)) ? {
+        } : (i = m.hex4.exec(t)) ? {
             r: S(i[1] + i[1]),
             g: S(i[2] + i[2]),
             b: S(i[3] + i[3]),
             a: d(i[4] + i[4]),
             format: e ? "name" : "hex8"
-        } : !!(i = b.hex3.exec(t)) && {
+        } : !!(i = m.hex3.exec(t)) && {
             r: S(i[1] + i[1]),
             g: S(i[2] + i[2]),
             b: S(i[3] + i[3]),
             format: e ? "name" : "hex"
         };
     }
-    function T(t) {
-        return Boolean(b.CSS_UNIT.exec(String(t)));
+    function O(t) {
+        return Boolean(m.CSS_UNIT.exec(String(t)));
     }
-    var m = function() {
+    var H = function() {
         function t(e, i) {
             if (void 0 === e && (e = ""), void 0 === i && (i = {}), e instanceof t) return e;
             this.originalInput = e;
-            var r = D(e);
+            var r = g(e);
             this.originalInput = e, this.r = r.r, this.g = r.g, this.b = r.b, this.a = r.a, 
             this.roundA = Math.round(100 * this.a) / 100, this.format = i.format || r.format, 
             this.gradientType = i.gradientType, this.r < 1 && (this.r = Math.round(this.r)), 
@@ -5370,7 +5617,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         }, t.prototype.setAlpha = function(t) {
             return this.a = o(t), this.roundA = Math.round(100 * this.a) / 100, this;
         }, t.prototype.toHsv = function() {
-            var t = c(this.r, this.g, this.b);
+            var t = u(this.r, this.g, this.b);
             return {
                 h: 360 * t.h,
                 s: t.s,
@@ -5378,10 +5625,10 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 a: this.a
             };
         }, t.prototype.toHsvString = function() {
-            var t = c(this.r, this.g, this.b), e = Math.round(360 * t.h), i = Math.round(100 * t.s), r = Math.round(100 * t.v);
+            var t = u(this.r, this.g, this.b), e = Math.round(360 * t.h), i = Math.round(100 * t.s), r = Math.round(100 * t.v);
             return 1 === this.a ? "hsv(" + e + ", " + i + "%, " + r + "%)" : "hsva(" + e + ", " + i + "%, " + r + "%, " + this.roundA + ")";
         }, t.prototype.toHsl = function() {
-            var t = u(this.r, this.g, this.b);
+            var t = c(this.r, this.g, this.b);
             return {
                 h: 360 * t.h,
                 s: t.s,
@@ -5389,7 +5636,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                 a: this.a
             };
         }, t.prototype.toHslString = function() {
-            var t = u(this.r, this.g, this.b), e = Math.round(360 * t.h), i = Math.round(100 * t.s), r = Math.round(100 * t.l);
+            var t = c(this.r, this.g, this.b), e = Math.round(360 * t.h), i = Math.round(100 * t.s), r = Math.round(100 * t.l);
             return 1 === this.a ? "hsl(" + e + ", " + i + "%, " + r + "%)" : "hsla(" + e + ", " + i + "%, " + r + "%, " + this.roundA + ")";
         }, t.prototype.toHex = function(t) {
             return void 0 === t && (t = !1), h(this.r, this.g, this.b, t);
@@ -5528,19 +5775,19 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return this.toRgbString() === new t(e).toRgbString();
         }, t;
     }();
-    function O(t, e) {
-        return void 0 === t && (t = ""), void 0 === e && (e = {}), new m(t, e);
+    function E(t, e) {
+        return void 0 === t && (t = ""), void 0 === e && (e = {}), new H(t, e);
     }
-    function H(t, e) {
-        var i = new m(t), r = new m(e);
+    function w(t, e) {
+        var i = new H(t), r = new H(e);
         return (Math.max(i.getLuminance(), r.getLuminance()) + .05) / (Math.min(i.getLuminance(), r.getLuminance()) + .05);
     }
-    function C(t, e, i) {
+    function _(t, e, i) {
         void 0 === i && (i = {
             level: "AA",
             size: "small"
         });
-        var r = H(t, e);
+        var r = w(t, e);
         switch ((i.level || "AA") + (i.size || "small")) {
           case "AAsmall":
           case "AAAlarge":
@@ -5556,64 +5803,64 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return !1;
         }
     }
-    function w(t, e, i) {
+    function x(t, e, i) {
         void 0 === i && (i = {
             includeFallbackColors: !1,
             level: "AA",
             size: "small"
         });
-        for (var r = null, n = 0, o = i.includeFallbackColors, a = i.level, s = i.size, u = 0, c = e; u < c.length; u++) {
-            var h = c[u], l = H(t, h);
-            l > n && (n = l, r = new m(h));
+        for (var r = null, n = 0, o = i.includeFallbackColors, a = i.level, s = i.size, c = 0, u = e; c < u.length; c++) {
+            var h = u[c], l = w(t, h);
+            l > n && (n = l, r = new H(h));
         }
-        return C(t, r, {
+        return _(t, r, {
             level: a,
             size: s
-        }) || !o ? r : (i.includeFallbackColors = !1, w(t, [ "#fff", "#000" ], i));
+        }) || !o ? r : (i.includeFallbackColors = !1, x(t, [ "#fff", "#000" ], i));
     }
-    function B(t, e) {
-        var i = new m(t), r = "#" + l(i.r, i.g, i.b, i.a), n = r, o = i.gradientType ? "GradientType = 1, " : "";
+    function C(t, e) {
+        var i = new H(t), r = "#" + l(i.r, i.g, i.b, i.a), n = r, o = i.gradientType ? "GradientType = 1, " : "";
         if (e) {
-            var a = new m(e);
+            var a = new H(e);
             n = "#" + l(a.r, a.g, a.b, a.a);
         }
         return "progid:DXImageTransform.Microsoft.gradient(" + o + "startColorstr=" + r + ",endColorstr=" + n + ")";
     }
-    function F(t, e) {
+    function k(t, e) {
         var i = {
             r: a(t.r),
             g: a(t.g),
             b: a(t.b)
         };
-        return void 0 !== t.a && (i.a = Number(t.a)), new m(i, e);
+        return void 0 !== t.a && (i.a = Number(t.a)), new H(i, e);
     }
-    function _() {
-        return new m({
+    function B() {
+        return new H({
             r: Math.random(),
             g: Math.random(),
             b: Math.random()
         });
     }
-    function x(t) {
+    function j(t) {
         if (void 0 === t && (t = {}), void 0 !== t.count && null !== t.count) {
             var e = t.count, i = [];
             for (t.count = void 0; e > i.length; ) t.count = null, t.seed && (t.seed += 1), 
-            i.push(x(t));
+            i.push(j(t));
             return t.count = e, i;
         }
         var r = function(t, e) {
-            var i = j(function(t) {
+            var i = I(function(t) {
                 var e = parseInt(t, 10);
                 if (!Number.isNaN(e) && e < 360 && e > 0) return [ e, e ];
                 if ("string" == typeof t) {
-                    var i = I.find(function(e) {
+                    var i = R.find(function(e) {
                         return e.name === t;
                     });
                     if (i) {
-                        var r = P(i);
+                        var r = M(i);
                         if (r.hueRange) return r.hueRange;
                     }
-                    var n = new m(t);
+                    var n = new H(t);
                     if (n.isValid) {
                         var o = n.toHsv().h;
                         return [ o, o ];
@@ -5625,8 +5872,8 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             return i;
         }(t.hue, t.seed), n = function(t, e) {
             if ("monochrome" === e.hue) return 0;
-            if ("random" === e.luminosity) return j([ 0, 100 ], e.seed);
-            var i = k(t).saturationRange, r = i[0], n = i[1];
+            if ("random" === e.luminosity) return I([ 0, 100 ], e.seed);
+            var i = P(t).saturationRange, r = i[0], n = i[1];
             switch (e.luminosity) {
               case "bright":
                 r = 55;
@@ -5639,17 +5886,17 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
               case "light":
                 n = 55;
             }
-            return j([ r, n ], e.seed);
+            return I([ r, n ], e.seed);
         }(r, t), o = {
             h: r,
             s: n,
             v: function(t, e, i) {
                 var r = function(t, e) {
-                    for (var i = k(t).lowerBounds, r = 0; r < i.length - 1; r++) {
+                    for (var i = P(t).lowerBounds, r = 0; r < i.length - 1; r++) {
                         var n = i[r][0], o = i[r][1], a = i[r + 1][0], s = i[r + 1][1];
                         if (e >= n && e <= a) {
-                            var u = (s - o) / (a - n);
-                            return u * e + (o - u * n);
+                            var c = (s - o) / (a - n);
+                            return c * e + (o - c * n);
                         }
                     }
                     return 0;
@@ -5666,25 +5913,25 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
                   case "random":
                     r = 0, n = 100;
                 }
-                return j([ r, n ], i.seed);
+                return I([ r, n ], i.seed);
             }(r, n, t)
         };
-        return void 0 !== t.alpha && (o.a = t.alpha), new m(o);
+        return void 0 !== t.alpha && (o.a = t.alpha), new H(o);
     }
-    function k(t) {
+    function P(t) {
         t >= 334 && t <= 360 && (t -= 360);
-        for (var e = 0, i = I; e < i.length; e++) {
-            var r = P(i[e]);
+        for (var e = 0, i = R; e < i.length; e++) {
+            var r = M(i[e]);
             if (r.hueRange && t >= r.hueRange[0] && t <= r.hueRange[1]) return r;
         }
         throw Error("Color not found");
     }
-    function j(t, e) {
+    function I(t, e) {
         if (void 0 === e) return Math.floor(t[0] + Math.random() * (t[1] + 1 - t[0]));
         var i = t[1] || 1, r = t[0] || 0, n = (e = (9301 * e + 49297) % 233280) / 233280;
         return Math.floor(r + n * (i - r));
     }
-    function P(t) {
+    function M(t) {
         var e = t.lowerBounds[0][0], i = t.lowerBounds[t.lowerBounds.length - 1][0], r = t.lowerBounds[t.lowerBounds.length - 1][1], n = t.lowerBounds[0][1];
         return {
             name: t.name,
@@ -5694,7 +5941,7 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
             brightnessRange: [ r, n ]
         };
     }
-    var I = [ {
+    var R = [ {
         name: "monochrome",
         hueRange: null,
         lowerBounds: [ [ 0, 0 ], [ 100, 0 ] ]
@@ -5728,33 +5975,33 @@ console.log("Webplayer v1.5.0 - 2020/05/26 (production)");
         lowerBounds: [ [ 20, 100 ], [ 30, 90 ], [ 40, 86 ], [ 60, 84 ], [ 80, 80 ], [ 90, 75 ], [ 100, 73 ] ]
     } ];
     i.d(e, "TinyColor", function() {
-        return m;
+        return H;
     }), i.d(e, "tinycolor", function() {
-        return O;
+        return E;
     }), i.d(e, "names", function() {
         return f;
     }), i.d(e, "readability", function() {
-        return H;
-    }), i.d(e, "isReadable", function() {
-        return C;
-    }), i.d(e, "mostReadable", function() {
         return w;
-    }), i.d(e, "toMsFilter", function() {
-        return B;
-    }), i.d(e, "fromRatio", function() {
-        return F;
-    }), i.d(e, "legacyRandom", function() {
+    }), i.d(e, "isReadable", function() {
         return _;
-    }), i.d(e, "inputToRGB", function() {
-        return D;
-    }), i.d(e, "stringInputToObject", function() {
-        return v;
-    }), i.d(e, "isValidCSSUnit", function() {
-        return T;
-    }), i.d(e, "random", function() {
+    }), i.d(e, "mostReadable", function() {
         return x;
+    }), i.d(e, "toMsFilter", function() {
+        return C;
+    }), i.d(e, "fromRatio", function() {
+        return k;
+    }), i.d(e, "legacyRandom", function() {
+        return B;
+    }), i.d(e, "inputToRGB", function() {
+        return g;
+    }), i.d(e, "stringInputToObject", function() {
+        return T;
+    }), i.d(e, "isValidCSSUnit", function() {
+        return O;
+    }), i.d(e, "random", function() {
+        return j;
     }), i.d(e, "bounds", function() {
-        return I;
+        return R;
     });
-    e.default = O;
+    e.default = E;
 } ]);

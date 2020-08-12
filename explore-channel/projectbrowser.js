@@ -134,12 +134,13 @@ function showProjects(chProjects) {
 			uCard.href = `user.html?u=${generateUserLink(u)}`;
 			uCard.innerHTML = `<span class="img-container"><img src="${(u.remote_avatar_url == undefined)?'../images/webavatars/'+avPath+(u.avatar_type||0)+'.png':u.remote_avatar_url}"/></span><name>${u.nickname}</name>`;
 			uCard.setAttribute("id", u.id); // added line
+			if (u.created_at == "unknown") uCard.classList.add("id-result");
 			hiddenElm.parentNode.insertBefore(uCard, hiddenElm);
 		});
 	} else {
 		chProjects.projects.forEach(function(p){
 			//Publish date and insert before elm
-			var d = p.correct_published_at.replace("Z",":00").replace(/[T:]/gi,"-").split('-');
+			var d = (p.correct_published_at||"").replace("Z",":00").replace(/[T:]/gi,"-").split('-');
 			var hiddenElm = document.getElementById("ins-before");
 			var pCard = document.createElement("div");
 			var age = (new Date(p.correct_published_at).getTime() - new Date(parseInt(p.uuid,36)/65.536).getTime())/1000;
@@ -199,6 +200,8 @@ function showProjects(chProjects) {
 					.replace(/<stats><span style=".*?x-ray-elms.*?"/,"<stats><span")
 					.replace(/<span><i class="fa fa-play">.*?<\/span>/,"");
 			}
+			
+			if (p.objects) pCard.classList.add("id-result");
 			
 			if (p.uuid != "ae_web_info") {
 				//console.log("%c" + age + " - " + ageText, age < 180 ? "color:red" : "color:black");

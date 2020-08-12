@@ -356,17 +356,44 @@
 					url: input_url,
 					//data: dataField.value
 				}, function printResult(result) {
-					var plays = 0;
-					function showReq(bool){
-						if (bool) result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
-						result = result.replace(/^.*?,/,"");
+					var plays = 0, data = "";
+					function showReq(addedResult){
+						if (addedResult) {
+							switch (addedResult) {
+								case "web_info":
+									result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
+									break;
+								case "user_by_id":
+									result = result.replace('"users":[','"users":['+data.replace(/^\{"nickname/,'{"created_at":"unknown","id":'+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2]+',"nickname')+',');
+									break;
+								case "project_by_id":
+									result = result.replace('"projects":[','"projects":['+data+',');
+									break;
+							}
+						}
+						result = result.replace(/^[^\{].*?,/,"").replace(/,\]/,"]"); /\}/;
 						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 					}
 					if (/best_of\/.*?page=1/.test(result)) {
 						XHR.get("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'iCount%20Visits'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(r){
 							plays = JSON.parse(r).values[1].filter(i=>i=="webHsAbout").length;
-							showReq(true);
+							showReq("web_info");
 						}, false)
+					} else if (/.*?nickname=[0-9]+&page=1/.test(result)) {
+						XHR.fetch("https://c.gethopscotch.com/api/v2/users/"+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2], function(r,s){
+							if (s != 200 || r == "{}") return showReq(false);
+							data = r;
+							showReq("user_by_id");
+						},true);
+					} else if (/.*?title=/.test(result)) {
+						XHR.fetch("https://c.gethopscotch.com/api/v1/projects/"+result.match(/(.*?title=)(.*?)(&page=1)/)[2], function(r,s) {
+							if (s != 200) return showReq(false);
+							let project = JSON.parse(r);
+							(["abilities","customRules","eventParameters","traits","variables","rules","scenes","remote_asset_urls","customObjects"]).forEach(attr=>delete project[attr]);
+							project.objects = [];
+							data = JSON.stringify(project);
+							showReq("project_by_id");
+						},true);
 					} else {
 						showReq(false);
 					}
@@ -433,13 +460,13 @@
 			function searchForItems() {
 				var searchText = document.querySelector('.search-bar input').value;
 				if (searchText != "" && !busy) {
-					console.log(searchText);
+					//console.log(searchText);
 					if (!search_open) toggleSearch(false);
 					if (searchGroupType == 0) {
-						console.log('projects/search?title=' + encodeURIComponent(searchText));
+						//console.log('projects/search?title=' + encodeURIComponent(searchText));
 						showChannel('Search', false, 'projects/search?title=' + encodeURIComponent(searchText));
 					} else {
-						console.log('users/search?nickname=' + encodeURIComponent(searchText));
+						//console.log('users/search?nickname=' + encodeURIComponent(searchText));
 						showChannel('Search_Users', false, 'users/search?nickname=' + encodeURIComponent(searchText));
 					}
 				}
