@@ -3756,12 +3756,12 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
                 var i = document.createElement("div");
                 i.id = "hs_parent_div" + a.hs_random_id(), c(i.style, {
                     position: "absolute",
-                    top: "20%",
+                    top: "0",
                     left: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: "translate(-50%, 20%)",
                     overflow: "hidden",
                     padding: "10px 20px 10px 20px",
-                    borderRadius: "30px",
+                    borderRadius: "16px",
                     background: "white",
                     boxShadow: "2px 2px 8px 2px rgba(158, 158, 158, 0.47)",
                     zIndex: "9",
@@ -3778,14 +3778,14 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
                 }), r.innerText = t, this.div.appendChild(r);
                 var n = document.createElement("input");
                 c(n.style, {
-                    width: "300px",
+                    width: "100%",
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
                     fontFamily: "Avenir, sans-serif",
                     borderWidth: "2px",
                     borderStyle: "solid",
-                    borderRadius: "15px",
+                    borderRadius: "8px",
                     borderImage: "none",
                     outline: "none",
                     padding: "10px",
@@ -3816,7 +3816,7 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
         }, t.prototype.show = function(t) {
             this.showAppPromptIfNecessary(t), this.showBrowserPromptIfNecessary();
         }, t.prototype.showBrowserPromptIfNecessary = function() {
-            a.isIOSApp() || (document.body.appendChild(this.div), this.input.value = "", this.input.focus());
+            a.isIOSApp() || (document.getElementById("ae-hs-player").appendChild(this.div), this.input.value = "", this.input.focus());
         }, t.prototype.showAppPromptIfNecessary = function(t) {
             var e = this;
             a.isIOSApp() && (a.HSApp.sendToApp("input_prompt" + (t ? ":spam" : ""), this.text), 
