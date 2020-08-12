@@ -2711,7 +2711,7 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
         }, t.prototype.resizeImage = function(t, e, i) {
             return t.width = e, t.height = i, Promise.resolve(t);
         }, t.prototype.getImageUrl = function(t) {
-            return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? this.getImageUrlFromBaseUrl(t) : this.getImageUrlFromApp(t);
+            return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */ : this.getImageUrlFromApp(t);
         }, t.prototype.getImageUrlFromBaseUrl = function(t) {
             return Promise.resolve(BASE_IMAGE_URL + t);
         }, t.prototype.getImageUrlFromApp = function(t) {
@@ -3777,7 +3777,7 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
                 }), r.innerText = t, this.div.appendChild(r);
                 var n = document.createElement("input");
                 c(n.style, {
-                    width: "100%",
+                    width: "max(100%, 300px)",
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",

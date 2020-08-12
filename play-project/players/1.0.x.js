@@ -8612,7 +8612,7 @@ var HSImageTextureFactory = function() {
     }, a.prototype.resizeImage = function(a, b, c) {
         return a.width = b, a.height = c, Promise.resolve(a);
     }, a.prototype.getImageUrl = function(a) {
-        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? this.getImageUrlFromBaseUrl(a) : this.getImageUrlFromApp(a);
+        return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(a)?this.getImageUrlFromBaseUrl(a):Promise.resolve(a)) /* AE_MOD custom custom */ : this.getImageUrlFromApp(a);
     }, a.prototype.getImageUrlFromBaseUrl = function(a) {
         return Promise.resolve(BASE_IMAGE_URL + a);
     }, a.prototype.getImageUrlFromApp = function(a) {
