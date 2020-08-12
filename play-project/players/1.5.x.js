@@ -3746,12 +3746,11 @@ console.log("Webplayer v1.5.2 - 2020/07/17 (production)");
     e.HSStagePrompt = s;
     var u = function() {
         function t(t, tu /* AE_MOD CUSTOM INPUT */) {
-			console.trace(t, tu);
             void 0 === t && (t = "Type here"), this.text = t, this.isSpam = !1, this.isDone = !1, 
             this.appValue = "", this.createHTMLView(t, tu /* AE_MOD CUSTOM INPUT */);
         }
         return t.prototype.createHTMLView = function(t, tu /* CUSTOM INPUT */) {
-            var e = this; console.log(t, tu);	
+            var e = this;
             if (!a.isIOSApp()) {
                 var i = document.createElement("div");
                 i.id = "hs_parent_div" + a.hs_random_id(), c(i.style, {
