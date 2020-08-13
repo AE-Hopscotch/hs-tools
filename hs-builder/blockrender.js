@@ -413,7 +413,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 							ep.type = ep.type||ep.blockType;
 							if (ep.type == 8e3){
 								var o = projectDict.objects[ep.objectID];
-								if (o.type) {
+								if (o && o.type) {
 									var innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 								} else {
 									console.log("no type", o);//var innerText = "<ps><op class=\"val\">\u2063 THIS ONE" + (getVar(d.variable)||"TEST") + " \u2063</op></ps>";
