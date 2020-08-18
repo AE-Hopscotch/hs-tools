@@ -3746,7 +3746,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             var r;
             this.object = e, this.isOnScreen = !1, t.enableAntiSpam(), this.type = i.type, this.id = i.id, 
             this.parameters = i.parameters, this.promptText = (null === (r = i.parameters[1]) || void 0 === r ? void 0 : r.computedStringValue(e)) || "Type here", 
-            this.view = new u(this.promptText);
+            this.placeholderText = (i.parameters[2]||{value:""}).value;
+			this.view = new u(this.promptText, this.placeholderText);
         }
         return t.enableAntiSpam = function() {
             null === t.antiSpam && (t.antiSpam = new h());
@@ -3799,11 +3800,11 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     }
     e.HSStagePrompt = s;
     var u = function() {
-        function t(t) {
+        function t(t, tu /* AE_MOD CUSTOM PLACEHOLDER */) {
             void 0 === t && (t = "Type here"), this.text = t, this.isSpam = !1, this.isDone = !1, 
-            this.appValue = "", this.createHTMLView(t);
+            this.appValue = "", this.createHTMLView(t, tu /* AE_MOD CUSTOM PLACEHOLDER */);
         }
-        return t.prototype.createHTMLView = function(t) {
+        return t.prototype.createHTMLView = function(t, tu /* AE_MOD CUSTOM PLACEHOLDER */) {
             var e = this;
             if (!a.isIOSApp()) {
                 var i = document.createElement("div");
@@ -3830,8 +3831,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
 					textAlign: "center"
                 }), r.innerText = t, this.div.appendChild(r);
                 var n = document.createElement("input");
+				n.value = tu;
                 c(n.style, {
-                    width: "max(100%, 300px)",
+                    width: "100%",
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
@@ -3843,7 +3845,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     outline: "none",
                     padding: "10px",
                     color: "#000000de"
-                }), this.input = n, this.div.appendChild(n);
+                }), this.input = n, n.autofocus = true, this.div.appendChild(n);
 				setTimeout(()=>{n.value = tu;n.setSelectionRange(0, tu.length)},0);
                 var o = document.createElement("a");
                 c(o.style, {
