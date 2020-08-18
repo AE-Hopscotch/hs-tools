@@ -36257,11 +36257,17 @@ $('#google-plus-share-button').click(function (event) {
  // })(); AE_MOD [36157]
 	//AE_MOD Keep a list of keyboard keys
 	AE_MOD.keyboardKeys = [];
+	AE_MOD.mouseWheelData = {x:0,y:0,dir:0};
 	document.body.onkeydown = function(e){
 		if (AE_MOD.keyboardKeys.indexOf(e.keyCode) == -1) AE_MOD.keyboardKeys.push(e.keyCode);
 	}
 	document.body.onkeyup = function(e){
 		AE_MOD.keyboardKeys.splice(AE_MOD.keyboardKeys.indexOf(e.keyCode),1);
+	}
+	document.body.onmousewheel = function(e) {
+		AE_MOD.mouseWheelData.x = e.deltaX;
+		AE_MOD.mouseWheelData.y = e.deltaY;
+		AE_MOD.mouseWheelData.dir = e.deltaY?(e.deltaY>0?3:1):(e.deltaX>0?0:2);
 	}
 	
 	window.focus();
