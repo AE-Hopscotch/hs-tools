@@ -3861,7 +3861,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     borderRadius: "19px",
                     width: "120px",
                     margin: "10px auto -1px",
-                    cursor: "pointer"
+                    cursor: "pointer",
+					userSelect: "none",
+					webkitUserSelect: "none"
                 }), o.innerText = "OK", o.addEventListener("touchend",function(){e.isDone=!0,e.hide();}), o.onclick = function() {
                     e.isDone = !0, e.hide();
                 }, n.addEventListener("keyup", function(t) {
@@ -4995,6 +4997,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             });
         }
         function r(t, e, r) {
+			console.trace(t,e,r)
             return i(t, e, function(t) {
                 var e = [ t.offsetX, t.offsetY ], i = new o(t, e);
                 r(i);
@@ -5017,7 +5020,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             c && e.pointerDrag(t);
         }), r(window, "mouseup", function(t) {
             e.pointerUp(t), c = !1;
-        }), n(t, "touchstart", e.pointerDown), n(t, "touchmove", e.pointerDrag), n(window, "touchend", e.pointerUp), n(window, "touchcancel", e.pointerCancel) ]);
+        }), n(t, "touchstart", e.pointerDown), n(t, "touchmove", e.pointerDrag), n(t/* AE_MOD player > window prevention */, "touchend", e.pointerUp), n(window, "touchcancel", e.pointerCancel) ]);
     }, window.UIPointerEvent = o, window.UIEventListeners = a, window.UIEventListener = s;
 }, function(t, e, i) {
     "use strict";
