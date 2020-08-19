@@ -3819,7 +3819,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     background: "white",
                     boxShadow: "2px 2px 8px 2px rgba(158, 158, 158, 0.47)",
                     zIndex: "9",
-                    fontSize: "100%"
+                    fontSize: "100%",
+					minWidth: "min(35%, 320px)"
                 }), this.div = i;
                 var r = document.createElement("p");
                 c(r.style, {
@@ -3846,7 +3847,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     padding: "10px",
                     color: "#000000de"
                 }), this.input = n, n.autofocus = true, this.div.appendChild(n);
-				setTimeout(()=>{n.value = tu;n.setSelectionRange(0, tu.length)},0);
+				setTimeout(()=>{n.value = tu; n.setSelectionRange(0, tu.length)},0);
                 var o = document.createElement("a");
                 c(o.style, {
                     fontFamily: "Avenir, sans-serif",
@@ -4997,7 +4998,6 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             });
         }
         function r(t, e, r) {
-			console.trace(t,e,r)
             return i(t, e, function(t) {
                 var e = [ t.offsetX, t.offsetY ], i = new o(t, e);
                 r(i);
