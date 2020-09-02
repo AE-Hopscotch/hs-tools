@@ -2,6 +2,7 @@ var hsBlocksHTML = "";
 
 const blockLabels = {
 	19: ["old","Wait til Timestamp","milliseconds"],
+	20: ["old","\u2063"], //Wait til Input Done
 	22: ["old","\u2063"],
 	23: ["move","Move Forward"," "],
 	24: ["move","Turn", "degrees"],
@@ -145,15 +146,22 @@ const blockLabels = {
 	7020: ["event","is not pressed \u2063"," "],
 	7021: ["event","\u2063 game is playing \u2063"],
 	7022: ["event","\u2063 touch ends \u2063"],
-	7023: ["event"," ","\u2063 I hear \u2063"],
-	7024: ["HS_END_OF_EVENT_OPERATORS"],
+	7023: ["event"," ","\u2063 I get a message \u2063"],
+	7024: ["event"," ","\u2063 Message matches \u2063"],
+	7025: ["HS_END_OF_EVENT_OPERATORS"],
 	8e3: ["<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object</span></ps>"],
 	8001: ["<i class=\"fa fa-fw fa-question-circle\"></i> Anything"],
 	8002: ["<i class=\"fa fa-mobile\"></i> Edge"],
-	8003: ["\u2063 \uD83D\uDCF1"],
+	8003: ["\u2063 \u25B6\uFE0F"], //Game
 	8004: ["<ps><span>Self</span></ps>"],
 	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
-	8006: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"]
+	8006: ["\u2063 \uD83D\uDCF1"],
+	8007: ["\u2063 \uD83D\uDCF1"], //User
+	8008: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"],
+	9000: ["looks", "\u2063 character", "in", "at"],
+	9001: ["looks", "\u2063 characters", "in", "between", "and"],
+	9002: ["looks", "\u2063 length"],
+	9003: ["HS_END_OF_TEXT_OPERATOR_BLOCKS"]
 }
 const charLabels = {
 	0: "monkey",
@@ -463,16 +471,16 @@ function jsonToHtml(block, isNested, keepClosed) {
 			}
 			//Random Color
 			if (d.datum.type == 5000) return "<ps><op class=\"rcol\"></op></ps>";
-			//None Block, Math, Conditionals, Game Rules
-			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)) {
-				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3);
-				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":"math")) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
+			//None Block, Math, Conditionals, Game Rules, Text Operators
+			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)||(d.datum.type >=9e3 && d.datum.type < 10e3)) {
+				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3), isTextOp = (d.datum.type >= 9e3 && d.datum.type < 10e3);
+				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":(isTextOp?"looks":"math"))) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
 		paramString += " " + (labels[i+2]||p.key||"").htmlEscape() + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||(block.controlScript&&block.controlScript.abilityID?projectDict.abilities[block.controlScript.abilityID].name:"")||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||(block.controlScript&&block.controlScript.abilityID?(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name:"")||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
