@@ -316,27 +316,28 @@
 		request('https://c.gethopscotch.com/api/v1/projects/' + customUUID);
 		
 	</script>
-
-	<hopscotch-player id="player" width="Infinity">
-	<div class="player-icon-toolbar">
-	<img alt="mute" id="mute-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
-	<img alt="replay" id="restart-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
-	<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
-	<a id="hopscotch-link" target="_top"><img alt="hopscotch" id="hopscotch-button" class="player-icon" src="../images/info-circle.png" width="44"/></a>
-	</div>
-	<div id="project_error"><div class="project_error_message"><h2>Sorry, try again later.</h2>
-	<script>
-	setTimeout(function() {
-		if (!window.main) {
-			project_loading.style.display = 'none';
-			project_error.style.display = 'block';
-		}
-	}, 30000);
-	</script></div></div>
-
-	<div class="row content" id="play_container_row"><img id="project_loading" src="https://c.gethopscotch.com/assets/webplayer/loading_apple-05eb745176d79ec27d52d544582483fc4d0f6378c7ed2060be24dfc4e8990668.gif" /><div id="play_container" style="display:none"><div id="play_container_bg"></div><img id="project-image" /><a id="play" class="pos-abs" href="#"><div class="play-button teal-button"><span class="triangle"></span></div></a></div></div>
-	</hopscotch-player>
 	
+	<div id="ae-hs-player">
+		<div class="player-icon-toolbar">
+		<img alt="mute" id="mute-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
+		<img alt="replay" id="restart-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
+		<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
+		<a id="hopscotch-link" target="_top"><img alt="hopscotch" id="hopscotch-button" class="player-icon" src="../images/info-circle.png" width="44"/></a>
+		</div>
+		<hopscotch-player id="player" width="Infinity">
+		<div id="project_error"><div class="project_error_message"><h2>Sorry, try again later.</h2>
+		<script>
+		setTimeout(function() {
+			if (!window.main) {
+				project_loading.style.display = 'none';
+				project_error.style.display = 'block';
+			}
+		}, 30000);
+		</script></div></div>
+
+		<div class="row content" id="play_container_row"><img id="project_loading" src="https://c.gethopscotch.com/assets/webplayer/loading_apple-05eb745176d79ec27d52d544582483fc4d0f6378c7ed2060be24dfc4e8990668.gif" /><div id="play_container" style="display:none"><div id="play_container_bg"></div><img id="project-image" /><a id="play" class="pos-abs" href="#"><div class="play-button teal-button"><span class="triangle"></span></div></a></div></div>
+		</hopscotch-player>
+	</div>
 	</div></div>
 	
 	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
