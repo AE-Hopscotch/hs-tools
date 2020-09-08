@@ -88,6 +88,7 @@ h2 {
 	z-index: 5000;
 	color: white;
 	backdrop-filter: blur(2.5px);
+	-webkit-backdrop-filter: blur(2.5px);
 	font-size: 1.25em;
 	transition: right 0.5s, opacity 0.5s;
 	animation-name: fadeoutalmost;
