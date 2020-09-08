@@ -486,7 +486,8 @@
 			var r = Math.round(JSON.stringify(p).length/10)/100;
 			var customDescription = p.objects.filter(o=>{return o.name == 'AE.webInfoText'})[0];
 			var infoTexts = "\nTitle: " + p.title +
-							"\nFiltered: " + p.has_been_removed + ", Publish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT") +
+							"\nPublished: " + (p.correct_published_at&&!p.deleted_at) + ", Filtered: " + p.has_been_removed +
+							"\nPublish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT") +
 							`\nMade by: ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
 							((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 							"\nProject UUID: " + p.uuid +
@@ -526,8 +527,12 @@
 		}
 		document.addEventListener("touchstart",e=>{
 			let infoDiv = document.getElementById("projectInfoDiv");
-			console.log(infoDiv.contains(e.target));
-			if (infoDiv.contains(e.target)) infoDiv.classList.add("open"); else infoDiv.classList.remove("open");
+			if (infoDiv.contains(e.target)) {
+				infoDiv.classList.add("open");
+				infoDiv.style.animationName = "none";
+			} else {
+				infoDiv.classList.remove("open");
+			}
 		});
 	</script>
 	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
