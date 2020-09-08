@@ -139,6 +139,7 @@ function showProjects(chProjects) {
 		});
 	} else {
 		chProjects.projects.forEach(function(p){
+			if(document.getElementById(p.uuid)) return; //Return if the project card already exists
 			//Publish date and insert before elm
 			var d = (p.correct_published_at||"").replace("Z",":00").replace(/[T:]/gi,"-").split('-');
 			var hiddenElm = document.getElementById("ins-before");
@@ -168,11 +169,38 @@ function showProjects(chProjects) {
 			
 			pCard.setAttribute("class", "project-card");
 			if (p.uuid == "ae_web_info") { //Info Page
-				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div><div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span><name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);">No x-ray action</span><span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`
+				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a>
+					<div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div>
+					<div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
+						<name title="${p.title}">${p.title}</name>
+						<stats>
+							<span style="display: var(--x-ray-elms);">No x-ray action</span>
+							<span>
+								<span><i class="fa fa-play"></i> ${p.play_count}</span>
+								<span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
+							</span>
+						 </stats>
+					</div>`;
 			} else {
-				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');"><img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';"></a><div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy(((event.shiftKey)?'https://awesome-e.github.io/hs-tools/play-project/?id=':'https://c.gethopscotch.com/p/') + '${p.uuid}')"></i></div>
-				<div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
-				<name title="${p.title}">${p.title}</name><stats><span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span><span><i class="fa fa-leaf"></i> ${p.plants}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span><span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span></stats></div>`;
+				var baseCode = `<div class="report-project-div" style="position:absolute;z-index:2;">
+					<i title="Report this project..." class="report-icon fa fa-fw fa-exclamation-triangle" onclick="requestFlag('${p.uuid}')"></i>
+				</div>
+					<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');">
+						<img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';">
+					</a>
+					<div class="sharelinkbtn">
+						<i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy(((event.shiftKey)?'https://awesome-e.github.io/hs-tools/play-project/?id=':'https://c.gethopscotch.com/p/') + '${p.uuid}')"></i>
+					</div>
+					<div class="info">
+						<span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a>
+						</span>
+						<name title="${p.title}">${p.title}</name>
+						<stats>
+							<span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span>
+							<span><i class="fa fa-leaf"></i> ${p.plants}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span>
+							<span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
+						</stats>
+					</div>`;
 			}
 			
 			if (p.original_user != undefined && p.original_user.id != p.user.id) {
@@ -183,13 +211,10 @@ function showProjects(chProjects) {
 				//Draft Age < 3 mins /*and not on featured*/
 				pCard.innerHTML = `<a tabindex="7" href="javascript:void(0);" class="remixbar" title="Time spent as a draft" onclick="alert('This project was either never saved as a draft or stood as a draft for less than 3 minutes')">${document.querySelector(".retro")?'Time as Draft: ':'<i class="fa fa-clock-o"></i>'} ${ageText}</a>`
 					+ baseCode.replace(/user-container"/,'user-container" re="2"'); //Remix State = Direct Republish
-				
 			} else {
 				pCard.innerHTML = baseCode;
 			}
 			pCard.setAttribute("id", p.uuid); // added line
-			if(!document.getElementById(p.uuid)) hiddenElm.parentNode.insertBefore(pCard, hiddenElm); //Insert if the card does not exist already
-			if (pCard.querySelector("name").scrollHeight > 50) pCard.querySelector("name").classList.add("truncate"); else if (pCard.querySelector("name").scrollHeight < 46) pCard.querySelector("name").classList.add("short");
 			
 			//Retro appearance changes
 			if (document.querySelector(".retro")) {
@@ -197,18 +222,17 @@ function showProjects(chProjects) {
 					.replace(/<\/div>[\s\n\t]*?<div class="info">/,'<i class="fa fa-fw fa-leaf" title="You can&rsquo;t donate plants from the Web Explorer"></i><i class="fa fa-fw fa-heart" title="You can&rsquo;t like a project from the Web Explorer"></i><a href="iso:'+p.correct_published_at+'" disabled><i class="fa fa-fw fa-clock-o fa-flip-horizontal" title="'+(new Date(p.correct_published_at).toLocaleString()||'')+'"></i></a></div><div class="info">')
 					.replace(/fa-link/,"fa-fw fa-link")
 					.replace(/No x-ray action/,"Copy</span><span>" + p.play_count)
-					.replace(/<stats><span style=".*?x-ray-elms.*?"/,"<stats><span")
+					.replace(/<stats>[\s\n\t]*<span style=".*?x-ray-elms.*?"/,"<stats><span")
 					.replace(/<span><i class="fa fa-play">.*?<\/span>/,"");
 			}
 			
-			if (p.objects) pCard.classList.add("id-result");
-			
+			if (typeof p.objects == "object") pCard.classList.add("id-result");
 			if (p.uuid != "ae_web_info") {
 				//console.log("%c" + age + " - " + ageText, age < 180 ? "color:red" : "color:black");
 				pCard.setAttribute("age",ageText);
 				//Age Test (Draft -> Publish Time)
 				if (age < 180) pCard.setAttribute('data-show', 'false');
-				//Title Regex
+			//Title Regex
 				if (!/([a-z].*){5,}/i.test(pCard.querySelector('name').innerHTML) || /([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,8},)?[a-z]{0,8}&[a-z]{0,8}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix(ing|ed)?\b|\bimpossible\b|\bomg\b|\boh my\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|Kaleidoscope|\bannouncement|\bshout\s*?outs?\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}likes?\b|\bfor a follow\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|(\s|^)[bcdefghjklmnpqrtuwxyz](\s|$)|(read|see) (in |the )? code|\bYT\b|\bsubscribe to\b|^something$|^nothing$|\bu[hm]+\b|\brepost\b|\bpl(s+|ease)\b|\blike for\b|\b(just)? a notice\b|\bOC\b|\btoo many\b|\bi ship\b|\bships\b|\bignore\b|\bemoji draw\b|\b(art|my|our|your|the) club\b|\sRemix\b|\bccool thing\b|^[aeh]+$|^[uhm\.]+$|\bmy motto is\b|\bcome back for part\b|\bI guess\b|\bt?hat face\b|\bbruh\b|^rip$/i.test(pCard.querySelector('name').innerHTML.replace(/['’]/gi,'').replace(/\s+/gi,' ').replace(/[:|(]/gi,' - ').split(' - ')[0] )) pCard.setAttribute('data-show', 'false');
 				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 				if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
@@ -216,6 +240,10 @@ function showProjects(chProjects) {
 			} else {
 				pCard.innerHTML = pCard.innerHTML.replace(/<i class="fa fa-fw fa-leaf".*?<\/i>.*?<\/i>/,'<i class="fa fa-fw fa-play"></i>');
 			}
+			//Insert the cards
+			if(!document.getElementById(p.uuid)) hiddenElm.parentNode.insertBefore(pCard, hiddenElm); //Insert if the card does not exist already
+			if (pCard.querySelector("name").scrollHeight > 50) pCard.querySelector("name").classList.add("truncate"); else if (pCard.querySelector("name").scrollHeight < 46) pCard.querySelector("name").classList.add("short");
+			
 			pCard.querySelectorAll("a[disabled]").forEach(a=>{
 				a.tabindex = "-1";
 				a.onmousedown = a.ondragstart = function(event){event.preventDefault()};
@@ -652,8 +680,8 @@ function showEmbeddedPlayer(uuid) {
 		playFrame.style = "display:block;position:fixed;width:100vw;height:100vh;left:0;bottom:-105%;transition:bottom 0.5s;z-index:100;overflow:auto;-webkit-overflow-scrolling:touch;";
 		var src = ((uuid == "ae_web_info") ? "about.html?h="+window.innerHeight : "../play-project/index.html?id=" + uuid + "&play=1");
 		playFrame.innerHTML = `<iframe id="project-player" src="${src}" style="position:absolute;display:block;width:100vw;height:100vh;border:none;top:0;left:0;z-index:1;"></iframe>
-		<button onclick="removeEmbeddedPlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-close' style='color:white;font-size:32px;position:relative;top:-1px;left:-${Number(onIos)}px;'></i></button>
-		<button onclick="toggleRender()" id="show-render-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:56px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-list-ul' style='color:white;font-size:32px;position:relative;top:0;left:-${4*Number(onIos)}px;'></i></button>`;
+		<button onclick="removeEmbeddedPlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-close' style='color:white;font-size:32px;position:relative;top:-1px;left:-${Number(onIos)}px;'></i></button>`
+		+ (uuid=="ae_web_info"?"":`<button onclick="toggleRender()" id="show-render-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:56px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class='fa fa-list-ul' style='color:white;font-size:32px;position:relative;top:0;left:-${4*Number(onIos)}px;'></i></button>`);
 		document.body.appendChild(playFrame);
 		setTimeout(function(){
 			document.getElementById('embed-container').style.bottom = '0';
@@ -693,6 +721,69 @@ window.addEventListener("storage", function(){
 
 if ((new URL(window.location.href)).searchParams.get('xRay') != null) {
 	xray('toggle-status');
+}
+
+//BETA EXPERIMENTS
+function requestFlag(puuid) {
+	var date = (new Date().getFullYear() + "-0" + (1+new Date().getMonth()) + "-0" + new Date().getDate()).replace(/-0([0-9]{2})/g,"-$1");
+	XHR.get("https://api.countapi.xyz/get/aehstools/webexpflagsBETA_" + date, function(r,s){
+		if (s == 200 || s == 404) {
+			var response = JSON.parse(r);
+			if (!response.value || response.value < 25) {
+				//Limit the number of flag requests per given day
+				var reportPopup = document.createElement("div");
+				reportPopup.id = "report-project-popup";
+				reportPopup.innerHTML = `<div style="transform-origin: top left;animation-name:zoom;animation-duration: 0.8s;top: 50%;left: 50%;position: absolute;transform: translate(-50%,-50%);color: white;background-color: #444;padding: 16px;border-radius: 8px;">
+					<h3 style="margin: 0 0 8px;text-align: center;">Report Project</h3>
+					<span><input type="radio" id="reason1" name="reporting"><label for="reason1">Being mean</label></span><br/>
+					<span><input type="radio" id="reason2" name="reporting"><label for="reason2">Inappropriate content</label></span><br/>
+					<span><input type="radio" id="reason3" name="reporting"><label for="reason3">Sharing Personal information</label></span><br/>
+					<span><input type="radio" id="reason4" name="reporting"><label for="reason4">Bad words</label></span>
+					<button disabled onclick="sendFlagReq('${puuid +"','" + date}')" style="">Report Project</button>
+				</div>`;
+				reportPopup.onclick = function(e) {
+					if (e.target.id == "report-project-popup") {
+						document.getElementById("report-project-popup").remove();
+						document.body.ontouchmove = (e)=>{void(0)};
+						document.body.style.overflow = "visible";
+					} else {
+						document.getElementById("report-project-popup").querySelector("button").disabled = 
+							!document.getElementById("report-project-popup").querySelectorAll("input").repeatEach(elm=>{return elm.checked||null}).removeNull().length;
+					}
+				}
+				document.body.appendChild(reportPopup);
+				document.body.ontouchmove = (e)=>{e.preventDefault()};
+				document.body.style.overflow = "hidden";
+			} else {
+				//Global Web Explorer flag limit reached for today
+				alert("The number of flags from the Web Explorer has exceeded the daily limit");
+			}
+		}
+	},false);
+}
+function sendFlagReq(puuid, date) {
+	if (puuid && date && arguments.callee.caller.toString().match(/function onclick\(event\)\s?\{[\n\s\t]+sendFlagReq\(.*?\)[\n\s\t]+\}/)) {
+		let fxhr = new XMLHttpRequest();
+		fxhr.open("POST","https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v2/flags");
+		fxhr.onload = fxhr.onerror = function() {
+			console.log(fxhr.status == 200 ? "Project flagged" : "Could not flag");
+			XHR.get("https://api.countapi.xyz/hit/aehstools/webexpflagsBETA_"+date,(r,s)=>{console.log(r,s)},false);
+		}
+		fxhr.send(JSON.stringify({
+			api_token: "4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92",
+			user: {
+				id: "4753230",
+				auth_token: "qKok4lCx8YB9Wgp+o862AA=="
+			},
+			flag: {
+				reason: document.getElementById("report-project-popup").querySelectorAll("input").repeatEach(elm=>{return elm.checked?elm.nextElementSibling.innerText:null}).removeNull()[0]||"Inappropriate content",
+				project_uuid: puuid
+			}
+		}));
+	}
+	document.getElementById("report-project-popup").remove();
+	document.body.ontouchmove = (e)=>{void(0)};
+	document.body.style.overflow = "visible";
 }
 
 //Control Tab Styles

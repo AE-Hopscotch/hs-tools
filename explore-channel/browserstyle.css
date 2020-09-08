@@ -87,7 +87,7 @@ input[type=range]::-moz-range-thumb {
 	height: 36px;
 	width: 16px;
 	border-radius: 3px;
-	background: #ffffff;
+	background-color: #ffffff;
 	cursor: pointer;
 	transform: translate(4px,0);
 	margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
@@ -98,25 +98,29 @@ input[type=range]::-webkit-slider-runnable-track {
 	width: 128px; /* 100%; */
 	height: 8.4px;
 	cursor: pointer;
-	background-color: red;/*#3071a9;*/
+	background-color: white;
 	border-radius: 50%;
 	box-shadow: 0 0 0px 1px gray inset, 0 0 1px 1px gray inset;
+	width: 128px;
+	height: 8px;
+	border-radius: 4px;
+	outline: none;
+	-webkit-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+   background-color: white;
+}
+input[type=range]:active::-webkit-slider-runnable-track {
+   background-color: #eee;
 }
 input[type=range]::-moz-range-track {
 	width: 8px; /* 100%; */
 	height: 8.4px;
 	cursor: pointer;
 	box-shadow: 1px 1px 1px #000000 inset, 0px 0px 1px #0d0d0d inset;
-	background-color: red;/*#3071a9;*/
+	background-color: white;/*#3071a9;*/
 	border-radius: 1.3px;
 	border: 0.2px solid #010101;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-	background: white;
-	width: 128px;
-	height: 8px;
-	border-radius: 4px;
 }
 ::-webkit-scrollbar {
 	width: 14px;
@@ -322,6 +326,7 @@ a.remixbar[onclick*="draft"] {
 }
 .sharelinkbtn {
 	display: flex;
+	flex-direction: column;
 	width: 60px;
 	height: 100px;
 	margin: 0;
@@ -331,6 +336,9 @@ a.remixbar[onclick*="draft"] {
 	color: gray;
 	z-index: 1;
 	position: relative;
+}
+.sharelinkbtn > i {
+	margin: 8px;
 }
 .info {
 	display: block;
@@ -410,14 +418,22 @@ a.remixbar[onclick*="draft"] {
 	margin: 4px;
 }
 
-.fa-link {
+.fa-link, .report-icon {
 	cursor: pointer;
 }
-.fa-link:hover {
+.fa-link:hover, .report-icon:hover {
 	opacity: 0.7;
 }
-.fa-link:active {
+.fa-link:active, .report-icon:active {
 	opacity: 0.5;
+}
+.report-icon {
+	margin: 0.25rem;
+	color: #777;
+	opacity: 0.2;
+}
+.retro .report-icon {
+	color: #ababab;
 }
 
 /* User Cards */
@@ -610,7 +626,8 @@ div.xray-contents {
 	outline: none;
 	transform: rotate(-90deg) translate(calc(50% - 9px),-51px);
 	position: absolute;
-	bottom: 0; left: 0;
+	bottom: 4px;
+	left: 2px;
 }
 .xray-contents span {
 	text-align: center;
@@ -623,6 +640,9 @@ div.xray-contents {
 
 .xSelected {
 	box-shadow: #0d6f62 0 0 4px 4px;
+}
+.xray .report-project-div {
+	display: block;
 }
 
 /* AE Badges */
@@ -664,6 +684,45 @@ ae[badge='5'] {
 }
 ae[badge='6'] {
 	background-image: url('../images/web-badges/creator.png');
+}
+
+/* Reporting Projects */
+.report-project-div {
+	display: none;
+}
+div#report-project-popup {
+	font-family: sans-serif;
+	font-size: 1.5rem;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	position: fixed;
+	background: #4446;
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+}
+div#report-project-popup button {
+	cursor: pointer;
+	margin: 16px auto 2px;
+	display: block;
+	background-color: #eee;
+	border: none;
+	padding: 4px 8px;
+	color: black;
+	border-radius: 4px;
+	outline: none;
+}
+div#report-project-popup button:not([disabled]):hover {
+	opacity: 0.7;
+}
+div#report-project-popup button:not([disabled]):active {
+	opacity: 0.4;
+}
+div#report-project-popup button[disabled] {
+	opacity: 0.5;
+	cursor: default;
 }
 
 /* Retro Appearance */
@@ -739,10 +798,15 @@ ae[badge='6'] {
 	justify-content: space-evenly;
 	width: 200px;
 	height: 40px;
+	flex-direction: row;
 }
 .retro .sharelinkbtn .fa {
     font-size: 72%;
     width: 32px;
+	margin: 0;
+}
+.retro .sharelinkbtn .report-icon {
+	display: none;
 }
 .retro .sharelinkbtn .fa-heart::before, .retro .sharelinkbtn .fa-leaf::before {
 	opacity: 0.5;
@@ -822,4 +886,18 @@ ae[badge='6'] {
 }
 .retro .info stats .fa {
 	display: none;
+}
+.retro .report-project-div {
+	right: 0;
+}
+
+/* Animations */
+
+@keyframes zoom {
+	0% {
+		transform: scale(0) translate(-50%,-50%);
+	}
+	100% {
+		transform: scale(1) translate(-50%,-50%);
+	}
 }

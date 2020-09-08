@@ -145,7 +145,9 @@
 				of the categories along the top, along with a couple of extras, namely &ldquo;E&rsquo;s Picks&rdquo; and &ldquo;Newest&rdquo;
 				(as in newest of all projects, not just curated projects). I&rsquo;ve also added several other extra features that the
 				app does not provide, which creates a great experience to both me as a creator as well as the user.</p>
-			
+				
+				<p>Also, I reserve the right to modify information displayed on channels and profiles. This makes things like the about project
+				you are reading as well as user badges possible.</p>
 			</span>
 			<p class="text center accordControls" id="a2"><b id="a2l">Browsing the Community</b></p>
 			<span class="accordion" id="a2content">
@@ -231,7 +233,103 @@
 						<tr><th><ae badge="6"></ae></th><td style="padding:8px;">A top creator in the community</td></tr>
 				</tbody></table>
 			</span>
+			<p class="text center accordControls" id="a5"><b id="a5l">What&rsquo;s New and Version History</b></p>
+			<div class="accordion" id="a5content">
+				<h2>New in 1.7.0 (Community Update)</h2>
+				<p class="center">Released in two phases, this update focuses on two aspects of community input.</p>
+				<ul>
+					<li>Project info can now be seen from the project player frame. Simply move your mouse to the right edge of the screen or tap the <i class="fa fa-info"></i> to show the statistics and reviews of the project.</li>
+					<li>Users can now flag projects from the web explorer. However, it has a limit of 25 flags per day to avoid spam flagging.</li>
+					<li>Significantly improved rendering speed of project tiles. Hanging was caused by a bug in the Visibility Update (1.6.0) related to searching projects by ID, but that has since been fixed.</li>
+				</ul>
+				<h2>Changes in Version 1.6 (Visibility Update)</h2>
+				<p class="center">Released in multiple phases, this update provides several features that improve the aesthetics of the Web Explorer</p>
+				<ul>
+					<li>Improved the remix bar sign to increase the quality and alignment of the remix icon (Modern Appearance only)</li>
+					<li>Introduced a new type of remix bar for time spent in a draft. By turning on x-ray, these will appear on projects that were either saved as a draft for less than 3 minutes and projects that were never saved as a draft. This is a pretty good indicator of whether a project is a remix or not, but does not account for making a legitimate project in one sitting. This brings the x-rayed project percentage from approximately 60% to nearly 90% in Newest.</li>
+					<li>Fixed scrolling the channel buttons into the viewport.</li>
+					<li>You can now view the age of the project as a draft using Inspect Element.</li>
+					<li>Search now accepts IDs, meaning that you can search for a user or project by its ID instead of its name. ID matches will always show up with a tinted background and as the first result.</li>
+					<li>Changed the scroll bar to be more consistent across different browsers.</li>
+					<li>Fixed some transition issues between light and dark mode.</li>
+					<li>Updated the players to the latest versions.</li>
+				</ul>
+				<h2>Changes in Version 1.5 (Throwback Update)</h2>
+				<p class="center">This update enables an option that can take you down memory lane, whether that is within Hopscotch or throughout gaming history.</p>
+				<ul>	
+					<li>Added the Retro Theme to resemble the old Hopscotch layout.</li>
+					<li>Added 8-bit sounds to the play page</li>
+					<li>Created Alternate Avatars for your enjoyment</li>
+					<li>Slow roll-out of a debug testing feature</li>
+				</ul>
+				<h2>Changes in Version 1.4 (Personality Update)</h2>
+				<p class="center">Released in several different phases, this update includes several new features:</p>
+				<ul>
+					<li>User badges: these can be earned through my competitions and by contributing to the HS tools webpage.</li>
+					<li>Updated the project player for keyboard support among other modded actions as well as compatibility with the fast collisions player (also v1.4.0 – how funny).</li>
+					<li>When loading the web explorer, a mock-project called “Web Explorer Info” will show up as the first featured project. Obviously, this is only for the web explorer and explains how to use it, the significance of it, and the keyboard shortcuts it offers.</li>
+					<li>More information is given on the info popup, specifically number of blocks in a project, like to play ratio, etc.</li>
+				</ul>
+				<h2>Changes in Version 1.3 (Pages Update)</h2>
+				<p class="center">This update works on usability / convenience features all around the web explorer.</p>
+				<ul>
+					<li>Playing projects now uses an iframe of my play project page so that you can stay on the same page while playing a project, similar to the Hopscotch app.</li>
+					<li>Select tiles feature (computers only, sorry) for x-ray mode: see keyboard shortcuts at the top of this post</li>
+					<li>X-ray can now be activated from the URL with the url parameter “xRay” being present (/explore-channel/?xRay will activate it).</li>
+				</ul>
+				<h2>Changes in Version 1.2 (Search Update)</h2>
+				<p class="center">Search is here.</p>
+				<ul>
+					<li>Search by projects or users.</li>
+					<li>Search, unlike the Hopscotch app, utilizes more than just 1 page of results from the api.</li>
+					<li>Mystery watermelon pfp (ID #33) should show up properly</li>
+					<li>A few styling updates here and there (notably when using “tab”)</li>
+					<li>X-ray mechanism probably had a change somewhere</li>
+					<li>Can this officially browse projects better than the app?</li>
+				</ul>
+				<h2>Changes in Version 1.1 (X-Ray Update)</h2>
+				<p>Press + <i>on a physical keyboard</i> (pc or Bluetooth only) to &ldquo;x-ray&rdquo; some projects (mostly for the newest tab) and see a couple more options. You’d be surprised to see how well you can judge a project without playing it, or seeing the code inside. This update also adds the ability to browse user profiles.</p>
+				<p class="center"><i class="fa fa-info-circle"></i> You can also activate x-ray by tapping the <i class="fa fa-crosshairs"></i> button above the theme button now.</p>
+				<h3 class="center">X-Ray Mechanism</h3>
+				<p><b>Project title:</b></p>
+				<ul>
+					<li>Must include at least 5 letters</li>
+					<li>Must not match this regular expression:<br>
+					<code style="display:inline-block;margin:4px 0;">/([a-z0-9])\1{5,}|([?!].*){3,}|([a-z]{0,12},)?[a-z]{0,12}&amp;[a-z]{0,12}|[a-z0-9]{16,}|.{41,}|fan\s?art|\bI think\b|\bremix\b|\bimpossible\b|\bomg\b|Cros[bs]y|\bDont\sdrop\s(your)?\s(phone|📱)|\bannouncement|\bshout\s*?out\b|\brequests?\b|\bpl[zs]\b|\bplease\b|\bif.{0,10}(get).{0,10}like\b|\blike for part\b|\b(so|super)\s(easy|hard)\b|\blike\sbutton\b|\btry(\snot)\s(to)?\b|\bfidget\b|\bspinner\b|[\s|^][bcdefghjklmnpqrtuwxyz][\s$]|(read|see) (in |the )? code/</code>
+						<b>Translation:</b>
+						<ul>
+							<li>Cannot have 5 or more consecutive letters/numbers</li>
+							<li>Must have less than 3 “?” and “!” (combined)</li>
+							<li>Must not be untitled (shows title as “object 1, object 2 &amp; object 3”)</li>
+							<li>No word can be more than 16 characters</li>
+							<li>Must be shorter than 41 characters before any separators – those are (, :, and -.</li>
+							<li>Cannot have “fan art”, “remix”, “i think” (as in I think I did this wrong), “impossible”, “omg”, “announcement”, “shoutout”, “request”, “please/pls/plz”, “like for part x”, “super easy/hard”, “like button”, “try not to”, “fidget spinner”, or “read/see code” in title.</li>
+							<li>Cannot be a “Don’t Drop your phone” or “Crossy Road” project</li>
+							<li>Cannot contain words with a single letter (exceptions: a, o, s, v)</li>
+						</ul>
+					</li>
+				</ul>
+				<p><b>Project Thumbnail:</b></p>
+				<ul>
+					<li>Must Contain at least 3 significant (represents more than 0.7% of the thumbnail) colors.</li>
+					<li>None of the 3 most abundant colors should be extremely close to hot pink (because that is what’s used inside “Draw Like a Pen”, and those projects are 99% nonsense)</li>
+				</ul>
+				<p><b>Other Conditions:</b></p>
+				<ul>
+					<li>Project will not show up if it has 5 or more likes but less than 3 plays (remove most art – only because it’s not what I am interested in picking)</li>
+					<li>Automatically shows if play count &gt; 15 and thumbnail is good to go.</li>
+					<li>Automatically shows if likes &gt; 50 and play count &gt; 20.</li>
+				</ul>
+				<p><b>Check out the mechanism:</b></p>
+				<ol>
+					<li>Activate x-ray mode on a PC and open the console.</li>
+					<li>Click on some projects</li>
+					<li>Open the color pallet folder to see the common colors (shows highlighted rgb value and distance from the pink color). The number below represents the percentage of the thumbnail that the 2 most abundant colors take up (this doesn’t currently affect whether the project will show, but I’m testing a 97% rule). The 3 conditions below are pass or fail (green/red), and they are “pink, 97% rule, number of significant colors”. Only the 1st and 3rd are in effect.</li>
+				</ol>
+				<p>You’d be surprised how well this can actually filter a lot of stuff out. Also, it only filters out very few projects that are curated, to some of which I would agree with that decision.</p>
+			</div>
 		</div>
+		<img style="display:none;" id="visitCounter"/>
 		<script>
 			function accordion(id) {
 				//var id = event["toElement"].id.replace(/[l]/,"");
@@ -280,23 +378,12 @@
 			var url = new URL(window.location.href);
 			if (url.searchParams.get("h") != undefined) document.querySelector(".container").style.maxHeight = url.searchParams.get("h") + "px";
 		</script>
-		<div visitCt>
-			<form hidden visitCt action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScs7ENqnVcAip-Fy6kBWJ-AxtAGwgWPhYmI8A5aqNhH0PzasA/formResponse" target="ii">
-				<input name="entry.1646746097" value="webHsAbout"/>
-				<button id="s1">test</button>
-			</form>
-			<form hidden visitCt action="https://awesome-e.github.io/hs-tools/images/hs-logo-app.png" target="ii">
-				<button id="s2">test</button>
-			</form>
+		<div>
 			<script>
-				var ct=0;
-			</script>
-			<iframe visitCt id="ii" name="ii" style="display:none;" onload="ct++;if(ct==2)document.querySelectorAll('*[visitCt]').remove()"></iframe>
-			<script>
-				if (location.protocol == "https:") setTimeout(function(){
-					document.getElementById("s1").click();
-					setTimeout(function(){document.getElementById("s2").click();}, (/iPhone|iPad|iPod/.test(navigator.userAgent))?200:20);
-				},120);
+				if (location.protocol == "https:") {
+					document.getElementById("visitCounter").src = "https://api.countapi.xyz/hit/aehstools/webExpAboutVisits/?img";
+				}
+				setTimeout(()=>{document.getElementById("visitCounter").remove()},800);
 			</script>
 		</div>
 	</body>

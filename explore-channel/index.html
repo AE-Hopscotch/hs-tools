@@ -335,7 +335,7 @@
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					console.log(options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||channel.includes("Search")));
+					//console.log(options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||channel.includes("Search")));
 					if (options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||page==1||channel.includes("Search"))) printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
@@ -364,7 +364,7 @@
 									result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
 									break;
 								case "user_by_id":
-									result = result.replace('"users":[','"users":['+data.replace(/^\{"nickname/,'{"created_at":"unknown","id":'+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2]+',"nickname')+',');
+									result = result.replace('"users":[','"users":['+data.replace(/^\{"nickname/,'{"created_at":"unknown","id":'+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2]+',"nickname')+','); /\}/;
 									break;
 								case "project_by_id":
 									result = result.replace('"projects":[','"projects":['+data+',');
@@ -374,18 +374,18 @@
 						result = result.replace(/^[^\{].*?,/,"").replace(/,\]/,"]"); /\}/;
 						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 					}
-					if (/best_of\/.*?page=1/.test(result)) {
-						XHR.get("https://sheets.googleapis.com/v4/spreadsheets/1G_p3j-TjebbpezIK_wdw3lvO0wjitQvgUD9OZnGqFR0/values/'iCount%20Visits'!A:F?majorDimension=columns&key=AIzaSyAYFF0tbEcI3Lhp3APGMbrsdetlEc0Wka4",function(r){
-							plays = JSON.parse(r).values[1].filter(i=>i=="webHsAbout").length;
+					if (/best_of\/.*?page=1/.test(input_url)) {
+						XHR.get("https://api.countapi.xyz/get/aehstools/webExpAboutVisits/",function(r){
+							plays = JSON.parse(r).value;
 							showReq("web_info");
 						}, false)
-					} else if (/.*?nickname=[0-9]+&page=1/.test(result)) {
+					} else if (/.*?nickname=[0-9]+&page=1/.test(input_url)) {
 						XHR.fetch("https://c.gethopscotch.com/api/v2/users/"+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2], function(r,s){
 							if (s != 200 || r == "{}") return showReq(false);
 							data = r;
 							showReq("user_by_id");
 						},true);
-					} else if (/.*?title=/.test(result)) {
+					} else if (page == 1 && /.*?title=/.test(input_url)) {
 						XHR.fetch("https://c.gethopscotch.com/api/v1/projects/"+result.match(/(.*?title=)(.*?)(&page=1)/)[2], function(r,s) {
 							if (s != 200) return showReq(false);
 							let project = JSON.parse(r);
@@ -405,7 +405,7 @@
 			var channel = url.searchParams.get("channel");
 			
 			setTimeout(function(){
-				if (names[channel]) showDefaultChannel();
+				//if (names[channel]) showDefaultChannel();
 				if (window.history && window.history.pushState) {
 					$(window).on('popstate', function() {
 						var url = new URL(window.location.href);
