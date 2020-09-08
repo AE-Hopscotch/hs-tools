@@ -41,86 +41,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!-- AE MOD -->
-		<style>
-			* body.embedded #fullscreen-button {
-				display: inline-block;
-			}
-			h2 {
-				color: #666;
-			}
-			
-			.play-button.has-keyboard::before {
-				content: "\f11c";
-				background-color: rgb(180,180,180);
-				width: 30px;
-				height: 24px;
-				display: flex;
-				position: absolute;
-				right: -8px;
-				top: -6px;
-				font-family: FontAwesome;
-				padding: 2px;
-				justify-content: center;
-				align-items: center;
-				border-radius: 6px;
-				pointer-events: none;
-				font-size: 18px;
-			}
-			
-			.achievement-banner {
-				position: absolute;
-				top: -96px;
-				right: 8px;
-				width: 320px;
-				height: 64px;
-				background: gray;
-				padding: 8px;
-				border-radius: 8px;
-				z-index: 10;
-				animation-duration: 1s;
-				backdrop-filter: blur(8px);
-				-webkit-backdrop-filter: blur(8px);
-				opacity: 0.8;
-				user-select: none;
-			}
-			.achievement-banner div {
-				position: absolute;
-				top: 8px;
-				right: 8px;
-				display: inline-block;
-				width: calc(100% - 72px);
-				height: calc(100% - 16px);
-				color: #ddd;
-				padding: 2px;
-			}
-			.achievement-banner .fa-close {
-				position: absolute;
-				top: 3px;
-				right: 5px;
-				padding: 2px;
-				font-size: 14px;
-				color: white;
-			}
-			.achievement-name {
-				display: block;
-				font-size: 24px;
-				margin-bottom: 4px;
-			}
-			.achievement-description {
-				font-size: 14px;
-				text-indent: 1px;
-				display: inline-block;
-			}
-			
-			@keyframes banner-in {
-				from {top: -96px;}
-				to {top: 8px;}
-			}
-			@keyframes banner-out {
-				from {top: 8px;}
-				to {top: -96px;}
-			}
-		</style>
 	</head>
 </html>
 
@@ -133,6 +53,7 @@
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
 	<script>
+	
 		var projectImport = projectImport || {};
 		var AE_MOD = {
 			"projectData": {},
@@ -299,7 +220,7 @@
 			"initiated": false
 		};
 		
-		/***/
+		/* */
 		
 		var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
 		var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
@@ -307,6 +228,7 @@
 		function init() {
 			AE_MOD.initiated = true;
 			AE_MOD.customCustomObjects = [];
+			showProjectData(AE_MOD.projectData);
 			(AE_MOD.projectData.abilities||[]).forEach(a=>{
 				for (i = 0; i < (a.blocks||[]).length; i++) {
 					b = a.blocks[i];
@@ -315,8 +237,8 @@
 					//Custom Custom
 					(JSON.stringify(b).match(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g)||[""])
 						.join("\n").replace(/^.*?"value":"((?:|.*?[^\\])(?:\\\\)*)".*$|^.*$/,"$1\n")
-						.replace(/\n$/,"").split("\n").forEach(match=>{
-							a.blocks[i] = JSON.parse( JSON.stringify(b).replace(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g,'$1,"customObject":"$2"') )
+						.replace(/\n$/,"").split("\n").forEach(match=>{ /\}/;
+							a.blocks[i] = JSON.parse( JSON.stringify(b).replace(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g,'$1,"customObject":"$2"') ); /\}/;
 							if (!match || !/\//.test(match) || AE_MOD.customCustomObjects.indexOf(match) !== -1) return;
 							AE_MOD.customCustomObjects.push(match);
 							const newCustomObj = {
@@ -352,7 +274,7 @@
 			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
 		}
 		
-		/***/
+		/* */
 		
 		function doCORSRequest(options, printResult) {
 			var x = new XMLHttpRequest();
@@ -382,7 +304,7 @@
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					AE_MOD.isCustom = false;
 					//Authorize if Project contains session blocks.
-					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) {
+					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
 						//Handle Errors here
 						var errorCode = error.code;
 						var errorMessage = error.message;
@@ -404,7 +326,7 @@
 		if (JSON.stringify(projectImport) != '{}' || (LS_ACCESS && localStorage.getItem("projectFromStorage") && url.searchParams.get("play") == 1)) {
 			try {
 				setTimeout(function(){
-					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16)))));
+					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16))))); /\}/;
 					var p = JSON.stringify(projectImport) != '{}' ? projectImport : JSON.parse(localStorage.getItem("projectFromStorage"));
 					//p = JSON.parse(localStorage.getItem("projectFromStorage"));
 					AE_MOD.projectData = p;
@@ -502,6 +424,7 @@
 			if (!session.data || !session.gameId || !session.data.users) return;
 			firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(-1)+"/lastInactive").set(null);
 		};
+		
 	</script>
 
 	<div id="ae-hs-player">
@@ -545,6 +468,68 @@
 	
 	</div></div>
 	
+	<div id="projectInfoDiv" onmouseenter="this.style.animationName='none',this.classList.add('open')" onmouseleave="this.classList.remove('open')">
+		<div id="projectInfoHoverIcon"><i class="fa fa-info"></i></div>
+		<div id="projectInfoHoverPanel"></div>
+		<div id="projectInfoContent">
+			<h2 style="color:white;text-align:center;">Project Info</h2>
+			<span id="projectInfoText"><br/><span style="width:100%;display:block;text-align:center;font-size:16px;">Loading...</span></span><br/><br/>
+			<h4 style="text-align:center;">Reviews</h4>
+			<div id="projectInfoReviews">
+				<br/>Loading...
+			</div>
+		</div>
+	</div>
+	<script>
+		//Project Info Script
+		function showProjectData(p) {	
+			var r = Math.round(JSON.stringify(p).length/10)/100;
+			var customDescription = p.objects.filter(o=>{return o.name == 'AE.webInfoText'})[0];
+			var infoTexts = "\nTitle: " + p.title +
+							"\nFiltered: " + p.has_been_removed + ", Publish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT") +
+							`\nMade by: ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
+							((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
+							"\nProject UUID: " + p.uuid +
+							"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
+							"\nLikes: " + p.number_of_stars + ", Play Count: " + p.play_count +
+							"\nRemixes: " + p.project_remixes_count + ", Published Remixes: " + p.published_remixes_count +
+							"\nAbout 1 like per " + Math.round((p.play_count||1)/p.number_of_stars||0) + " plays (" + (Math.round(p.number_of_stars/p.play_count*10000)/100||0) + "%)" +
+							"\n" + (Math.round(p.published_remixes_count/(p.published_remixes_count+p.project_remixes_count)*10000)/100||0) + "% of remixes are published" +
+							"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
+							"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
+							"\n" + p.rules.length + " rules, " + p.abilities.length + " abilities, " +
+							(function(){var blocks = 0; p.abilities.forEach((x)=>{blocks += (x.blocks||[]).length;});return blocks;})() + " blocks" +
+							"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
+							"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height +
+							(customDescription ? "\nCustom Description: " + customDescription : "");
+			document.getElementById("projectInfoText").innerHTML = infoTexts.replace(/\n/g,"<br/>");
+			XHR.get("https://ae-hs-tools.firebaseio.com/project-reviews/" + p.uuid + ".json", function(r,s) {
+				if (s !== 200) return document.getElementById("projectInfoReviews").innerHTML = "<br/>There was an error loading reviews for this project";
+				if (r == "null") return document.getElementById("projectInfoReviews").innerHTML = "<br/>No Reviews Yet";
+				try {JSON.parse(r)}catch(e){return document.getElementById("projectInfoReviews").innerHTML = "<br/>There was an error loading reviews for this project";}
+				let reviews = JSON.parse(r);
+				document.getElementById("projectInfoReviews").innerHTML = "";
+				Object.keys(reviews).sort().reverse().forEach(key=>{
+					let reviewdata = reviews[key];
+					let reviewcard = document.createElement("div");
+					let reviewtime = new Date(Number(key));
+					console.log(reviewtime);
+					let timestring = ["January","February","March","April","May","June","July","August","September","October","November","December"][reviewtime.getMonth()]+" "+String(reviewtime.getDate())+", "+String(reviewtime.getFullYear());
+					reviewcard.classList.add("review-card");
+					reviewcard.innerHTML = (reviewdata.rating!=null?'<span class="rating">'+reviewdata.rating+' <i class="fa fa-star-o"></i></span>':'')
+						+ '<b>'+reviewdata.author+'<span style="position:relative;top:-1.05px;left:0.6px;font-size:16px;">:</span></b>'
+						+ '<br/>&ldquo;<i>'+reviewdata.review+'</i>&thinsp;&rdquo;'
+						+ '<span class="review-date">'+timestring+'</span>'
+					document.getElementById("projectInfoReviews").appendChild(reviewcard);
+				});
+			}, false);
+		}
+		document.addEventListener("touchstart",e=>{
+			let infoDiv = document.getElementById("projectInfoDiv");
+			console.log(infoDiv.contains(e.target));
+			if (infoDiv.contains(e.target)) infoDiv.classList.add("open"); else infoDiv.classList.remove("open");
+		});
+	</script>
 	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
 	<script id="appJs"></script>
 	<script src="https://c.gethopscotch.com/assets/application/asset_urls-66c72ce90a1ca36d7740a48386256898e3581d114788b7da74cf032ce305c42e.js"></script>
