@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="../sidenavStyles.css">
@@ -33,7 +33,6 @@
 			* {
 				box-sizing: border-box;
 			}
-			
 			.sidenav {
 				left: -250px;
 			}
@@ -98,6 +97,7 @@
 				background-color: var(--col-card-bg);
 				display: block;
 				margin: 0px;
+				transition: background-color var(--time-trans);
 			}
 			
 			.accordion[data-closed] {
@@ -106,6 +106,7 @@
 			
 			.accordion, .accordControls * {
 				color: var(--col-text);
+				transition: background-color var(--time-trans), color var(--time-trans), height var(--time-trans);
 			}
 			
 			.accordControls {
@@ -113,7 +114,7 @@
 				background-color: var(--col-card-tab);
 				position: relative;
 				cursor: pointer;
-				transition: height 0.5, background-color var(--time-trans);*/
+				transition: background-color var(--time-trans), color var(--time-trans);
 			}
 						
 			.accordControls::after {
@@ -136,6 +137,45 @@
 			
 			img {
 				transition: opacity var(--time-trans);
+				max-width: 85vw;
+			}
+			.htable {
+				font-weight: bold;
+				border-collapse: collapse;
+				margin: -1px;
+				display:inline-table;
+			}
+			.htable td {
+				text-align: center;
+				border: 2px solid var(--col-text);
+				transition: border var(--time-trans);
+				padding: 4px 6px;
+			}
+			.htable td:nth-child(1) {
+				text-align: right;
+			}
+			button {
+				outline: none;
+			}			
+			::-webkit-scrollbar {
+				width: 14px;
+				z-index:1001;
+			}
+			::-webkit-scrollbar-track {
+				background-color: #eee;
+				border-radius: 0;
+			}
+			::-webkit-scrollbar-thumb {
+				background-color: rgba(100,100,100,0.8); /*#e6d700;*/
+				border-radius: 10px;
+				opacity: 0.75;
+			}
+			::-webkit-scrollbar-thumb:active {
+			  background-color: rgba(100,100,100,0.7); /*#e6cf00;*/
+				opacity:1;
+			}
+			::-webkit-scrollbar-corner {
+			  background-color: #eee;
 			}
 		</style>
 	</head>
@@ -157,6 +197,7 @@
 			<a href="#about"	onclick="testclose()"><i class="fa fa-fw fa-info-circle"> </i> About</a>
 			<a href="#download"	onclick="testclose()"><i class="fa fa-fw fa-download"> </i> Download</a>
 			<a href="#view"		onclick="testclose()"><i class="fa fa-fw fa-search"> </i> Viewing Projects</a>
+			<a href="#future"		onclick="testclose()"><i class="fa fa-fw fa-map-o"> </i> Future Steps</a>
 			<a href="#%20"		onclick="sub('1')"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Editing Projects</a>
 			<div id="g1" style="margin-left:30px;" hidden>
 				<a href="#edit01" onclick="testclose()"><i class="fa fa-fw fa-arrows"> </i> Stage Size</a>
@@ -174,7 +215,7 @@
 				<a href="#edit13"><i class="fa fa-fw fa-clone"> </i> Presets</a>
 				<a href="#edit14"><i class="fa fa-fw fa-magic"> </i> Optimization</a>
 			</div>
-			<a href="#%20" onclick="sub('2')"><i id="c2" class="fa fa-fw fa-caret-right"> </i> Code Transfer</a>
+			<!-- <a href="#%20" onclick="sub('2')"><i id="c2" class="fa fa-fw fa-caret-right"> </i> Code Transfer</a> -->
 			<div id="g2" style="margin-left:30px;" hidden>
 				<a href="#"><i class="fa fa-fw fa-download"> </i> Download Draft</a>
 				<a href="#"><i class="fa fa-fw fa-compress"> </i> Merge Projects</a>
@@ -199,8 +240,7 @@
 				<a href="#v1.5" onclick="testclose()" title="Minor Release"><i class="fa fa-fw fa-file-text-o"> </i> v1.5</a>
 				<a href="#v1.6" onclick="testclose()" title="Major Release"><i class="fa fa-fw fa-file"> </i> v1.6</a>
 			</div>
-			<a href="#"><i class="fa fa-fw fa-empty"> </i> Special Thanks</a>
-			<a href="#"><i class="fa fa-fw fa-"> </i> Special Thanks</a>
+			<!-- <a href="#"><i class="fa fa-fw fa-empty"> </i> Special Thanks</a> -->
 			<a></a>
 		</div>
 
@@ -224,39 +264,67 @@
 
 			<h2 id="download">Download</h2>
 			<p class="text center">This shortcut is open-sourced, which means that you are free to use it, tinker with it, and remix it!
-				<br/>This shortcut is compatible with iOS11 Workflow, iOS12+ Shortcuts, and iPadOS Shortcuts.</p>
-			<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/5a7bc89ab76d4b779c4159071ffcdf57">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/91fc645294f64be88ea67c8fb7dfd2a9">Hopscotch JSON</a> <a class="link" style="width: 175px;" href="https://www.icloud.com/shortcuts/cad74683ceea4c31a80d850890b9f6ae">Stand-Alone</a></span>
-			<p class="text center accordControls" id="a1"><b id="a1l">iOS13 and iPadOS Download Instructions</b></p>
-			<span class="accordion" id="a1content"><ol style="font-size: 120%;">
-				<p>The Shortcuts app is installed by default on iOS13 and iPadOS</p>
-				<li>Go to Settings and scroll down to "Shortcuts". Tap "Shortcuts" and turn on "Allow Untrusted Shortcuts". This will allow you to run my shortcut.</li>
-				<li>Now that you have the app and its proper settings, head back here and find the download links.</li>
-				<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Add Untrusted Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
-				<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
-			</ol></span>
-			<p class="text center accordControls" style="margin-top: 5px;" id="a2"><b id="a2l">iOS12 Download Instructions</b></p>
-			<span class="accordion" id="a2content"><ol style="font-size: 120%;">
-				<p>Skip numbers 1 through 3 if you already have the Shortcuts app</p>
-				<li>Go to the App Store, and search for "Shortcuts". Tap on "Shortcuts" by Apple. This is the app you need to install if not installed already.</li>
-				<li>Tap on "GET", then tap "INSTALL". Enter your AppleID password or ask a parent. Then, allow the app to download.</li>
-				<li>Great! Now you have the Shortcuts App. Head back here and find the download section again, as that is where the link can be found.</li>
-				<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Get Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
-				<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
-			</ol></span>
-			<p class="text center accordControls" style="margin-top: 5px;" id="a3"><b id="a3l">iOS11 Download Instructions</b></p>
-			<span class="accordion" id="a3content"><ol style="font-size: 120%;">
-				<p>Skip numbers 1 through 4 if you already have the Workflow App</p>
-				<li>You will need a second device on iOS12+ for this, but it does not have to be yours. Login to your parent's or your Apple ID on the second device, and go to the App Store.</li>
-				<li>Download the Shortcuts app on that device. You do this to put it in the cloud, which is how you can download an older version for iOS11. You can delete it after if necessary.</li>
-				<li>Go back to your iOS11 device and make sure you are using the same Apple ID. Open the App Store there, and go to your purchases. To do this, tap your profile icon, then tap purchases.</li>
-				<li>Find "Shortcuts", and tap the cloud. Apple will give you a dialog box to download an older version. Click "OK". The download should finish and the app should magically morph into Workflow.</li>
-				<li>Come back to this page and find the download links. Tap them <b>in order from left to right</b>, and you should be redirected to the Workflow App. Congrats, you now have the Hopscotch JSON Shortcut!</li>
-				<li>Give the stand-alone shortcut a run! You can now mod any Hopscotch project.</li>
-			</ol></span>
-			<p>The stand-alone shortcut is used to run it from the share sheet or on iOS11. It is used to remove the need for Shortcuts to render all 1400+ actions.</p>
+				This shortcut is compatible with iOS 11 Workflow, iOS 12-13 Shortcuts, and iPadOS 13 Shortcuts. <b>iOS 14 is <i>NOT</i> officially supported, though it may still work for some users.</b>
+				If you want to try it on iOS 14, however, the download instructions are the same as iOS 13.</p>
+			<div class="center">
+				<table class="htable">
+					<thead><tr><td>iOS Version</td><td>10.x-</td><td>11.x</td></tr></thead>
+					<tbody><tr><td>Compatibility</td><td style="color:red;">None</td><td style="color:yellowgreen;">Full</td></tr></tbody>
+				</table><table class="htable">
+					<thead><tr><td>12.x</td><td>13.x</td><td>14.x+</td></tr></thead>
+					<tbody><tr><td style="color:#0a0;">Full</td><td style="color:orange;">Limited</td><td style="color:orangered;">Unstable</td></tr></tbody>
+				</table>
+			</div>
+			<p class="text center accordControls" id="a1"><b id="a1l">iOS 13, iPadOS 13 Download Instructions</b></p>
+			<div class="accordion" id="a1content">
+				<p class="center"><b>Compatibility: <span style="color:orange">Limited</span></b></p>
+				<ol style="font-size: 120%;">
+					<p>The Shortcuts app is installed by default on iOS 13 and iPadOS 13</p>
+					<li>If you have not used shortcuts at all before, create a shortcut and add a random action. Save the shortcut, then delete it. This will allow the necessary setting below to show up.</li>
+					<li>Go to Settings and scroll down to "Shortcuts". Tap "Shortcuts" and turn on "Allow Untrusted Shortcuts". This will allow you to run my shortcut.</li>
+					<li>Now that you have the app and its proper settings, head back here and find the download links.</li>
+					<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Add Untrusted Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
+					<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
+				</ol>
+				<b class="center" style="font-size:140%;">Download Links</b>
+				<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/5a7bc89ab76d4b779c4159071ffcdf57">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/360b1617bb77475496f69883550e76ad">Hopscotch JSON</a> <a class="link" style="width: 175px;" href="https://www.icloud.com/shortcuts/cad74683ceea4c31a80d850890b9f6ae">Stand-Alone</a></span>
+				<br/>
+				<span class="center"style="width:100%;display:inline-block;margin-bottom:10px;">Note: Download links are different for iOS 13 and iPadOS 13.</span><br/>
+			</div>
+			<p class="text center accordControls" style="margin-top: 5px;" id="a2"><b id="a2l">iOS 12 Download Instructions</b></p>
+			<div class="accordion" id="a2content">
+				<p class="center"><b>Compatibility: <span style="color:#0a0">Full, Recommended</span></b></p>
+				<ol style="font-size: 120%;">
+					<p>Skip numbers 1 through 3 if you already have the Shortcuts app</p>
+					<li>Go to the App Store, and search for "Shortcuts". Tap on "Shortcuts" by Apple. This is the app you need to install if not installed already.</li>
+					<li>Tap on "GET", then tap "INSTALL". Enter your AppleID password or ask a parent. Then, allow the app to download.</li>
+					<li>Great! Now you have the Shortcuts App. Head back here and find the download section again, as that is where the link can be found.</li>
+					<li>Tap the Download Links in order <b>from left to right</b>, and they should all open the Shortcuts App. Order Matters! Tap "Get Shortcut" for each one. Congrats, you now have the Hopscotch JSON Shortcut!</li>
+					<li>Give the main shortcut a run! You can now mod any Hopscotch project.</li>
+				</ol>
+				<b class="center" style="font-size:140%;">Download Links</b>
+				<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/5a7bc89ab76d4b779c4159071ffcdf57">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/2b34db134a6742e6950b0c4ae9c3cb93">Hopscotch JSON</a> <a class="link" style="width: 175px;" href="https://www.icloud.com/shortcuts/cad74683ceea4c31a80d850890b9f6ae">Stand-Alone</a></span>
+				<br/>
+			</div>
+			<p class="text center accordControls" style="margin-top: 5px;" id="a3"><b id="a3l">iOS 11 Download Instructions</b></p>
+			<div class="accordion" id="a3content">
+				<p class="center"><b>Compatibility: <span style="color:yellowgreen">Full Support</span></b></p>
+				<ol style="font-size: 120%;">
+					<p>Skip numbers 1 through 4 if you already have the Workflow App</p>
+					<li>You will need a second device on iOS 12+ for this, but it does not have to be yours. Login to your parent's or your Apple ID on the second device, and go to the App Store.</li>
+					<li>Download the Shortcuts app on that device. You do this to put it in the cloud, which is how you can download an older version for iOS 11. You can delete it after if necessary.</li>
+					<li>Go back to your iOS 11 device and make sure you are using the same Apple ID. Open the App Store there, and go to your purchases. To do this, tap your profile icon, then tap purchases.</li>
+					<li>Find "Shortcuts", and tap the cloud. Apple will give you a dialog box to download an older version. Click "OK". The download should finish and the app should magically morph into Workflow.</li>
+					<li>Come back to this page and find the download links. Tap them <b>in order from left to right</b>, and you should be redirected to the Workflow App. Congrats, you now have the Hopscotch JSON Shortcut!</li>
+					<li>Give the stand-alone shortcut a run! You can now mod any Hopscotch project.</li>
+				</ol>
+				<b class="center" style="font-size:140%;">Download Links</b>
+				<span class="center"><a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/5a7bc89ab76d4b779c4159071ffcdf57">Generate UUID</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/22f97e2b3c5741a1a0b5d15f5f1489e2">View Dictionary</a> <a class="link" style="width:175px;" href="https://www.icloud.com/shortcuts/2b34db134a6742e6950b0c4ae9c3cb93">Hopscotch JSON</a> <a class="link" style="width: 175px;" href="https://www.icloud.com/shortcuts/cad74683ceea4c31a80d850890b9f6ae">Stand-Alone</a></span>
+				<br/>
+			</div>
+			<p>The stand-alone shortcut is used to run it from the share sheet or on iOS 11. It is used to remove the need for Shortcuts to render all 1400+ actions.</p>
 
 			<h2 id="view">Viewing Projects</h2>
-
 			<p class="text" style='text-align:center;'>This shortcut allows you to view the JSON file of a Hopscotch in several ways. It can be a published project, a draft, or someone else's project.</p>
 			<ul style='text-align:justify;'>
 				<li><b>URL Input:</b> To get view the JSON code of a published project, go to the share sheet by tapping share and entering your age. If you don't see "Shortcuts", go to more and turn it on. Tap on shortcuts. Find "Hopscotch JSON" and tap it.
@@ -266,7 +334,33 @@
 				<li><b>Show Popup:</b> This option, like the option above, is shown when you're asked what to do with your project. Choosing this option shows a popup in the shortcuts app with collapsible keys. Opening and closing these allow you to see more
 					of the project and can be super helpful for finding certain words or parameters.</li>
 			</ul>
-
+			
+			<h2 id="future">Future Steps</h2>
+			<p class="text" style="text-indent: 50px;">As many of you know, I have been phasing out the shortcut for a few months now. This shortcut certainly holds a
+			strong legacy, but its functionality is limited by the one-run script-like nature of Siri Shortcuts. Performing complex actions is much more tedious to create
+			and use, and there is no user control in order, or whether one wants to cancel an action wihout discarding all changes. For simple tasks, the shortcut will
+			still be available for anyone to use or discuss about.</p>
+			<ul style='text-align:justify;'>
+				<li>No further bug fixes will be provided to make the shortcut work properly on iOS 14, and fixes for iOS 13 are unlikely, especially if the error is related to
+				or contains dictionaries or text matching actions.</li>
+				<li>No further features will be added to the shortcut for any iOS version.</li>
+				<li>I highly recommend trying out the <a href="/hs-tools/hs-builder/">Hopscotch Project Builder</a>, since it already has all functionality of the Shortcut,
+					does it better than the shortcut, and allows for far more user control on how one wants to edit the project. It is a great tool that can always expand
+					thanks to the complexity of web development and actual programs as opposed to scripts.</li>
+			</ul>
+			<p class="text" style="text-indent: 50px;">Apps like the Project Builder are completely open-ended and have far less issues with performance, reliability, etc.
+			Web development is the future of technology, and I will follow that with my Hopscotch project editors. There are ways to easily reuse code without clutter, and
+			create functions when there is no native function, whereas shortcuts has already been pushed to the limit with complex dicationary and text actions. Features like
+			a semi-visual code editor, project statistic graphs, search, and images with prompts just cannot work well in Shortcuts; these are all features that are included in
+			or will be a part of the Project Builder at some point in time, and it saves so much time to develop for the web as opposed to a shortcut to implement such features.</p>
+			
+			<p class="text center accordControls" id="a4"><b id="a4l">End of Service Statement</b></p>
+			<div class="accordion" id="a4content" style="padding: 0 12px;">
+				<p style="text-indent: 50px;">After the shortcut being the primary method of in-depth Hopscotch project JSON editing for over an entire year, it’s legacy certainly is strong.</p>
+				<p style="text-indent: 50px;">The shortcut has been struggling to keep its existing features working properly, especially with text matching, and it’s starting to peak. That being said, new boundaries have been broken, and there is a full WEB editor that you can use across devices! It already has everything that was supported in the Siri Shortcut at any given time, and is still growing with MANY more possibilities that were just not possible with a one-run script like Siri Shortcuts.</p>
+				<p style="text-indent: 50px;">As of June 28th 2020, I have stopped providing support and bug fixes for this Shortcut. The biggest existing issues have been fixed, you can still use it like you have been for the past year, and resources like the filter checker and secret blocks will still be kept up to date every time you run it. It’s not all over, but instead a stepping stone, a new chapter in the story. I will continue to support anyone by answering their questions and walking them through the JSON project structure, but will be transitioning my time to further developing the Web Editor. You can still use the shortcut, ask questions here, and talk about other modding or Shortcuts/script related stuff on this topic.</p>
+				<p class="center">And to the whole community, thanks for the continued support. Now <b>L</b>et’s <b>G</b>o <b>M</b>od <b>A</b> <b>P</b>roject!</p>
+			</div>
 			<h2 id="edit">Editing Projects</h2>
 			<p class="text" style="text-indent: 50px;">Editing projects is the core focus of this shortcut. There are endless possibilities when it comes to the potential of a JSON editor like this,
 				even if it is a little confusing to use at first. It is more guided than editing a raw JSON file, but it lets you have the same amount of control at a small cost of speed. Each section
@@ -371,7 +465,7 @@
 					<p cw style="--custom-width: 325px;">This is the first step in working with scenes – you need to have more than one scene to work with more than one scene. Before the beta scenes editor,
 					modding a normal project was the only way you could obtain more than one scene. If you are not a subscriber, this is still the only way to have more than
 					one in a project. If you are, you can use the UI and tap "New Scene" in the project. To add a scene using my shortcut, you'll need to select "Add a Scene"
-					when you are asked how you want to manage your project&rsquo;s scenes.<br/><br/>Next, the shortcut will prompt you to choose how many scenes you want to add.
+					when you are asked how you want to manage your project's scenes.<br/><br/>Next, the shortcut will prompt you to choose how many scenes you want to add.
 					Input a number, then name each scene by editing the right side the following dialog boxes (they should be "dictionaries" where you edit the value of "name").
 					After you have done that, congrats, you have successfully added scenes to your project</p>
 				</div>
@@ -389,7 +483,7 @@
 					<span style="position: relative;">
 						<img src="../images/shortcut-menus/sc-menu11.png" width="400" height="auto" style="margin: 10px 10px;"/><br/>User selection menu asking which scene should be the first one
 					</span>
-					<p cw style="--custom-width: 445px; text-align: center;">
+					<p cw style="--custom-width: 445px; text-align: center; overflow: hidden;">
 						<video canBeDark src="https://s.put.re/pF113d8S.mp4" style="width: 320px; height: 240px; outline: none; border-radius: 4px;" controls>
 						</video>
 					</p>
@@ -414,7 +508,7 @@
 						<img src="../images/shortcut-menus/sc-menu14.png" width="300" height="auto"/><br/>
 					</span>
 					<p cw style="--custom-width: 325px;">Obviously, each scene has its own set of objects. However, you may want to move an object from one scene to another,
-					and that is not possible in Hopscotch (you can use custom rules and all that stuff, but that&rsquo;s too tedious). Using my shortcut, you can transfer multiple
+					and that is not possible in Hopscotch (you can use custom rules and all that stuff, but that's too tedious). Using my shortcut, you can transfer multiple
 					objects (you choose how many) between scenes. They will keep all of their traits, and their code will not be changed. After selecting the option "Choose Objects",
 					choose the objects you'd like to move and choose the scene(s) they appear in. (If you choose more than one, the object's JSON code gets duplicated but the object
 					does stay persistent between the two scenes).</p>
@@ -440,7 +534,7 @@
 			<div class="flex imgflex" r="760" reverse>
 				<p>Variables keep track of most changing (and constant) numbers in your project. They are those yellow bubbles that you can choose a name for, but their
 				options in the editor are very minimal. You can rename them, or leave them the way they are. However, the shortcut allows you to also change their type and delete them,
-				although doing either of these will probably remove any trace of that variable in the project&rsquo;s code. This editor is old and is in chunk format, similar to abilities.
+				although doing either of these will probably remove any trace of that variable in the project's code. This editor is old and is in chunk format, similar to abilities.
 				You can either input raw JSON or keep the structure it is in. When you choose to modify variables, you get one popup with any and all variables. Hit done and those are your new variables.</p>
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu19.png" width="350" height="auto"/><br/>
@@ -452,7 +546,7 @@
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu20.png" width="350" height="auto"/><br/>
 				</span>
-				<p>Custom rules are a great addition to Hopscotch, and they allow you to make a set of rules that you can apply to multiple objects. There really isn&rsquo;t much to say about them
+				<p>Custom rules are a great addition to Hopscotch, and they allow you to make a set of rules that you can apply to multiple objects. There really isn't much to say about them
 				or change about them. Renaming and deleting them are easily done in the menu, so the only thing left to do is change the rules contained within them. This is actually surprisingly
 				useful because you can do a true duplicate of the rule, meaning it will mirror any other instances of that same rule. To begin, choose to modify custom rules, then select all of the
 				custom rules that you would like to change the rule sets of.</p>
@@ -461,7 +555,7 @@
 				<p cw style="--custom-width: 275px;">Next, you will be greeted with an input box showing the UUIDs of rules that are contained in each custom rule. Before going into this, you should preview the project and already have
 				a pretty good idea of what exact rules you want to modify. Delete, move, add, or copy any rules that you wish, and tap ok. Bam you're done editing custom rules. Do this for every custom rule
 				that you choose to modify. Also, note that custom rule UUIDs also appear as rules, as expected. You can use this to put the a custom rule inside of itself as well as to do other things that
-				Hopscotch wasn&rsquo;t meant for. However, that does crash the game upon playing it.</p>
+				Hopscotch wasn't meant for. However, that does crash the game upon playing it.</p>
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu21.png" width="250" height="auto"/><br/>
 				</span>
@@ -472,7 +566,7 @@
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu22.png" width="250" height="auto"/><br/>
 				</span>
-				<p cw style="--custom-width: 275px;">Rules are those pink blocks inside every object that tell it &ldquo;when&rdquo; to do something. Each object&rsquo;s rules are considered blocks,
+				<p cw style="--custom-width: 275px;">Rules are those pink blocks inside every object that tell it &ldquo;when&rdquo; to do something. Each object's rules are considered blocks,
 				and those describe the event that causes the actions inside to run. Examples include &ldquo;When Game Starts&rdquo;, &ldquo;When iPad is tapped&rdquo;, and &ldquo;When equals&rdquo;.
 				These can be modded only to a limited extent, but having access to these blocks also provides information on their ability (the blocks inside that rule – you can use this UUID to edit
 				that in the <a href="#edit12">abilities</a> part of the shortcut).</p>
@@ -491,7 +585,7 @@
 				<span style="position: relative;">
 					<img src="../images/shortcut-menus/sc-menu24.png" width="250" height="auto"/><br/>
 				</span>
-				<p cw style="--custom-width: 275px;">After you have chosen your object or custom rule, you will need to choose which rules you&rsquo;d like to view or edit inside of that. When choosing the rules,
+				<p cw style="--custom-width: 275px;">After you have chosen your object or custom rule, you will need to choose which rules you'd like to view or edit inside of that. When choosing the rules,
 				they will show up like the pink rule block does in Hopscotch, along with its UUID. In the images below, the rules listed include the name of the pink block (e.g. Game Starts, equals, etc.) as well as
 				the UUID of the rule (this is what is used to identify it elsewhere). You can select multiple rules to modify, and for each one, another text box will pop up. This text box contains pure JSON code,
 				meaning that any syntax errors may result in project corruption. From this point, you have information on the following pieces of information: the rule block type (the actual pink bubble that tells what
@@ -506,8 +600,8 @@
 			<h2 id="edit12">Abilities</h2>
 			<p class="center">This is where the real fun starts :)</p>
 			<div class="flex imgflex" r="760" reverse>
-				<p cw style="--custom-width: 275px;">Before we begin discussing each one, let&rsquo;s summarize what abilities are and the functions of each one so that you know which one you need to choose.
-				Abilities are Hopscotch&rsquo;s way of storing every single block of code (whens/rules don&rsquo;t count) run by an object. Hopscotch stores each set of blocks under a collapsible within one
+				<p cw style="--custom-width: 275px;">Before we begin discussing each one, let's summarize what abilities are and the functions of each one so that you know which one you need to choose.
+				Abilities are Hopscotch's way of storing every single block of code (whens/rules don't count) run by an object. Hopscotch stores each set of blocks under a collapsible within one
 				&ldquo;ability&rdquo;, <!-- TIP OF THE WEEK LINK --> and these all have a UUID that they are identified by. My shortcut currently has 3 ways of modifying abilities (soon to be 4 with Create Dictionary Ability), and those are
 				the ae_json_edit custom block, the MIDI hack, and find by UUID. The pre-named custom block is useful for quick access to code, the MIDI hack adds songs to your project, and find by UUID is how you
 				modify bits of code that are pointed to <!-- TIP OF THE WEEK LINK --> by other abilities or rules. When choosing to modify abilities, choose the ones you need (can be more than one).</p>
@@ -529,9 +623,9 @@
 				<div class="flex imgflex" r="760" reverse>
 					<p cw style="--custom-width: 325px;">When you select this ability, the existing code of the ability is shown if that ability exists and is not empty. Otherwise, it creates the ability (rainbow block), and defaults
 					you to insert secret blocks. When editing this for the first time, pay attention to the &ldquo;key-value pair&rdquo; of JSON code (example – &ldquo;description&rdquo;:  &ldquo;move forward&rdquo;). Since the keys
-					are predetermined by Hopscotch, there is no point in modifying them. Instead, modify the values of them, such as the block&rsquo;s type, parameter values, etc. – stuff that you would notice a difference in when you
-					reopen the project in Hopscotch. This is a simple but powerful tool, as it allows you to mess around with just a couple of bloks or paste in code from other generators such as Petrichor&rsquo;s pixel art tool.
-					That choice is up to you. After you are done changing that code, tap done. You will also be given a screen to change other info about the ability if that&rsquo;s what you wish, but once you tap done on that, you
+					are predetermined by Hopscotch, there is no point in modifying them. Instead, modify the values of them, such as the block's type, parameter values, etc. – stuff that you would notice a difference in when you
+					reopen the project in Hopscotch. This is a simple but powerful tool, as it allows you to mess around with just a couple of bloks or paste in code from other generators such as Petrichor's pixel art tool.
+					That choice is up to you. After you are done changing that code, tap done. You will also be given a screen to change other info about the ability if that's what you wish, but once you tap done on that, you
 					have successfully edited the pre-named ability, ae_json_edit.</p>
 					<span style="position: relative;">
 						<img src="../images/shortcut-menus/sc-menu30.png" width="300" height="auto"/><br/>
@@ -545,7 +639,7 @@
 					<p cw style="--custom-width: 275px;">First, of all, credit goes where credit is due. The Hopscotch MIDI Hack was originally created by MR.GAM3R, and it can be found <a href="https://forum.gethopscotch.com/t/hopscotch-midi-hack-tool/33204/88">here</a>.
 					BuildASnowman created a MIDI Hack outside of Hopscotch, and MR.GAM3R, inspired by it, created a similar tool in the form of a web page with some help from MIDIConvert (more info and how to use the web page can be found <a href="https://mrxgam3r.github.io/Hopscotch-MIDI-Hack/">here</a>).
 					Due to the fact that it is written in HTML and JavaScript, it is extremely easy to integrate into shortcuts, as shortcuts allows me to take variable data and get the contents of HTML code, which I modified very slightly.<br/><br/>
-					Now, let&rsquo;s go into the very simple process of using it in my shortcut. When you get to the MIDI Hack, my shortcut will just prompt you to choose a MIDI file from your file browser (supported file extensions are .mid and .midi). Once you select
+					Now, let's go into the very simple process of using it in my shortcut. When you get to the MIDI Hack, my shortcut will just prompt you to choose a MIDI file from your file browser (supported file extensions are .mid and .midi). Once you select
 					your MIDI file, the shortcut creates an ability with the same name as the MIDI file, and just like that the song is in your project. When using this, just remember that only the MIDI audio format is supported. MP3, M4A, WAV, and other common formats will not work.<br/><br/>
 					Personally, I added this to my shortcut to experiment and give others the chance to use it for adding songs to projects. I would not rely on the consistency, accuracy, or performance of it, but it is a great tool for demonstrating the possibilities of modding Hopscotch.
 					Keep in mind that I did not make the MIDI Hack and I am not sure entirely how it works (besides reading the notes and converting it to JSON), so if you need help with that specifically, ask MR.GAM3R.</p>
@@ -553,15 +647,42 @@
 				<h3 id="edit12C">Find by UUID</h3>
 				<div class="flex imgflex" r="760" reverse>
 					<p cw style="--custom-width: 325px;">Finding an ability by its UUID is the only way you can access every last bit of code in your project, and this is used for more advanced JSON editing. The main process of this goes through a process like this: think of the final ability, backtrack it
-					to a rule, object, or custom rule, then locate its UUID by searching through the rules and other IDs. It&rsquo;s no easy feat and is extremely hard to do without a note-taking app of some sort opened in multitasking. This method of JSON editing is not for the faint of heart, as it is heavily
+					to a rule, object, or custom rule, then locate its UUID by searching through the rules and other IDs. It's no easy feat and is extremely hard to do without a note-taking app of some sort opened in multitasking. This method of JSON editing is not for the faint of heart, as it is heavily
 					based on text and short-term memory. But once you understand where to find the UUID of an ability you are looking for, this is the option that you use to modify the code inside of that. This is where you paste an ability ID from a rule, a control script ID from another block, etc. These are
 					the blocks of code that are being pointed to by other abilities. <!-- ONCE AGAIN, TIP OF THE WEEK --> If that was too much of a mouthful of word soup, I recommend gaining some more modding experience first. I am open for questions on the shortcut topic at any time.</p>
 					<span style="position: relative;">
 						<img src="../images/shortcut-menus/sc-menu32.png" width="300" height="auto"/><br/>
 					</span>
 				</div>
-			
-			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+			<h2 id="edit13">Presets</h2>
+				<div class="flex imgflex" style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu33.png" style="margin: 8px;" width="250" height="auto"/><br/>
+					<img src="../images/shortcut-menus/sc-menu34.png" style="margin: 8px;" width="250" height="auto"/><br/>
+				</div>
+				<p cw style="--custom-width: ;275px">Presets are a way of copying code between projects, which can be super helpful in many situations, such as copying a template, adding custom block abilities (secret blocks and set image blocks, for example), and more!
+				Code being saved to a preset can include abilities and custom rules. To save and/or load a preset, select &ldquo;Presets&rdquo; when choosing traits to modify in your project, then select whether you want to save a preset, load a preset, or do both simultaneously.
+				<br/><br/>
+				Saving a preset requires selecting which abilities and custom rules to save, and that's it. A file is generated, and can be saved it to wherever you want! No work is required except for being patient, since the Shortcuts is extremely slow with matching ability IDs.
+				It also has a limit of 64 nested abilities since Shortcuts does not have a repeat until. You can edit this iteration count in the shortcut, but the shortcut will run a repeat action for the max iteration count every time. Reliability is not guaranteed on iOS 13.
+				</p>
+				<div class="flex imgflex" style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu35.png" style="margin: 8px;" width="250" height="auto"/><br/>
+					<img src="../images/shortcut-menus/sc-menu36.png" style="margin: 8px;" width="250" height="auto"/><br/>
+				</div>
+				<p>
+				Loading a preset is even simpler than saving a preset. Choose load preset, and choose the file(s) that you want to load. The shortcut will merge the two projects automatically. Reliability on iOS 13 should be better with loading presets when compared to saving presets
+				due to the lack of match text actions. However, both loading and saving presets are extremely slow and limited in functionality when compared to the <a href="/hs-tools/hs-builder/">Hopscotch Project Builder</a> preset functionality.
+				</p>
+			<h2 id="edit14">Optimization</h2>
+			<div class="flex imgflex" r="760">
+				<span style="position: relative;">
+					<img src="../images/shortcut-menus/sc-menu37.png" width="250" height="auto"/><br/>
+				</span>
+				<p cw style="--custom-width: 275px;">Optimization, simply but, makes a project better without any work needed. To perform any of these actions, select &ldquo;Optimize&rdquo; when choosing traits to modify, and select the action to perform. At this point in time, the
+				only useful optimization is Color Slot Optimization, since the purpose of the other two features is outdated. Color slot optimization, as stated, will turn all RGB and HSB operators into HSB values that take up significantly less storage in the project (over 90% reduction in file size).
+				<br/><br/>
+				There isn't much else about optimization. Unfortunately, I never got the time to add separate features to this main shortcut, such as the Ability Dictionary shortcut, but the color optimization works pretty well.</p>
+			</div>
 
 			<h2 id="versions">Change Logs</h2>
 
@@ -678,7 +799,7 @@
 					your file. In the past, a mistake like this would cause your project to lose <i>all</i> of its code. But, this <b>does not mean that it is immune</b> to everything. For example, corrupted variables and blocks will vanish, but other variable
 					and blocks in abilities will remain. Always be careful with formatting.</li>
 				<li>A few descriptions have been tweaked, and there is an easter egg.</li>
-				<li><b>Be careful iOS11 users</b>. If you notice that "world" will randomly appear in the project file, you have run into a backwards-compatability issue. Go through the shortcut and if and replace text replaces the text with "world", change it
+				<li><b>Be careful iOS 11 users</b>. If you notice that "world" will randomly appear in the project file, you have run into a backwards-compatability issue. Go through the shortcut and if and replace text replaces the text with "world", change it
 					so that it replaces the text with nothing. I think there are a couple of instances where this may affect your project, and I may address in a future update.</li>
 			</ul>
 
@@ -686,7 +807,7 @@
 			<p style='text-align:center'>Minor Update</p>
 			<ul style='text-align:justify'>
 				<li>Added Player Version to traits you can modify. This means that you can now change which version of the webplayer you use for the project. Tag me for more info.</li>
-				<li>iOS11 users, sorry to keep you waiting (I'm probably the only one anyways). If projects were going corrupt or other unwanted things were happening, it was probably because of the way Replace Text imports. Instead of replacing a phrase with
+				<li>iOS 11 users, sorry to keep you waiting (I'm probably the only one anyways). If projects were going corrupt or other unwanted things were happening, it was probably because of the way Replace Text imports. Instead of replacing a phrase with
 					a blank string, it replaces the string with "world". I moved the blank text so that it will work as intended.</li>
 			</ul>
 
@@ -743,7 +864,7 @@
 			<p style='text-align:center;'>Bug Fix we Shall</p>
 			<ul style='text-align:justify;'>
 				<li>Now uses a stand-alone shortcut to run from the share sheet because the main shortcut literally got too big. Download the separate shortcut from the link above, and run the blue "Run HS JSON" shortcut from the share sheet from now on.</li>
-				<li>If I'm not mistaken, all error points should be fixed and the Shortcut should be able to run on iOS13. Big thanks to @TheCMStudios for helping me test that out</li>
+				<li>If I'm not mistaken, all error points should be fixed and the Shortcut should be able to run on iOS 13. Big thanks to @TheCMStudios for helping me test that out</li>
 				<li>Allows Variables to Use Raw JSON Code now. Tip: If you want to use a JSON editor to read this, just find a replace text site or program that can replace two line breaks with a comma. (\n\n = ,)</li>
 				<li>New Variable Editing Disclaimer</li>
 				<li>Fixed a bug with Edited At which used to add the player version trait to the edited at date</li>
@@ -786,13 +907,23 @@
 				</ul>
 			</ul>
 
-			<h2 id="v1.6.1">What's New in Version 1.6.1</h2>
+			<h2 id="v1.6.1">Changes in Version 1.6.1</h2>
 			<p style='text-align:center;'>Important bug fix. Sorry for the wait (@MISSION_IMPOSSIBLE)</p>
 			<ul style='text-align:justify;'>
 				<li>Secret Blocks and Image blocks should work once again</li>
 				<li>Error Message Support expanded; maybe that will come into effect later.</li>
 				<li>Fixed the GitHub update channel; you should be able to receive updated info from there now, though it won't really make a difference unless editing changes again on the forum.</li>
 				<li>Upon importing the shortcut, you will be asked to confirm whether you are signed into iCloud for file saving (keeps info up to date when offline). If not, your shortcut will default to included info when offline.</li>
+			</ul>
+			
+			<h2 id="v1.6.2">What's New in Version 1.6.2</h2>
+			<p style='text-align:center;'>This is an iOS 13 exclusive release to fix shortcut bugs specific to this version of iOS and can only be manually downloaded as of now.</p>
+			<ul style='text-align:justify;'>
+				<li>Chaging the editor version should invoke the popup once again.</li>
+				<li>Chaging the player version should show the popup once again.</li>
+				<li>Chaging the rules in the project should now allow you to choose rule sets once again.</li>
+				<li>Chaging the custom rules in the project should also show the popup once again.</li>
+				<li>The user will be asked to check for filtered words since large projects now fail due to the match action timing out.</li>
 			</ul>
 
 		</div>
@@ -807,7 +938,7 @@
 				if (!(document.getElementById(id).getAttribute("data-closed")=="")) {
 					document.getElementById(id + "content").style.transition = "0s";
 					document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight) + "px");
-					console.log(document.getElementById(id + "content").style.getPropertyValue("--elementHeight"));
+					//console.log(document.getElementById(id + "content").style.getPropertyValue("--elementHeight"));
 				}/**/
 				setTimeout(function(){
 					document.getElementById(id).toggleAttribute("data-closed");
@@ -840,14 +971,15 @@
 			
 			var accordions = document.getElementsByClassName("accordControls");
 			
+			var correct_download_info = Number((navigator.userAgent.match(/OS ([0-9]{2})_/)||[])[1]||13);
+			
 			for (var i = 0; i < accordions.length; i++) {
-				
 				//accordions[i].addEventListener('click', accordion, false);
-				accordions[i].toggleAttribute("data-closed");
+				if (i != 13-correct_download_info) accordions[i].toggleAttribute("data-closed");
 				var content = document.getElementById(accordions[i].id + "content");
 				
 				content.style.setProperty('--elementHeight', String(content.clientHeight) + "px");
-				content.toggleAttribute("data-closed");
+				if (i != 13-correct_download_info) content.toggleAttribute("data-closed");
 			}
 		</script>
 	</body>
