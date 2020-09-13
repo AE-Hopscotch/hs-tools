@@ -130,7 +130,7 @@ try {
 		if (headings != undefined) {
 			headings = headings.querySelectorAll('h2[id], h3[id]');
 			var headingPositions = {};
-			var offset = 302 - document.getElementById(headings[0].id).getBoundingClientRect().top;
+			var offset = 305 - document.getElementById(headings[0].id).getBoundingClientRect().top;
 			for (var i = 0; i < headings.length; i++) {
 				headingPositions[Math.floor((document.getElementById(headings[i].id).getBoundingClientRect().top + offset)/2)*2] = headings[i].id;
 			}
