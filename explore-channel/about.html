@@ -49,6 +49,7 @@
 				padding: 24px 16px 16px;
 				overflow: auto;
 				max-height: 100%;
+				max-width: 100vw;
 			}
 			h1 {
 				font-family: Lilita One;
@@ -92,7 +93,19 @@
 			.accordion, .accordControls * {
 				color: var(--col-text);
 			}
-			
+			@media only screen and (max-width: 400px) {
+				.accordControls b {
+					font-size: 0.8em;
+					position: relative;
+					top: -1px;
+				}
+				h1 {
+					font-size: 160%;
+				}
+				h2 {
+					font-size: 140%;
+				}
+			}
 			.accordControls {
 				margin-bottom: 0px;
 				margin-top: 8px;
@@ -142,9 +155,9 @@
 				<p>For me, the initial thought was: &ldquo;Since we can already play others&rsquo; Hopscotch projects on the web,
 				why should we not be able to discover them without receiving a link first?&rdquo;<br/><br/>So, with that, I embarked
 				on a journey to create the first working web explorer for Hopscotch. Just like in the app, you can browse through all
-				of the categories along the top, along with a couple of extras, namely &ldquo;E&rsquo;s Picks&rdquo; and &ldquo;Newest&rdquo;
-				(as in newest of all projects, not just curated projects). I&rsquo;ve also added several other extra features that the
-				app does not provide, which creates a great experience to both me as a creator as well as the user.</p>
+				of the categories along the top, along with a couple of extras, namely &ldquo;E&rsquo;s Picks&rdquo;. I&rsquo;ve also
+				added several other extra features that the app does not provide, which creates a great experience to both me as a
+				creator as well as the user.</p>
 				
 				<p>Also, I reserve the right to modify information displayed on channels and profiles. This makes things like the about project
 				you are reading as well as user badges possible.</p>
@@ -180,10 +193,11 @@
 				<ul>
 					<li>The number of times a project has been remixed will show up to the left of the number of likes</li>
 					<li>Zoom capability is added. Adjust the slider to zoom in or zoom out; this will change the size of project cards.</li>
+					<li>Reporting projects from the Web Explorer is possible. Enable x-ray and tap the warning sign to flag a project.</li>
 					<li>The ability to automatically filter projects that are determined to be &ldquo;low quality&rdquo; –
 					this is intended to be used when searching for good projects in the Newest tab. To activate this, click on the eye
 					above the zoom slider. This will toggle the visibility of such projects between fully visible, half visible, and invisible.
-					Disclaimer: no automatic filter is perfect, especially without AI or machine learning. My filter is no exception, as many more
+					Disclaimer: no automatic filter is perfect, especially without AI or machine learning. My filter is no exception, as a few more
 					projects could be filtered out and some should not be filtered out. But the purpose of the filter view is just to get an idea
 					of what the title and thumbnail show in terms of project quality.</li>
 					<li>Project actions can be switched. To change what clicking on a thumbnail does, click the icon above the eye. There are a
@@ -317,7 +331,7 @@
 				</ul>
 				<p><b>Other Conditions:</b></p>
 				<ul>
-					<li>Project will not show up if it has 5 or more likes but less than 3 plays (remove most art – only because it’s not what I am interested in picking)</li>
+					<li>Project will not show up if it has 5 or more likes but less than 3 plays (removes most art – only because it’s not what I am interested in picking)</li>
 					<li>Automatically shows if play count &gt; 15 and thumbnail is good to go.</li>
 					<li>Automatically shows if likes &gt; 50 and play count &gt; 20.</li>
 				</ul>
@@ -336,16 +350,17 @@
 				//var id = event["toElement"].id.replace(/[l]/,"");
 				if (!(document.getElementById(id).getAttribute("data-closed")=="")) {
 					document.getElementById(id + "content").style.transition = "0s";
-					document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight) + "px");
+					document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").scrollHeight) + "px");
+				} else {
+					setTimeout(function(){
+						if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").scrollHeight+500) + "px");
+					}, 510);
 				}
 				setTimeout(function(){
 					document.getElementById(id).toggleAttribute("data-closed");
 					document.getElementById(id + "content").toggleAttribute("data-closed");
 					document.getElementById(id + "content").style.transition = "var(--time-trans) ease";
 				}, 10);
-				setTimeout(function(){
-					if (document.getElementById(id + "content").clientHeight > 0) document.getElementById(id + "content").style.setProperty('--elementHeight', String(document.getElementById(id + "content").clientHeight+500) + "px");
-				}, 510);
 			};
 			
 			$(document).ready(function() {

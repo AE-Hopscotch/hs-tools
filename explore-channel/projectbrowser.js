@@ -756,7 +756,7 @@ function requestFlag(puuid) {
 				document.body.style.overflow = "hidden";
 			} else {
 				//Global Web Explorer flag limit reached for today
-				alert("The number of flags from the Web Explorer has exceeded the daily limit");
+				alert("The number of flags from the Web Explorer has reached the daily limit");
 			}
 		}
 	},false);
