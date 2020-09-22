@@ -1,0 +1,35 @@
+{
+	"dependencies": {
+		"main_hpcx": {
+			"version_number": "0.1",
+			"build_number": 1,
+			"icloud_path": "",
+			"description": "Hopscotch Project Composer Version 0.1"
+		},
+		"ft_topLvlTraits": {
+			"version_number": "0.1",
+			"build_number": 1,
+			"icloud_path": "/shortcuts/e31e9c26dc374df596f78429491c80a4",
+			"description": ""
+		},
+		"ft_lockProject": {
+			"version_number": "0.1",
+			"build_number": 1,
+			"icloud_path": "",
+			"description": ""
+		},
+		"ft_optColors": {
+			"version_number": "0.1",
+			"build_number": 1,
+			"icloud_path": "",
+			"description": ""
+		}
+	},
+	"resources": {
+		"secret_blocks": {
+			"version_number": "0.6",
+			"build_number": 1,
+			"url": "https://c.gethopscotch.com/api/v1/projects/bl"
+		}
+	}
+}
