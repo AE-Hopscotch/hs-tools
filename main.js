@@ -355,6 +355,31 @@ var XHR = {
 			})
 			.then(data => fn(data.contents, data.status.http_code))
 			.catch(() => fn(null, 521));
+	},
+	requestExt: function(method, url, callback, proxy, data) {
+		proxy = proxy || 0;
+		let proxyUrls = ["", "all", "https://api.allorigins.win/get?url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest="]
+		if (proxy === 2) method = "fetch";
+		function sendRequest(url, cb){
+			if (method == "fetch" || url.match(/https:\/\/api.allorigins/)) {
+				fetch(proxy > 1 ? proxyUrls[proxy] + url : url).then(response => {
+						if (response.ok) return response.json();
+						throw new Error('Network response was not ok.')
+					})
+					.then(data => cb(data.contents, data.status.http_code))
+					.catch(() => cb(null, 521));
+			} else {
+				let xhr = new XMLHttpRequest();
+				xhr.open(method, proxy > 2 ? proxyUrls[proxy] + url : url);
+				xhr.onload = xhr.onerror = function(){cb(xhr.responseText, xhr.status)};
+				xhr.send(data);
+			}
+		}
+		if (proxy === 1) {
+			sendRequest(proxyUrls[2]+url,(r,s)=>{s?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s?callback(r,s,4):callback(null, 521)})})});
+		} else {
+			sendRequest(url, callback);
+		}
 	}
 }
 
