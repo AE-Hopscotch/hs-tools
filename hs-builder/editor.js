@@ -245,7 +245,6 @@ function formatProject(p) {
 	for (i = 0; i < (p.rules||[]).length; i++) {
 		var r = p.rules[i];
 		if (!r.id) {
-			console.log('test')
 			//Assign UUID if it does not exist, then add that to the object
 			r.id = uuidv4().toUpperCase();
 			var obj = projectDict.objects[r.objectID];
@@ -511,7 +510,7 @@ if (editor.useBlockRender) {
 		secretBlocks: "none", // "none", "old", "new"
 		imageBlocks: "none", // "none", "old", "new"
 		hiddenAbils: "", // The ability ID that holds hidden blocks
-		play: function() {
+		play: function(popupWindow) {
 			if (editor.project.canAddPlayer) {
 				if ((hsProject.objects||[]).length == 0) return alert("There is no code to run");
 				this.canAddPlayer = false;
@@ -526,18 +525,24 @@ if (editor.useBlockRender) {
 					const buildTime = Math.round((performance.now()-editor.project.buildStartTime)*100)/100;
 					document.querySelector(".project-build-status").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Loading Player Page ('+buildTime+'ms)';
 					console.log("%cProject Build Time: " + buildTime + "ms", "color: teal; font-weight: 600");
-					var playFrame = document.createElement('div');
-					playFrame.id = "embed-container";
-					playFrame.style = "display:absolute;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:101;";
-					playFrame.innerHTML = '<iframe id="project-player" src="../play-project/index.html?play=1&from=hsBuilder" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>'
-						+ '<button onclick="editor.project.removePlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class="fa fa-close" style="color:white;font-size:32px;position:relative;top:-1px;left:-'+Number(onIos)+'px;"></i></button>';
-					document.querySelector(".fullscreen-elms").appendChild(playFrame);
+					if (typeof popupWindow != "undefined" && popupWindow)  {
+						window.open("../play-project/index.html?from=hsBuilder&play=1");
+					} else {
+						var playFrame = document.createElement('div');
+						playFrame.id = "embed-container";
+						playFrame.style = "display:absolute;position:fixed;width:100%;height:100%;left:0;bottom:-105%;transition:bottom 0.5s;z-index:101;";
+						playFrame.innerHTML = '<iframe id="project-player" src="../play-project/index.html?play=1&from=hsBuilder" style="position:absolute;display:block;width:100%;height:100%;border:none;top:0;left:0;z-index:1;"></iframe>'
+							+ '<button onclick="editor.project.removePlayer()" id="close-player-btn" style="position:absolute;display:block;width:44px;height:44px;border-radius:4px;top:4px;left:4px;margin:2px;z-index:2;border:none;outline:none;background-color:rgba(0,0,0,0.54);cursor:pointer;"><i class="fa fa-close" style="color:white;font-size:32px;position:relative;top:-1px;left:-'+Number(onIos)+'px;"></i></button>';
+						document.querySelector(".fullscreen-elms").appendChild(playFrame);
+					}
 					localStorage.setItem("projectLoadState", "loadingPlayPage");
-					setTimeout(function(){
-						document.getElementById('embed-container').style.bottom = '0';
-					},250);
-					//Prevent the user from scrolling
-					bodyScroll.disable();
+					if (typeof popupWindow == "undefined" || !popupWindow) {
+						setTimeout(function(){
+							document.getElementById('embed-container').style.bottom = '0';
+						},250);
+						//Prevent the user from scrolling
+						bodyScroll.disable();
+					}
 				}
 				worker.onerror = function(){
 					console.error(new Error("You somehow made an invalid project"));
@@ -757,7 +762,7 @@ if (editor.useBlockRender) {
 				data = hsProject.objects||[], tct = "objects";
 			}
 		}
-		document.getElementById("blocks-container-resizer").innerHTML = '<div class="drag-handle"><span label="blockrender">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)" ondragstart="event.preventDefault()">&ic; <i class="fa fa-list-alt"></i></a>':'')+' <a class="refresh-btn" title="Refresh Project" href="javascript:editor.blockrender.refresh()" ondragstart="event.preventDefault()">&ic; <i class="fa fa-refresh"></i></a></span><span hidden label="renderjson">JSON Project Render</span></a><a title="Toggle Code Viewing" style="position:absolute;top:3px;right:30px;" href="javascript:editor.display.renderjson()" ondragstart="event.preventDefault()"><i class="fa fa-code"></i></a><a title="Run the Project" style="position:absolute;top:3.5px;right:6px;" href="javascript:editor.project.play()" ondragstart="event.preventDefault()"><i class="fa fa-play"></i></a></div><div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"></div><div hidden id="renderjson-container"></div><div class="resizer"></div>';
+		document.getElementById("blocks-container-resizer").innerHTML = '<div class="drag-handle"><span label="blockrender">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)" ondragstart="event.preventDefault()">&ic; <i class="fa fa-list-alt"></i></a>':'')+' <a class="refresh-btn" title="Refresh Project" href="javascript:editor.blockrender.refresh()" ondragstart="event.preventDefault()">&ic; <i class="fa fa-refresh"></i></a></span><span hidden label="renderjson">JSON Project Render</span></a><a title="Toggle Code Viewing" style="position:absolute;top:3px;right:30px;" href="javascript:editor.display.renderjson()" ondragstart="event.preventDefault()"><i class="fa fa-code"></i></a><a title="Run the Project" style="position:absolute;top:3.5px;right:6px;" oncontextmenu="event.preventDefault();editor.project.play(true)" href="javascript:editor.project.play()" ondragstart="event.preventDefault()"><i class="fa fa-play"></i></a></div><div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"></div><div hidden id="renderjson-container"></div><div class="resizer"></div>';
 		//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 		data.forEach(function(item) {
 			var blockElm = document.createElement("div");
@@ -1380,7 +1385,7 @@ if (editor.useFileSysCode) {
 																+ '<span><i class="fa fa-fw fa-arrows-alt"></i> Base Object Scale: '+(hsProject.baseObjectScale||1)+'</span><br/>'
 																+ '<span><i class="fa fa-fw fa-text-height"></i> Font Size: '+(hsProject.fontSize||80)+'</span><br/>'
 																+ '<span><i class="fa fa-fw fa-star-o"></i> Requires Beta Editor: '+(hsProject.requires_beta_editor||false)+'</span><br/>'
-																+ '<span><i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+getSbAbility()+'</span><br/>'
+																+ '<span><i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+getSbAbility()+'</span><br/>';
 		},
 		updateTrait: function() {
 			if (typeof hsProject.stageSize == "undefined") hsProject.stageSize = {};
@@ -1812,6 +1817,34 @@ if (editor.useFileSysCode) {
 						throw new TypeError("Unsupported Read Method");
 				}
 			});
+		},
+		AAStringify: function (a) {
+			//To be used in the case of diff-checking
+			var pString = ""; Object.keys(a).forEach(key=>{pString+=","+(Array.isArray(a[key]) ? '\n"'+key+'": ['+((a[key].length>0)?'\n\t' + a[key].repeatEach(item=>JSON.stringify(item)).join(",\n\t") + '\n]':']') : '\n"'+key+'": ' +JSON.stringify(a[key],null,"\t"))});pString+=`\n}`;pString.replace(/\n(?!\}$)/g,"\n\t").replace(/^,/,"{");
+		},
+		showDiff: function (displayElm, text1, text2) {
+			const diff = Diff.diffLines(text1, text2),
+				fragment = document.createDocumentFragment();
+
+			diff.forEach((part) => {
+			// green for additions, red for deletions
+			// grey for common parts
+			const color = part.added ? 'lightgreen' :
+				part.removed ? 'pink' : 'none';
+			const className = part.added ? 'addition' :
+				part.removed ? 'deletion' : '';
+			var span;
+			if (className) {
+				span = document.createElement('span');
+				span.style.backgroundColor = color;
+				span.classList.add(className);
+				span.appendChild(document.createTextNode(part.value));
+			} else {
+				span = document.createTextNode(part.value);
+			}
+			fragment.appendChild(span);
+			});
+			displayElm.appendChild(fragment);
 		}
 	};
 	
@@ -1903,10 +1936,10 @@ if (editor.useFileSysCode) {
 	function readFileContent(file) {
 		const reader = new FileReader()
 		return new Promise((resolve, reject) => {
-		reader.onload = event => resolve(event.target.result)
-		reader.onerror = error => reject(error)
-		reader.readAsText(file);
-	  })
+			reader.onload = event => resolve(event.target.result)
+			reader.onerror = error => reject(error)
+			reader.readAsText(file);
+		})
 	}
 	
 	//Read MIDI File
@@ -2094,7 +2127,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
@@ -2117,7 +2150,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
@@ -2133,7 +2166,7 @@ if (editor.useFileSysCode) {
 						"color:#f9cc1e;stroke-color:transparent;stroke-width:2px"
 					]}).removeNull();
 				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.variablesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedVars.forEach(v=>{arr.push(v)}), arr)
+					(arr = [["","",{ role: "style" }]],usedVars.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedVars.forEach(v=>{arr.push(v)}), arr)
 				);
 				options = {
 					textStyle: {color: "white"},
@@ -2143,7 +2176,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedVars.length,150)},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
@@ -2158,7 +2191,7 @@ if (editor.useFileSysCode) {
 						"color:#f9ad1e;stroke-color:transparent;stroke-width:2px"
 					]}).removeNull();
 				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.traitsTypeCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedTraits.forEach(t=>{arr.push(t)}), arr)
+					(arr = [["","",{ role: "style" }]],usedTraits.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedTraits.forEach(t=>{arr.push(t)}), arr)
 				);
 				options = {
 					textStyle: {color: "white"},
@@ -2168,7 +2201,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedTraits.length,150)},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
@@ -2183,7 +2216,7 @@ if (editor.useFileSysCode) {
 						"color:#f2f2f2;stroke-color:transparent;stroke-width:2px"
 					]}).removeNull();
 				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.abilitiesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedAbils.forEach(a=>{arr.push(a)}), arr)
+					(arr = [["","",{ role: "style" }]],usedAbils.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedAbils.forEach(a=>{arr.push(a)}), arr)
 				);
 				options = {
 					textStyle: {color: "white"},
@@ -2193,7 +2226,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedAbils.length,150)},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
@@ -2207,8 +2240,9 @@ if (editor.useFileSysCode) {
 						distributionCounts.cstmRulesUseCount[key],
 						"color:#ce628a;stroke-color:transparent;stroke-width:2px"
 					]}).removeNull();
+				console.log(usedCrules);
 				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.cstmRulesUseCount).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedCrules.forEach(cr=>{arr.push(cr)}), arr)
+					(arr = [["","",{ role: "style" }]],usedCrules.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedCrules.forEach(cr=>{arr.push(cr)}), console.log(arr), arr)
 				);
 				options = {
 					textStyle: {color: "white"},
@@ -2218,7 +2252,7 @@ if (editor.useFileSysCode) {
 					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedCrules.length,150)},
 					bars: 'horizontal',
 					axes: {
-						x: {0: { side: 'top', label:  ''}, all: {range: {min: 0}} },
+						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
 						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
 					},
 					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
@@ -2398,5 +2432,5 @@ if (editor.modulesScripts) {
 }
 if (editor.logConsoleMesg) {
 	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;")
-	console.log('%cHopscotch Project Builder, beta 1.2.0 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
+	console.log('%cHopscotch Project Builder, beta 1.2.1 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 }

@@ -1061,6 +1061,12 @@ op.math {
 	--ia: 0;
 	--ba: 0;
 }
+op.looks {
+	background-color: #63ae1e;
+	--col-bg-inherited: #63ae1e;
+	--ia: 0;
+	--ba: 0;
+}
 
 /*op.math op.math {
 	background-color: #5c2e5f;
@@ -1134,6 +1140,16 @@ op.math op.math op.math op.math op.math op.math {
 .danger {
 	background-color: #B00;
 	color: white;
+}
+
+/* Viewing Mode */
+
+.viewonly b.editbtn {
+	display: none;
+}
+.viewonly .collapsible-container > bl {
+	padding-right: 48px;
+	width: calc(100% - 76px);
 }
 
 /* Render JSON Styles */

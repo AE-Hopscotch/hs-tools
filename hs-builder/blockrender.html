@@ -698,6 +698,24 @@
 						updatescript(e.to);
 					}
 				});
+				new Sortable(document.getElementById("abilities-drawer"), {
+					group: { name: "blocks", pull: "clone", put: false },
+					sort: false,
+					//ghostClass: 'invis',
+					dragClass: 'dragged', fallbackTolerance: 5,
+					forceFallback: true, delayOnTouchOnly: true, animation: 150,
+					handle: '.handle', multiDrag: true, selectedClass: 'selected',
+					fallbackOnBody: true,
+					onEnd: function(e){
+						if (e.from == e.to) return;
+						//Set the Ability ID
+						e.item.setAttribute("data",e.item.getAttribute("data").replace(/("abilityID":")"/,"$1" + uuidv4().toUpperCase() + "\"") );
+						activeEditBlock = e.item;
+						editor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+						updatescript(e.item, true);
+						updatescript(e.to);
+					}
+				});
 				new Sortable(document.getElementById("rules-drawer"), {
 					group: { name: "rules", pull: "clone", put: false },
 					sort: false,

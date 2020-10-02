@@ -49,8 +49,10 @@
 	</head>
 	<body>
 		<a href="javascript:home()"><svg id="homeSvg" style="fill:white; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 10;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
-		<input onkeyup="checkPass()" id="pin1" type="text" placeholder="Enter key..."/>
-		<div hidden id="page" style="width: 100%; height: 100%;">
+		<input hidden onkeyup="if(event.keyCode==13)checkPass()" id="pin1" type="password" placeholder="Enter key..."/>
+		<button onmouseenter="this.previousElementSibling.type='text'" onmouseleave="this.previousElementSibling.type='password'" ontouchstart="this.previousElementSibling.type='text'" ontouchend="this.previousElementSibling.type='password'" class="hoverbtn"><i class="fa fa-eye"></i></button>
+		<button onclick="checkPass()">Unlock</button>
+		<div id="page" style="width: 100%; height: 100%;">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
 				
 				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px; margin-bottom: -50px;">
@@ -60,6 +62,9 @@
 				</div>
 				
 				<p id="NavHead" style="text-align: center; margin-left:-15px; display:block; opacity: 0; margin-top: 0px;" href="# ">Navigation</p>
+				
+				<a id="navLoader" href="javascript:void(0)" style="display:block;opacity:1;cursor:default;"><i class="fa fa-fw fa-spinner fa-pulse"></i> Loading...</a>
+				<!--
 				
 				<a title="May 14, 2020" href="javascript:video('17')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> More Webpages</a>
 				<a title="April 7, 2020" href="javascript:video('16')" class="ePC2019_"><i class="fa fa-fw fa-film"> </i> Stickman Song</a>
@@ -108,7 +113,7 @@
 				<a title="August 9, 2019" href="javascript:video('2')" class="_"><i class="fa fa-fw fa-bug"> </i> Publish Buttons</a>
 				<a title="July 18, 2019" href="javascript:video('1')" class="_"><i class="fa fa-fw fa-file"> </i> E-Pad News Flash!</a>
 				
-				<!-- DIVIDED INTO GROUPS -->
+				<!-- DIVIDED INTO GROUPS - ->
 				
 				<a href="javascript:void(0)" onclick="sub('1')" class="GROUPED_"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Modding</a>
 				<div id="g1" style="margin-left:10px;" hidden>
@@ -151,7 +156,7 @@
 					<a title="September 2, 2019" href="javascript:video('7')" class="GROUPED_"><i class="fa fa-fw fa-globe"> </i> Main Page Menu</a>
 				</div>
 				
-				<!-- END GROUPS -->
+				<!-- END GROUPS - ->
 				
 				<a title="August 9, 2019" href="javascript:video('2')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Editor Color Slot</a>
 				<a title="August 9, 2019" href="javascript:video('1')" class="bugCh_"><i class="fa fa-fw fa-film"> </i> Publish Buttons</a>
@@ -181,6 +186,8 @@
 				<a title="October 17, 2019" href="javascript:video('3')" class="prjUpd_"><i class="fa fa-fw fa-film"> </i> HHC Guide Video</a>
 				<a title="October 17, 2019" href="javascript:video('2')" class="prjUpd_"><i class="fa fa-fw fa-film"> </i> HHC Room Jumping</a>
 				<a title="July 18, 2019" href="javascript:video('1')" class="prjUpd_"><i class="fa fa-fw fa-film"> </i> E-Pad News Flash!</a>
+				
+				-->
 				
 				<!-- Sub Section Test>
 				<a href="#%20" onclick="sub('1')" style="display:no;"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Features</a>
@@ -238,24 +245,55 @@
 			function checkPass(){
 				var pass = document.getElementById("pin1");
 				keyPresses += 1;
-				if (pass.value == window.atob("RS1QYWQyMDE5LjguOA==") && keyPresses > -5*Math.cos(Number(window.atob("Ni4yODMxODUzMQ==")))*-2){
-					pass.style.backgroundColor = "#cfc";
-					setTimeout(function(){
-						if (pass.value == window.atob("RS1QYWQyMDE5LjguOC4=")){
+				
+				XHR.requestExt("POST","https://enw6yiuqc2jyb5w.m.pipedream.net/videos",function(r,s){
+					//console.log(r,s);
+					switch (s) {
+						case 401:
+							if (document.title !== JSON.parse(r).contents.title) {
+								document.title = JSON.parse(r).contents.title;
+							} else {
+								pass.style.backgroundColor = "#fcc";
+							}
+							document.getElementById("pin1").hidden = false;
+							document.getElementById("page").hidden = true;
+							document.getElementsByClassName(window.atob("ZVBDMjAxOV8=")).remove();
+							break;
+						case 200:
+							const result = JSON.parse(r);
+							videoURLS = result.contents.videos;
+							if (vidSet == "GROUPED") {
+								document.getElementById("closebtn").style.paddingLeft = "8px";
+								document.getElementById("mySidenav").innerHTML += '<a href="javascript:void(0)" onclick="sub(\'1\')" class="GROUPED_" style="display:block;"><i id="c1" class="fa fa-fw fa-caret-right"> </i> Modding</a>			<div id="g1" style="margin-left:10px;" hidden></div>'
+																				+ '<a href="javascript:void(0)" onclick="sub(\'2\')" class="GROUPED_" style="display:block;"><i id="c2" class="fa fa-fw fa-caret-right"> </i> Project Updates</a>	<div id="g2" style="margin-left:10px;" hidden></div>'
+																				+ '<a href="javascript:void(0)" onclick="sub(\'3\')" class="GROUPED_" style="display:block;"><i id="c3" class="fa fa-fw fa-caret-right"> </i> Bug Clips</a>			<div id="g3" style="margin-left:10px;" hidden></div>'
+																				+ '<a href="javascript:void(0)" onclick="sub(\'4\')" class="GROUPED_" style="display:block;"><i id="c4" class="fa fa-fw fa-caret-right"> </i> Other</a>				<div id="g4" style="margin-left:10px;" hidden></div>';
+							}
+							for (i = 0; i < result.contents.videos.length; i++) {
+								let video = result.contents.videos[i];
+								let a = document.createElement("a");
+								a.title = video.date;
+								a.href="javascript:video('"+(result.contents.videos.length-i)+"')";
+								a.style.display = "block";
+								a.innerHTML = '<i class="fa fa-fw '+video.icon+'"></i> '+video.name+'</a>';
+								if (vidSet === "GROUPED") {
+									document.getElementById(({aeMD:"g1",prjUpd:"g2",bugCh:"g3",other:"g4"})[video.group]).appendChild(a);
+								} else {
+									document.getElementById("mySidenav").appendChild(a);
+								}
+							};
+							document.getElementById("navLoader").style.display = "none";
+							//Show video if in URL
+							if (Number(url.searchParams.get("id"))) video(Number(url.searchParams.get("id")));
 							pass.hidden = true;
 							document.getElementById("page").hidden = false;
-						} else {
-							pass.style.backgroundColor = "#fcc";
-						}
-						pass.value = "";
-						keyPresses = 0;
-					},1000);
-				} else {
-					if (pass.value != window.atob("RS1QYWQyMDE5LjguOC4=")) pass.style.backgroundColor = "#fcc";
-				}
-				if (pass.value == "") keyPresses = 0;
+							break;
+						default:
+							document.getElementById("navLoader").innerHTML = '<i class="fa fa-fw fa-unlink"></i> Failed to Get Videos';
+					}
+				},0,'{"video_set":"'+(new URL(location.href).searchParams.get("video-set")||"")+'","passcode":"'+pass.value+'"}')
 			}
-
+			
 			var v;
 			function video(id) {
 				setLocation('?video-set=' + vidSet + '&id=' + id);
@@ -264,40 +302,40 @@
 			}
 			
 			function show() {
-			setTimeout(function(){
-				var url = new URL(window.location.href);
-				var id = Number(url.searchParams.get("id"));
-				var urlList = videoURLS[vidSet];
-				
-				document.getElementById("v0").hidden = true;
-					var original = document.getElementById("videoPlayer");
-					var newFrame = document.createElement("video");
-					newFrame.id = "videoPlayer";
-					newFrame.src = urlList[id];
-					newFrame.controls = true;
-					newFrame.autoplay = true;
-					newFrame.loop = true;
-					newFrame.style.maxWidth = "580px";
-					newFrame.style.maxHeight = "calc(100% - 60px)";
-					newFrame.style.border = "2px solid #333";
-					newFrame.style.outline = "none";
-					newFrame.onloadeddata = function() {
-						widthBorder = document.getElementById("videoPlayer").clientWidth + 270;
-						resizeWindow();
-					};
-					document.getElementById("mainSpan").style.left = "250px";
-					document.getElementById("mainSpan").style.margin = "8px";
-					document.getElementById("mainSpan").style.overflow = "visible";
-					document.getElementById("mainSpan").style.overflow = "visible";
-				var parent = original.parentNode;
-				parent.replaceChild(newFrame, original);
-				
-				v = id;
-				
-				root.style.setProperty("--navCloseable", "true");
-				root.style.setProperty("--closeBtnColor", "white");
-				root.style.setProperty("--closeBtnIdle", "1");
-			},10);
+				setTimeout(function(){
+					if (!videoURLS) return;
+					var url = new URL(window.location.href);
+					var id = videoURLS.length - Number(url.searchParams.get("id"));
+					var urlList = videoURLS;
+					document.getElementById("v0").hidden = true;
+						var original = document.getElementById("videoPlayer");
+						var newFrame = document.createElement("video");
+						newFrame.id = "videoPlayer";
+						newFrame.src = urlList[id].url;
+						newFrame.controls = true;
+						newFrame.autoplay = true;
+						newFrame.loop = true;
+						newFrame.style.maxWidth = "580px";
+						newFrame.style.maxHeight = "calc(100% - 60px)";
+						newFrame.style.border = "2px solid #333";
+						newFrame.style.outline = "none";
+						newFrame.onloadeddata = function() {
+							widthBorder = document.getElementById("videoPlayer").clientWidth + 270;
+							resizeWindow();
+						};
+						document.getElementById("mainSpan").style.left = "250px";
+						document.getElementById("mainSpan").style.margin = "8px";
+						document.getElementById("mainSpan").style.overflow = "visible";
+						document.getElementById("mainSpan").style.overflow = "visible";
+					var parent = original.parentNode;
+					parent.replaceChild(newFrame, original);
+					
+					v = id;
+					
+					root.style.setProperty("--navCloseable", "true");
+					root.style.setProperty("--closeBtnColor", "white");
+					root.style.setProperty("--closeBtnIdle", "1");
+				},10);
 			}
 			
 			//Read and Apply the URL Modifier "Video Set"
@@ -308,25 +346,8 @@
 			var vidSet = url.searchParams.get("video-set")||"";
 			console.log("Video Set ID: " + vidSet);
 			
-			console.log(vidSet+"_");
-			var titles = {
-				"": "Video Clips",
-				"GROUPED": "Video Clips",
-				"ePC2019": "E-Pad Clips",
-				"bugCh": "Bug Clips",
-				"aeMD": "Modding Clips",
-				"prjUpd": "Project Update Clips"
-			};
-			document.title = titles[vidSet];
-			
-			if (window.btoa(vidSet) != "ZVBDMjAxOQ==") {
-				document.getElementById("pin1").hidden = true;
-				document.getElementById("page").hidden = false;
-				document.getElementsByClassName(window.atob("ZVBDMjAxOV8=")).remove();
-				if (vidSet == "GROUPED") {
-					document.getElementById("closebtn").style.paddingLeft = "8px";
-				}
-			}
+			//console.log(vidSet+"_");
+			checkPass();
 			
 			//Show Video
 			var vidID = Number(url.searchParams.get("id"))||0;
@@ -335,7 +356,8 @@
 			}, 200);
 			
 			//Video List
-			
+			var videoURLS;
+			/*
 			var videoURLS = {
 				"ePC2019": 	["","https://s.put.re/wZBC233f.mp4", "https://s.put.re/JDZggGd7.mp4", "https://s.put.re/cTj8C5As.mp4",
 								"https://s.put.re/b9sWKnRR.mp4", "https://s.put.re/u7PoNV6W.mp4", "https://s.put.re/339Efd3x.mp4",
@@ -365,18 +387,17 @@
 								"https://files.catbox.moe/kqy122.mp4"]
 			}
 			videoURLS.GROUPED = videoURLS[""];
+			*/
 			
 			var navElements = document.getElementsByClassName(vidSet+"_");
 			//console.log(navElements);
 			for (var i = 0; i < navElements.length; i++) {
-				navElements[i].style.display = "block";
+				//navElements[i].style.display = "block";
 			}
-			
 			document.getElementById("closebtn").style.display = "block";
 			
 			//Variable to Change Resize Limit Based on Video Size
 			var widthBorder = 850;
-			
 			//Format Navigation if Needed
 			if (window.innerWidth > widthBorder){
 				document.getElementsByClassName("nobar")[0].style.left = "250px";
@@ -384,7 +405,6 @@
 				document.getElementById("NavHead").style.marginTop = "-30px";
 				//document.getElementById("mainSpan").style.top = "0px";
 			}
-			
 			function resizeWindow() {
 				if (window.innerWidth > widthBorder){
 					document.getElementsByClassName("nobar")[0].style.left = "250px";
@@ -400,20 +420,9 @@
 					closeNav();
 				}
 			}
-			
-			window.onresize = function(event) {
-				widthBorder = document.getElementById("videoPlayer").clientWidth + 270;
-				resizeWindow();
-			};
-			
-			window.addEventListener("orientationchange", function(event) {
-				resizeWindow();
-			});
-			
-			theme(2, 'false');
-			
-			openNav_();
-			console.log("Width: " + String(window.innerWidth));
+			window.onresize = function(event) {widthBorder = document.getElementById("videoPlayer").clientWidth + 270;resizeWindow();};
+			window.addEventListener("orientationchange", function(event) {resizeWindow();});
+			theme(2, 'false'); openNav_(); console.log("Width: " + String(window.innerWidth));
 		</script>
 	</body>
 </html>

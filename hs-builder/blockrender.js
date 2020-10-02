@@ -474,7 +474,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 			//None Block, Math, Conditionals, Game Rules, Text Operators
 			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)||(d.datum.type >=9e3 && d.datum.type < 10e3)) {
 				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3), isTextOp = (d.datum.type >= 9e3 && d.datum.type < 10e3);
-				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":(isTextOp?"looks":"math"))) + " cm\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
+				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":(isTextOp?"looks":"math"))) + (isTextOp?"":" cm") + "\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
 			}
 			return "<span style=\"color:#0CF\">unrecognized format</span>";
 		}
