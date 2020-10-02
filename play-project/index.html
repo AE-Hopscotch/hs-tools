@@ -484,11 +484,11 @@
 		//Project Info Script
 		function showProjectData(p) {	
 			var r = Math.round(JSON.stringify(p).length/10)/100;
-			var customDescription = p.objects.filter(o=>{return o.name == 'AE.webInfoText'})[0];
+			var customDescription = (p.objects.filter(o=>{return o.name == 'AE.webInfoText'})[0]||{}).text;
 			var infoTexts = "\nTitle: " + p.title +
-							"\nPublished: " + (p.correct_published_at&&!p.deleted_at) + ", Filtered: " + p.has_been_removed +
-							"\nPublish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT") +
-							`\nMade by: ${p.user.nickname||p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
+							"\nPublished: " + !!(p.correct_published_at&&!p.deleted_at) + ", Filtered: " + p.has_been_removed +
+							(p.correct_published_at?"\nPublish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT"):"") +
+							`\nMade by: ${p.user?p.user.nickname:p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
 							((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 							"\nProject UUID: " + p.uuid +
 							"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
