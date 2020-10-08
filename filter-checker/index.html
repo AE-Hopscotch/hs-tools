@@ -405,6 +405,7 @@
 				<li><t>Text You</t></li>
 				<li><t>Thrust</t> <sub>3</sub></li>
 				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
+				<li><t>Trimming</t> <sub>3</sub></li>
 				<li><t>txt</t></li>
 				
 				<lb>U<t style="display: none;">ur mom</t></lb>
@@ -455,7 +456,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZXhlXGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJpUGFkIGF3YXlcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIoPzpyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKD86aXMgZGVhZHxudW1iZXIpXGJ8XGJyb2xlcGxheVxifFxicnBcYnxcYnNob290aW5nXGJ8XGJzcGFtbWluZ1xifFxic3RhbGsoPzppbmd8ZXIpXGJ8XGJzdHJhbmdsZVxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxiXHcqdGV4dCBtZVx3KlxifFxidGV4dCB5b3VcYnxcYnRocnVzdFxifFxidHJpZ2dlclxifFxidHh0XGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYil8KFxiXHcqaWRpb3RcdypcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYlx3KnN0dXBpZFx3KlxiKXwoXGJiYW5nZWRcYnxcYmRlcHJlc3Npb25cYnxcYmRydWdzP1xifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoPzppbmcpP1xifFxibmVncm9cYil8KFxiXHcrZGlja1x3KlxifFxiZGlja1x3K1xifFxiXHcrcmFwaW5nXHcqXGJ8XGJyYXBpbmdcdytcYnxcYlx3K3NoaXRcdypcYnxcYnNoaXRcdytcYnxcYlx3K3NleFx3KlxifFxic2V4XHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGJ8XGJcdypzbXV0XHcqXGIp"), "gi");
+				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZXhlXGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJpUGFkIGF3YXlcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIoPzpyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKD86aXMgZGVhZHxudW1iZXIpXGJ8XGJyb2xlcGxheVxifFxicnBcYnxcYnNob290aW5nXGJ8XGJzcGFtbWluZ1xifFxic3RhbGsoPzppbmd8ZXIpXGJ8XGJzdHJhbmdsZVxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxiXHcqdGV4dCBtZVx3KlxifFxidGV4dCB5b3VcYnxcYnRocnVzdFxifFxidHJpZ2dlclxifFxidHJpbW1pbmdcYnxcYnR4dFxifFxidXIgbW9tXGJ8XGJ3ZWVkXGJ8XGJcdyp3aGl0ZWJvYXJkXHcqXGJ8XGJ5b3VybW9tXGIpfChcYlx3KmlkaW90XHcqXGJ8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJcdypzdHVwaWRcdypcYil8KFxiYmFuZ2VkXGJ8XGJkZXByZXNzaW9uXGJ8XGJkcnVncz9cYnxcYmZpbmdlcmluZ1xifFxiaGVsbFxifFxiaG9lXGJ8XGJodW1wKD86aW5nKT9cYnxcYm5lZ3JvXGIpfChcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xifFxiXHcqc211dFx3KlxiKeKggA=="), "gi");
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
