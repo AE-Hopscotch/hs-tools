@@ -425,6 +425,11 @@
 			firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(-1)+"/lastInactive").set(null);
 		};
 		
+		document.body.addEventListener("keydown",function(e){
+			//Play the project using the space bar
+			if (document.getElementById('play_container')?.style.display == "block") document.getElementById('play_container').click();
+		})
+		
 	</script>
 
 	<div id="ae-hs-player">

@@ -1,4 +1,4 @@
-console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
+console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
 
 !function(t) {
     var e = {};
@@ -68,9 +68,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         t[t.LeaveATrail = 26] = "LeaveATrail", t[t.Repeat = 120] = "Repeat", t[t.RepeatForever = 121] = "RepeatForever", 
         t[t.CheckOnceIf = 122] = "CheckOnceIf", t[t.Ability = 123] = "Ability", t[t.CheckIfElse = 124] = "CheckIfElse", 
         t[t.ChangeScene = 125] = "ChangeScene", t[t.BroadcastMessage = 126] = "BroadcastMessage", 
-        t[t.Random = 233] = "Random", t[t.XPos = 234] = "XPos", t[t.YPos = 235] = "YPos", 
-        t[t.Random110 = 236] = "Random110", t[t.Random1100 = 237] = "Random1100", t[t.Random11000 = 238] = "Random11000", 
-        t[t.Variable = 239] = "Variable", t[t.ConditionalOperatorEquals = 1e3] = "ConditionalOperatorEquals", 
+        t[t.RequestSeeds = 127] = "RequestSeeds", t[t.Random = 233] = "Random", t[t.XPos = 234] = "XPos", 
+        t[t.YPos = 235] = "YPos", t[t.Random110 = 236] = "Random110", t[t.Random1100 = 237] = "Random1100", 
+        t[t.Random11000 = 238] = "Random11000", t[t.Variable = 239] = "Variable", t[t.ConditionalOperatorEquals = 1e3] = "ConditionalOperatorEquals", 
         t[t.ConditionalOperatorNotEquals = 1001] = "ConditionalOperatorNotEquals", t[t.ConditionalOperatorLessThan = 1002] = "ConditionalOperatorLessThan", 
         t[t.ConditionalOperatorGreaterThan = 1003] = "ConditionalOperatorGreaterThan", t[t.ConditionalOperatorAnd = 1004] = "ConditionalOperatorAnd", 
         t[t.ConditionalOperatorOr = 1005] = "ConditionalOperatorOr", t[t.ConditionalOperatorGreaterThanOrEqualTo = 1006] = "ConditionalOperatorGreaterThanOrEqualTo", 
@@ -118,10 +118,11 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         t[t.EventOperatorTiltDownEditor = 7019] = "EventOperatorTiltDownEditor", t[t.EventOperatorNotPressed = 7020] = "EventOperatorNotPressed", 
         t[t.EventOperatorGamePlaying = 7021] = "EventOperatorGamePlaying", t[t.EventOperatorTouchEnds = 7022] = "EventOperatorTouchEnds", 
         t[t.EventOperatorHearMessage = 7023] = "EventOperatorHearMessage", t[t.EventOperatorMessageMatches = 7024] = "EventOperatorMessageMatches", 
-        t[t.HS_END_OF_EVENT_OPERATORS = 7025] = "HS_END_OF_EVENT_OPERATORS", t[t.Object = 8e3] = "Object", 
-        t[t.AnyObject = 8001] = "AnyObject", t[t.ScreenEdge = 8002] = "ScreenEdge", t[t.Game = 8003] = "Game", 
-        t[t.Self = 8004] = "Self", t[t.OriginalObject = 8005] = "OriginalObject", t[t.Local = 8006] = "Local", 
-        t[t.User = 8007] = "User", t[t.HS_END_OF_EVENT_PARAMETER_BLOCKS = 8008] = "HS_END_OF_EVENT_PARAMETER_BLOCKS", 
+        t[t.EventOperatorIsNotTouching = 7025] = "EventOperatorIsNotTouching", t[t.HS_END_OF_EVENT_OPERATORS = 7026] = "HS_END_OF_EVENT_OPERATORS", 
+        t[t.Object = 8e3] = "Object", t[t.AnyObject = 8001] = "AnyObject", t[t.ScreenEdge = 8002] = "ScreenEdge", 
+        t[t.Game = 8003] = "Game", t[t.Self = 8004] = "Self", t[t.OriginalObject = 8005] = "OriginalObject", 
+        t[t.Local = 8006] = "Local", t[t.User = 8007] = "User", t[t.Product = 8008] = "Product", 
+        t[t.HS_END_OF_EVENT_PARAMETER_BLOCKS = 8009] = "HS_END_OF_EVENT_PARAMETER_BLOCKS", 
         t[t.TextOperatorCharAtIndex = 9e3] = "TextOperatorCharAtIndex", t[t.TextOperatorCharsInRange = 9001] = "TextOperatorCharsInRange", 
         t[t.TextOperatorLength = 9002] = "TextOperatorLength", t[t.HS_END_OF_TEXT_OPERATOR_BLOCKS = 9003] = "HS_END_OF_TEXT_OPERATOR_BLOCKS";
     }(r = e.HSBlockType || (e.HSBlockType = {})), function(t) {
@@ -302,10 +303,10 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             }, e.onerror = r, e.src = t.replace(/-?200d/g, "");
         });
     }
-    function x(t) {
+    function k(t) {
         return t * Math.PI / 180;
     }
-    function k(t) {
+    function B(t) {
         return t / Math.PI * 180;
     }
     e.benchmarkStart = v, e.benchmarkEnd = m, function(t) {
@@ -316,7 +317,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         t[t.up = 0] = "up", t[t.down = 1] = "down", t[t.left = 2] = "left", t[t.right = 3] = "right";
     }(g = e.HSDirection || (e.HSDirection = {})), e.hs_plane = T, e.hs_magnitude = H, 
     e.hs_direction = O, e.hs_directionForMagnitudeAndPlane = E, e.exitFullscreen = w, 
-    e.getImageFromUri = _, e.degreesToRadians = x, e.radiansToDegrees = k, Array.prototype.remove = function(t) {
+    e.getImageFromUri = _, e.degreesToRadians = k, e.radiansToDegrees = B, Array.prototype.remove = function(t) {
         var e = this.indexOf(t);
         void 0 !== e && this.splice(e, 1);
     }, e.checkMatches = function(t, e) {
@@ -326,7 +327,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     window.clamp = h, window.mean = l, window.variance = p, window.findLast = d, window.benchmarkStart = v, 
     window.benchmarkEnd = m, window.hs_plane = T, window.hs_magnitude = H, window.hs_direction = O, 
     window.hs_directionForMagnitudeAndPlane = E, window.exitFullscreen = w, window.getImageFromUri = _, 
-    window.degreesToRadians = x, window.radiansToDegrees = k, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
+    window.degreesToRadians = k, window.radiansToDegrees = B, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -374,13 +375,14 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             for (var t = this.findAllForClassName(s.HSParameter.key), e = [], i = 0; i < t.length; i++) {
                 var r = t[i];
 				//AE_MOD Load multiple sounds
-				if (r.type === HSParameterType.Sound && -1 === e.indexOf(r.value)) {
+				if (r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value)) {
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
 					e.push(((isCustom) ? "custom/":"") + r.value);
 					if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
 						e.push("new/" + r.value, "guitar/" + r.value, "8-bit/" + r.value);
 					}
-				}            }
+				}
+            }
             return e;
         }, t.prototype.hasAccelerometerEvent = function() {
             if (null != this._hasAccelerometerEvent) return this._hasAccelerometerEvent;
@@ -881,7 +883,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         }, e.prototype.isSkillComplete = function() {
             return this.name === e.skillComplete;
         }, e.prototype.computedValue = function(t) {
-            return this._object(t)[this.name] || 0;
+            if (this.blockType === h.HSBlockType.Product) return l.HSApp.initialUserVariables["_hs_product_" + this.objectID] || "0";
+            var e = this._object(t);
+            return e && e[this.name] || 0;
         }, e.prototype.computedNumberValue = function(t) {
             return e.parseNumberFrom(this.computedValue(t));
         }, e.prototype.setValue = function(t, i) {
@@ -899,10 +903,12 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             var e = parseFloat(t);
             return isNaN(e) || !/^\-?[0-9]+(e\+?[0-9]+)?(\.[0-9]+(e\+?[0-9]+)?)?$/.test(t) ? null == t ? 0 : t : (function(t) {
                 return t >= -u.MAX_FLOAT && t <= u.MAX_FLOAT;
-            }(e) || (e = e < 0 ? -u.MAX_FLOAT : u.MAX_FLOAT), Math.round(1e6 * e) / 1e6);
+            }(e) || (e = e < 0 ? -u.MAX_FLOAT : u.MAX_FLOAT), Number.isInteger(e) ? e : Math.round(1e6 * e) / 1e6);
         }, e.parseNumberFrom = function(t) {
             var i = e.parseValue(t);
             return "string" == typeof i ? 0 : i;
+        }, e.prototype.getPublicName = function() {
+            return this.name.replace("_hs_", "");
         }, e.globalScope = {}, e.userGlobalScope = {}, e.key = "HSVariable", e.skillComplete = "hsSkillComplete", 
         e;
     }(u.HSParameterBlock);
@@ -985,23 +991,23 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 var E = this.secondParamNumberValue(t), w = this.firstParamNumberValue(t);
                 return Math.floor(Math.random() * (E - w + 1)) + w;
 
-			  case S.HSBlockType.None: //AE_MOD
+			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(a):undefined),this);
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(t):undefined),this);
 				}
 				return 0;
 				
               case S.HSBlockType.MathOperatorAdd:
-                var _ = this.firstParamValue(t), x = this.secondParamValue(t);
-                return "string" != typeof _ && "string" != typeof x || (_ = _.toString(), x = x.toString()), 
-                _ + x;
+                var _ = this.firstParamValue(t), k = this.secondParamValue(t);
+                return "string" != typeof _ && "string" != typeof k || (_ = _.toString(), k = k.toString()), 
+                _ + k;
 
               case S.HSBlockType.TextOperatorCharAtIndex:
                 return this.firstParameterStringValue(t)[this.secondParamNumberValue(t)] || "";
 
               case S.HSBlockType.TextOperatorCharsInRange:
-                var k = this.firstParameterStringValue(t), B = this.secondParamNumberValue(t), C = this.endIndexValue(t);
-                return k.slice(B, C);
+                var B = this.firstParameterStringValue(t), x = this.secondParamNumberValue(t), C = this.endIndexValue(t);
+                return B.slice(x, C);
 
               case S.HSBlockType.TextOperatorLength:
                 return (null === (e = _ = this.firstParameterStringValue(t)) || void 0 === e ? void 0 : e.length) || 0;
@@ -1042,9 +1048,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 return Math.max(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
               case S.HSBlockType.MathOperatorMinimum:
-                var A = this.firstParamValue(t), R = this.secondParamValue(t);
-                if ("string" == typeof A || "string" == typeof R) {
-                    P = A.toString(), M = R.toString();
+                var R = this.firstParamValue(t), A = this.secondParamValue(t);
+                if ("string" == typeof R || "string" == typeof A) {
+                    P = R.toString(), M = A.toString();
                     return P.localeCompare(M) <= 0 ? P : M;
                 }
                 return Math.min(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
@@ -1415,6 +1421,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
 
               case p.HSBlockType.EventOperatorBump:
               case p.HSBlockType.EventOperatorIsTouching:
+              case p.HSBlockType.EventOperatorIsNotTouching:
                 this.addObjectsToBumps(n, e, t);
             }
         }, i.prototype.addObjectToEventOperator = function(t, e) {
@@ -1640,7 +1647,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         function t(e) {
             this.root = e, this.context = new r.HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
             this.setiOSStageSizeIfNecessary();
-            var i = document.getElementById("project_data");//, n = e.dataset.projectJson || i && i.getAttribute("data");
+            var i = document.getElementById("project_data")//, n = e.dataset.projectJson || i && i.getAttribute("data");
 			var n = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
             n && (this.load(JSON.parse(n)), o.HSApp.sendToApp("playerState", "loaded")), this.setSizeFromDataAttrs(), 
             this.background = this.createCanvas("background"), this.screenshot = this.createCanvas("screenshot"), 
@@ -2466,7 +2473,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 return e.matchesEvent(t);
             });
         }, t.prototype.allPossibleCollisionPairs = function() {
-            return this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsTouching).concat(this.allStageRulesForEventType(g.HSBlockType.EventOperatorBump)).reduce(function(t, e) {
+            var t = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsTouching), e = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsNotTouching), i = this.allStageRulesForEventType(g.HSBlockType.EventOperatorBump);
+            return t.concat(e).concat(i).reduce(function(t, e) {
                 return t.concat(e.collisionPairs());
             }, []);
         }, t.prototype.executeActiveRules = function() {
@@ -2613,9 +2621,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 this.setPosition(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
 				break;
 				
-			  case g.HSBlockType.None: //AE_MOD
+			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(p[0].value)){
-					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], ((p[1])?p[1].computedValue(this):undefined),this);
+					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], (p[1]?.computedValue(this)),this);
 				}
 				break;
             }
@@ -2647,13 +2655,16 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             void 0 === e && (e = null), this.value = t, this.childBlock = e;
         }
         return t.prototype.variable = function() {
-            if (this.childBlock && this.childBlock.type === a.HSBlockType.Variable) return this.childBlock;
+            return this.childBlock && this.childBlock.type === a.HSBlockType.Variable ? this.childBlock : null;
         }, t.prototype.computedStringValue = function(t) {
             return this.childBlock ? this.childBlock.computedStringValue(t) : r.HSVariable.parseValue(this.value).toString();
         }, t.prototype.computedObjectType = function() {
             return this.childBlock ? o.HSObjectType.image : "string" == typeof this.value ? o.HSObjectType.text : this.value;
         }, t.prototype.isSet = function(t) {
             return null !== this.value || null != this.childBlockValue(t);
+        }, t.prototype.computedBooleanValue = function(t) {
+            var e = this.computedValue(t);
+            return "0" !== e && !!e;
         }, t.prototype.computedValue = function(t) {
             var e = this.childBlockValue(t);
             return null != e ? e : r.HSVariable.parseValue(this.value);
@@ -2696,9 +2707,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         }
         return n(i, t), i.prototype.parseJSON = function(t) {
             void 0 === t && (t = {}), this.objectID = t[e.OBJECT_ID_STRING_KEY], this.name = t.name, 
-            this.type = t.type || a.HSBlockType.Object, this.initialValue = this.getInitialValue(t);
-        }, i.prototype.getInitialValue = function(t) {
-            return this.type !== a.HSBlockType.User ? "0" : s.HSApp.initialUserVariables[this.objectID] || t.initialValue || "0";
+            this.type = t.type || a.HSBlockType.Object, this.initialValue = this.getInitialValue();
+        }, i.prototype.getInitialValue = function() {
+            return this.type !== a.HSBlockType.User ? "0" : s.HSApp.initialUserVariables[this.objectID] || "0";
         }, i.key = "HSVariablePrototype", i;
     }(o.HSManagedObject);
     e.HSVariablePrototype = c, window.HSVariablePrototype = c;
@@ -2935,7 +2946,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             switch (this.type) {
               case s.HSBlockType.CheckOnceIf:
               case s.HSBlockType.CheckIfElse:
-                return this.parameters[0].computedValue(t) ? this.trueScript() : this.falseScript();
+                return this.parameters[0].computedBooleanValue(t) ? this.trueScript() : this.falseScript();
 
               default:
                 return this.trueScript();
@@ -2990,7 +3001,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(9), n = i(14), o = i(38), a = i(0), s = function() {
+    var r = i(9), n = i(14), o = i(38), a = i(0), s = i(1), c = function() {
         function t(t, e) {
             this.blocksToExecuteNow = t, this.blocksToExecuteLater = e, this.isImmediate = !1;
         }
@@ -3008,19 +3019,21 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             switch (t.type) {
               case a.HSBlockType.PlaySoundSeconds:
               case a.HSBlockType.PlaySound:
+
 				function notePath (val) {
 					//AE_MOD find path of note
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-					var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(i[2])?i[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
+					var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(i[2])?i[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
 					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
 				}
-                var r = o.HSSoundManager.sharedInstance, s = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);//s = i[0].computedStringValue(e);
-                r.play(s);
+                var r = o.HSSoundManager.sharedInstance//, c = i[0].computedStringValue(e);
+				var c = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);
+                r.play(c);
                 break;
 
               case a.HSBlockType.MakeAClone:
-                var c = 1;
-                i[0] && (c = i[0].computedNumberValue(e)), e.clone(c);
+                var u = 1;
+                i[0] && (u = i[0].computedNumberValue(e)), e.clone(u);
                 break;
 
               case a.HSBlockType.Destroy:
@@ -3031,8 +3044,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
               case a.HSBlockType.ChangeY:
               case a.HSBlockType.Move:
               case a.HSBlockType.Rotate:
-                var u = e.x, h = e.y, l = e.headingInDegrees;
-                e.executeBlock(t), e.x === u && e.y === h && e.headingInDegrees === l && this.blocksToExecuteLater.shift();
+                var h = e.x, l = e.y, p = e.headingInDegrees;
+                e.executeBlock(t), e.x === h && e.y === l && e.headingInDegrees === p && this.blocksToExecuteLater.shift();
                 break;
 
               case a.HSBlockType.ChangeScene:
@@ -3040,8 +3053,26 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 break;
 
               case a.HSBlockType.BroadcastMessage:
-                var p = i[0].computedStringValue(e);
-                p && e.queueEventMessage(p);
+                var d = i[0].computedStringValue(e);
+                d && e.queueEventMessage(d);
+                break;
+
+              case a.HSBlockType.RequestSeeds:
+                !function(t, e) {
+                    var i = t[0], r = t[1].variable();
+                    if (!r || 1 === r.computedNumberValue(e)) return;
+                    var n = r.getPublicName();
+                    if (!n) return;
+                    var o = Math.max(0, Math.floor(i.computedNumberValue(e)));
+                    !function(t, e, i) {
+                        if (!s.isIOSApp()) return void (confirm('This project is using a feature only available in the Hopscotch iOS App. Tap "OK" to download it!') && window.open("https://apps.apple.com/us/app/hopscotch-make-games/id617098629", "_self"));
+                        s.HSApp.sendToApp("product:purchase", JSON.stringify({
+                            variableID: t,
+                            variableName: e,
+                            seeds: i
+                        }));
+                    }(r.objectID, n, o);
+                }(i, e);
                 break;
 
               default:
@@ -3062,7 +3093,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             }
         }, t;
     }();
-    e.HSExecutable = s, window.HSExecutable = s;
+    e.HSExecutable = c, window.HSExecutable = c;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -3746,8 +3777,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             var r;
             this.object = e, this.isOnScreen = !1, t.enableAntiSpam(), this.type = i.type, this.id = i.id, 
             this.parameters = i.parameters, this.promptText = (null === (r = i.parameters[1]) || void 0 === r ? void 0 : r.computedStringValue(e)) || "Type here", 
-            this.placeholderText = (i.parameters[2]||{value:""}).value;
-			this.view = new u(this.promptText, this.placeholderText);
+			this.placeholderText = (i.parameters[2]||{value:""}).value;
+            this.view = new u(this.promptText, this.placeholderText);
         }
         return t.enableAntiSpam = function() {
             null === t.antiSpam && (t.antiSpam = new h());
@@ -3825,7 +3856,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 var r = document.createElement("p");
                 c(r.style, {
                     fontSize: "2em",
-                    fontFamily: "Avenir, sans-serif",
+					fontFamily: "Avenir, sans-serif",
                     fontWeight: "normal",
                     color: "#000000c2",
                     margin: "10px 0px",
@@ -3838,7 +3869,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
-                    fontFamily: "Avenir, sans-serif",
+                    fontFamily: "Avenir",
                     borderWidth: "2px",
                     borderStyle: "solid",
                     borderRadius: "8px",
@@ -3846,11 +3877,10 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     outline: "none",
                     padding: "10px",
                     color: "#000000de"
-                }), this.input = n, n.autofocus = true, this.div.appendChild(n);
-				setTimeout(()=>{n.value = tu; n.setSelectionRange(0, tu.length)},0);
+                }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
                 var o = document.createElement("a");
                 c(o.style, {
-                    fontFamily: "Avenir, sans-serif",
+                    fontFamily: "Avenir",
                     display: "block",
                     position: "relative",
                     textAlign: "center",
@@ -3865,9 +3895,13 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     cursor: "pointer",
 					userSelect: "none",
 					webkitUserSelect: "none"
-                }), o.innerText = "OK", o.addEventListener("touchend",function(){e.isDone=!0,e.hide();}), o.onclick = function() {
+                }), o.innerText = "OK";
+                var s = !a.isIOSApp() && "ontouchstart" in document.documentElement ? "touchstart" : "click";
+                o.addEventListener(s, function() {
                     e.isDone = !0, e.hide();
-                }, n.addEventListener("keyup", function(t) {
+                }), n.addEventListener(s, function(t) {
+                    return n.focus();
+                }), n.addEventListener("keyup", function(t) {
                     13 === t.keyCode && (t.preventDefault(), o.click());
                 }), this.btn = o, this.div.appendChild(o);
             }
@@ -3945,14 +3979,15 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             }).map(function(t) {
                 return t.childBlock;
             });
-        }, t.prototype.parameterBlockStringValues = function() {
-            return this.parameterBlock.parameters.map(s);
+        }, t.prototype.parameterBlockStringValues = function(t) {
+            return this.parameterBlock.parameters.map(function(e) {
+                return function(t, e) {
+                    var i, r = (null === (i = t.childBlock) || void 0 === i ? void 0 : i.computedValue(e)) || t.value || "";
+                    return o.HSVariable.parseValue(r).toString();
+                }(e, t);
+            });
         }, t;
     }();
-    function s(t) {
-        var e, i = (null === (e = t.childBlock) || void 0 === e ? void 0 : e.computedValue(null)) || t.value || "";
-        return o.HSVariable.parseValue(i).toString();
-    }
     e.HSStageParameterBlock = a, window.HSStageParameterBlock = a;
 }, function(t, e, i) {
     "use strict";
@@ -4673,6 +4708,10 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     return e.currentCollisions.contains(t);
                 });
                 n && (r.activate(), i && t.add([ n ]));
+            }), this.allNotTouchingRules().forEach(function(t) {
+                t.collisionPairs().find(function(t) {
+                    return e.currentCollisions.contains(t);
+                }) || t.activate();
             }), this.allBumpRules().forEach(function(r) {
                 if (i) {
                     var n = r.collisionPairs().filter(function(t) {
@@ -4681,6 +4720,8 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                     t.intersects(n) && r.activate(), t.add(n.slice(0, 1));
                 } else e.bumpingCollisions.intersects(r.collisionPairs()) && r.activate();
             });
+        }, t.prototype.allNotTouchingRules = function() {
+            return this.allStageRulesForEventType(a.HSBlockType.EventOperatorIsNotTouching);
         }, t.prototype.allTouchingRules = function() {
             return this.allStageRulesForEventType(a.HSBlockType.EventOperatorIsTouching);
         }, t.prototype.allBumpRules = function() {
@@ -4843,7 +4884,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             this.rule = t, this.currentObject = e, this.isActive = !1, this._collisionPairs = [], 
             this.numFirstParamObjects = 0, this.numSecondParamObjects = 0, this.activateIfEqualsEventMessage = function(t) {
                 var e;
-                t.trim() === (null === (e = i.eventBlock.parameterBlockStringValues()[0]) || void 0 === e ? void 0 : e.trim()) && i.activate();
+                t.trim() === (null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject)[0]) || void 0 === e ? void 0 : e.trim()) && i.activate();
             }, this.activateIfMatchesEventMessage = function(t) {
                 var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues()[0]) || void 0 === e ? void 0 : e.trim();
                 s.checkMatches(r, n) && i.activate();
@@ -5228,6 +5269,18 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             var c = new g.HSVariable(n.context);
             return c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
             n;
+        }, t.prototype.buildHeardMessageRuleWithSelfVar = function(t) {
+            var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
+            n.script = i, r.addRule(n);
+            var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
+            a.type = f.HSBlockType.EventOperatorHearMessage, o.childBlock = a, n.parameters = [ o ], 
+            n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
+            var c = new g.HSVariable(n.context);
+            return c.blockType = f.HSBlockType.Self, c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
+            {
+                rule: n,
+                variable: c
+            };
         }, t.prototype.buildRule = function(t, e, i) {
             var r = this.context;
             i || (i = this.buildScript()), e || (e = this.buildObject(S.HSObjectType.monkey));
@@ -5273,7 +5326,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             var e = this, i = [];
             return t.forEach(function(t, r, n) {
                 var o = new l.HSParameter(e.context);
-                o.value = t, i.push(o);
+                t instanceof g.HSVariable ? o.childBlock = t : o.value = t, i.push(o);
             }), i;
         }, t.prototype.buildControlBlock = function(t, e, i) {
             void 0 === t && (t = f.HSBlockType.Repeat), void 0 === e && (e = []), i || (i = this.buildScript1());
@@ -5861,7 +5914,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             return !1;
         }
     }
-    function x(t, e, i) {
+    function k(t, e, i) {
         void 0 === i && (i = {
             includeFallbackColors: !1,
             level: "AA",
@@ -5874,9 +5927,9 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         return _(t, r, {
             level: a,
             size: s
-        }) || !o ? r : (i.includeFallbackColors = !1, x(t, [ "#fff", "#000" ], i));
+        }) || !o ? r : (i.includeFallbackColors = !1, k(t, [ "#fff", "#000" ], i));
     }
-    function k(t, e) {
+    function B(t, e) {
         var i = new O(t), r = "#" + l(i.r, i.g, i.b, i.a), n = r, o = i.gradientType ? "GradientType = 1, " : "";
         if (e) {
             var a = new O(e);
@@ -5884,7 +5937,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
         }
         return "progid:DXImageTransform.Microsoft.gradient(" + o + "startColorstr=" + r + ",endColorstr=" + n + ")";
     }
-    function B(t, e) {
+    function x(t, e) {
         var i = {
             r: a(t.r),
             g: a(t.g),
@@ -5911,7 +5964,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
                 var e = parseInt(t, 10);
                 if (!Number.isNaN(e) && e < 360 && e > 0) return [ e, e ];
                 if ("string" == typeof t) {
-                    var i = A.find(function(e) {
+                    var i = R.find(function(e) {
                         return e.name === t;
                     });
                     if (i) {
@@ -5978,7 +6031,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     }
     function I(t) {
         t >= 334 && t <= 360 && (t -= 360);
-        for (var e = 0, i = A; e < i.length; e++) {
+        for (var e = 0, i = R; e < i.length; e++) {
             var r = M(i[e]);
             if (r.hueRange && t >= r.hueRange[0] && t <= r.hueRange[1]) return r;
         }
@@ -5999,7 +6052,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
             brightnessRange: [ r, n ]
         };
     }
-    var A = [ {
+    var R = [ {
         name: "monochrome",
         hueRange: null,
         lowerBounds: [ [ 0, 0 ], [ 100, 0 ] ]
@@ -6043,11 +6096,11 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     }), i.d(e, "isReadable", function() {
         return _;
     }), i.d(e, "mostReadable", function() {
-        return x;
-    }), i.d(e, "toMsFilter", function() {
         return k;
-    }), i.d(e, "fromRatio", function() {
+    }), i.d(e, "toMsFilter", function() {
         return B;
+    }), i.d(e, "fromRatio", function() {
+        return x;
     }), i.d(e, "legacyRandom", function() {
         return C;
     }), i.d(e, "inputToRGB", function() {
@@ -6059,7 +6112,7 @@ console.log("Webplayer v1.5.3 - 2020/08/17 (production)");
     }), i.d(e, "random", function() {
         return j;
     }), i.d(e, "bounds", function() {
-        return A;
+        return R;
     });
     e.default = E;
 } ]);

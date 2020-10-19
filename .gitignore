@@ -2,3 +2,4 @@ __*
 */__*
 *.mp4
 *.mov
+node_modules/*

@@ -658,11 +658,12 @@ if (editor.useBlockRender) {
 					sceneTextB = {"type":125,"parameters":[{"type":"^53$"}]},
 					hiddenAbil = {"type":123,"parameters":[{"key":"^[Cc]ustom","type":"^55$"}]},
 					setOpacity = {"type":36,"parameters":[{"type":-1}]},
-					commentBlk = {"type": 22,"parameters":[{"type": -1},{"key":"^data$","type":-1}]},
-					cDataBlock = {"type": 22,"parameters":[{"type": -1},{"key":"^data$","type":-1}]},
-					ImgFreezeB = {"type":56,"parameters":[{"datum":"\\{\"type\":4004,\"description\":\"\"\\}","type":"^54$"}]};
+					commentBlk = {"type":22,"parameters":[{"type": -1},{"key":"^data$","type":-1}]},
+					cDataBlock = {"type":22,"parameters":[{"type": -1},{"key":"^data$","type":-1}]},
+					ImgFreezeB = {"type":56,"parameters":[{"datum":"\\{(?:\"name\":\".*?\",)?\"type\":4004,\"description\":\"\"\\}","type":"^54$"}]},
+					reqSeedsBl = {"type":127,"parameters":[{"type":"^53$"},{"type":"^47$"}]};
 			var		isSecretBlocks = (checkAbility.checkScript(blocks,[cloneBlock,timestampBlock,scaleBlock]));
-			var		hasNewest = (isSecretBlocks && checkAbility.checkScript(blocks,[cmtVarCond,cdtVarCond,multByCond,sceneTextB,hiddenAbil,setOpacity,commentBlk,cDataBlock,ImgFreezeB]))
+			var		hasNewest = (isSecretBlocks && checkAbility.checkScript(blocks,[cmtVarCond,cdtVarCond,multByCond,sceneTextB,hiddenAbil,setOpacity,commentBlk,cDataBlock,ImgFreezeB,reqSeedsBl]))
 			return 	{"contains":isSecretBlocks,"newest":hasNewest};
 		},
 		setImgBlocks: function(a) {
@@ -1344,6 +1345,7 @@ if (editor.useBlockRender) {
 				document.querySelectorAll(".popup .container").forEach(e=>{e.setAttribute("hidden","")});
 				document.querySelectorAll(".popup input:not([type=checkbox]):not([type=radio]):not(.noEmpty)").forEach(e=>{e.value=""});
 				document.querySelector(".popup").setAttribute("hidden","");
+				if (!document.getElementById("project-player")) canAddPlayer=true, popup.close(), bodyScroll.enable();
 				break;
 			default:
 				break;
