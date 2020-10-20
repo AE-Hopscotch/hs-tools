@@ -346,8 +346,9 @@
 				<lb>D<t style="display: none;">drunk</t></lb>
 				<li><t>Drunk</t> <gray>(You meant to use “drank”)</gray></li>
 				
-				<lb>E<t style="display: none;">email--exe</t></lb>
+				<lb>E<t style="display: none;">email--escort--exe</t></lb>
 				<li><t>Email</t></li>
+				<li><t>Escort</t> <sub>4</sub></li>
 				<li><t>exe</t></li>
 				
 				<!-- <lb>F<t style="display: none;"></t></lb> -->
@@ -399,7 +400,7 @@
 				<li><t>Stupid</t> <sub>4</sub></li>
 				<li><t>Sucks</t> <sub>3</sub></li>
 				
-				<lb>T<t style="display: none;">terrorist--text me--text you--thrust--trigger--txt</t></lb>
+				<lb>T<t style="display: none;">terrorist--text me--text you--thrust--trigger--trimming--txt</t></lb>
 				<li><t>Terrorist</t></li>
 				<li><t>Text Me</t> <sub>4</sub></li>
 				<li><t>Text You</t></li>
@@ -456,7 +457,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiZXhlXGJ8XGJob3BzY290Y2ggY2xvc2luZ1xifFxiaW5zdGFncmFtXGJ8XGJpUGFkIGF3YXlcYnxcYmtpc3NcYnxcYmxlYXZpbmcgaG9wc2NvdGNoXGJ8XGJsb25lclxifFxibG9zZXJcYnxcYm1hc3NhZ2V8XGIoPzpyZWFsfGZ1bGx8bGFzdCkgbmFtZVxifFxib3JwaGFuXGJ8XGJwYW50c1xifFxicGhvbmUgKD86aXMgZGVhZHxudW1iZXIpXGJ8XGJyb2xlcGxheVxifFxicnBcYnxcYnNob290aW5nXGJ8XGJzcGFtbWluZ1xifFxic3RhbGsoPzppbmd8ZXIpXGJ8XGJzdHJhbmdsZVxifFxic3Vja3NcYnxcYnRlcnJvcmlzdFxifFxiXHcqdGV4dCBtZVx3KlxifFxidGV4dCB5b3VcYnxcYnRocnVzdFxifFxidHJpZ2dlclxifFxidHJpbW1pbmdcYnxcYnR4dFxifFxidXIgbW9tXGJ8XGJ3ZWVkXGJ8XGJcdyp3aGl0ZWJvYXJkXHcqXGJ8XGJ5b3VybW9tXGIpfChcYlx3KmlkaW90XHcqXGJ8XGJcdytqZXJrXHcqXGJ8XGJqZXJrXHcrXGJ8XGJcdypzdHVwaWRcdypcYil8KFxiYmFuZ2VkXGJ8XGJkZXByZXNzaW9uXGJ8XGJkcnVncz9cYnxcYmZpbmdlcmluZ1xifFxiaGVsbFxifFxiaG9lXGJ8XGJodW1wKD86aW5nKT9cYnxcYm5lZ3JvXGIpfChcYlx3K2RpY2tcdypcYnxcYmRpY2tcdytcYnxcYlx3K3JhcGluZ1x3KlxifFxicmFwaW5nXHcrXGJ8XGJcdytzaGl0XHcqXGJ8XGJzaGl0XHcrXGJ8XGJcdytzZXhcdypcYnxcYnNleFx3K1xifFxiXHcrc2x1dFx3KlxifFxic2x1dFx3K1xifFxiXHcqc211dFx3KlxiKeKggA=="), "gi");
+				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiXHcqZXNjb3J0XHcqXGJ8XGJleGVcYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYmlQYWQgYXdheVxifFxia2lzc1xifFxibGVhdmluZyBob3BzY290Y2hcYnxcYmxvbmVyXGJ8XGJsb3NlclxifFxibWFzc2FnZXxcYig/OnJlYWx8ZnVsbHxsYXN0KSBuYW1lXGJ8XGJvcnBoYW5cYnxcYnBhbnRzXGJ8XGJwaG9uZSAoPzppcyBkZWFkfG51bWJlcilcYnxcYnJvbGVwbGF5XGJ8XGJycFxifFxic2hvb3RpbmdcYnxcYnNwYW1taW5nXGJ8XGJzdGFsayg/OmluZ3xlcilcYnxcYnN0cmFuZ2xlXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJcdyp0ZXh0IG1lXHcqXGJ8XGJ0ZXh0IHlvdVxifFxidGhydXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ0cmltbWluZ1xifFxidHh0XGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYil8KFxiXHcqaWRpb3RcdypcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYlx3KnN0dXBpZFx3KlxiKXwoXGJiYW5nZWRcYnxcYmRlcHJlc3Npb25cYnxcYmRydWdzP1xifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoPzppbmcpP1xifFxibmVncm9cYil8KFxiXHcrZGlja1x3KlxifFxiZGlja1x3K1xifFxiXHcrcmFwaW5nXHcqXGJ8XGJyYXBpbmdcdytcYnxcYlx3K3NoaXRcdypcYnxcYnNoaXRcdytcYnxcYlx3K3NleFx3KlxifFxic2V4XHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGJ8XGJcdypzbXV0XHcqXGIp4qCA"), "gi");
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
