@@ -3869,7 +3869,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
-                    fontFamily: "Avenir",
+                    fontFamily: "Avenir, sans-serif",
                     borderWidth: "2px",
                     borderStyle: "solid",
                     borderRadius: "8px",
@@ -3880,7 +3880,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
                 var o = document.createElement("a");
                 c(o.style, {
-                    fontFamily: "Avenir",
+                    fontFamily: "Avenir, sans-serif",
                     display: "block",
                     position: "relative",
                     textAlign: "center",
@@ -3908,7 +3908,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.show = function(t) {
             this.showAppPromptIfNecessary(t), this.showBrowserPromptIfNecessary();
         }, t.prototype.showBrowserPromptIfNecessary = function() {
-            a.isIOSApp() || (document.getElementById("ae-hs-player").appendChild(this.div), this.input.value = "", this.input.focus());
+            a.isIOSApp() || (document.getElementById("ae-hs-player").appendChild(this.div), /*this.input.value = "",*/ this.input.focus());
         }, t.prototype.showAppPromptIfNecessary = function(t) {
             var e = this;
             a.isIOSApp() && (a.HSApp.sendToApp("input_prompt" + (t ? ":spam" : ""), this.text), 
