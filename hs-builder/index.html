@@ -230,7 +230,7 @@
 					"Hopscotch features bug hunters on their App Store changelog!",
 					"Hopscotch was downloaded over 14 million times!",
 					"Over 35 Million projects were created using Hopscotch.",
-					"The \u201CFeatured\u201D page used to be called \u201CGame Changers\u201D",
+					"The \u201CMasterpieces\u201D page used to be called \u201CGame Changers\u201D",
 					"Cofounder of Hopscotch Samantha John goes by AwesomeOnion on the app.",
 					"Hopscotch has gone to Apple’s WWDC (Worldwide Developers Conference).",
 					"The nickname \u201CAwesome_E\u201D has been around with me since 2013!",
@@ -487,7 +487,7 @@
 					</div>
 				</div>
 				<div hidden class="container" width="440" id="playProjectLoader">
-					<i class="fa fa-close" onclick="popup.close()"></i>
+					<i class="fa fa-close" onclick="popup.close();!document.getElementById('project-player')&&(editor.project.canAddPlayer=true)"></i>
 					<div class="center">
 						<span class="label">Your project is saving</span>
 						<div style="line-height:80%"><br/></div>
@@ -659,6 +659,8 @@
 					document.body.style.overflow = "";
 					document.querySelector(".fullscreen-elms").style.pointerEvents = "none";
 					document.body.ontouchmove = (e) => {void(0);};
+					//Preload Project
+					new URL(location.href).searchParams.get("loadUrl")?.substr(0,undefined) && (popup.importProject() || (document.getElementById("hs-project-link").value = new URL(location.href).searchParams.get("loadUrl").replace(/[^\/]*\//g,""))) && importLink();
 				},390);
 			});
 		</script>
@@ -666,6 +668,7 @@
 		<script defer src="editor.js"></script>
 		<script defer src="worker.js"></script>
 		<script>
+			//Lazy Images
 			document.getElementById("traits-selector").addEventListener("input",function(e){if (e.target.value == "presetActions")document.querySelectorAll(".popup-lazyimg").forEach(img=>{img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); img.classList.remove("popup-lazyimg");});})
 		</script>
 	</body>
