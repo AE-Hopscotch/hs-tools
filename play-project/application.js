@@ -36230,7 +36230,7 @@ $('#google-plus-share-button').click(function (event) {
 	  var url = new URL(window.location.href);
 	  if (localStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
 	  if (url.searchParams.get('play') == '1') playContainer.click();
-	  if (!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
+	  if (true||/*TEST*/!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
 		  //Resize the screen right away
 		  main.resizeScreen();
 		  //Update when screen size changes
