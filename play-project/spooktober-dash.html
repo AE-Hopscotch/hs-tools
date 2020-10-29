@@ -1,0 +1,559 @@
+<!DOCTYPE html><html>
+	<head>
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="FqZmg6H3v_nmsp9fiNgPYGahHNM5GZHxomGGCYO0Dfo" name="google-site-verification" />
+		<meta content="This is a speedrun page made by Awesome_E that allows you to play through a series of games and receive a cumulative time." name="description" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<title>Spooktober Dash (Speedrun)</title>
+		<meta content="summary_large_image" name="twitter:card" />
+		<meta content="617098629" name="twitter:app:id:iphone" />
+		<meta content="617098629" name="twitter:app:id:ipad" />
+		<meta content="US" name="twitter:app:country" />
+		<meta content="@hopscotch" name="twitter:site" />
+		<meta content="Spooktober Dash (Speedrun)" name="twitter:title" />
+		<meta content="This is a speedrun page made by Awesome_E that allows you to play through a series of games and receive a cumulative time." name="twitter:description" />
+		<meta content="website" property="og:type" />
+		<meta content="Awesome_E's Hopscotch Tools" property="og:site_name" />
+		<meta content="Spooktober Dash (Speedrun)" property="og:title" />
+		<meta content="This is a speedrun page made by Awesome_E that allows you to play through a series of games and receive a cumulative time." property="og:description" />
+		<meta content="/hs-tools/images/speedrun-logo-hhc.png" property="og:image" /> <!--AE_MOD -->
+		<meta content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" name="viewport" />
+		<link rel="stylesheet" media="screen" href="application.css" />
+		<meta name="csrf-param" content="authenticity_token" />
+		<meta name="csrf-token" content="Xonf2Bn4pgVRZobpf3Nfuzvd7P3rCyCySJSHi4S9XQRNoKQiOrWClrrw8ll6ZBVi/p6ryAbAAhOvDCMEw9VlOw==" />
+		<link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" />
+		<script src="../main.js"></script><!-- AE MOD -->
+		<style>
+			h2 {
+				color: #666;
+			}
+			html body.embedded * #fullscreen-button {
+				display: none;
+			}
+		</style>
+	</head>
+</html>
+
+<body class="project webplayer embedded">
+	<div class="wrapper"><div class="content" id="body_content">
+
+	<script id="svgInsert" src="https://awesome-e.github.io/hs-tools/play-project/html_svg.js"></script>
+
+	<script>
+		var submitted = false;
+		
+		var AE_MOD = {
+			"projectData": {},
+			"uuid": "",
+			"playerVersion": "",
+			"webplayer_action": function(a, b, c) {
+				isTrusted = !AE_MOD.isCustom;
+				if (!typeof c == "object" || !/^.{1,3}$/.test(Object.getPrototypeOf(c||{}).constructor.name)) isTrusted = false, console.warn("Untrusted Event");
+				try {
+					a = JSON.parse(a.replace(/"_data"/g,b));
+					a.args = a.args || [];
+				} catch (e) {
+					console.error("Invalid webplayer action");
+					return;
+				}
+				switch (a.name) {
+					case "comp_next":
+						if (!isTrusted && /http/.test(location.protocol)) alert("Cannot progress: untrusted code execution");
+						AE_div.speedrun.checkFinish(a.args[0]||0);
+						break;
+					case "comp_split":
+						if (!isTrusted && /http/.test(location.protocol)) alert("Cannot progress: untrusted code execution");
+						AE_div.speedrun.addSplit(a.args[0]||0);
+						break;
+					case "comp_setSplit":
+						//Sets the split ID because glitches exist in games
+						AE_div.speedrun.split_nums.push(Number(a.args[0])||0);
+						break;
+					case "restart":
+						document.getElementById("restart-button").click();
+						break;
+					case "js-console-log":
+						console.log('%cAwesome_E’s Project Player%c ' + a.args, 'display:block; padding: 4px 6px; background-color: salmon; color: white; font-weight: bold;','');
+						break;
+					case "js-alert":
+						alert(a.args);
+						break;
+					case "js-prompt":
+						return prompt(a.args[0],(a.args[1]||""));
+					case "checkKey":
+						return Number(a.args.repeatEach(function(k){
+							return AE_MOD.keyboardKeys.includes(k);
+						}).includes(true));
+					case "checkKeyData":
+						return Number(AE_MOD.keyboardKeys.includes(b));
+					case "checkKeyAll":
+						return Number(!a.args.repeatEach(function(k){
+							return AE_MOD.keyboardKeys.includes(k);
+						}).includes(false));
+					case "scrollData":
+						return AE_MOD.mouseWheelData[a.args[0]];
+					case "isWebExp":
+						return 1;
+					case "isComputer":
+						return Number(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)&&!(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+					case "achievement":
+						var target = document.getElementById("achievement-banner");
+						target.innerHTML = "";
+						target.innerHTML = a.args[0];
+						banner(true);
+						break;
+				}
+			}
+		};
+		var AE_div = {};
+		
+		var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
+		var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
+		var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
+		function init() {
+			document.getElementById('hopscotch-link').href = "javascript:showInfo();"//;"javascript:if(confirm('Are you sure you want to submit this screenshot?'))submitScreenshot();";//"https://c.gethopscotch.com/p/" + AE_MOD.uuid;
+			document.getElementById('hopscotch-link').addEventListener('touchend',function(){showInfo()});
+			//document.getElementById('hopscotch-link').style.display = "none"; //Hide until the run starts
+			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
+			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
+			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
+			document.getElementById("appJs").src = location.protocol=="https:"?"application.js":"local_application.js";
+			var pTitle = 'Spooktober Dash (Speedrun)';
+			var pAuthor = undefined;//(AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
+			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);
+			document.title = pTitleFull;
+			if (!AE_MOD.isCustom) {
+				var dataLoad = JSON.parse(localStorage.getItem('data')||'{}');
+				localStorage.removeItem('data');
+				document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.projectData.previous_project_uuid + '.png';
+				document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.projectData.previous_project_uuid);
+			}
+			document.querySelector('meta[property="og:title"]').setAttribute('content', pTitle);
+			document.querySelector('meta[property="og:description"]').setAttribute('content', pTitleFull);
+			document.querySelector('meta[name="twitter:title"]').setAttribute('content', pTitle);
+			document.querySelector('meta[name="twitter:description"]').setAttribute('content', pTitleFull);
+			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
+		}
+		
+		function doCORSRequest(options, printResult) {
+			var x = new XMLHttpRequest();
+			x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
+			x.onload = x.onerror = function() { printResult(
+					//options.method + ' ' + options.url + '\n' +
+					//x.status + ' ' + x.statusText + '\n\n' +
+					(x.responseText || '')
+				);
+			};
+			if (/^POST/i.test(options.method)) {
+			x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			}
+			x.send(options.data);
+		}
+		function request(input_url) {
+			return;
+			doCORSRequest({
+				method: 'GET',
+				url: input_url,
+				//data: dataField.value
+			}, function printResult(result) {
+				try {
+					var p = JSON.parse(result);
+					AE_MOD.projectData = p;
+					AE_MOD.uuid = p.uuid;
+					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+					AE_MOD.isCustom = false;
+					if (AE_div.speedrun.timer_time > 0) beginTiming();
+					document.getElementById("finalTime").style.display = "none";
+					document.getElementById("finalTime").style.opacity = 0;
+					init();
+				} catch (SyntaxError) {
+					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
+					console.log('Unable to load');
+					console.error(SyntaxError);
+					return;
+				}
+				//OUTPUT
+			});
+		}
+		
+		var url = new URL(window.location.href);
+		var customUUID = "119fdb3q9h";//url.searchParams.get("id");
+		
+		/***********************************/
+		AE_div.speedrun = {
+			game_num: 0,
+			split_nums: [],
+			splits: [],
+			net_splits: [],
+			totals: [],
+			net_totals: [],
+			checkFinish: function(a) {
+				document.getElementById("timer").style.animationName = "";
+				setTimeout(function(){document.getElementById("timer").style.animationName = "glow";},10);
+				if (!busy){
+					busy = true;
+					AE_div.speedrun.split_save += a;
+					AE_div.speedrun.time_save += a;
+						AE_div.speedrun.splits.push(getTimeString(AE_div.speedrun.split_time));
+						AE_div.speedrun.net_splits.push(getTimeString(AE_div.speedrun.split_time - AE_div.speedrun.split_save));
+						AE_div.speedrun.totals.push(getTimeString(AE_div.speedrun.timer_time));
+						AE_div.speedrun.net_totals.push(getTimeString(AE_div.speedrun.timer_time - AE_div.speedrun.time_save));
+						if (AE_div.speedrun.split_nums.length < AE_div.speedrun.splits.length) {
+							console.log(Object.detach(AE_div.speedrun.splits).reverse().filter((v,i)=>{return AE_div.speedrun.splits.indexOf(v) == i}).reverse().length);
+							AE_div.speedrun.split_nums.push(Object.detach(AE_div.speedrun.split_nums).reverse().filter((v,i)=>{return Object.detach(AE_div.speedrun.split_nums).reverse().indexOf(v) == i}).reverse().length + 1);
+						}
+					if (AE_div.speedrun.game_num == 2) {
+						clearInterval(AE_div.speedrun.timer);
+						var splits = AE_div.speedrun.splits;
+						for (i = 0; i < splits.length; i++) {
+							var k = AE_div.speedrun.split_nums[i] - 1;
+							console.log(splits[i], splits[k]);
+							document.querySelectorAll("td[splitTime]")[k].innerHTML = splits[i];
+							document.querySelectorAll("td[netSplit]")[k].innerHTML = AE_div.speedrun.net_splits[i];
+							document.querySelectorAll("td[totalTime]")[k].innerHTML = AE_div.speedrun.totals[i];
+							document.querySelectorAll("td[netTotal]")[k].innerHTML = AE_div.speedrun.net_totals[i];
+						}
+						document.getElementById('finalTime').style.display = "inline-block";
+						setTimeout(function(){document.getElementById('finalTime').style.opacity = "1";},10);
+					} else {
+						AE_div.speedrun.game_num ++;
+						localStorage.setItem('data', JSON.stringify({
+							time: AE_div.speedrun.timer_time,
+							time_save: AE_div.speedrun.time_save,
+							split_time: AE_div.speedrun.split_time,
+							split_save: AE_div.speedrun.split_save,
+							gnum: AE_div.speedrun.game_num,
+							splits: AE_div.speedrun.splits,
+							split_nums: AE_div.speedrun.split_nums,
+							net_splits: AE_div.speedrun.net_splits,
+							totals: AE_div.speedrun.totals,
+							net_totals: AE_div.speedrun.net_totals
+						}));
+						window.location.reload();
+					}
+					busy = false;
+				}
+			},
+			addSplit: function(a) {
+				document.getElementById("timer").style.animationName = "";
+				setTimeout(function(){document.getElementById("timer").style.animationName = "glow";},10);
+				if (!busy){
+					busy = true;
+					AE_div.speedrun.split_save += a;
+					AE_div.speedrun.time_save += a;
+						AE_div.speedrun.splits.push(getTimeString(AE_div.speedrun.split_time));
+						AE_div.speedrun.net_splits.push(getTimeString(AE_div.speedrun.split_time - AE_div.speedrun.split_save));
+						AE_div.speedrun.totals.push(getTimeString(AE_div.speedrun.timer_time));
+						AE_div.speedrun.net_totals.push(getTimeString(AE_div.speedrun.timer_time - AE_div.speedrun.time_save));
+						if (AE_div.speedrun.split_nums.length < AE_div.speedrun.splits.length) {
+							console.log(Object.detach(AE_div.speedrun.split_nums).reverse().filter((v,i)=>{return AE_div.speedrun.split_nums.indexOf(v) == i}).reverse());
+							AE_div.speedrun.split_nums.push(Object.detach(AE_div.speedrun.split_nums).reverse().filter((v,i)=>{return Object.detach(AE_div.speedrun.split_nums).reverse().indexOf(v) == i}).reverse().length + 1);
+						}
+					AE_div.speedrun.split_time = 0;
+					AE_div.speedrun.split_save = 0;
+					busy = false;
+				}
+			}
+		};
+		var busy = false;
+		if (localStorage.getItem('data')) {
+			var dataLoad = JSON.parse(localStorage.getItem('data'));
+			console.log(dataLoad);
+		/***********************************/
+			customUUID = (["119fdb3q9h","119f1z1z8d","119f7949t3"])[dataLoad.gnum];
+		/***********************************/
+			AE_div.speedrun.game_num = dataLoad.gnum;
+			AE_div.speedrun.timer_time = dataLoad.time;
+			AE_div.speedrun.time_save = dataLoad.time_save;
+			AE_div.speedrun.split_nums = dataLoad.split_nums;
+			AE_div.speedrun.splits = dataLoad.splits;
+			AE_div.speedrun.net_splits = dataLoad.net_splits;
+			AE_div.speedrun.totals = dataLoad.totals;
+			AE_div.speedrun.net_totals = dataLoad.net_totals;
+		}
+		
+		function showInfo(){
+			var infoList = [
+				"Objective: Find the hidden candy!",
+				"Objective: Complete all 6 levels!",
+				"Objective: Find all of the candy!",
+				"You have finished! This table shows you information for your run in segments. If you are on a small device, tap the text above the time to change what it shows.",
+			];
+			alert(infoList[(AE_div.speedrun.split_nums[AE_div.speedrun.split_nums.length-1]||0)]);
+		}
+		/***********************************/
+		
+		XHR.requestExt("GET", 'https://c.gethopscotch.com/api/v1/projects/' + customUUID, function(result, status) {
+			try {
+				var p = JSON.parse(result);
+				AE_MOD.projectData = p;
+				AE_MOD.uuid = p.uuid;
+				AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+				AE_MOD.isCustom = false;
+				if (AE_div.speedrun.timer_time > 0) beginTiming();
+				document.getElementById("finalTime").style.display = "none";
+				document.getElementById("finalTime").style.opacity = 0;
+				init();
+			} catch (SyntaxError) {
+				document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
+				console.log('Unable to load');
+				console.error(SyntaxError);
+				return;
+			}
+			//OUTPUT
+		}, 1);
+		
+	</script>
+	
+	<div id="ae-hs-player">
+		<div class="player-icon-toolbar">
+		<img alt="mute" id="mute-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
+		<img alt="replay" id="restart-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
+		<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
+		<a id="hopscotch-link" target="_top"><img alt="hopscotch" id="hopscotch-button" class="player-icon" src="../images/info-circle.png" width="44"/></a>
+		</div>
+		<hopscotch-player id="player" width="Infinity">
+		<div id="project_error"><div class="project_error_message"><h2>Sorry, try again later.</h2>
+		<script>
+		setTimeout(function() {
+			if (!window.main) {
+				project_loading.style.display = 'none';
+				project_error.style.display = 'block';
+			}
+		}, 30000);
+		</script></div></div>
+
+		<div class="row content" id="play_container_row"><img id="project_loading" src="https://c.gethopscotch.com/assets/webplayer/loading_apple-05eb745176d79ec27d52d544582483fc4d0f6378c7ed2060be24dfc4e8990668.gif" /><div id="play_container" style="display:none"><div id="play_container_bg"></div><img id="project-image" /><a id="play" class="pos-abs" href="#"><div class="play-button teal-button"><span class="triangle"></span></div></a></div></div>
+		</hopscotch-player>
+	</div>
+	</div></div>
+	
+	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
+	<script id="appJs"></script>
+	<script src="https://c.gethopscotch.com/assets/application/asset_urls-66c72ce90a1ca36d7740a48386256898e3581d114788b7da74cf032ce305c42e.js"></script>
+
+	<!-- script>$('a').on('touchstart', function() { window.location = this.href; });</script -->
+</body>
+
+<div name="form_test" style="display: none; z-index:2352352;">
+	<!--form action="https://docs.google.com/forms/u/2/d/e/1FAIpQLSftfnFqVDomioCmMtFk5swGRMTjG26JbZSejI9m-DJe4b9NFg/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+		<input id="entry.1830962008" name="entry.1830962008" style="display:no ne;" type="">
+		<button class="doIt">GO</button>
+	</form-->
+	<h name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="tryReplace();" src=""></h>
+	<p onclick="alert(submitted)">test</p>
+	
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<script>
+		window.onload = function() {
+			var original = document.getElementById("hidden_iframe");
+			var newFrame = document.createElement("iframe");
+			newFrame.id = "hidden_iframe";
+			newFrame.name = "hidden_iframe";
+			newFrame.src = "about:blank";
+			newFrame.style = "display: none;";
+			newFrame.setAttribute("onload", "if (submitted) replace_iframe();");
+			var parent = original.parentNode;
+			parent.replaceChild(newFrame, original);
+		}
+		function replace_iframe() {
+			alert('ok');
+			var original = document.getElementById("hidden_iframe");
+			original.src = "about:blank";
+			var newFrame = document.createElement("iframe");
+			newFrame.id = "hidden_iframe";
+			newFrame.src = "about:blank";
+			newFrame.style = "display: none;";
+			var parent = original.parentNode;
+			parent.replaceChild(newFrame, original);
+			alert("DONE!");
+			//$('#git-form *').fadeOut(0);
+			//$('#git-form').prepend('<h2 style="text-align:center; margin: 0;">Project Received</h2><br><div style="text-align: center;">Your submission has been processed. Please save your project key, as you will need it to claim the project after it has been modded. This may take a few days, depending on my availability.<br><br><b style="display: block; margin-bottom: -16px;">Your Project Key:</b><br>' + document.getElementById("entry.1712427894").value + '</div><br><button onclick="copyText(event)" style="display:block; margin: auto;">Copy Key to Clipboard</button><textarea style="width:0px; position: fixed; top: -200px; opacity: 0;" id="id-copybox" readonly>' + document.getElementById("entry.1712427894").value + '</textarea>');
+		}
+		
+		function submitScreenshot() {
+			html2canvas(document.querySelector('hopscotch-player'),{
+				scale: 0.7
+			}).then(canvas => {
+				canvas.setAttribute("crossorigin", "*");
+				//document.getElementById('img-out').appendChild(canvas);
+				document.getElementById('entry.1830962008').value = canvas.toDataURL();
+				//$('img').attr('width', canvas.style.width);
+				//document.querySelector('#entry.1830962008').value = document.querySelector('#entry.1830962008').value;
+			});
+			alert("OK");
+		}
+	</script>
+	
+</div>
+
+<div name="speedrun" style="z-index:9999999999;position:fixed;">
+	<style>
+		:root {
+			--disp-col: none;
+		}
+		#finalTime {
+			color: white;
+			background-color: rgba(11,91,81,0.8);
+			border: 2px solid rgba(11,91,81,1);
+			display: inline-block;
+			padding: 4px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			transform-origin: 50% 50%;
+			transition: opacity 1s;
+			opacity: 1;
+			z-index: 9999999;
+			max-width: 100%;
+			width: min-content;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			/* max-height: 100%; */
+			overflow-y: auto;
+		}
+		#finalTime::-webkit-scrollbar {
+			display: none;
+		}
+		div[name=speedrun] span {
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+		}
+		thead td {
+			font-size:24px;
+			border-bottom: 2px solid white;
+		}
+		@media only screen and (max-width: 600px) {
+			td:nth-child(2) {
+				display: var(--disp-col);
+			}
+			td:nth-child(3) {
+				display: var(--disp-col);
+			}
+			td:nth-child(4) {
+				display: var(--disp-col);
+			}
+			td:nth-child(5) {
+				display: var(--disp-col);
+			}
+		}
+		td:nth-child(1) {
+			padding-right: 12px;
+			text-align: left;
+		}
+		td {
+			font-size: 20px;
+			padding: 3px 6px;
+			min-width: 120px;
+			white-space: nowrap;
+			text-align: center;
+		}
+		@keyframes glow {
+			0% {border: 2px solid rgba(11,91,81,1);}
+			5% {border: 2px solid rgba(22,182,163,1);}
+			100% {border: 2px solid rgba(11,91,81,1);}
+		}
+		::-webkit-scrollbar {
+			display: none;
+		}
+		::-moz-scrollbar {
+			display: none;
+		}
+	</style>
+	<span id="timer" style="animation-duration:2s;color:white;background-color:rgba(11,91,81,0.8);margin:4px;font-size:12px;border:2px solid rgba(11,91,81,1);padding:4px;position:fixed;top:2px;left:2px;">0:00.00</span>
+	<div id="finalTime">
+		<table>
+			<thead>
+				<tr style="display: block;">
+					<td style="width:100vw;">Segment Name</td>
+					<td onclick="toggleView()">Split</td>
+					<td hidden onclick="toggleView()">Net Split</td>
+					<td onclick="toggleView()">Total</td>
+					<td hidden onclick="toggleView()">Net Total</td>
+				</tr>
+			</thead>
+			<tbody style="display:block;height:auto/*75vh*/;overflow-y:auto;">
+				<tr><td style="padding-top:8px;">Midnight Candy</td><td splitTime></td><td hidden netSplit></td><td totalTime></td><td hidden netTotal></td></tr>
+				<tr><td>Pumpkin Platformer</td><td splitTime></td><td hidden netSplit></td><td totalTime></td><td hidden netTotal></td></tr>
+				<tr><td>Crazy for Candy</td><td splitTime></td><td hidden netSplit></td><td totalTime></td><td hidden netTotal></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		AE_div.speedrun.timer = "";
+		AE_div.speedrun.split_time = 0;
+		AE_div.speedrun.split_save = 0;
+		AE_div.speedrun.timer_time = AE_div.speedrun.timer_time||0;
+		AE_div.speedrun.time_save = AE_div.speedrun.time_save||0;
+		document.getElementById('play_container').addEventListener('touchend',function(){
+			document.getElementById('hopscotch-link').style.display = "";
+			if (AE_div.speedrun.timer_time == 0) beginTiming();
+		});
+		document.getElementById('play_container').onclick = function(){
+			document.getElementById('hopscotch-link').style.display = "";
+			if (AE_div.speedrun.timer_time == 0) beginTiming();
+		};
+		//if (AE_div.speedrun.timer_time > 0) beginTiming();
+		function getTimeString(t) {
+			n = (t<0);
+			t = Math.abs(t);
+			var hrs = Math.floor(t/3600);
+			var min = Math.floor(t/60) - hrs*60;
+			var sec = Math.floor(t*100 - hrs*360000 - min*6000)/100;
+			return (n?'<span style="color:lime;">-':"") + String(((hrs>0)?hrs+":":"") + ((hrs>0&&min<10)?"0":"") + min + ":" + ((sec<10)?"0":"") + sec + ((sec%1==0)?".":"") + ("0".repeat(2-(String(sec).split('.')[1]||"").length)));
+		}
+		function beginTiming(){
+			AE_div.speedrun.timer = setInterval(function(){
+				AE_div.speedrun.timer_time += 0.029;
+				AE_div.speedrun.split_time += 0.029;
+				document.getElementById('timer').innerHTML = getTimeString(AE_div.speedrun.timer_time);
+			}, 29);
+		};
+		document.body.style.backgroundColor = (getPref("dark_mode")) ? "black" : "";
+		setTimeout(function(){document.getElementById("project_loading").style.filter = "invert(" + Number(getPref("dark_mode")) + ")";},50);
+		
+		var viewMode = 2;
+		function toggleView() {
+			viewMode = (viewMode+1+1/*2*/)%4;
+			document.querySelectorAll("td:nth-child(n+1)").forEach(elm=>{
+				elm.style.setProperty("--disp-col", "none");
+			});
+			document.querySelectorAll("td:nth-child(" + (viewMode+2) + ")").forEach(elm=>{
+				elm.style.setProperty("--disp-col", "table-cell");
+			});
+		}
+		document.querySelectorAll("thead td").forEach(c=>{
+			c.addEventListener("touchstart", function(e) {
+				toggleView();
+			});
+		});
+		toggleView();
+		
+		var splits = AE_div.speedrun.splits;
+		for (i = 0; i < splits.length; i++) {
+			var k = AE_div.speedrun.split_nums[i] - 1;
+			console.log(splits[i], splits[k]);
+			document.querySelectorAll("td[splitTime]")[k].innerHTML = splits[i];
+			document.querySelectorAll("td[netSplit]")[k].innerHTML = AE_div.speedrun.net_splits[i];
+			document.querySelectorAll("td[totalTime]")[k].innerHTML = AE_div.speedrun.totals[i];
+			document.querySelectorAll("td[netTotal]")[k].innerHTML = AE_div.speedrun.net_totals[i];
+		}
+		document.querySelectorAll("tbody tr")[(AE_div.speedrun.split_nums[AE_div.speedrun.split_nums.length-1]||1)-1].scrollIntoView();
+	</script>
+</div>
