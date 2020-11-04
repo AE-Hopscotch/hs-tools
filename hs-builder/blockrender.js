@@ -52,6 +52,7 @@ const blockLabels = {
 	124: ["ctrl","Check If Else"," "],
 	125: ["ctrl","Change Scene","to"],
 	126: ["ctrl","Broadcast Message","named"],
+	127: ["ctrl","Request Seeds"," ","for"],
 	233: ["Random"],
 	234: ["XPos"],
 	235: ["YPos"],
@@ -86,15 +87,24 @@ const blockLabels = {
 	2014: ["Center Y"],
 	2015: ["Text"],
 	2016: ["HS_END_OF_OBJECT_TRAITS"],
-	3e3: ["\uD83D\uDCF1 Width"],
-	3001: ["\uD83D\uDCF1 Height"],
-	3002: ["\uD83D\uDCF1 Tilt Up %"],
-	3003: ["\uD83D\uDCF1 Tilt Down %"],
-	3004: ["\uD83D\uDCF1 Tilt Left %"],
-	3005: ["\uD83D\uDCF1 Tilt Right %"],
-	3006: ["\uD83D\uDCF1 Last Touch X"],
-	3007: ["\uD83D\uDCF1 Last Touch Y"],
-	3008: ["\uD83D\uDCF1 Total Objects"],
+	2500: ["\uD83D\uDCF1 Username"],
+	2501: ["\uD83D\uDCF1 Time"],
+	2502: ["\uD83D\uDCF1 Year"],
+	2503: ["\uD83D\uDCF1 Month"],
+	2504: ["\uD83D\uDCF1 Day"],
+	2505: ["\uD83D\uDCF1 Hour"],
+	2506: ["\uD83D\uDCF1 Minute"],
+	2507: ["\uD83D\uDCF1 Second"],
+	2508: ["HS_END_OF_USER_TRAITS"],
+	3e3: ["\u25B6\uFE0F Width"],
+	3001: ["\u25B6\uFE0F Height"],
+	3002: ["\u25B6\uFE0F Tilt Up %"],
+	3003: ["\u25B6\uFE0F Tilt Down %"],
+	3004: ["\u25B6\uFE0F Tilt Left %"],
+	3005: ["\u25B6\uFE0F Tilt Right %"],
+	3006: ["\u25B6\uFE0F Last Touch X"],
+	3007: ["\u25B6\uFE0F Last Touch Y"],
+	3008: ["\u25B6\uFE0F Total Objects"],
 	3009: ["HS_END_OF_STAGE_TRAITS"],
 	4e3: ["math"," "," ","+"],
 	4001: ["math"," "," ","\u2212"],
@@ -155,7 +165,7 @@ const blockLabels = {
 	8003: ["\u2063 \u25B6\uFE0F"], //Game
 	8004: ["<ps><span>Self</span></ps>"],
 	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
-	8006: ["\u2063 \uD83D\uDCF1"],
+	8006: ["\u2063 \uD83D\uDCF1"], //Local
 	8007: ["\u2063 \uD83D\uDCF1"], //User
 	8008: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"],
 	9000: ["looks", "\u2063 character", "in", "at"],
@@ -453,13 +463,17 @@ function jsonToHtml(block, isNested, keepClosed) {
 				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
 			}
 			//Variables
-			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8006)) {
+			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8008)) {
 				var objectLabel = blockLabels[d.datum.type][0];
 				if (d.datum.type == 8e3) {
 					var o = projectDict.objects[d.datum.object];
 					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
 				}
 				return "<ps><op class=\"val\">" + objectLabel + " " + getVar(d.datum.variable) + " \u2063</op></ps>";
+			}
+			//Products
+			if (d.datum.type == 8008) {
+				return "<ps><op class=\"prod\">\u2063 \uD83C\uDF81 " + getVar(d.datum.variable) + " \u2063</op></ps>";
 			}
 			//Images (no block class)
 			if (!/operator/i.test(d.datum.block_class)) {
@@ -528,7 +542,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 				elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 			}
 		}
-		if (!addedToHtml&&(trueScript||block.rules)&&block) {
+		if (!addedToHtml&&(trueScript||block.rules||block.text!=null&&block.objectID)&&block) {
 			var blockInfo = jsonToHtml({},true,keepClosed);
 			if (keepClosed) elmClass = elmClass.replace("collapsible-container",(nestedUuidList.indexOf(trueScript)!=-1)?"disabled":"");
 		}

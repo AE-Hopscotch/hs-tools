@@ -763,6 +763,36 @@ html.dark-mode .resize-drag {
 .refresh-btn {
 	display: var(--display-rstate);
 }
+.focus-arrow {
+	position: relative;
+}
+.focus-arrow::after {
+	content: "🠐";
+	display: inline-flex;
+	align-items: center;
+	height: 42px;
+	font-family: sans-serif;
+	font-weight: 900;
+	font-size: 64px;
+	position: absolute;
+	top: 9px;
+	color: #a3f5eb;
+	animation-iteration-count: infinite;
+	animation-name: block-focus-arrow;
+	animation-duration: 2s;
+	text-shadow: 1px 1px 3px black;
+}
+@keyframes block-focus-arrow {
+	0% {
+		transform: translateX(0) rotate(0);
+	}
+	50% {
+		transform: translateX(10px) scale(1.25) rotate(0);
+	}
+	100% {
+		transform: translateX(0) rotate(360deg);
+	}
+}
 
 .collapsible-container > bl {
 	width: calc(100% - 108px);
@@ -1066,6 +1096,10 @@ op.looks {
 	--col-bg-inherited: #63ae1e;
 	--ia: 0;
 	--ba: 0;
+}
+op.prod {
+	background-color: #3e83be;
+	--col-bg-inherited: #3e83be;
 }
 
 /*op.math op.math {
