@@ -117,6 +117,27 @@
 						}
 						try {return maskedEval(a.args.join(""));}catch(e){return 0;}
 						break;
+					case "globalvar-load":
+						if (!a.args[0] && a.args[0] !== 0) break; //No Empty Keys
+						//AE_MOD.globalvars[a.args[0]] = NaN;
+						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
+							try {
+								JSON.parse(r);
+								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
+							} catch (e) {/* Bad JSON */}
+						})
+						break;
+					case "globalvar-read":
+						return AE_MOD.globalvars[a.args[0]];
+						break;
+					case "globalvar-write":
+						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+a.args[1]+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
+							try {
+								JSON.parse(r);
+								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
+							} catch (e) {/* Bad JSON */}
+						})
+						break;
 					case "achievement":
 						var target = document.getElementById("achievement-banner");
 						target.innerHTML = "";
@@ -217,6 +238,7 @@
 					localStorage.setItem("projectLoadState", "loaded");
 				}
 			},
+			"globalvars": {},
 			"initiated": false
 		};
 		
@@ -427,7 +449,7 @@
 		
 		document.body.addEventListener("keydown",function(e){
 			//Play the project using the space bar
-			if (document.getElementById('play_container')?.style.display == "block") document.getElementById('play_container').click();
+			if (e.keyCode == 32 && document.getElementById('play_container')?.style.display == "block") document.getElementById('play_container').click();
 		})
 		
 	</script>
