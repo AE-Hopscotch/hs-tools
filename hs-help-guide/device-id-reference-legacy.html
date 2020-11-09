@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hopscotch Device Identification</title>
+		<link href='https://fonts.googleapis.com/css?family=Dancing%20Script' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lilita%20One' rel='stylesheet'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../style.css">
+		<link rel="stylesheet" href="../sidenavStyles.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+		<link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+		<link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Hopscotch Tools">
+		<meta name="application-name" content="Hopscotch Tools">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/hs-tools/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		
+		<meta name="description" content="Reference values on text collision values based on various text rendering systems"/>
+		<meta name="keywords" content="hopscotch, reference, rendering, text, project"/>
+		<meta property="og:title" content="Hopscotch Device Identifier Reference"/>
+		<meta property="og:description" content="Reference values on text collision values based on various text rendering systems"/>
+		<meta property="og:image" content="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/51/mobile-phone_1f4f1.png"/>
+		<style>
+			html, body {
+				background-color: var(--col-bg-main);
+				transition: var(--time-trans);
+				color: var(--col-text);
+			}
+			table {
+				border-collapse: collapse;
+				margin: auto;
+			}
+			th, td {
+				border: 2px solid gray;
+				padding: 4px;
+				max-width: 500px;
+			}
+			tr *[color="red"] {
+				color: red;
+			}
+			tr *[color="purple"] {
+				color: purple;
+			}
+			sq {
+				display: block;
+				transition: 0.5s;
+				position: fixed;
+				bottom: 0px; right: 0px;
+				z-index: 100;
+				background-color: rgba(0,0,0,0.5);
+				padding:8px;
+				border-radius: 8px;
+				bottom: 4px; right: 4px;
+			}
+			.button {
+				position: fixed;
+				left: 4px;
+				background-color: #0b5b51;
+				border: none; outline: none;
+				cursor: pointer;
+				color: white;
+				padding: 6px 8px;
+			}
+			h1 {
+				font-family: Lilita One;
+				font-weight: 400;
+				color: rgb(80,225,255);
+				text-align: center;
+				margin: 6px;
+			}
+			
+			::selection {
+				background: #11887a;
+				color: #f8f8f8;
+			}
+			div {
+				margin: 16px auto;
+				width: 944px;
+				max-width: calc(100% - 16px);
+			}
+			.fa-chevron-left {
+				position: relative;
+				left: -1px;
+			}
+		</style>
+	</head>
+	<body>
+		<sq>
+			<a href="javascript:home()" style="display:block;"><svg id="homeSvg" style="fill:#eee;" fixed version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		</sq>
+		<button onclick="location.href='../hs-help-guide/'" class="button" style="top:4px;"><i class="fa fa-fw fa-chevron-left"> </i></button>
+		<button onclick="theme()" id="themebtn" class="button" style="bottom:4px;"><i class="fa fa-fw fa-moon-o"> </i></button>
+		
+		<h1>Hopscotch Device Identifier Reference</h1>
+		<span style="text-align:center;width:100%;display:block;">Last Updated on May 8th, 2020</span><br/>
+		<div>
+			<table><tr><td style="padding: 8px;">
+				<a style="display:flex;align-items:center;font-size:20px;" target="_blank" href="https://c.gethopscotch.com/p/10wrrvf8ru"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/51/mobile-phone_1f4f1.png" width="48"/><big>Device Alpha Test 9 by Awesome_E &ic; </big></a>
+			</td></tr></table>
+		</div>
+		<div style="text-align:justify;text-indent:40px;">
+			This project uses the different text rendering engines to determine what device and application is being used to run a Hopscotch project.
+			The table below uses values calculated with this project on first restart. You can also click on colored text for more details on specific conditions or results.
+			Since the text rendering engine is subject to change soon again, these numbers may be outdated, and they use my rendering engine
+			(where the emojis load properly). The stats are not collected with the most proper methods, but what I have does seem to work out.
+		</div>
+		<table>
+			<thead><tr><th>OS Name</th><th>Browser Name</th><th><a color="purple" href="javascript:alert('Based on Operating System')">Emoji Y</a></th><th><a color="purple" href="javascript:alert('Based on system and browser text')">Text Y</a></th><th>Navigator User Agent</th></thead>
+			<tbody>
+				<tr><td>iOS 10.3+</td><td>Hopscotch App</td><td>504</td><td>449</td><td>-</td></tr>
+				<tr><td>iOS 10.2-10.2.1</td><td>Hopscotch App</td><td>?</td><td>?</td><td>-</td></tr>
+				<tr><td>iOS 10.0-10.1.1</td><td>Hopscotch App</td><td>?</td><td>?</td><td>-</td></tr>
+				<tr><td>iOS 9.3.6-</td><td>Hopscotch App</td><td>?</td><td>?</td><td>-</td></tr>
+				<tr><td>iOS 10.3+</td><td>Safari <a href="javascript:alert('All iOS Browsers render pages using the Safari engine')">(all browsers)</td><td>417</td><td>449</td><td>Depends on device</td></tr>
+				<tr><td>iOS 10.2-10.2.1</td><td>Safari <a href="javascript:alert('All iOS Browsers render pages using the Safari engine')">(all browsers)</td><td>?</td><td>?</td><td>Depends on device</td></tr>
+				<tr><td>iOS 10.0-10.1.1</td><td>Safari <a href="javascript:alert('All iOS Browsers render pages using the Safari engine')">(all browsers)</td></td><td>?</td><td>?</td><td>Depends on device</td></tr>
+				<tr><td>iOS 9.3.6-</td><td>Safari <a href="javascript:alert('All iOS Browsers render pages using the Safari engine')">(all browsers)</td></td><td>?</td><td>?</td><td>Depends on device</td></tr>
+				<tr><td>Windows 10</td><td>Google Chrome 80</td><td>417</td><td>304</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36</td></tr>
+				<tr><td>Windows 10</td><td>Internet Explorer</td><td><a color="red" href="javascript:alert('Project does not load')">x</a></td><td><a color="red" href="javascript:alert('Project does not load')">x</a></td><td>Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; Touch; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0; rv:11.0) like Gecko</td></tr>
+				<tr><td>Windows 10</td><td>Microsoft Edge 44</td><td>417</td><td>381</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64; ServiceUI 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362</td></tr>
+				<tr><td>Windows 10</td><td>Microsoft Edge 81</td><td>417</td><td>304</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36 Edg/83.0.478.54</td></tr>
+				<tr><td>Windows 7</td><td>Google Chrome 75</td><td>406</td><td>304</td><td>Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36</td></tr>
+				<tr><td>Windows 7</td><td>Mozilla Firefox 68</td><td>406</td><td>333</td><td>Mozilla/5.0 (Windows NT 7.0; rv:68.0) Gecko/20100101 Firefox/68.0</td></tr>
+				<tr><td>Windows 7</td><td>Opera 62</td><td>406</td><td>304</td><td>Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.36 OPR/62.0.3331.18</td></tr>
+				<tr><td>MacOS Mojave 10.14.6</td><td>Google Chrome 80</td><td>417</td><td>300</td><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36</td></tr>
+				<tr><td>MacOS Mojave 10.14.6</td><td>Mozilla Firefox 75</td><td>406</td><td>364</td><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:75.0) Gecko/20100101 Firefox/75.0</td></tr>
+				<tr><td>MacOS Mojave 10.14.6</td><td>Opera 67</td><td>417</td><td>300</td><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36 OPR/67.0.3575.137</td></tr>
+				<tr><td>MacOS Mojave 10.14.6</td><td>Safari 13.1</td><td>417</td><td>449</td><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15</td></tr-->
+			</tbody>
+		
+		<script src="../main.js"></script>
+		<script src="../sidenav.min.js"></script>
+		<script>
+			
+		</script>
+	</body>
+</html>
