@@ -1459,7 +1459,7 @@
 		],
 		"blockHTML": "Broadcast Message named <i class=\"ps fa fa-i-cursor\"></i>",
 		"about": "Triggers a global listener for that same message",
-		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Broadcast%20Message&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"app_description": "This block will broadcast a message of your choosing. Then, if you create a rule using the 'When I get a message' block, the rule will execute when the message gets broadcasted.",
 		"collapsible": false,
 		"availability": "beta",
 		"parameters": [
@@ -1487,7 +1487,7 @@
 		],
 		"blockHTML": "Request Seeds <i class=\"ps fa fa-hashtag\"></i> for <i class=\"ps fa fa-sliders\"></i>",
 		"about": "Requests the user to pay a certain amount of seeds for a product",
-		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Broadcast%20Message&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"app_description": "Ask the person playing your project to pay seeds. Once they pay, that fact will be stored in a variable you define that is the name of the product they will buy. The name of the product will show up on the pop-up that asks them to buy the item. You can use your product in an if statement to check if the current player has purchased it yet. \n\nYou can request between 1 and 200 seeds in your project.\n\nAfter someone has purchased the product, it will be unlocked for them every time they play your game. You can cannot set a product variable yourself, it's determined by the system based on whether or not they've purchased.",
 		"collapsible": false,
 		"availability": "json",
 		"parameters": [
