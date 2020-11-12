@@ -1477,5 +1477,35 @@
 		"community_links": [
 			"Under Construction"
 		]
+	},
+	"127": {
+		"id": 127,
+		"type": "ctrl",
+		"name": "Request Seeds",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Request Seeds <i class=\"ps fa fa-hashtag\"></i> for <i class=\"ps fa fa-sliders\"></i>",
+		"about": "Requests the user to pay a certain amount of seeds for a product",
+		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Broadcast%20Message&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
+		"collapsible": false,
+		"availability": "json",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Amount – The number of seeds to request."
+			}
+			{
+				"type": "var",
+				"description": "Product – The name of the product to purchase."
+			}
+		],
+		"useful_for": [
+			"Under Contruction"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
 	}
 }
