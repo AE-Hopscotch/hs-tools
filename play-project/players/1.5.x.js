@@ -4886,7 +4886,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 var e;
                 t.trim() === (null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject)[0]) || void 0 === e ? void 0 : e.trim()) && i.activate();
             }, this.activateIfMatchesEventMessage = function(t) {
-                var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues()[0]) || void 0 === e ? void 0 : e.trim();
+                var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject/*AE_MOD FIX BROADCAST*/)[0]) || void 0 === e ? void 0 : e.trim();
                 s.checkMatches(r, n) && i.activate();
             }, this.stageScript = this.rule.script.stageScript(), this.eventBlock = this.rule.childBlock().stageParameterBlock();
         }
