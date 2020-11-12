@@ -294,6 +294,11 @@
 						(i<6e3) ? ["Random","RGB","HSB"][i-5e3] : ((item[1]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||(item[2]||"").replace(/\u2063\s|\s\u2063|^\s$/g,"")||item[3]||item[0].replace(/\u2063\s|\s\u2063|^\s$/g,""));
 					var div = document.createElement("div");
 					div.setAttribute("class", ["","rule","otr","otr","math","rcol","rule","rule","ptr"][type]);
+					switch (i) {
+						case 8003: name+=" Game";	break;
+						case 8006: name+=" Local";	break;
+						case 8007: name+=" User";	break;
+					}
 					div.innerHTML = '<span class="num">'+i+'</span><br/><i title="'+["unknown","conditional","object trait","stage trait","math operator","color operator","rule","event operator","event parameter"][type]+'" class="fa type-icon fa-'+["square","question-circle","info-circle","info-circle","terminal","terminal","list","exclamation ","cube"][type]+'"></i><br/><span class="name">'+name+'</span>';
 					document.querySelector(".flex").appendChild(div);
 					switch (i) {
@@ -305,7 +310,7 @@
 						case 5002: i = 6e3-1; type = 6; break;
 						case 6001: i = 7e3-1; type = 7; break;
 						case 7023: i = 8e3-1; type = 8; break;
-						case 8005: i = 9e3-1; type = 9; break;
+						case 8007: i = 9e3-1; type = 9; break;
 					}
 				};
 				type = 0;
@@ -328,7 +333,7 @@
 						case 1e4: i = 3e4-1; type = 6; break;
 					}
 				};
-				for (i = 42; i < 57; i++) {
+				for (i = 42; i < 59; i++) {
 					var item = paramTypes[i];
 					var div = document.createElement("div");
 					div.setAttribute("class", "ptypes");

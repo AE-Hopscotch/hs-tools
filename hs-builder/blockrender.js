@@ -316,7 +316,9 @@ const paramTypes = {
 	53: "SetText",
 	54: "Object",
 	55: "TextOnly",
-	56: "Scene"
+	56: "Scene",
+	57: "ProductCost", //Unofficial
+	58: "Product" //Unofficial
 }
 
 function isFalseScript (container) {
