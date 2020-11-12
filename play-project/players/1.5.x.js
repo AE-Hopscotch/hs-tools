@@ -3777,7 +3777,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var r;
             this.object = e, this.isOnScreen = !1, t.enableAntiSpam(), this.type = i.type, this.id = i.id, 
             this.parameters = i.parameters, this.promptText = (null === (r = i.parameters[1]) || void 0 === r ? void 0 : r.computedStringValue(e)) || "Type here", 
-			this.placeholderText = (i.parameters[2]||{value:""}).value;
+			this.placeholderText = (i.parameters[2]&& i.parameters[2].computedStringValue())||"";
             this.view = new u(this.promptText, this.placeholderText);
         }
         return t.enableAntiSpam = function() {
