@@ -1281,7 +1281,7 @@
 		],
 		"blockHTML": "Request Seeds <i class=\"ps fa fa-hashtag\"></i> for <i class=\"ps fa fa-sliders\"></i>",
 		"about": "Requests the user to pay a certain amount of seeds for a product",
-		"app_description": "Ask the person playing your project to pay seeds. Once they pay, that fact will be stored in a variable you define that is the name of the product they will buy. The name of the product will show up on the pop-up that asks them to buy the item. You can use your product in an if statement to check if the current player has purchased it yet. \n\nYou can request between 1 and 200 seeds in your project.\n\nAfter someone has purchased the product, it will be unlocked for them every time they play your game. You can cannot set a product variable yourself, it's determined by the system based on whether or not they've purchased.",
+		"app_description": "Ask the person playing your project to pay seeds. Once they pay, that fact will be stored in a variable you define that is the name of the product they will buy. The name of the product will show up on the pop-up that asks them to buy the item. You can use your product in an if statement to check if the current player has purchased it yet.\nYou can request between 1 and 200 seeds in your project.\nAfter someone has purchased the product, it will be unlocked for them every time they play your game. You can cannot set a product variable yourself, it's determined by the system based on whether or not they've purchased.",
 		"collapsible": false,
 		"availability": "json",
 		"parameters": [
