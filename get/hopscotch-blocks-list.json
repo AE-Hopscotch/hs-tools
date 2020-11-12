@@ -1288,7 +1288,7 @@
 			{
 				"type": "num",
 				"description": "Amount – The number of seeds to request."
-			}
+			},
 			{
 				"type": "var",
 				"description": "Product – The name of the product to purchase."
