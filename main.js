@@ -376,7 +376,7 @@ var XHR = {
 			}
 		}
 		if (proxy === 1) {
-			sendRequest(proxyUrls[2]+url,(r,s)=>{s?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s?callback(r,s,4):callback(null, 521)})})});
+			sendRequest(proxyUrls[2]+url,(r,s)=>{s&&s!=521?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s&&s!=521?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s&&s!=521?callback(r,s,4):callback(null, 521)})})});
 		} else {
 			sendRequest(url, callback);
 		}

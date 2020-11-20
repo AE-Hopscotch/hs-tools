@@ -626,8 +626,8 @@ div.xray-contents {
 	outline: none;
 	transform: rotate(-90deg) translate(calc(50% - 9px),-51px);
 	position: absolute;
-	bottom: 4px;
-	left: 2px;
+	bottom: 2px;
+	left: 0.2px;
 }
 .xray-contents span {
 	text-align: center;
