@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>hopscotch-button</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="hopscotch-button">
+            <g id="publish">
+                <rect id="Rectangle-14" x="0" y="0" width="44" height="44"></rect>
+            </g>
+            <polygon id="Fill-1" fill="#FFFFFF" points="30.65 8 27.5388889 8 27.5388889 18.6521333 16.2225333 18.6521333 16.2225333 8 13.1111111 8 11.6498222 8 10 8 10 18.6521333 10 21.7635556 10 36 11.6498222 36 13.1111111 36 16.2225333 36 16.2225333 24.8939556 27.5388889 24.8939556 27.5388889 36 30.65 36 32.2055556 36 33.7611111 36 33.7611111 8"></polygon>
+        </g>
+    </g>
+</svg>

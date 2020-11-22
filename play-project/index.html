@@ -35,7 +35,9 @@
 		<link rel="stylesheet" media="screen" href="application.css" />
 		<meta name="csrf-param" content="authenticity_token" />
 		<meta name="csrf-token" content="Xonf2Bn4pgVRZobpf3Nfuzvd7P3rCyCySJSHi4S9XQRNoKQiOrWClrrw8ll6ZBVi/p6ryAbAAhOvDCMEw9VlOw==" />
-		<link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" />
+		<noscript><link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" /></noscript>
+		<link id="fontcss"></link>
+		<script>/*LazyLoad CSS*/setTimeout(function(){document.getElementById("fontcss").href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css"},100)</script>
 		<!-- AE MOD -->
 		<script src="../main.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
@@ -312,7 +314,7 @@
 			}
 			x.send(options.data);
 		}
-
+/*
 		function request(input_url) {
 			doCORSRequest({
 				method: 'GET',
@@ -340,6 +342,32 @@
 				}
 				//OUTPUT
 			});
+		}*/
+		
+		function request(url) {
+			XHR.requestExt("GET", url, function (result, status){
+				try {
+					var p = JSON.parse(result);
+					console.log(p);
+					AE_MOD.projectData = p;
+					AE_MOD.uuid = p.uuid;
+					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+					AE_MOD.isCustom = false;
+					//Authorize if Project contains session blocks.
+					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
+						//Handle Errors here
+						var errorCode = error.code;
+						var errorMessage = error.message;
+					});
+					init();
+				} catch (SyntaxError) {
+					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
+					console.log('Unable to load');
+					console.error(SyntaxError);
+					return;
+				}
+				//OUTPUT
+			}, 1)
 		}
 		
 		var url = new URL(window.location.href);
@@ -456,11 +484,11 @@
 
 	<div id="ae-hs-player">
 		<div class="player-icon-toolbar" ondragstart="event.preventDefault();">
-			<img alt="mute" id="mute-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
-			<img alt="replay" id="restart-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
-			<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
+			<img alt="mute" id="mute-button" class="player-icon" src="assets/speaker.svg" asrc="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
+			<img alt="replay" id="restart-button" class="player-icon" src="assets/refresh_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
+			<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="assets/fullscreen_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
 			<a id="hopscotch-link" target="_top" onclick="event.preventDefault();">
-				<img alt="hopscotch" id="hopscotch-button" class="player-icon" src="https://c.gethopscotch.com/assets/webplayer/hopscotch_button-a64dbfaa6e5b9f817bb28c67cf5dcf6741aac3034464d3305065f1edb6a97617.svg" />
+				<img alt="hopscotch" id="hopscotch-button" class="player-icon" src="assets/hopscotch_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/hopscotch_button-a64dbfaa6e5b9f817bb28c67cf5dcf6741aac3034464d3305065f1edb6a97617.svg" />
 			</a>
 		</div>
 		<div id="achievement-banner" class="achievement-banner"></div>
@@ -564,7 +592,7 @@
 	</script>
 	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
 	<script id="appJs"></script>
-	<script src="https://c.gethopscotch.com/assets/application/asset_urls-66c72ce90a1ca36d7740a48386256898e3581d114788b7da74cf032ce305c42e.js"></script>
+	<script src="asset_urls.js"></script>
 
 	<!-- script>$('a').on('touchstart', function() { window.location = this.href; });</script -->
 </body>
