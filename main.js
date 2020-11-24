@@ -358,7 +358,7 @@ var XHR = {
 	},
 	requestExt: function(method, url, callback, proxy, data) {
 		proxy = proxy || 0;
-		let proxyUrls = ["", "all", "https://api.allorigins.win/get?url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest="]
+		let proxyUrls = ["", "all", "https://api.allorigins.win/get?url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
 		if (proxy === 2) method = "fetch";
 		function sendRequest(url, cb){
 			if (method == "fetch" || url.match(/https:\/\/api.allorigins/)) {
@@ -371,12 +371,12 @@ var XHR = {
 			} else {
 				let xhr = new XMLHttpRequest();
 				xhr.open(method, proxy > 2 ? proxyUrls[proxy] + url : url);
-				xhr.onload = xhr.onerror = function(){cb(xhr.responseText, xhr.status)};
+				xhr.onload = xhr.onerror = xhr.onabort = function(){cb(xhr.responseText, xhr.status)};
 				xhr.send(data);
 			}
 		}
 		if (proxy === 1) {
-			sendRequest(proxyUrls[2]+url,(r,s)=>{s&&s!=521?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s&&s!=521?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s&&s!=521?callback(r,s,4):callback(null, 521)})})});
+			sendRequest(proxyUrls[2]+url,(r,s)=>{s&&s!=521?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s&&s!=521?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s&&s!=521?callback(r,s,4):sendRequest(proxyUrls[5]+url,(r,s)=>{s&&s!=521?callback(r,s,5):callback(null, 521)})})})});
 		} else {
 			sendRequest(url, callback);
 		}

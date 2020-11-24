@@ -315,7 +315,7 @@
 			<span style="display:inline-block;"><input onclick="changeInputSelect()" type="radio" name="inputs" value="file" id="_fi"><label for="_fi">File Upload</label> &ic; <input disabled type="file" id="input-file" accept=".hopscotch, .hspre, .json, .txt" style="padding: 2px 0px 2px 0px; margin-bottom: 4px; width: 215px;"></span>
 			
 			<br>
-			<textarea style="resize: none; width: 100%; height: calc(100% - 72px); 348px; background: none; color: #888; outline: none;" id="content-target" readonly>Filtered words in your project will show up here...</textarea>
+			<textarea style="resize: none; width: 100%; height: calc(100% - 72px); 348px; background: none; color: #888; outline: none;" id="content-target" readonly>Loading Regular Expression...</textarea>
 		</div>
 		
 		<span id="searchBar">
@@ -326,100 +326,35 @@
 		<span style="z-index: 3;" id="filterSearch" class="search">
 			<ul id="filterSearchUL" class="searchItems noselect" style="margin-top:44px;">	
 				
-				<lb>A <t style="display: none;">address</t></lb>
-				<li><t>Address</t> <sub>1, 3</sub></li>
+				<!-- <lb>A<t style="display: none;">address</t></lb> -->
+				<lb id="insBefore_0" style="display:none;">A<t style="display:none;"></t></lb>
+				<lb id="insBefore_A" style="display:none;">B<t style="display:none;"></t></lb>
+				<lb id="insBefore_B" style="display:none;">C<t style="display:none;"></t></lb>
+				<lb id="insBefore_C" style="display:none;">D<t style="display:none;"></t></lb>
+				<lb id="insBefore_D" style="display:none;">E<t style="display:none;"></t></lb>
+				<lb id="insBefore_E" style="display:none;">F<t style="display:none;"></t></lb>
+				<lb id="insBefore_F" style="display:none;">G<t style="display:none;"></t></lb>
+				<lb id="insBefore_G" style="display:none;">H<t style="display:none;"></t></lb>
+				<lb id="insBefore_H" style="display:none;">I<t style="display:none;"></t></lb>
+				<lb id="insBefore_I" style="display:none;">J<t style="display:none;"></t></lb>
+				<lb id="insBefore_J" style="display:none;">K<t style="display:none;"></t></lb>
+				<lb id="insBefore_K" style="display:none;">L<t style="display:none;"></t></lb>
+				<lb id="insBefore_L" style="display:none;">M<t style="display:none;"></t></lb>
+				<lb id="insBefore_M" style="display:none;">N<t style="display:none;"></t></lb>
+				<lb id="insBefore_N" style="display:none;">O<t style="display:none;"></t></lb>
+				<lb id="insBefore_O" style="display:none;">P<t style="display:none;"></t></lb>
+				<lb id="insBefore_P" style="display:none;">Q<t style="display:none;"></t></lb>
+				<lb id="insBefore_Q" style="display:none;">R<t style="display:none;"></t></lb>
+				<lb id="insBefore_R" style="display:none;">S<t style="display:none;"></t></lb>
+				<lb id="insBefore_S" style="display:none;">T<t style="display:none;"></t></lb>
+				<lb id="insBefore_T" style="display:none;">U<t style="display:none;"></t></lb>
+				<lb id="insBefore_U" style="display:none;">V<t style="display:none;"></t></lb>
+				<lb id="insBefore_V" style="display:none;">W<t style="display:none;"></t></lb>
+				<lb id="insBefore_W" style="display:none;">X<t style="display:none;"></t></lb>
+				<lb id="insBefore_X" style="display:none;">Y<t style="display:none;"></t></lb>
+				<lb id="insBefore_Y" style="display:none;">Z<t style="display:none;"></t></lb>
 				
-				<lb>B<t style="display: none;">beer--blood--“Boys rule”, “Boys drool”--bully--burned</t></lb>
-				<li><t>Beer</t> <gray>(as in Root Beer)</gray></li>
-				<li><t>Blood</t></li>
-				<li><t>“Boys rule”, “Boys drool”</t> <sub>1</sub></li>
-				<li><t>Bully</t> <gray>(if you say not to bully others, the project will get stuck)</gray> <sub>3</sub></li>
-				<li><t>Burned</t> <sub>3</sub></li>
-				</lb>
-				
-				<lb>C<t style="display: none;">chat, chatting--chest--copying--cutting</t></lb>
-				<li><t>Chat, chatting</t> <sub>1, 3</sub></li>
-				<li><t>Chest</t> <gray>(as in Treasure Chest)</gray></li>
-				<li><t>Copying</t> <sub>3</sub></li>
-				<li><t>Cutting</t> <sub>3</sub></li>
-				
-				<lb>D<t style="display: none;">drunk</t></lb>
-				<li><t>Drunk</t> <gray>(You meant to use “drank”)</gray></li>
-				
-				<lb>E<t style="display: none;">email--escort--exe</t></lb>
-				<li><t>Email</t></li>
-				<li><t>Escort</t> <sub>4</sub></li>
-				<li><t>exe</t></li>
-				
-				<!-- <lb>F<t style="display: none;"></t></lb> -->
-				
-				<lb>G<t style="display: none;">“Girls rule”, “Girls drool”</t></lb>
-				<li><t>“Girls rule”, “Girls drool”</t> <sub>1</sub></li>
-				
-				<lb>H<t style="display: none;">hopscotch closing</t></lb>
-				<li><t>Hopscotch Closing</t> <sub>2</sub></li>
-				
-				<lb>I<t style="display: none;">instagram--idiot--ipad away</t></lb>
-				<li><t>Instagram</t></li>
-				<li><t>Idiot</t> <sub>4</sub></li>
-				<li><t>iPad away</t> <sub>2</sub></li>
-				
-				<lb>J<t style="display: none;">jerk</t></lb>
-				<li><t>Jerk</t> <gray>(beef jerky will be filtered, for example)</gray> <sub>4</sub></li>
-				
-				<lb>K<t style="display: none;">kiss</t></lb>
-				<li><t>Kiss</t></li>
-				
-				<lb>L<t style="display: none;">leaving hopscotch--loner--loser</t></lb>
-				<li><t>Leaving Hopscotch</t> <sub>2</sub></li>
-				<li><t>Loner</t></li>
-				<li><t>Loser</t> <gray>(If you say P1 lost and P2 won)</gray> <sub>3</sub></li>
-				
-				<lb>M<t style="display: none;">massage</t></lb>
-				<li><t>Massage</t></li>
-				
-				<lb>N<t style="display: none;">“Real Name”, “Full Name”, “Last Name”</t></lb>
-				<li><t>“Real Name”, “Full Name”, “Last Name”</t> <sub>1</sub></li>
-				
-				<lb>O<t style="display: none;">orphan</t></lb>
-				<li><t>Orphan</t> <gray>(you might use this in a story plot)</gray> <sub>3</sub></li>
-				
-				<lb>P<t style="display: none;">pants--phone is dead--phone number</t></lb>
-				<li><t>Pants</t> <gray>(although underwear, garments, and shirt are all ok)</gray></li>
-				<li><t>Phone is Dead</t> <sub>2</sub></li>
-				<li><t>Phone Number</t> <sub>2</sub></li>
-				
-				<lb>R<t style="display: none;">rp, roleplay</t></lb>
-				<li><t>RP, Roleplay</t> <sub>1</sub></li>
-				
-				<lb>S<t style="display: none;">shooting--stalking--stalker--strangle--stupid--sucks</t></lb>
-				<li><t>Shooting</t> <gray>(as in “shooting the basketball”)</gray> <sub>3</sub></li>
-				<li><t>Spamming</t> <sub>3</sub></li>
-				<li><t>Stalking, Stalker</t></li>
-				<li><t>Strangle</t></li>
-				<li><t>Stupid</t> <sub>4</sub></li>
-				<li><t>Sucks</t> <sub>3</sub></li>
-				
-				<lb>T<t style="display: none;">terrorist--text me--text you--thrust--trigger--trimming--txt</t></lb>
-				<li><t>Terrorist</t></li>
-				<li><t>Text Me</t> <sub>4</sub></li>
-				<li><t>Text You</t></li>
-				<li><t>Thrust</t> <sub>3</sub></li>
-				<li><t>Trigger</t> <gray>(I use this with “Clone Trigger”)</gray></li>
-				<li><t>Trimming</t> <sub>3</sub></li>
-				<li><t>txt</t></li>
-				
-				<lb>U<t style="display: none;">ur mom</t></lb>
-				<li><t>ur mom</t></li>
-				
-				<lb>W<t style="display: none;">weed--whiteboard</t></lb>
-				<li><t>Weed</t> <gray>(As in “weed the lawn”)</gray></li>
-				<li><t>Whiteboard</t> <sub>4</sub></li>
-				
-				<lb>Y<t style="display: none;">your mom</t></lb>
-				<li><t>YourMom</t> <gray>(Without a space, for whatever reason)</gray></li>
-				
-				<lb>OTHER<t style="display: none;">obviously, any profane language</t></lb>
+				<lb id="searchUL_Z">OTHER<t style="display: none;">obviously, any profane language</t></lb>
 				<li><t>Obviously, any profane language</t> <gray>(However, you may not know why it gets stuck because it only has to get embedded)</gray> <sub>4</sub></li>
 			</ul>
 		</span>
@@ -457,7 +392,7 @@
 				
 				target.value = "Searching...";
 				//Does contain some degree of bad words, therefore it is encoded. However, they are only used to catch bad words when they are embedded in other words. See the abcpot example rule.
-				var regex = RegExp(window.atob("KFxiYWRkcmVzc1xifFxiYmVlclxifFxiYmxvb2RcYnwoPzpcYig/OmdpcmxzfGJveXMpICg/OnJ1bGV8ZHJvb2wpXGIpfFxiYnVsbHlcYnxcYmJ1cm5lZFxifFxiY2hhdCg/OnRpbmcpP1xifFxiY1wuP2hhdFxifFxiY2hcLj9hdFxifFxiY2hhXC4/dFxifFxiY2hlc3RcYnxcYmNvcHlpbmdcYnxcYmN1dHRpbmdcYnxcYmRydW5rXGJ8XGJlbWFpbFxifFxiXHcqZXNjb3J0XHcqXGJ8XGJleGVcYnxcYmhvcHNjb3RjaCBjbG9zaW5nXGJ8XGJpbnN0YWdyYW1cYnxcYmlQYWQgYXdheVxifFxia2lzc1xifFxibGVhdmluZyBob3BzY290Y2hcYnxcYmxvbmVyXGJ8XGJsb3NlclxifFxibWFzc2FnZXxcYig/OnJlYWx8ZnVsbHxsYXN0KSBuYW1lXGJ8XGJvcnBoYW5cYnxcYnBhbnRzXGJ8XGJwaG9uZSAoPzppcyBkZWFkfG51bWJlcilcYnxcYnJvbGVwbGF5XGJ8XGJycFxifFxic2hvb3RpbmdcYnxcYnNwYW1taW5nXGJ8XGJzdGFsayg/OmluZ3xlcilcYnxcYnN0cmFuZ2xlXGJ8XGJzdWNrc1xifFxidGVycm9yaXN0XGJ8XGJcdyp0ZXh0IG1lXHcqXGJ8XGJ0ZXh0IHlvdVxifFxidGhydXN0XGJ8XGJ0cmlnZ2VyXGJ8XGJ0cmltbWluZ1xifFxidHh0XGJ8XGJ1ciBtb21cYnxcYndlZWRcYnxcYlx3KndoaXRlYm9hcmRcdypcYnxcYnlvdXJtb21cYil8KFxiXHcqaWRpb3RcdypcYnxcYlx3K2plcmtcdypcYnxcYmplcmtcdytcYnxcYlx3KnN0dXBpZFx3KlxiKXwoXGJiYW5nZWRcYnxcYmRlcHJlc3Npb25cYnxcYmRydWdzP1xifFxiZmluZ2VyaW5nXGJ8XGJoZWxsXGJ8XGJob2VcYnxcYmh1bXAoPzppbmcpP1xifFxibmVncm9cYil8KFxiXHcrZGlja1x3KlxifFxiZGlja1x3K1xifFxiXHcrcmFwaW5nXHcqXGJ8XGJyYXBpbmdcdytcYnxcYlx3K3NoaXRcdypcYnxcYnNoaXRcdytcYnxcYlx3K3NleFx3KlxifFxic2V4XHcrXGJ8XGJcdytzbHV0XHcqXGJ8XGJzbHV0XHcrXGJ8XGJcdypzbXV0XHcqXGIp4qCA"), "gi");
+				const regex = getRegex(arguments.callee.caller?arguments.callee.caller.name:null);
 				var matches = data.replace(/\\n|\\t/gi, "\\n ").match(regex);
 				try {
 					target.value = matches.join(", ");
@@ -465,6 +400,40 @@
 					target.value = "No matches found";
 				}
 			}
+			
+			function getRegex(a, newRegex) {
+				if (a+arguments.callee.caller?arguments.callee.caller.name:null=="printResulttestFilter") return _filter_regex;
+			}
+			var _filter_regex = /^$/g;
+			XHR.requestExt("GET","https://enw6yiuqc2jyb5w.m.pipedream.net/filter/regex/?private_key="+encodeURIComponent(new URL(location.href).searchParams.get("private_key")),function(r,s){
+				const target = document.getElementById('content-target');
+				var data;
+				try {
+					data = JSON.parse(r);
+					target.value = "Filtered words in your project will show up here...";
+					console.log("Regex Version: " + data.version);
+				} catch (e) {
+					data = JSON.parse(window.atob("eyJleHByZXNzaW9uIjoiXFxiYWRkcmVzc1xcYnxcXGJiYW5nZWRcXGJ8XFxiYmVlclxcYnxcXGJibG9vZFxcYnxcXGJib3lmcmllbmRcXGJ8KD86XFxiYm95cyAoPzpydWxlfGRyb29sKVxcYil8XFxiYnVsbHlcXGJ8XFxiYnVybmVkXFxifFxcYmNoYXQoPzp0aW5nKT9cXGJ8XFxiY1xcLj9oYXRcXGJ8XFxiY2hcXC4/YXRcXGJ8XFxiY2hhXFwuP3RcXGJ8XFxiY2hlc3RcXGJ8XFxiY29weWluZ1xcYnxcXGJjdXR0aW5nXFxifFxcYmRlcHJlc3Npb25cXGJ8XFxiXFx3K2RpY2tcXHcqXFxifFxcYmRpY2tcXHcrXFxifFxcYmRydWdzP1xcYnxcXGJkcnVua1xcYnxcXGJlbWFpbFxcYnxcXGJcXHcqZXNjb3J0XFx3KlxcYnxcXGJleGVcXGJ8XFxiZmluZ2VyaW5nXFxifCg/OlxcYmdpcmxzICg/OnJ1bGV8ZHJvb2wpXFxiKXxcXGJoZWxsXFxifFxcYmhvZVxcYnxcXGJob3BzY290Y2ggY2xvc2luZ1xcYnxcXGJodW1wKD86aW5nKT9cXGJ8XFxiaW5zdGFncmFtXFxifFxcYlxcdyppZGlvdFxcdypcXGJ8XFxiaXBhZCBhd2F5XFxifFxcYlxcdypqZXJrXFx3KlxcYnxcXGJraXNzXFxifFxcYmxlYXZpbmcgaG9wc2NvdGNoXFxifFxcYmxvbmVyXFxifFxcYmxvc2VyXFxifFxcYm1hc3NhZ2VcXGJ8XFxibmVncm9cXGJ8XFxiKD86cmVhbHxmdWxsfGxhc3QpIG5hbWVcXGJ8XFxib3JwaGFuXFxifFxcYnBhbnRzXFxifFxcYnBob25lIGlzIGRlYWRcXGJ8XFxicGhvbmUgbnVtYmVyXFxifFxcYlxcdytyYXBpbmdcXHcqXFxifFxcYnJhcGluZ1xcdytcXGJ8XFxicm9sZXBsYXlcXGJ8XFxicnBcXGJ8XFxiXFx3K3NleFxcdypcXGJ8XFxic2V4XFx3K1xcYnxcXGJcXHcrc2hpdFxcdypcXGJ8XFxic2hpdFxcdytcXGJ8XFxic2hvb3RpbmdcXGJ8XFxiXFx3K3Nob3RhXFx3KlxcYnxcXGJzaG90YVxcdytcXGJ8XFxiXFx3K3NtdXRcXHcqXFxifFxcYnNtdXRcXHcrXFxifFxcYnNwYW1taW5nXFxifFxcYnN0YWxrKD86aW5nfGVyKVxcYnxcXGJzdHJhbmdsZVxcYnxcXGJcXHcqc3R1cGlkXFx3KlxcYnxcXGJzdWNrc1xcYnxcXGJ0ZXJyb3Jpc3RcXGJ8XFxiXFx3KnRleHQgbWVcXHcqXFxifFxcYnRleHQgeW91XFxifFxcYnRocnVzdFxcYnxcXGJ0cmlnZ2VyXFxifFxcYnRyaW1taW5nXFxifFxcYnR4dFxcYnxcXGJ1ciBtb21cXGJ8XFxid2VlZFxcYnxcXGJcXHcqd2hpdGVib2FyZFxcdypcXGJ8XFxieW91cm1vbVxcYiIsIndvcmRMaXN0IjpbeyJzZXZlcml0eSI6MCwicnVsZXMiOlszXSwiZXhwcmVzc2lvbiI6IlxcYmFkZHJlc3NcXGIiLCJsYWJlbCI6IkFkZHJlc3MifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJiZWVyXFxiIiwibGFiZWwiOiJCZWVyIiwic3ViIjoiKGFzIGluIFJvb3QgQmVlcikifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJibG9vZFxcYiIsImxhYmVsIjoiQmxvb2QifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzFdLCJleHByZXNzaW9uIjoiKD86XFxiYm95cyAoPzpydWxlfGRyb29sKVxcYikiLCJsYWJlbCI6Ilx1MjAxQ0JveXMgcnVsZVx1MjAxRCwgXHUyMDFDQm95cyBkcm9vbFx1MjAxRCJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbM10sImV4cHJlc3Npb24iOiJcXGJidWxseVxcYiIsImxhYmVsIjoiQnVsbHkiLCJzdWIiOiIoaWYgeW91IHNheSBub3QgdG8gYnVsbHkgb3RoZXJzLCB0aGUgcHJvamVjdCB3aWxsIGdldCBzdHVjaykifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzNdLCJleHByZXNzaW9uIjoiXFxiYnVybmVkXFxiIiwibGFiZWwiOiJCdXJuZWQifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzEsM10sImV4cHJlc3Npb24iOiJcXGJjaGF0KD86dGluZyk/XFxifFxcYmNcXC4/aGF0XFxifFxcYmNoXFwuP2F0XFxifFxcYmNoYVxcLj90XFxiIiwibGFiZWwiOiJDaGF0LCBDaGF0dGluZyJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbXSwiZXhwcmVzc2lvbiI6IlxcYmNoZXN0XFxiIiwibGFiZWwiOiJDaGVzdCIsInN1YiI6IihhcyBpbiBUcmVhc3VyZSBDaGVzdCkifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzNdLCJleHByZXNzaW9uIjoiXFxiY29weWluZ1xcYiIsImxhYmVsIjoiQ29weWluZyJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbM10sImV4cHJlc3Npb24iOiJcXGJjdXR0aW5nXFxiIiwibGFiZWwiOiJDdXR0aW5nIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOltdLCJleHByZXNzaW9uIjoiXFxiZHJ1bmtcXGIiLCJsYWJlbCI6IkRydW5rIiwic3ViIjoiKFlvdSBtZWFudCB0byB1c2UgXHUyMDFDZHJhbmtcdTIwMUQpIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOltdLCJleHByZXNzaW9uIjoiXFxiZW1haWxcXGIiLCJsYWJlbCI6IkVtYWlsIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOls0XSwiZXhwcmVzc2lvbiI6IlxcYlxcdyplc2NvcnRcXHcqXFxiIiwibGFiZWwiOiJFc2NvcnQifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJleGVcXGIiLCJsYWJlbCI6ImV4ZSJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbMV0sImV4cHJlc3Npb24iOiIoPzpcXGJnaXJscyAoPzpydWxlfGRyb29sKVxcYikiLCJsYWJlbCI6Ilx1MjAxQ0dpcmxzIHJ1bGVcdTIwMUQsIFx1MjAxQ0dpcmxzIGRyb29sXHUyMDFEIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOlsyXSwiZXhwcmVzc2lvbiI6IlxcYmhvcHNjb3RjaCBjbG9zaW5nXFxiIiwibGFiZWwiOiJIb3BzY290Y2ggQ2xvc2luZyJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbXSwiZXhwcmVzc2lvbiI6IlxcYmluc3RhZ3JhbVxcYiIsImxhYmVsIjoiSW5zdGFncmFtIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOls0XSwiZXhwcmVzc2lvbiI6IlxcYlxcdyppZGlvdFxcdypcXGIiLCJsYWJlbCI6IklkaW90In0seyJzZXZlcml0eSI6MCwicnVsZXMiOlsyXSwiZXhwcmVzc2lvbiI6IlxcYmlwYWQgYXdheVxcYiIsImxhYmVsIjoiaVBhZCBhd2F5In0seyJzZXZlcml0eSI6MCwicnVsZXMiOls0XSwiZXhwcmVzc2lvbiI6IlxcYlxcdypqZXJrXFx3KlxcYiIsImxhYmVsIjoiSmVyayIsInN1YiI6IihiZWVmIGplcmt5LCBmb3IgZXhhbXBsZSwgd2lsbCBiZSBmaWx0ZXJlZCkifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJraXNzXFxiIiwibGFiZWwiOiJLaXNzIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOlsyXSwiZXhwcmVzc2lvbiI6IlxcYmxlYXZpbmcgaG9wc2NvdGNoXFxiIiwibGFiZWwiOiJMZWF2aW5nIEhvcHNjb3RjaCJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbXSwiZXhwcmVzc2lvbiI6IlxcYmxvbmVyXFxiIiwibGFiZWwiOiJMb25lciJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbM10sImV4cHJlc3Npb24iOiJcXGJsb3NlclxcYiIsImxhYmVsIjoiTG9zZXIiLCJzdWIiOiIoaWYgeW91IHNheSBQMSBsb3N0IGFuZCBQMiB3b24pIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOltdLCJleHByZXNzaW9uIjoiXFxibWFzc2FnZVxcYiIsImxhYmVsIjoiTWFzc2FnZSJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbMV0sImV4cHJlc3Npb24iOiJcXGIoPzpyZWFsfGZ1bGx8bGFzdCkgbmFtZVxcYiIsImxhYmVsIjoiXHUyMDFDUmVhbCBOYW1lXHUyMDFELCBcdTIwMUNGdWxsIE5hbWVcdTIwMUQsIFx1MjAxQ0xhc3QgTmFtZVx1MjAxRCIsInN0YXJ0X2xldHRlciI6Ik4ifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzNdLCJleHByZXNzaW9uIjoiXFxib3JwaGFuXFxiIiwibGFiZWwiOiJPcnBoYW4iLCJzdWIiOiIoeW91IG1pZ2h0IHVzZSB0aGlzIGluIGEgc3RvcnkgcGxvdCkifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJwYW50c1xcYiIsImxhYmVsIjoiUGFudHMiLCJzdWIiOiIoYWx0aG91Z2ggdW5kZXJ3ZWFyLCBnYXJtZW50cywgYW5kIHNoaXJ0IGFyZSBhbGwgb2spIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOlsyXSwiZXhwcmVzc2lvbiI6IlxcYnBob25lIGlzIGRlYWRcXGIiLCJsYWJlbCI6IlBob25lIGlzIERlYWQifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzJdLCJleHByZXNzaW9uIjoiXFxicGhvbmUgbnVtYmVyXFxiIiwibGFiZWwiOiJQaG9uZSBOdW1iZXIifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzFdLCJleHByZXNzaW9uIjoiXFxicm9sZXBsYXlcXGJ8XFxicnBcXGIiLCJsYWJlbCI6IlJQLCBSb2xlcGxheSJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbM10sImV4cHJlc3Npb24iOiJcXGJzaG9vdGluZ1xcYiIsImxhYmVsIjoiU2hvb3RpbmciLCJzdWIiOiIoYXMgaW4gXHUyMDFDc2hvb3RpbmcgdGhlIGJhc2tldGJhbGxcdTIwMUQpIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOlszXSwiZXhwcmVzc2lvbiI6IlxcYnNwYW1taW5nXFxiIiwibGFiZWwiOiJTcGFtbWluZyJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbMSwzXSwiZXhwcmVzc2lvbiI6IlxcYnN0YWxrKD86aW5nfGVyKVxcYiIsImxhYmVsIjoiU3RhbGtpbmcsIFN0YWxrZXIifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJzdHJhbmdsZVxcYiIsImxhYmVsIjoiU3RyYW5nbGUifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzRdLCJleHByZXNzaW9uIjoiXFxiXFx3KnN0dXBpZFxcdypcXGIiLCJsYWJlbCI6IlN0dXBpZCJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbM10sImV4cHJlc3Npb24iOiJcXGJzdWNrc1xcYiIsImxhYmVsIjoiU3Vja3MifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJ0ZXJyb3Jpc3RcXGIiLCJsYWJlbCI6IlRlcnJvcmlzdCJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbMiw0XSwiZXhwcmVzc2lvbiI6IlxcYlxcdyp0ZXh0IG1lXFx3KlxcYiIsImxhYmVsIjoiVGV4dCBNZSIsInN1YiI6Iih0aGlzIGFsc28gZmlsdGVycyBwaHJhc2VzIHN1Y2ggYXMgXHUyMDFDdGV4dCBtZXNzYWdlXHUyMDFEKSJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbMl0sImV4cHJlc3Npb24iOiJcXGJ0ZXh0IHlvdVxcYiIsImxhYmVsIjoiVGV4dCBZb3UifSx7InNldmVyaXR5IjowLCJydWxlcyI6WzNdLCJleHByZXNzaW9uIjoiXFxidGhydXN0XFxiIiwibGFiZWwiOiJUaHJ1c3QifSx7InNldmVyaXR5IjowLCJydWxlcyI6W10sImV4cHJlc3Npb24iOiJcXGJ0cmlnZ2VyXFxiIiwibGFiZWwiOiJUcmlnZ2VyIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOlszXSwiZXhwcmVzc2lvbiI6IlxcYnRyaW1taW5nXFxiIiwibGFiZWwiOiJUcmltbWluZyJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbXSwiZXhwcmVzc2lvbiI6IlxcYnR4dFxcYiIsImxhYmVsIjoidHh0In0seyJzZXZlcml0eSI6MCwicnVsZXMiOlsyXSwiZXhwcmVzc2lvbiI6IlxcYnVyIG1vbVxcYiIsImxhYmVsIjoidXIgbW9tIn0seyJzZXZlcml0eSI6MCwicnVsZXMiOls0XSwiZXhwcmVzc2lvbiI6IlxcYlxcdyp3aGl0ZWJvYXJkXFx3KlxcYiIsImxhYmVsIjoiV2hpdGVib2FyZCJ9LHsic2V2ZXJpdHkiOjAsInJ1bGVzIjpbXSwiZXhwcmVzc2lvbiI6IlxcYnlvdXJtb21cXGIiLCJsYWJlbCI6IllvdXJNb20iLCJzdWIiOiIod2l0aG91dCBhIHNwYWNlLCBmb3Igd2hhdGV2ZXIgcmVhc29uKSJ9XSwidmVyc2lvbiI6IjEuMy4wIn0="));
+					target.value = "Could not load filter \u2013 using embedded version 1.3.0";
+					console.log("Regex Version: 1.3.0");
+				}
+				_filter_regex = new RegExp(data.expression,"gi");
+				data.wordList.forEach(entry=>{
+					let elm = document.createElement("li");
+					elm.innerHTML = '<t>'+entry.label+'</t>' + (entry.sub?' <gray>'+entry.sub+'</gray>':'') + (entry.rules.length?' <sub>'+entry.rules.join(', ')+'</sub>':'')
+					document.getElementById("filterSearchUL").insertBefore(elm, document.getElementById("insBefore_"+(entry.start_letter||entry.label.match(/\w/)[0].toUpperCase())))
+				});
+				document.getElementById("filterSearchUL").querySelectorAll("lb").forEach(elm=>{if (elm.id.match(/insBefore_[0A-Y]/)){
+					targetElm = elm.nextElementSibling;
+					let values = [];
+					while (targetElm.nodeName == "LI") {
+						values.push(targetElm.querySelector("t").innerText);
+						targetElm = targetElm.nextElementSibling;
+					}
+					elm.querySelector("t").innerText = values.join("--");
+					if (elm.nextElementSibling.nodeName == "LB") return elm.remove(); else return elm.style.display="block";
+				}});
+			});
 			
 			//Extract filtered words when given a URL
 			function filterUrl(url){
@@ -622,8 +591,6 @@
 					input.accept = ""; //Unfortunately, I have to do this to allow files to be selected.
 				});
 			}
-			//Log Site Update Time and Device
-			console.log(navigator.userAgent);
 		</script>
 	</body>
 </html>
