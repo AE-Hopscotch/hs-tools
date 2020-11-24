@@ -126,7 +126,7 @@
 							try {
 								JSON.parse(r);
 								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-							} catch (e) {/* Bad JSON */}
+							} catch (e) {/* Bad JSON */ AE_MOD.globalvars[a.args[0]] = "__ERR_CANNOT_GET"}
 						})
 						break;
 					case "globalvar-read":

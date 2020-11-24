@@ -192,7 +192,7 @@ bl {
 	max-width: 100%;
 	margin: 10px 0px 0px 0px;
 	min-width: 30%;
-	transition: opacity 0.5s;
+	transition: opacity var(--time-trans);
 	border-radius: 8px;
 }
 video[canBeDark] {

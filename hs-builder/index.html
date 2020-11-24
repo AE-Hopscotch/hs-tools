@@ -541,6 +541,7 @@
 				<div class="traits-info"></div>
 				<span class="center">Select a trait to modify it:</span>
 				<select id="traits-selector" class="center" style="margin:8px auto;font-size:18px;padding:1px;" oninput="editor.traits.showFields()" aria-label="Select Trait">
+					<option value="presetActions">Built-in Actions</option>
 					<option value="stageSize">Stage Size</option>
 					<option value="version">Editor Version</option>
 					<option value="playerVersion">Player Version</option>
@@ -548,18 +549,10 @@
 					<option value="baseObjectScale">Object Scale</option>
 					<option value="fontSize">Font Size</option>
 					<option value="requires_beta_editor">Requires Beta Editor</option>
-					<option value="presetActions">Built-in Actions</option>
 					<option value="other">Other (Raw JSON)</option>
 				</select>
 				<div class="traits-editor">
-					<div style="--w:80px;display:inline-block;" id="traits-stageSize"><input required type="number" placeholder="1024" value="1024" aria-label="Stage Width"/> &times; <input required type="number" placeholder="768" value="768" aria-label="Stage Height"/></div>
-					<div style="--w:80px;" id="traits-version"><input required type="number" placeholder="31" aria-label="Editor Version"/></div>
-					<div style="--w:80px;" id="traits-playerVersion"><input required type="text" placeholder="1.5.0" pattern="^\d+\.\d+\.\d+" aria-label="Player Version"/></div>
-					<div style="--w:230px;" id="traits-edited_at"><input required type="text" placeholder="ISO Time String" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" aria-label="Edited Date"/></div>
-					<div style="--w:80px;" id="traits-baseObjectScale"><input required type="number" placeholder="1" step="any" aria-label="Base Object Scale"/></div>
-					<div style="--w:80px;" id="traits-fontSize"><input required type="number" placeholder="80" aria-label="Font Size"/></div>
-					<div style="--w:100px;" id="traits-requires_beta_editor"><select aria-label="Beta Editor Enabled"><option>false</option><option>true</option></select></div>
-					<div style="--w:230px;" id="traits-presetActions"><select style="font-size:18px;">
+					<div style="--w:230px;display:inline-block;" id="traits-presetActions"><select style="font-size:18px;">
 						<optgroup label="Project Enhancements">
 							<option value="secret-blocks">Add Secret Blocks</option>
 							<option value="image-blocks">Add Image Blocks</option>
@@ -584,6 +577,13 @@
 							<option value="midi-hack">Import a MIDI file</option>
 						</optgroup>
 					</select></div>
+					<div style="--w:80px;" id="traits-stageSize"><input required type="number" placeholder="1024" value="1024" aria-label="Stage Width"/> &times; <input required type="number" placeholder="768" value="768" aria-label="Stage Height"/></div>
+					<div style="--w:80px;" id="traits-version"><input required type="number" placeholder="31" aria-label="Editor Version"/></div>
+					<div style="--w:80px;" id="traits-playerVersion"><input required type="text" placeholder="1.5.0" pattern="^\d+\.\d+\.\d+" aria-label="Player Version"/></div>
+					<div style="--w:230px;" id="traits-edited_at"><input required type="text" placeholder="ISO Time String" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" aria-label="Edited Date"/></div>
+					<div style="--w:80px;" id="traits-baseObjectScale"><input required type="number" placeholder="1" step="any" aria-label="Base Object Scale"/></div>
+					<div style="--w:80px;" id="traits-fontSize"><input required type="number" placeholder="80" aria-label="Font Size"/></div>
+					<div style="--w:100px;" id="traits-requires_beta_editor"><select aria-label="Beta Editor Enabled"><option>false</option><option>true</option></select></div>
 					<div style="--w:230px;" id="traits-other"><select>
 						<option value="project">Entire Project</option>
 						<option value="abilities">Abilities</option>

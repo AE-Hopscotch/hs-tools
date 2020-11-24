@@ -144,7 +144,7 @@
 		
 		<div>
 			<table><tr><td style="padding: 8px;">
-				<a style="display:flex;align-items:center;font-size:20px;" href="javascript:alert('Awaiting development')"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/51/mobile-phone_1f4f1.png" width="48"/><big>Device Guesser by Awesome_E &ic; </big></a>
+				<a id="guesser-link" style="display:flex;align-items:center;font-size:20px;" href="https://c.gethopscotch.com/p/11acw6vp2k"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/51/mobile-phone_1f4f1.png" width="48"/><big>Device Guesser by Awesome_E &ic; </big></a>
 			</td></tr></table>
 		</div>
 		<div style="text-align:justify;text-indent:40px;">
@@ -182,5 +182,9 @@
 		</table>
 		<script src="../main.js"></script>
 		<script src="../sidenav.min.js"></script>
+		<script>
+			const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+			if (!onIos) document.getElementById("guesser-link").href = "https://awesome-e.github.io/hs-tools/play-project/?id=11acw6vp2k"
+		</script>
 	</body>
 </html>

@@ -228,7 +228,7 @@
 			var hsProject, projectDict;
 
 			r = new XMLHttpRequest();
-			r.open("GET", "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://c.gethopscotch.com/api/v1/projects/test?nocache=")+Date.now());
+			r.open("GET", "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://c.gethopscotch.com/api/v1/projects/"+prompt("UUID","test")+"?nocache=")+Date.now());
 			r.onerror = r.onload = function(){
 				hsProject = JSON.parse(r.responseText);
 				console.log("%cReady","color:lime");

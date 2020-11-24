@@ -70,7 +70,7 @@ async function compress(data){ /* Input is JSON data */
 }
 
 function workerFormatProject(p, projectDict, data) {
-	let iterationsTotal = p.abilities.length*6 + p.eventParameters.length + p.objects.length*2 + p.rules.length*2 + p.customRules.length*2 + p.traits.length*2 + p.variables.length*2 + p.scenes.length + 1,
+	let iterationsTotal = (p.abilities?.length*6||0) + (p.eventParameters?.length||0) + (p.objects?.length*2||0) + (p.rules?.length*2||0) + (p.customRules?.length*2||0) + (p.traits?.length*2||0) + (p.variables?.length*2||0) + (p.scenes?.length||0) + 1,
 		iterationsComplete = 0,
 		newestCreateDate = 0,
 		blockLabels = data.blockLabels,
@@ -130,6 +130,12 @@ function workerFormatProject(p, projectDict, data) {
 			}
 		},
 		editor = {project:{}};		
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/x/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
 	function getRange(a, b) {
 		var rangeList = [];
 		for (i = a; i < b+1; i++) { rangeList.push(i); }
@@ -353,13 +359,13 @@ function workerFormatProject(p, projectDict, data) {
 	for (i = 0; i < (p.rules||[]).length; i++) {
 		var r = p.rules[i];
 		if (!r.id) {
-			console.log('test')
 			//Assign UUID if it does not exist, then add that to the object
 			r.id = uuidv4().toUpperCase();
 			var obj = projectDict.objects[r.objectID];
 			if (obj) {
-				if (!obj.rules) obj.rules = {};
-				obj.rules[r.id] = Object.detach(r);
+				if (!obj.rules) obj.rules = [];//{};
+				obj.rules.push(r.id);
+				//obj.rules[r.id] = Object.detach(r);
 				p.objects.forEach(o=>{
 					if (o.objectID == r.objectID) o.rules.push(r.id);
 				});
