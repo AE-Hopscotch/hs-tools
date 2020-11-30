@@ -317,7 +317,7 @@
 		}
 		
 		var url = new URL(window.location.href);
-		var customIdList = new URL(location.href).searchParams.get("p")?.split(" ");
+		var customIdList = new URL(location.href).searchParams.get("p")?.split(" ")||[];
 		var customUUID = customIdList[0] || (function(){document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>No project specified</h2>";return "";})();
 		
 		/***********************************/
@@ -631,6 +631,8 @@
 		AE_div.speedrun.split_save = 0;
 		AE_div.speedrun.timer_time = AE_div.speedrun.timer_time||0;
 		AE_div.speedrun.time_save = AE_div.speedrun.time_save||0;
+		d = null;
+		if (!document.getElementById('play_container')) throw Error("No projects specified");
 		document.getElementById('play_container').addEventListener('touchend',function(){
 			document.getElementById('hopscotch-link').style.display = "";
 			if (AE_div.speedrun.timer_time == 0) beginTiming();
@@ -685,5 +687,38 @@
 			document.querySelectorAll("td[netTotal]")[k].innerHTML = AE_div.speedrun.net_totals[i];
 		}
 		document.querySelectorAll("tbody tr")[(AE_div.speedrun.split_nums[AE_div.speedrun.split_nums.length-1]||1)-1].scrollIntoView();
+	</script>
+	<script>
+		//Allow players to add their own projects here
+		if (!customIdList[0]) {
+			document.getElementById("names-list").innerHTML += '<tr><td>ID: <input placeholder="10n9bb2meq" style="color: rgb(0,200,0)"></td><td splitTime><button onclick="addgame()">Add</button></td><td hidden netSplit></td><td totalTime><button onclick="sharerun()">Share</button></td><td hidden netTotal></td></tr>';
+			document.querySelector('input[placeholder="10n9bb2meq"]').onkeydown = function(e) {if (e.keyCode == 13) addgame();}
+			function addgame() {
+				XHR.requestExt("GET","https://c.gethopscotch.com/api/v1/projects/"+document.querySelector('input[placeholder="10n9bb2meq"]').value,function(r,s){
+					try {
+						let project = JSON.parse(r);
+						var hasFinishBlock = false;
+						(project.abilities||[]).forEach(a=>{
+							for (i = 0; i < (a.blocks||[]).length; i++) {
+								b = a.blocks[i];
+								//Lazy Check Each block
+								if (JSON.stringify(b).match(/"type":22[^\{\}]*?"param(s|eters)?":\[\{[^\{\}]*?"value":"_ae_webplayer_action:\{.*?\\"name\\":\\"comp_next\\".*?\}.*?\]\}/)) hasFinishBlock = true;
+							};
+						});
+						hasFinishBlock ? (function(){
+							document.getElementById("names-list").innerHTML += '<tr><td class="custom-uuid">'+project.uuid+'</td><td splitTime></td><td hidden netSplit></td><td totalTime><button onclick="this.parentNode.parentNode.remove()">Remove</button></td><td hidden netTotal></td></tr>';
+							document.querySelector('input[placeholder="10n9bb2meq"]').onkeydown = function(e) {if (e.keyCode == 13) addgame();}
+						})() : alert("Project must have the custom action that finishes the game")
+					} catch (e) {
+						console.error(e);
+						alert("Invalid Project ID");
+					}
+				}, 1);
+			}
+			function sharerun() {
+				copyText("https://awesome-e.github.io/hs-tools/play-project/custom-speedrun/?p="+document.querySelectorAll(".custom-uuid").repeatEach(elm=>elm.innerHTML).join("+"));
+				alert("Link copied to clipboard");
+			}
+		}
 	</script>
 </div>
