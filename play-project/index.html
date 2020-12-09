@@ -42,6 +42,17 @@
 		<script src="../main.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+			@media print {
+				body {font-family:sans-serif;background-color:red!important;}
+				h1, h2 {color:black!important;}
+				#projectInfoHoverIcon {display:none;}
+				.wrapper {display:none;}
+				.review-card b {display:inline-block; margin:12px 0 5px;}
+				.review-date {display:block;margin-top:5px;}
+				.review-date::before {content:"Review Date: "}
+			}
+		</style>
 		<!-- AE MOD -->
 	</head>
 </html>
