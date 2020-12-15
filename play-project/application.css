@@ -7,7 +7,7 @@ h2 {
 	color: #666;
 }
 hopscotch-player:not([style]) .row.content::after, .play-button::after {
-	position: fixed;
+	/*position: fixed;
 	top: 50%;
 	left: 50%;
 	color: white;
@@ -19,10 +19,12 @@ hopscotch-player:not([style]) .row.content::after, .play-button::after {
 	line-height: 20px;
 	transform: translate(-50%,-50%);
 	background-color: rgba(40,40,40,0.8);
-	content: "DISCLAIMER: The CORS Server AllOrigins has had caching issues for some time with projects. As a result, please know that you might not be playing the most recently updated version of a project, and that some behavior is currently not functioning correctly.";
+	/* content: "DISCLAIMER: The CORS Server AllOrigins has had caching issues for some time with projects. As a result, please know that you might not be playing the most recently updated version of a project, and that some behavior is currently not functioning correctly."; */
+	/* Hopefully the caching issue is fixed, so I no longer need this */
+	/*
 	text-align: center;
 	pointer-events: none;
-	z-index: 10000000;
+	z-index: 10000000; */
 }
 .play-button.has-keyboard::before {
 	content: "\f11c";

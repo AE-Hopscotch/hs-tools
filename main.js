@@ -358,7 +358,7 @@ var XHR = {
 	},
 	requestExt: function(method, url, callback, proxy, data) {
 		proxy = proxy || 0;
-		let proxyUrls = ["", "all", "https://api.allorigins.win/get?url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
+		let proxyUrls = ["", "all", "https://api.allorigins.win/get?t="+Date.now()+"url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
 		if (proxy === 2) method = "fetch";
 		function sendRequest(url, cb){
 			if (method == "fetch" || url.match(/https:\/\/api.allorigins/)) {
@@ -381,5 +381,9 @@ var XHR = {
 			sendRequest(url, callback);
 		}
 	}
+}
+
+function storageAccess() {
+	try{return!!localStorage}catch(e){return!1}
 }
 

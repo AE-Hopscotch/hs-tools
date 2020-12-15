@@ -331,7 +331,7 @@
 			
 			function doCORSRequest(options, printResult) {
 				var x = new XMLHttpRequest();
-				x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?url=' + encodeURIComponent(options.url));
+				x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?t='+Date.now()+'&url=' + encodeURIComponent(options.url));
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
