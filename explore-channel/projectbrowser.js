@@ -3,7 +3,7 @@ console.clear();
 const explorerVersion = "1.7.0 r2"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
-const avPath = (getPref("new_avatars")?"01/":"02/"/*HALLOWEEN*/); //Profile Pictures Only
+const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
 //Badges
 const badges = {
 	"users": {
