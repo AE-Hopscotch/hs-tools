@@ -361,15 +361,20 @@ function workerFormatProject(p, projectDict, data) {
 		if (!r.id) {
 			//Assign UUID if it does not exist, then add that to the object
 			r.id = uuidv4().toUpperCase();
-			var obj = projectDict.objects[r.objectID];
-			if (obj) {
-				if (!obj.rules) obj.rules = [];//{};
-				obj.rules.push(r.id);
-				//obj.rules[r.id] = Object.detach(r);
-				p.objects.forEach(o=>{
-					if (o.objectID == r.objectID) o.rules.push(r.id);
-				});
-			}
+		}
+		var obj = projectDict.objects[r.objectID];
+		if (obj) {
+			if (!obj.rules) obj.rules = [];//{};
+			obj.rules.push(r.id);
+			//obj.rules[r.id] = Object.detach(r);
+			p.objects.forEach(o=>{
+				if (o.objectID == r.objectID) o.rules.push(r.id);
+			});
+			/*if (!obj.rules) obj.rules = {};
+			obj.rules[r.id] = Object.detach(r);
+			p.objects.forEach(o=>{
+				if (o.objectID == r.objectID) o.rules.push(r.id);
+			});*/
 		}
 		projectDict.rules[r.id] = Object.detach(r);
 		iterationDone();
