@@ -669,7 +669,11 @@
 		<script defer src="worker.js"></script>
 		<script>
 			//Lazy Images
-			document.getElementById("traits-selector").addEventListener("input",function(e){if (e.target.value == "presetActions")document.querySelectorAll(".popup-lazyimg").forEach(img=>{img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); img.classList.remove("popup-lazyimg");});})
+			const lazyLoad = {
+				popupImages: function(){document.querySelectorAll(".popup-lazyimg").forEach(img=>{img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); img.classList.remove("popup-lazyimg");});}
+			}
+			document.querySelector(".traits-confirm").ontouchstart = document.querySelector(".traits-confirm").onmouseenter = function(){lazyLoad.popupImages();}
+			document.querySelector(".traits-confirm").addEventListener("click",function(){lazyLoad.popupImages()});
 		</script>
 	</body>
 </html>
