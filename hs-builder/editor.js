@@ -2104,7 +2104,7 @@ if (editor.useFileSysCode) {
 			bodyScroll.disable();
 		},
 		"download": function(override) {
-			if (bodyScroll.isLocked() || popup.isOpen() && !override) return;
+			if (!override && (bodyScroll.isLocked() || popup.isOpen())) return;
 			document.querySelector("#download").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
@@ -2473,7 +2473,7 @@ if (editor.useFileSysCode) {
 		replaceLocation("?r=0");
 		popup.download(true);
 		bodyScroll.disable();
-		setTimeout(function(){bodyScroll.disable();},1500);
+		setTimeout(function(){if (popup.isOpen()) bodyScroll.disable();},1500);
 	}
 	//Download Project
 	function downloadItem(blob, filename, loadFn, errFn) {
