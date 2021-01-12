@@ -247,7 +247,7 @@ sq {
 	padding: 8px;
 	font-size: 20px;
 	width: 384px;
-	max-width: 100%;
+	max-width: calc(100% - 16px);
 	margin: 4px 0;
 	border: none;
 	outline: none;

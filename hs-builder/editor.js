@@ -1,4 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
+editor.version = "beta 1.4.0 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -26,6 +27,9 @@ const bodyScroll = {
 		document.body.ontouchmove = (e) => {if(e.target.classList.contains("touch-scroll"))e.preventDefault()};
 		document.querySelector(".fullscreen-elms").style.pointerEvents = "auto";
 	},
+	isLocked: function() {
+		return document.body.style.overflow == "hidden";
+	},
 	getX: function() {
 		return (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft);
 	},
@@ -39,6 +43,16 @@ const bodyScroll = {
 		document.documentElement.style.setProperty("--scroll-y", (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) + "px");
 	},
 	coordsInterval: null
+}
+function unloadConfirmation(state) {
+	if (state) {
+		if (getPref("no_unload_confirm"))return;
+		window.onbeforeunload = function(e){if(e.shiftKey)e.returnValue='test'}//return "Are you sure you want to leave?";};
+		document.title = document.title.replace(/([^\*])$/,"$1*");
+	} else {
+		window.onbeforeunload = null;
+		document.title = document.title.replace(/\*$/,"");
+	}
 }
 function uuidv4() {
 	return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/x/g, function(c) {
@@ -61,7 +75,26 @@ window.addEventListener("scroll", function(e){
 })
 
 let newestCreateDate = 0;
-function getProjectDistributions(p) {
+function getProjectDistributions(p, workerData) {
+	if (workerData) {
+		blockLabels = workerData.blockLabels;
+		charLabels = workerData.charLabels;
+		unformatProject = new Function('p', workerData.unformatProject+'return unformatProject(p)');
+		getRange = new Function('a','b', workerData.getRange+'return getRange(a,b)');
+		Array.prototype.repeatEach = function(fn) {var outputs = [];if (!(fn && typeof fn == 'function')) throw new TypeError(fn + ' is not a function');for(var i = 0; i < this.length; i++) {outputs.push( fn(this[i]) );}return outputs;}
+		Array.prototype.removeNull = function() {var outputs = [];for(var i = 0; i < this.length; i++) {if (this[i] != null) outputs.push(this[i]);}return outputs;}
+		hsProject = p;
+		checkAbility = {
+			secretBlocks: new Function('a', 'return('+workerData["checkAbility.secretBlocks"]+')(a)'),
+			setImgBlocks: new Function('a', 'return('+workerData["checkAbility.setImgBlocks"]+')(a)'),
+			checkBlock: new Function('a','b', 'return('+workerData["checkAbility.checkBlock"]+')(a,b)'),
+			checkScript: new Function('a','b', 'return('+workerData["checkAbility.checkScript"]+')(a,b)')
+		};
+		Object.detach = function(o) {
+			return JSON.parse(JSON.stringify(o));
+		};
+		sbStatus = ibStatus = "none";
+	}
 	distributionCounts = {
 		blockCatgCounts: {},
 		blockDescCounts: {},
@@ -144,14 +177,19 @@ function getProjectDistributions(p) {
 		distributionCounts.traitsTotalUsage = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{return distributionCounts.traitsTypeCounts[key]}).reduce((a,b)=>{return a+b});
 	});
 	let filesize = Math.round(JSON.stringify(unformatProject(hsProject)).length/10)/100;
-	if (editor.useBlockRender) {
+	if (workerData || editor.useBlockRender) {
 		function getSpecialBlockAbilityNames(){
 			const hasSbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.secretBlocks(a).contains) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
 			const fullSbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.secretBlocks(a).newest) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
-			editor.project.secretBlocks = fullSbAbilityName ? "new" : hasSbAbilityName ? "old" : "none";
 			const hasIbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.setImgBlocks(a).contains) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
 			const fullIbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{if(a.name && checkAbility.setImgBlocks(a).newest) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
-			editor.project.secretBlocks = fullIbAbilityName ? "new" : hasIbAbilityName ? "old" : "none";
+			if (!workerData) {
+				editor.project.secretBlocks = fullSbAbilityName ? "new" : hasSbAbilityName ? "old" : "none";
+				editor.project.secretBlocks = fullIbAbilityName ? "new" : hasIbAbilityName ? "old" : "none";
+			} else {
+				sbStatus = fullSbAbilityName ? "new" : hasSbAbilityName ? "old" : "none";
+				ibStatus = fullIbAbilityName ? "new" : hasIbAbilityName ? "old" : "none";
+			}
 			return {
 				imageBlocks: fullIbAbilityName ? fullIbAbilityName.replace(/(^.{20})(.+)/,"$1\u2026") + ' <i title="Up to date" class="fa fa-fw fa-check"></i>' : hasIbAbilityName ? hasIbAbilityName.replace(/(^.{13})(.+)/,"$1\u2026") + ' <i title="Out of date" class="fa fa-fw fa-refresh"></i>' : '<i>Not added</i>',
 				secretBlocks: fullSbAbilityName ? fullSbAbilityName.replace(/(^.{20})(.+)/,"$1\u2026") + ' <i title="Up to date" class="fa fa-fw fa-check"></i>' : hasSbAbilityName ? hasSbAbilityName.replace(/(^.{13})(.+)/,"$1\u2026") + ' <i title="Out of date" class="fa fa-fw fa-refresh"></i>' : '<i>Not added</i>'
@@ -177,6 +215,17 @@ function getProjectDistributions(p) {
 			"variables": (hsProject.variables||[]).length,
 			"sbAbilityName": getSpecialBlockAbilityNames().secretBlocks,
 			"ibAbilityName": getSpecialBlockAbilityNames().imageBlocks
+		}
+	}
+	if (workerData) postMessage([projectQuickStats, distributionCounts]);
+}
+let workerFunctions = {
+	refreshStats: function (p, completion) {
+		let worker = new Worker(URL.createObjectURL(new Blob(["("+getProjectDistributions.toString()+")("+JSON.stringify(p)+','+JSON.stringify({
+			"checkAbility.secretBlocks":checkAbility.secretBlocks.toString(),"checkAbility.setImgBlocks":checkAbility.setImgBlocks.toString(),"checkAbility.checkBlock":checkAbility.checkBlock.toString(),"checkAbility.checkScript":checkAbility.checkScript.toString(),
+			getRange:getRange.toString(),unformatProject:unformatProject.toString(),blockLabels:blockLabels,charLabels:charLabels})+")"], {type: 'text/javascript'})));
+		worker.onmessage = function(msg){
+			result = msg.data, projectQuickStats = result[0], distributionCounts = result[1], completion();
 		}
 	}
 }
@@ -250,8 +299,9 @@ function formatProject(p) {
 			var obj = projectDict.objects[r.objectID];
 			if (obj) {
 				/*if (!obj.rules) obj.rules = {};
-				obj.rules[r.id] = Object.detach(r);*/
-				if (!obj.rules) obj.rules = [];//{};
+				obj.rules[r.id] = Object.detach(r); */
+				
+				if (!obj.rules) obj.rules = []; // {}
 				obj.rules.push(r.id);
 				
 				p.objects.forEach(o=>{
@@ -816,8 +866,8 @@ if (editor.useBlockRender) {
 			case 13:
 				if (document.activeElement && document.activeElement.parentNode && document.activeElement.parentNode.id.match(/^traits-/)) document.querySelector("button.traits-confirm").click();
 				break;
-			case 17:
-				//Double pressing the control key brings out the control window
+			case 16:
+				//Double pressing the shift key brings out the control window
 				var thisKeypressTime = new Date();
 				if ( thisKeypressTime - lastKeypressTime <= keypressDelta ) {
 					var wcs = document.getElementById("window-controls-resizer");
@@ -830,6 +880,7 @@ if (editor.useBlockRender) {
 				break;
 			case 27:
 				popup.close();
+				if (editor.project.saveFileXHR) editor.project.saveFileXHR.abort(), document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save';
 				break;
 			case 46:		
 				if (!activeEditBlock) {
@@ -838,6 +889,15 @@ if (editor.useBlockRender) {
 						editor.blockrender.editdelete();
 					});
 				}
+				break;
+			case 73:
+				if (!e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) popup.builderInfo();
+				break;
+			case 79:
+				if (!e.altKey && (onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey) e.preventDefault(), (e.shiftKey ? popup.importProject() || document.getElementById("hs-project-file-btn").click() : popup.importProject());
+				break;
+			case 83:
+				if (!e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) e.preventDefault(), downloadProject();
 				break;
 		}
 		if (activeEditBlock) {
@@ -1364,6 +1424,7 @@ if (editor.useFileSysCode) {
 			});
 		},
 		updateFields: function() {
+			unloadConfirmation(true);
 			if (typeof hsProject.stageSize == "undefined") hsProject.stageSize = {};
 			document.getElementById("traits-stageSize").querySelector("input").value = hsProject.stageSize.width||1024;
 			document.getElementById("traits-stageSize").querySelector("input:nth-child(2)").value = hsProject.stageSize.height||768;
@@ -1501,7 +1562,7 @@ if (editor.useFileSysCode) {
 					hsProject[activeTraitType] = Number(activeTraitFields.querySelector("input, select").value);
 					break;
 			}
-			editor.traits.updateFields();
+			if (activeTraitType != "presetActions") editor.traits.updateFields();
 		}
 	},
 	editor.presetActions = {
@@ -1604,12 +1665,14 @@ if (editor.useFileSysCode) {
 							//Consider making this a default
 							if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 								localStorage.setItem("hsProject",JSON.stringify(hsProject));
-								setTimeout(function(){location.href = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||hsProject.uuid+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
+								const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (xhr.responseText) + '"}';
+								localStorage.setItem("hsProjectDownloadLink",downloadLink);
+								setTimeout(function(){location.href = downloadLink;},50);
 								setTimeout(function(){location.href = "?r=1";},150);
 							} else {
 								location.href = JSON.parse(xhr.responseText).link;
 							}
-							document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save'
+							document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save';
 						};
 				downloadItem(blob, document.getElementById("pAct-savePreset0").value + ".hspre", responseFn, responseFn);
 				popup.close();
@@ -1883,6 +1946,7 @@ if (editor.useFileSysCode) {
 					if (!hsProject.stageSize) hsProject.stageSize = {width:1024,height:768};
 					//updateFields();
 					editor.traits.updateFields();
+					unloadConfirmation(false);
 					let worker = formatProjectWorker(hsProject);
 					worker.onmessage = function(msg) {
 						if (msg.data.status === "in progress") {
@@ -2030,17 +2094,23 @@ if (editor.useFileSysCode) {
 			document.querySelector(".popup").setAttribute("hidden","");
 			bodyScroll.enable();
 		},
+		"isOpen": function() {
+			return !document.querySelector(".popup").hidden;
+		},
 		"importProject": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
 			document.querySelector("#import").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
 		},
 		"download": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
 			document.querySelector("#download").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
 		},
 		"presetActions": function(actionType) {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
 			document.querySelector("#presetActions").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			document.querySelector("#presetActions").querySelectorAll('div[id*="pAct"]').forEach(elm=>{elm.setAttribute("hidden","")});
@@ -2048,263 +2118,255 @@ if (editor.useFileSysCode) {
 			bodyScroll.disable();
 		},
 		"projectStats": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
 			document.querySelector("#stats-popup").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
-			getProjectDistributions(hsProject);
-			document.getElementById("stats-quickInfo").innerHTML = '<h3>Basic Traits:</h3><div>'
-				+ '<i class="fa fa-fw fa-link fa-flip-horizontal"></i> Project ID: '+(projectQuickStats.uuid||"<i>No UUID present</i>")+'<br/>'
-				+ '<i class="fa fa-fw fa-info-circle"></i> File Size: '+ projectQuickStats.filesize +'<br/>'
-				+ '<i class="fa fa-fw fa-arrows"></i> Stage Size: '+(projectQuickStats.stageSize.width||1024)+'x'+(projectQuickStats.stageSize.height||768)+'<br/>'
-				+ '<i class="fa fa-fw fa-history"></i> Version: Editor '+projectQuickStats.version+', Player '+(projectQuickStats.playerVersion||"1.0.0")+'<br/>'
-				+ '<i class="fa fa-fw fa-pencil"></i> Edited: '+new Date(projectQuickStats.edited_at).toString().replace(/^\w{3}\s|\sGMT.*$/g,"")+'<br/>'
-				+ '<i class="fa fa-fw fa-arrows-alt"></i> Base Object Scale: '+(projectQuickStats.baseObjectScale||1)+'<br/>'
-				+ '<i class="fa fa-fw fa-text-height"></i> Font Size: '+(projectQuickStats.fontSize||80)+'<br/>'
-				+ '<i class="fa fa-fw fa-star-o"></i> Requires Beta Editor: '+(projectQuickStats.requires_beta_editor||false)+'<br/>'
-				+ '<i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+projectQuickStats.sbAbilityName+'<br/>'
-				+ '<i class="fa fa-fw fa-photo"></i> Set Image Blocks: '+projectQuickStats.ibAbilityName+'<br/>'
-				+ '</div><h3>Quick Statistics:</h3><div>'
-				+ '<h>\u200B </h>Number of Abilities: '+projectQuickStats.abilities+'<br/>'
-				+ '<h>\u200B </h>Number of Custom Rules: '+projectQuickStats.customRules+'<br/>'
-				+ '<h>\u200B </h>Number of Event Parameters: '+projectQuickStats.eventParameters+'<br/>'
-				+ '<h>\u200B </h>Number of Objects: '+projectQuickStats.objects+'<br/>'
-				+ '<h>\u200B </h>Number of Rules: '+projectQuickStats.rules+'<br/>'
-				+ '<h>\u200B </h>Number of Scenes: '+projectQuickStats.scenes+'<br/>'
-				+ '<h>\u200B </h>Number of Traits: '+projectQuickStats.traits+'<br/>'
-				+ '<h>\u200B </h>Number of Variables: '+projectQuickStats.variables+'</div>'
-				
-			google.charts.load('current', {'packages':['corechart','bar']});
-			google.charts.setOnLoadCallback(drawChart);
-			function drawChart() {
-				var arr;
-				
-				//Category Distributions (Blocks and Operators)
-				var data = new google.visualization.DataTable();
-				data.addColumn('string', '');
-				data.addColumn('number', '');
-				data.addRows(Object.keys(distributionCounts.blockCatgCounts).length===0?[]:["abl", "move", "looks", "draw", "var", "ctrl", "old"].repeatEach(key=>{return [
-					({ctrl:"Control",abl:"Ability",looks:"Looks",move:"Movement",draw:"Draw","var":"Variable","old":"Non-Editor"})[key],
-					distributionCounts.blockCatgCounts[key]
-				]}));
-				var options = {
-					textStyle: {color: "white"},
-					titleTextStyle: {color: "white",fontSize: 16},
-					width: 350, height: 180, is3D: true,
-					backgroundColor: "transparent",
-					chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
-					legend: {textStyle: {color: "white", fontSize: 14}},
-					sliceVisibilityThreshold: 0,
-					colors: ["#f2f2f2", "#d73e1e", "#63ae1e", "#a6006e", "#e7b601", "#3e83be", "#647f96"]
-				};
-				var chart = new google.visualization.PieChart(document.getElementById('stats-chart1'));
-				chart.draw(data, options);
-				data = new google.visualization.DataTable();
-				data.addColumn('string', '');
-				data.addColumn('number', '');
-				data.addRows(Object.keys(distributionCounts.operatorCatgCounts).length===0?[]:["math", "conditional", "color", "old"].repeatEach(key=>{return [
-					({math:"Math",conditional:"Conditional",color:"Color",old:"Non-Editor"})[key],
-					distributionCounts.operatorCatgCounts[key]
-				]}));
-				options = {
-					textStyle: {color: "white"},
-					titleTextStyle: {color: "white",fontSize: 16},
-					width: 350, height: 180, is3D: true,
-					backgroundColor: "transparent",
-					chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
-					legend: {textStyle: {color: "white", fontSize: 14}},
-					sliceVisibilityThreshold: 0,
-					colors: ["#733977", "#be2961", "#1acfff", "#647f96"]
-				};
-				chart = new google.visualization.PieChart(document.getElementById('stats-chart3'));
-				chart.draw(data, options);
-				
-				//Bar Chart (Rules and Objects)
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.ruleDescCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.ruleDescCounts).repeatEach(key=>{arr.push([
-						key,
-						distributionCounts.ruleDescCounts[key]||0,
-						"color:#be2961;stroke-color:transparent;stroke-width:2px"
-					])}), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: 280, is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Rule Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 8 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				chart = new google.visualization.BarChart(document.getElementById('stats-chart2'));
-				chart.draw(data, options);
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.objectCharCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.objectCharCounts).repeatEach(key=>{arr.push([
-						key,
-						distributionCounts.objectCharCounts[key]||0,"color:#6bdaed;stroke-color:transparent;stroke-width:2px"
-					])}), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: 280, is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Object Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				chart = new google.visualization.BarChart(document.getElementById('stats-chart4'));
-				chart.draw(data, options);
-				
-				let usedVars = Object.keys(distributionCounts.variablesUseCount).repeatEach(key=>{if (distributionCounts.variablesUseCount[key]) return [
-						key,
-						distributionCounts.variablesUseCount[key],
-						"color:#f9cc1e;stroke-color:transparent;stroke-width:2px"
-					]}).removeNull();
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],usedVars.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedVars.forEach(v=>{arr.push(v)}), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: Math.max(70+12*usedVars.length,200), is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedVars.length,150)},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Variable Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 9 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				chart = new google.visualization.BarChart(document.getElementById('stats-chart5'));
-				chart.draw(data, options);
-				var usedTraits = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{if (distributionCounts.traitsTypeCounts[key]) return [
-						key,
-						distributionCounts.traitsTypeCounts[key],
-						"color:#f9ad1e;stroke-color:transparent;stroke-width:2px"
-					]}).removeNull();
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],usedTraits.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedTraits.forEach(t=>{arr.push(t)}), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: Math.max(70+12*usedTraits.length,200), is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedTraits.length,150)},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Trait Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				chart = new google.visualization.BarChart(document.getElementById('stats-chart6'));
-				chart.draw(data, options);
-				var usedAbils = Object.keys(distributionCounts.abilitiesUseCount).repeatEach(key=>{if (distributionCounts.abilitiesUseCount[key]) return [
-						key,
-						distributionCounts.abilitiesUseCount[key],
-						"color:#f2f2f2;stroke-color:transparent;stroke-width:2px"
-					]}).removeNull();
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],usedAbils.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedAbils.forEach(a=>{arr.push(a)}), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: Math.max(70+12*usedAbils.length,200), is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedAbils.length,150)},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Ability Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				chart = new google.visualization.BarChart(document.getElementById('stats-chart7'));
-				chart.draw(data, options);
-				var usedCrules = Object.keys(distributionCounts.cstmRulesUseCount).repeatEach(key=>{if (distributionCounts.cstmRulesUseCount[key]) return [
-						key,
-						distributionCounts.cstmRulesUseCount[key],
-						"color:#ce628a;stroke-color:transparent;stroke-width:2px"
-					]}).removeNull();
-				console.log(usedCrules);
-				data = google.visualization.arrayToDataTable(
-					(arr = [["","",{ role: "style" }]],usedCrules.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedCrules.forEach(cr=>{arr.push(cr)}), console.log(arr), arr)
-				);
-				options = {
-					textStyle: {color: "white"},
-					width: 350, height: Math.max(70+12*usedCrules.length,200), is3D: true,
-					backgroundColor: {fill: "transparent"},
-					legend: { position: 'none' },
-					chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedCrules.length,150)},
-					bars: 'horizontal',
-					axes: {
-						x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
-						y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
-					},
-					hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
-					vAxis: { title: "Custom Rule Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
-					bar: { groupWidth: "90%" }
-				};
-				var chart = new google.visualization.BarChart(document.getElementById('stats-chart8'));
-				chart.draw(data, options);
-				
-				//Show or hide carets that allow for expansion of graphs
-				document.querySelectorAll(".gchart.gchart-expandable > div").forEach(div => {
-					div.classList.remove("gchart-expanded");
-					let caretBtn = div.parentNode.previousElementSibling.querySelector("i.fa");
-					caretBtn.style.display = (div.scrollHeight > 280) ? "inline-block" : "none";
-					caretBtn.onclick = function() {
-						if (caretBtn.classList.contains("fa-caret-down")) {
-							caretBtn.classList.replace("fa-caret-down", "fa-caret-up");
-							caretBtn.parentNode.nextElementSibling.classList.add("gchart-expanded");
-						} else {
-							caretBtn.classList.replace("fa-caret-up", "fa-caret-down");
-							caretBtn.parentNode.nextElementSibling.classList.remove("gchart-expanded");
-						}
+			document.getElementById("stats-info-container").querySelector(".label").innerHTML = '<i class="fa fa-fw fa-blank" style="width:12px;"></i> Updating Stats <i class="fa fa-fw fa-spinner fa-pulse"></i>';
+			//getProjectDistributions(hsProject);
+			
+			function redraw() {
+				document.getElementById("stats-info-container").querySelector(".label").innerHTML = 'Project Statistics';
+				document.getElementById("stats-quickInfo").innerHTML = '<h3>Basic Traits:</h3><div>'
+					+ '<i class="fa fa-fw fa-link fa-flip-horizontal"></i> Project ID: '+(projectQuickStats.uuid||"<i>No UUID present</i>")+'<br/>'
+					+ '<i class="fa fa-fw fa-info-circle"></i> File Size: '+ projectQuickStats.filesize +'<br/>'
+					+ '<i class="fa fa-fw fa-arrows"></i> Stage Size: '+(projectQuickStats.stageSize.width||1024)+'x'+(projectQuickStats.stageSize.height||768)+'<br/>'
+					+ '<i class="fa fa-fw fa-history"></i> Version: Editor '+projectQuickStats.version+', Player '+(projectQuickStats.playerVersion||"1.0.0")+'<br/>'
+					+ '<i class="fa fa-fw fa-pencil"></i> Edited: '+new Date(projectQuickStats.edited_at).toString().replace(/^\w{3}\s|\sGMT.*$/g,"")+'<br/>'
+					+ '<i class="fa fa-fw fa-arrows-alt"></i> Base Object Scale: '+(projectQuickStats.baseObjectScale||1)+'<br/>'
+					+ '<i class="fa fa-fw fa-text-height"></i> Font Size: '+(projectQuickStats.fontSize||80)+'<br/>'
+					+ '<i class="fa fa-fw fa-star-o"></i> Requires Beta Editor: '+(projectQuickStats.requires_beta_editor||false)+'<br/>'
+					+ '<i class="fa fa-fw fa-bolt"></i> Secret Blocks: '+projectQuickStats.sbAbilityName+'<br/>'
+					+ '<i class="fa fa-fw fa-photo"></i> Set Image Blocks: '+projectQuickStats.ibAbilityName+'<br/>'
+					+ '</div><h3>Quick Statistics:</h3><div>'
+					+ '<h>\u200B </h>Number of Abilities: '+projectQuickStats.abilities+'<br/>'
+					+ '<h>\u200B </h>Number of Custom Rules: '+projectQuickStats.customRules+'<br/>'
+					+ '<h>\u200B </h>Number of Event Parameters: '+projectQuickStats.eventParameters+'<br/>'
+					+ '<h>\u200B </h>Number of Objects: '+projectQuickStats.objects+'<br/>'
+					+ '<h>\u200B </h>Number of Rules: '+projectQuickStats.rules+'<br/>'
+					+ '<h>\u200B </h>Number of Scenes: '+projectQuickStats.scenes+'<br/>'
+					+ '<h>\u200B </h>Number of Traits: '+projectQuickStats.traits+'<br/>'
+					+ '<h>\u200B </h>Number of Variables: '+projectQuickStats.variables+'</div>'
+					
+				google.charts.load('current', {'packages':['corechart','bar']});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+					var arr;
+					
+					//Category Distributions (Blocks and Operators)
+					var data = new google.visualization.DataTable();
+					data.addColumn('string', '');
+					data.addColumn('number', '');
+					data.addRows(Object.keys(distributionCounts.blockCatgCounts).length===0?[]:["abl", "move", "looks", "draw", "var", "ctrl", "old"].repeatEach(key=>{return [
+						({ctrl:"Control",abl:"Ability",looks:"Looks",move:"Movement",draw:"Draw","var":"Variable","old":"Non-Editor"})[key],
+						distributionCounts.blockCatgCounts[key]
+					]}));
+					var options = {
+						textStyle: {color: "white"},
+						titleTextStyle: {color: "white",fontSize: 16},
+						width: 350, height: 180, is3D: true,
+						backgroundColor: "transparent",
+						chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
+						legend: {textStyle: {color: "white", fontSize: 14}},
+						sliceVisibilityThreshold: 0,
+						colors: ["#f2f2f2", "#d73e1e", "#63ae1e", "#a6006e", "#e7b601", "#3e83be", "#647f96"]
 					};
-				});
-			}
-			
-			function getMostUsed(key, index) {
-				index = index || 1;
-				var highestCount = Object.keys(distributionCounts[key]).repeatEach(k=>{return distributionCounts[key][k]}).sort((a,b)=>{return b-a})[index-1];
-				return Object.keys(distributionCounts[key]).repeatEach(k=>{if(distributionCounts[key][k]===highestCount)return k}).removeNull().join(", ")||"–";
-			}
-			var mostUsedBlocks = [getMostUsed("blockDescCounts"),getMostUsed("blockDescCounts",2),getMostUsed("blockDescCounts",3)].repeatEach(item=>{if(item&&item!="–")return item}).removeNull().join(", ")||"–";
-			
-			document.getElementById("stats-moreInfo1").innerHTML = '<h3>Usage Statistics:</h3><div>'
-				+ '<h>\u200B </h>Number of Player Upgrades: '+Object.keys(hsProject.playerUpgrades||{}).length+'<br/>'
-				+ '<h>\u200B </h>Number of Blocks: '+distributionCounts.totalBlockCount+'<br/>'
-				+ '<h>\u200B </h>Number of Operators: '+distributionCounts.operatorBlockCount+'<br/>'
-				+ '<h>\u200B </h>Number of Variables in code: '+distributionCounts.variablesTotalUse+'<br/>'
-				+ '<h>\u200B </h>Number of Traits in code: '+distributionCounts.traitsTotalUsage+'<br/>'
-				+ '<h>\u200B </h>Most Used Ability: '+getMostUsed("abilitiesUseCount")+'<br/>'
-				+ '<h>\u200B </h>Most Used Custom Rule: '+getMostUsed("cstmRulesUseCount")+'<br/>'
-				+ '<h>\u200B </h>Most Used Variable: '+getMostUsed("variablesUseCount")+'<br/>'
-				+ '<h>\u200B </h>Most Common Blocks: '+mostUsedBlocks+'<br/>'
-				+ '<h>\u200B </h>Has Filtered Words: Checking...</div>'
-			
-			XHR.get("https://awesome-e.github.io/hs-tools/json-shortcut/shortcut-info.json", function(r,s) {
+					var chart = new google.visualization.PieChart(document.getElementById('stats-chart1'));
+					chart.draw(data, options);
+					data = new google.visualization.DataTable();
+					data.addColumn('string', '');
+					data.addColumn('number', '');
+					data.addRows(Object.keys(distributionCounts.operatorCatgCounts).length===0?[]:["math", "conditional", "color", "old"].repeatEach(key=>{return [
+						({math:"Math",conditional:"Conditional",color:"Color",old:"Non-Editor"})[key],
+						distributionCounts.operatorCatgCounts[key]
+					]}));
+					options = {
+						textStyle: {color: "white"},
+						titleTextStyle: {color: "white",fontSize: 16},
+						width: 350, height: 180, is3D: true,
+						backgroundColor: "transparent",
+						chartArea: {"left": 8, "top": 8, "width": 334, "height": 160},
+						legend: {textStyle: {color: "white", fontSize: 14}},
+						sliceVisibilityThreshold: 0,
+						colors: ["#733977", "#be2961", "#1acfff", "#647f96"]
+					};
+					chart = new google.visualization.PieChart(document.getElementById('stats-chart3'));
+					chart.draw(data, options);
+					
+					//Bar Chart (Rules and Objects)
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.ruleDescCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.ruleDescCounts).repeatEach(key=>{arr.push([
+							key,
+							distributionCounts.ruleDescCounts[key]||0,
+							"color:#be2961;stroke-color:transparent;stroke-width:2px"
+						])}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: 280, is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Rule Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 8 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					chart = new google.visualization.BarChart(document.getElementById('stats-chart2'));
+					chart.draw(data, options);
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],Object.keys(distributionCounts.objectCharCounts).length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):Object.keys(distributionCounts.objectCharCounts).repeatEach(key=>{arr.push([
+							key,
+							distributionCounts.objectCharCounts[key]||0,"color:#6bdaed;stroke-color:transparent;stroke-width:2px"
+						])}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: 280, is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": 230},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Object Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					chart = new google.visualization.BarChart(document.getElementById('stats-chart4'));
+					chart.draw(data, options);
+					
+					let usedVars = Object.keys(distributionCounts.variablesUseCount).repeatEach(key=>{if (distributionCounts.variablesUseCount[key]) return [
+							key,
+							distributionCounts.variablesUseCount[key],
+							"color:#f9cc1e;stroke-color:transparent;stroke-width:2px"
+						]}).removeNull();
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],usedVars.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedVars.forEach(v=>{arr.push(v)}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: Math.max(70+12*usedVars.length,200), is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedVars.length,150)},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Variable Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 9 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					chart = new google.visualization.BarChart(document.getElementById('stats-chart5'));
+					chart.draw(data, options);
+					var usedTraits = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{if (distributionCounts.traitsTypeCounts[key]) return [
+							key,
+							distributionCounts.traitsTypeCounts[key],
+							"color:#f9ad1e;stroke-color:transparent;stroke-width:2px"
+						]}).removeNull();
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],usedTraits.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedTraits.forEach(t=>{arr.push(t)}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: Math.max(70+12*usedTraits.length,200), is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedTraits.length,150)},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Trait Type", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					chart = new google.visualization.BarChart(document.getElementById('stats-chart6'));
+					chart.draw(data, options);
+					var usedAbils = Object.keys(distributionCounts.abilitiesUseCount).repeatEach(key=>{if (distributionCounts.abilitiesUseCount[key]) return [
+							key,
+							distributionCounts.abilitiesUseCount[key],
+							"color:#f2f2f2;stroke-color:transparent;stroke-width:2px"
+						]}).removeNull();
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],usedAbils.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedAbils.forEach(a=>{arr.push(a)}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: Math.max(70+12*usedAbils.length,200), is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedAbils.length,150)},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Ability Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					chart = new google.visualization.BarChart(document.getElementById('stats-chart7'));
+					chart.draw(data, options);
+					var usedCrules = Object.keys(distributionCounts.cstmRulesUseCount).repeatEach(key=>{if (distributionCounts.cstmRulesUseCount[key]) return [
+							key,
+							distributionCounts.cstmRulesUseCount[key],
+							"color:#ce628a;stroke-color:transparent;stroke-width:2px"
+						]}).removeNull();
+					//console.log(usedCrules);
+					data = google.visualization.arrayToDataTable(
+						(arr = [["","",{ role: "style" }]],usedCrules.length===0?arr.push(["",0,"color:transparent"],["",2,"color:transparent"]):usedCrules.forEach(cr=>{arr.push(cr)}), arr)
+					);
+					options = {
+						textStyle: {color: "white"},
+						width: 350, height: Math.max(70+12*usedCrules.length,200), is3D: true,
+						backgroundColor: {fill: "transparent"},
+						legend: { position: 'none' },
+						chartArea: {"left": 114, "top": 8, "width": 220, "height": Math.max(20+12*usedCrules.length,150)},
+						bars: 'horizontal',
+						axes: {
+							x: {0: { side: 'top', label: ''}, all: {range: {min: 0}} },
+							y: {0: { side: 'left', label: ''}, all: {range: {min: 0}} }
+						},
+						hAxis: { title: "Occurrences in Code", titleTextStyle: { color: "white" } },
+						vAxis: { title: "Custom Rule Name", titleTextStyle: { color: "white" }, textStyle: { color: "white", fontSize: 10 }, baselineColor: "white" },
+						bar: { groupWidth: "90%" }
+					};
+					var chart = new google.visualization.BarChart(document.getElementById('stats-chart8'));
+					chart.draw(data, options);
+					
+					//Show or hide carets that allow for expansion of graphs
+					document.querySelectorAll(".gchart.gchart-expandable > div").forEach(div => {
+						div.classList.remove("gchart-expanded");
+						let caretBtn = div.parentNode.previousElementSibling.querySelector("i.fa");
+						caretBtn.style.display = (div.scrollHeight > 280) ? "inline-block" : "none";
+						caretBtn.onclick = function() {
+							if (caretBtn.classList.contains("fa-caret-down")) {
+								caretBtn.classList.replace("fa-caret-down", "fa-caret-up");
+								caretBtn.parentNode.nextElementSibling.classList.add("gchart-expanded");
+							} else {
+								caretBtn.classList.replace("fa-caret-up", "fa-caret-down");
+								caretBtn.parentNode.nextElementSibling.classList.remove("gchart-expanded");
+							}
+						};
+					});
+				}
+				
+				function getMostUsed(key, index) {
+					index = index || 1;
+					var highestCount = Object.keys(distributionCounts[key]).repeatEach(k=>{return distributionCounts[key][k]}).sort((a,b)=>{return b-a})[index-1];
+					return Object.keys(distributionCounts[key]).repeatEach(k=>{if(distributionCounts[key][k]===highestCount)return k}).removeNull().join(", ")||"–";
+				}
+				var mostUsedBlocks = [getMostUsed("blockDescCounts"),getMostUsed("blockDescCounts",2),getMostUsed("blockDescCounts",3)].repeatEach(item=>{if(item&&item!="–")return item}).removeNull().join(", ")||"–";
+				
 				document.getElementById("stats-moreInfo1").innerHTML = '<h3>Usage Statistics:</h3><div>'
 					+ '<h>\u200B </h>Number of Player Upgrades: '+Object.keys(hsProject.playerUpgrades||{}).length+'<br/>'
 					+ '<h>\u200B </h>Number of Blocks: '+distributionCounts.totalBlockCount+'<br/>'
@@ -2315,16 +2377,39 @@ if (editor.useFileSysCode) {
 					+ '<h>\u200B </h>Most Used Custom Rule: '+getMostUsed("cstmRulesUseCount")+'<br/>'
 					+ '<h>\u200B </h>Most Used Variable: '+getMostUsed("variablesUseCount")+'<br/>'
 					+ '<h>\u200B </h>Most Common Blocks: '+mostUsedBlocks+'<br/>'
-					+ '<h>\u200B </h>Has Filtered Words: '+RegExp(JSON.parse(r).filterRegexB64).test(JSON.stringify(hsProject))+'</div>'
-			}, false);
+					+ '<h>\u200B </h>Has Filtered Words: Checking...</div>'
+				
+				XHR.get("https://enw6yiuqc2jyb5w.m.pipedream.net/filter/regex", function(r,s) {
+					document.getElementById("stats-moreInfo1").innerHTML = '<h3>Usage Statistics:</h3><div>'
+						+ '<h>\u200B </h>Number of Player Upgrades: '+Object.keys(hsProject.playerUpgrades||{}).length+'<br/>'
+						+ '<h>\u200B </h>Number of Blocks: '+distributionCounts.totalBlockCount+'<br/>'
+						+ '<h>\u200B </h>Number of Operators: '+distributionCounts.operatorBlockCount+'<br/>'
+						+ '<h>\u200B </h>Number of Variables in code: '+distributionCounts.variablesTotalUse+'<br/>'
+						+ '<h>\u200B </h>Number of Traits in code: '+distributionCounts.traitsTotalUsage+'<br/>'
+						+ '<h>\u200B </h>Most Used Ability: '+getMostUsed("abilitiesUseCount")+'<br/>'
+						+ '<h>\u200B </h>Most Used Custom Rule: '+getMostUsed("cstmRulesUseCount")+'<br/>'
+						+ '<h>\u200B </h>Most Used Variable: '+getMostUsed("variablesUseCount")+'<br/>'
+						+ '<h>\u200B </h>Most Common Blocks: '+mostUsedBlocks+'<br/>'
+						+ '<h>\u200B </h>Has Filtered Words: '+RegExp(JSON.parse(r).expression,'i').test(JSON.stringify(hsProject))+'</div>'
+				}, false);
+				
+				document.getElementById("stats-renderjson").innerHTML = '<b class="center" style="text-align:center;">Full Distribution Dictionary</b>';
+				document.getElementById("stats-renderjson").appendChild(renderjson(unformatProject(distributionCounts)));
+			}
 			
-			document.getElementById("stats-renderjson").innerHTML = '<b class="center" style="text-align:center;">Full Distribution Dictionary</b>';
-			document.getElementById("stats-renderjson").appendChild(renderjson(unformatProject(distributionCounts)));
+			workerFunctions.refreshStats(hsProject, redraw);
 			
 			bodyScroll.disable();
 		},
 		"playProject": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
 			document.querySelector("#playProjectLoader").removeAttribute("hidden");
+			document.querySelector(".popup").removeAttribute("hidden");
+			bodyScroll.disable();
+		},
+		"builderInfo": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
+			document.querySelector("#builderInfo-popup").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
 		}
@@ -2381,21 +2466,25 @@ if (editor.useFileSysCode) {
 		editor.traits.updateFields();
 		updateDrawers();
 		replaceRender(-1);
+		(document.getElementById("import-contingency-link")||{}).href = localStorage.getItem("hsProjectDownloadLink");
+		console.log(document.getElementById("import-contingency-link"))
 		localStorage.removeItem("hsProject");
+		localStorage.removeItem("hsProjectDownloadLink");
 		replaceLocation("?r=0");
 		popup.download();
 		bodyScroll.disable();
-		setTimeout(function(){bodyScroll.disable();},1000);
+		setTimeout(function(){bodyScroll.disable();},1500);
 	}
 	//Download Project
 	function downloadItem(blob, filename, loadFn, errFn) {
 		var xhr = new XMLHttpRequest();
 		var formData = new FormData();
 		formData.append("file", blob, filename);
-		xhr.open("POST", "https://file.io/?expires=1d");
-		xhr.onload = function(){loadFn(xhr)};
-		xhr.onerror = function(){errFn(xhr)};
+		xhr.open("POST", "https://enw6yiuqc2jyb5w.m.pipedream.net/filedrop");
+		xhr.onload = function(){loadFn(xhr), editor.project.saveFileXHR = null;};
+		xhr.onerror = function(){errFn(xhr), editor.project.saveFileXHR = null;};
 		xhr.send(formData);
+		editor.project.saveFileXHR = xhr;
 	}
 	function downloadProject() {
 		if (!hsProject.uuid&&!hsProject.filename&&!hsProject.objects) return alert("There is no file to download");
@@ -2406,16 +2495,20 @@ if (editor.useFileSysCode) {
 		const responseFn = function(xhr){
 			if (onIos) {
 				localStorage.setItem("hsProject",JSON.stringify(hsProject));
-				setTimeout(function(){location.href = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (JSON.parse(xhr.responseText).link) + '"}';},50);
+				const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (xhr.responseText) + '"}';
+				localStorage.setItem("hsProjectDownloadLink",downloadLink);
+				setTimeout(function(){location.href = downloadLink;},50);
 				setTimeout(function(){location.href = "?r=1";},150);
 			} else {
-				location.href = JSON.parse(xhr.responseText).link;
+				location.href = xhr.responseText;
 			}
-			document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save'
+			document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save';
 		}
 		downloadItem(blob, filename, responseFn, responseFn);
+		unloadConfirmation(false);
 	}
 	editor.traits.updateFields();
+	unloadConfirmation(false);
 	if (onIos) document.querySelectorAll("input[type=file][accept]").forEach(input=>{
 		input.accept = ""; //Unfortunately, I have to do this to allow files to be selected.
 	});
@@ -2438,5 +2531,5 @@ if (editor.modulesScripts) {
 }
 if (editor.logConsoleMesg) {
 	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;")
-	console.log('%cHopscotch Project Builder, beta 1.3.1 r1 %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
+	console.log('%cHopscotch Project Builder, '+editor.version+' %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 }

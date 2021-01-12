@@ -66,17 +66,21 @@ function getCookie(cname) {
 //Manage Preferences
 var LS_ACCESS = true, prefs;
 try {
-	prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}');
+	var prefs;
+	function updatePrefs() {
+		prefs = JSON.parse(localStorage.getItem('preferences')||'{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"no_unload_confirm":false,"channel_sort":"","retro_pTiles":""}');
+	}
+	updatePrefs();
 } catch (e) {
 	//If the Local Storage is unreachable
-	prefs = '{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"channel_sort":"","retro_pTiles":""}';
+	prefs = '{"dark_mode":false,"x-ray_default":false,"no_rick":false,"replace_fullscreen":false,"old_sounds":false,"new_avatars":false,"no_unload_confirm":false,"channel_sort":"","retro_pTiles":""}';
 	LS_ACCESS = false;
 }
 function getPref(name) {
-	return LS_ACCESS ? !!prefs[name] : false;
+	return LS_ACCESS ? updatePrefs() || !!prefs[name] : false;
 }
 function prefVal(name) {
-	return LS_ACCESS ? prefs[name]||"" : "";
+	return LS_ACCESS ? updataeprefs() || prefs[name]||"" : "";
 }
 
 function setPref(name, bool) {
@@ -358,7 +362,7 @@ var XHR = {
 	},
 	requestExt: function(method, url, callback, proxy, data) {
 		proxy = proxy || 0;
-		let proxyUrls = ["", "all", "https://api.allorigins.win/get?t="+Date.now()+"url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
+		let proxyUrls = ["", "all", "https://api.allorigins.win/get?t="+Date.now()+"&url=", "https://cors-anywhere.herokuapp.com/", "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
 		if (proxy === 2) method = "fetch";
 		function sendRequest(url, cb){
 			if (method == "fetch" || url.match(/https:\/\/api.allorigins/)) {
