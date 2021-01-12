@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.4.0 r1";
+editor.version = "beta 1.4.0 r2";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -891,13 +891,13 @@ if (editor.useBlockRender) {
 				}
 				break;
 			case 73:
-				if (!e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) popup.builderInfo();
+				if (!popup.isOpen() && !e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) popup.builderInfo();
 				break;
 			case 79:
-				if (!e.altKey && (onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey) e.preventDefault(), (e.shiftKey ? popup.importProject() || document.getElementById("hs-project-file-btn").click() : popup.importProject());
+				if (!popup.isOpen() && !e.altKey && (onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey) e.preventDefault(), (e.shiftKey ? popup.importProject() || document.getElementById("hs-project-file-btn").click() : popup.importProject());
 				break;
 			case 83:
-				if (!e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) e.preventDefault(), downloadProject();
+				if (!popup.isOpen() && !e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) e.preventDefault(), downloadProject();
 				break;
 		}
 		if (activeEditBlock) {
@@ -2103,8 +2103,8 @@ if (editor.useFileSysCode) {
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
 		},
-		"download": function() {
-			if (bodyScroll.isLocked() || popup.isOpen()) return;
+		"download": function(override) {
+			if (bodyScroll.isLocked() || popup.isOpen() && !override) return;
 			document.querySelector("#download").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
@@ -2471,7 +2471,7 @@ if (editor.useFileSysCode) {
 		localStorage.removeItem("hsProject");
 		localStorage.removeItem("hsProjectDownloadLink");
 		replaceLocation("?r=0");
-		popup.download();
+		popup.download(true);
 		bodyScroll.disable();
 		setTimeout(function(){bodyScroll.disable();},1500);
 	}
