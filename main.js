@@ -80,7 +80,7 @@ function getPref(name) {
 	return LS_ACCESS ? updatePrefs() || !!prefs[name] : false;
 }
 function prefVal(name) {
-	return LS_ACCESS ? updataeprefs() || prefs[name]||"" : "";
+	return LS_ACCESS ? updatePrefs() || prefs[name]||"" : "";
 }
 
 function setPref(name, bool) {
