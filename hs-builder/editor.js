@@ -1665,7 +1665,7 @@ if (editor.useFileSysCode) {
 							//Consider making this a default
 							if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 								localStorage.setItem("hsProject",JSON.stringify(hsProject));
-								const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (xhr.responseText) + '"}';
+								const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + encodeURIComponent(xhr.responseText) + '"}';
 								localStorage.setItem("hsProjectDownloadLink",downloadLink);
 								setTimeout(function(){location.href = downloadLink;},50);
 								setTimeout(function(){location.href = "?r=1";},150);
@@ -2495,7 +2495,7 @@ if (editor.useFileSysCode) {
 		const responseFn = function(xhr){
 			if (onIos) {
 				localStorage.setItem("hsProject",JSON.stringify(hsProject));
-				const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + (xhr.responseText) + '"}';
+				const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + encodeURIComponent(xhr.responseText) + '"}';
 				localStorage.setItem("hsProjectDownloadLink",downloadLink);
 				setTimeout(function(){location.href = downloadLink;},50);
 				setTimeout(function(){location.href = "?r=1";},150);
