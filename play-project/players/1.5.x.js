@@ -1,4 +1,4 @@
-console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
+console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
 
 !function(t) {
     var e = {};
@@ -42,7 +42,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         return i.d(e, "a", e), e;
     }, i.o = function(t, e) {
         return Object.prototype.hasOwnProperty.call(t, e);
-    }, i.p = "", i(i.s = 42);
+    }, i.p = "", i(i.s = 43);
 }([ function(t, e, i) {
     "use strict";
     var r, n;
@@ -65,6 +65,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         t[t.SetZIndex = 58] = "SetZIndex", t[t.SetOriginXY = 59] = "SetOriginXY", t[t.SetCenterXY = 60] = "SetCenterXY", 
         t[t.WaitSeconds = 61] = "WaitSeconds", t[t.PlaySoundSeconds = 62] = "PlaySoundSeconds", 
         t[t.SaveInput = 63] = "SaveInput", t[t.SetTextToInput = 64] = "SetTextToInput", 
+        t[t.PlayNote = 65] = "PlayNote", t[t.SetTempo = 66] = "SetTempo", t[t.SetInstrument = 67] = "SetInstrument", 
         t[t.LeaveATrail = 26] = "LeaveATrail", t[t.Repeat = 120] = "Repeat", t[t.RepeatForever = 121] = "RepeatForever", 
         t[t.CheckOnceIf = 122] = "CheckOnceIf", t[t.Ability = 123] = "Ability", t[t.CheckIfElse = 124] = "CheckIfElse", 
         t[t.ChangeScene = 125] = "ChangeScene", t[t.BroadcastMessage = 126] = "BroadcastMessage", 
@@ -83,29 +84,30 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         t[t.TraitHeight = 2009] = "TraitHeight", t[t.TraitZIndex = 2010] = "TraitZIndex", 
         t[t.TraitOriginX = 2011] = "TraitOriginX", t[t.TraitOriginY = 2012] = "TraitOriginY", 
         t[t.TraitCenterX = 2013] = "TraitCenterX", t[t.TraitCenterY = 2014] = "TraitCenterY", 
-        t[t.TraitText = 2015] = "TraitText", t[t.HS_END_OF_OBJECT_TRAITS = 2016] = "HS_END_OF_OBJECT_TRAITS", 
-        t[t.TraitUsername = 2500] = "TraitUsername", t[t.TraitTime = 2501] = "TraitTime", 
-        t[t.TraitYear = 2502] = "TraitYear", t[t.TraitMonth = 2503] = "TraitMonth", t[t.TraitDay = 2504] = "TraitDay", 
-        t[t.TraitHour = 2505] = "TraitHour", t[t.TraitMinute = 2506] = "TraitMinute", t[t.TraitSecond = 2507] = "TraitSecond", 
-        t[t.HS_END_OF_USER_TRAITS = 2508] = "HS_END_OF_USER_TRAITS", t[t.StageTraitWidth = 3e3] = "StageTraitWidth", 
-        t[t.StageTraitHeight = 3001] = "StageTraitHeight", t[t.StageTraitTiltUp = 3002] = "StageTraitTiltUp", 
-        t[t.StageTraitTiltDown = 3003] = "StageTraitTiltDown", t[t.StageTraitTiltLeft = 3004] = "StageTraitTiltLeft", 
-        t[t.StageTraitTiltRight = 3005] = "StageTraitTiltRight", t[t.StageTraitLastTouchX = 3006] = "StageTraitLastTouchX", 
-        t[t.StageTraitLastTouchY = 3007] = "StageTraitLastTouchY", t[t.StageTraitTotalObjects = 3008] = "StageTraitTotalObjects", 
-        t[t.HS_END_OF_STAGE_TRAITS = 3009] = "HS_END_OF_STAGE_TRAITS", t[t.MathOperatorAdd = 4e3] = "MathOperatorAdd", 
-        t[t.MathOperatorSubtract = 4001] = "MathOperatorSubtract", t[t.MathOperatorMultiply = 4002] = "MathOperatorMultiply", 
-        t[t.MathOperatorDivide = 4003] = "MathOperatorDivide", t[t.MathOperatorRandom = 4004] = "MathOperatorRandom", 
-        t[t.MathOperatorPower = 4005] = "MathOperatorPower", t[t.MathOperatorSquareRoot = 4006] = "MathOperatorSquareRoot", 
-        t[t.MathOperatorSine = 4007] = "MathOperatorSine", t[t.MathOperatorCosine = 4008] = "MathOperatorCosine", 
-        t[t.MathOperatorRound = 4009] = "MathOperatorRound", t[t.MathOperatorAbs = 4010] = "MathOperatorAbs", 
-        t[t.MathOperatorModulo = 4011] = "MathOperatorModulo", t[t.MathOperatorTangent = 4012] = "MathOperatorTangent", 
-        t[t.MathOperatorInverseSine = 4013] = "MathOperatorInverseSine", t[t.MathOperatorInverseCosine = 4014] = "MathOperatorInverseCosine", 
-        t[t.MathOperatorInverseTangent = 4015] = "MathOperatorInverseTangent", t[t.MathOperatorMaximum = 4016] = "MathOperatorMaximum", 
-        t[t.MathOperatorMinimum = 4017] = "MathOperatorMinimum", t[t.MathOperatorFloor = 4018] = "MathOperatorFloor", 
-        t[t.MathOperatorCeiling = 4019] = "MathOperatorCeiling", t[t.HS_END_OF_MATH_OPERATORS = 4020] = "HS_END_OF_MATH_OPERATORS", 
-        t[t.ColorOperatorRandom = 5e3] = "ColorOperatorRandom", t[t.ColorOperatorRGB = 5001] = "ColorOperatorRGB", 
-        t[t.ColorOperatorHSB = 5002] = "ColorOperatorHSB", t[t.HS_END_OF_COLOR_OPERATORS = 5003] = "HS_END_OF_COLOR_OPERATORS", 
-        t[t.Rule = 6e3] = "Rule", t[t.RulePreview = 6001] = "RulePreview", t[t.EventOperatorStart = 7e3] = "EventOperatorStart", 
+        t[t.TraitText = 2015] = "TraitText", t[t.TraitTempo = 2016] = "TraitTempo", t[t.TraitInstrument = 2017] = "TraitInstrument", 
+        t[t.HS_END_OF_OBJECT_TRAITS = 2018] = "HS_END_OF_OBJECT_TRAITS", t[t.TraitUsername = 2500] = "TraitUsername", 
+        t[t.TraitTime = 2501] = "TraitTime", t[t.TraitYear = 2502] = "TraitYear", t[t.TraitMonth = 2503] = "TraitMonth", 
+        t[t.TraitDay = 2504] = "TraitDay", t[t.TraitHour = 2505] = "TraitHour", t[t.TraitMinute = 2506] = "TraitMinute", 
+        t[t.TraitSecond = 2507] = "TraitSecond", t[t.HS_END_OF_USER_TRAITS = 2508] = "HS_END_OF_USER_TRAITS", 
+        t[t.StageTraitWidth = 3e3] = "StageTraitWidth", t[t.StageTraitHeight = 3001] = "StageTraitHeight", 
+        t[t.StageTraitTiltUp = 3002] = "StageTraitTiltUp", t[t.StageTraitTiltDown = 3003] = "StageTraitTiltDown", 
+        t[t.StageTraitTiltLeft = 3004] = "StageTraitTiltLeft", t[t.StageTraitTiltRight = 3005] = "StageTraitTiltRight", 
+        t[t.StageTraitLastTouchX = 3006] = "StageTraitLastTouchX", t[t.StageTraitLastTouchY = 3007] = "StageTraitLastTouchY", 
+        t[t.StageTraitTotalObjects = 3008] = "StageTraitTotalObjects", t[t.HS_END_OF_STAGE_TRAITS = 3009] = "HS_END_OF_STAGE_TRAITS", 
+        t[t.MathOperatorAdd = 4e3] = "MathOperatorAdd", t[t.MathOperatorSubtract = 4001] = "MathOperatorSubtract", 
+        t[t.MathOperatorMultiply = 4002] = "MathOperatorMultiply", t[t.MathOperatorDivide = 4003] = "MathOperatorDivide", 
+        t[t.MathOperatorRandom = 4004] = "MathOperatorRandom", t[t.MathOperatorPower = 4005] = "MathOperatorPower", 
+        t[t.MathOperatorSquareRoot = 4006] = "MathOperatorSquareRoot", t[t.MathOperatorSine = 4007] = "MathOperatorSine", 
+        t[t.MathOperatorCosine = 4008] = "MathOperatorCosine", t[t.MathOperatorRound = 4009] = "MathOperatorRound", 
+        t[t.MathOperatorAbs = 4010] = "MathOperatorAbs", t[t.MathOperatorModulo = 4011] = "MathOperatorModulo", 
+        t[t.MathOperatorTangent = 4012] = "MathOperatorTangent", t[t.MathOperatorInverseSine = 4013] = "MathOperatorInverseSine", 
+        t[t.MathOperatorInverseCosine = 4014] = "MathOperatorInverseCosine", t[t.MathOperatorInverseTangent = 4015] = "MathOperatorInverseTangent", 
+        t[t.MathOperatorMaximum = 4016] = "MathOperatorMaximum", t[t.MathOperatorMinimum = 4017] = "MathOperatorMinimum", 
+        t[t.MathOperatorFloor = 4018] = "MathOperatorFloor", t[t.MathOperatorCeiling = 4019] = "MathOperatorCeiling", 
+        t[t.HS_END_OF_MATH_OPERATORS = 4020] = "HS_END_OF_MATH_OPERATORS", t[t.ColorOperatorRandom = 5e3] = "ColorOperatorRandom", 
+        t[t.ColorOperatorRGB = 5001] = "ColorOperatorRGB", t[t.ColorOperatorHSB = 5002] = "ColorOperatorHSB", 
+        t[t.HS_END_OF_COLOR_OPERATORS = 5003] = "HS_END_OF_COLOR_OPERATORS", t[t.Rule = 6e3] = "Rule", 
+        t[t.RulePreview = 6001] = "RulePreview", t[t.EventOperatorStart = 7e3] = "EventOperatorStart", 
         t[t.EventOperatorTap = 7001] = "EventOperatorTap", t[t.EventOperatorIsTouching = 7002] = "EventOperatorIsTouching", 
         t[t.EventOperatorHold = 7003] = "EventOperatorHold", t[t.EventOperatorTiltRight = 7004] = "EventOperatorTiltRight", 
         t[t.EventOperatorTiltLeft = 7005] = "EventOperatorTiltLeft", t[t.EventOperatorTiltUp = 7006] = "EventOperatorTiltUp", 
@@ -172,25 +174,29 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     }, window.HSBlockType = r, window.HSEventType = n;
 }, function(t, e, i) {
     "use strict";
-    function r() {
-        return e.iOSApp || !!window.HS_IS_IOS_APP;
-    }
     Object.defineProperty(e, "__esModule", {
         value: !0
-    }), e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis", 
+    });
+    var r = i(17);
+    function n() {
+        return e.iOSApp || !!window.HS_IS_IOS_APP;
+    }
+    e.parseInstrumentName = function(t) {
+        return "strings" === t && (t = "cello"), t.toLocaleLowerCase().replace(" ", "");
+    }, e.emoji = window.emoji, e.emoji.basePath = "https://d2j12ek52gvmx9.cloudfront.net/emojis", 
     e.hs_random_id = function() {
         return (1e7 * Math.random()).toString();
     }, e.iOS = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent), e.iOSApp = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent), 
-    e.isIOSApp = r;
-    var n = function() {
+    e.isIOSApp = n;
+    var o = function() {
         function t() {}
         return t.forceIOSApp = function(t) {
             e.iOSApp = t;
         }, t.initUserVariables = function(e, i) {
-            r() || 0 === e.length || 0 === i.length || (t.userVarID = t.userVarPrefix + e + "_" + i, 
+            n() || 0 === e.length || 0 === i.length || (t.userVarID = t.userVarPrefix + e + "_" + i, 
             t.initialUserVariables = JSON.parse(localStorage.getItem(t.userVarID) || "{}"));
         }, t.storeUserVar = function(e, i) {
-            r() || (t.initialUserVariables[e] = i, localStorage.setItem(t.userVarID, JSON.stringify(t.initialUserVariables)));
+            n() || (t.initialUserVariables[e] = i, localStorage.setItem(t.userVarID, JSON.stringify(t.initialUserVariables)));
         }, t.sendToApp = function() {
             for (var e = [], i = 0; i < arguments.length; i++) e[i] = arguments[i];
             t.instance.sendToApp.apply(t.instance, e);
@@ -202,7 +208,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var n = window.webkit;
             n && n.messageHandlers && n.messageHandlers[i].postMessage(((r = {})[t] = e, r));
         }, t.reset = function() {
-            for (var e in t.appCallbacks = {}, t.resetCallback) t.resetCallback.hasOwnProperty(e) && t.resetCallback[e]();
+            for (var e in r.HSAccelerometerManager.clear(), t.appCallbacks = {}, t.resetCallback) t.resetCallback.hasOwnProperty(e) && t.resetCallback[e]();
         }, t.readFromAppOnce = function(e, i) {
             t.appCallbacks[e] = i;
         }, t.readFromAppEternal = function(e, i) {
@@ -212,90 +218,92 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.instance = new t(), t.isRunning = !0, t.initialUserVariables = {}, t.userVarPrefix = "user_var_", 
         t.eternalCallbacks = [], t.appCallbacks = {}, t.resetCallback = {}, t;
     }();
-    function o(t) {
+    function a(t) {
         return null != t && "" !== t && (/[\uD800-\uDBFF\uDC00-\uDFFF]/.test(t) || RegExp("" + e.emoji.regex.source).test(t));
     }
-    function a(t) {
+    function s(t) {
         return null != t && "" !== t && RegExp("^(" + e.emoji.regex.source + ")+$").test(t);
     }
-    e.HSApp = n, e.hasEmoji = o, e.onlyEmoji = a;
-    var s = 0;
-    function c(t, i) {
-        if (void 0 === i && (i = JSON.stringify(t)), !e.appRequestCache.get(i)) {
-            var r = s++;
-            e.appRequestCache.set(i, new Promise(function(i) {
-                e.appRequestCallbacks[r] = i, window.webkit.messageHandlers.renderer.postMessage(Object.assign({}, t, {
-                    replyTo: "appRequestCallbacks[" + r + "]"
+    e.HSApp = o, e.hasEmoji = a, e.onlyEmoji = s;
+    var c = 0;
+    function u(t, i) {
+        var r, n = JSON.stringify(t), o = e.appRequestCache.get(n);
+        if (null != i && (null === (r = o) || void 0 === r ? void 0 : r.updatedDate) === i) return o.promise;
+        var a = c++, s = {
+            updatedDate: i || 0,
+            promise: new Promise(function(i) {
+                e.appRequestCallbacks[a] = i, window.webkit.messageHandlers.renderer.postMessage(Object.assign({}, t, {
+                    replyTo: "appRequestCallbacks[" + a + "]"
                 }));
             }).then(function(t) {
-                return delete e.appRequestCallbacks[r], t;
-            }));
-        }
-        return e.appRequestCache.get(i);
+                return delete e.appRequestCallbacks[a], t;
+            })
+        };
+        return e.appRequestCache.set(n, s), e.appRequestCache.get(n).promise;
     }
-    function u() {
+    function l() {
         for (var t = [], e = 0; e < arguments.length; e++) t[e] = arguments[e];
-        n.sendToApp("log", Array.prototype.join.call(arguments, " "));
+        o.sendToApp("log", Array.prototype.join.call(arguments, " "));
     }
     function h(t, e, i) {
         var r = Math.max(e, t);
         return Math.min(r, i);
     }
-    function l(t) {
+    function p(t) {
         return t.reduce(function(t, e) {
             return t + e;
         }, 0) / t.length;
     }
-    function p(t) {
-        var e = l(t);
+    function d(t) {
+        var e = p(t);
         return t.reduce(function(t, i) {
             return t + Math.pow(i - e, 2);
         }, 0) / t.length;
     }
-    function d(t, e) {
+    function S(t, e) {
         for (var i = t.length - 1; i >= 0; i--) if (e(t[i], i, t)) return t[i];
     }
-    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = c, 
-    e.log = u, e.clamp = h, e.mean = l, e.variance = p, e.findLast = d;
-    var S, f, g, y = [], b = 0;
-    function v() {
-        b = performance.now();
-    }
+    e.appRequestCallbacks = {}, e.appRequestCache = new Map(), e.requestTextureFromApp = u, 
+    e.log = l, e.clamp = h, e.mean = p, e.variance = d, e.findLast = S;
+    var f, g, y, b = [], v = 0;
     function m() {
+        v = performance.now();
+    }
+    function T() {
         var t = performance.now();
-        if (y.length >= 100) {
-            for (var e = 0, i = 0; i < y.length; i++) e += y[i];
+        if (b.length >= 100) {
+            for (var e = 0, i = 0; i < b.length; i++) e += b[i];
             var r = document.getElementById("time").innerText;
             r.length > 130 && (r = r.substring(50, 130));
-            var n = Math.round(e / y.length * 1e3) / 1e3;
-            document.getElementById("time").innerText = r + " " + n + "ms", y = [];
+            var n = Math.round(e / b.length * 1e3) / 1e3;
+            document.getElementById("time").innerText = r + " " + n + "ms", b = [];
         }
-        var o = t - b;
-        y.push(o);
+        var o = t - v;
+        b.push(o);
     }
-    function T(t, e) {
-        return Math.abs(t) >= Math.abs(e) ? S.horizontal : S.vertical;
+    function E(t, e) {
+        return Math.abs(t) >= Math.abs(e) ? f.horizontal : f.vertical;
     }
     function H(t, e) {
-        return Math.abs(t) < e ? f.none : t > 0 ? f.positive : f.negative;
+        return Math.abs(t) < e ? g.none : t > 0 ? g.positive : g.negative;
     }
     function O(t, e, i) {
-        var r, n = T(t, e);
+        var r, n = E(t, e);
         switch (n) {
-          case S.horizontal:
+          case f.horizontal:
             r = H(t, i);
             break;
 
-          case S.vertical:
+          case f.vertical:
             r = H(e, i);
         }
-        return E(r, n);
+        return w(r, n);
     }
-    function E(t, e) {
-        return t === f.positive && e === S.horizontal ? g.right : t === f.positive && e === S.vertical ? g.up : t === f.negative && e === S.horizontal ? g.left : t === f.negative && e === S.vertical ? g.down : null;
+    function w(t, e) {
+        return t === g.positive && e === f.horizontal ? y.right : t === g.positive && e === f.vertical ? y.up : t === g.negative && e === f.horizontal ? y.left : t === g.negative && e === f.vertical ? y.down : null;
     }
-    function w() {}
-    function _(t) {
+    function _() {}
+    function k(t) {
         var e = new Image();
         return t.startsWith("data:") || (e.crossOrigin = "Anonymous"), new Promise(function(i, r) {
             e.onload = function() {
@@ -303,48 +311,372 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             }, e.onerror = r, e.src = t.replace(/-?200d/g, "");
         });
     }
-    function k(t) {
+    function C(t) {
         return t * Math.PI / 180;
     }
-    function B(t) {
+    function x(t) {
         return t / Math.PI * 180;
     }
-    e.benchmarkStart = v, e.benchmarkEnd = m, function(t) {
+    e.benchmarkStart = m, e.benchmarkEnd = T, function(t) {
         t[t.horizontal = 0] = "horizontal", t[t.vertical = 1] = "vertical";
-    }(S = e.HSPlane || (e.HSPlane = {})), function(t) {
+    }(f = e.HSPlane || (e.HSPlane = {})), function(t) {
         t[t.positive = 0] = "positive", t[t.negative = 1] = "negative", t[t.none = 2] = "none";
-    }(f = e.HSMagnitude || (e.HSMagnitude = {})), function(t) {
+    }(g = e.HSMagnitude || (e.HSMagnitude = {})), function(t) {
         t[t.up = 0] = "up", t[t.down = 1] = "down", t[t.left = 2] = "left", t[t.right = 3] = "right";
-    }(g = e.HSDirection || (e.HSDirection = {})), e.hs_plane = T, e.hs_magnitude = H, 
-    e.hs_direction = O, e.hs_directionForMagnitudeAndPlane = E, e.exitFullscreen = w, 
-    e.getImageFromUri = _, e.degreesToRadians = k, e.radiansToDegrees = B, Array.prototype.remove = function(t) {
+    }(y = e.HSDirection || (e.HSDirection = {})), e.hs_plane = E, e.hs_magnitude = H, 
+    e.hs_direction = O, e.hs_directionForMagnitudeAndPlane = w, e.exitFullscreen = _, 
+    e.getImageFromUri = k, e.degreesToRadians = C, e.radiansToDegrees = x, Array.prototype.remove = function(t) {
         var e = this.indexOf(t);
         void 0 !== e && this.splice(e, 1);
     }, e.checkMatches = function(t, e) {
         return new RegExp(e, "gi").test(t);
-    }, window.isIOSApp = r, window.HSPlane = S, window.HSMagnitude = f, window.HSDirection = g, 
-    window.hasEmoji = o, window.onlyEmoji = a, window.requestTextureFromApp = c, window.log = u, 
-    window.clamp = h, window.mean = l, window.variance = p, window.findLast = d, window.benchmarkStart = v, 
-    window.benchmarkEnd = m, window.hs_plane = T, window.hs_magnitude = H, window.hs_direction = O, 
-    window.hs_directionForMagnitudeAndPlane = E, window.exitFullscreen = w, window.getImageFromUri = _, 
-    window.degreesToRadians = k, window.radiansToDegrees = B, window.HSApp = n, window.appRequestCallbacks = e.appRequestCallbacks;
+    }, window.isIOSApp = n, window.HSPlane = f, window.HSMagnitude = g, window.HSDirection = y, 
+    window.hasEmoji = a, window.onlyEmoji = s, window.requestTextureFromApp = u, window.log = l, 
+    window.clamp = h, window.mean = p, window.variance = d, window.findLast = S, window.benchmarkStart = m, 
+    window.benchmarkEnd = T, window.hs_plane = E, window.hs_magnitude = H, window.hs_direction = O, 
+    window.hs_directionForMagnitudeAndPlane = w, window.exitFullscreen = _, window.getImageFromUri = k, 
+    window.degreesToRadians = C, window.radiansToDegrees = x, window.HSApp = o, window.appRequestCallbacks = e.appRequestCallbacks;
+}, function(t, e, i) {
+    "use strict";
+    i.r(e), i.d(e, "__extends", function() {
+        return n;
+    }), i.d(e, "__assign", function() {
+        return o;
+    }), i.d(e, "__rest", function() {
+        return a;
+    }), i.d(e, "__decorate", function() {
+        return s;
+    }), i.d(e, "__param", function() {
+        return c;
+    }), i.d(e, "__metadata", function() {
+        return u;
+    }), i.d(e, "__awaiter", function() {
+        return l;
+    }), i.d(e, "__generator", function() {
+        return h;
+    }), i.d(e, "__exportStar", function() {
+        return p;
+    }), i.d(e, "__values", function() {
+        return d;
+    }), i.d(e, "__read", function() {
+        return S;
+    }), i.d(e, "__spread", function() {
+        return f;
+    }), i.d(e, "__spreadArrays", function() {
+        return g;
+    }), i.d(e, "__await", function() {
+        return y;
+    }), i.d(e, "__asyncGenerator", function() {
+        return b;
+    }), i.d(e, "__asyncDelegator", function() {
+        return v;
+    }), i.d(e, "__asyncValues", function() {
+        return m;
+    }), i.d(e, "__makeTemplateObject", function() {
+        return T;
+    }), i.d(e, "__importStar", function() {
+        return E;
+    }), i.d(e, "__importDefault", function() {
+        return H;
+    });
+    var r = function(t, e) {
+        return (r = Object.setPrototypeOf || {
+            __proto__: []
+        } instanceof Array && function(t, e) {
+            t.__proto__ = e;
+        } || function(t, e) {
+            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+        })(t, e);
+    };
+    function n(t, e) {
+        function i() {
+            this.constructor = t;
+        }
+        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
+        new i());
+    }
+    var o = function() {
+        return (o = Object.assign || function(t) {
+            for (var e, i = 1, r = arguments.length; i < r; i++) for (var n in e = arguments[i]) Object.prototype.hasOwnProperty.call(e, n) && (t[n] = e[n]);
+            return t;
+        }).apply(this, arguments);
+    };
+    function a(t, e) {
+        var i = {};
+        for (var r in t) Object.prototype.hasOwnProperty.call(t, r) && e.indexOf(r) < 0 && (i[r] = t[r]);
+        if (null != t && "function" == typeof Object.getOwnPropertySymbols) {
+            var n = 0;
+            for (r = Object.getOwnPropertySymbols(t); n < r.length; n++) e.indexOf(r[n]) < 0 && Object.prototype.propertyIsEnumerable.call(t, r[n]) && (i[r[n]] = t[r[n]]);
+        }
+        return i;
+    }
+    function s(t, e, i, r) {
+        var n, o = arguments.length, a = o < 3 ? e : null === r ? r = Object.getOwnPropertyDescriptor(e, i) : r;
+        if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, i, r); else for (var s = t.length - 1; s >= 0; s--) (n = t[s]) && (a = (o < 3 ? n(a) : o > 3 ? n(e, i, a) : n(e, i)) || a);
+        return o > 3 && a && Object.defineProperty(e, i, a), a;
+    }
+    function c(t, e) {
+        return function(i, r) {
+            e(i, r, t);
+        };
+    }
+    function u(t, e) {
+        if ("object" == typeof Reflect && "function" == typeof Reflect.metadata) return Reflect.metadata(t, e);
+    }
+    function l(t, e, i, r) {
+        return new (i || (i = Promise))(function(n, o) {
+            function a(t) {
+                try {
+                    c(r.next(t));
+                } catch (t) {
+                    o(t);
+                }
+            }
+            function s(t) {
+                try {
+                    c(r.throw(t));
+                } catch (t) {
+                    o(t);
+                }
+            }
+            function c(t) {
+                t.done ? n(t.value) : new i(function(e) {
+                    e(t.value);
+                }).then(a, s);
+            }
+            c((r = r.apply(t, e || [])).next());
+        });
+    }
+    function h(t, e) {
+        var i, r, n, o, a = {
+            label: 0,
+            sent: function() {
+                if (1 & n[0]) throw n[1];
+                return n[1];
+            },
+            trys: [],
+            ops: []
+        };
+        return o = {
+            next: s(0),
+            "throw": s(1),
+            "return": s(2)
+        }, "function" == typeof Symbol && (o[Symbol.iterator] = function() {
+            return this;
+        }), o;
+        function s(o) {
+            return function(s) {
+                return function(o) {
+                    if (i) throw new TypeError("Generator is already executing.");
+                    for (;a; ) try {
+                        if (i = 1, r && (n = 2 & o[0] ? r.return : o[0] ? r.throw || ((n = r.return) && n.call(r), 
+                        0) : r.next) && !(n = n.call(r, o[1])).done) return n;
+                        switch (r = 0, n && (o = [ 2 & o[0], n.value ]), o[0]) {
+                          case 0:
+                          case 1:
+                            n = o;
+                            break;
+
+                          case 4:
+                            return a.label++, {
+                                value: o[1],
+                                done: !1
+                            };
+
+                          case 5:
+                            a.label++, r = o[1], o = [ 0 ];
+                            continue;
+
+                          case 7:
+                            o = a.ops.pop(), a.trys.pop();
+                            continue;
+
+                          default:
+                            if (!(n = (n = a.trys).length > 0 && n[n.length - 1]) && (6 === o[0] || 2 === o[0])) {
+                                a = 0;
+                                continue;
+                            }
+                            if (3 === o[0] && (!n || o[1] > n[0] && o[1] < n[3])) {
+                                a.label = o[1];
+                                break;
+                            }
+                            if (6 === o[0] && a.label < n[1]) {
+                                a.label = n[1], n = o;
+                                break;
+                            }
+                            if (n && a.label < n[2]) {
+                                a.label = n[2], a.ops.push(o);
+                                break;
+                            }
+                            n[2] && a.ops.pop(), a.trys.pop();
+                            continue;
+                        }
+                        o = e.call(t, a);
+                    } catch (t) {
+                        o = [ 6, t ], r = 0;
+                    } finally {
+                        i = n = 0;
+                    }
+                    if (5 & o[0]) throw o[1];
+                    return {
+                        value: o[0] ? o[1] : void 0,
+                        done: !0
+                    };
+                }([ o, s ]);
+            };
+        }
+    }
+    function p(t, e) {
+        for (var i in t) e.hasOwnProperty(i) || (e[i] = t[i]);
+    }
+    function d(t) {
+        var e = "function" == typeof Symbol && t[Symbol.iterator], i = 0;
+        return e ? e.call(t) : {
+            next: function() {
+                return t && i >= t.length && (t = void 0), {
+                    value: t && t[i++],
+                    done: !t
+                };
+            }
+        };
+    }
+    function S(t, e) {
+        var i = "function" == typeof Symbol && t[Symbol.iterator];
+        if (!i) return t;
+        var r, n, o = i.call(t), a = [];
+        try {
+            for (;(void 0 === e || e-- > 0) && !(r = o.next()).done; ) a.push(r.value);
+        } catch (t) {
+            n = {
+                error: t
+            };
+        } finally {
+            try {
+                r && !r.done && (i = o.return) && i.call(o);
+            } finally {
+                if (n) throw n.error;
+            }
+        }
+        return a;
+    }
+    function f() {
+        for (var t = [], e = 0; e < arguments.length; e++) t = t.concat(S(arguments[e]));
+        return t;
+    }
+    function g() {
+        for (var t = 0, e = 0, i = arguments.length; e < i; e++) t += arguments[e].length;
+        var r = Array(t), n = 0;
+        for (e = 0; e < i; e++) for (var o = arguments[e], a = 0, s = o.length; a < s; a++, 
+        n++) r[n] = o[a];
+        return r;
+    }
+    function y(t) {
+        return this instanceof y ? (this.v = t, this) : new y(t);
+    }
+    function b(t, e, i) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var r, n = i.apply(t, e || []), o = [];
+        return r = {}, a("next"), a("throw"), a("return"), r[Symbol.asyncIterator] = function() {
+            return this;
+        }, r;
+        function a(t) {
+            n[t] && (r[t] = function(e) {
+                return new Promise(function(i, r) {
+                    o.push([ t, e, i, r ]) > 1 || s(t, e);
+                });
+            });
+        }
+        function s(t, e) {
+            try {
+                (i = n[t](e)).value instanceof y ? Promise.resolve(i.value.v).then(c, u) : l(o[0][2], i);
+            } catch (t) {
+                l(o[0][3], t);
+            }
+            var i;
+        }
+        function c(t) {
+            s("next", t);
+        }
+        function u(t) {
+            s("throw", t);
+        }
+        function l(t, e) {
+            t(e), o.shift(), o.length && s(o[0][0], o[0][1]);
+        }
+    }
+    function v(t) {
+        var e, i;
+        return e = {}, r("next"), r("throw", function(t) {
+            throw t;
+        }), r("return"), e[Symbol.iterator] = function() {
+            return this;
+        }, e;
+        function r(r, n) {
+            e[r] = t[r] ? function(e) {
+                return (i = !i) ? {
+                    value: y(t[r](e)),
+                    done: "return" === r
+                } : n ? n(e) : e;
+            } : n;
+        }
+    }
+    function m(t) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var e, i = t[Symbol.asyncIterator];
+        return i ? i.call(t) : (t = d(t), e = {}, r("next"), r("throw"), r("return"), e[Symbol.asyncIterator] = function() {
+            return this;
+        }, e);
+        function r(i) {
+            e[i] = t[i] && function(e) {
+                return new Promise(function(r, n) {
+                    (function(t, e, i, r) {
+                        Promise.resolve(r).then(function(e) {
+                            t({
+                                value: e,
+                                done: i
+                            });
+                        }, e);
+                    })(r, n, (e = t[i](e)).done, e.value);
+                });
+            };
+        }
+    }
+    function T(t, e) {
+        return Object.defineProperty ? Object.defineProperty(t, "raw", {
+            value: e
+        }) : t.raw = e, t;
+    }
+    function E(t) {
+        if (t && t.__esModule) return t;
+        var e = {};
+        if (null != t) for (var i in t) Object.hasOwnProperty.call(t, i) && (e[i] = t[i]);
+        return e.default = t, e;
+    }
+    function H(t) {
+        return t && t.__esModule ? t : {
+            "default": t
+        };
+    }
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r, n = i(20), o = i(4), a = i(11), s = i(12), c = i(10), u = i(59), h = i(16), l = i(0);
+    var r = i(2), n = i(23), o = i(5), a = i(12), s = i(13), c = i(11), u = i(60), l = i(19), h = i(0), p = i(1), d = i(18);
     e.VERSION_KEY = "version", e.CUSTOM_OBJECTS_KEY = "customObjects", e.SCALE_KEY = "baseObjectScale", 
-    e.FONT_SIZE_KEY = "fontSize", e.STAGE_SIZE = "stageSize", function(t) {
+    e.FONT_SIZE_KEY = "fontSize", e.STAGE_SIZE = "stageSize";
+    var S, f = [ "ocarina", "piano", "vibraphone", "guitar", "cello", "8bit" ];
+    !function(t) {
         t[t.V13 = 13] = "V13", t[t.V14 = 14] = "V14", t[t.V15 = 15] = "V15", t[t.V16 = 16] = "V16", 
         t[t.V17 = 17] = "V17", t[t.V18 = 18] = "V18", t[t.V19 = 19] = "V19", t[t.V24 = 24] = "V24", 
         t[t.WEBPLAYER_IN_APP = 25] = "WEBPLAYER_IN_APP", t[t.ADD_SELF = 26] = "ADD_SELF", 
         t[t.CUSTOM_WHENS = 28] = "CUSTOM_WHENS";
-    }(r = e.HSProjectVersion || (e.HSProjectVersion = {}));
-    var p = function() {
+    }(S = e.HSProjectVersion || (e.HSProjectVersion = {}));
+    var g = function() {
         function t() {
-            this.projectObjects = {}, this.version = r.CUSTOM_WHENS, this.baseObjectScale = 1, 
-            this.fontSize = 80, this._hasAccelerometerEvent = null, this._hasAccelerometerTrait = null;
+            this.projectObjects = {}, this.version = S.CUSTOM_WHENS, this.baseObjectScale = 1, 
+            this.fontSize = 80, this.alreadyDownloadedInstruments = [], this._hasAccelerometerEvent = null, 
+            this._hasAccelerometerTrait = null;
         }
         return t.prototype.findAllForClassName = function(t) {
             return this.projectObjects[t] ? this.projectObjects[t] : [];
@@ -359,55 +691,79 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var e = Object.getPrototypeOf(t).constructor.key, i = this.projectObjects[e].indexOf(t);
             i > -1 && this.projectObjects[e].splice(i, 1);
         }, t.prototype.parseJSON = function(i) {
-            if (void 0 === i && (i = {}), this.version = i[e.VERSION_KEY] || r.V14, this.baseObjectScale = i[e.SCALE_KEY] || 1, 
+            if (void 0 === i && (i = {}), this.version = i[e.VERSION_KEY] || S.V14, this.baseObjectScale = i[e.SCALE_KEY] || 1, 
             this.fontSize = i[e.FONT_SIZE_KEY] || 80, n.HSEmojiTextNode.WIDTH = this.fontSize / 2, 
             n.HSEmojiTextNode.HEIGHT = this.fontSize / 2, n.HSTextNode.LINE_HEIGHT = this.fontSize < 80 ? 49 : 55, 
-            this.version >= r.V19) {
-                var a = i[e.STAGE_SIZE];
-                a && (o.HSStageScene.stageWidth = a.width, o.HSStageScene.stageHeight = a.height, 
-                n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, 512), n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, a.width));
+            this.version >= S.V19) {
+                var r = i[e.STAGE_SIZE];
+                r && (o.HSStageScene.stageWidth = r.width, o.HSStageScene.stageHeight = r.height, 
+                n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, 512), n.HSTextNode.MAX_LINE_WIDTH = Math.min(n.HSTextNode.MAX_LINE_WIDTH, r.width));
             }
             Array.isArray(i[e.CUSTOM_OBJECTS_KEY]) && i[e.CUSTOM_OBJECTS_KEY].forEach(function(e) {
-                var i = new u.HSCustomObject(e.fileName, e.size.width, e.size.height);
+                var i = new u.HSCustomObject(e.fileName, e.size.width, e.size.height, e.updatedDate);
                 t.customObjectMap.set(e.id, i);
             });
         }, t.prototype.allSoundNames = function() {
+            this.alreadyDownloadedInstruments.length = 0;
             for (var t = this.findAllForClassName(s.HSParameter.key), e = [], i = 0; i < t.length; i++) {
                 var r = t[i];
-				//AE_MOD Load multiple sounds
-				if (r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value)) {
-					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
-					e.push(((isCustom) ? "custom/":"") + r.value);
-					if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
-						e.push("new/" + r.value, "guitar/" + r.value, "8-bit/" + r.value);
+                switch (r.type) {
+                  case l.HSParameterType.Sound:
+					//r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value) && e.push(r.value);
+                    //-1 === e.indexOf(r.value) && e.push(r.value);
+					//AE_MOD Load multiple sounds
+					if (-1 === e.indexOf(r.value)) {
+						var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(r.value));
+						e.push(((isCustom) ? "custom/":"") + r.value);
+						if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(r.value)) {
+							e.push("new/" + r.value, "guitar/" + r.value, "8-bit/" + r.value);
+						}
 					}
-				}
+                    break;
+
+                  case l.HSParameterType.MusicNote:
+                    e = e.concat(this.allMusicNotesFor());
+                    break;
+
+                  case l.HSParameterType.Instrument:
+                    e = e.concat(this.allMusicNotesFor(r.value));
+                }
             }
             return e;
+        }, t.prototype.allMusicNotesFor = function(t) {
+            return void 0 === t && (t = d.DEFAULT_INSTRUMENT), t = p.parseInstrumentName(t), 
+            this.alreadyDownloadedInstruments.includes(t) || !f.includes(t) ? [] : (this.alreadyDownloadedInstruments.push(t), 
+            r.__spread(Array(37).keys()).map(function(e) {
+                return t + "/" + (e + 48) + ".wav";
+            }));
         }, t.prototype.hasAccelerometerEvent = function() {
             if (null != this._hasAccelerometerEvent) return this._hasAccelerometerEvent;
             for (var t = this.findAllForClassName(a.HSRule.key), e = 0; e < t.length; e++) switch (t[e].eventType()) {
-              case l.HSBlockType.EventOperatorTiltUp:
-              case l.HSBlockType.EventOperatorTiltDown:
-              case l.HSBlockType.EventOperatorTiltLeft:
-              case l.HSBlockType.EventOperatorTiltRight:
-              case l.HSBlockType.EventOperatorShake:
-                return this._hasAccelerometerEvent = !0;
+              case h.HSBlockType.EventOperatorTiltUp:
+              case h.HSBlockType.EventOperatorTiltDown:
+              case h.HSBlockType.EventOperatorTiltLeft:
+              case h.HSBlockType.EventOperatorTiltRight:
+              case h.HSBlockType.EventOperatorShake:
+                return this.preventDefaultKeys(), this._hasAccelerometerEvent = !0;
             }
             return !1;
+        }, t.prototype.preventDefaultKeys = function() {
+            var t = PIXI.keyboard.Key, e = PIXI.keyboardManager;
+            e.setPreventDefault(t.SPACE), e.setPreventDefault(t.RIGHT), e.setPreventDefault(t.LEFT), 
+            e.setPreventDefault(t.UP), e.setPreventDefault(t.DOWN);
         }, t.prototype.hasAccelerometerTrait = function() {
             if (null != this._hasAccelerometerTrait) return this._hasAccelerometerTrait;
             for (var t = this.findAllForClassName(c.HSParameterBlock.key), e = 0; e < t.length; e++) switch (t[e].type) {
-              case l.HSBlockType.StageTraitTiltUp:
-              case l.HSBlockType.StageTraitTiltDown:
-              case l.HSBlockType.StageTraitTiltLeft:
-              case l.HSBlockType.StageTraitTiltRight:
+              case h.HSBlockType.StageTraitTiltUp:
+              case h.HSBlockType.StageTraitTiltDown:
+              case h.HSBlockType.StageTraitTiltLeft:
+              case h.HSBlockType.StageTraitTiltRight:
                 return this._hasAccelerometerEvent = !0;
             }
             return !1;
         }, t.customObjectMap = new Map(), t;
     }();
-    e.HSProjectContext = p, window.HSProjectVersion = r, window.HSProjectContext = p, 
+    e.HSProjectContext = g, window.HSProjectVersion = S, window.HSProjectContext = g, 
     window.VERSION_KEY = e.VERSION_KEY, window.CUSTOM_OBJECTS_KEY = e.CUSTOM_OBJECTS_KEY, 
     window.SCALE_KEY = e.SCALE_KEY, window.FONT_SIZE_KEY = e.FONT_SIZE_KEY, window.STAGE_SIZE = e.STAGE_SIZE;
 }, function(t, e, i) {
@@ -415,7 +771,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(65), n = function() {
+    var r = i(67), n = function() {
         function t() {}
         return t.textColor = function() {
             return t.rgbTextColor;
@@ -486,35 +842,20 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSColor = n, window.HSColor = n;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(1), a = i(22), s = i(5), c = i(54), u = i(56), h = i(0), l = function(t) {
+    var r = i(2), n = i(1), o = i(17), a = i(6), s = i(55), c = i(57), u = i(0), l = function(t) {
         function e(i) {
             var r = t.call(this) || this;
-            return r.scene = i, r.renderList = new u.HSLinkedList(), r.pointers = [], r.currentlyPressedObjects = [], 
+            return r.scene = i, r.renderList = new c.HSLinkedList(), r.pointers = [], r.currentlyPressedObjects = [], 
             r.tickCount = 0, r.nextEvents = new Set(), r.currentEvents = new Set(), r.container = new PIXI.Container(), 
             i.objects.forEach(function(t) {
                 t.rebuildStageObject(), r.addStageObject(t.stageObject());
             }), r.lastTouchX = e.stageWidth / 2, r.lastTouchY = e.stageHeight / 2, r.name = i.name, 
             r;
         }
-        return n(e, t), e.prototype.queueEventMessage = function(t) {
+        return r.__extends(e, t), e.prototype.queueEventMessage = function(t) {
             this.nextEvents.add(t);
         }, e.prototype.swapEventMessageQueue = function() {
             var t = this.currentEvents;
@@ -546,19 +887,19 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, e.prototype.activateRules = function() {
             var t = this;
             this.touchIsDown && this.currentlyPressedObjects.forEach(function(e) {
-                t.activateAllRulesForEventWithObjects(h.HSBlockType.EventOperatorHold, e);
+                t.activateAllRulesForEventWithObjects(u.HSBlockType.EventOperatorHold, e);
             }), this.scene.context.hasAccelerometerEvent() && (this.activateTiltRules(), this.activateShakeRules()), 
             this.activateAllNotPressedRules(), this.activateEventMessageRules(), this.activateCurrentCollisionRules();
         }, e.prototype.activateEventMessageRules = function() {
             var t = this;
-            this.allStageRulesForEventType(h.HSBlockType.EventOperatorHearMessage).forEach(function(e) {
+            this.allStageRulesForEventType(u.HSBlockType.EventOperatorHearMessage).forEach(function(e) {
                 t.currentEvents.forEach(e.activateIfEqualsEventMessage);
-            }), this.allStageRulesForEventType(h.HSBlockType.EventOperatorMessageMatches).forEach(function(e) {
+            }), this.allStageRulesForEventType(u.HSBlockType.EventOperatorMessageMatches).forEach(function(e) {
                 t.currentEvents.forEach(e.activateIfMatchesEventMessage);
             });
         }, e.prototype.activateAllNotPressedRules = function() {
             var t = this;
-            this.allStageRulesForEventType(h.HSBlockType.EventOperatorNotPressed).forEach(function(e) {
+            this.allStageRulesForEventType(u.HSBlockType.EventOperatorNotPressed).forEach(function(e) {
                 e.activateIfNotPressed(t);
             });
         }, e.prototype.executeRules = function() {
@@ -566,7 +907,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, e.prototype.receiveClickEvent = function(t, e) {
             this.setTouchPosition(t, e);
             var i = t.point, r = i.x, n = i.y, o = this.stageObjectsToReceiveTouchInRange(r, n, e);
-            this.activateAllRulesForEventWithObjects(h.HSBlockType.EventOperatorTap, o), this.activateAllRulesForEventWithObjects(h.HSBlockType.EventOperatorHold, o);
+            this.activateAllRulesForEventWithObjects(u.HSBlockType.EventOperatorTap, o), this.activateAllRulesForEventWithObjects(u.HSBlockType.EventOperatorHold, o);
             var a = this.indexOfPointer(t.id);
             this.currentlyPressedObjects[a] = o;
         }, e.prototype.addPointer = function(t) {
@@ -580,7 +921,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             this.touchIsDown && (this.setTouchPosition(t, e), this.calculateSwipeEvents(this.getPointerFrom(t.id), e));
         }, e.prototype.receiveTouchUpEvent = function(t, e) {
             var i = this.indexOfPointer(t.id);
-            this.removePointer(t.id), this.currentlyPressedObjects.splice(i, 1), this.activateAllRulesForEventType(h.HSBlockType.EventOperatorTouchEnds);
+            this.removePointer(t.id), this.currentlyPressedObjects.splice(i, 1), this.activateAllRulesForEventType(u.HSBlockType.EventOperatorTouchEnds);
         }, e.prototype.getPointerData = function(t) {
             var e = t.point, i = e.x, r = e.y;
             return {
@@ -606,18 +947,18 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 this.activateAllRulesForEventWithObjects(n, o), t.downX = null, t.downY = null;
             }
         }, e.prototype.directionForSwipe = function(t, e) {
-            switch (o.hs_direction(t, e, 10)) {
-              case o.HSDirection.up:
-                return h.HSBlockType.EventOperatorSwipeUp;
+            switch (n.hs_direction(t, e, 10)) {
+              case n.HSDirection.up:
+                return u.HSBlockType.EventOperatorSwipeUp;
 
-              case o.HSDirection.down:
-                return h.HSBlockType.EventOperatorSwipeDown;
+              case n.HSDirection.down:
+                return u.HSBlockType.EventOperatorSwipeDown;
 
-              case o.HSDirection.left:
-                return h.HSBlockType.EventOperatorSwipeLeft;
+              case n.HSDirection.left:
+                return u.HSBlockType.EventOperatorSwipeLeft;
 
-              case o.HSDirection.right:
-                return h.HSBlockType.EventOperatorSwipeRight;
+              case n.HSDirection.right:
+                return u.HSBlockType.EventOperatorSwipeRight;
 
               default:
                 return null;
@@ -664,42 +1005,42 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return t.break();
             });
         }, e.prototype.destroy = function(e) {
-            t.prototype.destroy.call(this, e), this.renderList.remove(e), this.scene.context.findWithObjectID(s.HSObject.key, e.objectID).removeStageObject(e);
+            t.prototype.destroy.call(this, e), this.renderList.remove(e), this.scene.context.findWithObjectID(a.HSObject.key, e.objectID).removeStageObject(e);
         }, e.prototype.clone = function(t, i) {
             if (void 0 === i && (i = 1), !(this.stageObjects.length >= e.MAX_CLONES)) {
                 i = Math.min(e.MAX_CLONES - this.stageObjects.length, i);
-                for (var r = this.scene.context, n = r.findWithObjectID(s.HSObject.key, t.objectID), o = 0; o < i; o++) {
-                    var a = t.deepCopy(r.version, n);
-                    a.creationTick = this.tickCount, n.addStageObject(a), a.relatedCollisionRules = t.relatedCollisionRules, 
-                    this.addStageObject(a), this.cacheRulesForStageObject(a), this.addCollisionPairsForStageObject(a), 
-                    a.activateAllStageRulesForEventType(h.HSBlockType.EventOperatorEnterTheWorld);
+                for (var r = this.scene.context, n = r.findWithObjectID(a.HSObject.key, t.objectID), o = 0; o < i; o++) {
+                    var s = t.deepCopy(r.version, n);
+                    s.creationTick = this.tickCount, n.addStageObject(s), s.relatedCollisionRules = t.relatedCollisionRules, 
+                    this.addStageObject(s), this.cacheRulesForStageObject(s), this.addCollisionPairsForStageObject(s), 
+                    s.activateAllStageRulesForEventType(u.HSBlockType.EventOperatorEnterTheWorld);
                 }
             }
         }, e.prototype.activateTiltRules = function() {
             var t;
-            switch (a.HSAccelerometerManager.tiltDirection()) {
-              case o.HSDirection.up:
-                t = h.HSBlockType.EventOperatorTiltUp;
+            switch (o.HSAccelerometerManager.tiltDirection()) {
+              case n.HSDirection.up:
+                t = u.HSBlockType.EventOperatorTiltUp;
                 break;
 
-              case o.HSDirection.down:
-                t = h.HSBlockType.EventOperatorTiltDown;
+              case n.HSDirection.down:
+                t = u.HSBlockType.EventOperatorTiltDown;
                 break;
 
-              case o.HSDirection.left:
-                t = h.HSBlockType.EventOperatorTiltLeft;
+              case n.HSDirection.left:
+                t = u.HSBlockType.EventOperatorTiltLeft;
                 break;
 
-              case o.HSDirection.right:
-                t = h.HSBlockType.EventOperatorTiltRight;
+              case n.HSDirection.right:
+                t = u.HSBlockType.EventOperatorTiltRight;
                 break;
 
               default:
-                t = h.HSBlockType.None;
+                t = u.HSBlockType.None;
             }
             this.activateAllRulesForEventType(t);
         }, e.prototype.activateShakeRules = function() {
-            a.HSAccelerometerManager.isShaking() && this.activateAllRulesForEventType(h.HSBlockType.EventOperatorShake);
+            o.HSAccelerometerManager.isShaking() && this.activateAllRulesForEventType(u.HSBlockType.EventOperatorShake);
         }, Object.defineProperty(e.prototype, "touchIsDown", {
             get: function() {
                 return 0 !== this.pointers.length;
@@ -708,29 +1049,14 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             configurable: !0
         }), e.dirtySort = !1, e.promptsToExecute = [], e.stageHeight = 768, e.stageWidth = 1024, 
         e.MAX_CLONES = 4096, e;
-    }(c.HSRuleActivator);
+    }(s.HSRuleActivator);
     e.HSStageScene = l, window.HSStageScene = l;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(1), c = i(23), u = i(27), h = i(6);
+    var r = i(2), n = i(8), o = i(3), a = i(1), s = i(18), c = i(28), u = i(7);
     e.OBJECT_ID_KEY = "objectID", e.X_POSITION_KEY = "xPosition", e.Y_POSITION_KEY = "yPosition", 
     e.TEXT_KEY = "text", e.TYPE_KEY = "type", e.IMAGE_ID_KEY = "customObjectID";
     var l = function(t) {
@@ -739,18 +1065,18 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return e.rules = [], e.heading = 0, e.customObject = null, e.willChangeCostume = !1, 
             e._stageObjects = [], e.mostRecentCloneCache = new Map(), e;
         }
-        return n(i, t), i.prototype.stageObject = function(t) {
-            return this._stageObjects.length || this.rebuildStageObject(), t && t.objectID === this.objectID ? t : t && null != t.creationTick ? this.mostRecentCloneBeforeTimestamp(t.creationTick) : this.context.version < a.HSProjectVersion.ADD_SELF ? this.mostRecentClone() : this.originalStageObject();
+        return r.__extends(i, t), i.prototype.stageObject = function(t) {
+            return this._stageObjects.length || this.rebuildStageObject(), t && t.objectID === this.objectID ? t : t && null != t.creationTick ? this.mostRecentCloneBeforeTimestamp(t.creationTick) : this.context.version < o.HSProjectVersion.ADD_SELF ? this.mostRecentClone() : this.originalStageObject();
         }, i.prototype.rebuildStageObject = function() {
-            var t = new c.HSStageObject(this.x, this.y, this.text, this.type, this.context.baseObjectScale, this.context.fontSize, this.objectID, this.fileName(), this.willChangeCostume, this.width, this.height);
+            var t = new s.HSStageObject(this.x, this.y, this.text, this.type, this.context.baseObjectScale, this.context.fontSize, this.objectID, this.fileName(), this.willChangeCostume, this.width, this.height);
             this.latestCloneIndex = 0, t.stageRules = this.rules.reduce(function(e, i) {
                 return i ? e.concat(i.stageRules(t)) : e;
             }, []), this._stageObjects = [ t ], this.mostRecentCloneCache = new Map();
         }, i.prototype.parseJSON = function(t) {
             void 0 === t && (t = {}), this.x = parseFloat(t[e.X_POSITION_KEY]), this.y = parseFloat(t[e.Y_POSITION_KEY]), 
             this.text = t[e.TEXT_KEY], this.type = t[e.TYPE_KEY], this.width = parseFloat(t.width), 
-            this.height = parseFloat(t.height), this.objectID = t[e.OBJECT_ID_KEY], this.customObject = a.HSProjectContext.customObjectMap.get(t[e.IMAGE_ID_KEY]), 
-            this.customObject && u.HSImageTextureFactory.instance.prefetchImage(this.customObject);
+            this.height = parseFloat(t.height), this.objectID = t[e.OBJECT_ID_KEY], this.customObject = o.HSProjectContext.customObjectMap.get(t[e.IMAGE_ID_KEY]), 
+            this.customObject && c.HSImageTextureFactory.instance.prefetchImage(this.customObject);
         }, i.prototype.fileName = function() {
             if (this.customObject) return this.customObject.fileName;
         }, i.prototype.addRule = function(t) {
@@ -767,13 +1093,13 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, i.prototype.originalStageObject = function() {
             return this.allStageObjects()[0];
         }, i.prototype.mostRecentCloneBeforeTimestamp = function(t) {
-            return this.mostRecentCloneCache.has(t) || this.mostRecentCloneCache.set(t, s.findLast(this.allStageObjects(), function(e) {
+            return this.mostRecentCloneCache.has(t) || this.mostRecentCloneCache.set(t, a.findLast(this.allStageObjects(), function(e) {
                 return e.creationTick <= t;
             })), this.mostRecentCloneCache.get(t);
         }, i.prototype.canChangeCostume = function() {
-            return this.type !== h.HSObjectType.text && (!h.hsIsShapeType(this.type) && this.type <= h.HSObjectType.HS_NUMBER_OF_OBJECTS);
+            return this.type !== u.HSObjectType.text && (!u.hsIsShapeType(this.type) && this.type <= u.HSObjectType.HS_NUMBER_OF_OBJECTS);
         }, i.key = "HSObject", i;
-    }(o.HSManagedObject);
+    }(n.HSManagedObject);
     e.HSObject = l, window.HSObject = l;
 }, function(t, e, i) {
     "use strict";
@@ -851,39 +1177,24 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSManagedObject = r, window.HSManagedObject = r;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(2), a = i(5), s = i(12), c = i(25), u = i(10), h = i(0), l = i(1), p = function(t) {
+    var r = i(2), n = i(3), o = i(6), a = i(13), s = i(26), c = i(11), u = i(0), l = i(1), h = function(t) {
         function e(e) {
             var i = t.call(this, e) || this;
-            return i.type = h.HSBlockType.Variable, i;
+            return i.type = u.HSBlockType.Variable, i;
         }
-        return n(e, t), e.prototype.parseJSON = function(i) {
+        return r.__extends(e, t), e.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i), this.blockType = i.type, 
-            i.object && (this.object = this.context.findWithObjectID(a.HSObject.key, i.object)), 
-            this.type = h.HSBlockType.Variable, this.objectID = i[s.VARIABLE_KEY];
-            var r = this.context.findWithObjectID(c.HSVariablePrototype.key, this.objectID);
-            this.name = "_hs_" + r.name, this.blockType === h.HSBlockType.User && (e.userGlobalScope[this.name] = r.initialValue);
+            i.object && (this.object = this.context.findWithObjectID(o.HSObject.key, i.object)), 
+            this.type = u.HSBlockType.Variable, this.objectID = i[a.VARIABLE_KEY];
+            var r = this.context.findWithObjectID(s.HSVariablePrototype.key, this.objectID);
+            this.name = "_hs_" + r.name, this.blockType === u.HSBlockType.User && (e.userGlobalScope[this.name] = r.initialValue);
         }, e.prototype.isSkillComplete = function() {
             return this.name === e.skillComplete;
         }, e.prototype.computedValue = function(t) {
-            if (this.blockType === h.HSBlockType.Product) return l.HSApp.initialUserVariables["_hs_product_" + this.objectID] || "0";
+            if (this.blockType === u.HSBlockType.Product) return l.HSApp.initialUserVariables["_hs_product_" + this.objectID] || "0";
             var e = this._object(t);
             return e && e[this.name] || 0;
         }, e.prototype.computedNumberValue = function(t) {
@@ -892,18 +1203,18 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var r = e.parseValue(t);
             this._object(i)[this.name] = r, this.storeUserValueIfNeeded(r.toString());
         }, e.prototype.storeUserValueIfNeeded = function(t) {
-            this.blockType === h.HSBlockType.User && (l.isIOSApp() ? l.HSApp.sendToApp("setVariable", JSON.stringify({
+            this.blockType === u.HSBlockType.User && (l.isIOSApp() ? l.HSApp.sendToApp("setVariable", JSON.stringify({
                 variableValue: t,
                 variableName: this.name.replace("_hs_", ""),
                 variableID: this.objectID
             })) : l.HSApp.storeUserVar(this.objectID, t));
         }, e.prototype._object = function(t) {
-            return this.context.version < o.HSProjectVersion.ADD_SELF || this.blockType === h.HSBlockType.Game ? e.globalScope : this.blockType === h.HSBlockType.User ? e.userGlobalScope : this.blockType === h.HSBlockType.Object && this.object ? this.object.stageObject() : this.blockType === h.HSBlockType.OriginalObject ? t.originalObject(this.context) : t;
+            return this.context.version < n.HSProjectVersion.ADD_SELF || this.blockType === u.HSBlockType.Game ? e.globalScope : this.blockType === u.HSBlockType.User ? e.userGlobalScope : this.blockType === u.HSBlockType.Object && this.object ? this.object.stageObject() : this.blockType === u.HSBlockType.OriginalObject ? t.originalObject(this.context) : t;
         }, e.parseValue = function(t) {
             var e = parseFloat(t);
             return isNaN(e) || !/^\-?[0-9]+(e\+?[0-9]+)?(\.[0-9]+(e\+?[0-9]+)?)?$/.test(t) ? null == t ? 0 : t : (function(t) {
-                return t >= -u.MAX_FLOAT && t <= u.MAX_FLOAT;
-            }(e) || (e = e < 0 ? -u.MAX_FLOAT : u.MAX_FLOAT), Number.isInteger(e) ? e : Math.round(1e6 * e) / 1e6);
+                return t >= -c.MAX_FLOAT && t <= c.MAX_FLOAT;
+            }(e) || (e = e < 0 ? -c.MAX_FLOAT : c.MAX_FLOAT), Number.isInteger(e) ? e : Math.round(1e6 * e) / 1e6);
         }, e.parseNumberFrom = function(t) {
             var i = e.parseValue(t);
             return "string" == typeof i ? 0 : i;
@@ -911,14 +1222,14 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return this.name.replace("_hs_", "");
         }, e.globalScope = {}, e.userGlobalScope = {}, e.key = "HSVariable", e.skillComplete = "hsSkillComplete", 
         e;
-    }(u.HSParameterBlock);
-    e.HSVariable = p, window.HSVariable = p;
+    }(c.HSParameterBlock);
+    e.HSVariable = h, window.HSVariable = h;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(0), n = i(16), o = function() {
+    var r = i(0), n = i(19), o = function() {
         function t() {}
         return t.blocksToSrc = function(t) {
             return t.join(", ");
@@ -946,251 +1257,242 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.SourceFormatter = o, window.SourceFormatter = o;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(22), a = i(13), s = i(5), c = i(1), u = i(2), h = i(4), l = i(23), p = i(14), d = i(45), S = i(0), f = i(3), g = i(8), y = i(15);
+    var r = i(2), n = i(17), o = i(14), a = i(6), s = i(1), c = i(3), u = i(5), l = i(18), h = i(15), p = i(46), d = i(0), S = i(4), f = i(9), g = i(16);
     e.TRAIT_OBJECT_ID_KEY = "HSTraitObjectIDKey", e.TRAIT_ID_KEY = "HSTraitIDKey", e.TRAIT_TYPE_KEY = "HSTraitTypeKey", 
     e.MAX_FLOAT = 3.4028234663852886e38;
-    var b = function(t) {
+    var y = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(i, t), i.prototype.parseJSON = function(i) {
+        return r.__extends(i, t), i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i), i[e.TRAIT_ID_KEY] && this.parseTrait(i);
         }, i.prototype.stageParameterBlock = function() {
-            return new d.HSStageParameterBlock(this);
+            return new p.HSStageParameterBlock(this);
         }, i.prototype.matchesObject = function(t) {
             return this.object ? this.object === t : !t;
         }, i.prototype.parseTrait = function(t) {
-            this.object = this.context.findWithObjectID(s.HSObject.key, t[e.TRAIT_OBJECT_ID_KEY]), 
+            this.object = this.context.findWithObjectID(a.HSObject.key, t[e.TRAIT_OBJECT_ID_KEY]), 
             this.objectID = t[e.TRAIT_ID_KEY], this.type = t[e.TRAIT_TYPE_KEY], this.objectReferenceType = t.HSTraitObjectParameterTypeKey;
         }, i.prototype.computedValue = function(t) {
-            var e, i, r, n, a, u, l, d, f, b, v, m, T, H, O;
+            var e, i, r, o, c, p, S, y, b, v, m, T, E, H, O, w, _;
             switch (this.type) {
-              case S.HSBlockType.Random110:
-              case S.HSBlockType.Random1100:
-              case S.HSBlockType.Random11000:
-              case S.HSBlockType.MathOperatorRandom:
-              case S.HSBlockType.Random:
-                var E = this.secondParamNumberValue(t), w = this.firstParamNumberValue(t);
-                return Math.floor(Math.random() * (E - w + 1)) + w;
+              case d.HSBlockType.Random110:
+              case d.HSBlockType.Random1100:
+              case d.HSBlockType.Random11000:
+              case d.HSBlockType.MathOperatorRandom:
+              case d.HSBlockType.Random:
+                var k = this.secondParamNumberValue(t), C = this.firstParamNumberValue(t);
+                return Math.floor(Math.random() * (k - C + 1)) + C;
 
 			  case HSBlockType.None: //AE_MOD
 				if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
-					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(t):undefined),this);
+					return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParamValue(a):undefined),this);
 				}
 				return 0;
 				
-              case S.HSBlockType.MathOperatorAdd:
-                var _ = this.firstParamValue(t), k = this.secondParamValue(t);
-                return "string" != typeof _ && "string" != typeof k || (_ = _.toString(), k = k.toString()), 
-                _ + k;
+              case d.HSBlockType.MathOperatorAdd:
+                var x = this.firstParamValue(t), B = this.secondParamValue(t);
+                return "string" != typeof x && "string" != typeof B || (x = x.toString(), B = B.toString()), 
+                x + B;
 
-              case S.HSBlockType.TextOperatorCharAtIndex:
+              case d.HSBlockType.TextOperatorCharAtIndex:
                 return this.firstParameterStringValue(t)[this.secondParamNumberValue(t)] || "";
 
-              case S.HSBlockType.TextOperatorCharsInRange:
-                var B = this.firstParameterStringValue(t), x = this.secondParamNumberValue(t), C = this.endIndexValue(t);
-                return B.slice(x, C);
+              case d.HSBlockType.TextOperatorCharsInRange:
+                var I = this.firstParameterStringValue(t), P = this.secondParamNumberValue(t), j = this.endIndexValue(t);
+                return I.slice(P, j);
 
-              case S.HSBlockType.TextOperatorLength:
-                return (null === (e = _ = this.firstParameterStringValue(t)) || void 0 === e ? void 0 : e.length) || 0;
+              case d.HSBlockType.TextOperatorLength:
+                return (null === (e = x = this.firstParameterStringValue(t)) || void 0 === e ? void 0 : e.length) || 0;
 
-              case S.HSBlockType.MathOperatorSubtract:
+              case d.HSBlockType.MathOperatorSubtract:
                 return this.firstParamNumberValue(t) - this.secondParamNumberValue(t);
 
-              case S.HSBlockType.MathOperatorMultiply:
+              case d.HSBlockType.MathOperatorMultiply:
                 return this.firstParamNumberValue(t) * this.secondParamNumberValue(t);
 
-              case S.HSBlockType.MathOperatorDivide:
-                return 0 === (F = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) / F;
+              case d.HSBlockType.MathOperatorDivide:
+                return 0 === (V = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) / V;
 
-              case S.HSBlockType.MathOperatorSine:
-                return Math.sin(c.degreesToRadians(this.firstParamNumberValue(t)));
+              case d.HSBlockType.MathOperatorSine:
+                return Math.sin(s.degreesToRadians(this.firstParamNumberValue(t)));
 
-              case S.HSBlockType.MathOperatorCosine:
-                return Math.cos(c.degreesToRadians(this.firstParamNumberValue(t)));
+              case d.HSBlockType.MathOperatorCosine:
+                return Math.cos(s.degreesToRadians(this.firstParamNumberValue(t)));
 
-              case S.HSBlockType.MathOperatorTangent:
-                return Math.tan(c.degreesToRadians(this.firstParamNumberValue(t)));
+              case d.HSBlockType.MathOperatorTangent:
+                return Math.tan(s.degreesToRadians(this.firstParamNumberValue(t)));
 
-              case S.HSBlockType.MathOperatorInverseSine:
-                return c.radiansToDegrees(Math.asin(this.firstParamNumberValue(t)) || 0);
+              case d.HSBlockType.MathOperatorInverseSine:
+                return s.radiansToDegrees(Math.asin(this.firstParamNumberValue(t)) || 0);
 
-              case S.HSBlockType.MathOperatorInverseCosine:
-                return c.radiansToDegrees(Math.acos(this.firstParamNumberValue(t)) || 0);
+              case d.HSBlockType.MathOperatorInverseCosine:
+                return s.radiansToDegrees(Math.acos(this.firstParamNumberValue(t)) || 0);
 
-              case S.HSBlockType.MathOperatorInverseTangent:
-                return c.radiansToDegrees(Math.atan(this.firstParamNumberValue(t)) || 0);
+              case d.HSBlockType.MathOperatorInverseTangent:
+                return s.radiansToDegrees(Math.atan(this.firstParamNumberValue(t)) || 0);
 
-              case S.HSBlockType.MathOperatorMaximum:
-                var j = this.firstParamValue(t), I = this.secondParamValue(t);
-                if ("string" == typeof j || "string" == typeof I) {
-                    var P = j.toString(), M = I.toString();
-                    return P.localeCompare(M) >= 0 ? P : M;
+              case d.HSBlockType.MathOperatorMaximum:
+                var M = this.firstParamValue(t), R = this.secondParamValue(t);
+                if ("string" == typeof M || "string" == typeof R) {
+                    var A = M.toString(), D = R.toString();
+                    return A.localeCompare(D) >= 0 ? A : D;
                 }
                 return Math.max(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorMinimum:
-                var R = this.firstParamValue(t), A = this.secondParamValue(t);
-                if ("string" == typeof R || "string" == typeof A) {
-                    P = R.toString(), M = A.toString();
-                    return P.localeCompare(M) <= 0 ? P : M;
+              case d.HSBlockType.MathOperatorMinimum:
+                var F = this.firstParamValue(t), N = this.secondParamValue(t);
+                if ("string" == typeof F || "string" == typeof N) {
+                    A = F.toString(), D = N.toString();
+                    return A.localeCompare(D) <= 0 ? A : D;
                 }
                 return Math.min(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorSquareRoot:
+              case d.HSBlockType.MathOperatorSquareRoot:
                 return Math.sqrt(this.firstParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorPower:
+              case d.HSBlockType.MathOperatorPower:
                 return Math.pow(this.firstParamNumberValue(t), this.secondParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorFloor:
+              case d.HSBlockType.MathOperatorFloor:
                 return Math.floor(this.firstParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorCeiling:
+              case d.HSBlockType.MathOperatorCeiling:
                 return Math.ceil(this.firstParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorRound:
+              case d.HSBlockType.MathOperatorRound:
                 return Math.round(this.firstParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorAbs:
+              case d.HSBlockType.MathOperatorAbs:
                 return Math.abs(this.firstParamNumberValue(t));
 
-              case S.HSBlockType.MathOperatorModulo:
-                var F;
-                return 0 === (F = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) % F;
+              case d.HSBlockType.MathOperatorModulo:
+                var V;
+                return 0 === (V = this.secondParamNumberValue(t)) ? 0 : this.firstParamNumberValue(t) % V;
 
-              case S.HSBlockType.ConditionalOperatorEquals:
-              case S.HSBlockType.ConditionalOperatorLessThan:
-              case S.HSBlockType.ConditionalOperatorGreaterThan:
-              case S.HSBlockType.ConditionalOperatorGreaterThanOrEqualTo:
-              case S.HSBlockType.ConditionalOperatorLessThanOrEqualTo:
-              case S.HSBlockType.ConditionalOperatorNotEquals:
-              case S.HSBlockType.ConditionalOperatorAnd:
-              case S.HSBlockType.ConditionalOperatorOr:
-              case S.HSBlockType.ConditionalOperatorMatches:
+              case d.HSBlockType.ConditionalOperatorEquals:
+              case d.HSBlockType.ConditionalOperatorLessThan:
+              case d.HSBlockType.ConditionalOperatorGreaterThan:
+              case d.HSBlockType.ConditionalOperatorGreaterThanOrEqualTo:
+              case d.HSBlockType.ConditionalOperatorLessThanOrEqualTo:
+              case d.HSBlockType.ConditionalOperatorNotEquals:
+              case d.HSBlockType.ConditionalOperatorAnd:
+              case d.HSBlockType.ConditionalOperatorOr:
+              case d.HSBlockType.ConditionalOperatorMatches:
                 return this.computedBooleanValue(t) ? 1 : 0;
 
-              case S.HSBlockType.TraitXPosition:
+              case d.HSBlockType.TraitXPosition:
                 return Math.round((null === (i = this.stageObjects(t)[0]) || void 0 === i ? void 0 : i.x) || 0);
 
-              case S.HSBlockType.TraitYPosition:
+              case d.HSBlockType.TraitYPosition:
                 return Math.round((null === (r = this.stageObjects(t)[0]) || void 0 === r ? void 0 : r.y) || 0);
 
-              case S.HSBlockType.TraitWidth:
-                return (null === (n = this.stageObjects(t)[0]) || void 0 === n ? void 0 : n.width()) || 0;
+              case d.HSBlockType.TraitWidth:
+                return (null === (o = this.stageObjects(t)[0]) || void 0 === o ? void 0 : o.width()) || 0;
 
-              case S.HSBlockType.TraitHeight:
-                return (null === (a = this.stageObjects(t)[0]) || void 0 === a ? void 0 : a.height()) || 0;
+              case d.HSBlockType.TraitHeight:
+                return (null === (c = this.stageObjects(t)[0]) || void 0 === c ? void 0 : c.height()) || 0;
 
-              case S.HSBlockType.TraitZIndex:
-                return (null === (u = this.stageObjects(t)[0]) || void 0 === u ? void 0 : u.zIndex) || 0;
+              case d.HSBlockType.TraitZIndex:
+                return (null === (p = this.stageObjects(t)[0]) || void 0 === p ? void 0 : p.zIndex) || 0;
 
-              case S.HSBlockType.TraitOriginX:
-                return Math.round((null === (l = this.stageObjects(t)[0]) || void 0 === l ? void 0 : l.originX) || 0);
+              case d.HSBlockType.TraitOriginX:
+                return Math.round((null === (S = this.stageObjects(t)[0]) || void 0 === S ? void 0 : S.originX) || 0);
 
-              case S.HSBlockType.TraitOriginY:
-                return Math.round((null === (d = this.stageObjects(t)[0]) || void 0 === d ? void 0 : d.originY) || 0);
+              case d.HSBlockType.TraitOriginY:
+                return Math.round((null === (y = this.stageObjects(t)[0]) || void 0 === y ? void 0 : y.originY) || 0);
 
-              case S.HSBlockType.TraitCenterX:
-                return Math.round((null === (f = this.stageObjects(t)[0]) || void 0 === f ? void 0 : f.x) || 0);
+              case d.HSBlockType.TraitCenterX:
+                return Math.round((null === (b = this.stageObjects(t)[0]) || void 0 === b ? void 0 : b.x) || 0);
 
-              case S.HSBlockType.TraitCenterY:
-                return Math.round((null === (b = this.stageObjects(t)[0]) || void 0 === b ? void 0 : b.y) || 0);
+              case d.HSBlockType.TraitCenterY:
+                return Math.round((null === (v = this.stageObjects(t)[0]) || void 0 === v ? void 0 : v.y) || 0);
 
-              case S.HSBlockType.TraitRotation:
-                return (null === (v = this.stageObjects(t)[0]) || void 0 === v ? void 0 : v.headingInDegrees) || 0;
+              case d.HSBlockType.TraitRotation:
+                return (null === (m = this.stageObjects(t)[0]) || void 0 === m ? void 0 : m.headingInDegrees) || 0;
 
-              case S.HSBlockType.TraitUsername:
-                return y.HSMain.currentPlayerName;
+              case d.HSBlockType.TraitUsername:
+                return g.HSMain.currentPlayerName;
 
-              case S.HSBlockType.TraitTime:
+              case d.HSBlockType.TraitTime:
                 return Date.now();
 
-              case S.HSBlockType.TraitYear:
+              case d.HSBlockType.TraitYear:
                 return new Date().getFullYear();
 
-              case S.HSBlockType.TraitMonth:
+              case d.HSBlockType.TraitMonth:
                 return new Date().getMonth() + 1;
 
-              case S.HSBlockType.TraitDay:
+              case d.HSBlockType.TraitDay:
                 return new Date().getDate();
 
-              case S.HSBlockType.TraitHour:
+              case d.HSBlockType.TraitHour:
                 return new Date().getHours();
 
-              case S.HSBlockType.TraitMinute:
+              case d.HSBlockType.TraitMinute:
                 return new Date().getMinutes();
 
-              case S.HSBlockType.TraitSecond:
+              case d.HSBlockType.TraitSecond:
                 return new Date().getSeconds();
 
-              case S.HSBlockType.TraitSpeed:
-                return (null === (m = this.stageObjects(t)[0]) || void 0 === m ? void 0 : m.speed) || 0;
+              case d.HSBlockType.TraitSpeed:
+                return (null === (T = this.stageObjects(t)[0]) || void 0 === T ? void 0 : T.speed) || 0;
 
-              case S.HSBlockType.TraitCloneIndex:
-                return (null === (T = this.stageObjects(t)[0]) || void 0 === T ? void 0 : T.cloneIndex) || 0;
+              case d.HSBlockType.TraitCloneIndex:
+                return (null === (E = this.stageObjects(t)[0]) || void 0 === E ? void 0 : E.cloneIndex) || 0;
 
-              case S.HSBlockType.TraitText:
-                var D = (null === (H = this.stageObjects(t)[0]) || void 0 === H ? void 0 : H.text) || "";
-                return g.HSVariable.parseValue(D).toString();
+              case d.HSBlockType.TraitText:
+                var L = (null === (H = this.stageObjects(t)[0]) || void 0 === H ? void 0 : H.text) || "";
+                return f.HSVariable.parseValue(L).toString();
 
-              case S.HSBlockType.TraitTotalClones:
-                var N = this.stageObjects(t)[0];
-                return this.context.findWithObjectID(s.HSObject.key, N.objectID).allStageObjects().length;
+              case d.HSBlockType.TraitTotalClones:
+                var z = this.stageObjects(t)[0];
+                return this.context.findWithObjectID(a.HSObject.key, z.objectID).allStageObjects().length;
 
-              case S.HSBlockType.StageTraitTotalObjects:
-                return p.HSStageProject.sharedInstance.activeStageScene.stageObjects.length;
+              case d.HSBlockType.StageTraitTotalObjects:
+                return h.HSStageProject.sharedInstance.activeStageScene.stageObjects.length;
 
-              case S.HSBlockType.TraitInvisibility:
+              case d.HSBlockType.TraitInvisibility:
                 return (null === (O = this.stageObjects(t)[0]) || void 0 === O ? void 0 : O.invisibilityPercent) || 0;
 
-              case S.HSBlockType.TraitSize:
+              case d.HSBlockType.TraitSize:
                 return this.computedSizePercent(t);
 
-              case S.HSBlockType.StageTraitLastTouchX:
-                return p.HSStageProject.sharedInstance.activeStageScene.lastTouchX;
+              case d.HSBlockType.StageTraitLastTouchX:
+                return h.HSStageProject.sharedInstance.activeStageScene.lastTouchX;
 
-              case S.HSBlockType.StageTraitLastTouchY:
-                return p.HSStageProject.sharedInstance.activeStageScene.lastTouchY;
+              case d.HSBlockType.StageTraitLastTouchY:
+                return h.HSStageProject.sharedInstance.activeStageScene.lastTouchY;
 
-              case S.HSBlockType.StageTraitTiltUp:
-                return o.HSAccelerometerManager.tiltUp;
+              case d.HSBlockType.StageTraitTiltUp:
+                return n.HSAccelerometerManager.tiltUp;
 
-              case S.HSBlockType.StageTraitTiltDown:
-                return o.HSAccelerometerManager.tiltDown;
+              case d.HSBlockType.StageTraitTiltDown:
+                return n.HSAccelerometerManager.tiltDown;
 
-              case S.HSBlockType.StageTraitTiltLeft:
-                return o.HSAccelerometerManager.tiltLeft;
+              case d.HSBlockType.StageTraitTiltLeft:
+                return n.HSAccelerometerManager.tiltLeft;
 
-              case S.HSBlockType.StageTraitTiltRight:
-                return o.HSAccelerometerManager.tiltRight;
+              case d.HSBlockType.StageTraitTiltRight:
+                return n.HSAccelerometerManager.tiltRight;
 
-              case S.HSBlockType.StageTraitWidth:
-                return h.HSStageScene.stageWidth;
+              case d.HSBlockType.StageTraitWidth:
+                return u.HSStageScene.stageWidth;
 
-              case S.HSBlockType.StageTraitHeight:
-                return h.HSStageScene.stageHeight;
+              case d.HSBlockType.StageTraitHeight:
+                return u.HSStageScene.stageHeight;
 
-              case S.HSBlockType.EventOperatorGamePlaying:
+              case d.HSBlockType.EventOperatorGamePlaying:
                 return 1;
+
+              case d.HSBlockType.TraitTempo:
+                return (null === (w = this.stageObjects(t)[0]) || void 0 === w ? void 0 : w.tempo) || l.DEFAULT_TEMPO;
+
+              case d.HSBlockType.TraitInstrument:
+                return (null === (_ = this.stageObjects(t)[0]) || void 0 === _ ? void 0 : _.instrument) || l.DEFAULT_INSTRUMENT;
 
               default:
                 return null;
@@ -1212,83 +1514,83 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return e === i ? "minimum" : e > i ? "height" : "width";
         }, i.prototype.computedColorString = function(t) {
             switch (this.type) {
-              case S.HSBlockType.ColorOperatorRandom:
-                return f.HSColor.randomColor();
+              case d.HSBlockType.ColorOperatorRandom:
+                return S.HSColor.randomColor();
 
-              case S.HSBlockType.ColorOperatorRGB:
-                return f.HSColor.rgb(this.firstParamNumberValue(t) % 256, this.secondParamNumberValue(t) % 256, this.parameters[2].stageParameter().computedNumberValue(t) % 256);
+              case d.HSBlockType.ColorOperatorRGB:
+                return S.HSColor.rgb(this.firstParamNumberValue(t) % 256, this.secondParamNumberValue(t) % 256, this.parameters[2].stageParameter().computedNumberValue(t) % 256);
 
-              case S.HSBlockType.ColorOperatorHSB:
-                return f.HSColor.hsb(this.firstParamNumberValue(t) % 361, this.secondParamNumberValue(t) % 101, this.parameters[2].stageParameter().computedNumberValue(t) % 101);
+              case d.HSBlockType.ColorOperatorHSB:
+                return S.HSColor.hsb(this.firstParamNumberValue(t) % 361, this.secondParamNumberValue(t) % 101, this.parameters[2].stageParameter().computedNumberValue(t) % 101);
 
               default:
-                var e = f.HSColor.rgbStringFromNumericColor(this.computedStringValue(t));
-                return null == e ? f.HSColor.rgbTextColor : e;
+                var e = S.HSColor.rgbStringFromNumericColor(this.computedStringValue(t));
+                return null == e ? S.HSColor.rgbTextColor : e;
             }
         }, i.prototype.computedStringValue = function(t) {
             var e = this.computedValue(t);
-            return g.HSVariable.parseValue(e).toString();
+            return f.HSVariable.parseValue(e).toString();
         }, i.prototype.computedBooleanValue = function(t) {
             var e, i, r = this.firstParamValue(t), n = this.secondParamValue(t);
             switch (this.type) {
-              case S.HSBlockType.ConditionalOperatorMatches:
+              case d.HSBlockType.ConditionalOperatorMatches:
                 return e = this.firstParameterStringValue(t), i = this.secondParameterStringValue(t), 
                 new RegExp(i, "gi").test(e);
 
-              case S.HSBlockType.ConditionalOperatorEquals:
-                return v(r, n);
+              case d.HSBlockType.ConditionalOperatorEquals:
+                return b(r, n);
 
-              case S.HSBlockType.ConditionalOperatorLessThan:
-                return m(r, n) && !v(r, n);
+              case d.HSBlockType.ConditionalOperatorLessThan:
+                return v(r, n) && !b(r, n);
 
-              case S.HSBlockType.ConditionalOperatorLessThanOrEqualTo:
-                return v(r, n) || m(r, n);
+              case d.HSBlockType.ConditionalOperatorLessThanOrEqualTo:
+                return b(r, n) || v(r, n);
 
-              case S.HSBlockType.ConditionalOperatorGreaterThan:
-                return T(r, n) && !v(r, n);
+              case d.HSBlockType.ConditionalOperatorGreaterThan:
+                return m(r, n) && !b(r, n);
 
-              case S.HSBlockType.ConditionalOperatorGreaterThanOrEqualTo:
-                return v(r, n) || T(r, n);
+              case d.HSBlockType.ConditionalOperatorGreaterThanOrEqualTo:
+                return b(r, n) || m(r, n);
 
-              case S.HSBlockType.ConditionalOperatorNotEquals:
-                return !v(r, n);
+              case d.HSBlockType.ConditionalOperatorNotEquals:
+                return !b(r, n);
 
-              case S.HSBlockType.ConditionalOperatorAnd:
+              case d.HSBlockType.ConditionalOperatorAnd:
                 return !(!this.firstParamNumberValue(t) || !this.secondParamNumberValue(t));
 
-              case S.HSBlockType.ConditionalOperatorOr:
+              case d.HSBlockType.ConditionalOperatorOr:
                 return !(!this.firstParamNumberValue(t) && !this.secondParamNumberValue(t));
 
-              case S.HSBlockType.EventOperatorGamePlaying:
+              case d.HSBlockType.EventOperatorGamePlaying:
                 return !0;
 
               default:
                 return !1;
             }
         }, i.prototype.usesOriginalObject = function() {
-            return this.type === S.HSBlockType.OriginalObject || this.objectReferenceType === S.HSBlockType.OriginalObject;
+            return this.type === d.HSBlockType.OriginalObject || this.objectReferenceType === d.HSBlockType.OriginalObject;
         }, i.prototype.stageObjects = function(t) {
-            return this.type === S.HSBlockType.Self ? [ t ] : this.usesOriginalObject() ? [ t.originalObject(this.context) ] : this.object ? this.context.version >= u.HSProjectVersion.ADD_SELF ? this.object.allStageObjects() : [ this.object.stageObject(t) ] : this.type === S.HSBlockType.ScreenEdge ? [ l.HSStageObject.edgeOfScreenObject ] : this.type === S.HSBlockType.AnyObject ? p.HSStageProject.sharedInstance.activeStageScene.stageObjects : this.type >= S.HSBlockType.TraitRotation && this.type < S.HSBlockType.HS_END_OF_OBJECT_TRAITS ? [ t ] : [];
+            return this.type === d.HSBlockType.Self ? [ t ] : this.usesOriginalObject() ? [ t.originalObject(this.context) ] : this.object ? this.context.version >= c.HSProjectVersion.ADD_SELF ? this.object.allStageObjects() : [ this.object.stageObject(t) ] : this.type === d.HSBlockType.ScreenEdge ? [ l.HSStageObject.edgeOfScreenObject ] : this.type === d.HSBlockType.AnyObject ? h.HSStageProject.sharedInstance.activeStageScene.stageObjects : this.type >= d.HSBlockType.TraitRotation && this.type < d.HSBlockType.HS_END_OF_OBJECT_TRAITS ? [ t ] : [];
         }, i.prototype.firstParameterStringValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
-              case S.HSBlockType.Random1100:
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random110:
+              case d.HSBlockType.Random1100:
+              case d.HSBlockType.Random11000:
                 return "1";
 
               default:
                 if (this.parameters.length > 0) return this.parameters[0].stageParameter().computedStringValue(t);
-                if (S.HSBlockType[this.type] === S.HSBlockType[S.HSBlockType.Random110]) return "0";
+                if (d.HSBlockType[this.type] === d.HSBlockType[d.HSBlockType.Random110]) return "0";
             }
         }, i.prototype.secondParameterStringValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
+              case d.HSBlockType.Random110:
                 return "10";
 
-              case S.HSBlockType.Random1100:
+              case d.HSBlockType.Random1100:
                 return "100";
 
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random11000:
                 return "1000";
 
               default:
@@ -1296,24 +1598,24 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             }
         }, i.prototype.firstParamValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
-              case S.HSBlockType.Random1100:
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random110:
+              case d.HSBlockType.Random1100:
+              case d.HSBlockType.Random11000:
                 return 1;
 
               default:
                 if (this.parameters.length > 0) return this.parameters[0].stageParameter().computedValue(t);
-                if (S.HSBlockType[this.type] === S.HSBlockType[S.HSBlockType.Random110]) return 0;
+                if (d.HSBlockType[this.type] === d.HSBlockType[d.HSBlockType.Random110]) return 0;
             }
         }, i.prototype.secondParamValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
+              case d.HSBlockType.Random110:
                 return 10;
 
-              case S.HSBlockType.Random1100:
+              case d.HSBlockType.Random1100:
                 return 100;
 
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random11000:
                 return 1e3;
 
               default:
@@ -1321,24 +1623,24 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             }
         }, i.prototype.firstParamNumberValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
-              case S.HSBlockType.Random1100:
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random110:
+              case d.HSBlockType.Random1100:
+              case d.HSBlockType.Random11000:
                 return 1;
 
               default:
                 if (this.parameters.length > 0) return this.parameters[0].stageParameter().computedNumberValue(t);
-                if (S.HSBlockType[this.type] === S.HSBlockType[S.HSBlockType.Random110]) return 0;
+                if (d.HSBlockType[this.type] === d.HSBlockType[d.HSBlockType.Random110]) return 0;
             }
         }, i.prototype.secondParamNumberValue = function(t) {
             switch (this.type) {
-              case S.HSBlockType.Random110:
+              case d.HSBlockType.Random110:
                 return 10;
 
-              case S.HSBlockType.Random1100:
+              case d.HSBlockType.Random1100:
                 return 100;
 
-              case S.HSBlockType.Random11000:
+              case d.HSBlockType.Random11000:
                 return 1e3;
 
               default:
@@ -1347,97 +1649,82 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, i.prototype.endIndexValue = function(t) {
             return this.parameters.length < 3 ? 0 : this.parameters[2].stageParameter().computedNumberValue(t);
         }, i.key = "HSParameterBlock", i;
-    }(a.HSBlock);
-    function v(t, e) {
+    }(o.HSBlock);
+    function b(t, e) {
         if ("number" == typeof t && "number" == typeof e) {
             var i = t, r = e;
             return Math.abs(i - r) <= Number.EPSILON;
         }
         return t.toString() === e.toString();
     }
-    function m(t, e) {
+    function v(t, e) {
         if ("number" == typeof t && "number" == typeof e) return t < e;
         var i = t.toString(), r = e.toString();
         return -1 === i.localeCompare(r);
     }
-    function T(t, e) {
+    function m(t, e) {
         if ("number" == typeof t && "number" == typeof e) return t > e;
         var i = t.toString(), r = e.toString();
         return 1 === i.localeCompare(r);
     }
-    e.HSParameterBlock = b, window.HSParameterBlock = b, window.MAX_FLOAT = e.MAX_FLOAT;
+    e.HSParameterBlock = y, window.HSParameterBlock = y, window.MAX_FLOAT = e.MAX_FLOAT;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(5), a = i(2), s = i(12), c = i(13), u = i(10), h = i(57), l = i(26), p = i(0), d = i(16);
+    var r = i(2), n = i(6), o = i(3), a = i(13), s = i(14), c = i(11), u = i(58), l = i(27), h = i(0), p = i(19);
     e.SCRIPT_ID_KEY = "abilityID";
-    var S = function(t) {
+    var d = function(t) {
         function i(e) {
             var i = t.call(this, e) || this;
-            return i.type = p.HSBlockType.Rule, i;
+            return i.type = h.HSBlockType.Rule, i;
         }
-        return n(i, t), i.prototype.stageRule = function(t) {
-            return new h.HSStageRule(this, t);
+        return r.__extends(i, t), i.prototype.stageRule = function(t) {
+            return new u.HSStageRule(this, t);
         }, i.prototype.stageRules = function(t) {
             return [ this.stageRule(t) ];
         }, i.prototype.parseJSON = function(i) {
-            if (void 0 === i && (i = {}), this.context.version < a.HSProjectVersion.CUSTOM_WHENS) this.parseLowerThanCustomWhensJSON(i); else {
+            if (void 0 === i && (i = {}), this.context.version < o.HSProjectVersion.CUSTOM_WHENS) this.parseLowerThanCustomWhensJSON(i); else {
                 var r = this.context.findWithObjectID("HSScript", i[e.SCRIPT_ID_KEY]);
                 r ? (t.prototype.parseJSON.call(this, i), this.childBlock() ? (this.objectID = i.id, 
                 this.script = r) : this.context.deleteObject(this)) : this.context.deleteObject(this);
             }
         }, i.prototype.parseLowerThanCustomWhensJSON = function(i) {
             void 0 === i && (i = {});
-            var r = this.context.findWithObjectID("HSScript", i[e.SCRIPT_ID_KEY]), n = this.context.findWithObjectID("HSObject", i[o.OBJECT_ID_KEY]);
-            n && r ? (this.context.version < a.HSProjectVersion.V14 && this.parseLowerThanV14JSON(i, n), 
-            t.prototype.parseJSON.call(this, i), this.childBlock() ? (this.script = r, n.willChangeCostume = n.canChangeCostume() && r.containsChangeCostume(), 
-            n.addRule(this)) : this.context.deleteObject(this)) : this.context.deleteObject(this);
+            var r = this.context.findWithObjectID("HSScript", i[e.SCRIPT_ID_KEY]), a = this.context.findWithObjectID("HSObject", i[n.OBJECT_ID_KEY]);
+            a && r ? (this.context.version < o.HSProjectVersion.V14 && this.parseLowerThanV14JSON(i, a), 
+            t.prototype.parseJSON.call(this, i), this.childBlock() ? (this.script = r, a.willChangeCostume = a.canChangeCostume() && r.containsChangeCostume(), 
+            a.addRule(this)) : this.context.deleteObject(this)) : this.context.deleteObject(this);
         }, i.prototype.parseLowerThanV14JSON = function(t, e) {
-            var i = t.eventType, r = p.blockTypeForLegacyEventType(i), n = new u.HSParameterBlock(this.context);
+            var i = t.eventType, r = h.blockTypeForLegacyEventType(i), n = new c.HSParameterBlock(this.context);
             n.type = r;
-            var o = new s.HSParameter(this.context);
+            var o = new a.HSParameter(this.context);
             switch (this.parameters = [ o ], o.childBlock = n, r) {
-              case p.HSBlockType.EventOperatorTap:
-              case p.HSBlockType.EventOperatorHold:
+              case h.HSBlockType.EventOperatorTap:
+              case h.HSBlockType.EventOperatorHold:
                 this.addObjectToEventOperator(n, e);
                 break;
 
-              case p.HSBlockType.EventOperatorBump:
-              case p.HSBlockType.EventOperatorIsTouching:
-              case p.HSBlockType.EventOperatorIsNotTouching:
+              case h.HSBlockType.EventOperatorBump:
+              case h.HSBlockType.EventOperatorIsTouching:
+              case h.HSBlockType.EventOperatorIsNotTouching:
                 this.addObjectsToBumps(n, e, t);
             }
         }, i.prototype.addObjectToEventOperator = function(t, e) {
             var i = new l.HSEventParameterBlock(this.context);
             i.object = e;
-            var r = new s.HSParameter(this.context);
-            r.type = d.HSParameterType.HSObject, r.childBlock = i, t.parameters = [ r ];
+            var r = new a.HSParameter(this.context);
+            r.type = p.HSParameterType.HSObject, r.childBlock = i, t.parameters = [ r ];
         }, i.prototype.addObjectsToBumps = function(t, e, i) {
             var r = new l.HSEventParameterBlock(this.context);
             r.object = e;
             var n = new l.HSEventParameterBlock(this.context);
             n.object = this.context.findWithObjectID("HSObject", i.collisionReceiverObject);
-            var o = new s.HSParameter(this.context);
-            o.type = d.HSParameterType.HSObject, o.childBlock = r;
-            var a = new s.HSParameter(this.context);
-            a.type = d.HSParameterType.HSObject, a.childBlock = n, t.parameters = [ o, a ];
+            var o = new a.HSParameter(this.context);
+            o.type = p.HSParameterType.HSObject, o.childBlock = r;
+            var s = new a.HSParameter(this.context);
+            s.type = p.HSParameterType.HSObject, s.childBlock = n, t.parameters = [ o, s ];
         }, i.prototype.firstObject = function() {
             return this.childBlock() && this.childBlock().parameters.length > 0 ? this.childBlock().parameters[0].childBlock.object : null;
         }, i.prototype.firstParam = function() {
@@ -1458,105 +1745,75 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, i.prototype.conditionIsTrue = function(t) {
             return this.childBlock().computedBooleanValue(t);
         }, i.key = "HSRule", i;
-    }(c.HSBlock);
-    e.HSRule = S, window.HSRule = S, window.SCRIPT_ID_KEY = e.SCRIPT_ID_KEY;
+    }(s.HSBlock);
+    e.HSRule = d, window.HSRule = d, window.SCRIPT_ID_KEY = e.SCRIPT_ID_KEY;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(9), c = i(8), u = i(24), h = i(25), l = i(26), p = i(10), d = i(27), S = i(16);
+    var r = i(2), n = i(8), o = i(3), a = i(10), s = i(9), c = i(25), u = i(26), l = i(27), h = i(11), p = i(28), d = i(19);
     e.VALUE_KEY = "value", e.CHILD_BLOCK_KEY = "datum", e.VARIABLE_KEY = "variable", 
     e.PARAMETER_TYPE_KEY = "type";
-    var f = function(t) {
+    var S = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(i, t), i.prototype.stageParameter = function() {
-            return new u.HSStageParameter(this.value, this.childBlock);
+        return r.__extends(i, t), i.prototype.stageParameter = function() {
+            return new c.HSStageParameter(this.value, this.childBlock);
         }, i.prototype.parseJSON = function(t) {
             if (void 0 === t && (t = {}), this.value = t[e.VALUE_KEY], this.type = t[e.PARAMETER_TYPE_KEY], 
-            this.type === S.HSParameterType.Object && t[e.CHILD_BLOCK_KEY]) {
+            this.type === d.HSParameterType.Object && t[e.CHILD_BLOCK_KEY]) {
                 var i = t[e.CHILD_BLOCK_KEY];
                 if (i.customObject) {
-                    var r = a.HSProjectContext.customObjectMap.get(i.customObject);
-                    this.childBlock = r, d.HSImageTextureFactory.instance.prefetchImage(r);
+                    var r = o.HSProjectContext.customObjectMap.get(i.customObject);
+                    this.childBlock = r, p.HSImageTextureFactory.instance.prefetchImage(r);
                 }
                 this.value = i.text ? i.text : i.type;
             } else if (t[e.CHILD_BLOCK_KEY] && t[e.CHILD_BLOCK_KEY].variable) this.setChildBlockToVariableIfPossible(t[e.CHILD_BLOCK_KEY]); else if (t[e.CHILD_BLOCK_KEY]) {
-                var n = new p.HSParameterBlock(this.context);
+                var n = new h.HSParameterBlock(this.context);
                 n.parseJSON(t[e.CHILD_BLOCK_KEY]), this.childBlock = n;
             } else t[e.VARIABLE_KEY] && (this.setChildBlockToVariableIfPossible(t), this.setChildBlockToTraitIfPossible(t), 
             this.setChildBlockToEventParameterIfPossible(t));
         }, i.prototype.toString = function() {
-            return s.SourceFormatter.paramToSrc(this);
+            return a.SourceFormatter.paramToSrc(this);
         }, i.prototype.setChildBlockToVariableIfPossible = function(t) {
             var i = t[e.VARIABLE_KEY];
-            if (this.context.findWithObjectID(h.HSVariablePrototype.key, i)) {
-                var r = new c.HSVariable(this.context);
+            if (this.context.findWithObjectID(u.HSVariablePrototype.key, i)) {
+                var r = new s.HSVariable(this.context);
                 r.parseJSON(t), this.childBlock = r;
             }
         }, i.prototype.setChildBlockToTraitIfPossible = function(t) {
-            var i = t[e.VARIABLE_KEY], r = this.context.findWithObjectID(p.HSParameterBlock.key, i);
+            var i = t[e.VARIABLE_KEY], r = this.context.findWithObjectID(h.HSParameterBlock.key, i);
             r && (this.childBlock = r);
         }, i.prototype.setChildBlockToEventParameterIfPossible = function(t) {
             var i = t[e.VARIABLE_KEY], r = this.context.findWithObjectID(l.HSEventParameterBlock.key, i);
             r && (this.childBlock = r);
         }, i.key = "HSParameter", i;
-    }(o.HSManagedObject);
-    e.HSParameter = f, window.HSParameter = f, window.VALUE_KEY = e.VALUE_KEY, window.CHILD_BLOCK_KEY = e.CHILD_BLOCK_KEY, 
+    }(n.HSManagedObject);
+    e.HSParameter = S, window.HSParameter = S, window.VALUE_KEY = e.VALUE_KEY, window.CHILD_BLOCK_KEY = e.CHILD_BLOCK_KEY, 
     window.VARIABLE_KEY = e.VARIABLE_KEY, window.PARAMETER_TYPE_KEY = e.PARAMETER_TYPE_KEY;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o, a = i(7), s = i(12), c = i(9), u = i(0);
+    var r, n = i(2), o = i(8), a = i(13), s = i(10), c = i(0);
     e.BLOCK_TYPE_KEY = "type", e.PARAMETERS_KEY = "parameters", e.PARAMS_KEY = "params", 
     function(t) {
         t[t.Method = 0] = "Method", t[t.Control = 1] = "Control", t[t.ConditionalControl = 2] = "ConditionalControl", 
         t[t.Variable = 3] = "Variable";
-    }(o = e.HSBlockClass || (e.HSBlockClass = {}));
-    var h = function(t) {
+    }(r = e.HSBlockClass || (e.HSBlockClass = {}));
+    var u = function(t) {
         function i() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.parameters = [], e.isControl = !1, e;
         }
-        return n(i, t), i.prototype.parseJSON = function(t) {
+        return n.__extends(i, t), i.prototype.parseJSON = function(t) {
             var i = this;
             void 0 === t && (t = {}), this.type = this.type || parseInt(t[e.BLOCK_TYPE_KEY]), 
             (t[e.PARAMETERS_KEY] || t[e.PARAMS_KEY] || []).forEach(function(t) {
-                var e = new s.HSParameter(i.context);
+                var e = new a.HSParameter(i.context);
                 e.parseJSON(t), i.parameters.push(e);
             });
         }, i.prototype.stageParameters = function() {
@@ -1564,30 +1821,30 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return t.stageParameter();
             });
         }, i.prototype.toString = function() {
-            return c.SourceFormatter.blockToSrc(this);
+            return s.SourceFormatter.blockToSrc(this);
         }, i.blockClassForDict = function(t) {
             switch (void 0 === t && (t = {}), t[e.BLOCK_TYPE_KEY]) {
-              case u.HSBlockType.Repeat:
-              case u.HSBlockType.LeaveATrail:
-              case u.HSBlockType.RepeatForever:
-              case u.HSBlockType.Ability:
-                return o.Control;
+              case c.HSBlockType.Repeat:
+              case c.HSBlockType.LeaveATrail:
+              case c.HSBlockType.RepeatForever:
+              case c.HSBlockType.Ability:
+                return r.Control;
 
-              case u.HSBlockType.CheckOnceIf:
-              case u.HSBlockType.CheckIfElse:
-                return o.ConditionalControl;
+              case c.HSBlockType.CheckOnceIf:
+              case c.HSBlockType.CheckIfElse:
+                return r.ConditionalControl;
             }
-            return o.Method;
+            return r.Method;
         }, i.key = "HSBlock", i;
-    }(a.HSManagedObject);
-    e.HSBlock = h, window.HSBlockClass = o, window.HSBlock = h, window.BLOCK_TYPE_KEY = e.BLOCK_TYPE_KEY, 
+    }(o.HSManagedObject);
+    e.HSBlock = u, window.HSBlockClass = r, window.HSBlock = u, window.BLOCK_TYPE_KEY = e.BLOCK_TYPE_KEY, 
     window.PARAMETERS_KEY = e.PARAMETERS_KEY, window.PARAMS_KEY = e.PARAMS_KEY;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(17), o = i(0), a = function() {
+    var r = i(9), n = i(20), o = i(0), a = function() {
         function t(e) {
             this.stageScenes = e.scenes.map(function(t) {
                 return t.stageScene();
@@ -1621,9 +1878,9 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(2), n = i(22), o = i(1), a = i(60), s = i(4), c = i(23), u = i(38), h = i(29), l = i(14), p = i(28), d = i(0), S = i(18);
-    i(64);
-    var f = i(37);
+    var r = i(3), n = i(17), o = i(1), a = i(61), s = i(5), c = i(18), u = i(30), l = i(31), h = i(15), p = i(29), d = i(0), S = i(21);
+    i(65), i(66);
+    var f = i(39);
     function g(t) {
         var e = new XMLHttpRequest();
         e.open("GET", "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png", !0), 
@@ -1727,7 +1984,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             this.root.style.top = Math.floor((n - e.main.root.offsetHeight) / 2) + "px", this.root.style.left = Math.floor((r - e.main.root.offsetWidth) / 2) + "px";
         }, t.prototype.load = function(t) {
             this.projectData = t, o.HSApp.initUserVariables(this.uuid, this.editedAt), this.context = new r.HSProjectContext(), 
-            this.project = new h.HSProject(this.context, t), u.HSSoundManager.sharedInstance = new u.HSSoundManager(this.context.allSoundNames());
+            this.project = new l.HSProject(this.context, t), u.HSSoundManager.sharedInstance = new u.HSSoundManager(this.context.allSoundNames());
         }, t.prototype.mute = function() {
             u.HSSoundManager.sharedInstance.mute();
         }, t.prototype.unmute = function() {
@@ -1741,7 +1998,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             }
         }, t.prototype.willPlay = function(t) {
             window.project_error && (window.project_error.style.display = "none"), t && this.load(t), 
-            this.stageProject = new l.HSStageProject(this.project), this.stageProject.activateAllRulesForEventType(d.HSBlockType.EventOperatorStart), 
+            this.stageProject = new h.HSStageProject(this.project), this.stageProject.activateAllRulesForEventType(d.HSBlockType.EventOperatorStart), 
             this.stageProject.executeAllActiveRules(), this.hasDrawn || this.prepareForFirstPlay(), 
             this.registerEventCallbacks();
         }, t.prototype.prepareForFirstPlay = function() {
@@ -1798,7 +2055,10 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             });
         }, t.prototype.animationTick = function() {
             this.stageProject.animationTick(this.visualContext.collisionContext), this.renderer.render(this.stageProject.activeStageScene.container), 
-            this.visualContext.drawingContext.renderFrame(), this.showPrompts(), this.requestNextFrame();
+            this.visualContext.drawingContext.renderFrame(), this.showPrompts(), this.requestNextFrame(), 
+            this.updateAndCleanKeyboardEvents();
+        }, t.prototype.updateAndCleanKeyboardEvents = function() {
+            PIXI.keyboardManager.update(.0166);
         }, t.prototype.showPrompts = function() {
             var t, e, i = s.HSStageScene.promptsToExecute[0];
             null === (t = i) || void 0 === t || t.execute(), (null === (e = i) || void 0 === e ? void 0 : e.isDone) && s.HSStageScene.promptsToExecute.shift();
@@ -1830,6 +2090,475 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSMain = y, window.HSMain = y, window.Vec2 = S.Vec2;
 }, function(t, e, i) {
     "use strict";
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var r = i(1), n = function() {
+        function t() {}
+        return t.accelerometerFromIOSApp = function(t, e) {
+            this.listener(t), this.isShakingFromApp = e;
+        }, t.listener = function(t) {
+            var e = t.accelerationIncludingGravity, i = Math.hypot(e.x, e.y, e.z) || 9.8, n = Math.round(100 * e.x / i), o = Math.round(100 * e.y / i), a = window.orientation;
+            null == a || -90 === a ? (this.tiltUp = n, this.tiltRight = o) : 90 === a ? (this.tiltUp = -n, 
+            this.tiltRight = -o) : 0 === a ? (this.tiltUp = -o, this.tiltRight = n) : (this.tiltUp = o, 
+            this.tiltRight = -n), r.isIOSApp() || this.updateShakeData(t.acceleration.x, t.acceleration.y, t.acceleration.z);
+        }, t.startAccelerometerUpdates = function() {
+            "DeviceMotionEvent" in window && !this.isListening && ("function" == typeof DeviceMotionEvent.requestPermission ? this.enableIOS13Accelerometer() : this.enableAccelerometer());
+        }, t.checkIfNeedsToOverrideKeyboardTilt = function() {
+            var t = this;
+            window.addEventListener("devicemotion", function(e) {
+                t.shouldOverrideKeyboard || (t.shouldOverrideKeyboard = !!(e.rotationRate.alpha || e.rotationRate.beta || e.rotationRate.gamma));
+            });
+        }, t.enableIOS13Accelerometer = function() {
+            this.isListening || r.isIOSApp() || window.addEventListener("touchend", t.deviceRequestPermissionIOS13);
+        }, t.enableAccelerometer = function() {
+            this.isListening || (this.isListening = !0, window.addEventListener("devicemotion", this.listener.bind(this), !1));
+        }, t.tiltUsingKeyboardIfNecessary = function() {
+            this.tiltHorizontalUsingKeyboard(3), this.tiltVerticalUsingKeyboard(3);
+        }, t.tiltHorizontalUsingKeyboard = function(t) {
+            var e = PIXI.keyboard.Key, i = this.keyDownTime(t, e.LEFT, e.RIGHT);
+            null !== i && (this.tiltHorizontalKeyCount = this.tiltHorizontalKeyCount + i, this.keyboardTitlLeft = -1 * Math.floor(this.tiltHorizontalKeyCount), 
+            this.keyboardTitlRight = Math.floor(this.tiltHorizontalKeyCount));
+        }, t.keyDownTime = function(t, e, i) {
+            var r = PIXI.keyboardManager;
+            return r.isPressed(e) ? -1 : r.isDown(e) ? -1 * Math.min(t, r.downTime(e)) : r.isPressed(i) ? 1 : r.isDown(i) ? Math.min(t, r.downTime(i)) : null;
+        }, t.tiltVerticalUsingKeyboard = function(t) {
+            var e = PIXI.keyboard.Key, i = this.keyDownTime(t, e.UP, e.DOWN);
+            null !== i && (this.tiltVerticalKeyCount = this.tiltVerticalKeyCount + i, this.keyboardTitlUp = -1 * Math.floor(this.tiltVerticalKeyCount), 
+            this.keyboardTitlDown = Math.floor(this.tiltVerticalKeyCount));
+        }, t.tiltDirection = function() {
+            if (this.tiltUsingKeyboardIfNecessary(), !this.tiltRight || !this.tiltUp) return null;
+            return r.hs_direction(this.tiltRight, this.tiltUp, 30);
+        }, t.updateShakeData = function(e, i, r) {
+            this.xAccelerations.push(e), this.yAccelerations.push(i), this.zAccelerations.push(r), 
+            this.xAccelerations.length > t.SHAKE_MEMORY_COUNT && this.xAccelerations.shift(), 
+            this.yAccelerations.length > t.SHAKE_MEMORY_COUNT && this.yAccelerations.shift(), 
+            this.zAccelerations.length > t.SHAKE_MEMORY_COUNT && this.zAccelerations.shift();
+        }, t.isShaking = function() {
+            return !!this.wasSpaceKeyPressed || (r.isIOSApp() ? this.isShakingFromApp : [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(e) {
+                return Math.abs(r.mean(e)) < t.SUDDEN_ACCEL_THRESHOLD && r.variance(e) > t.SHAKE_SENSITIVITY;
+            }));
+        }, t.clear = function() {
+            t.tiltUp = 0, t.keyboardTitlUp = 0, t.tiltDown = 0, t.keyboardTitlDown = 0, t.tiltLeft = 0, 
+            t.keyboardTitlLeft = 0, t.tiltRight = 0, t.keyboardTitlRight = 0, t.tiltHorizontalKeyCount = 0, 
+            t.tiltVerticalKeyCount = 0;
+        }, Object.defineProperty(t, "wasSpaceKeyPressed", {
+            get: function() {
+                if (this.shouldOverrideKeyboard) return !1;
+                var t = PIXI.keyboard.Key;
+                return PIXI.keyboardManager.isPressed(t.SPACE);
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t, "tiltUp", {
+            get: function() {
+                return this.shouldOverrideKeyboard ? this._tiltUp : o(this._tiltUp, this.keyboardTitlUp);
+            },
+            set: function(t) {
+                this._tiltUp = t, this._tiltDown = -t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t, "tiltDown", {
+            get: function() {
+                return this.shouldOverrideKeyboard ? this._tiltDown : o(this._tiltDown, this.keyboardTitlDown);
+            },
+            set: function(t) {
+                this._tiltDown = t, this._tiltUp = -t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t, "tiltLeft", {
+            get: function() {
+                return this.shouldOverrideKeyboard ? this._tiltLeft : o(this._tiltLeft, this.keyboardTitlLeft);
+            },
+            set: function(t) {
+                this._tiltLeft = t, this._tiltRight = -t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t, "tiltRight", {
+            get: function() {
+                return this.shouldOverrideKeyboard ? this._tiltRight : o(this._tiltRight, this.keyboardTitlRight);
+            },
+            set: function(t) {
+                this._tiltRight = t, this._tiltLeft = -t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), t.shouldOverrideKeyboard = !1, t.isListening = !1, t.isShakingFromApp = !1, 
+        t._tiltUp = 0, t._tiltDown = 0, t._tiltLeft = 0, t._tiltRight = 0, t.deviceRequestPermissionIOS13 = function() {
+            DeviceMotionEvent.requestPermission().then(function(e) {
+                "granted" === e && (t.enableAccelerometer(), window.removeEventListener("touchend", t.deviceRequestPermissionIOS13));
+            }).catch(console.error);
+        }, t.tiltHorizontalKeyCount = 0, t.tiltVerticalKeyCount = 0, t.keyboardTitlUp = 0, 
+        t.keyboardTitlDown = 0, t.keyboardTitlLeft = 0, t.keyboardTitlRight = 0, t.xAccelerations = [], 
+        t.yAccelerations = [], t.zAccelerations = [], t.SHAKE_MEMORY_COUNT = 10, t.SHAKE_SENSITIVITY = 60, 
+        t.SUDDEN_ACCEL_THRESHOLD = 2, t;
+    }();
+    function o(t, e) {
+        var i = t + e, r = a(i + 100, 400) - 200 < 0 ? 1 : -1;
+        return (a(i + 100, 200) - 100) * r;
+    }
+    function a(t, e) {
+        return (t % e + e) % e;
+    }
+    e.HSAccelerometerManager = n, window.HSAccelerometerManager = n;
+}, function(t, e, i) {
+    "use strict";
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var r = i(36), n = i(6), o = i(1), a = i(24), s = i(5), c = i(45), u = i(37), l = i(23), h = i(20), p = i(49), d = i(50), S = i(7), f = i(54), g = i(0), y = i(4), b = i(21);
+    e.BASE_SPEED = 400, e.BASE_STEP_SIZE = 10, e.EDGE_OF_SCREEN_OBJECT_ID = "zzzEdge", 
+    e.DEBUG_DRAW_BOUNDING_BOXES = !1, e.DEFAULT_TEMPO = 120, e.DEFAULT_INSTRUMENT = "piano";
+    var v = function() {
+        function t(i, n, o, a, s, c, h, p, f, g, y) {
+            var b = this;
+            void 0 === g && (g = 1), void 0 === y && (y = 1), this.x = i, this.y = n, this.text = o, 
+            this.type = a, this.baseObjectScale = s, this.fontSize = c, this.objectID = h, this.imageName = p, 
+            this.willChangeCostume = f, this.originalWidth = g, this.originalHeight = y, this.createOrder = -1, 
+            this._animationNumber = 0, this.sizePercentWidth = 100, this.sizePercentHeight = 100, 
+            this.headingInDegrees = 0, this.speed = e.BASE_SPEED, this.tempo = e.DEFAULT_TEMPO, 
+            this.instrument = e.DEFAULT_INSTRUMENT, this.invisibilityPercent = 0, this.isFlipped = !1, 
+            this.drawingRadius = null, this.drawingColor = null, this.penDown = !1, this.creationTick = null, 
+            this.relatedCollisionRules = new Set(), this.collisionImageFactory = new d.HSCollisionImageFactory(), 
+            this.stageRules = [], this.cloneIndex = 0, this.zIndex = 0, this.isAlive = !0, this.resetTextSize = function() {
+                var t = l.HSTextNode.fromString(b.text), e = b.view.canvas;
+                if (e) {
+                    if (t) {
+                        var i = t.flow(e.getContext("2d"), l.HSTextNode.MAX_LINE_WIDTH), r = i.width, n = i.height;
+                        b.originalWidth = r, b.originalHeight = n, b.collisionObject = null;
+                    }
+                } else b.view.onTextureBuild = b.resetTextSize;
+            }, t.initEdges(), this.createOrder = ++t.OBJECTS_CREATED, this.color = this.colorForType(a), 
+            this.stageObjectID = t.uniqueIdCounter++, this.type === S.HSObjectType.text ? this.text = o : this.text = null, 
+            this.pathDrawer = new r.HSPathDrawer(this.currentPoint()), this.view = new u.HSView(this.viewProps());
+        }
+        return t.initEdges = function() {
+            t.initiatedEdgeOfScreen || (t.initiatedEdgeOfScreen = !0, t.edgeOfScreenObject = new t(0, 0, "", S.HSObjectType.edgeOfScreen, 1, 80, e.EDGE_OF_SCREEN_OBJECT_ID, null, !1));
+        }, t.prototype.setWidth = function(t) {
+            0 === t && (t = .01), t && (this.sizePercentWidth = t / this.originalWidth * (1 / this.baseScale()) * 100);
+        }, t.prototype.setHeight = function(t) {
+            0 === t && (t = .01), t && (this.sizePercentHeight = t / this.originalHeight * (1 / this.baseScale()) * 100);
+        }, t.prototype.width = function() {
+            return this.view.textureExists ? this.view.width() : Math.round(this.originalWidth * this.baseScale());
+        }, t.prototype.height = function() {
+            return this.view.textureExists ? this.view.height() : Math.round(this.originalHeight * this.baseScale());
+        }, t.prototype.colorForType = function(t) {
+            return this.type === S.HSObjectType.text ? y.HSColor.rgbTextColor : this.isShape() ? y.HSColor.rgbTextColor : y.HSColor.rgbWhiteColor;
+        }, t.prototype.originalObject = function(t) {
+            var e = t.findWithObjectID(n.HSObject.key, this.objectID);
+            return e ? e.stageObject() : null;
+        }, t.prototype.baseScale = function() {
+            return this.isFullSizeShape() ? .5 : 1;
+        }, t.prototype.isFullSizeShape = function() {
+            return S.hsIsFullSizeShape(this.type);
+        }, t.prototype.isShape = function() {
+            return S.hsIsShapeType(this.type);
+        }, t.prototype.update = function() {
+            this.isAlive && this.view.update(this.viewProps());
+        }, t.prototype.viewProps = function() {
+            return {
+                type: this.type,
+                text: this.text,
+                color: this.color,
+                x: this.x,
+                y: this.y,
+                headingInRadians: this.headingInRadians(),
+                sizePercentWidth: this.sizePercentWidth,
+                sizePercentHeight: this.sizePercentHeight,
+                fontSize: this.fontSize,
+                opacity: this.opacity(),
+                isFlipped: this.isFlipped,
+                animationNumber: this.animationNumber(),
+                willChangeCostume: this.willChangeCostume,
+                imageName: this.imageName,
+                baseObjectScale: this.baseScale(),
+                stageHeight: s.HSStageScene.stageHeight,
+                originalHeight: this.originalHeight,
+                originalWidth: this.originalWidth
+            };
+        }, t.prototype.imageForCollision = function() {
+            return this.collisionImageFactory.image(this.view.imageSource());
+        }, t.prototype.boundingBox = function() {
+            this._boundingBox || (this._boundingBox = new p.HSBoundingBox());
+            var t = this.view.bounds();
+            return this._boundingBox.update(this.x, this.y, t.width / 2, t.height / 2), this._boundingBox;
+        }, t.prototype.drawPath = function(t) {
+            this.pathDrawer.drawDiff(t);
+        }, t.prototype.isBlankTextObject = function() {
+            return this.type === S.HSObjectType.text && !this.shouldDrawText();
+        }, t.prototype.shouldDrawText = function() {
+            return a.HSTokenizer.hasDrawableTokens(this.text);
+        }, t.prototype.canDrawCharacter = function() {
+            return this.type !== S.HSObjectType.text;
+        }, t.prototype.canDrawImage = function() {
+            return !!this.imageName;
+        }, t.prototype.opacity = function() {
+            return .01 * Math.max(100 - this.invisibilityPercent, 0);
+        }, t.prototype.clear = function() {
+            h.HopscotchDrawingContext.shouldClear = !0;
+        }, t.prototype.maxStepSize = function() {
+            var t = this.speed / e.BASE_SPEED * e.BASE_STEP_SIZE;
+            return Math.abs(t) >= 1 ? t : Math.sign(t);
+        }, t.prototype.headingInRadians = function() {
+            return this.headingInDegrees * Math.PI / 180;
+        }, t.prototype.changeXBy = function(t) {
+            this.x += t, this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
+        }, t.prototype.changeYBy = function(t) {
+            this.y += t, this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
+        }, t.prototype.setPosition = function(t, e) {
+            this.x = t, this.y = e, this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
+        }, t.prototype.setOrigin = function(t, e) {
+            this.setPosition(t + .5 * this.width(), e + .5 * this.height());
+        }, t.prototype.rotateBy = function(e) {
+            this.headingInDegrees = t.normalizeHeading(this.headingInDegrees + e * this.multiplier());
+        }, t.prototype.moveBy = function(t) {
+            this.x += this.multiplier() * Math.cos(this.headingInRadians()) * t, this.y += this.multiplier() * Math.sin(this.headingInRadians()) * t, 
+            this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
+        }, t.prototype.setText = function(t, e) {
+            this.text = t, this.color = e, this.type = S.HSObjectType.text, this.resetTextSize();
+        }, t.prototype.setCharacter = function(t) {
+            this.type = t, this.color = this.colorForType(t), this._animationNumber = 0, this.text = null, 
+            this.imageName = null, f.HSOBJECT_SIZES[t] && (this.originalWidth = f.HSOBJECT_SIZES[t].width, 
+            this.originalHeight = f.HSOBJECT_SIZES[t].height);
+        }, t.prototype.setImage = function(t) {
+            this.type = S.HSObjectType.image, this.color = this.colorForType(S.HSObjectType.image), 
+            this._animationNumber = 0, this.text = null, t && (this.imageName = t.fileName, 
+            this.originalWidth = t.width, this.originalHeight = t.height);
+        }, t.prototype.changePose = function() {
+            this.isShape() || this._animationNumber++;
+        }, t.prototype.animationNumber = function() {
+            return this._animationNumber % 4;
+        }, t.prototype.bringToFront = function() {
+            this.bringToFrontFunction(this);
+        }, t.prototype.sendToBack = function() {
+            this.sendToBackFunction(this);
+        }, t.prototype.clone = function(t) {
+            this.cloneFunction(this, t);
+        }, t.prototype.addToDestroyQueue = function() {
+            this.isAlive = !1, this.destroyFunction(this);
+        }, t.prototype.queueEventMessage = function(t) {
+            this.broadcastMessageFunction(t);
+        }, t.prototype.destroy = function() {
+            this.view = null, this.stageRules = [];
+        }, t.prototype.isInvisible = function() {
+            return this.invisibilityPercent >= 100;
+        }, t.prototype.deepCopy = function(e, i) {
+            var r = new t(i.x, i.y, i.text, i.type, i.context.baseObjectScale, i.context.fontSize, i.objectID, i.fileName(), i.willChangeCostume, this.originalWidth, this.originalHeight);
+            return r.stageRules = this.stageRules.map(function(t) {
+                return t.deepCopy(r);
+            }), r;
+        }, t.prototype.break = function() {
+            this.stageRules.forEach(function(t) {
+                return t.break();
+            });
+        }, t.normalizeHeading = function(t) {
+            return (t % 360 + 360) % 360;
+        }, t.prototype.currentPoint = function() {
+            return new r.HSLinePoint(new b.Vec2(this.x, this.y), this.drawingRadius, this);
+        }, t.prototype.moveToWithinBoundary = function() {
+            this.x = Math.min(this.x, s.HSStageScene.stageWidth), this.x = Math.max(this.x, 0), 
+            this.y = Math.min(this.y, s.HSStageScene.stageHeight), this.y = Math.max(this.y, 0);
+        }, t.prototype.multiplier = function() {
+            return this.isFlipped ? -1 : 1;
+        }, t.prototype.activateAllStageRulesForEventType = function(t, e) {
+            this.allStageRulesForEventTypeAndObject(t, e).forEach(function(t) {
+                return t.activate();
+            });
+        }, t.prototype.allStageRulesForEventTypeAndObject = function(t, e) {
+            return this.allStageRulesForEventType(t).filter(function(t) {
+                return t.matchesFirstObject(e);
+            });
+        }, t.prototype.allStageRulesForEventType = function(t) {
+            return this.stageRules.filter(function(e) {
+                return e.matchesEvent(t);
+            });
+        }, t.prototype.allPossibleCollisionPairs = function() {
+            var t = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsTouching), e = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsNotTouching), i = this.allStageRulesForEventType(g.HSBlockType.EventOperatorBump);
+            return t.concat(e).concat(i).reduce(function(t, e) {
+                return t.concat(e.collisionPairs());
+            }, []);
+        }, t.prototype.executeActiveRules = function() {
+            for (var t = this.stageRules, e = t.length, i = 0; i !== e; ++i) t[i].conditionIsTrue(this) && (t[i].hasBlocksToExecute() || (t[i].isActive = !1), 
+            t[i].activate()), t[i].execute(this);
+        }, t.prototype.executeBlock = function(i) {
+            var r, n, a, u, l, h, p = i.firstIntegerValue(this), d = i.parameters;
+            switch (i.type) {
+              case g.HSBlockType.Move:
+                this.moveBy(p);
+                break;
+
+              case g.HSBlockType.SetPosition:
+                this.setPosition(d[0].computedNumberValue(this), d[1].computedNumberValue(this));
+                break;
+
+              case g.HSBlockType.SetSize:
+                if (null === (r = d[0]) || void 0 === r ? void 0 : r.isSet(this)) {
+                    var f = null === (n = d[0]) || void 0 === n ? void 0 : n.computedValue(this);
+                    "number" == typeof f && (this.sizePercentWidth = f, this.sizePercentHeight = f);
+                }
+                break;
+
+              case g.HSBlockType.Grow:
+                a = Math.max(100 + p, 0), this.sizePercentWidth *= .01 * a, this.sizePercentHeight *= .01 * a;
+                break;
+
+              case g.HSBlockType.Scale:
+                this.sizePercentWidth *= .01 * p, this.sizePercentHeight *= .01 * p;
+                break;
+
+              case g.HSBlockType.Shrink:
+                a = Math.max(100 - p, 0), u = this.sizePercentWidth * a * .01, this.sizePercentWidth = Math.max(u, 1e-7), 
+                u = this.sizePercentHeight * a * .01, this.sizePercentHeight = Math.max(u, 1e-7);
+                break;
+
+              case g.HSBlockType.SetHeading:
+                this.headingInDegrees = t.normalizeHeading(p);
+                break;
+
+              case g.HSBlockType.ChangeX:
+                this.changeXBy(p);
+                break;
+
+              case g.HSBlockType.ChangeY:
+                this.changeYBy(p);
+                break;
+
+              case g.HSBlockType.Rotate:
+                this.rotateBy(p);
+                break;
+
+              case g.HSBlockType.ChangeSpeed:
+                this.speed = p;
+                break;
+
+              case g.HSBlockType.SetInvisibility:
+                this.invisibilityPercent = p;
+                break;
+
+              case g.HSBlockType.Flip:
+                this.isFlipped = !this.isFlipped;
+                break;
+
+              case g.HSBlockType.StrokeColor:
+                this.drawingColor = d[0].computedColorString(this);
+                break;
+
+              case g.HSBlockType.StrokeWidth:
+                this.drawingRadius = p / 2;
+                break;
+
+              case g.HSBlockType.Clear:
+                this.clear();
+                break;
+
+              case g.HSBlockType.PenDown:
+                this.penDown = !0;
+                break;
+
+              case g.HSBlockType.PenUp:
+                this.penDown = !1;
+                break;
+
+              case g.HSBlockType.ChangeCostume:
+                this.changePose();
+                break;
+
+              case g.HSBlockType.SetText:
+                h = y.HSColor.rgbTextColor, d.length >= 2 && (h = d[1].computedColorString(this)), 
+                this.setText(d[0].computedStringValue(this), h);
+                break;
+
+              case g.HSBlockType.SetTextToInput:
+                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, i));
+                break;
+
+              case g.HSBlockType.SetVariable:
+                (l = d[0].variable()) && (l.isSkillComplete() && 1 === d[1].computedValue(this) && o.HSApp.sendToApp("hsSkillComplete", "1"), 
+                l.setValue(d[1].computedValue(this), this));
+                break;
+
+              case g.HSBlockType.SaveInput:
+                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, i));
+                break;
+
+              case g.HSBlockType.ChangeVariable:
+                if (l = d[0].variable()) {
+                    var b = l.computedNumberValue(this) + d[1].computedNumberValue(this);
+                    l.setValue(b, this);
+                }
+                break;
+
+              case g.HSBlockType.BringToFront:
+                this.bringToFront();
+                break;
+
+              case g.HSBlockType.SendToBack:
+                this.sendToBack();
+                break;
+
+              case g.HSBlockType.SetImage:
+                d[0].computedObjectType() === S.HSObjectType.text ? this.setText(d[0].value, y.HSColor.rgbTextColor) : d[0].computedObjectType() === S.HSObjectType.image ? this.setImage(d[0].childBlock) : this.setCharacter(d[0].computedObjectType());
+                break;
+
+              case g.HSBlockType.SetColor:
+                this.color = d[0].computedColorString(this);
+                break;
+
+              case g.HSBlockType.SetWidthAndHeight:
+                d[0].isSet(this) && this.setWidth(d[0].computedNumberValue(this)), d[1].isSet(this) && this.setHeight(d[1].computedNumberValue(this));
+                break;
+
+              case g.HSBlockType.SetZIndex:
+                var v = d[0].computedNumberValue(this);
+                v !== this.zIndex && (this.zIndex = v, s.HSStageScene.dirtySort = !0);
+                break;
+
+              case g.HSBlockType.SetOriginXY:
+                this.setOrigin(d[0].computedNumberValue(this), d[1].computedNumberValue(this));
+                break;
+
+              case g.HSBlockType.SetCenterXY:
+                this.setPosition(d[0].computedNumberValue(this), d[1].computedNumberValue(this));
+                break;
+
+              case g.HSBlockType.SetTempo:
+                this.tempo = p;
+                break;
+
+              case g.HSBlockType.SetInstrument:
+                this.instrument = o.parseInstrumentName(d[0].computedStringValue(this)) || e.DEFAULT_INSTRUMENT;
+				break;
+				
+			  case HSBlockType.None: //AE_MOD
+				if (/^_ae_webplayer_action:/g.test(d[0].value)){
+					AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined),this);
+				}
+				break;
+            }
+        }, Object.defineProperty(t.prototype, "originX", {
+            get: function() {
+                return this.x - .5 * this.width();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(t.prototype, "originY", {
+            get: function() {
+                return this.y - .5 * this.height();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), t.OBJECTS_CREATED = 0, t.uniqueIdCounter = 0, t.initiatedEdgeOfScreen = !1, 
+        t;
+    }();
+    e.HSStageObject = v, window.HSStageObject = v, window.BASE_SPEED = e.BASE_SPEED, 
+    window.BASE_STEP_SIZE = e.BASE_STEP_SIZE, window.EDGE_OF_SCREEN_OBJECT_ID = e.EDGE_OF_SCREEN_OBJECT_ID, 
+    window.DEBUG_DRAW_BOUNDING_BOXES = e.DEBUG_DRAW_BOUNDING_BOXES, window.DEFAULT_TEMPO = e.DEFAULT_TEMPO, 
+    window.DEFAULT_INSTRUMENT = e.DEFAULT_INSTRUMENT;
+}, function(t, e, i) {
+    "use strict";
     var r;
     Object.defineProperty(e, "__esModule", {
         value: !0
@@ -1839,14 +2568,16 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         t[t.VariableValue = 48] = "VariableValue", t[t.Conditional = 49] = "Conditional", 
         t[t.HSObject = 50] = "HSObject", t[t.Sound = 51] = "Sound", t[t.Event = 52] = "Event", 
         t[t.SetText = 53] = "SetText", t[t.Object = 54] = "Object", t[t.TextOnly = 55] = "TextOnly", 
-        t[t.Scene = 56] = "Scene";
+        t[t.Scene = 56] = "Scene", t[t.MultiPurposeNumberDefault = 57] = "MultiPurposeNumberDefault", 
+        t[t.Product = 58] = "Product", t[t.Rhythm = 59] = "Rhythm", t[t.MusicNote = 60] = "MusicNote", 
+        t[t.Instrument = 61] = "Instrument";
     }(r = e.HSParameterType || (e.HSParameterType = {})), window.HSParameterType = r;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(4), n = i(15), o = function() {
+    var r = i(5), n = i(16), o = function() {
         function t(t, e, i) {
             this.bgCanvas = t, this.drawBackground = e, this.visualContext = i, this.bgContext = this.layerFromCanvas2d(t), 
             this.clearBackground();
@@ -1939,35 +2670,20 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.Vec2 = n;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(40), s = i(11), c = i(13), u = i(33), h = i(62), l = i(41), p = i(0);
+    var r = i(2), n = i(8), o = i(41), a = i(12), s = i(14), c = i(35), u = i(63), l = i(42), h = i(0);
     e.BLOCKS_KEY = "blocks";
-    var d = function(t) {
+    var p = function(t) {
         function i() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.blocks = [], e;
         }
-        return n(i, t), i.prototype.stageScript = function() {
-            return new h.HSStageScript(this);
+        return r.__extends(i, t), i.prototype.stageScript = function() {
+            return new u.HSStageScript(this);
         }, i.prototype.addObjectIDFromJSON = function(t) {
-            void 0 === t && (t = {}), this.objectID = t[s.SCRIPT_ID_KEY];
+            void 0 === t && (t = {}), this.objectID = t[a.SCRIPT_ID_KEY];
         }, i.prototype.isImmediatelyRecursive = function() {
             return this.blocks.length > 0 && this.blocks[0].scripts && this.blocks[0].scripts[0] === this || !this.firstMethod(0);
         }, i.prototype.firstMethod = function(t) {
@@ -1978,7 +2694,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             void 0 === t && (t = {});
             for (var e = 0; e < this.blocks.length; e++) {
                 var i = this.blocks[e];
-                if (i.type === p.HSBlockType.ChangeCostume) return !0;
+                if (i.type === h.HSBlockType.ChangeCostume) return !0;
                 var r = i;
                 if (r.scripts) for (var n = 0; n < r.scripts.length; n++) {
                     var o = r.scripts[n], a = o.objectID;
@@ -1990,55 +2706,40 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var i = this;
             void 0 === t && (t = {}), (t[e.BLOCKS_KEY] || []).forEach(function(t) {
                 var e;
-                switch (c.HSBlock.blockClassForDict(t)) {
-                  case c.HSBlockClass.Control:
-                    e = new u.HSControlBlock(i.context);
+                switch (s.HSBlock.blockClassForDict(t)) {
+                  case s.HSBlockClass.Control:
+                    e = new c.HSControlBlock(i.context);
                     break;
 
-                  case c.HSBlockClass.Method:
+                  case s.HSBlockClass.Method:
                     e = new l.HSMethodBlock(i.context);
                     break;
 
-                  case c.HSBlockClass.ConditionalControl:
-                    e = new a.HSConditionalControl(i.context);
+                  case s.HSBlockClass.ConditionalControl:
+                    e = new o.HSConditionalControl(i.context);
                 }
                 e.parseJSON(t), i.blocks.push(e);
             });
         }, i.key = "HSScript", i;
-    }(o.HSManagedObject);
-    e.HSScript = d, window.HSScript = d, window.BLOCKS_KEY = e.BLOCKS_KEY;
+    }(n.HSManagedObject);
+    e.HSScript = p, window.HSScript = p, window.BLOCKS_KEY = e.BLOCKS_KEY;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o, a = i(1), s = i(15), c = i(21), u = i(3), h = function() {
+    var r, n = i(2), o = i(1), a = i(16), s = i(24), c = i(4), u = function() {
         this.width = 0;
     };
-    e.HSLineBox = h, function(t) {
+    e.HSLineBox = u, function(t) {
         t[t.center = 1] = "center", t[t.left = 2] = "left";
-    }(o = e.HSTextJustify || (e.HSTextJustify = {}));
+    }(r = e.HSTextJustify || (e.HSTextJustify = {}));
     var l = function() {
         function t(t, e) {
-            return this.text = t, this.kind = e, e === c.HSTextNodeKind.emoji ? new p(t) : e === c.HSTextNodeKind.geometricShape ? new d(t) : void 0;
+            return this.text = t, this.kind = e, e === s.HSTextNodeKind.emoji ? new h(t) : e === s.HSTextNodeKind.geometricShape ? new p(t) : void 0;
         }
         return t.prototype.prevWhitespace = function() {
-            return this.kind === c.HSTextNodeKind.whitespace ? this : this.kind !== c.HSTextNodeKind.newline && this.prev ? this.prev.prevWhitespace() : null;
+            return this.kind === s.HSTextNodeKind.whitespace ? this : this.kind !== s.HSTextNodeKind.newline && this.prev ? this.prev.prevWhitespace() : null;
         }, t.prototype.tail = function() {
             return this.next ? this.next.tail() : this;
         }, t.concat = function(t, e) {
@@ -2053,39 +2754,39 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             t.prev = this.prev, t.prev && (t.prev.next = t);
             var e = t.tail();
             return e.next = this.next, e.next && (e.next.prev = e), t;
-        }, t.prototype.flow = function(e, i, r) {
-            r = r || o.center;
-            var n = this, a = {
+        }, t.prototype.flow = function(e, i, n) {
+            n = n || r.center;
+            var o = this, a = {
                 width: 0,
                 height: 0
             };
-            function s() {
-                var i = n.x + n.measure(e).width, r = n.y + t.LINE_HEIGHT;
+            function c() {
+                var i = o.x + o.measure(e).width, r = o.y + t.LINE_HEIGHT;
                 a = {
                     width: Math.max(i, a.width),
                     height: r
-                }, n = n.next;
+                }, o = o.next;
             }
-            for (;n; ) {
-                var u = n.measure(e);
-                if (n.prev) {
-                    var l = n.prev.measure(e).width;
-                    n.x = n.prev.x + l, n.y = n.prev.y, n.lineBox = n.prev.lineBox;
-                } else n.x = 0, n.y = 0, n.lineBox = new h();
-                if (n.lineBox.width = n.x + u.width, n.kind === c.HSTextNodeKind.newline) n.y += t.LINE_HEIGHT, 
-                n.x = 0, n.lineBox = new h(), s(); else if (n.x + u.width > i) {
-                    var p = n.prevWhitespace();
+            for (;o; ) {
+                var l = o.measure(e);
+                if (o.prev) {
+                    var h = o.prev.measure(e).width;
+                    o.x = o.prev.x + h, o.y = o.prev.y, o.lineBox = o.prev.lineBox;
+                } else o.x = 0, o.y = 0, o.lineBox = new u();
+                if (o.lineBox.width = o.x + l.width, o.kind === s.HSTextNodeKind.newline) o.y += t.LINE_HEIGHT, 
+                o.x = 0, o.lineBox = new u(), c(); else if (o.x + l.width > i) {
+                    var p = o.prevWhitespace();
                     if (p) {
-                        var d = new t("\n", c.HSTextNodeKind.newline);
-                        n = p.replace(d);
-                    } else n = n.replace(n.forceLineBreak(e, i));
-                } else s();
+                        var d = new t("\n", s.HSTextNodeKind.newline);
+                        o = p.replace(d);
+                    } else o = o.replace(o.forceLineBreak(e, i));
+                } else c();
             }
-            return r === o.center && this.center(a), a;
+            return n === r.center && this.center(a), a;
         }, t.prototype.center = function(t) {
             this.x += (t.width - this.lineBox.width) / 2, this.next && this.next.center(t);
         }, t.prototype.measure = function(t) {
-            return this.kind === c.HSTextNodeKind.newline ? {
+            return this.kind === s.HSTextNodeKind.newline ? {
                 width: 0
             } : t.measureText(this.text);
         }, t.prototype.allNodes = function() {
@@ -2100,10 +2801,10 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             for (var r = "", n = this.text, o = 0; o !== n.length; ++o) {
                 var a = r + n[o];
                 if (e.measureText(a).width > i) {
-                    var s = t.parse(r).head, u = new t("\n", c.HSTextNodeKind.newline);
-                    s.concat(u);
-                    var h = new t(this.text.substr(r.length), this.kind);
-                    return u.concat(h), s;
+                    var c = t.parse(r).head, u = new t("\n", s.HSTextNodeKind.newline);
+                    c.concat(u);
+                    var l = new t(this.text.substr(r.length), this.kind);
+                    return u.concat(l), c;
                 }
                 r = a;
             }
@@ -2114,7 +2815,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return t.parse(e).head;
         }, t.parse = function(e) {
             var i, r;
-            return c.HSTokenizer.tokenize(e).forEach(function(e) {
+            return s.HSTokenizer.tokenize(e).forEach(function(e) {
                 var n = new t(e.text, e.kind);
                 t.concat(i, n), i = n, r || (r = i);
             }), {
@@ -2124,24 +2825,24 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.MAX_LINE_WIDTH = 600, t.LINE_HEIGHT = 55, t;
     }();
     e.HSTextNode = l;
-    var p = function(t) {
+    var h = function(t) {
         function e(e) {
             var i = t.call(this, e, null) || this;
-            return i.kind = c.HSTextNodeKind.emoji, i;
+            return i.kind = s.HSTextNodeKind.emoji, i;
         }
-        return n(e, t), e.prototype.drawNode = function(i) {
+        return n.__extends(e, t), e.prototype.drawNode = function(i) {
             var r = this;
             return e.getImage({
                 text: this.text,
-                color: u.HSColor.hsbStringFromRgbString(i.fillStyle)
+                color: c.HSColor.hsbStringFromRgbString(i.fillStyle)
             }).then(function(t) {
-                var n = a.isIOSApp() ? t.width : e.WIDTH, o = a.isIOSApp() ? t.height : e.HEIGHT;
-                i.drawImage(t, r.x, r.y, n, o);
+                var n = o.isIOSApp() ? t.width : e.WIDTH, a = o.isIOSApp() ? t.height : e.HEIGHT;
+                i.drawImage(t, r.x, r.y, n, a);
             }).catch(function(e) {
                 return t.prototype.drawNode.call(r, i);
             });
         }, e.getImageInfo = function(t) {
-            return a.isIOSApp() ? a.requestTextureFromApp({
+            return o.isIOSApp() ? o.requestTextureFromApp({
                 type: "emoji",
                 props: t
             }).then(function(t) {
@@ -2150,14 +2851,14 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                     scaleFactor: window.devicePixelRatio
                 };
             }) : Promise.resolve({
-                dataURI: a.emoji.getImage(t.text),
+                dataURI: o.emoji.getImage(t.text),
                 scaleFactor: 1
             });
         }, e.getImage = function(t) {
             return this.getImageInfo(t).then(function(t) {
                 var e = t.dataURI;
-                return s.HSMain.HS_EMOJI_HOST && (e = e.replace("/assets", s.HSMain.HS_EMOJI_HOST)), 
-                a.getImageFromUri(e).then(function(e) {
+                return a.HSMain.HS_EMOJI_HOST && (e = e.replace("/assets", a.HSMain.HS_EMOJI_HOST)), 
+                o.getImageFromUri(e).then(function(e) {
                     return e.width /= t.scaleFactor, e.height /= t.scaleFactor, e;
                 });
             });
@@ -2170,14 +2871,14 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return r.concat(n), r;
         }, e.HEIGHT = 40, e.WIDTH = 40, e;
     }(l);
-    e.HSEmojiTextNode = p;
-    var d = function(t) {
+    e.HSEmojiTextNode = h;
+    var p = function(t) {
         function e(e) {
             var i = t.call(this, e, null) || this;
-            return i.kind = c.HSTextNodeKind.geometricShape, i.kind = c.HSTextNodeKind.geometricShape, 
+            return i.kind = s.HSTextNodeKind.geometricShape, i.kind = s.HSTextNodeKind.geometricShape, 
             i;
         }
-        return n(e, t), e.prototype.drawNode = function(t) {
+        return n.__extends(e, t), e.prototype.drawNode = function(t) {
             var i = t.font, r = +t.font.match(/^\d*/), n = Math.round(r * this.getScaleFactor()), o = this.measure(t).width;
             t.font = n + "px " + e.FONT_FAMILIES.join(", ");
             var a = t.measureText(this.text).width;
@@ -2192,8 +2893,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return t.font = i, n;
         }, e.FONT_FAMILIES = [ "Avenir-Book", "STIXGeneral", "sans-serif" ], e;
     }(l);
-    e.HSGeometricShapeTextNode = d, window.HSLineBox = h, window.HSTextJustify = o, 
-    window.HSTextNode = l, window.HSEmojiTextNode = p, window.HSGeometricShapeTextNode = d;
+    e.HSGeometricShapeTextNode = p, window.HSLineBox = u, window.HSTextJustify = r, 
+    window.HSTextNode = l, window.HSEmojiTextNode = h, window.HSGeometricShapeTextNode = p;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -2224,15 +2925,15 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 }
             } else if (t.ONLY_VARIATION_SELECTORS.test(e[i]) && c !== r.text) {
                 if (i > s) {
-                    var h = i;
-                    c === r.emoji && (h = i + 1), a.push(new o(e.substring(s, h), c));
+                    var l = i;
+                    c === r.emoji && (l = i + 1), a.push(new o(e.substring(s, l), c));
                 }
                 s = i + 1, c = null;
             } else if (this.isEmojiStartIndex(e, i)) {
                 i > s && a.push(new o(e.substring(s, i), c)), s = i, c = r.emoji;
-                var l = 5;
-                this.isUnicodeEmojiStartIndex(e, i) && (l = 2);
-                var p = e.slice(i, i + l), d = t.emojiMatch(p);
+                var h = 5;
+                this.isUnicodeEmojiStartIndex(e, i) && (h = 2);
+                var p = e.slice(i, i + h), d = t.emojiMatch(p);
                 if (d) i += p.indexOf(d[0]) + (d[0].length - 1);
             } else !n.iOS && t.GEOMETRIC_SHAPES.test(e[i]) ? (i > s && a.push(new o(e.substring(s, i), c)), 
             s = i, c = r.geometricShape) : c !== r.text && (i > s && a.push(new o(e.substring(s, i), c)), 
@@ -2265,392 +2966,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(1), n = function() {
-        function t() {}
-        return t.accelerometerFromIOSApp = function(t, e) {
-            this.listener(t), this.isShakingFromApp = e;
-        }, t.listener = function(t) {
-            var e = t.accelerationIncludingGravity, i = Math.hypot(e.x, e.y, e.z) || 9.8, n = Math.round(100 * e.x / i), o = Math.round(100 * e.y / i), a = window.orientation;
-            null == a || -90 === a ? (this.tiltUp = n, this.tiltRight = o) : 90 === a ? (this.tiltUp = -n, 
-            this.tiltRight = -o) : 0 === a ? (this.tiltUp = -o, this.tiltRight = n) : (this.tiltUp = o, 
-            this.tiltRight = -n), this.tiltDown = -this.tiltUp, this.tiltLeft = -this.tiltRight, 
-            r.isIOSApp() || this.updateShakeData(t.acceleration.x, t.acceleration.y, t.acceleration.z);
-        }, t.startAccelerometerUpdates = function() {
-            "DeviceMotionEvent" in window && !this.isListening && ("function" == typeof DeviceMotionEvent.requestPermission ? this.enableIOS13Accelerometer() : this.enableAccelerometer());
-        }, t.enableIOS13Accelerometer = function() {
-            this.isListening || r.isIOSApp() || window.addEventListener("touchend", t.deviceRequestPermissionIOS13);
-        }, t.enableAccelerometer = function() {
-            this.isListening || (this.isListening = !0, window.addEventListener("devicemotion", this.listener.bind(this), !1));
-        }, t.tiltDirection = function() {
-            if (!this.tiltRight || !this.tiltUp) return null;
-            return r.hs_direction(this.tiltRight, this.tiltUp, 30);
-        }, t.updateShakeData = function(e, i, r) {
-            this.xAccelerations.push(e), this.yAccelerations.push(i), this.zAccelerations.push(r), 
-            this.xAccelerations.length > t.SHAKE_MEMORY_COUNT && this.xAccelerations.shift(), 
-            this.yAccelerations.length > t.SHAKE_MEMORY_COUNT && this.yAccelerations.shift(), 
-            this.zAccelerations.length > t.SHAKE_MEMORY_COUNT && this.zAccelerations.shift();
-        }, t.isShaking = function() {
-            return r.isIOSApp() ? this.isShakingFromApp : [ this.xAccelerations, this.yAccelerations, this.zAccelerations ].some(function(e) {
-                return Math.abs(r.mean(e)) < t.SUDDEN_ACCEL_THRESHOLD && r.variance(e) > t.SHAKE_SENSITIVITY;
-            });
-        }, t.isListening = !1, t.isShakingFromApp = !1, t.tiltUp = 0, t.tiltDown = 0, t.tiltLeft = 0, 
-        t.tiltRight = 0, t.deviceRequestPermissionIOS13 = function() {
-            DeviceMotionEvent.requestPermission().then(function(e) {
-                "granted" === e && (t.enableAccelerometer(), window.removeEventListener("touchend", t.deviceRequestPermissionIOS13));
-            }).catch(console.error);
-        }, t.xAccelerations = [], t.yAccelerations = [], t.zAccelerations = [], t.SHAKE_MEMORY_COUNT = 10, 
-        t.SHAKE_SENSITIVITY = 60, t.SUDDEN_ACCEL_THRESHOLD = 2, t;
-    }();
-    e.HSAccelerometerManager = n, window.HSAccelerometerManager = n;
-}, function(t, e, i) {
-    "use strict";
-    Object.defineProperty(e, "__esModule", {
-        value: !0
-    });
-    var r = i(34), n = i(5), o = i(1), a = i(21), s = i(4), c = i(44), u = i(35), h = i(20), l = i(17), p = i(48), d = i(49), S = i(6), f = i(53), g = i(0), y = i(3), b = i(18);
-    e.BASE_SPEED = 400, e.BASE_STEP_SIZE = 10, e.EDGE_OF_SCREEN_OBJECT_ID = "zzzEdge", 
-    e.DEBUG_DRAW_BOUNDING_BOXES = !1;
-    var v = function() {
-        function t(i, n, o, a, s, c, l, p, f, g, y) {
-            var b = this;
-            void 0 === g && (g = 1), void 0 === y && (y = 1), this.x = i, this.y = n, this.text = o, 
-            this.type = a, this.baseObjectScale = s, this.fontSize = c, this.objectID = l, this.imageName = p, 
-            this.willChangeCostume = f, this.originalWidth = g, this.originalHeight = y, this.createOrder = -1, 
-            this._animationNumber = 0, this.sizePercentWidth = 100, this.sizePercentHeight = 100, 
-            this.headingInDegrees = 0, this.speed = e.BASE_SPEED, this.invisibilityPercent = 0, 
-            this.isFlipped = !1, this.drawingRadius = null, this.drawingColor = null, this.penDown = !1, 
-            this.creationTick = null, this.relatedCollisionRules = new Set(), this.collisionImageFactory = new d.HSCollisionImageFactory(), 
-            this.stageRules = [], this.cloneIndex = 0, this.zIndex = 0, this.isAlive = !0, this.resetTextSize = function() {
-                var t = h.HSTextNode.fromString(b.text), e = b.view.canvas;
-                if (e) {
-                    if (t) {
-                        var i = t.flow(e.getContext("2d"), h.HSTextNode.MAX_LINE_WIDTH), r = i.width, n = i.height;
-                        b.originalWidth = r, b.originalHeight = n, b.collisionObject = null;
-                    }
-                } else b.view.onTextureBuild = b.resetTextSize;
-            }, t.initEdges(), this.createOrder = ++t.OBJECTS_CREATED, this.color = this.colorForType(a), 
-            this.stageObjectID = t.uniqueIdCounter++, this.type === S.HSObjectType.text ? this.text = o : this.text = null, 
-            this.pathDrawer = new r.HSPathDrawer(this.currentPoint()), this.view = new u.HSView(this.viewProps());
-        }
-        return t.initEdges = function() {
-            t.initiatedEdgeOfScreen || (t.initiatedEdgeOfScreen = !0, t.edgeOfScreenObject = new t(0, 0, "", S.HSObjectType.edgeOfScreen, 1, 80, e.EDGE_OF_SCREEN_OBJECT_ID, null, !1));
-        }, t.prototype.setWidth = function(t) {
-            0 === t && (t = .01), t && (this.sizePercentWidth = t / this.originalWidth * (1 / this.baseScale()) * 100);
-        }, t.prototype.setHeight = function(t) {
-            0 === t && (t = .01), t && (this.sizePercentHeight = t / this.originalHeight * (1 / this.baseScale()) * 100);
-        }, t.prototype.width = function() {
-            return this.view.textureExists ? this.view.width() : Math.round(this.originalWidth * this.baseScale());
-        }, t.prototype.height = function() {
-            return this.view.textureExists ? this.view.height() : Math.round(this.originalHeight * this.baseScale());
-        }, t.prototype.colorForType = function(t) {
-            return this.type === S.HSObjectType.text ? y.HSColor.rgbTextColor : this.isShape() ? y.HSColor.rgbTextColor : y.HSColor.rgbWhiteColor;
-        }, t.prototype.originalObject = function(t) {
-            var e = t.findWithObjectID(n.HSObject.key, this.objectID);
-            return e ? e.stageObject() : null;
-        }, t.prototype.baseScale = function() {
-            return this.isFullSizeShape() ? .5 : 1;
-        }, t.prototype.isFullSizeShape = function() {
-            return S.hsIsFullSizeShape(this.type);
-        }, t.prototype.isShape = function() {
-            return S.hsIsShapeType(this.type);
-        }, t.prototype.update = function() {
-            this.isAlive && this.view.update(this.viewProps());
-        }, t.prototype.viewProps = function() {
-            return {
-                type: this.type,
-                text: this.text,
-                color: this.color,
-                x: this.x,
-                y: this.y,
-                headingInRadians: this.headingInRadians(),
-                sizePercentWidth: this.sizePercentWidth,
-                sizePercentHeight: this.sizePercentHeight,
-                fontSize: this.fontSize,
-                opacity: this.opacity(),
-                isFlipped: this.isFlipped,
-                animationNumber: this.animationNumber(),
-                willChangeCostume: this.willChangeCostume,
-                imageName: this.imageName,
-                baseObjectScale: this.baseScale(),
-                stageHeight: s.HSStageScene.stageHeight,
-                originalHeight: this.originalHeight,
-                originalWidth: this.originalWidth
-            };
-        }, t.prototype.imageForCollision = function() {
-            return this.collisionImageFactory.image(this.view.imageSource());
-        }, t.prototype.boundingBox = function() {
-            this._boundingBox || (this._boundingBox = new p.HSBoundingBox());
-            var t = this.view.bounds();
-            return this._boundingBox.update(this.x, this.y, t.width / 2, t.height / 2), this._boundingBox;
-        }, t.prototype.drawPath = function(t) {
-            this.pathDrawer.drawDiff(t);
-        }, t.prototype.isBlankTextObject = function() {
-            return this.type === S.HSObjectType.text && !this.shouldDrawText();
-        }, t.prototype.shouldDrawText = function() {
-            return a.HSTokenizer.hasDrawableTokens(this.text);
-        }, t.prototype.canDrawCharacter = function() {
-            return this.type !== S.HSObjectType.text;
-        }, t.prototype.canDrawImage = function() {
-            return !!this.imageName;
-        }, t.prototype.opacity = function() {
-            return .01 * Math.max(100 - this.invisibilityPercent, 0);
-        }, t.prototype.clear = function() {
-            l.HopscotchDrawingContext.shouldClear = !0;
-        }, t.prototype.maxStepSize = function() {
-            var t = this.speed / e.BASE_SPEED * e.BASE_STEP_SIZE;
-            return Math.abs(t) >= 1 ? t : Math.sign(t);
-        }, t.prototype.headingInRadians = function() {
-            return this.headingInDegrees * Math.PI / 180;
-        }, t.prototype.changeXBy = function(t) {
-            this.x += t, this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
-        }, t.prototype.changeYBy = function(t) {
-            this.y += t, this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
-        }, t.prototype.setPosition = function(t, e) {
-            this.x = t, this.y = e, this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
-        }, t.prototype.setOrigin = function(t, e) {
-            this.setPosition(t + .5 * this.width(), e + .5 * this.height());
-        }, t.prototype.rotateBy = function(e) {
-            this.headingInDegrees = t.normalizeHeading(this.headingInDegrees + e * this.multiplier());
-        }, t.prototype.moveBy = function(t) {
-            this.x += this.multiplier() * Math.cos(this.headingInRadians()) * t, this.y += this.multiplier() * Math.sin(this.headingInRadians()) * t, 
-            this.moveToWithinBoundary(), this.pathDrawer.addPoint(this.currentPoint(), this.penDown);
-        }, t.prototype.setText = function(t, e) {
-            this.text = t, this.color = e, this.type = S.HSObjectType.text, this.resetTextSize();
-        }, t.prototype.setCharacter = function(t) {
-            this.type = t, this.color = this.colorForType(t), this._animationNumber = 0, this.text = null, 
-            this.imageName = null, f.HSOBJECT_SIZES[t] && (this.originalWidth = f.HSOBJECT_SIZES[t].width, 
-            this.originalHeight = f.HSOBJECT_SIZES[t].height);
-        }, t.prototype.setImage = function(t) {
-            this.type = S.HSObjectType.image, this.color = this.colorForType(S.HSObjectType.image), 
-            this._animationNumber = 0, this.text = null, t && (this.imageName = t.fileName, 
-            this.originalWidth = t.width, this.originalHeight = t.height);
-        }, t.prototype.changePose = function() {
-            this.isShape() || this._animationNumber++;
-        }, t.prototype.animationNumber = function() {
-            return this._animationNumber % 4;
-        }, t.prototype.bringToFront = function() {
-            this.bringToFrontFunction(this);
-        }, t.prototype.sendToBack = function() {
-            this.sendToBackFunction(this);
-        }, t.prototype.clone = function(t) {
-            this.cloneFunction(this, t);
-        }, t.prototype.addToDestroyQueue = function() {
-            this.isAlive = !1, this.destroyFunction(this);
-        }, t.prototype.queueEventMessage = function(t) {
-            this.broadcastMessageFunction(t);
-        }, t.prototype.destroy = function() {
-            this.view = null, this.stageRules = [];
-        }, t.prototype.isInvisible = function() {
-            return this.invisibilityPercent >= 100;
-        }, t.prototype.deepCopy = function(e, i) {
-            var r = new t(i.x, i.y, i.text, i.type, i.context.baseObjectScale, i.context.fontSize, i.objectID, i.fileName(), i.willChangeCostume, this.originalWidth, this.originalHeight);
-            return r.stageRules = this.stageRules.map(function(t) {
-                return t.deepCopy(r);
-            }), r;
-        }, t.prototype.break = function() {
-            this.stageRules.forEach(function(t) {
-                return t.break();
-            });
-        }, t.normalizeHeading = function(t) {
-            return (t % 360 + 360) % 360;
-        }, t.prototype.currentPoint = function() {
-            return new r.HSLinePoint(new b.Vec2(this.x, this.y), this.drawingRadius, this);
-        }, t.prototype.moveToWithinBoundary = function() {
-            this.x = Math.min(this.x, s.HSStageScene.stageWidth), this.x = Math.max(this.x, 0), 
-            this.y = Math.min(this.y, s.HSStageScene.stageHeight), this.y = Math.max(this.y, 0);
-        }, t.prototype.multiplier = function() {
-            return this.isFlipped ? -1 : 1;
-        }, t.prototype.activateAllStageRulesForEventType = function(t, e) {
-            this.allStageRulesForEventTypeAndObject(t, e).forEach(function(t) {
-                return t.activate();
-            });
-        }, t.prototype.allStageRulesForEventTypeAndObject = function(t, e) {
-            return this.allStageRulesForEventType(t).filter(function(t) {
-                return t.matchesFirstObject(e);
-            });
-        }, t.prototype.allStageRulesForEventType = function(t) {
-            return this.stageRules.filter(function(e) {
-                return e.matchesEvent(t);
-            });
-        }, t.prototype.allPossibleCollisionPairs = function() {
-            var t = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsTouching), e = this.allStageRulesForEventType(g.HSBlockType.EventOperatorIsNotTouching), i = this.allStageRulesForEventType(g.HSBlockType.EventOperatorBump);
-            return t.concat(e).concat(i).reduce(function(t, e) {
-                return t.concat(e.collisionPairs());
-            }, []);
-        }, t.prototype.executeActiveRules = function() {
-            for (var t = this.stageRules, e = t.length, i = 0; i !== e; ++i) t[i].conditionIsTrue(this) && (t[i].hasBlocksToExecute() || (t[i].isActive = !1), 
-            t[i].activate()), t[i].execute(this);
-        }, t.prototype.executeBlock = function(e) {
-            var i, r, n, a, u, h, l = e.firstIntegerValue(this), p = e.parameters;
-            switch (e.type) {
-              case g.HSBlockType.Move:
-                this.moveBy(l);
-                break;
-
-              case g.HSBlockType.SetPosition:
-                this.setPosition(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
-                break;
-
-              case g.HSBlockType.SetSize:
-                if (null === (i = p[0]) || void 0 === i ? void 0 : i.isSet(this)) {
-                    var d = null === (r = p[0]) || void 0 === r ? void 0 : r.computedValue(this);
-                    "number" == typeof d && (this.sizePercentWidth = d, this.sizePercentHeight = d);
-                }
-                break;
-
-              case g.HSBlockType.Grow:
-                n = Math.max(100 + l, 0), this.sizePercentWidth *= .01 * n, this.sizePercentHeight *= .01 * n;
-                break;
-
-              case g.HSBlockType.Scale:
-                this.sizePercentWidth *= .01 * l, this.sizePercentHeight *= .01 * l;
-                break;
-
-              case g.HSBlockType.Shrink:
-                n = Math.max(100 - l, 0), a = this.sizePercentWidth * n * .01, this.sizePercentWidth = Math.max(a, 1e-7), 
-                a = this.sizePercentHeight * n * .01, this.sizePercentHeight = Math.max(a, 1e-7);
-                break;
-
-              case g.HSBlockType.SetHeading:
-                this.headingInDegrees = t.normalizeHeading(l);
-                break;
-
-              case g.HSBlockType.ChangeX:
-                this.changeXBy(l);
-                break;
-
-              case g.HSBlockType.ChangeY:
-                this.changeYBy(l);
-                break;
-
-              case g.HSBlockType.Rotate:
-                this.rotateBy(l);
-                break;
-
-              case g.HSBlockType.ChangeSpeed:
-                this.speed = l;
-                break;
-
-              case g.HSBlockType.SetInvisibility:
-                this.invisibilityPercent = l;
-                break;
-
-              case g.HSBlockType.Flip:
-                this.isFlipped = !this.isFlipped;
-                break;
-
-              case g.HSBlockType.StrokeColor:
-                this.drawingColor = p[0].computedColorString(this);
-                break;
-
-              case g.HSBlockType.StrokeWidth:
-                this.drawingRadius = l / 2;
-                break;
-
-              case g.HSBlockType.Clear:
-                this.clear();
-                break;
-
-              case g.HSBlockType.PenDown:
-                this.penDown = !0;
-                break;
-
-              case g.HSBlockType.PenUp:
-                this.penDown = !1;
-                break;
-
-              case g.HSBlockType.ChangeCostume:
-                this.changePose();
-                break;
-
-              case g.HSBlockType.SetText:
-                h = y.HSColor.rgbTextColor, p.length >= 2 && (h = p[1].computedColorString(this)), 
-                this.setText(p[0].computedStringValue(this), h);
-                break;
-
-              case g.HSBlockType.SetTextToInput:
-                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, e));
-                break;
-
-              case g.HSBlockType.SetVariable:
-                (u = p[0].variable()) && (u.isSkillComplete() && 1 === p[1].computedValue(this) && o.HSApp.sendToApp("hsSkillComplete", "1"), 
-                u.setValue(p[1].computedValue(this), this));
-                break;
-
-              case g.HSBlockType.SaveInput:
-                s.HSStageScene.promptsToExecute.push(new c.HSStagePrompt(this, e));
-                break;
-
-              case g.HSBlockType.ChangeVariable:
-                if (u = p[0].variable()) {
-                    var f = u.computedNumberValue(this) + p[1].computedNumberValue(this);
-                    u.setValue(f, this);
-                }
-                break;
-
-              case g.HSBlockType.BringToFront:
-                this.bringToFront();
-                break;
-
-              case g.HSBlockType.SendToBack:
-                this.sendToBack();
-                break;
-
-              case g.HSBlockType.SetImage:
-                p[0].computedObjectType() === S.HSObjectType.text ? this.setText(p[0].value, y.HSColor.rgbTextColor) : p[0].computedObjectType() === S.HSObjectType.image ? this.setImage(p[0].childBlock) : this.setCharacter(p[0].computedObjectType());
-                break;
-
-              case g.HSBlockType.SetColor:
-                this.color = p[0].computedColorString(this);
-                break;
-
-              case g.HSBlockType.SetWidthAndHeight:
-                p[0].isSet(this) && this.setWidth(p[0].computedNumberValue(this)), p[1].isSet(this) && this.setHeight(p[1].computedNumberValue(this));
-                break;
-
-              case g.HSBlockType.SetZIndex:
-                var b = p[0].computedNumberValue(this);
-                b !== this.zIndex && (this.zIndex = b, s.HSStageScene.dirtySort = !0);
-                break;
-
-              case g.HSBlockType.SetOriginXY:
-                this.setOrigin(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
-                break;
-
-              case g.HSBlockType.SetCenterXY:
-                this.setPosition(p[0].computedNumberValue(this), p[1].computedNumberValue(this));
-				break;
-				
-			  case HSBlockType.None: //AE_MOD
-				if (/^_ae_webplayer_action:/g.test(p[0].value)){
-					AE_MOD.webplayer_action(p[0].value.split('_ae_webplayer_action:')[1], (p[1]?.computedValue(this)),this);
-				}
-				break;
-            }
-        }, Object.defineProperty(t.prototype, "originX", {
-            get: function() {
-                return this.x - .5 * this.width();
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(t.prototype, "originY", {
-            get: function() {
-                return this.y - .5 * this.height();
-            },
-            enumerable: !0,
-            configurable: !0
-        }), t.OBJECTS_CREATED = 0, t.uniqueIdCounter = 0, t.initiatedEdgeOfScreen = !1, 
-        t;
-    }();
-    e.HSStageObject = v, window.HSStageObject = v, window.BASE_SPEED = e.BASE_SPEED, 
-    window.BASE_STEP_SIZE = e.BASE_STEP_SIZE, window.EDGE_OF_SCREEN_OBJECT_ID = e.EDGE_OF_SCREEN_OBJECT_ID, 
-    window.DEBUG_DRAW_BOUNDING_BOXES = e.DEBUG_DRAW_BOUNDING_BOXES;
-}, function(t, e, i) {
-    "use strict";
-    Object.defineProperty(e, "__esModule", {
-        value: !0
-    });
-    var r = i(8), n = i(9), o = i(6), a = i(0), s = i(3), c = function() {
+    var r = i(9), n = i(10), o = i(7), a = i(0), s = i(4), c = function() {
         function t(t, e) {
             void 0 === e && (e = null), this.value = t, this.childBlock = e;
         }
@@ -2665,6 +2981,9 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.computedBooleanValue = function(t) {
             var e = this.computedValue(t);
             return "0" !== e && !!e;
+        }, t.prototype.computedRhythmValue = function(t) {
+            var e, i = 4 * (60 / (t.tempo ? +t.tempo : 120) * 1e3);
+            return null != (e = +this.computedNumberValue(t) * i) ? e : 0;
         }, t.prototype.computedValue = function(t) {
             var e = this.childBlockValue(t);
             return null != e ? e : r.HSVariable.parseValue(this.value);
@@ -2681,73 +3000,43 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSStageParameter = c, window.HSStageParameter = c;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(0), s = i(1);
+    var r = i(2), n = i(8), o = i(0), a = i(1);
     e.OBJECT_ID_STRING_KEY = "objectIdString";
-    var c = function(t) {
+    var s = function(t) {
         function i(e) {
             return t.call(this, e) || this;
         }
-        return n(i, t), i.prototype.parseJSON = function(t) {
+        return r.__extends(i, t), i.prototype.parseJSON = function(t) {
             void 0 === t && (t = {}), this.objectID = t[e.OBJECT_ID_STRING_KEY], this.name = t.name, 
-            this.type = t.type || a.HSBlockType.Object, this.initialValue = this.getInitialValue();
+            this.type = t.type || o.HSBlockType.Object, this.initialValue = this.getInitialValue();
         }, i.prototype.getInitialValue = function() {
-            return this.type !== a.HSBlockType.User ? "0" : s.HSApp.initialUserVariables[this.objectID] || "0";
+            return this.type !== o.HSBlockType.User ? "0" : a.HSApp.initialUserVariables[this.objectID] || "0";
         }, i.key = "HSVariablePrototype", i;
-    }(o.HSManagedObject);
-    e.HSVariablePrototype = c, window.HSVariablePrototype = c;
+    }(n.HSManagedObject);
+    e.HSVariablePrototype = s, window.HSVariablePrototype = s;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(5), a = i(10);
+    var r = i(2), n = i(6), o = i(11);
     e.EVENT_PARAMETER_OBJECT_ID_KEY = "id", e.EVENT_PARAMETER_TYPE_KEY = "blockType", 
     e.EVENT_PARAMETER_OBJECT_KEY = "objectID";
-    var s = function(t) {
+    var a = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(i, t), i.prototype.parseJSON = function(i) {
+        return r.__extends(i, t), i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i), this.objectID = i[e.EVENT_PARAMETER_OBJECT_ID_KEY], 
             this.type = i[e.EVENT_PARAMETER_TYPE_KEY];
-            var r = this.context.findWithObjectID(o.HSObject.key, i[e.EVENT_PARAMETER_OBJECT_KEY]);
+            var r = this.context.findWithObjectID(n.HSObject.key, i[e.EVENT_PARAMETER_OBJECT_KEY]);
             this.object = r;
         }, i.key = "HSEventParameterBlock", i;
-    }(a.HSParameterBlock);
-    e.HSEventParameterBlock = s, window.HSEventParameterBlock = s;
+    }(o.HSParameterBlock);
+    e.HSEventParameterBlock = a, window.HSEventParameterBlock = a;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -2758,8 +3047,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             this.prefetchedImageCache = new Map();
         }
         return t.prototype.build = function(t, e) {
-            var i = this.prefetchedImageCache.get(e.imageName);
-            return i ? i.then(function(t) {
+            var i, r = null === (i = this.prefetchedImageCache.get(e.imageName)) || void 0 === i ? void 0 : i.promise;
+            return r ? r.then(function(t) {
                 return PIXI.Texture.from(t);
             }) : Promise.reject(null);
         }, t.prototype.buildAll = function(t, e) {
@@ -2767,23 +3056,31 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return [ t ];
             });
         }, t.prototype.prefetchImage = function(t) {
-            var e = this;
-            if (t && !this.prefetchedImageCache.get(t.fileName)) {
-                var i = this.getImageUrl(t.fileName).then(r.getImageFromUri).then(function(i) {
-                    return e.resizeImage(i, t.width, t.height);
-                });
-                this.prefetchedImageCache.set(t.fileName, i);
+            var e, i = this;
+            if (t) {
+                var n = t.fileName, o = this.prefetchedImageCache.get(n);
+                if (null == t.updatedDate || (null === (e = o) || void 0 === e ? void 0 : e.updatedDate) !== t.updatedDate) {
+                    var a = this.getImageUrl(t).then(r.getImageFromUri).then(function(e) {
+                        return i.resizeImage(e, t.width, t.height);
+                    });
+                    this.prefetchedImageCache.set(n, {
+                        updatedDate: t.updatedDate,
+                        promise: a
+                    });
+                }
             }
         }, t.prototype.resizeImage = function(t, e, i) {
             return t.width = e, t.height = i, Promise.resolve(t);
         }, t.prototype.getImageUrl = function(t) {
-            return Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */ : this.getImageUrlFromApp(t);
-        }, t.prototype.getImageUrlFromBaseUrl = function(t) {
-            return Promise.resolve(BASE_IMAGE_URL + t);
-        }, t.prototype.getImageUrlFromApp = function(t) {
+            var e = t.fileName, i = t.updatedDate;
+            return (Object.prototype.hasOwnProperty.call(window, "BASE_IMAGE_URL") ? (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl:Promise.resolve)/*AE_MOD custom custom TEST*/ : this.getImageUrlFromApp)(e, i);
+        }, t.prototype.getImageUrlFromBaseUrl = function(t, e) {
+            var i = BASE_IMAGE_URL + t, r = -1 !== i.indexOf("?") ? "&" : "?";
+            return Promise.resolve(i + r + "cache=" + e);
+        }, t.prototype.getImageUrlFromApp = function(t, e) {
             return r.requestTextureFromApp({
                 fileName: t
-            }).then(function(t) {
+            }, e).then(function(t) {
                 return t.dataURI;
             });
         }, t.instance = new t(), t;
@@ -2794,7 +3091,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(50), n = i(17), o = function() {
+    var r = i(51), n = i(20), o = function() {
         function t(t, e) {
             this.backgroundCanvas = t, this.drawingContext = new n.HopscotchDrawingContext(t, e, this), 
             this.collisionContext = new r.HSCollisionContext();
@@ -2804,42 +3101,60 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSVisualContext = o, window.HSVisualContext = o;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(2), s = i(5), c = i(39), u = i(11), h = i(19), l = i(25), p = i(26), d = i(10), S = i(63);
+    var r = i(62);
+    e.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var n = function() {
+        function t(e) {
+            var i = this;
+            this.sounds = {}, this.context = t.audioContext, this.isMuted = !1, e.forEach(function(t) {
+                var e = t.split("."), n = e[0], o = e[1] || "mp3";
+                i.sounds[n] = new r.HSSound(n, i.context, o);
+            }), t.hasUnlockListener || (t.hasUnlockListener = !0, this.eventListenerFunc = function() {
+                var t = i.context.createBufferSource();
+                t.buffer = i.context.createBuffer(1, 1, 22050), t.connect(i.context.destination), 
+                t.start(0), window.removeEventListener("touchstart", i.eventListenerFunc), window.removeEventListener("touchend", i.eventListenerFunc);
+            }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc));
+        }
+        return t.prototype.play = function(t) {
+            this.sounds[t] && !this.isMuted && this.sounds[t].play();
+        }, t.prototype.playNote = function(t, e) {
+            var i = e + "/" + t;
+            this.sounds[i] && !this.isMuted && this.sounds[i].play();
+        }, t.prototype.mute = function() {
+            this.isMuted || Object.values(this.sounds).forEach(function(t) {
+                return t.stop();
+            }), this.isMuted = !0;
+        }, t.prototype.unmute = function() {
+            this.isMuted = !1;
+        }, t.audioContext = new e.AudioContext(), t.hasUnlockListener = !1, t;
+    }();
+    e.HSSoundManager = n, window.HSSoundManager = n;
+}, function(t, e, i) {
+    "use strict";
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var r = i(2), n = i(8), o = i(3), a = i(6), s = i(40), c = i(12), u = i(22), l = i(26), h = i(27), p = i(11), d = i(64);
     e.OBJECTS_KEY = "objects", e.RULES_KEY = "rules", e.VARIABLES_KEY = "variables", 
     e.TRAITS_KEY = "traits", e.EVENT_PARAMETERS_KEY = "eventParameters", e.SCRIPTS_KEY = "abilities", 
     e.SCENES_KEY = "scenes";
-    var f = function(t) {
+    var S = function(t) {
         function i(i, r) {
             void 0 === r && (r = {});
             var n = t.call(this, i) || this;
             return n.context.parseJSON(r), n.parseObjectDictionaries(r[e.OBJECTS_KEY], r[e.SCENES_KEY]), 
             n.parseVariableDictionaries(r[e.VARIABLES_KEY]), n.parseTraitsDictionaries(r[e.TRAITS_KEY]), 
             n.parseEventParameters(r[e.EVENT_PARAMETERS_KEY]), n.parseScriptDictionaries(r[e.SCRIPTS_KEY]), 
-            n.parseRulesDictionaries(r[e.RULES_KEY]), n.importCustomRules(r.customRules), n.context.version >= a.HSProjectVersion.CUSTOM_WHENS && n.addRulesToObjects(r[e.OBJECTS_KEY]), 
+            n.parseRulesDictionaries(r[e.RULES_KEY]), n.importCustomRules(r.customRules), n.context.version >= o.HSProjectVersion.CUSTOM_WHENS && n.addRulesToObjects(r[e.OBJECTS_KEY]), 
             n.parseScenesDictionaries(r[e.SCENES_KEY]), n;
         }
-        return n(i, t), i.prototype.parseEventParameters = function(t) {
+        return r.__extends(i, t), i.prototype.parseEventParameters = function(t) {
             var e = this;
             void 0 === t && (t = []), t && t.forEach(function(t, i, r) {
-                new p.HSEventParameterBlock(e.context).parseJSON(t);
+                new h.HSEventParameterBlock(e.context).parseJSON(t);
             });
         }, i.prototype.parseVariableDictionaries = function(t) {
             if (void 0 === t && (t = []), t) {
@@ -2852,7 +3167,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             if (void 0 === t && (t = []), t) {
                 var e = this.context;
                 t.forEach(function(t, i, r) {
-                    new d.HSParameterBlock(e).parseJSON(t);
+                    new p.HSParameterBlock(e).parseJSON(t);
                 });
             }
         }, i.prototype.parseObjectDictionaries = function(t, i) {
@@ -2865,35 +3180,49 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             }));
             var n = this.context;
             t.forEach(function(t, e, o) {
-                i.length > 0 && !r.includes(t.objectID) || new s.HSObject(n).parseJSON(t);
+                i.length > 0 && !r.includes(t.objectID) || new a.HSObject(n).parseJSON(t);
             });
         }, i.prototype.addRulesToObjects = function(t) {
+            var e, i;
             void 0 === t && (t = []);
-            for (var e = this.context, i = function(t) {
-                var i = e.findWithObjectID(s.HSObject.key, t.objectID);
-                if (!t.rules || !i || !i.rules) return "continue";
-                var r = i.canChangeCostume(), n = !1, o = t.rules.map(function(t) {
-                    var i = e.findWithObjectID(u.HSRule.key, t);
-                    return !n && r && i && i.script.containsChangeCostume() && (n = !0), i || e.findWithObjectID(S.HSCustomRule.key, t);
+            var n = this.context, o = function(t) {
+                var e = n.findWithObjectID(a.HSObject.key, t.objectID);
+                if (!t.rules || !e || !e.rules) return "continue";
+                var i = e.canChangeCostume(), r = !1, o = t.rules.map(function(t) {
+                    var e = n.findWithObjectID(c.HSRule.key, t);
+                    return !r && i && e && e.script.containsChangeCostume() && (r = !0), e || n.findWithObjectID(d.HSCustomRule.key, t);
                 });
-                i.rules = o.filter(function(t) {
+                e.rules = o.filter(function(t) {
                     return !!t;
-                }), i.willChangeCostume = n;
-            }, r = 0, n = t; r < n.length; r++) {
-                i(n[r]);
+                }), e.willChangeCostume = r;
+            };
+            try {
+                for (var s = r.__values(t), u = s.next(); !u.done; u = s.next()) {
+                    o(u.value);
+                }
+            } catch (t) {
+                e = {
+                    error: t
+                };
+            } finally {
+                try {
+                    u && !u.done && (i = s.return) && i.call(s);
+                } finally {
+                    if (e) throw e.error;
+                }
             }
         }, i.prototype.importCustomRules = function(t) {
             void 0 === t && (t = []);
             var e = this.context;
             t instanceof Array || (t = []), t.forEach(function(t, i, r) {
-                new S.HSCustomRule(e).parseJSON(t);
+                new d.HSCustomRule(e).parseJSON(t);
             }), t.forEach(function(t, i, r) {
-                e.findWithObjectID(S.HSCustomRule.key, t.id).addRulesFromJSON(t);
+                e.findWithObjectID(d.HSCustomRule.key, t.id).addRulesFromJSON(t);
             });
         }, i.prototype.parseScriptDictionaries = function(t) {
             void 0 === t && (t = []);
             for (var e = [], i = 0; i < t.length; i++) {
-                var r = new h.HSScript(this.context);
+                var r = new u.HSScript(this.context);
                 e.push(r), r.addObjectIDFromJSON(t[i]);
             }
             for (i = 0; i < e.length; i++) {
@@ -2903,22 +3232,22 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             void 0 === t && (t = []);
             var e = this.context;
             t.forEach(function(t, i, r) {
-                new u.HSRule(e).parseJSON(t);
+                new c.HSRule(e).parseJSON(t);
             });
         }, i.prototype.parseScenesDictionaries = function(t) {
             if (void 0 === t && (t = []), t.length > 0) {
                 var e = this.context;
                 this.scenes = t.map(function(t) {
-                    var i = new c.HSScene(e);
+                    var i = new s.HSScene(e);
                     return i.parseJSON(t), i;
                 });
             } else {
-                var i = new c.HSScene(this.context);
+                var i = new s.HSScene(this.context);
                 i.parseJSON(), this.scenes = [ i ];
             }
         }, i;
-    }(o.HSManagedObject);
-    e.HSProject = f, window.HSProject = f, window.OBJECTS_KEY = e.OBJECTS_KEY, window.RULES_KEY = e.RULES_KEY, 
+    }(n.HSManagedObject);
+    e.HSProject = S, window.HSProject = S, window.OBJECTS_KEY = e.OBJECTS_KEY, window.RULES_KEY = e.RULES_KEY, 
     window.VARIABLES_KEY = e.VARIABLES_KEY, window.TRAITS_KEY = e.TRAITS_KEY, window.EVENT_PARAMETERS_KEY = e.EVENT_PARAMETERS_KEY, 
     window.SCRIPTS_KEY = e.SCRIPTS_KEY, window.SCENES_KEY = e.SCENES_KEY;
 }, function(t, e, i) {
@@ -2926,7 +3255,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(31), n = i(9), o = i(32), a = i(24), s = i(0), c = function() {
+    var r = i(33), n = i(10), o = i(34), a = i(25), s = i(0), c = function() {
         function t(t, e, i) {
             void 0 === i && (i = []), this.type = t, this.scripts = e, this.parameters = i, 
             this.isImmediate = !1;
@@ -3001,7 +3330,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(9), n = i(14), o = i(38), a = i(0), s = i(1), c = function() {
+    var r = i(2), n = i(10), o = i(15), a = i(30), s = i(0), c = i(1), u = function() {
         function t(t, e) {
             this.blocksToExecuteNow = t, this.blocksToExecuteLater = e, this.isImmediate = !1;
         }
@@ -3013,66 +3342,63 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return e.executeBlock(i, t);
             });
         }, t.prototype.toString = function() {
-            return r.SourceFormatter.executableToSrc(this);
+            return n.SourceFormatter.executableToSrc(this);
         }, t.prototype.executeBlock = function(t, e) {
-            var i = t.parameters;
+            var i, n, u = t.parameters;
             switch (t.type) {
-              case a.HSBlockType.PlaySoundSeconds:
-              case a.HSBlockType.PlaySound:
-
+              case s.HSBlockType.PlaySoundSeconds:
+              case s.HSBlockType.PlaySound:
 				function notePath (val) {
 					//AE_MOD find path of note
 					var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
-					var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(i[2])?i[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+					var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(u[2])?u[2].computedStringValue(e):'0'] : ((isCustom)?"custom/":"");
 					return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
 				}
-                var r = o.HSSoundManager.sharedInstance//, c = i[0].computedStringValue(e);
-				var c = notePath(i[0].computedStringValue(e)) + i[0].computedStringValue(e);
-                r.play(c);
+                i = a.HSSoundManager.sharedInstance, n = notePath(u[0].computedStringValue(e)) + u[0].computedStringValue(e), i.play(n);
                 break;
 
-              case a.HSBlockType.MakeAClone:
-                var u = 1;
-                i[0] && (u = i[0].computedNumberValue(e)), e.clone(u);
+              case s.HSBlockType.MakeAClone:
+                var l = 1;
+                u[0] && (l = u[0].computedNumberValue(e)), e.clone(l);
                 break;
 
-              case a.HSBlockType.Destroy:
+              case s.HSBlockType.Destroy:
                 e.addToDestroyQueue();
                 break;
 
-              case a.HSBlockType.ChangeX:
-              case a.HSBlockType.ChangeY:
-              case a.HSBlockType.Move:
-              case a.HSBlockType.Rotate:
-                var h = e.x, l = e.y, p = e.headingInDegrees;
-                e.executeBlock(t), e.x === h && e.y === l && e.headingInDegrees === p && this.blocksToExecuteLater.shift();
+              case s.HSBlockType.ChangeX:
+              case s.HSBlockType.ChangeY:
+              case s.HSBlockType.Move:
+              case s.HSBlockType.Rotate:
+                var h = e.x, p = e.y, d = e.headingInDegrees;
+                e.executeBlock(t), e.x === h && e.y === p && e.headingInDegrees === d && this.blocksToExecuteLater.shift();
                 break;
 
-              case a.HSBlockType.ChangeScene:
-                n.HSStageProject.sharedInstance.changeScene(i[0].computedStringValue(e));
+              case s.HSBlockType.ChangeScene:
+                o.HSStageProject.sharedInstance.changeScene(u[0].computedStringValue(e));
                 break;
 
-              case a.HSBlockType.BroadcastMessage:
-                var d = i[0].computedStringValue(e);
-                d && e.queueEventMessage(d);
+              case s.HSBlockType.BroadcastMessage:
+                var S = u[0].computedStringValue(e);
+                S && e.queueEventMessage(S);
                 break;
 
-              case a.HSBlockType.RequestSeeds:
+              case s.HSBlockType.RequestSeeds:
                 !function(t, e) {
-                    var i = t[0], r = t[1].variable();
-                    if (!r || 1 === r.computedNumberValue(e)) return;
-                    var n = r.getPublicName();
-                    if (!n) return;
-                    var o = Math.max(0, Math.floor(i.computedNumberValue(e)));
+                    var i = r.__read(t, 2), n = i[0], o = i[1].variable();
+                    if (!o || 1 === o.computedNumberValue(e)) return;
+                    var a = o.getPublicName();
+                    if (!a) return;
+                    var s = Math.max(0, Math.floor(n.computedNumberValue(e)));
                     !function(t, e, i) {
-                        if (!s.isIOSApp()) return void (confirm('This project is using a feature only available in the Hopscotch iOS App. Tap "OK" to download it!') && window.open("https://apps.apple.com/us/app/hopscotch-make-games/id617098629", "_self"));
-                        s.HSApp.sendToApp("product:purchase", JSON.stringify({
+                        if (!c.isIOSApp()) return void (confirm('This project is using a feature only available in the Hopscotch iOS App. Tap "OK" to download it!') && window.open("https://apps.apple.com/us/app/hopscotch-make-games/id617098629", "_self"));
+                        c.HSApp.sendToApp("product:purchase", JSON.stringify({
                             variableID: t,
                             variableName: e,
                             seeds: i
                         }));
-                    }(r.objectID, n, o);
-                }(i, e);
+                    }(o.objectID, a, s);
+                }(u, e);
                 break;
 
               default:
@@ -3090,130 +3416,121 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
 					console.groupEnd();
 					throw E;
 				}
+				
             }
         }, t;
     }();
-    e.HSExecutable = c, window.HSExecutable = c;
+    e.HSExecutable = u, window.HSExecutable = u;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(31), n = i(9), o = i(24), a = i(0), s = i(4), c = i(1), u = function() {
+    var r = i(30), n = i(33), o = i(10), a = i(25), s = i(0), c = i(5), u = i(1), l = function() {
         function t(t, e) {
-            void 0 === e && (e = []), this.type = t, this.parameters = e, this.id = c.hs_random_id(), 
-            this.isImmediate = [ a.HSBlockType.PenDown, a.HSBlockType.StrokeColor, a.HSBlockType.StrokeWidth, a.HSBlockType.PenUp, a.HSBlockType.SetVariable, a.HSBlockType.ChangeVariable ].includes(t);
+            void 0 === e && (e = []), this.type = t, this.parameters = e, this.id = u.hs_random_id(), 
+            this.isImmediate = [ s.HSBlockType.PenDown, s.HSBlockType.StrokeColor, s.HSBlockType.StrokeWidth, s.HSBlockType.PenUp, s.HSBlockType.SetVariable, s.HSBlockType.ChangeVariable ].includes(t);
         }
         return t.prototype.isOverStepSize = function(t, e) {
             return this.usesStepSize() && Math.abs(this.firstIntegerValue(e)) > t;
         }, t.prototype.isWaitBlock = function() {
-            return this.type === a.HSBlockType.Wait || this.type === a.HSBlockType.WaitSeconds;
+            return this.type === s.HSBlockType.Wait || this.type === s.HSBlockType.WaitSeconds;
         }, t.prototype.isFinishedTimestampBlock = function(t) {
-            return this.type === a.HSBlockType.WaitTilTimestamp && this.firstIntegerValue(t) <= Date.now();
+            return this.type === s.HSBlockType.WaitTilTimestamp && this.firstIntegerValue(t) <= Date.now();
         }, t.prototype.isUnfinishedTimestampBlock = function(t) {
-            return this.type === a.HSBlockType.WaitTilTimestamp && this.firstIntegerValue(t) > Date.now();
+            return this.type === s.HSBlockType.WaitTilTimestamp && this.firstIntegerValue(t) > Date.now();
         }, t.prototype.usesStepSize = function() {
-            return -1 !== [ a.HSBlockType.ChangeX, a.HSBlockType.ChangeY, a.HSBlockType.Move, a.HSBlockType.Rotate ].indexOf(this.type);
+            return -1 !== [ s.HSBlockType.ChangeX, s.HSBlockType.ChangeY, s.HSBlockType.Move, s.HSBlockType.Rotate ].indexOf(this.type);
         }, t.prototype.firstIntegerValue = function(t) {
             var e;
             return (null === (e = this.parameters[0]) || void 0 === e ? void 0 : e.computedNumberValue(t)) || 0;
         }, t.prototype.calculateValueMinusOneStep = function(t, e) {
             return this.isOverStepSize(t, e) ? this.signOfFirstValue(e) * (Math.abs(this.firstIntegerValue(e)) - Math.abs(t)) : 0;
-        }, t.prototype.executableForStepSize = function(e, i) {
-            if (this.isWaitBlock()) {
-                var n = this.getWaitMilliseconds(i), s = Date.now() + n;
-                return new t(a.HSBlockType.WaitTilTimestamp, [ new o.HSStageParameter(s + "") ]).executableForStepSize(e, i);
-            }
-            return new r.HSExecutable(this.blocksToExecuteNow(e, i), this.blocksToExecuteLater(e, i));
+        }, t.prototype.executableForStepSize = function(t, e, i) {
+            return this.isWaitBlock() ? this.waitTilMillisecondsForWait(e).executableForStepSize(t, e, i) : this.type == s.HSBlockType.PlayNote ? this.playNoteAndReturnWaitTime(t, e, i) : new n.HSExecutable(this.blocksToExecuteNow(t, e), this.blocksToExecuteLater(t, e));
+        }, t.prototype.playNoteAndReturnWaitTime = function(e, i, n) {
+            var o = r.HSSoundManager.sharedInstance, c = this.parameters[0].computedStringValue(i);
+            return o.playNote(c, i.instrument), new t(s.HSBlockType.Wait, [ new a.HSStageParameter(this.parameters[1].computedRhythmValue(i) + "") ]).waitTilMillisecondsForWait(i).executableForStepSize(e, i, n);
+        }, t.prototype.waitTilMillisecondsForWait = function(e) {
+            var i = this.getWaitMilliseconds(e), r = Date.now() + i;
+            return new t(s.HSBlockType.WaitTilTimestamp, [ new a.HSStageParameter(r + "") ]);
         }, t.prototype.getWaitMilliseconds = function(t) {
             if (!this.isWaitBlock()) return 0;
             var e = this.firstIntegerValue(t);
-            return this.type === a.HSBlockType.WaitSeconds ? 1e3 * e : e;
+            return this.type === s.HSBlockType.WaitSeconds ? 1e3 * e : e;
         }, t.prototype.blocksToExecuteNow = function(e, i) {
-            if (this.type === a.HSBlockType.WaitTilTimestamp) return [];
+            if (this.type === s.HSBlockType.WaitTilTimestamp) return [];
             if (!this.isOverStepSize(e, i)) return [ this ];
-            var r = new o.HSStageParameter("" + e * this.signOfFirstValue(i));
+            var r = new a.HSStageParameter("" + e * this.signOfFirstValue(i));
             return [ new t(this.type, [ r ]) ];
         }, t.prototype.toString = function() {
-            return n.SourceFormatter.stageMethodToSrc(this);
+            return o.SourceFormatter.stageMethodToSrc(this);
         }, t.prototype.signOfFirstValue = function(t) {
             var e = this.firstIntegerValue(t);
             return e / Math.abs(e);
         }, t.prototype.isPromptDone = function() {
             var t, e, i = (null === (t = this.parameters[0]) || void 0 === t ? void 0 : t.value) || "-1";
-            return null === (e = s.HSStageScene.promptsToExecute.find(function(t) {
+            return null === (e = c.HSStageScene.promptsToExecute.find(function(t) {
                 return t.id === i;
             })) || void 0 === e ? void 0 : e.isDone;
         }, t.prototype.blocksToExecuteLater = function(e, i) {
             switch (this.type) {
-              case a.HSBlockType.WaitTilTimestamp:
+              case s.HSBlockType.WaitTilTimestamp:
                 return this.firstIntegerValue(i) > Date.now() ? [ this ] : [];
 
-              case a.HSBlockType.ChangeX:
-              case a.HSBlockType.Ability:
-              case a.HSBlockType.ChangeY:
-              case a.HSBlockType.AnyObject:
-              case a.HSBlockType.Move:
-              case a.HSBlockType.Rotate:
-                var r = this.calculateValueMinusOneStep(e, i), n = new o.HSStageParameter("" + r);
+              case s.HSBlockType.ChangeX:
+              case s.HSBlockType.Ability:
+              case s.HSBlockType.ChangeY:
+              case s.HSBlockType.AnyObject:
+              case s.HSBlockType.Move:
+              case s.HSBlockType.Rotate:
+                var r = this.calculateValueMinusOneStep(e, i), n = new a.HSStageParameter("" + r);
                 return [ new t(this.type, [ n ]) ];
 
-              case a.HSBlockType.WaitUntilInputIsDone:
+              case s.HSBlockType.WaitUntilInputIsDone:
                 return this.isPromptDone() ? [] : [ this ];
 
-              case a.HSBlockType.SaveInput:
-              case a.HSBlockType.SetTextToInput:
-                return [ new t(a.HSBlockType.WaitUntilInputIsDone, [ new o.HSStageParameter(this.id) ]) ];
+              case s.HSBlockType.SaveInput:
+              case s.HSBlockType.SetTextToInput:
+                return [ new t(s.HSBlockType.WaitUntilInputIsDone, [ new a.HSStageParameter(this.id) ]) ];
 
-              case a.HSBlockType.PlaySound:
-                return [ new t(a.HSBlockType.Wait, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
+              case s.HSBlockType.PlaySound:
+                return [ new t(s.HSBlockType.Wait, [ new a.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
 
-              case a.HSBlockType.PlaySoundSeconds:
-                return [ new t(a.HSBlockType.WaitSeconds, [ new o.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
+              case s.HSBlockType.PlayNote:
+                return [ new t(s.HSBlockType.Wait, [ new a.HSStageParameter(this.parameters[1].computedRhythmValue(i) + "") ]) ];
+
+              case s.HSBlockType.PlaySoundSeconds:
+                return [ new t(s.HSBlockType.WaitSeconds, [ new a.HSStageParameter(this.parameters[1].computedValue(i) + "") ]) ];
 
               default:
                 return [];
             }
         }, t;
     }();
-    e.HSStageMethod = u, window.HSStageMethod = u;
+    e.HSStageMethod = l, window.HSStageMethod = l;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(30), a = i(11), s = i(13), c = i(19);
+    var r = i(2), n = i(32), o = i(12), a = i(14), s = i(22);
     e.CONTROL_SCRIPT_KEY = "controlScript";
-    var u = function(t) {
+    var c = function(t) {
         function i() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.scripts = [], e.isControl = !0, e;
         }
-        return n(i, t), i.prototype.stageBlock = function() {
-            var t = this.scripts[0] || new c.HSScript(this.context);
-            return new o.HSStageControl(this.type, [ t ], this.stageParameters());
+        return r.__extends(i, t), i.prototype.stageBlock = function() {
+            var t = this.scripts[0] || new s.HSScript(this.context);
+            return new n.HSStageControl(this.type, [ t ], this.stageParameters());
         }, i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i);
-            var r = (i[e.CONTROL_SCRIPT_KEY] || [])[a.SCRIPT_ID_KEY] || "", n = this.context.findWithObjectID("HSScript", r);
-            this.scripts.push(n || new c.HSScript(this.context));
+            var r = (i[e.CONTROL_SCRIPT_KEY] || [])[o.SCRIPT_ID_KEY] || "", n = this.context.findWithObjectID("HSScript", r);
+            this.scripts.push(n || new s.HSScript(this.context));
         }, i.key = "HSControlBlock", i;
-    }(s.HSBlock);
-    e.HSControlBlock = u, window.HSControlBlock = u;
+    }(a.HSBlock);
+    e.HSControlBlock = c, window.HSControlBlock = c;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
@@ -3255,7 +3572,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(21), n = i(1), o = i(46), a = i(27), s = i(47), c = i(6), u = i(3), h = function() {
+    var r = i(24), n = i(1), o = i(47), a = i(28), s = i(48), c = i(7), u = i(4), l = function() {
         function t(t) {
             this.props = t, this.sprite = new PIXI.Sprite(), this.canvas = null, this.textureExists = !1, 
             this.onTextureBuild = null, this.buildTexture(), this.update(this.props);
@@ -3297,8 +3614,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return isNaN(t) ? i === c.HSObjectType.text ? 1 / o.HSTextTextureFactory.scaleUp() : 1 : t / e;
         }, t.prototype.getSpriteScale = function(t, e, i, r, n, o) {
             void 0 === o && (o = !1);
-            var a = this.getOriginalScale(e, t, n), s = i * r * .01 * this.scaleForObjectType(n), c = Math.abs(s), u = s / c, h = Math.min(c, 1024) * u * a;
-            return Math.round(t * h) / t * (o ? -1 : 1);
+            var a = this.getOriginalScale(e, t, n), s = i * r * .01 * this.scaleForObjectType(n), c = Math.abs(s), u = s / c, l = Math.min(c, 1024) * u * a;
+            return Math.round(t * l) / t * (o ? -1 : 1);
         }, t.prototype.update = function(t) {
             var e = this.props;
             if (this.props = t, this.needsNewTexture(e) && this.buildTexture(), this.textureExists) {
@@ -3322,13 +3639,13 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return t === c.HSObjectType.hexagon ? 1.05 : 1;
         }, t.xmlSerializer = new XMLSerializer(), t.svgCache = {}, t;
     }();
-    e.HSView = h, window.HSView = h;
+    e.HSView = l, window.HSView = l;
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(6), n = i(51), o = i(52), a = i(37), s = function() {
+    var r = i(7), n = i(52), o = i(53), a = i(39), s = function() {
         function t() {
             this.cache = {}, this.tempRect = new PIXI.Rectangle(), this.currentTime = Date.now(), 
             this.canvas = document.createElement("canvas"), this.ctx = this.canvas.getContext("2d"), 
@@ -3351,15 +3668,15 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var c = this.createCollisionInfo();
             return this.cache[e] = c, c;
         }, t.prototype.createCollisionInfo = function() {
-            for (var e = this.canvas.width, i = this.canvas.height, r = this.ctx.getImageData(0, 0, e, i).data, o = Number.MAX_SAFE_INTEGER, a = Number.MAX_SAFE_INTEGER, s = Number.MIN_SAFE_INTEGER, c = Number.MIN_SAFE_INTEGER, u = t.PIXEL_OFFSET, h = new Uint8ClampedArray(e * i / u | 0), l = 3; l < r.length; l += 4 * u) {
-                var p = l / 4 | 0;
-                if (0 !== r[l]) {
-                    h[p / u | 0] = 255;
+            for (var e = this.canvas.width, i = this.canvas.height, r = this.ctx.getImageData(0, 0, e, i).data, o = Number.MAX_SAFE_INTEGER, a = Number.MAX_SAFE_INTEGER, s = Number.MIN_SAFE_INTEGER, c = Number.MIN_SAFE_INTEGER, u = t.PIXEL_OFFSET, l = new Uint8ClampedArray(e * i / u | 0), h = 3; h < r.length; h += 4 * u) {
+                var p = h / 4 | 0;
+                if (0 !== r[h]) {
+                    l[p / u | 0] = 255;
                     var d = p % e, S = p / e | 0;
                     d < o && (o = d), d > s && (s = d), S < a && (a = S), S > c && (c = S);
                 }
             }
-            return new n.CollisionInfo(h, 0 | e, 0 | i, 0 | o, 0 | a, 0 | s, 0 | c);
+            return new n.CollisionInfo(l, 0 | e, 0 | i, 0 | o, 0 | a, 0 | s, 0 | c);
         }, t.prototype.cleanCache = function() {
             for (var t in this.cache) this.cache[t].readyToDrop(this.currentTime) && delete this.cache[t];
         }, t.prototype.createCollisionObject = function(t) {
@@ -3385,11 +3702,11 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return c(t.getMaskBounds(), e.getMaskBounds());
             }(t, e) && this.existsMaskCollision(t, e)));
         }, t.prototype.existsMaskCollision = function(t, e) {
-            var i, r, n, o, s, c, u, h = t.getMaskBounds(), l = e.getMaskBounds(), p = (i = h, 
-            r = l, n = this.tempRect, o = Math.max(i.x, r.x), s = Math.max(i.y, r.y), c = Math.min(i.x + i.width, r.x + r.width), 
+            var i, r, n, o, s, c, u, l = t.getMaskBounds(), h = e.getMaskBounds(), p = (i = l, 
+            r = h, n = this.tempRect, o = Math.max(i.x, r.x), s = Math.max(i.y, r.y), c = Math.min(i.x + i.width, r.x + r.width), 
             u = Math.min(i.y + i.height, r.y + r.height), n.x = o, n.y = s, n.width = c - o, 
             n.height = u - s, n), d = 0 | p.x, S = 0 | p.y, f = d + p.width | 0, g = S + p.height | 0;
-            return a.CollisionManagerDebug.ENABLED ? this.debug.checkCollision(t, e, d, S, f, g) : !!this.intersectionCoverMoreThan(.5, p, h, l) || this.checkCollision(t, e, d, S, f, g);
+            return a.CollisionManagerDebug.ENABLED ? this.debug.checkCollision(t, e, d, S, f, g) : !!this.intersectionCoverMoreThan(.5, p, l, h) || this.checkCollision(t, e, d, S, f, g);
         }, t.prototype.intersectionCoverMoreThan = function(t, e, i, r) {
             var n = e.width * e.height, o = i.width * i.height * t, a = r.width * r.height * t;
             return o > a ? n > o : n > a;
@@ -3460,138 +3777,64 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(61);
-    e.AudioContext = window.AudioContext || window.webkitAudioContext;
-    var n = function() {
-        function t(e) {
-            var i = this;
-            this.sounds = {}, this.context = t.audioContext, this.isMuted = !1, e.forEach(function(t) {
-                i.sounds[t] = new r.HSSound(t, i.context);
-            }), t.hasUnlockListener || (t.hasUnlockListener = !0, this.eventListenerFunc = function() {
-                var t = i.context.createBufferSource();
-                t.buffer = i.context.createBuffer(1, 1, 22050), t.connect(i.context.destination), 
-                t.start(0), window.removeEventListener("touchstart", i.eventListenerFunc), window.removeEventListener("touchend", i.eventListenerFunc);
-            }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc));
-        }
-        return t.prototype.play = function(t) {
-            this.sounds[t] && !this.isMuted && this.sounds[t].play();
-        }, t.prototype.mute = function() {
-            this.isMuted || Object.values(this.sounds).forEach(function(t) {
-                return t.stop();
-            }), this.isMuted = !0;
-        }, t.prototype.unmute = function() {
-            this.isMuted = !1;
-        }, t.audioContext = new e.AudioContext(), t.hasUnlockListener = !1, t;
-    }();
-    e.HSSoundManager = n, window.HSSoundManager = n;
-}, function(t, e, i) {
-    "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
-    Object.defineProperty(e, "__esModule", {
-        value: !0
-    });
-    var o = i(7), a = i(4), s = i(5), c = i(29), u = function(t) {
+    var r = i(2), n = i(8), o = i(5), a = i(6), s = i(31), c = function(t) {
         function e() {
             var e = null !== t && t.apply(this, arguments) || this;
             return e.objects = [], e;
         }
-        return n(e, t), e.prototype.parseJSON = function(t) {
+        return r.__extends(e, t), e.prototype.parseJSON = function(t) {
             var e = this;
-            void 0 === t && (t = {}), t[c.OBJECTS_KEY] && t[c.OBJECTS_KEY].length > 0 ? this.objects = t[c.OBJECTS_KEY].map(function(t) {
-                return e.context.findWithObjectID(s.HSObject.key, t);
-            }) : t[c.OBJECTS_KEY] && 0 === t[c.OBJECTS_KEY].length ? this.objects = [] : this.objects = this.context.findAllForClassName(s.HSObject.key), 
+            void 0 === t && (t = {}), t[s.OBJECTS_KEY] && t[s.OBJECTS_KEY].length > 0 ? this.objects = t[s.OBJECTS_KEY].map(function(t) {
+                return e.context.findWithObjectID(a.HSObject.key, t);
+            }) : t[s.OBJECTS_KEY] && 0 === t[s.OBJECTS_KEY].length ? this.objects = [] : this.objects = this.context.findAllForClassName(a.HSObject.key), 
             this.name = t.name;
         }, e.prototype.stageScene = function() {
-            return new a.HSStageScene(this);
+            return new o.HSStageScene(this);
         }, e.key = "HSScene", e;
-    }(o.HSManagedObject);
-    e.HSScene = u, window.HSScene = u;
+    }(n.HSManagedObject);
+    e.HSScene = c, window.HSScene = c;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(11), a = i(30), s = i(33), c = i(19);
+    var r = i(2), n = i(12), o = i(32), a = i(35), s = i(22);
     e.FALSE_SCRIPT_KEY = "controlFalseScript";
-    var u = function(t) {
+    var c = function(t) {
         function i() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(i, t), i.prototype.parseJSON = function(i) {
+        return r.__extends(i, t), i.prototype.parseJSON = function(i) {
             void 0 === i && (i = {}), t.prototype.parseJSON.call(this, i);
-            var r = (i[e.FALSE_SCRIPT_KEY] || [])[o.SCRIPT_ID_KEY] || "", n = this.context.findWithObjectID("HSScript", r);
-            this.scripts.push(n || new c.HSScript(this.context));
+            var r = (i[e.FALSE_SCRIPT_KEY] || [])[n.SCRIPT_ID_KEY] || "", o = this.context.findWithObjectID("HSScript", r);
+            this.scripts.push(o || new s.HSScript(this.context));
         }, i.prototype.stageBlock = function() {
             var t = this.trueScript(), e = this.falseScript();
-            return new a.HSStageControl(this.type, [ t, e ], this.stageParameters());
+            return new o.HSStageControl(this.type, [ t, e ], this.stageParameters());
         }, i.prototype.trueScript = function() {
             return this.scripts[0];
         }, i.prototype.falseScript = function() {
             return this.scripts[1];
         }, i.key = "HSConditionalControl", i;
-    }(s.HSControlBlock);
-    e.HSConditionalControl = u, window.HSConditionalControl = u;
+    }(a.HSControlBlock);
+    e.HSConditionalControl = c, window.HSConditionalControl = c;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(32), a = function(t) {
+    var r = i(2), n = i(34), o = function(t) {
         function e() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(e, t), e.prototype.stageBlock = function() {
-            return this._stageBlock || (this._stageBlock = new o.HSStageMethod(this.type, this.stageParameters())), 
+        return r.__extends(e, t), e.prototype.stageBlock = function() {
+            return this._stageBlock || (this._stageBlock = new n.HSStageMethod(this.type, this.stageParameters())), 
             this._stageBlock;
         }, e.key = "HSMethodBlock", e;
-    }(i(13).HSBlock);
-    e.HSMethodBlock = a, window.HSMethodBlock = a;
+    }(i(14).HSBlock);
+    e.HSMethodBlock = o, window.HSMethodBlock = o;
 }, function(t, e, i) {
-    i(43), t.exports = i(15);
+    i(44), t.exports = i(16);
 }, function(t, e, i) {
     var r;
     !function t(e, i, n) {
@@ -3603,13 +3846,13 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                     var u = new Error("Cannot find module '" + s + "'");
                     throw u.code = "MODULE_NOT_FOUND", u;
                 }
-                var h = i[s] = {
+                var l = i[s] = {
                     exports: {}
                 };
-                e[s][0].call(h.exports, function(t) {
+                e[s][0].call(l.exports, function(t) {
                     var i = e[s][1][t];
                     return o(i || t);
-                }, h, h.exports, t, e, i, n);
+                }, l, l.exports, t, e, i, n);
             }
             return i[s].exports;
         }
@@ -3744,19 +3987,19 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                     r = null, a = !1, clearTimeout(t);
                 }
             }
-            function h(t, e) {
+            function l(t, e) {
                 this.fun = t, this.array = e;
             }
-            function l() {}
+            function h() {}
             n.nextTick = function(t) {
                 var e = new Array(arguments.length - 1);
                 if (arguments.length > 1) for (var i = 1; i < arguments.length; i++) e[i - 1] = arguments[i];
-                o.push(new h(t, e)), 1 !== o.length || a || setTimeout(u, 0);
-            }, h.prototype.run = function() {
+                o.push(new l(t, e)), 1 !== o.length || a || setTimeout(u, 0);
+            }, l.prototype.run = function() {
                 this.fun.apply(null, this.array);
             }, n.title = "browser", n.browser = !0, n.env = {}, n.argv = [], n.version = "", 
-            n.versions = {}, n.on = l, n.addListener = l, n.once = l, n.off = l, n.removeListener = l, 
-            n.removeAllListeners = l, n.emit = l, n.binding = function(t) {
+            n.versions = {}, n.on = h, n.addListener = h, n.once = h, n.off = h, n.removeListener = h, 
+            n.removeAllListeners = h, n.emit = h, n.binding = function(t) {
                 throw new Error("process.binding is not supported");
             }, n.cwd = function() {
                 return "/";
@@ -3772,7 +4015,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(0), o = i(3), a = i(1), s = function() {
+    var r = i(9), n = i(0), o = i(4), a = i(1), s = function() {
         function t(e, i) {
             var r;
             this.object = e, this.isOnScreen = !1, t.enableAntiSpam(), this.type = i.type, this.id = i.id, 
@@ -3781,7 +4024,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             this.view = new u(this.promptText, this.placeholderText);
         }
         return t.enableAntiSpam = function() {
-            null === t.antiSpam && (t.antiSpam = new h());
+            null === t.antiSpam && (t.antiSpam = new l());
         }, t.prototype.execute = function() {
             this.displayIfNeeded(), this.checkValue();
         }, t.prototype.checkSpam = function(t) {
@@ -3856,7 +4099,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 var r = document.createElement("p");
                 c(r.style, {
                     fontSize: "2em",
-					fontFamily: "Avenir, sans-serif",
+                    fontFamily: "Avenir, sans-serif",
                     fontWeight: "normal",
                     color: "#000000c2",
                     margin: "10px 0px",
@@ -3865,11 +4108,11 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 var n = document.createElement("input");
 				n.value = tu;
                 c(n.style, {
-                    width: "100%",
+                    width: "300px",
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
-                    fontFamily: "Avenir, sans-serif",
+                    fontFamily: "Avenir",
                     borderWidth: "2px",
                     borderStyle: "solid",
                     borderRadius: "8px",
@@ -3880,7 +4123,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
                 var o = document.createElement("a");
                 c(o.style, {
-                    fontFamily: "Avenir, sans-serif",
+                    fontFamily: "Avenir",
                     display: "block",
                     position: "relative",
                     textAlign: "center",
@@ -3890,14 +4133,18 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                     fontWeight: "bold",
                     fontSize: "1.8em",
                     borderRadius: "19px",
-                    width: "120px",
+                    width: "100px",
                     margin: "10px auto -1px",
                     cursor: "pointer",
 					userSelect: "none",
 					webkitUserSelect: "none"
                 }), o.innerText = "OK";
                 var s = !a.isIOSApp() && "ontouchstart" in document.documentElement ? "touchstart" : "click";
-                o.addEventListener(s, function() {
+                //AE_MOD Enter to close prompt
+				o.addEventListener("keydown", function(_E) {
+                    if(_E.keycode === 13) e.isDone = !0, e.hide();
+                });
+				o.addEventListener(s, function() {
                     e.isDone = !0, e.hide();
                 }), n.addEventListener(s, function(t) {
                     return n.focus();
@@ -3908,7 +4155,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.show = function(t) {
             this.showAppPromptIfNecessary(t), this.showBrowserPromptIfNecessary();
         }, t.prototype.showBrowserPromptIfNecessary = function() {
-            a.isIOSApp() || (document.getElementById("ae-hs-player").appendChild(this.div), /*this.input.value = "",*/ this.input.focus());
+            a.isIOSApp() || (document.getElementById("ae-hs-player").appendChild(this.div), /* this.input.value = "", */ this.input.focus());
         }, t.prototype.showAppPromptIfNecessary = function(t) {
             var e = this;
             a.isIOSApp() && (a.HSApp.sendToApp("input_prompt" + (t ? ":spam" : ""), this.text), 
@@ -3932,7 +4179,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }), t;
     }();
     e.PromptView = u;
-    var h = function() {
+    var l = function() {
         function t() {
             var t = this;
             this.minTimeBeforeSpam = 1600, this.timeBeforeCheck = 2200, this.count = 0, this.lastTime = 0, 
@@ -3960,7 +4207,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(2), n = i(0), o = i(8), a = function() {
+    var r = i(3), n = i(0), o = i(9), a = function() {
         function t(t) {
             this.parameterBlock = t;
         }
@@ -3994,7 +4241,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(20), n = i(17), o = i(1), a = i(3), s = function() {
+    var r = i(23), n = i(20), o = i(1), a = i(4), s = function() {
         function t() {}
         return t.setFont = function(e, i) {
             e.font = i / 2 + "px " + t.FONT_FAMILIES.join(", "), e.textAlign = "left", e.textBaseline = "top";
@@ -4024,11 +4271,11 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             t.setFont(s, i.fontSize);
             var c = i.text, u = a.HSColor.rgbWhiteColor;
             o.hasEmoji(c) && (u = i.color);
-            var h = n.flow(s, r.HSTextNode.MAX_LINE_WIDTH);
-            if (0 === h.width || 0 === h.height) return null;
-            var l = t.scaleUp();
-            return e.width = Math.min(h.width * l, 4096), e.height = Math.min(h.height * l, 4096), 
-            t.setFont(s, i.fontSize), s.scale(l, l), s.fillStyle = a.HSColor.rgbStringFromHSBString(u), 
+            var l = n.flow(s, r.HSTextNode.MAX_LINE_WIDTH);
+            if (0 === l.width || 0 === l.height) return null;
+            var h = t.scaleUp();
+            return e.width = Math.min(l.width * h, 4096), e.height = Math.min(l.height * h, 4096), 
+            t.setFont(s, i.fontSize), s.scale(h, h), s.fillStyle = a.HSColor.rgbStringFromHSBString(u), 
             e;
         }, t.FONT_FAMILIES = [ "Avenir-Book", "Hiragino Sans", "sans-serif", "AppleSymbols" ], 
         t.instance = new t(), t.textureCache = {}, t;
@@ -4039,7 +4286,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(35), n = i(6), o = i(3), a = function() {
+    var r = i(37), n = i(7), o = i(4), a = function() {
         function t() {}
         return t.prototype.build = function(t, e) {
             return Promise.resolve(this._build(e));
@@ -4077,7 +4324,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(34), n = i(3), o = i(18), a = function() {
+    var r = i(36), n = i(4), o = i(21), a = function() {
         function t(t, e, i, r) {
             void 0 === t && (t = 0), void 0 === e && (e = 0), void 0 === i && (i = 0), void 0 === r && (r = 0), 
             this.centerX = t, this.centerY = e, this.halfWidth = i, this.halfHeight = r, this.vertices = [ new o.Vec2(), new o.Vec2(), new o.Vec2(), new o.Vec2() ], 
@@ -4112,15 +4359,15 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             });
         }, t.prototype.containsPoint = function(t, e) {
             this.pointTestVecs || (this.pointTestVecs = [ new o.Vec2(), new o.Vec2(), new o.Vec2() ]);
-            var i = new o.Vec2(t, e), r = this.vertices[0], n = this.vertices[1], a = this.vertices[3], s = this.pointTestVecs[0].subtract(n, r), c = this.pointTestVecs[1].subtract(a, r), u = this.pointTestVecs[2].subtract(i, r), h = u.dot(s) / s.len(), l = u.dot(c) / c.len();
-            return h > 0 && h < s.len() && l > 0 && l < c.len();
+            var i = new o.Vec2(t, e), r = this.vertices[0], n = this.vertices[1], a = this.vertices[3], s = this.pointTestVecs[0].subtract(n, r), c = this.pointTestVecs[1].subtract(a, r), u = this.pointTestVecs[2].subtract(i, r), l = u.dot(s) / s.len(), h = u.dot(c) / c.len();
+            return l > 0 && l < s.len() && h > 0 && h < c.len();
         }, t.prototype.area = function() {
             return this.width() * this.height();
         }, t.prototype.overlapsWithOtherBoundingBox = function(t) {
             return this.maxX() > t.minX() && this.minX() < t.maxX() && this.maxY() > t.minY() && this.minY() < t.maxY();
         }, t.prototype.intersectionRectWithOtherBoundingBox = function(e) {
             if (this.surroundingBox || (this.surroundingBox = new t()), !this.overlapsWithOtherBoundingBox(e)) return t.zero;
-            var i = this.minX(), r = this.minY(), n = this.maxX(), o = this.maxY(), a = e.minX(), s = e.minY(), c = e.maxX(), u = e.maxY(), h = Math.max(i, a), l = Math.max(r, s), p = Math.min(n, c), d = Math.min(o, u), S = .5 * (h + p), f = .5 * (l + d), g = .5 * (p - h), y = .5 * (d - l);
+            var i = this.minX(), r = this.minY(), n = this.maxX(), o = this.maxY(), a = e.minX(), s = e.minY(), c = e.maxX(), u = e.maxY(), l = Math.max(i, a), h = Math.max(r, s), p = Math.min(n, c), d = Math.min(o, u), S = .5 * (l + p), f = .5 * (h + d), g = .5 * (p - l), y = .5 * (d - h);
             return this.surroundingBox.update(S, f, g, y), this.surroundingBox;
         }, t.zero = new t(), t;
     }();
@@ -4130,7 +4377,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(28);
+    var r = i(29);
     HTMLCanvasElement.prototype.unscaledWidth = function() {
         return this.width;
     }, HTMLCanvasElement.prototype.unscaledHeight = function() {
@@ -4165,7 +4412,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(4), n = i(28), o = i(6), a = i(36);
+    var r = i(5), n = i(29), o = i(7), a = i(38);
     e.makeDebugCanvas = function(t, e) {
         var i = document.createElement("canvas");
         return i.style.position = "fixed", i.style.top = t + "px", i.style.left = e + "px", 
@@ -4204,8 +4451,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.boundingBoxForObject = function(t) {
             return t.boundingBox();
         }, t.prototype.generatePixelTestData = function(t, e, i, r) {
-            var n = (t = this.prepareCanvasForPixelTest(t, e, i, r)).getContext("2d"), o = t.width / i.width(), a = t.height / i.height(), s = Math.round((r.minX() - i.minX()) * o), c = Math.round((i.maxY() - r.maxY()) * a), u = Math.max(Math.ceil((r.maxX() - r.minX()) * o), 1), h = Math.max(Math.ceil((r.maxY() - r.minY()) * a), 1);
-            return n.getImageData(s, c, u, h);
+            var n = (t = this.prepareCanvasForPixelTest(t, e, i, r)).getContext("2d"), o = t.width / i.width(), a = t.height / i.height(), s = Math.round((r.minX() - i.minX()) * o), c = Math.round((i.maxY() - r.maxY()) * a), u = Math.max(Math.ceil((r.maxX() - r.minX()) * o), 1), l = Math.max(Math.ceil((r.maxY() - r.minY()) * a), 1);
+            return n.getImageData(s, c, u, l);
         }, t.prototype.prepareCanvasForPixelTest = function(t, e, i, r) {
             var n = e.imageForCollision();
             if (!n) return t;
@@ -4232,7 +4479,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(36), n = function() {
+    var r = i(38), n = function() {
         function t(t, e, i, r, n, o, a) {
             this.mask = t, this.width = e, this.height = i, this.minX = r, this.minY = n, this.maxX = o, 
             this.maxY = a, this.lastUse = Date.now();
@@ -4273,8 +4520,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 var e = t.x, i = t.y;
                 e < a && (a = e), e > c && (c = e), i < s && (s = i), i > u && (u = i);
             });
-            var h = c - a, l = u - s;
-            return this.tempRect.x = a, this.tempRect.y = s, this.tempRect.width = h, this.tempRect.height = l, 
+            var l = c - a, h = u - s;
+            return this.tempRect.x = a, this.tempRect.y = s, this.tempRect.width = l, this.tempRect.height = h, 
             this.tempRect;
         }, t;
     }();
@@ -4284,7 +4531,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(6);
+    var r = i(7);
     e.HSOBJECT_SIZES = {}, e.HSOBJECT_SIZES[r.HSObjectType.text] = {
         width: 150,
         height: 150
@@ -4642,7 +4889,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(14), n = i(2), o = i(55), a = i(0), s = function() {
+    var r = i(15), n = i(3), o = i(56), a = i(0), s = function() {
         function t() {
             this.stageObjects = [], this.currentCollisions = new o.HSCollisionPairCollection([]), 
             this._stageObjectCache = new Set(), this._stageRulesCache = null, this._objectsToDestroy = [];
@@ -4878,7 +5125,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(14), n = i(2), o = i(58), a = i(0), s = i(1), c = function() {
+    var r = i(15), n = i(3), o = i(59), a = i(0), s = i(1), c = function() {
         function t(t, e) {
             var i = this;
             this.rule = t, this.currentObject = e, this.isActive = !1, this._collisionPairs = [], 
@@ -4886,7 +5133,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 var e;
                 t.trim() === (null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject)[0]) || void 0 === e ? void 0 : e.trim()) && i.activate();
             }, this.activateIfMatchesEventMessage = function(t) {
-                var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject/*AE_MOD FIX BROADCAST*/)[0]) || void 0 === e ? void 0 : e.trim();
+                var e, r = t.trim(), n = null === (e = i.eventBlock.parameterBlockStringValues(i.currentObject)[0]) || void 0 === e ? void 0 : e.trim();
                 s.checkMatches(r, n) && i.activate();
             }, this.stageScript = this.rule.script.stageScript(), this.eventBlock = this.rule.childBlock().stageParameterBlock();
         }
@@ -4994,8 +5241,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         value: !0
     });
     var r = function() {
-        function t(t, e, i) {
-            this.fileName = t, this.width = e, this.height = i;
+        function t(t, e, i, r) {
+            this.fileName = t, this.width = e, this.height = i, this.updatedDate = 0, r && (this.updatedDate = new Date(r).getTime());
         }
         return t.prototype.computedValue = function() {
             return 0;
@@ -5007,7 +5254,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(4), n = i(18), o = function(t, e, i) {
+    var r = i(5), n = i(21), o = function(t, e, i) {
         void 0 === i && (i = 0), this.id = i, this.id = i;
         var o = t.target, a = o.clientWidth, s = o.clientHeight;
         this.point = new n.Vec2(e[0] * r.HSStageScene.stageWidth / a, r.HSStageScene.stageHeight - e[1] * r.HSStageScene.stageHeight / s);
@@ -5069,15 +5316,16 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         value: !0
     });
     var r = i(1), n = function() {
-        function t(e, i) {
-            var r = this;
-            this.name = e, this.context = i, this.sources = new Set(), t.soundCache.has(e) || t.soundCache.set(e, new Promise(function(t, e) {
+        function t(e, i, r) {
+            var n = this;
+            void 0 === r && (r = "mp3"), this.name = e, this.context = i, this.extension = r, 
+            this.sources = new Set(), t.soundCache.has(e) || t.soundCache.set(e, new Promise(function(t, e) {
                 var i = new XMLHttpRequest();
-                i.open("GET", r.url(), !0), i.responseType = "arraybuffer", i.onload = function() {
-                    i.status >= 200 && i.status < 300 ? r.context.decodeAudioData(i.response, t, function() {}) : e(i);
+                i.open("GET", n.url(), !0), i.responseType = "arraybuffer", i.onload = function() {
+                    i.status >= 200 && i.status < 300 ? n.context.decodeAudioData(i.response, t, function() {}) : e(i);
                 }, i.onerror = e, i.send();
             })), t.soundCache.get(e).then(function(t) {
-                return r.buffer = t;
+                return n.buffer = t;
             });
         }
         return t.prototype.play = function() {
@@ -5094,7 +5342,9 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return t.stop();
             }), this.sources.clear();
         }, t.prototype.url = function() {
-            return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+            //return "https://d2jeqdlsh5ay24.cloudfront.net/" + this.name + "." + this.extension;
+			console.log(this);
+			return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + "." + (this.extension||"mp3");
         }, t.soundCache = new Map(), t;
     }();
     e.HSSound = n, window.HSSound = n;
@@ -5103,7 +5353,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(8), n = i(30), o = i(32), a = i(31), s = i(9), c = i(0), u = function() {
+    var r = i(9), n = i(32), o = i(34), a = i(33), s = i(10), c = i(0), u = function() {
         function t(t) {
             this.script = t, this.reset();
         }
@@ -5119,7 +5369,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return t.isImmediate;
             });
         }, t.prototype.blockIsVariable = function(t) {
-            return t === c.HSBlockType.SetVariable || t === c.HSBlockType.ChangeVariable;
+            return t === c.HSBlockType.SetVariable || t === c.HSBlockType.ChangeVariable || t === c.HSBlockType.RequestSeeds;
         }, t.prototype.doesBlockAffectExecutionOrder = function(t) {
             return !!this.isControlBlock(t) && (!this.blockIsEmpty(t) && (!!this.blockHasAScriptThatContainsVariables(t) || this.blockUsesVariable(t)));
         }, t.prototype.blockHasAScriptThatContainsVariables = function(t) {
@@ -5160,7 +5410,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return !n && (a || s);
             }; c(n); ) s.push(n), n = r.pop();
             if (!n) return new a.HSExecutable(s, []);
-            var u = n.executableForStepSize(t, e);
+            var u = n.executableForStepSize(t, e, this);
             return new a.HSExecutable(s.concat(u.blocksToExecuteNow), u.blocksToExecuteLater.concat(r.reverse()));
         }, t.prototype.deepCopy = function() {
             return new t(this.script);
@@ -5171,35 +5421,20 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     e.HSStageScript = u, window.HSStageScript = u;
 }, function(t, e, i) {
     "use strict";
-    var r, n = this && this.__extends || (r = function(t, e) {
-        return (r = Object.setPrototypeOf || {
-            __proto__: []
-        } instanceof Array && function(t, e) {
-            t.__proto__ = e;
-        } || function(t, e) {
-            for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-        })(t, e);
-    }, function(t, e) {
-        function i() {
-            this.constructor = t;
-        }
-        r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
-        new i());
-    });
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var o = i(7), a = i(11), s = function(t) {
+    var r = i(2), n = i(8), o = i(12), a = function(t) {
         function e() {
             return null !== t && t.apply(this, arguments) || this;
         }
-        return n(e, t), e.prototype.parseJSON = function(t) {
+        return r.__extends(e, t), e.prototype.parseJSON = function(t) {
             void 0 === t && (t = {}), this.name = t.name, this.objectID = t.id, this.addRulesFromJSON(t);
         }, e.prototype.addRulesFromJSON = function(t) {
             void 0 === t && (t = {});
             var i = this.context;
             this.rules = t.rules.map(function(t) {
-                var r = i.findWithObjectID(a.HSRule.key, t);
+                var r = i.findWithObjectID(o.HSRule.key, t);
                 return r || (r = i.findWithObjectID(e.key, t)), r;
             }).filter(function(t) {
                 return !!t;
@@ -5210,16 +5445,200 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 return r === e ? i : i.concat(r.stageRules(t));
             }, []);
         }, e.key = "HSCustomRule", e;
-    }(o.HSManagedObject);
-    e.HSCustomRule = s, window.HSCustomRule = s;
+    }(n.HSManagedObject);
+    e.HSCustomRule = a, window.HSCustomRule = a;
+}, function(t, e) {
+    !function(t) {
+        var e = {};
+        function i(r) {
+            if (e[r]) return e[r].exports;
+            var n = e[r] = {
+                i: r,
+                l: !1,
+                exports: {}
+            };
+            return t[r].call(n.exports, n, n.exports, i), n.l = !0, n.exports;
+        }
+        i.m = t, i.c = e, i.d = function(t, e, r) {
+            i.o(t, e) || Object.defineProperty(t, e, {
+                enumerable: !0,
+                get: r
+            });
+        }, i.r = function(t) {
+            "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t, Symbol.toStringTag, {
+                value: "Module"
+            }), Object.defineProperty(t, "__esModule", {
+                value: !0
+            });
+        }, i.t = function(t, e) {
+            if (1 & e && (t = i(t)), 8 & e) return t;
+            if (4 & e && "object" == typeof t && t && t.__esModule) return t;
+            var r = Object.create(null);
+            if (i.r(r), Object.defineProperty(r, "default", {
+                enumerable: !0,
+                value: t
+            }), 2 & e && "string" != typeof t) for (var n in t) i.d(r, n, function(e) {
+                return t[e];
+            }.bind(null, n));
+            return r;
+        }, i.n = function(t) {
+            var e = t && t.__esModule ? function() {
+                return t.default;
+            } : function() {
+                return t;
+            };
+            return i.d(e, "a", e), e;
+        }, i.o = function(t, e) {
+            return Object.prototype.hasOwnProperty.call(t, e);
+        }, i.p = "", i(i.s = 3);
+    }([ function(t, e) {
+        t.exports = PIXI;
+    }, function(t, e, i) {
+        "use strict";
+        Object.defineProperty(e, "__esModule", {
+            value: !0
+        });
+        var r = i(2), n = function() {
+            function t(t, e) {
+                this.key = t, this.manager = e, this.isPressed = !1, this.isDown = !1, this.isReleased = !1, 
+                this.ctrl = !1, this.shift = !1, this.alt = !1;
+            }
+            return t.prototype.update = function() {
+                this.isDown = this.manager.isDown(this.key), this.isPressed = this.manager.isPressed(this.key), 
+                this.isReleased = this.manager.isReleased(this.key), this.ctrl = this.manager.isDown(r.default.CTRL), 
+                this.shift = this.manager.isDown(r.default.SHIFT), this.alt = this.manager.isDown(r.default.ALT);
+            }, t.prototype.remove = function() {
+                this.manager.removeHotKey(this.key);
+            }, t;
+        }();
+        e.default = n;
+    }, function(t, e, i) {
+        "use strict";
+        var r;
+        Object.defineProperty(e, "__esModule", {
+            value: !0
+        }), function(t) {
+            t[t.BACKSPACE = 8] = "BACKSPACE", t[t.TAB = 9] = "TAB", t[t.ENTER = 13] = "ENTER", 
+            t[t.SHIFT = 16] = "SHIFT", t[t.PAUSE = 19] = "PAUSE", t[t.CTRL = 17] = "CTRL", t[t.ALT = 18] = "ALT", 
+            t[t.CAPS_LOCK = 20] = "CAPS_LOCK", t[t.ESCAPE = 27] = "ESCAPE", t[t.SPACE = 32] = "SPACE", 
+            t[t.PAGE_UP = 33] = "PAGE_UP", t[t.PAGE_DOWN = 34] = "PAGE_DOWN", t[t.END = 35] = "END", 
+            t[t.HOME = 36] = "HOME", t[t.LEFT = 37] = "LEFT", t[t.UP = 38] = "UP", t[t.RIGHT = 39] = "RIGHT", 
+            t[t.DOWN = 40] = "DOWN", t[t.PRINT_SCREEN = 44] = "PRINT_SCREEN", t[t.INSERT = 45] = "INSERT", 
+            t[t.DELETE = 46] = "DELETE", t[t._0 = 48] = "_0", t[t._1 = 49] = "_1", t[t._2 = 50] = "_2", 
+            t[t._3 = 51] = "_3", t[t._4 = 52] = "_4", t[t._5 = 53] = "_5", t[t._6 = 54] = "_6", 
+            t[t._7 = 55] = "_7", t[t._8 = 56] = "_8", t[t._9 = 57] = "_9", t[t.A = 65] = "A", 
+            t[t.B = 66] = "B", t[t.C = 67] = "C", t[t.D = 68] = "D", t[t.E = 69] = "E", t[t.F = 70] = "F", 
+            t[t.G = 71] = "G", t[t.H = 72] = "H", t[t.I = 73] = "I", t[t.J = 74] = "J", t[t.K = 75] = "K", 
+            t[t.L = 76] = "L", t[t.M = 77] = "M", t[t.N = 78] = "N", t[t.O = 79] = "O", t[t.P = 80] = "P", 
+            t[t.Q = 81] = "Q", t[t.R = 82] = "R", t[t.S = 83] = "S", t[t.T = 84] = "T", t[t.U = 85] = "U", 
+            t[t.V = 86] = "V", t[t.W = 87] = "W", t[t.X = 88] = "X", t[t.Y = 89] = "Y", t[t.Z = 90] = "Z", 
+            t[t.CMD = 91] = "CMD", t[t.CMD_RIGHT = 93] = "CMD_RIGHT", t[t.NUM_0 = 96] = "NUM_0", 
+            t[t.NUM_1 = 97] = "NUM_1", t[t.NUM_2 = 98] = "NUM_2", t[t.NUM_3 = 99] = "NUM_3", 
+            t[t.NUM_4 = 100] = "NUM_4", t[t.NUM_5 = 101] = "NUM_5", t[t.NUM_6 = 102] = "NUM_6", 
+            t[t.NUM_7 = 103] = "NUM_7", t[t.NUM_8 = 104] = "NUM_8", t[t.NUM_9 = 105] = "NUM_9", 
+            t[t.MULTIPLY = 106] = "MULTIPLY", t[t.ADD = 107] = "ADD", t[t.SUBTRACT = 109] = "SUBTRACT", 
+            t[t.DECIMAL_POINT = 110] = "DECIMAL_POINT", t[t.DIVIDE = 111] = "DIVIDE", t[t.F1 = 112] = "F1", 
+            t[t.F2 = 113] = "F2", t[t.F3 = 114] = "F3", t[t.F4 = 115] = "F4", t[t.F5 = 116] = "F5", 
+            t[t.F6 = 117] = "F6", t[t.F7 = 118] = "F7", t[t.F8 = 119] = "F8", t[t.F9 = 120] = "F9", 
+            t[t.F10 = 121] = "F10", t[t.F11 = 122] = "F11", t[t.F12 = 123] = "F12", t[t.NUM_LOCK = 144] = "NUM_LOCK", 
+            t[t.SCROLL_LOCK = 145] = "SCROLL_LOCK", t[t.SEMI_COLON = 186] = "SEMI_COLON", t[t.EQUAL = 187] = "EQUAL", 
+            t[t.COMMA = 188] = "COMMA", t[t.DASH = 189] = "DASH", t[t.PERIOD = 190] = "PERIOD", 
+            t[t.FORWARD_SLASH = 191] = "FORWARD_SLASH", t[t.OPEN_BRACKET = 219] = "OPEN_BRACKET", 
+            t[t.BACK_SLASH = 220] = "BACK_SLASH", t[t.CLOSE_BRACKET = 221] = "CLOSE_BRACKET", 
+            t[t.SINGLE_QUOTE = 222] = "SINGLE_QUOTE";
+        }(r || (r = {})), e.default = r;
+    }, function(t, e, i) {
+        t.exports = i(4);
+    }, function(t, e, i) {
+        "use strict";
+        Object.defineProperty(e, "__esModule", {
+            value: !0
+        });
+        var r = i(0), n = i(5), o = i(1), a = i(2), s = {
+            KeyboardManager: n.default,
+            Key: a.default,
+            HotKey: o.default
+        }, c = r;
+        if (!c.keyboard) {
+            var u = new n.default();
+            u.enable(), c.keyboard = s, c.keyboardManager = u;
+        }
+        e.default = s;
+    }, function(t, e, i) {
+        "use strict";
+        var r, n = this && this.__extends || (r = function(t, e) {
+            return (r = Object.setPrototypeOf || {
+                __proto__: []
+            } instanceof Array && function(t, e) {
+                t.__proto__ = e;
+            } || function(t, e) {
+                for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+            })(t, e);
+        }, function(t, e) {
+            function i() {
+                this.constructor = t;
+            }
+            r(t, e), t.prototype = null === e ? Object.create(e) : (i.prototype = e.prototype, 
+            new i());
+        });
+        Object.defineProperty(e, "__esModule", {
+            value: !0
+        });
+        var o = i(0), a = i(1), s = function(t) {
+            function e() {
+                var e = t.call(this) || this;
+                return e.isEnabled = !1, e.pressedKeys = [], e.releasedKeys = [], e.downKeys = {}, 
+                e.hotKeys = [], e.preventDefaultKeys = [], e;
+            }
+            return n(e, t), e.prototype.enable = function() {
+                this.isEnabled || (this.isEnabled = !0, this._enableEvents());
+            }, e.prototype._enableEvents = function() {
+                window.addEventListener("keydown", this._onKeyDown.bind(this), !0), window.addEventListener("keyup", this._onKeyUp.bind(this), !0);
+            }, e.prototype.disable = function() {
+                this.isEnabled && (this.isEnabled = !1, this._disableEvents());
+            }, e.prototype._disableEvents = function() {
+                window.removeEventListener("keydown", this._onKeyDown, !0), window.removeEventListener("keyup", this._onKeyUp, !0);
+            }, e.prototype.setPreventDefault = function(t, e) {
+                if (void 0 === e && (e = !0), r = t, "[object Array]" === Object.prototype.toString.call(r)) for (var i = 0; i < t.length; i++) this.preventDefaultKeys[t[i]] = e; else this.preventDefaultKeys[t] = e;
+                var r;
+            }, e.prototype._onKeyDown = function(t) {
+                var e = t.which || t.keyCode;
+                this.preventDefaultKeys[e] && t.preventDefault(), this.isDown(e) || (this.downKeys[e] = 0, 
+                this.pressedKeys[e] = !0, this.emit("pressed", e));
+            }, e.prototype._onKeyUp = function(t) {
+                var e = t.which || t.keyCode;
+                this.preventDefaultKeys[e] && t.preventDefault(), this.isDown(e) && (this.pressedKeys[e] = !1, 
+                this.releasedKeys[e] = !0, delete this.downKeys[e], this.emit("released", e));
+            }, e.prototype.downTime = function(t) {
+                return this.downKeys[t] || 0;
+            }, e.prototype.isDown = function(t) {
+                return this.downKeys.hasOwnProperty(t);
+            }, e.prototype.isPressed = function(t) {
+                return !!this.pressedKeys[t];
+            }, e.prototype.isReleased = function(t) {
+                return !!this.releasedKeys[t];
+            }, e.prototype.update = function(t) {
+                for (var e in void 0 === t && (t = 0), this.hotKeys.forEach(function(t) {
+                    return t.update();
+                }), this.downKeys) this.downKeys.hasOwnProperty(e) && (this.downKeys[e] += t, this.emit("down", e));
+                this.pressedKeys.length = 0, this.releasedKeys.length = 0;
+            }, e.prototype.getHotKey = function(t) {
+                var e = this.hotKeys[t] || new a.default(t, this);
+                return this.hotKeys[t] = e, e;
+            }, e.prototype.removeHotKey = function(t) {
+                this.hotKeys[t] && delete this.hotKeys[t];
+            }, e;
+        }(o.utils.EventEmitter);
+        e.default = s;
+    } ]);
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {
         value: !0
     });
-    var r = i(2), n = i(40), o = i(39), a = i(19), s = i(11), c = i(5), u = i(33), h = i(29), l = i(12), p = i(10), d = i(41), S = i(6), f = i(0), g = i(8), y = function() {
+    var r = i(3), n = i(41), o = i(40), a = i(22), s = i(12), c = i(6), u = i(35), l = i(31), h = i(13), p = i(11), d = i(42), S = i(7), f = i(0), g = i(9), y = function() {
         function t() {
-            this.context = new r.HSProjectContext(), this.scene = this.buildScene(), this.project = new h.HSProject(this.context), 
+            this.context = new r.HSProjectContext(), this.scene = this.buildScene(), this.project = new l.HSProject(this.context), 
             this.project.scenes = [ this.scene ];
         }
         return t.prototype.buildDemoScene = function() {
@@ -5245,36 +5664,39 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             e || (e = this.buildScript()), t || (t = this.buildObject(S.HSObjectType.monkey));
             var r = new s.HSRule(i);
             r.script = e, t.addRule(r);
-            var n = new l.HSParameter(i), o = new p.HSParameterBlock(i);
+            var n = new h.HSParameter(i), o = new p.HSParameterBlock(i);
             return o.type = f.HSBlockType.EventOperatorStart, n.childBlock = o, r.parameters = [ n ], 
-            r.parameters[0].childBlock.parameters[0] = new l.HSParameter(r.context), r.parameters[0].childBlock.parameters[0].childBlock = new p.HSParameterBlock(r.context), 
+            r.parameters[0].childBlock.parameters[0] = new h.HSParameter(r.context), r.parameters[0].childBlock.parameters[0].childBlock = new p.HSParameterBlock(r.context), 
             r;
         }, t.prototype.buildTapRule = function(t, e) {
             return this.buildRule(f.HSBlockType.EventOperatorTap, t, e);
-        }, t.prototype.buildMessageMatchesRule = function(t) {
-            var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
-            n.script = i, r.addRule(n);
-            var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
-            a.type = f.HSBlockType.EventOperatorMessageMatches, o.childBlock = a, n.parameters = [ o ], 
-            n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
-            var c = new g.HSVariable(n.context);
-            return c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
-            n;
+        }, t.prototype.buildMessageMatchesRule = function(t, e, i) {
+            var r = i || {};
+            this.context.version = 32;
+            var n = this.context, o = this.buildScript(), a = this.buildObject(S.HSObjectType.monkey), c = new s.HSRule(n);
+            c.script = o, a.addRule(c);
+            var u = new h.HSParameter(n), l = new p.HSParameterBlock(n);
+            l.type = f.HSBlockType.EventOperatorMessageMatches, u.childBlock = l, c.parameters = [ u ];
+            var d = new h.HSParameter(c.context);
+            d.value = e;
+            var y = new g.HSVariable(c.context);
+            return y.setValue(t, r || {}), d.childBlock = y, c.parameters[0].childBlock.parameters[0] = d, 
+            c;
         }, t.prototype.buildHeardMessageRule = function(t) {
             var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
             n.script = i, r.addRule(n);
-            var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
+            var o = new h.HSParameter(e), a = new p.HSParameterBlock(e);
             a.type = f.HSBlockType.EventOperatorHearMessage, o.childBlock = a, n.parameters = [ o ], 
-            n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
+            n.parameters[0].childBlock.parameters[0] = new h.HSParameter(n.context);
             var c = new g.HSVariable(n.context);
             return c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
             n;
         }, t.prototype.buildHeardMessageRuleWithSelfVar = function(t) {
             var e = this.context, i = this.buildScript(), r = this.buildObject(S.HSObjectType.monkey), n = new s.HSRule(e);
             n.script = i, r.addRule(n);
-            var o = new l.HSParameter(e), a = new p.HSParameterBlock(e);
+            var o = new h.HSParameter(e), a = new p.HSParameterBlock(e);
             a.type = f.HSBlockType.EventOperatorHearMessage, o.childBlock = a, n.parameters = [ o ], 
-            n.parameters[0].childBlock.parameters[0] = new l.HSParameter(n.context);
+            n.parameters[0].childBlock.parameters[0] = new h.HSParameter(n.context);
             var c = new g.HSVariable(n.context);
             return c.blockType = f.HSBlockType.Self, c.setValue(t, null), n.parameters[0].childBlock.parameters[0].childBlock = c, 
             {
@@ -5286,7 +5708,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             i || (i = this.buildScript()), e || (e = this.buildObject(S.HSObjectType.monkey));
             var n = new s.HSRule(r);
             n.script = i, e.addRule(n);
-            var o = new l.HSParameter(r), a = new p.HSParameterBlock(r);
+            var o = new h.HSParameter(r), a = new p.HSParameterBlock(r);
             return a.type = t, o.childBlock = a, n.parameters = [ o ], n;
         }, t.prototype.buildScript = function() {
             return this.buildScript3();
@@ -5325,7 +5747,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.parametersFromValues = function(t) {
             var e = this, i = [];
             return t.forEach(function(t, r, n) {
-                var o = new l.HSParameter(e.context);
+                var o = new h.HSParameter(e.context);
                 t instanceof g.HSVariable ? o.childBlock = t : o.value = t, i.push(o);
             }), i;
         }, t.prototype.buildControlBlock = function(t, e, i) {
@@ -5412,11 +5834,11 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             v: s
         };
     }
-    function h(t, e, i, r) {
+    function l(t, e, i, r) {
         var n = [ s(Math.round(t).toString(16)), s(Math.round(e).toString(16)), s(Math.round(i).toString(16)) ];
         return r && n[0].charAt(0) === n[0].charAt(1) && n[1].charAt(0) === n[1].charAt(1) && n[2].charAt(0) === n[2].charAt(1) ? n[0].charAt(0) + n[1].charAt(0) + n[2].charAt(0) : n.join("");
     }
-    function l(t, e, i, r) {
+    function h(t, e, i, r) {
         return [ s(p(r)), s(Math.round(t).toString(16)), s(Math.round(e).toString(16)), s(Math.round(i).toString(16)) ].join("");
     }
     function p(t) {
@@ -5584,14 +6006,14 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             r: 0,
             g: 0,
             b: 0
-        }, c = 1, u = null, h = null, l = null, p = !1, d = !1;
-        return "string" == typeof t && (t = T(t)), "object" == typeof t && (H(t.r) && H(t.g) && H(t.b) ? (e = t.r, 
+        }, c = 1, u = null, l = null, h = null, p = !1, d = !1;
+        return "string" == typeof t && (t = T(t)), "object" == typeof t && (E(t.r) && E(t.g) && E(t.b) ? (e = t.r, 
         i = t.g, n = t.b, s = {
             r: 255 * r(e, 255),
             g: 255 * r(i, 255),
             b: 255 * r(n, 255)
-        }, p = !0, d = "%" === String(t.r).substr(-1) ? "prgb" : "rgb") : H(t.h) && H(t.s) && H(t.v) ? (u = a(t.s), 
-        h = a(t.v), s = function(t, e, i) {
+        }, p = !0, d = "%" === String(t.r).substr(-1) ? "prgb" : "rgb") : E(t.h) && E(t.s) && E(t.v) ? (u = a(t.s), 
+        l = a(t.v), s = function(t, e, i) {
             t = 6 * r(t, 360), e = r(e, 100), i = r(i, 100);
             var n = Math.floor(t), o = t - n, a = i * (1 - e), s = i * (1 - o * e), c = i * (1 - (1 - o) * e), u = n % 6;
             return {
@@ -5599,7 +6021,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 g: 255 * [ c, i, i, s, a, a ][u],
                 b: 255 * [ a, a, c, i, i, s ][u]
             };
-        }(t.h, u, h), p = !0, d = "hsv") : H(t.h) && H(t.s) && H(t.l) && (u = a(t.s), l = a(t.l), 
+        }(t.h, u, l), p = !0, d = "hsv") : E(t.h) && E(t.s) && E(t.l) && (u = a(t.s), h = a(t.l), 
         s = function(t, e, i) {
             var n, o, a;
             function s(t, e, i) {
@@ -5614,7 +6036,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                 g: 255 * o,
                 b: 255 * a
             };
-        }(t.h, u, l), p = !0, d = "hsl"), Object.prototype.hasOwnProperty.call(t, "a") && (c = t.a)), 
+        }(t.h, u, h), p = !0, d = "hsl"), Object.prototype.hasOwnProperty.call(t, "a") && (c = t.a)), 
         c = o(c), {
             ok: p,
             format: t.format || d,
@@ -5699,10 +6121,10 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             format: e ? "name" : "hex"
         };
     }
-    function H(t) {
+    function E(t) {
         return Boolean(m.CSS_UNIT.exec(String(t)));
     }
-    var O = function() {
+    var H = function() {
         function t(e, i) {
             if (void 0 === e && (e = ""), void 0 === i && (i = {}), e instanceof t) return e;
             this.originalInput = e;
@@ -5750,7 +6172,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             var t = c(this.r, this.g, this.b), e = Math.round(360 * t.h), i = Math.round(100 * t.s), r = Math.round(100 * t.l);
             return 1 === this.a ? "hsl(" + e + ", " + i + "%, " + r + "%)" : "hsla(" + e + ", " + i + "%, " + r + "%, " + this.roundA + ")";
         }, t.prototype.toHex = function(t) {
-            return void 0 === t && (t = !1), h(this.r, this.g, this.b, t);
+            return void 0 === t && (t = !1), l(this.r, this.g, this.b, t);
         }, t.prototype.toHexString = function(t) {
             return void 0 === t && (t = !1), "#" + this.toHex(t);
         }, t.prototype.toHex8 = function(t) {
@@ -5788,7 +6210,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }, t.prototype.toName = function() {
             if (0 === this.a) return "transparent";
             if (this.a < 1) return !1;
-            for (var t = "#" + h(this.r, this.g, this.b, !1), e = 0, i = Object.keys(f); e < i.length; e++) {
+            for (var t = "#" + l(this.r, this.g, this.b, !1), e = 0, i = Object.keys(f); e < i.length; e++) {
                 var r = i[e];
                 if (f[r] === t) return r;
             }
@@ -5886,11 +6308,11 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return this.toRgbString() === new t(e).toRgbString();
         }, t;
     }();
-    function E(t, e) {
-        return void 0 === t && (t = ""), void 0 === e && (e = {}), new O(t, e);
+    function O(t, e) {
+        return void 0 === t && (t = ""), void 0 === e && (e = {}), new H(t, e);
     }
     function w(t, e) {
-        var i = new O(t), r = new O(e);
+        var i = new H(t), r = new H(e);
         return (Math.max(i.getLuminance(), r.getLuminance()) + .05) / (Math.min(i.getLuminance(), r.getLuminance()) + .05);
     }
     function _(t, e, i) {
@@ -5921,19 +6343,19 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             size: "small"
         });
         for (var r = null, n = 0, o = i.includeFallbackColors, a = i.level, s = i.size, c = 0, u = e; c < u.length; c++) {
-            var h = u[c], l = w(t, h);
-            l > n && (n = l, r = new O(h));
+            var l = u[c], h = w(t, l);
+            h > n && (n = h, r = new H(l));
         }
         return _(t, r, {
             level: a,
             size: s
         }) || !o ? r : (i.includeFallbackColors = !1, k(t, [ "#fff", "#000" ], i));
     }
-    function B(t, e) {
-        var i = new O(t), r = "#" + l(i.r, i.g, i.b, i.a), n = r, o = i.gradientType ? "GradientType = 1, " : "";
+    function C(t, e) {
+        var i = new H(t), r = "#" + h(i.r, i.g, i.b, i.a), n = r, o = i.gradientType ? "GradientType = 1, " : "";
         if (e) {
-            var a = new O(e);
-            n = "#" + l(a.r, a.g, a.b, a.a);
+            var a = new H(e);
+            n = "#" + h(a.r, a.g, a.b, a.a);
         }
         return "progid:DXImageTransform.Microsoft.gradient(" + o + "startColorstr=" + r + ",endColorstr=" + n + ")";
     }
@@ -5943,24 +6365,24 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             g: a(t.g),
             b: a(t.b)
         };
-        return void 0 !== t.a && (i.a = Number(t.a)), new O(i, e);
+        return void 0 !== t.a && (i.a = Number(t.a)), new H(i, e);
     }
-    function C() {
-        return new O({
+    function B() {
+        return new H({
             r: Math.random(),
             g: Math.random(),
             b: Math.random()
         });
     }
-    function j(t) {
+    function I(t) {
         if (void 0 === t && (t = {}), void 0 !== t.count && null !== t.count) {
             var e = t.count, i = [];
             for (t.count = void 0; e > i.length; ) t.count = null, t.seed && (t.seed += 1), 
-            i.push(j(t));
+            i.push(I(t));
             return t.count = e, i;
         }
         var r = function(t, e) {
-            var i = P(function(t) {
+            var i = j(function(t) {
                 var e = parseInt(t, 10);
                 if (!Number.isNaN(e) && e < 360 && e > 0) return [ e, e ];
                 if ("string" == typeof t) {
@@ -5971,7 +6393,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                         var r = M(i);
                         if (r.hueRange) return r.hueRange;
                     }
-                    var n = new O(t);
+                    var n = new H(t);
                     if (n.isValid) {
                         var o = n.toHsv().h;
                         return [ o, o ];
@@ -5983,8 +6405,8 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
             return i;
         }(t.hue, t.seed), n = function(t, e) {
             if ("monochrome" === e.hue) return 0;
-            if ("random" === e.luminosity) return P([ 0, 100 ], e.seed);
-            var i = I(t).saturationRange, r = i[0], n = i[1];
+            if ("random" === e.luminosity) return j([ 0, 100 ], e.seed);
+            var i = P(t).saturationRange, r = i[0], n = i[1];
             switch (e.luminosity) {
               case "bright":
                 r = 55;
@@ -5997,13 +6419,13 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
               case "light":
                 n = 55;
             }
-            return P([ r, n ], e.seed);
+            return j([ r, n ], e.seed);
         }(r, t), o = {
             h: r,
             s: n,
             v: function(t, e, i) {
                 var r = function(t, e) {
-                    for (var i = I(t).lowerBounds, r = 0; r < i.length - 1; r++) {
+                    for (var i = P(t).lowerBounds, r = 0; r < i.length - 1; r++) {
                         var n = i[r][0], o = i[r][1], a = i[r + 1][0], s = i[r + 1][1];
                         if (e >= n && e <= a) {
                             var c = (s - o) / (a - n);
@@ -6024,12 +6446,12 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
                   case "random":
                     r = 0, n = 100;
                 }
-                return P([ r, n ], i.seed);
+                return j([ r, n ], i.seed);
             }(r, n, t)
         };
-        return void 0 !== t.alpha && (o.a = t.alpha), new O(o);
+        return void 0 !== t.alpha && (o.a = t.alpha), new H(o);
     }
-    function I(t) {
+    function P(t) {
         t >= 334 && t <= 360 && (t -= 360);
         for (var e = 0, i = R; e < i.length; e++) {
             var r = M(i[e]);
@@ -6037,7 +6459,7 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         }
         throw Error("Color not found");
     }
-    function P(t, e) {
+    function j(t, e) {
         if (void 0 === e) return Math.floor(t[0] + Math.random() * (t[1] + 1 - t[0]));
         var i = t[1] || 1, r = t[0] || 0, n = (e = (9301 * e + 49297) % 233280) / 233280;
         return Math.floor(r + n * (i - r));
@@ -6086,9 +6508,9 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
         lowerBounds: [ [ 20, 100 ], [ 30, 90 ], [ 40, 86 ], [ 60, 84 ], [ 80, 80 ], [ 90, 75 ], [ 100, 73 ] ]
     } ];
     i.d(e, "TinyColor", function() {
-        return O;
+        return H;
     }), i.d(e, "tinycolor", function() {
-        return E;
+        return O;
     }), i.d(e, "names", function() {
         return f;
     }), i.d(e, "readability", function() {
@@ -6098,21 +6520,21 @@ console.log("Webplayer v1.5.6 - 2020/10/15 (production)");
     }), i.d(e, "mostReadable", function() {
         return k;
     }), i.d(e, "toMsFilter", function() {
-        return B;
+        return C;
     }), i.d(e, "fromRatio", function() {
         return x;
     }), i.d(e, "legacyRandom", function() {
-        return C;
+        return B;
     }), i.d(e, "inputToRGB", function() {
         return g;
     }), i.d(e, "stringInputToObject", function() {
         return T;
     }), i.d(e, "isValidCSSUnit", function() {
-        return H;
+        return E;
     }), i.d(e, "random", function() {
-        return j;
+        return I;
     }), i.d(e, "bounds", function() {
         return R;
     });
-    e.default = E;
+    e.default = O;
 } ]);

@@ -1231,15 +1231,19 @@
 		"authors": [
 			"Awesome_E"
 		],
-		"blockHTML": "Save Input <i class=\"ps fa fa-sliders\"></i>",
+		"blockHTML": "Save Input <i class=\"ps fa fa-sliders\"></i> prompt <i class=\"ps fa fa-i-cursor\"></i>",
 		"about": "Saves a user text input to a variable",
 		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Save%20Input&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
 		"collapsible": false,
-		"availability": "beta",
+		"availability": "all",
 		"parameters": [
 			{
 				"type": "var",
 				"description": "Variable – Defines which variable the user input should be saved to."
+			},
+			{
+				"type": "txt",
+				"description": "Prompt – The prompt message to display to the user."
 			}
 		],
 		"useful_for": [
@@ -1265,7 +1269,7 @@
 		"about": "Sets the object's text to a user input, which can later be read using the orange text trait",
 		"app_description": "N/A – This block is missing a description. Would you like to <a href=\"https://forum.gethopscotch.com/new-topic?title=Missing%20Description%20%E2%80%93%20Set%20Text%20to%20Input&amp;category=bugs-in-editor\">report the bug</a> and suggest a description?",
 		"collapsible": false,
-		"availability": "beta",
+		"availability": "all",
 		"parameters": [
 			{
 				"type": "clr",
@@ -1282,6 +1286,94 @@
 			"Under Construction"
 		]
 	},
+	"65": {
+		"id": 65,
+		"type": "looks",
+		"name": "Play Note",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Play Note <i class=\"ps fa fa-volume-up\"></i> rhythm <i class=\"ps fa fa-music\"></i>",
+		"about": "Plays a music note for the length of a given note type",
+		"app_description": "Plays a music note at a given pitch and rhythm.\nThe instrument for the note will be based on the object's instrument. The default instrument is the piano. You can use the instrument trait block to find the current instrument.\nThe rhythm is based on the object's tempo in beats per minute. A quarter note is considered one beat. The default tempo is 120 beats per minute, meaning that one beat would last for 1/2 second. You can use the tempo trait block to find the current tempo.",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "nte",
+				"description": "Note – the note to play."
+			},
+			{
+				"type": "rhy",
+				"description": "Rhythm – the duration of the selected note."
+			}
+		],
+		"useful_for": [
+			"Creating music that sounds better than the default notes provided",
+			"Writing music with readable rhythms",
+			"Accessing a third octave of notes"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	},
+	"66": {
+		"id": 66,
+		"type": "looks",
+		"name": "Set Tempo",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Set Tempo <i class=\"ps fa fa-hashtag\"></i>",
+		"about": "Sets the tempo, or speed, of the music in beats per minute.",
+		"app_description": "Sets the object's tempo. The rhythm is based on the object's tempo in beats per minute. A quarter note is considered one beat.\nWhen you set the tempo you are setting it for all notes played by this object, regardless of the rule. Setting the tempo will not change the tempo for other objects in your project.\nNote: The default tempo is 120 beats per minute, meaning that one beat would last for 1/2 second. You can use the tempo trait block to find the current tempo.",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "num",
+				"description": "Tempo – the speed for all music blocks after this one."
+			}
+		],
+		"useful_for": [
+			"Fluidly changing tempo in a long song",
+			"Having multiple tempos in a song",
+			"Writing music with readable rhythms"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	},
+	"67": {
+		"id": 67,
+		"type": "looks",
+		"name": "Set Instrument",
+		"authors": [
+			"Awesome_E"
+		],
+		"blockHTML": "Set Instrument <i class=\"ps fa fa-music\"></i>",
+		"about": "Changes the instrument type for all sound blocks below it.",
+		"app_description": "Sets the object's instrument. When you set the instrument you are setting it for all notes played by this object, regardless of the rule. Setting the instrument will not change the instrument for other objects in your project.\nNote: The default instrument is piano if it is not set.",
+		"collapsible": false,
+		"availability": "beta",
+		"parameters": [
+			{
+				"type": "imt",
+				"description": "Instrument – the instrument for future play note blocks to use."
+			}
+		],
+		"useful_for": [
+			"Creating music without different instruments natively in Hopscotch",
+			"Writing music that sounds better than the default note set",
+			"Adding multiple tracks to a song"
+		],
+		"other_info": [],
+		"community_links": [
+			"Under Construction"
+		]
+	}
 	"120": {
 		"id": 120,
 		"type": "ctrl",
@@ -1461,7 +1553,7 @@
 		"about": "Triggers a global listener for that same message",
 		"app_description": "This block will broadcast a message of your choosing. Then, if you create a rule using the 'When I get a message' block, the rule will execute when the message gets broadcasted.",
 		"collapsible": false,
-		"availability": "beta",
+		"availability": "all",
 		"parameters": [
 			{
 				"type": "txt",

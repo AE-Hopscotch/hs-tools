@@ -43,8 +43,11 @@ const blockLabels = {
 	60: ["move","Set Center","to x","y"],
 	61: ["ctrl","Wait","seconds"],
 	62: ["looks","Start Sound"," ","wait"], //Start Sound Seconds
-	63: ["var","Save Input"," "],
+	63: ["var","Save Input"," ","prompt"],
 	64: ["looks","Set Text to Input","color"],
+	65: ["looks","Play Note"," ","rhythm"],
+	66: ["looks","Set Tempo"," "],
+	67: ["looks","Set Instrument"," "],
 	120: ["ctrl","Repeat","times"],
 	121: ["ctrl","Repeat Forever"],
 	122: ["ctrl","Check Once If"," "],
@@ -317,8 +320,11 @@ const paramTypes = {
 	54: "Object",
 	55: "TextOnly",
 	56: "Scene",
-	57: "ProductCost", //Unofficial
-	58: "Product" //Unofficial
+	57: "Multi\u200BPurpose\u200BNumber\u200BDefault",
+	58: "Product",
+	59: "Rhythm",
+	60: "MusicNote",
+	61: "Instrument"
 }
 
 function isFalseScript (container) {
