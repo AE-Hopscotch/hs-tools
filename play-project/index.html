@@ -459,7 +459,7 @@
 			if (LS_ACCESS) localStorage.removeItem("projectFromStorage");
 			var req_uuid = customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'');
 			if (req_uuid.match(/^\*/)) {
-				request('https://awesome-e.github.io/hs-tools/play-project/dedicated-projects/' + req_uuid + ".hopscotch");
+				request('https://awesome-e.github.io/hs-tools/play-project/dedicated-projects/' + req_uuid.replace(/^\*/,"") + ".hopscotch");
 			} else {
 				request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
 			}
