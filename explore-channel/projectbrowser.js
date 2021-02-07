@@ -1,6 +1,6 @@
 //Log Player Version
 console.clear();
-const explorerVersion = "1.7.0 r2"; //a = alpha, b = beta, r = release || revision
+const explorerVersion = "1.7.1 r1"; //a = alpha, b = beta, r = release || revision
 console.log('%cHopscotch Web Explorer, ' + explorerVersion + '%c – Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 const avPath = (getPref("new_avatars")?"01/":""); //Profile Pictures Only
@@ -418,9 +418,9 @@ document.body.addEventListener('keydown', function(e){
 
 //X-Ray
 var xRay = false;
-var xRayClickAction = 5;
+var xRayClickAction = 6;
 var xRayView = 0;
-	(xRayClickAction == 0) ? xRayClickAction = 5 : xRayClickAction --;
+	(xRayClickAction == 0) ? xRayClickAction = 6 : xRayClickAction --;
 	xray('click-action');
 if (JSON.parse(localStorage.getItem("preferences")||"{}")["x-ray_default"]) xray("toggle-status");
 
@@ -464,7 +464,7 @@ function xray(action, keyIn) {
 			}
 			break;
 		case 'click-action':
-			(xRayClickAction == 6) ? xRayClickAction = 0 : xRayClickAction ++;
+			(xRayClickAction == 7) ? xRayClickAction = 0 : xRayClickAction ++;
 			switch (xRayClickAction) {
 				case 0:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-safari"> </i>';
@@ -481,15 +481,18 @@ function xray(action, keyIn) {
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-info-circle"> </i>';
 					break;
 				case 3:
-					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-remove"> </i>';
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-pencil"> </i>';
 					break;
 				case 4:
-					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-terminal"> </i>';
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-remove"> </i>';
 					break;
 				case 5:
-					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-window-maximize"> </i>';
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-terminal"> </i>';
 					break;
 				case 6:
+					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-window-maximize"> </i>';
+					break;
+				case 7:
 					document.querySelector('#xray-clickact-btn').innerHTML = '<i class="fa fa-fw fa-external-link"> </i>';
 					break;
 			}
@@ -586,16 +589,20 @@ function xProjectAction(p,e) {
 				});
 				break;
 			case 3:
-				$('#' + p.uuid).remove();
+				window.open("../hs-builder/?loadUrl=" + p.uuid);
 				break;
 			case 4:
-				getColorPallet(p.screenshot_url, false, p);
+				$('#' + p.uuid).remove();
 				break;
 			case 5:
-				showEmbeddedPlayer(p.uuid);
+				getColorPallet(p.screenshot_url, false, p);
 				break;
 			case 6:
+				showEmbeddedPlayer(p.uuid);
+				break;
+			case 7:
 				window.open("../play-project/?id=" + p.uuid);
+				break;
 		}
 	}
 }

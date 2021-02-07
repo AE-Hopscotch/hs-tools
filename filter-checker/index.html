@@ -441,7 +441,7 @@
 				target.value = "Downloading...";
 				XHR.requestExt("GET","https://c.gethopscotch.com/api/v1/projects/"+url,function(r,s){
 					if (String(s).match(/^(403|521|429)$/)) target.value = "Server Error (" + s + ") – Try again later."; else testFilter(r);
-				},2);
+				},1);
 			}
 			
 			//Upload and Read File
