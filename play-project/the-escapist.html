@@ -41,6 +41,9 @@
 			h2 {
 				color: #666;
 			}
+			html body.embedded * #fullscreen-button {
+				display: none;
+			}
 		</style>
 	</head>
 </html>
@@ -146,6 +149,7 @@
 			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
 		}
 		
+		/* OLD_REQUESTS
 		function doCORSRequest(options, printResult) {
 			var x = new XMLHttpRequest();
 			x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
@@ -185,6 +189,7 @@
 				//OUTPUT
 			});
 		}
+		*/
 		
 		var url = new URL(window.location.href);
 		var customUUID = "110xb928a6";//url.searchParams.get("id");
@@ -295,7 +300,26 @@
 		}
 		/***********************************/
 		
-		request('https://c.gethopscotch.com/api/v1/projects/' + customUUID);
+		//request('https://c.gethopscotch.com/api/v1/projects/' + customUUID);
+		XHR.requestExt("GET", 'https://c.gethopscotch.com/api/v1/projects/' + customUUID, function(result, status) {
+			try {
+				var p = JSON.parse(result);
+				AE_MOD.projectData = p;
+				AE_MOD.uuid = p.uuid;
+				AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+				AE_MOD.isCustom = false;
+				if (AE_div.speedrun.timer_time > 0) beginTiming();
+				document.getElementById("finalTime").style.display = "none";
+				document.getElementById("finalTime").style.opacity = 0;
+				init();
+			} catch (SyntaxError) {
+				document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
+				console.log('Unable to load');
+				console.error(SyntaxError);
+				return;
+			}
+			//OUTPUT
+		}, 1);
 		
 	</script>
 

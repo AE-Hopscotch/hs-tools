@@ -272,7 +272,7 @@
 			
 			//Below Handles Requests
 			
-			function doCORSRequest(options, printResult, c) {
+			/*function doCORSRequest(options, printResult, c) {
 				c = (!!c);
 				var x = new XMLHttpRequest();
 				if (c) { x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url, true); } else { x.open(options.method, '' + options.url, true); }
@@ -291,23 +291,20 @@
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
 						(x.responseText || '')
-					);/**/
+					);/** /
 				};
 				if (/^POST/i.test(options.method)) {
 					x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				}
 				x.send(options.data);
-			}
+			}*/
 			
 			function request(input_url, fn, c) {
 				c = (!!c);
-				doCORSRequest({
-					method: 'GET',
-					url: input_url,
-					//data: dataField.value
-				}, fn /*function printResult(result) {
-						fn(result);
-				} /**/, c);
+				XHR.requestExt("GET",input_url,fn,c?1:0);
+				
+				return;
+				
 			};
 			
 					console.log("12:30");

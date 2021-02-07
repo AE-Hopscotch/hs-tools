@@ -41,6 +41,9 @@
 			h2 {
 				color: #666;
 			}
+			html body.embedded * #fullscreen-button {
+				display: none;
+			}
 		</style>
 	</head>
 </html>
@@ -115,6 +118,7 @@
 			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
 		}
 		
+		/* OLD REQUESTS
 		function doCORSRequest(options, printResult) {
 			var x = new XMLHttpRequest();
 			x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
@@ -151,6 +155,7 @@
 				//OUTPUT
 			});
 		}
+		*/
 		
 		var url = new URL(window.location.href);
 		var customUUID = "10recpml5s";//url.searchParams.get("id");
@@ -226,7 +231,26 @@
 				console.error(SyntaxError);
 			}
 		} else {
-			request('https://c.gethopscotch.com/api/v1/projects/' + (customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'')));
+			//request('https://c.gethopscotch.com/api/v1/projects/' + (customUUID||(prompt('Project URL or UUID','')||'').replace(/.*\/p\//,'')));
+			XHR.requestExt("GET", 'https://c.gethopscotch.com/api/v1/projects/' + customUUID, function(result, status) {
+				try {
+					var p = JSON.parse(result);
+					AE_MOD.projectData = p;
+					AE_MOD.uuid = p.uuid;
+					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
+					AE_MOD.isCustom = false;
+					if (AE_div.speedrun.timer_time > 0) beginTiming();
+					document.getElementById("finalTime").style.display = "none";
+					document.getElementById("finalTime").style.opacity = 0;
+					init();
+				} catch (SyntaxError) {
+					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
+					console.log('Unable to load');
+					console.error(SyntaxError);
+					return;
+				}
+				//OUTPUT
+			}, 1);
 		}
 	</script>
 
@@ -397,12 +421,14 @@
 			document.getElementById('hopscotch-link').style.display = "";
 			if (AE_div.speedrun.timer_time == 0) beginTiming();
 		};
-		if (AE_div.speedrun.timer_time > 0) beginTiming();
+		//if (AE_div.speedrun.timer_time > 0) beginTiming();
 		function getTimeString(t) {
+			n = (t<0);
+			t = Math.abs(t);
 			var hrs = Math.floor(t/3600);
 			var min = Math.floor(t/60) - hrs*60;
 			var sec = Math.floor(t*100 - hrs*360000 - min*6000)/100;
-			return String(((hrs>0)?hrs+":":"") + ((hrs>0&&min<10)?"0":"") + min + ":" + ((sec<10)?"0":"") + sec + ((String(sec).split('.')[1].length<2)?"0":""));
+			return (n?'<span style="color:lime;">-':"") + String(((hrs>0)?hrs+":":"") + ((hrs>0&&min<10)?"0":"") + min + ":" + ((sec<10)?"0":"") + sec + ((sec%1==0)?".":"") + ("0".repeat(2-(String(sec).split('.')[1]||"").length)));
 		}
 		function beginTiming(){
 			AE_div.speedrun.timer = setInterval(function(){

@@ -439,33 +439,9 @@
 			function filterUrl(url){
 				var target = document.getElementById('content-target');
 				target.value = "Downloading...";
-				
-				function doCORSRequest(options, printResult) {
-					var x = new XMLHttpRequest();
-					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
-					x.onload = x.onerror = function() {
-						if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
-						printResult(
-							(x.responseText || '')
-						);
-					};
-					if (/^POST/i.test(options.method)) {
-						x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-					}
-					x.send(options.data);
-				}
-				
-				function request(input_url) {
-					doCORSRequest({
-						method: 'GET',
-						url: input_url,
-						//data: dataField.value
-					}, function printResult(result) {
-						testFilter(result);
-					});
-				};
-				
-				request('https://c.gethopscotch.com/api/v1/projects/'+ url);
+				XHR.requestExt("GET","https://c.gethopscotch.com/api/v1/projects/"+url,function(r,s){
+					if (String(s).match(/^(403|521|429)$/)) target.value = "Server Error (" + s + ") – Try again later."; else testFilter(r);
+				},2);
 			}
 			
 			//Upload and Read File
@@ -488,7 +464,6 @@
 				var target = document.getElementById('content-target'), file = input.files[0];
 				if ('files' in input && input.files.length > 0 && ext.match(/^(hopscotch|hspre|json|txt)$/gi)) {
 					//placeFileContent(document.getElementById('content-target'), input.files[0]);
-					
 					readFileContent(file).then(content => {
 						var text = (ext=="hspre")? window.atob(window.atob(content)) : content;
 						try {

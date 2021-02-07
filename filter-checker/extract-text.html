@@ -292,39 +292,9 @@
 			function filterUrl(url){
 				var target = document.getElementById('content-target');
 				target.value = "Downloading...";
-				/*$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fhopscotchprojects.s3.amazonaws.com%2Fproduction%2F" + url + ".hopscotch", function(data, status){ 
-				$.get("https://bypasscors.herokuapp.com/api/?url=http%3A%2F%2Fc.gethopscotch.com%2Fapi%2Fv1%2Fprojects%2F" + url , function(data, status){ 
-					extractText(data);
-				});/**/
-				
-				function doCORSRequest(options, printResult) {
-					var x = new XMLHttpRequest();
-					x.open(options.method, 'https://cors-anywhere.herokuapp.com/' + options.url);
-					x.onload = x.onerror = function() {
-						if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
-						printResult(
-							//options.method + ' ' + options.url + '\n' +
-							//x.status + ' ' + x.statusText + '\n\n' +
-							(x.responseText || '')
-						);
-					};
-					if (/^POST/i.test(options.method)) {
-						x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-					}
-					x.send(options.data);
-				}
-				
-				function request(input_url) {
-					doCORSRequest({
-						method: 'GET',
-						url: input_url,
-						//data: dataField.value
-					}, function printResult(result) {
-						extractText(result);
-					});
-				};
-				
-				request('https://c.gethopscotch.com/api/v1/projects/'+ url);
+				XHR.requestExt("GET","https://c.gethopscotch.com/api/v1/projects/"+url,function(r,s){
+					if (String(s).match(/^(403|521|429)$/)) target.value = "Server Error (" + s + ") – Try again later."; else extractText(r);
+				},2);
 			}
 			
 			//Upload and Read File	
