@@ -329,7 +329,6 @@ document.body.addEventListener('keydown', function(e){
 	var searchInput = document.querySelector('input[type=search]');
 	if ((searchInput != null && document.activeElement == searchInput) || (e.keyCode != 187 && e.keyCode != 27 && !xRay) || (document.getElementById("close-player-btn")&&e.keyCode!=27)) return;
 	var ctrlPressed = ((e.ctrlKey && !/Mac/.test(navigator.platform))||(e.metaKey && /Mac/.test(navigator.platform)));
-	
 	switch (e.keyCode) {
 		case 27:
 			if (!(window.fullScreen) && !(window.innerWidth == screen.width && window.innerHeight == screen.height) && (document.getElementById("close-player-btn"))) {
@@ -422,6 +421,7 @@ var xRayClickAction = 6;
 var xRayView = 0;
 	(xRayClickAction == 0) ? xRayClickAction = 6 : xRayClickAction --;
 	xray('click-action');
+if (CSS.supports('(-moz-appearance:none)')) document.querySelector('.xray-contents input').disabled = true;
 if (JSON.parse(localStorage.getItem("preferences")||"{}")["x-ray_default"]) xray("toggle-status");
 
 function xray(action, keyIn) {
