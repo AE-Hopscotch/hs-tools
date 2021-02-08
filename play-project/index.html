@@ -321,9 +321,12 @@
 					//Lazy Check for URLs to check the filter
 					if (JSON.stringify(b).match(/"type":22[^\{\}]*?"param(s|eters)?":\[\{[^\{\}]*?"value":"_ae_webplayer_action:\{.*?\\"name\\":\\"url-(iframe|goto)\\".*?\}.*?\]\}/)) AE_MOD.moddedActions.hasUrl = true;
 					//Custom Custom
-					(JSON.stringify(b).match(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g)||[""])
+					let matchedValues = (JSON.stringify(b).match(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g)||[""])
 						.join("\n").replace(/^.*?"value":"((?:|.*?[^\\])(?:\\\\)*)".*$|^.*$/,"$1\n")
-						.replace(/\n$/,"").split("\n").forEach(match=>{ /\}/;
+						.replace(/\n$/,"");
+					if (matchedValues) matchedValues.split("\n").forEach(match=>{ /\}/;
+							console.log('%cMatched Custom Block:','color:green');
+							console.log(b);
 							a.blocks[i] = JSON.parse( JSON.stringify(b).replace(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g,'$1,"customObject":"$2"') ); /\}/;
 							if (!match || !/\//.test(match) || AE_MOD.customCustomObjects.indexOf(match) !== -1) return;
 							AE_MOD.customCustomObjects.push(match);
@@ -347,7 +350,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = (location.protocol == "file:") ? "local_application.js" : "https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = "application.js"; // /*(location.protocol == "file:") ? "local_application.js" :*/ "https://awesome-e.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);

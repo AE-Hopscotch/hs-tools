@@ -35961,7 +35961,6 @@ $("#signup form").on("ajax:complete", function(data, status, xhr) {
   $("#signup input[type=text]").val("");
   return $('input').blur();
 });
-
 // track all clicks on outbound links using Google Analytics
 // so that we can track how many people we're sending to the app store
 //
@@ -35982,7 +35981,7 @@ $("#signup form").on("ajax:complete", function(data, status, xhr) {
             }
         }
     });
-});  AE_MOD*/
+}); AE_MOD */
 $(function() {
   var mobile_client_type = cssua.ua.mobile;
   var app_store_link = "http://hop.sc/get_hopscotch";
@@ -35990,13 +35989,54 @@ $(function() {
   if (mobile_client_type != "iphone" && mobile_client_type != "ipad") {
     $(".project-link").attr("href", app_store_link);
   }
+
+  const loadImages = () =>
+    $(".project-image").each(function(index, image) {
+      image = $(image);
+      const source = image.data('url');
+      const newSource = source.replace(/(development|staging)/, 'production');
+      image.error(function() {
+        image.src = newSource;
+        return image.replaceWith(`<img src=\"${newSource}\" />`);
+      });
+      return image.attr('src', source);
+    });
+
+  const menuBtn = $(".channel-sidebar"); 
+  const searchBar = $("#query"); 
+  let searchClicked = false; 
+  searchBar.click(function() {
+    searchClicked = true; 
+  }); 
+  let menuOpen = false
+  menuBtn.click(function() {
+    if (!menuOpen) {
+      menuBtn.addClass('open');
+      menuOpen = true; 
+    }
+    else {
+      if (searchClicked == true) {
+        menuOpen = true; 
+        searchClicked = false; 
+      }
+      else {
+        menuBtn.removeClass('open');
+        menuOpen = false; 
+      }
+    }
+}); 
+  
 });
 
+function removeSearch() {
+  $("#search-icon").removeClass('not-typing'); 
+  $("#search-icon").addClass('typing');  
+};
 // Handle fullscreen change for various browsers
-document.addEventListener('webkitfullscreenchange', fullscreenExitHandler, false);
-document.addEventListener('mozfullscreenchange', fullscreenExitHandler, false);
-document.addEventListener('fullscreenchange', fullscreenExitHandler, false);
-document.addEventListener('MSFullscreenChange', fullscreenExitHandler, false);
+document.addEventListener('webkitfullscreenchange', fullscreenHandler, false);
+document.addEventListener('mozfullscreenchange', fullscreenHandler, false);
+document.addEventListener('fullscreenchange', fullscreenHandler, false);
+document.addEventListener('MSFullscreenChange', fullscreenHandler, false);
 
 // Prevent read-only input fields from triggering browser back button when hitting delete
 document.addEventListener("DOMContentLoaded", function () {
@@ -36020,10 +36060,13 @@ function addClick(element, callback) {
 
 var fullscreenButton = document.getElementById("fullscreen-button");
 
-function fullscreenExitHandler(event) {
+function fullscreenHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  fullscreenButton.src = (!!document.fullscreenElement || !!document.webkitFullscreenElement || !!document.mozFullScreenElement || !!document.msFullScreenElement || main.isMaximized) ? "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
+  let fullscreenSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg"; //AE_MOD document.getElementById("fullscreen-enter").src
+  let fullscreenExitSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD document.getElementById("fullscreen-exit").src
+  let fullScreen = document.fullscreenElement || document.webkitFullscreenElement
+  fullscreenButton.src = fullScreen ? fullscreenExitSrc : fullscreenSrc
   return false;
 };
 
@@ -36039,10 +36082,14 @@ function muteHandler(event) {
     main.unmute();
     muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
     localStorage.setItem("muted","false") //AE_MOD
+    //let speaker = document.getElementById("speaker").src;
+    //muteButton.src = speaker;
   } else {
     main.mute();
     muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
     localStorage.setItem("muted","true") //AE_MOD
+    //let unmuteSrc = document.getElementById("unmute-button").src;
+    //muteButton.src = unmuteSrc;
   }
   return false;
 }
@@ -36054,28 +36101,50 @@ function restartHandler(event) {
     event.stopPropagation();
     event.preventDefault();
   }
+  // if (!main || !restartButton) return false;
+  // main.play();
   if (!main || !restartButton) return false;
-  if (playContainer.style.display == "none") /*AE_MOD*/ main.play();
+  if (playerContainer.style.display == "none") /*AE_MOD*/ main.play();
   return false;
 }
 
-var playContainer = document.getElementById("play_container");
+var playerContainer = document.getElementById('play_container');
+var project_screenshot = document.getElementById("project_screenshot");
+var controlsContainer = document.getElementById("controls_container");
 
 function playHandler(event) {
+ /* if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  if (!project_screenshot || !main) return false;
+  const newWidth = project_screenshot.clientWidth
+  const newHeight = window.innerHieght - project_screenshot.offsetTop - 20;
+  project_screenshot.remove();
+
+  var playerContainer = document.getElementById('play_container');
+  playerContainer.style.display = 'block';
+  const parent = document.getElementById('player').parentElement;
+  main.resizeRoot(parent.clientWidth, window.innerHeight - parent.offsetTop - 20);
+  main.play();
+  controls_container.style.display = 'block';
+  return false;*/
+  var playerContainer = document.getElementById('play_container');
   if (event) {
     event.stopPropagation();
     event.preventDefault();
   }
-  if (!playContainer || !main) return false;
-  playContainer.style.display = "none";//remove(); AE_MOD
+  if (!playerContainer || !main) return false;
+  playerContainer.style.display = "none";//remove(); AE_MOD
   main.play();
   return false;
+  //USE OLD PLAY FUNCTION AE_MOD
 }
 
-addClick(fullscreenButton, fullscreenExitHandler);
+addClick(fullscreenButton, fullscreenHandler);
 addClick(muteButton, muteHandler);
 addClick(restartButton, restartHandler);
-addClick(playContainer, playHandler);
+addClick(play_container/*AE_MOD*/, playHandler);
 
 window.webkit = window.webkit || {};
 window.webkit.messageHandlers = window.webkit.messageHandlers || {};
@@ -36083,6 +36152,8 @@ window.webkit.messageHandlers.hopscotch = {
   postMessage: function (msg) {
     if (msg.playerState == 'loaded') {
       try {
+		  //project_screenshot.style.display = 'block';
+		  //play_container.style.display = 'block';
 		  play_container.style.display = 'block';
 		  project_loading.style.display = 'none';
 	  } catch (ReferenceError) {console.error(ReferenceError);} // AE_MOD
@@ -36145,13 +36216,6 @@ $('#link-input, #embed-input').on('click focus', function () {
 $(document).keyup(function (event) {
   if (event.keyCode === 27) hideShareFloat(); // hide the float when the user presses escape
 });
-
-// To open the g+ share site in another tab rather than a popup window, comment this block out.
-$('#google-plus-share-button').click(function (event) {
-  event.preventDefault();
-  window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=600,height=600');
-})
-;
 //(function() {
     function loadFile(url, cb) {
       var xhr = new XMLHttpRequest();
@@ -36173,6 +36237,9 @@ $('#google-plus-share-button').click(function (event) {
       var pixiScript = document.createElement("script");
       document.body.appendChild(pixiScript);
       pixiScript.onload = loadWebplayer.bind(window, version, webplayerData);
+	  
+	  console.log('%c'+HS_INDEX_PATH,"color:red");
+	  
       pixiScript.src = HS_INDEX_PATH + "pixi/" + webplayerData.pixi + "/pixi.min.js";
     }
 
@@ -36180,31 +36247,48 @@ $('#google-plus-share-button').click(function (event) {
       return Object.keys(index).sort();
     }
 
-    function getLastVersionValid(version, index) {
-      var keys = getIndexKeys(index);
-      var lastValid = keys[0];
-      var ver1 = version.split(".");
-      for(var i = 0; i < keys.length; i++) {
-        var ver2 = keys[i].split(".");
-        if(ver1[0] == ver2[0] && ver1[1] == ver2[1]){
-          lastValid = keys[i];
+    function getBestVersionOf(initialVersion, availableVersions) {
+      var match = false;
+      var bestVersion = zeroVersion(initialVersion);
+      for(var version in availableVersions) {
+        if (versionIsBetter(bestVersion, version)) { 
+          bestVersion = version; 
+          match = true
         }
       }
-      return lastValid;
+      return match ? bestVersion : getBestVersionOf(versionMinusOne(initialVersion), availableVersions)
     }
 
-    function getBestVersionOf(version, index) {
-      var match = false;
-      var ver1 = version.split(".");
-      for(var k in index) {
-        var ver2 = k.split(".");
-        if(ver1[0] == ver2[0] && ver1[1] == ver2[1] && ver2[2] >= ver1[2]) {
-          ver1 = ver2;
-          match = true;
-        }
+    function versionIsBetter(initial, potential) {
+      if (major(initial) !== major(potential)) { return false; }
+      if (minor(initial) !== minor(potential)) { return false; }
+      return patch(potential) >= patch(initial);
+    }
+
+    function versionMinusOne(versionString) {
+      let minorV = parseInt(minor(versionString))
+      let majorV = major(versionString)
+      if (minorV > 0) {
+        return [majorV, minorV - 1, "0"].join(".")
+      } else {
+        return [parseInt(majorV) - 1, minorV, "0"].join(".")
       }
-      //if there is no match, fallback to the last best version
-      return match ? ver1.join(".") : getLastVersionValid(version, index);
+    }
+
+    function zeroVersion(versionString) {
+      return [major(versionString), minor(versionString), "0"].join(".")
+    }
+
+    function major(versionString) {
+      return versionString.split(".")[0]
+    }
+
+    function minor(versionString) {
+      return versionString.split(".")[1]
+    }
+
+    function patch(versionString) {
+      return parseInt(versionString.split(".")[2])
     }
 
     function loadWebplayer(version, data) {
@@ -36212,41 +36296,44 @@ $('#google-plus-share-button').click(function (event) {
       document.body.appendChild(playerScript);
       playerScript.onload = initWebplayer.bind(window, version);
       //playerScript.src = HS_INDEX_PATH + data.path; AE_MOD
-      playerScript.src = 'https://awesome-e.github.io/hs-tools/play-project/players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
+      playerScript.src = (location.protocol == "https" ? 'https://awesome-e.github.io/hs-tools/play-project/':'') + 'players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
+	  console.log('PLAYER SOURCE: ' + playerScript.src);
     }
 
-    //Legacy, this should go with the webplayer but we can't change old webplayers
-    function initWebplayer(version) {
-      var players = document.querySelectorAll("hopscotch-player");
-      var i = players.length;
-		  console.log(players);
-      while (--i >= 0) {
-          main = new HSMain(players[i]);
-          //window.addEventListener("resize", () => HSApp.sendToApp("resize", "true")); AE_MOD
-      }
+  //Legacy, this should go with the webplayer but we can't change old webplayers
+  function initWebplayer(version) {
+    var players = document.querySelectorAll("hopscotch-player");
+    var i = players.length;
+    while (--i >= 0) {
+      let player = players[i];
+      let parent = player.parentElement
+      main = new HSMain(player);
+      window.addEventListener("resize", () => main.resizeRoot(parent.clientWidth, window.innerHeight - parent.offsetTop - 20));
+      main.resizeRoot(parent.clientWidth, window.innerHeight - parent.offsetTop - 20);
+    }
       console.log("Made with love by Hopscotch. (Webplayer: " + version + ")");
 	  //AE_MOD preplay project if specified in uuid
 	  if (typeof AE_MOD.load_function == "function" && AE_MOD.initiated === true) AE_MOD.load_function(); 
 	  var url = new URL(window.location.href);
 	  if (localStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
-	  if (url.searchParams.get('play') == '1') playContainer.click();
+	  if (url.searchParams.get('play') == '1') playerContainer.click();
 	  if (true||/*TEST*/!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
 		  //Resize the screen right away
 		  main.resizeScreen();
 		  //Update when screen size changes
 		  document.body.onresize = function(){main.resizeScreen();};
 	  }
-    }
+  }
 
     
     //window.onload = function() { AE_MOD
+      //if (typeof(HS_INDEX_PATH) == "undefined") { return; }
         loadFile(HS_INDEX_PATH + "INDEX", function(res) {
           INDEX = JSON.parse(res);
         });
         loadFile(HS_INDEX_PATH + "EDITOR_INDEX", function(res) {
           EDITOR_INDEX = JSON.parse(res).editor_table.webplayers;
         });
-    
         var iCheck = setInterval(function(){
           if(INDEX && EDITOR_INDEX) {
             clearInterval(iCheck);
