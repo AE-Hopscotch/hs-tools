@@ -36237,10 +36237,7 @@ $(document).keyup(function (event) {
       var pixiScript = document.createElement("script");
       document.body.appendChild(pixiScript);
       pixiScript.onload = loadWebplayer.bind(window, version, webplayerData);
-	  
-	  console.log('%c'+HS_INDEX_PATH,"color:red");
-	  
-      pixiScript.src = HS_INDEX_PATH + "pixi/" + webplayerData.pixi + "/pixi.min.js";
+	  pixiScript.src = HS_INDEX_PATH + "pixi/" + webplayerData.pixi + "/pixi.min.js";
     }
 
     function getIndexKeys(index) {
@@ -36297,7 +36294,7 @@ $(document).keyup(function (event) {
       playerScript.onload = initWebplayer.bind(window, version);
       //playerScript.src = HS_INDEX_PATH + data.path; AE_MOD
       playerScript.src = (location.protocol == "https" ? 'https://awesome-e.github.io/hs-tools/play-project/':'') + 'players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
-	  console.log('PLAYER SOURCE: ' + playerScript.src);
+	  console.log('%cPlayer Source: ' + playerScript.src, 'color:#05f;background-color:white;border:2px solid blue;padding:4px 6px');
     }
 
   //Legacy, this should go with the webplayer but we can't change old webplayers

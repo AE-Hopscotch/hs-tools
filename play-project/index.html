@@ -416,7 +416,9 @@
 			XHR.requestExt("GET", url, function (result, status){
 				try {
 					var p = JSON.parse(result);
+					console.groupCollapsed('%cProject Data','color:#05f');
 					console.log(p);
+					console.groupEnd();
 					AE_MOD.projectData = p;
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";

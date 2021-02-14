@@ -5343,7 +5343,6 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
             }), this.sources.clear();
         }, t.prototype.url = function() {
             //return "https://d2jeqdlsh5ay24.cloudfront.net/" + this.name + "." + this.extension;
-			console.log(this);
 			return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + "." + (this.extension||"mp3");
         }, t.soundCache = new Map(), t;
     }();
