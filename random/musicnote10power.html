@@ -1,0 +1,54 @@
+<textarea onkeyup="calc()"></textarea>
+<br/>
+<span id="test"></span>
+
+<script>
+	var calcDict = {
+		"c":"28",
+		"c#":"27",
+		"db":"27",
+		"d":"26",
+		"d#":"25",
+		"eb":"25",
+		"e":"24",
+		"e#":"23",
+		"f":"23",
+		"f#":"22",
+		"gb":"22",
+		"g":"21",
+		"g#":"20",
+		"ab":"20",
+		"a":"19",
+		"a#":"18",
+		"bb":"18",
+		"b":"17",
+		"b#":"16",
+		"C":"16",
+		"C#":"15",
+		"Db":"15",
+		"D":"14",
+		"D#":"13",
+		"Eb":"13",
+		"E":"12",
+		"E#":"11",
+		"F":"11",
+		"F#":"10",
+		"Gb":"10",
+		"G":"9",
+		"G#":"8",
+		"Ab":"8",
+		"A":"7",
+		"A#":"6",
+		"Bb":"6",
+		"B":"5",
+		"B#":"4",
+		"CC":"4"
+	}
+	function calc() {
+		var out = document.getElementById("test");
+		var input = document.querySelector("textarea").value;
+		out.innerHTML = "";
+		input.replace(/\n/g," ").split(" ").forEach(function(s){out.innerHTML += " " + Number(calcDict[s])});
+	}
+	
+</script>

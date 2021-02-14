@@ -1,0 +1,12 @@
+<body>
+	<div class="inputs">
+		<input placeholder="author">
+		<input type="number" placeholder="rating">
+		<input placeholder="review">
+		<input type="number" placeholder="user_id">
+	</div>
+	<button onclick="b={};document.querySelectorAll('.inputs input').forEach(i=>b[i.placeholder]=i.type=='number'?Number(i.value)||undefined:i.value);this.nextElementSibling.nextElementSibling.value=Date.now()+JSON.stringify(b)">Go</button>
+	<br><textarea style="width:400px;height:200px;"></textarea>
+</body>
+<script>
+</script>

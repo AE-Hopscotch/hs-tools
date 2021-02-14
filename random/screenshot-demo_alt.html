@@ -1,0 +1,103 @@
+<script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="lz-string.js"></script>
+<script src="base64-string.js"></script>
+<script language="javascript" src="lz-string.js"></script>
+	<script>
+	</script>
+<div id="capture" style="padding: 10px; background: #f5da55">
+  <h1 style="color: #000; ">Hello world!</h1><h3>test</h3>
+</div>
+<button type="button" class="btnScreenShot" id="btnScreenShot">Take screenshot</button>
+<button type="button" class="btnScreenShot" id="del">remove</button><br/>
+<form action="https://docs.google.com/forms/u/2/d/e/1FAIpQLSftfnFqVDomioCmMtFk5swGRMTjG26JbZSejI9m-DJe4b9NFg/formResponse" target="de">
+	<input id="entry.1830962008" name="entry.1830962008" style="display:no ne;" type="">
+	<button class="doIt">GO</button>
+</form>
+<br/>
+
+<iframe id="de" name="de">de</iframe>
+
+<div id="img-out"></div>
+<img>
+<script>
+var $btn = document.getElementById('btnScreenShot');
+$btn.addEventListener('mousedown', onScreenShotClick);
+document.querySelector('#del').addEventListener('click', function(){
+  $('img').attr('src',' ');
+});
+
+
+function onScreenShotClick(ev){
+	html2canvas(document.querySelector("#capture"),{
+		scale: 0.9
+	}).then(canvas => {
+		document.getElementById('img-out').appendChild(canvas);
+		document.querySelector('input').value = document.querySelector('img').src = canvas.toDataURL();
+		$('img').attr('width', canvas.style.width);
+		document.querySelector('input').value = document.querySelector('input').value;
+	});
+}
+
+
+//Requests
+function doCORSRequest(options, printResult, ca) {
+	var x = new XMLHttpRequest();
+	x.open(options.method, ((ca)?'https://cors-anywhere.herokuapp.com/':'') + options.url);
+	x.onload = x.onerror = function() {
+		if (x.status == 429 || x.status == 403) target.value = "Server Error (" + x.status + ") – Try again later."; else 
+		printResult(
+			//options.method + ' ' + options.url + '\n' +
+			//x.status + ' ' + x.statusText + '\n\n' +
+			(x.responseText || '')
+		);
+	};
+	if (/^POST/i.test(options.method)) {
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	}
+	x.send(options.data);
+}
+
+function request(input_data, print, ca) {
+	console.log(input_data);
+	doCORSRequest(input_data/*{
+		method: 'POST',
+		url: input_url,
+		//data: dataField.value
+	}*/, print, ca);
+};
+
+document.querySelector('.doIt').onclick = function(){
+	/*request("https://tinyurl.com/create.php?url=" + document.querySelector('input').value, function(x){
+		console.log("%cURL: " + x.match(/<a.*?id="copy_div".*?<\/a>/)[0].replace(/.*href="|".*<COMMENT>/g,''), 'color: blue; font-weight:bold;');
+	},true);*/
+	/*request({url:"https://tinyurl.com/create.php?url=" + encodeURIComponent(document.querySelector('input').value) ,method:"GET"}, function(x){
+		console.log(x);
+	}, true);*/
+	
+	
+	/*var string = document.querySelector('input').value;//Base64String.compress(document.querySelector('input').value.replace('data:image/png;base64,',''));
+		alert("Size of sample is: " + string.length);
+		var compressed = LZString.compress(string);
+		console.log(compressed);
+		alert("Size of compressed sample is: " + compressed.length);
+		//string = LZString.decompress(compressed);
+		//alert("Sample is: " + string);/**/
+	
+};
+
+
+/*$('#myForm')
+    .ajaxForm({
+        url : 'https://cors-anywhere.herokuapp.com/https://tinyurl.com/create.php', // or whatever
+        dataType : 'json',
+		data: {
+			url: document.querySelector('input[name="url"]').value
+		},
+        success : function (response) {
+            alert("The server says: " + response);
+        }
+    })
+;/**/
+</script>
