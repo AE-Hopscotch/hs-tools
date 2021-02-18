@@ -4112,7 +4112,7 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
-                    fontFamily: "Avenir",
+                    fontFamily: "Avenir, sans-serif",
                     borderWidth: "2px",
                     borderStyle: "solid",
                     borderRadius: "8px",
@@ -4123,11 +4123,11 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                 }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
                 var o = document.createElement("a");
                 c(o.style, {
-                    fontFamily: "Avenir",
+                    fontFamily: "Avenir, sans-serif",
                     display: "block",
                     position: "relative",
                     textAlign: "center",
-                    padding: "10px 40px 10px 40px",
+                    padding: "10px",// 40px 10px 40px", AE_MOD
                     background: "#1dd8be",
                     color: "white",
                     fontWeight: "bold",
