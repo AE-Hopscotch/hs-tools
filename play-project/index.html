@@ -595,7 +595,6 @@
 		//Remove User-specified UI once loaded
 		window.addEventListener("load", function(){
 			try {
-				console.log(location.href);
 				if (new URL(location.href).searchParams.get("hide")) elmList = document.querySelectorAll(new URL(location.href).searchParams.get("hide")); else return;
 				elmList.forEach(elm=>{
 					elm.style.display = "none";
