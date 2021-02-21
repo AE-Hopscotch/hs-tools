@@ -468,7 +468,7 @@
 			} else {
 				request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
 			}
-			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : ""));
+			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : "") + (url.searchParams.get("hide") ? "&hide="+encodeURIComponent(url.searchParams.get("hide")) : ""));
 		}
 		
 		function banner(open){
@@ -590,6 +590,18 @@
 		document.body.addEventListener("keydown", function(e) {
 			if (e.keyCode == 27 && window.frameElement && !window.fullScreen && !(top.innerWidth == screen.width && top.innerHeight == screen.height) && self !== top && top.document.getElementById("close-player-btn")) {
 				top.document.getElementById("close-player-btn").click();
+			}
+		});
+		//Remove User-specified UI once loaded
+		window.addEventListener("load", function(){
+			try {
+				console.log(location.href);
+				if (new URL(location.href).searchParams.get("hide")) elmList = document.querySelectorAll(new URL(location.href).searchParams.get("hide")); else return;
+				elmList.forEach(elm=>{
+					elm.style.display = "none";
+				})
+			} catch(e) {
+				console.error(new Error(), e);
 			}
 		});
 		</script></div></div>
