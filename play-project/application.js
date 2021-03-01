@@ -36063,8 +36063,8 @@ var fullscreenButton = document.getElementById("fullscreen-button");
 function fullscreenHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  let fullscreenSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg"; //AE_MOD document.getElementById("fullscreen-enter").src
-  let fullscreenExitSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD document.getElementById("fullscreen-exit").src
+  let fullscreenSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD document.getElementById("fullscreen-enter").src
+  let fullscreenExitSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg"; //AE_MOD document.getElementById("fullscreen-exit").src
   let fullScreen = document.fullscreenElement || document.webkitFullscreenElement
   fullscreenButton.src = fullScreen ? fullscreenExitSrc : fullscreenSrc
   return false;
