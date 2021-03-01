@@ -3115,8 +3115,8 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
             }), t.hasUnlockListener || (t.hasUnlockListener = !0, this.eventListenerFunc = function() {
                 var t = i.context.createBufferSource();
                 t.buffer = i.context.createBuffer(1, 1, 22050), t.connect(i.context.destination), 
-                t.start(0), window.removeEventListener("touchstart", i.eventListenerFunc), window.removeEventListener("touchend", i.eventListenerFunc);
-            }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc));
+                t.start(0), window.removeEventListener("touchstart", i.eventListenerFunc), window.removeEventListener("touchend", i.eventListenerFunc), /* AE_MOD */ window.removeEventListener("click", i.eventListenerFunc);
+            }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc), /* AE_MOD FIX SAFARI WEB EXPLORER AUDIO */ window.addEventListener("click", this.eventListenerFunc));
         }
         return t.prototype.play = function(t) {
             this.sounds[t] && !this.isMuted && this.sounds[t].play();

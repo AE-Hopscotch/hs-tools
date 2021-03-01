@@ -9687,8 +9687,8 @@ var AudioContext = window.AudioContext || window.webkitAudioContext, HSSoundMana
         }), a.hasUnlockListener || (a.hasUnlockListener = !0, this.eventListenerFunc = function() {
             var a = c.context.createBufferSource();
             a.buffer = c.context.createBuffer(1, 1, 22050), a.connect(c.context.destination), 
-            a.start(0), window.removeEventListener("touchstart", c.eventListenerFunc), window.removeEventListener("touchend", c.eventListenerFunc);
-        }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc));
+            a.start(0), window.removeEventListener("touchstart", c.eventListenerFunc), window.removeEventListener("touchend", c.eventListenerFunc), /* AE_MOD */ window.removeEventListener("click", c.eventListenerFunc);
+        }, window.addEventListener("touchstart", this.eventListenerFunc), window.addEventListener("touchend", this.eventListenerFunc), /* AE_MOD FIX SAFARI WEB EXPLORER AUDIO */ window.addEventListener("click", this.eventListenerFunc));
     }
     return a.prototype.play = function(a) {
         this.sounds[a] && !this.isMuted && this.sounds[a].play();
