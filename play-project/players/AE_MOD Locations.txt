@@ -1,0 +1,241 @@
+***** EMOJI FIXES *****
+
+
+MATCH:
+   FIND:
+   emoji.base
+   REMOVE:
+   "/assets"
+   ADD:
+   "https://d2j12ek52gvmx9.cloudfront.net/emojis/" /*AE_MOD - fix emojis "/assets"*/
+   
+MATCH:
+   FIND:
+   d83d-de0e.png
+   REMOVE:
+   "/assets/d83d-de0e.png"
+   ADD:
+   "https://d2j12ek52gvmx9.cloudfront.net/emojis/d83d-de0e.png" /*AE_MOD fix emojis but ok cors "/assets/d83d-de0e.png"*/
+
+MATCH:
+   FIND:
+   /^\\u([a-fA-F]|[0-9]){4}/
+   REPLACE WITH:
+   RegExp("^" + emoji.regex.source)/*AE_MOD emojistart*/
+
+MATCH:
+   FIND:
+   new Image()
+   ADD (at b.src = a):
+   .replace(/-?200d/g,""); //AE_MOD this makes requests not include the zero-width joiner
+
+MATCH:
+   FIND (REGEX):
+   function\(\w, \w, \w\) \{[\t\n\s]*?\w\.exports = /
+   ADD (REPLACING REGEX):
+   /(\uD83C[\uDDE6-\uDDFF])?(\u00a9|\u00ae|[\u203C-\u2049\u2194-\u2200\u23e9-\u2400\u2460-\u24ff\u25AA\u25AB\u25FB-\u25FE\u25B6\u25C0\u2600-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?(\ud83c[\udffb-\udfff])?(\u200d(\u00a9|\u00ae|[\u203C-\u2049\u2194-\u2200\u23e9-\u2400\u2460-\u24ff\u25AA\u25AB\u25FB-\u25FE\u25B6\u25C0\u2600-\u2a00\u2b00-\u2c00\u3000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|[#*0-9]\uFE0F\u20E3)\uFE0F?)*/g;
+			//AE_MOD EMOJI REGEX
+   
+
+***** PROJECT DATA RETRIEVER *****
+
+MATCH:
+   FIND:
+   document.getElementById("project_data")
+   COMMENT OUT:
+   , i = t.dataset.projectJson || u && u.getAttribute("data");
+   ADD:
+   var i = JSON.stringify(AE_MOD.projectData); //AE_MOD - This sets the project data
+   ***LETTERS MAY VARY***
+   
+***** CUSTOM SOUNDS AND WEBPLAYER ACTIONS *****
+
+MATCH:
+   FIND:
+   d2jeqdlsh5ay24.cloudfront.net
+   REMOVE:
+   return "https://d2jeqdlsh5ay24.cloudfront.net/" + this.name + ".mp3";
+   ADD:
+        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+
+MATCH:
+   FIND:
+   HSBlockType.SetWidthAndHeight
+   ADD: (after the last block)
+			break;
+			
+          case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(d[0].value)){
+				AE_MOD.webplayer_action(d[0].value.split('_ae_webplayer_action:')[1], ((d[1])?d[1].computedValue(this):undefined),this);
+			}
+			break;
+
+MATCH:
+   FIND:
+   HSBlockType.MathOperatorAdd
+   ADD: (BEFORE LINE)
+		  case HSBlockType.None: //AE_MOD
+			if (/^_ae_webplayer_action:/g.test(this.parameters[0].value)){
+				return AE_MOD.webplayer_action(this.parameters[0].value.split('_ae_webplayer_action:')[1], ((this.parameters[1])?this.secondParameterValue(a):undefined),this);
+			}
+			return 0;
+
+MATCH:
+   FIND:
+   .prototype.toggleFullscreen = function() {
+   ADD (directly in a.):
+   .prototype.resizeScreen = function() { //AE_MOD
+		main.resizeRoot(window.innerWidth, window.innerHeight);
+    }, 
+
+MATCH:
+   FIND:
+   this.enterFullscreen --> Then find actual function (which contains var d = b || window.innerWidth, e = c || window.innerHeight;)
+   ADD (where a is first argument):
+   a = a.parentNode; //AE_MOD Container fullscreen to fix UI touch
+//DO I STILL NEED THIS???
+
+MATCH:
+   FIND:
+   prototype.allSoundNames
+   REMOVE (in for loop):
+     <1.5.11-> r.type === h.HSParameterType.Sound && -1 === e.indexOf(r.value) && e.push(r.value);
+     <1.5.12+> -1 === e.indexOf(r.value) && e.push(r.value);
+   ADD:
+			//AE_MOD Load multiple sounds
+			if (d.type === HSParameterType.Sound && -1 === b.indexOf(d.value)) {
+				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(d.value));
+				b.push(((isCustom) ? "custom/":"") + d.value);
+				if (!isCustom && !!getPref && !getPref("old_sounds") && /^(low-|high)?[a-gA-G](sharp|flat)?$/.test(d.value)) {
+					b.push("new/" + d.value, "guitar/" + d.value, "8-bit/" + d.value);
+				}
+			}
+
+MATCH:
+   FIND:
+   HSBlockType.PlaySound
+   ADD (replace variable letters):
+
+			function notePath (val) {
+				//AE_MOD find path of note
+				var isCustom = (!/^((low-|high)?[a-zA-Z](sharp|flat)?|clickPlayable|alert|car|chaChing|check|clang|crash|dash|doorbell|drip|fail|footsteps|laser|pop|schoolBell|spring|vibrate|trophy|aliens|bubbles|crickets|meow|rain|roar|tweet|wind|woof|ahhh|cheer|eating|heartbeat|laugh|news|talking|bass|chord|clap|gong|snare)$/.test(val));
+				var ins = (/^(low-|high)?[a-zA-Z](sharp|flat)?$/.test(val)) ? ({"-1": "", "0": "new/", "1": "guitar/", "2": "8-bit/"})[(c[2])?c[2].computedStringValue(b):'0'] : ((isCustom)?"custom/":"");
+				return (!isCustom && !!getPref && getPref("old_sounds")) ? "" : ins;
+			}
+   REPLACE e = c[0]... with: var e = notePath(c[0].computedStringValue(b)) + c[0].computedStringValue(b);
+
+
+***** FIX SAFARI START AUDIO CONTEXT *****
+MATCH:
+   FIND:
+   "touchend", this.eventListenerFunc
+   LINE 1:
+   REPLACE ; WITH , /* AE_MOD */ window.removeEventListener("click", c.eventListenerFunc);
+   LINE 2:
+   REPLACE ); WITH , /* AE_MOD FIX SAFARI WEB EXPLORER AUDIO */ window.addEventListener("click", this.eventListenerFunc));
+
+
+***** 1.5.x+ ONLY *****
+
+MATCH (x2):
+   FIND:
+   = prompt("Type here")
+   REMOVE:
+   prompt("Type here")
+   ADD:
+   prompt(p[1]?p[1].computedStringValue(this):"Type here",p[2]?p[2].computedStringValue(this):""); //AE_MOD Better prompts prompt("Type here")
+
+MATCH (x3):
+   FIND: fontFamily: "Avenir",
+   REPLACE LINE WITH:
+   fontFamily: "Avenir, sans-serif",
+
+MATCH:
+   FIND: margin: "10px 0px"
+   ADD: ,
+					textAlign: "center"
+
+BORDER-RADIUS:
+   30px --> 16px
+   15px --> 8px
+WIDTH:
+   100px --> 120px (button)
+   300px --> 100% (input)
+TOP:
+   20% --> 0 (div)
+TRANSFORM:
+   translate(-50%, -50%) --> translate(-50%, 20%) (div)
+MIN WIDTH:
+   min(35%, 320px) (div)
+ADD ON LAST:
+					userSelect: "none",
+					webkitUserSelect: "none"
+
+MATCH:
+   FIND: .isIOSApp() && "ontouchstart"
+   ADD (NEXT LINE): //AE_MOD Enter to close prompt
+				o.addEventListener("keydown", function(_E) {
+                    if(_E.keycode === 13) e.isDone = !0, e.hide();
+                });
+
+MATCH:
+   FIND: document.createElement("input");
+   ADD (NEXT LINE): n.value = tu;
+
+MATCH:
+   FIND: (this.promptText)
+   ADD (PREVIOUS LINE): this.placeholderText = (i.parameters[2]&& i.parameters[2].computedStringValue())||"";
+   ADD (AFTER "this.promptText"): , this.placeholderText
+
+MATCH (x3):
+   FIND: HSStagePrompt = s;
+   REPLACE FORMAT @ createHTMLView = function(t, tu /* CUSTOM PLACEHOLDER */) {
+   REMOVE: (t)
+   ADD: (t, tu /* AE_MOD CUSTOM PLACEHOLDER */)
+
+MATCH:
+   FIND: this.input.value = "", this.input.focus()
+   COMMENT OUT: /*this.input.value = "",*/
+
+MATCH:
+   FIND: document.body.appendChild(this.div)
+   REMOVE: body
+   ADD: getElementById("ae-hs-player")
+
+MATCH:
+   FIND (REGEX): .\(., "touchmove", ..pointerDrag\)
+   REMOVE (@ NEXT FUNCTION CALL): window
+   ADD: t/* AE_MOD player > window prevention */
+
+***** DEBUGGER LOG *****
+
+MATCH:
+   FIND (REGEX):
+   default:[\n\s\t]*[a-z].executeBlock\(
+   REMOVE:
+   b.executeBlock(a)
+   ADD:
+			try {
+				b.executeBlock(a);
+			} catch (E) {
+				//AE_MOD
+				//Errors do not catch these blocks: Play Sound, CLone, Destroy, Change X, Change Y, Move, Rotate, Change Scene, Broadcast Message
+				console.groupCollapsed("%cBlock Execution Error","color:white;font-weight:900;display:block;background-color:red;border:2px solid salmon;padding:2px 4px;");
+				console.log("Block Code:", a);
+				console.log("Active Object UUID: " + b.objectID);
+				b.stageRules.forEach(r=>{
+					if (r.isActive) console.log("Active Rule Type: " + r.eventBlock.parameterBlock.type);
+				});
+				console.groupEnd();
+				throw E;
+			}
+
+***** CUSTOM IMAGES LOL *****
+
+MATCH:
+   FIND: this.getImageUrlFromBaseUrl(
+   REMOVE: this.getImageUrlFromBaseUrl(t)
+   ADD: (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */
+
+
+RESULT: 16 matches?
