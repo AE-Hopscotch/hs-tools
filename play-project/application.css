@@ -46,6 +46,7 @@ hopscotch-player:not([style]) .row.content::after, .play-button::after {
 
 .achievement-banner {
 	position: absolute;
+	display: none;
 	top: -96px;
 	right: 8px;
 	width: 320px;
@@ -214,6 +215,7 @@ hopscotch-player:not([style]) .row.content::after, .play-button::after {
 	backdrop-filter: blur(4px) brightness(0.75);
 	-webkit-backdrop-filter: blur(4px) brightness(0.75);
 	transition: bottom 1s;
+	display: none;
 }
 #projectIframeDiv iframe {
 	width: 100%;

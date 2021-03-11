@@ -170,14 +170,15 @@
 								}
 							} catch (e) {return alert("Invalid URL")}
 							let parentDiv = document.getElementById("projectIframeDiv");
+							parentDiv.style.display="block";
 							let iframe = parentDiv.querySelector("iframe") || document.createElement("iframe");
 							iframe.src = (a.args[0].match(/^https?:\/\/.*?\.github\.io|data:/))?a.args[0]:"https://api.allorigins.win/raw?url="+encodeURIComponent(a.args[0]);
 							parentDiv.appendChild(iframe);
-							parentDiv.style.bottom = 0;
+							setTimeout(function(){parentDiv.style.bottom = 0;},0);
 							if (!parentDiv.querySelector("button").onclick) parentDiv.querySelector("button").onclick = function(){
 								parentDiv = document.getElementById("projectIframeDiv");
 								parentDiv.style.bottom = "-100vh";
-								setTimeout(()=>{parentDiv.querySelector("iframe").remove();},1000);
+								setTimeout(()=>{parentDiv.querySelector("iframe").remove();parentDiv.style.display="none";},1000);
 							}
 						}
 						break;
@@ -475,11 +476,13 @@
 			var b = document.querySelector(".achievement-banner");
 			if (!b.innerHTML) return;
 			if (open) {
+				b.style.display = "block";
 				b.style.animationName = "banner-in";
 				b.style.top = "8px";
 			} else {
 				b.style.animationName = "banner-out";
 				b.style.top = "-96px";
+				setTimeout(function(){b.style.display="none";},1000);
 			}
 		}
 		
