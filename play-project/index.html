@@ -205,7 +205,7 @@
 						banner(true);
 						break;
 					case "session-new":
-						if (!isTrusted) alert("Cannot start session: untrusted code execution");
+						if (!isTrusted) return alert("Cannot start session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?")) break;
 							session.leave();
@@ -233,7 +233,7 @@
 						return session.gameId;
 						break;
 					case "session-join":
-						if (!isTrusted) alert("Cannot join session: untrusted code execution");
+						if (!isTrusted) return alert("Cannot join session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to join a new session anyways?")) break;
 							session.leave();
@@ -264,11 +264,11 @@
 						break;
 					case "session-read":
 						if (!session.data) break;
-						if (!isTrusted && (!session.data || !session.data.users[session.getUser(-1)])) alert("Cannot simulate read: untrusted non-host code execution");
+						if (!isTrusted && (!session.data || !session.data.users[session.getUser(-1)])) return alert("Cannot simulate read: untrusted non-host code execution");
 						try {return eval(a.args.join(""));}catch(e){return 0;}
 					case "session-write":
 						if (!session.data || !session.gameId || !session.data.users) break;
-						if (!isTrusted && session.getUser(-1) !== session.getUser(0)) alert("Cannot write code: untrusted code execution");
+						if (!isTrusted && session.getUser(-1) !== session.getUser(0)) return alert("Cannot write code: untrusted code execution");
 						try {
 							firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(a.args[0])+"/"+a.args[1]).set(
 								a.args[2]
@@ -281,11 +281,11 @@
 						if (!session.data) return 0;
 						try {return session.getUser(-1, true);}catch(e){return 0;}
 					case "session-open":
-						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) alert("Could not open session");
+						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) return alert("Could not open session");
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/canJoin").set(true);
 						break;
 					case "session-close":
-						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) alert("Could not close session");
+						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) return alert("Could not close session");
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/canJoin").set(true);
 						break;
 					case "session-leave":
