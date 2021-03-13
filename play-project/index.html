@@ -149,6 +149,7 @@
 						return AE_MOD.globalvars[a.args[0]];
 						break;
 					case "globalvar-write":
+						if (!isTrusted) return alert("Cannot write global data: untrusted code execution");
 						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+a.args[1]+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
 							try {
 								JSON.parse(r);
