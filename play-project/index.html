@@ -138,7 +138,7 @@
 					case "globalvar-load":
 						if (!a.args[0] && a.args[0] !== 0) break; //No Empty Keys
 						//AE_MOD.globalvars[a.args[0]] = NaN;
-						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
+						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
 							try {
 								JSON.parse(r);
 								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
@@ -205,6 +205,17 @@
 						target.innerHTML = a.args[0];
 						banner(true);
 						break;
+					case "userdata-load":
+						XHR.requestExt("GET","https://c.gethopscotch.com/api/v2/users/"+encodeURIComponent(a.args[0]),function(r,s){
+							try {
+								JSON.parse(r);
+								AE_MOD.hs_user_data[a.args[0]] = JSON.parse(r);
+							} catch (e) {/* Bad JSON */}
+						},1);
+						break;
+					case "userdata-read":
+						//Args: [0] User ID, [1] JSON trait name (e.g. nickname)
+						return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]:AE_MOD.hs_user_data[a.args[0]]) : "-1";
 					case "session-new":
 						if (!isTrusted) return alert("Cannot start session: untrusted code execution");
 						if (session.gameId && session.isHost) {
@@ -303,6 +314,7 @@
 				}
 			},
 			"globalvars": {},
+			"hs_user_data": {},
 			"initiated": false
 		};
 		

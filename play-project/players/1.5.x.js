@@ -4108,7 +4108,7 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                 var n = document.createElement("input");
 				n.value = tu;
                 c(n.style, {
-                    width: "300px",
+                    width: "100%",
                     height: "50px",
                     type: "text",
                     fontSize: "1.8em",
