@@ -169,7 +169,9 @@ function showProjects(chProjects) {
 			
 			pCard.setAttribute("class", "project-card");
 			if (p.uuid == "ae_web_info") { //Info Page
-				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')"></a>
+				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')">
+						<img hidden src="../images/web-info-thumbnail.png" onload="this.parentNode.style.animationName='fade-in';this.parentNode.style.opacity=1;">
+					</a>
 					<div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div>
 					<div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
 						<name title="${p.title}">${p.title}</name>
@@ -185,8 +187,8 @@ function showProjects(chProjects) {
 				var baseCode = `<div class="report-project-div" style="position:absolute;z-index:2;">
 					<i title="Report this project..." class="report-icon fa fa-fw fa-exclamation-triangle" onclick="requestFlag('${p.uuid}')"></i>
 				</div>
-					<a tabindex="7" class="thumbnail" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');">
-						<img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';">
+					<a tabindex="7" class="thumbnail loading" onclick="event.preventDefault();if(xRay){xProjectAction('${JSON.stringify(p).replace(/\\n/gi,' ').replace(/'/gi,'\\\'').replace(/\\"/gi,'\\\\"').replace(/"/gi,'&quot;').replace(/\\\\/gi,'\\\\')}',event);}else{showEmbeddedPlayer('${p.uuid}');}" href="https://c.gethopscotch.com/p/${p.uuid}" id="img-${p.uuid}" style="background-image: url('${p.screenshot_url}');">
+						<img id="img1-${p.uuid}" hidden src="${p.screenshot_url}" onload="this.parentNode.style.animationName='fade-in';this.parentNode.classList.remove('loading');try{document.getElementById('${p.uuid}').setAttribute('data-show', ((document.getElementById('img1-${p.uuid}').width != 160 || document.getElementById('img1-${p.uuid}').height != 188)&&(document.getElementById('${p.uuid}').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('${p.uuid}').setAttribute('data-show','false'); document.getElementById('img-${p.uuid}').style='background-image: url(\\'../images/no-thumbnail.png\\');';">
 					</a>
 					<div class="sharelinkbtn">
 						<i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy(((event.shiftKey)?'https://awesome-e.github.io/hs-tools/play-project/?id=':'https://c.gethopscotch.com/p/') + '${p.uuid}')"></i>
@@ -242,6 +244,7 @@ function showProjects(chProjects) {
 			}
 			//Insert the cards
 			if(!document.getElementById(p.uuid)) hiddenElm.parentNode.insertBefore(pCard, hiddenElm); //Insert if the card does not exist already
+			pCard.onload = function(e){console.log(e.target)}
 			if (pCard.querySelector("name").scrollHeight > 50) pCard.querySelector("name").classList.add("truncate"); else if (pCard.querySelector("name").scrollHeight < 46) pCard.querySelector("name").classList.add("short");
 			
 			pCard.querySelectorAll("a[disabled]").forEach(a=>{

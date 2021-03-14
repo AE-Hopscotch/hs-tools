@@ -249,6 +249,8 @@ sq {
 	transition: color var(--transition-time), background-color var(--transition-time);
 	outline: none;
 	border: 0px solid white;
+	animation-name: slide-in;
+	animation-duration: 1s;
 }
 .project-card a.thumbnail {
 	width: 300px;
@@ -262,17 +264,22 @@ sq {
 	background-position: 50% 50%;
 	opacity: var(--img-opacity);
 	transition: opacity var(--transition-time);
+	animation-duration: 0.5s;
+}
+.project-card a.thumbnail.loading {
+	opacity: 0;
+	transition: 0s;
 }
 .project-card *:focus {
 	outline: var(--tab-outline-style);
 }
-.project-card a.thumbnail img {
+/*.project-card a.thumbnail img {
 	/* CURRENTLY UNUSED
 	width: 512px;
 	height: 300px;
 	padding: 0;
-	display:none; /**/
-}
+	display:none; /* * /
+}*/
 .project-card a[disabled] {
 	cursor: default;
 	color: gray;
@@ -895,4 +902,12 @@ div#report-project-popup button[disabled] {
 	100% {
 		transform: scale(1) translate(-50%,-50%);
 	}
+}
+@keyframes slide-in {
+	0% {transform:translateY(18px);opacity:0;}
+	100% {transform:translateY(0);opacity:1;}
+}
+@keyframes fade-in {
+	0% {opacity:0;}
+	100% {opacity:var(--img-opacity);}
 }
