@@ -135,29 +135,53 @@
 						}
 						try {return maskedEval(a.args.join(""));}catch(e){return 0;}
 						break;
-					case "globalvar-load":
+					case "globalvar-connect":
+						//Args: none
+						if (AE_MOD.globalvarsConnected) return;
+						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/").once("value").then(function(s){
+							AE_MOD.globalvars = s.val();
+							AE_MOD.globalvarsConnected = true;
+						});
+						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/").on("value",function(s){
+							if (AE_MOD.globalvarsConnected) AE_MOD.globalvars = s.val();
+						});
+						break;
+
+						/* PD OLD GLOBALVARS
+						if (!isTrusted && (!session.data || !session.data.users[session.getUser(-1)])) return alert("Cannot simulate read: untrusted non-host code execution");
+						try {return eval(a.args.join(""));}catch(e){return 0;}
+
+
+						break;
 						if (!a.args[0] && a.args[0] !== 0) break; //No Empty Keys
 						//AE_MOD.globalvars[a.args[0]] = NaN;
 						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
 							try {
 								JSON.parse(r);
 								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-							} catch (e) {/* Bad JSON */ AE_MOD.globalvars[a.args[0]] = "__ERR_CANNOT_GET"}
+							} catch (e) {/* Bad JSON * / AE_MOD.globalvars[a.args[0]] = "__ERR_CANNOT_GET"}
 						})
-						break;
+						break;*/
 					case "globalvar-read":
+						//Args: [0] Variable Name
 						return AE_MOD.globalvars[a.args[0]];
 						break;
 					case "globalvar-write":
+						//Args: [0] Variable Name, [1] New Value
 						if (!isTrusted && !a.args[0].match(/^@UNLOCKED_/g)) return alert("Cannot write global data: untrusted code execution");
-						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+encodeURIComponent(a.args[1])+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
+						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/"+encodeURIComponent(a.args[0])).set(
+							a.args[1]
+						);
+						break;
+						/*XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+encodeURIComponent(a.args[1])+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
 							try {
 								JSON.parse(r);
 								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-							} catch (e) {/* Bad JSON */}
+							} catch (e) {/* Bad JSON * /}
 						})
-						break;
+						break;*/
 					case "url-iframe":
+						//Args: [0] URL
 						function onList(hostname){
 							return !!hostname.match(new RegExp("^("+AE_MOD.approvedHostList.join("|").replace(/\*/g,".*?")+")$"));
 						}
@@ -184,6 +208,7 @@
 						}
 						break;
 					case "url-goto":
+						//Args: [0] URL
 						function onList(hostname){
 							return !!hostname.match(new RegExp("^("+AE_MOD.approvedHostList.join("|").replace(/\*/g,".*?")+")$"));
 						}
@@ -191,6 +216,7 @@
 							try {
 								host = new URL(a.args[0]).host;
 								origin = new URL(a.args[0]).origin;
+								console.log(host, origin)
 								if (host && !onList(host)) {
 									if (AE_MOD.pendingHostList.indexOf(origin) == -1) AE_MOD.pendingHostList.push(origin);
 									return alert("This URL has not been approved");
@@ -200,12 +226,14 @@
 						}
 						break;
 					case "achievement":
+						//Args: [0] HTML Input
 						var target = document.getElementById("achievement-banner");
 						target.innerHTML = "";
 						target.innerHTML = a.args[0];
 						banner(true);
 						break;
 					case "userdata-load":
+						//Args: [0] User ID
 						XHR.requestExt("GET","https://c.gethopscotch.com/api/v2/users/"+encodeURIComponent(a.args[0]),function(r,s){
 							try {
 								JSON.parse(r);
@@ -214,9 +242,10 @@
 						},1);
 						break;
 					case "userdata-read":
-						//Args: [0] User ID, [1] JSON trait name (e.g. nickname)
-						return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]:AE_MOD.hs_user_data[a.args[0]]) : "-1";
+						//Args: [0] User ID, {1} JSON trait name (e.g. nickname)
+						return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]:AE_MOD.hs_user_data[a.args[0]]) : "";
 					case "session-new":
+						//Args: None
 						if (!isTrusted) return alert("Cannot start session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to create a new session anyways?")) break;
@@ -245,6 +274,7 @@
 						return session.gameId;
 						break;
 					case "session-join":
+						//Args: None
 						if (!isTrusted) return alert("Cannot join session: untrusted code execution");
 						if (session.gameId && session.isHost) {
 							if (!confirm("Your current session (" + session.gameId + ") is still active! Would you like to join a new session anyways?")) break;
@@ -275,10 +305,12 @@
 						}
 						break;
 					case "session-read":
+						//Args: [0..1..2..] JS Code
 						if (!session.data) break;
 						if (!isTrusted && (!session.data || !session.data.users[session.getUser(-1)])) return alert("Cannot simulate read: untrusted non-host code execution");
 						try {return eval(a.args.join(""));}catch(e){return 0;}
 					case "session-write":
+						//Args: [0] User Index, [1] property, [2] value
 						if (!session.data || !session.gameId || !session.data.users) break;
 						if (!isTrusted && session.getUser(-1) !== session.getUser(0)) return alert("Cannot write code: untrusted code execution");
 						try {
@@ -290,17 +322,21 @@
 						}
 						break;
 					case "session-myindex":
+						//Args: None
 						if (!session.data) return 0;
 						try {return session.getUser(-1, true);}catch(e){return 0;}
 					case "session-open":
+						//Args: None
 						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) return alert("Could not open session");
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/canJoin").set(true);
 						break;
 					case "session-close":
+						//Args: None
 						if (!isTrusted && (!session.data || session.getUser(-1) !== session.getUser(0))) return alert("Could not close session");
 						firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/canJoin").set(true);
 						break;
 					case "session-leave":
+						//Args: None
 						session.leave();
 						break;
 					default:
@@ -314,6 +350,7 @@
 				}
 			},
 			"globalvars": {},
+			"globalvarsConnected": false,
 			"hs_user_data": {},
 			"initiated": false
 		};
@@ -437,8 +474,8 @@
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					AE_MOD.isCustom = false;
-					//Authorize if Project contains session blocks.
-					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
+					//Authorize if Project contains session or global variable blocks.
+					if (/_ae_webplayer_action:{\\"name\\":\\"(?:globalvar|session)-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
 						//Handle Errors here
 						var errorCode = error.code;
 						var errorMessage = error.message;
@@ -567,6 +604,10 @@
 			if (!session.data || !session.gameId || !session.data.users) return;
 			firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(-1)+"/lastInactive").set(null);
 		};
+		setInterval(function(){
+			if (!session.data || !session.gameId || !session.data.users) return;
+			firebase.database().ref("live-projects/"+AE_MOD.projectData.uuid+"-"+session.gameId+"/game/"+session.getUser(-1)+"/lastPing").set(new Date().toISOString());
+		},60000);
 		
 		document.body.addEventListener("keydown",function(e){
 			//Play the project using the space bar
@@ -658,8 +699,8 @@
 							"\n" + (Math.round(p.published_remixes_count/(p.published_remixes_count+p.project_remixes_count)*10000)/100||0) + "% of remixes are published" +
 							"\nVersion: Editor " + p.version + ", Player " + (p.playerVersion||'1.0.0') + " (" + Object.keys(p.playerUpgrades||{}).length + " upgrades)" +
 							"\nNumber of Scenes: " + (p.scenes||'_').length + ", Number of Objects: " + p.objects.length +
-							"\n" + p.rules.length + " rules, " + p.abilities.length + " abilities, " +
-							(function(){var blocks = 0; p.abilities.forEach((x)=>{blocks += (x.blocks||[]).length;});return blocks;})() + " blocks" +
+							"\n" + (p.rules||[]).length + " rules, " + (p.abilities||[]).length + " abilities, " +
+							(function(){var blocks = 0; (p.abilities||[]).forEach((x)=>{blocks += (x.blocks||[]).length;});return blocks;})() + " blocks" +
 							"\nNumber of Variables: " + (p.variables||'').length + ", Custom Images: " + (p.customObjects||'').length +
 							"\nObject Scale: " + (p.baseObjectScale||1) + ", Font Size: " + (p.fontSize||80) + ", Stage: " + (p.stageSize||{"width": 1024}).width + "x" + (p.stageSize||{"height": 768}).height +
 							(customDescription ? "\nCustom Description: " + customDescription : "");
