@@ -243,7 +243,7 @@
 						break;
 					case "userdata-read":
 						//Args: [0] User ID, {1} JSON trait name (e.g. nickname)
-						return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]:AE_MOD.hs_user_data[a.args[0]]) : "";
+						return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]||"undefined":AE_MOD.hs_user_data[a.args[0]]) : "";
 					case "session-new":
 						//Args: none
 						if (!isTrusted) return alert("Cannot start session: untrusted code execution");
