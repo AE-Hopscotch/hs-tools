@@ -4122,6 +4122,10 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                     color: "#000000de"
                 }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
                 if (tu == "_ae_webplayer_hide_prompt_input") n.value = "", n.style.display = "none";
+                //AE_MOD Enter to close prompt
+				n.addEventListener("keydown", function(_E) {
+                    if(_E.keycode === 13) e.isDone = !0, e.hide();
+                });
                 var o = document.createElement("a");
                 c(o.style, {
                     fontFamily: "Avenir, sans-serif",
@@ -4141,10 +4145,6 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
 					webkitUserSelect: "none"
                 }), o.innerText = "OK";
                 var s = !a.isIOSApp() && "ontouchstart" in document.documentElement ? "touchstart" : "click";
-                //AE_MOD Enter to close prompt
-				o.addEventListener("keydown", function(_E) {
-                    if(_E.keycode === 13) e.isDone = !0, e.hide();
-                });
 				o.addEventListener(s, function() {
                     e.isDone = !0, e.hide();
                 }), n.addEventListener(s, function(t) {
