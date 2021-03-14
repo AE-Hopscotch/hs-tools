@@ -4124,7 +4124,7 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                 if (tu == "_ae_webplayer_hide_prompt_input") n.value = "", n.style.display = "none";
                 //AE_MOD Enter to close prompt
 				n.addEventListener("keydown", function(_E) {
-                    if(_E.keycode === 13) e.isDone = !0, e.hide();
+                    if(_E.keyCode === 13) e.isDone = !0, e.hide();
                 });
                 var o = document.createElement("a");
                 c(o.style, {
