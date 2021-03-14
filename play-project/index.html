@@ -169,7 +169,7 @@
 					case "globalvar-write":
 						//Args: [0] Variable Name, [1] New Value
 						if (!isTrusted && !a.args[0].match(/^@UNLOCKED_/g)) return alert("Cannot write global data: untrusted code execution");
-						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/"+(a.args[0])).set(
+						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/"+a.args[0].replace(/[\.#\$\[\]]/g,"")).set(
 							a.args[1]
 						);
 						break;
