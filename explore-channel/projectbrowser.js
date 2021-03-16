@@ -169,8 +169,8 @@ function showProjects(chProjects) {
 			
 			pCard.setAttribute("class", "project-card");
 			if (p.uuid == "ae_web_info") { //Info Page
-				var baseCode = `<a tabindex="7" class="thumbnail" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')">
-						<img hidden src="../images/web-info-thumbnail.png" onload="this.parentNode.style.animationName='fade-in';this.parentNode.style.opacity=1;">
+				var baseCode = `<a tabindex="7" class="thumbnail loading" onclick="event.preventDefault();showEmbeddedPlayer('ae_web_info');" href="about" id="img-${p.uuid}" style="background-image:url('../images/web-info-thumbnail.png')">
+						<img hidden src="../images/web-info-thumbnail.png" onload="this.parentNode.style.animationName='fade-in';this.parentNode.classList.remove('loading');">
 					</a>
 					<div class="sharelinkbtn"><i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://awesome-e.github.io/hs-tools/explore-channel/about')"></i></div>
 					<div class="info"><span class="user-container" style="background-image:url(${imgUrl})">${badgeHTML}<a tabindex="7" class="user" href="${(p.user.id == 'error')?'javascript:void(0)':'user.html?u=' + generateUserLink(p.user)}" title="${(p.user.id == 'error')?'This user does not have a profile':'Visit '+p.user.nickname+'’s Profile'}">${p.user.nickname}</a></span>
