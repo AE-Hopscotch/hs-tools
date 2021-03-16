@@ -502,7 +502,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 		paramString += " " + (labels[i+2]||p.key||"").htmlEscape() + " " + doParameter(p);
 	};
-	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/(block.description||(block.controlScript&&block.controlScript.abilityID?(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name:"")||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
+	var innerHTML = `<bl class="${labels[0]}"><c>${((block.type==123&&!block.rules)?/*(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name||*/((block.description!=undefined?block.description:(block.controlScript&&block.controlScript.abilityID?(projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name:""))||"").htmlEscape():((block.rules||block.xPosition!=null||block.objects)?block.name:labels[1]))||(block.description||"").htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`;
 	if (/control/i.test(block.block_class)){
 		var nestedHTML = "<div class=\"collapsible\">",
 			trueScript = (block.controlScript||{}).abilityID||"",
