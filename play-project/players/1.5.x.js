@@ -1902,6 +1902,7 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
     });
     var y = function() {
         function t(e) {
+            AE_MOD.context = this; //AE_MOD Track Context for Screenshot
             this.root = e, this.context = new r.HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
             this.setiOSStageSizeIfNecessary();
             var i = document.getElementById("project_data")//, n = e.dataset.projectJson || i && i.getAttribute("data");
@@ -2068,8 +2069,16 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
                 o.HSApp.isRunning ? t.animationTick() : t.requestNextFrame();
             });
         }, t.prototype.takeScreenshot = function() {
-            this.screenshotRenderer.render(this.stageProject.activeStageScene.container), this.screenshot.style.zIndex = "99999", 
-            this.canvas.style.opacity = "0", this.screenshot.style.opacity = "1", setTimeout(o.HSApp.sendToApp.bind(void 0, "screenshot", "done"), 400);
+            let THIS = AE_MOD.context;
+            //AE_MOD Take Screenshot
+            THIS.screenshotRenderer.render(THIS.stageProject.activeStageScene.container), THIS.screenshot.style.zIndex = "99999", 
+            THIS.canvas.style.opacity = "0", THIS.screenshot.style.opacity = "1", setTimeout(o.HSApp.sendToApp.bind(void 0, "screenshot", "done"), 400);
+            //AE_MOD Download Screenshot
+            document.querySelector('img[name="background"]').src = THIS.background.toDataURL();
+            document.querySelector('img[name="foreground"]').src = THIS.screenshot.toDataURL();
+            downloadProjectScreenshot();
+            //this.screenshotRenderer.render(this.stageProject.activeStageScene.container), this.screenshot.style.zIndex = "99999", 
+            //this.canvas.style.opacity = "0", this.screenshot.style.opacity = "1", setTimeout(o.HSApp.sendToApp.bind(void 0, "screenshot", "done"), 400);
         }, t.prototype.releaseScreenshot = function() {
             this.screenshot.style.zIndex = "-99999", this.canvas.style.opacity = "1", this.screenshot.style.opacity = "0";
         }, Object.defineProperty(t.prototype, "uuid", {
@@ -2088,6 +2097,8 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
         t.dpi = Math.min(window.devicePixelRatio, 2), t;
     }();
     e.HSMain = y, window.HSMain = y, window.Vec2 = S.Vec2;
+    //AE_MOD Screenshot HSMain declared
+    document.getElementById('screenshot-button').src = "assets/screenshot-icon.png";
 }, function(t, e, i) {
     "use strict";
     Object.defineProperty(e, "__esModule", {

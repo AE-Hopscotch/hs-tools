@@ -506,11 +506,9 @@
 				if (e.target.getAttribute("for")) {
 					document.querySelectorAll(".settings input[type=checkbox]").forEach((e)=>{prefs[e.getAttribute("for")] = !!e.checked});
 					document.querySelectorAll(".settings select").forEach((e)=>{prefs[e.getAttribute("for")] = e.value});
-					console.log(prefs);
-					console.log(e.target);
-					if (e.target.getAttribute("for") == "dark_mode") theme();
 				}
 				localStorage.setItem("preferences", JSON.stringify(prefs));
+				if (e.target.getAttribute("for") == "dark_mode") theme();
 			}
 			if (/iPad|iPhone|iPod/.test(navigator.userAgent)) t.addEventListener("click", update);
 			t.addEventListener("input", update);

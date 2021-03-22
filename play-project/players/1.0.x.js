@@ -8868,6 +8868,7 @@ window.addEventListener("load", function() {
 
 var HSMain = function() {
     function a(b) {
+        AE_MOD.context = this; //AE_MOD Track Context for Screenshot
         this.root = b, this.context = new HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1, 
         this.setiOSStageSizeIfNecessary();
         var c = document.getElementById("project_data");//, d = b.dataset.projectJson || c && c.getAttribute("data");
@@ -9017,12 +9018,22 @@ var HSMain = function() {
             a.animationTick();
         });
     }, a.prototype.takeScreenshot = function() {
-        this.screenshotRenderer.render(this.stageProject.activeStageScene.container), this.screenshot.style.zIndex = "99999", 
-        this.canvas.style.opacity = "0", this.screenshot.style.opacity = "1", setTimeout(sendToApp.bind(void 0, "screenshot", "done"), 400);
+        let THIS = AE_MOD.context;
+        //AE_MOD Take Screenshot
+        THIS.screenshotRenderer.render(THIS.stageProject.activeStageScene.container), THIS.screenshot.style.zIndex = "99999", 
+        THIS.canvas.style.opacity = "0", THIS.screenshot.style.opacity = "1", setTimeout(sendToApp.bind(void 0, "screenshot", "done"), 400);
+        //AE_MOD Download Screenshot
+        document.querySelector('img[name="background"]').src = THIS.background.toDataURL();
+        document.querySelector('img[name="foreground"]').src = THIS.screenshot.toDataURL();
+        downloadProjectScreenshot();
+        // this.screenshotRenderer.render(this.stageProject.activeStageScene.container), this.screenshot.style.zIndex = "99999", 
+        // this.canvas.style.opacity = "0", this.screenshot.style.opacity = "1", setTimeout(sendToApp.bind(void 0, "screenshot", "done"), 400);
     }, a.prototype.releaseScreenshot = function() {
         this.screenshot.style.zIndex = "-99999", this.canvas.style.opacity = "1", this.screenshot.style.opacity = "0";
     }, a;
 }();
+//AE_MOD Screenshot HSMain declared
+document.getElementById('screenshot-button').src = "assets/screenshot-icon.png";
 
 HSMain.MIN_STAGE_WIDTH = 210, HSMain.dpi = Math.min(window.devicePixelRatio, 2);
 

@@ -207,6 +207,27 @@ MATCH:
    REMOVE (@ NEXT FUNCTION CALL): window
    ADD: t/* AE_MOD player > window prevention */
 
+MATCH:
+   FIND: HSProjectContext(), this.isMaximized = !1, this.hasDrawn = !1,
+   ADD (LINE ABOVE): AE_MOD.context = this; //AE_MOD Track Context for Screenshot
+
+MATCH:
+   FIND: prototype.takeScreenshot = function
+   REPLACE ENTIRE FUCTION, BUT PRESERVE THE EXACT SAME TIMEOUT
+            let THIS = AE_MOD.context;
+            //AE_MOD Take Screenshot
+            THIS.screenshotRenderer.render(THIS.stageProject.activeStageScene.container), THIS.screenshot.style.zIndex = "99999", 
+            THIS.canvas.style.opacity = "0", THIS.screenshot.style.opacity = "1", >> ORIGINAL TIMEOUT >> setTimeout(o.HSApp.sendToApp.bind(void 0, "screenshot", "done"), 400);
+            //AE_MOD Download Screenshot
+            document.querySelector('img[name="background"]').src = THIS.background.toDataURL();
+            document.querySelector('img[name="foreground"]').src = THIS.screenshot.toDataURL();
+            downloadProjectScreenshot();
+            (comment out the original function)
+   ADD (BELOW END OF HSMAIN DECLARATION):
+    //AE_MOD Screenshot HSMain declared
+    document.getElementById('screenshot-button').src = "assets/screenshot-icon.png";
+
+
 ***** DEBUGGER LOG *****
 
 MATCH:
@@ -238,4 +259,4 @@ MATCH:
    ADD: (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */
 
 
-RESULT: 16 matches?
+RESULT: 18 matches?
