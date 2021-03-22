@@ -64,7 +64,7 @@
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
 	<script>
-	
+		let onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 		var projectImport = projectImport || {};
 		var AE_MOD = {
 			"projectData": {},
@@ -621,10 +621,10 @@
 		<div class="player-icon-toolbar" ondragstart="event.preventDefault();">
 			<img alt="mute" id="mute-button" class="player-icon" src="assets/speaker.svg" asrc="https://c.gethopscotch.com/assets/webplayer/speaker-9713bf0a2c5e18bbcf82ff55b8b02a23c2feeb26fe4e18c2c2b96986856e3a42.svg" />
 			<img alt="replay" id="restart-button" class="player-icon" src="assets/refresh_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/refresh_button-5a6475850ec2e0b6a9dd0df4a26cfcd2ddc6cf79c858b931df8534d4be6bb67e.svg" />
-			<img alt="project info" id="info-button" class="player-icon" src="assets/project-info-circle.png" onclick="document.getElementById('projectInfoDiv').classList.add('open')"/>
-			<img alt="screenshot" id="screenshot-button" class="player-icon" src="assets/loading-dots.gif" onclick="AE_MOD.context.stageProject?HSMain.prototype.takeScreenshot():window.open(document.getElementById('project-image').src)"/>
+			<img alt="project info" id="info-button" class="player-icon" src="assets/project-info-circle.png" onclick="document.getElementById('projectInfoDiv').classList.add('open');"/>
+			<img alt="screenshot" id="screenshot-button" class="player-icon" src="assets/loading-dots.gif" onclick="AE_MOD.context.stageProject?HSMain.prototype.takeScreenshot():window.open(document.getElementById('project-image').src);"/>
 			<img alt="fullscreen" id="fullscreen-button" class="player-icon" src="assets/fullscreen_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/fullscreen_button-e27fd53c82e53e33b0c77ccad29570543d1060028d4b1ab26521cf9a09cedd4b.svg" />
-			<a id="hopscotch-link" target="_top" style="height: 100%;" onclick="if(0)event.preventDefault();">
+			<a id="hopscotch-link" target="_top" style="height: 100%;">
 				<img alt="hopscotch" id="hopscotch-button" class="player-icon" src="assets/hopscotch_button.svg" asrc="https://c.gethopscotch.com/assets/webplayer/hopscotch_button-a64dbfaa6e5b9f817bb28c67cf5dcf6741aac3034464d3305065f1edb6a97617.svg" />
 			</a>
 		</div>
@@ -741,7 +741,7 @@
 				infoDiv.classList.add("open");
 				infoDiv.style.animationName = "none";
 			} else {
-				infoDiv.classList.remove("open");
+				if (!document.querySelector('.player-icon-toolbar').contains(e.target)) infoDiv.classList.remove("open");
 			}
 		});
 
@@ -788,6 +788,18 @@
 					xhr.send(formData);
 				});
 			}
+		}
+		
+		//Touchstart events
+		document.getElementById('play_container').ontouchstart = function() {
+			document.getElementById('info-button').addEventListener('touchstart',function(){
+				document.getElementById('projectInfoDiv').classList.add('open');
+				document.getElementById('info-button').removeAttribute('onclick');
+			});
+			document.getElementById('screenshot-button').addEventListener('touchstart',function(){
+				AE_MOD.context.stageProject?HSMain.prototype.takeScreenshot():window.open(document.getElementById('project-image').src);
+				document.getElementById('screenshot-button').removeAttribute('onclick');
+			});
 		}
 	</script>
 	<!-- script src="https://c.gethopscotch.com/assets/application-1a9cf5388bffbc24dfa2009d5e1bc56240d420916697f2f5fe7ed22d96ce3733.js"></script-->
