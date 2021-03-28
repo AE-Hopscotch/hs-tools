@@ -249,6 +249,8 @@ sq {
 	transition: color var(--transition-time), background-color var(--transition-time);
 	outline: none;
 	border: 0px solid white;
+}
+.project-card.loading {	
 	animation-name: slide-in;
 	animation-duration: 1s;
 }
@@ -266,7 +268,7 @@ sq {
 	transition: opacity var(--transition-time);
 	animation-duration: 0.5s;
 }
-.project-card a.thumbnail.loading {
+.project-card.loading a.thumbnail {
 	opacity: 0;
 	transition: 0s;
 }
