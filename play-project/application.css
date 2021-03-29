@@ -256,6 +256,9 @@ h2 {
 	overflow: hidden;
 	transition: 0.2s;
 	display:flex;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 .player-icon {
 	background-color: transparent;
