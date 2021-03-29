@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 	<head>
 		<link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="../sidenavStyles.css">
 		<title>Video Clips</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		
 		<link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
@@ -48,15 +48,15 @@
 		</style>
 	</head>
 	<body>
-		<a href="javascript:home()"><svg id="homeSvg" style="fill:white; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 10;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg></a>
+		<a href="javascript:home()"><svg id="homeSvg" style="fill:white; transition: 0.5s; position: fixed; bottom: 8px; right: 8px; z-index: 10;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;" xml:space="preserve"><g><g><path d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939z"/><path d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/></g></g></svg><span style="font-size:0px">HS Tools Home</span></a>
 		<input hidden onkeyup="if(event.keyCode==13)checkPass()" id="pin1" type="password" placeholder="Enter key..."/>
-		<button onmouseenter="this.previousElementSibling.type='text'" onmouseleave="this.previousElementSibling.type='password'" ontouchstart="this.previousElementSibling.type='text'" ontouchend="this.previousElementSibling.type='password'" class="hoverbtn"><i class="fa fa-eye"></i></button>
+		<button onmouseenter="this.previousElementSibling.type='text'" onmouseleave="this.previousElementSibling.type='password'" ontouchstart="this.previousElementSibling.type='text'" ontouchend="this.previousElementSibling.type='password'" class="hoverbtn" aria-label="Close menu"><i class="fa fa-eye"></i></button>
 		<button onclick="checkPass()">Unlock</button>
 		<div id="page" style="width: 100%; height: 100%;">
 			<div id="mySidenav" class="sidenav" style="padding-top: 0px;">
 				
 				<div id="topSideNavBar" style="position: fixed; transition: 0.5s; z-index: 2; top:0px; left: -250px; margin-bottom: -50px;">
-					<button class="openbtn" style="position: absolute; left: 200px; top: 2.5px; z-index: 2; display: none;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
+					<button class="openbtn" style="position: fixed; left: 200px; top: 2.5px; z-index: 2; display: none;" onclick="theme()" id="themebtn2"><i class="fa fa-fw fa-moon-o"> </i></button>
 					<span style="position: absolute; top: 0px; width: 150px; display: inline-block; background-color: #0d6f62; width: 250px; height: 40px; z-index: 1;"></span>
 					<a href="javascript:void(0);" onclick="testclose(v)" style="position: absolute; top: 7px; width: 160px; margin-top: -4px;  z-index: 10;" id="closebtn"><i class="fa fa-fw fa-remove"> </i> Close Menu</a>
 				</div>
@@ -223,9 +223,10 @@
 			//On click or back, load video
 			(function() {
 				if (window.history && window.history.pushState) {
-					$(window).on('popstate', function() {
+					/* $(window).on('popstate', function() {
 						show();
-					});
+					}); in favor of deprecating jQuery */
+					window.addEventListener('popstate', show);
 				}
 			})();
 			
