@@ -1297,6 +1297,7 @@ CODE MIRROR STYLES
 .CodeMirror-line{line-height:1.7!important;padding-left:52px!important}
 .CodeMirror-linenumber{color:#fff!important;width:28px!important;margin-left:-5px!important;padding-right:4px!important;padding-left:0!important;top:3px;left:12px!important}
 .CodeMirror-linenumbers{width:31px!important}
+.CodeMirror-lint-tooltip{z-index:102!important}
 .cm-qualifier{color:#eee!important}
 .cm-punctuation,.cm-unit,.cm-negative{color:#e09142!important}
 .cm-string{color:#ffa852!important}
