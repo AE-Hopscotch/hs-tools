@@ -36353,5 +36353,9 @@ $(document).keyup(function (event) {
 		AE_MOD.mouseWheelData.y = e.deltaY;
 		AE_MOD.mouseWheelData.dir = e.deltaY?(e.deltaY>0?3:1):(e.deltaX>0?0:2);
 	}
+	window.addEventListener('blur', function(){
+		//Release all keys if the window loses focus (as we can't check for the keyup event during that time). This prevents key locking.
+		AE_MOD.keyboardKeys = [];
+	})
 	
 	window.focus();
