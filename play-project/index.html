@@ -76,7 +76,7 @@
 			},
 			"pendingHostList":[],
 			"webplayer_action": function(a, b, c) {
-				isTrusted = !AE_MOD.isCustom;
+				isTrusted = !AE_PROJECT_USES_CUSTOM_DATA;
 				if (!typeof c == "object" || !/^.{1,3}$/.test(Object.getPrototypeOf(c||{}).constructor.name)) isTrusted = false, console.warn("Untrusted Event");
 				try {
 					a = JSON.parse(a.replace(/"_data"/g,b));
@@ -138,12 +138,12 @@
 					case "globalvar-connect":
 						//Args: none
 						if (AE_MOD.globalvarsConnected) return;
-						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/").once("value").then(function(s){
-							AE_MOD.globalvars = s.val();
+						firebase.database().ref("global-variables/"+(AE_USER_ID||-1)+"/").once("value").then(function(s){
+							AE_MOD.globalvars = s.val()||{};
 							AE_MOD.globalvarsConnected = true;
 						});
-						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/").on("value",function(s){
-							if (AE_MOD.globalvarsConnected) AE_MOD.globalvars = s.val();
+						firebase.database().ref("global-variables/"+(AE_USER_ID||-1)+"/").on("value",function(s){
+							if (AE_MOD.globalvarsConnected) AE_MOD.globalvars = s.val()||{};
 						});
 						break;
 
@@ -169,7 +169,7 @@
 					case "globalvar-write":
 						//Args: [0] Variable Name, [1] New Value
 						if (!isTrusted && !a.args[0].match(/^@UNLOCKED_/g)) return alert("Cannot write global data: untrusted code execution");
-						firebase.database().ref("global-variables/"+(AE_MOD.projectData.user?AE_MOD.projectData.user.id:-1||-1)+"/"+a.args[0].replace(/[\.#\$\[\]]/g,"")).set(
+						firebase.database().ref("global-variables/"+(AE_USER_ID||-1)+"/"+a.args[0].replace(/[\.#\$\[\]]/g,"")).set(
 							a.args[1]
 						);
 						break;
@@ -467,9 +467,9 @@
 		}*/
 		
 		const createConstUUID = function() {
-			if (typeof AE_PROJECT_UUID !== "undefined") location.reload();
+			if (typeof AE_PROJECT_UUID !== "undefined" || typeof AE_USER_ID !== "undefined" || typeof AE_PROJECT_USES_CUSTOM_DATA !=="undefined") location.reload();
 			let constUUIDScript = document.createElement('script');
-			constUUIDScript.innerHTML = `const AE_PROJECT_UUID = '${AE_MOD.uuid}';`
+			constUUIDScript.innerHTML = `const AE_PROJECT_UUID = '${AE_MOD.uuid}', AE_USER_ID = ${AE_MOD.projectData.user_id}, AE_PROJECT_USES_CUSTOM_DATA = ${AE_MOD.isCustom}`;
 			document.body.appendChild(constUUIDScript);
 		}
 
@@ -482,9 +482,9 @@
 					console.groupEnd();
 					AE_MOD.projectData = p;
 					AE_MOD.uuid = p.uuid;
+					AE_MOD.isCustom = false;
 					createConstUUID();
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
-					AE_MOD.isCustom = false;
 					//Authorize if Project contains session or global variable blocks.
 					if (/_ae_webplayer_action:{\\"name\\":\\"(?:globalvar|session)-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
 						//Handle Errors here
@@ -513,9 +513,9 @@
 					//p = JSON.parse(localStorage.getItem("projectFromStorage"));
 					AE_MOD.projectData = p;
 					AE_MOD.uuid = p.uuid;
+					AE_MOD.isCustom = true;
 					createConstUUID();
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
-					AE_MOD.isCustom = true;
 					if (new URL(location.href).searchParams.get("from") == "hsBuilder") localStorage.setItem("projectLoadState", "loadingPlayer");
 					init();
 				},200);
