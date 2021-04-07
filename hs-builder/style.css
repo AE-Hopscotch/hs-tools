@@ -373,6 +373,7 @@ sq {
 	width: inherit;
 	height: inherit;
     background: linear-gradient(to bottom, var(--col-g2), var(--col-g4));
+    mask-image: linear-gradient(to left, white, transparent);
     -webkit-mask-image: linear-gradient(to left, white, transparent);
 	border-radius: 8px;
 }
@@ -1225,8 +1226,8 @@ op.math op.math op.math op.math op.math op.math {
 	height: 14px;
 	top: 0.75px;
 }
-html[style*="--col-bg-main:black;"] #renderjson-container {
-}
+/* html[style*="--col-bg-main:black;"] #renderjson-container {
+} */
 .renderjson span {
 	top: 0;
 	font-size: 18px;
