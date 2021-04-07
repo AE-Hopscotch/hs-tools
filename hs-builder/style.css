@@ -584,6 +584,7 @@ sq {
 }
 .page-controls select {
 	outline: none;
+	border: none;
 }
 .page-controls table {
 	width: 250px;

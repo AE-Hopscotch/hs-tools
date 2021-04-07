@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.5.0 r1";
+editor.version = "beta 1.5.0 r2";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -1660,18 +1660,18 @@ if (editor.useFileSysCode) {
 					+ (myPreset.eventParameters.length==1?"1 event parameter, and ":myPreset.eventParameters.length+" event parameters, and ")
 					+ (myPreset.variables.length==1?"1 variable in ":myPreset.variables.length+" variables in ")
 					+ Math.round((performance.now() - performanceStart)*100)/100 + "ms)", "color:teal;font-weight:600;");
-				if (/iPhone|iPad|iPod/.test(navigator.userAgent)) popup.download();
+				if (onIos) popup.download();
 				const	blob = new Blob([JSON.stringify(myPreset)],{type:"application/json"}),
 						responseFn = function(xhr) {
 							//Consider making this a default
-							if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+							if (onIos) {
 								localStorage.setItem("hsProject",JSON.stringify(hsProject));
 								const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"'+(hsProject.filename||(hsProject.uuid||uuidv4().toUpperCase())+".hopscotch")+'","url":"' + encodeURIComponent(xhr.responseText) + '"}';
 								localStorage.setItem("hsProjectDownloadLink",downloadLink);
 								setTimeout(function(){location.href = downloadLink;},50);
 								setTimeout(function(){location.href = "?r=1";},150);
 							} else {
-								location.href = JSON.parse(xhr.responseText).link;
+								location.href = xhr.responseText;
 							}
 							document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save';
 						};
