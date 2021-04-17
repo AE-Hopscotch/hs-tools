@@ -36218,7 +36218,7 @@ $(document).keyup(function (event) {
 });
 //(function() {
     function loadFile(url, cb) {
-      var xhr = new XMLHttpRequest();
+      /*var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           cb(this.responseText);
@@ -36226,6 +36226,9 @@ $(document).keyup(function (event) {
       };
       xhr.open("get", url, true);
       xhr.send();
+	  */
+	  //FIX CORS ERROR
+	  XHR.requestExt('GET',url,cb,1);
     }
 
     var INDEX = null;
