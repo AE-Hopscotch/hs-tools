@@ -559,7 +559,7 @@ a.remixbar[onclick*="draft"] {
 	top: -1px;
 	left: 2px;
 	color: #ddd;
-	webkit-appearance: none;
+	appearance: none;
 	-webkit-appearance: none;
 	height: 16px;
 	width: 16px;
@@ -910,4 +910,37 @@ div#report-project-popup button[disabled] {
 @keyframes fade-in {
 	0% {opacity:0;}
 	100% {opacity:var(--img-opacity);}
+}
+
+/* Print Styles, because why not */
+@media print {
+    .project-card img[hidden] {
+		height: 300px;
+		position: absolute;
+        display: inline-block;
+    }
+    .uiBtn, sq, .proj-search-div, .search-bar {
+        display: none;
+    }
+    body .topnav, body .topSticky {
+        left: 0;
+        width: 100%;
+		margin: 0;
+        position: relative;
+    }
+    body {
+        margin: 0;
+        --col-bg-main: #F8F8F8;
+        --col-bg-toolbar: white;
+        --col-low-border: 1px solid #ddd;
+        --col-label-text: black;
+        --img-opacity: 1;
+        --transition-time: 0s;
+    }
+	body > br {
+		display: none;
+	}
+	.xray-contents {
+		display: none;
+	}
 }

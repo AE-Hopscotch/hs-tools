@@ -352,7 +352,7 @@ var XHR = {
 		}, fn, ca);
 	},
 	fetch: function(url, fn, useAllOrigins) {
-		fetch((useAllOrigins)?"https://api.allorigins.win/get?url="+ encodeURIComponent(url):url)
+		fetch((useAllOrigins)?location.protocol+"//api.allorigins.win/get?url="+ encodeURIComponent(url):url)
 			.then(response => {
 				if (response.ok) return response.json();
 				throw new Error('Network response was not ok.')
@@ -362,10 +362,10 @@ var XHR = {
 	},
 	requestExt: function(method, url, callback, proxy, data) {
 		proxy = proxy || 0;
-		let proxyUrls = ["", "all", "https://api.allorigins.win/get?t="+Date.now()+"&url=", /*"https://cors-anywhere.herokuapp.com/",*/ "https://api.codetabs.com/v1/proxy?quest=", "https://enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
+		let proxyUrls = ["", "all", location.protocol+"//api.allorigins.win/get?t="+Date.now()+"&url=", /*location.protocol+"//cors-anywhere.herokuapp.com/",*/ location.protocol+"//api.codetabs.com/v1/proxy?quest=", location.protocol+"//enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
 		if (proxy === 2 && method == "GET") method = "fetch";
 		function sendRequest(url, cb){
-			if (method == "fetch" || url.match(/^https:\/\/api.allorigins/)) {
+			if (method == "fetch" || url.match(/^https?:\/\/api.allorigins/)) {
 				fetch(proxy > 1 ? proxyUrls[proxy] + url : url, {
 					method: method == "fetch" ? "GET" : method,
 					body: data

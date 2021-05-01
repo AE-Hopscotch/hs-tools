@@ -665,7 +665,7 @@ console.log("Webplayer v1.5.12 - 2021/01/20 (production)");
     var r = i(2), n = i(23), o = i(5), a = i(12), s = i(13), c = i(11), u = i(60), l = i(19), h = i(0), p = i(1), d = i(18);
     e.VERSION_KEY = "version", e.CUSTOM_OBJECTS_KEY = "customObjects", e.SCALE_KEY = "baseObjectScale", 
     e.FONT_SIZE_KEY = "fontSize", e.STAGE_SIZE = "stageSize";
-    var S, f = [ "ocarina", "piano", "vibraphone", "guitar", "cello", "8bit" ];
+    var S, f = [ "ocarina", "piano", "vibraphone", "guitar", "cello", "8bit", "choir" ];
     !function(t) {
         t[t.V13 = 13] = "V13", t[t.V14 = 14] = "V14", t[t.V15 = 15] = "V15", t[t.V16 = 16] = "V16", 
         t[t.V17 = 17] = "V17", t[t.V18 = 18] = "V18", t[t.V19 = 19] = "V19", t[t.V24 = 24] = "V24", 

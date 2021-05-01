@@ -44,7 +44,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style>
 			@media print {
-				body {font-family:sans-serif;background-color:red!important;}
+				body {font-family:sans-serif;}
 				h1, h2 {color:black!important;}
 				#projectInfoHoverIcon {display:none;}
 				.wrapper {display:none;}
@@ -710,7 +710,7 @@
 							"\nPublished: " + !!(p.correct_published_at&&!p.deleted_at) + ", Filtered: " + p.has_been_removed +
 							(p.correct_published_at?"\nPublish Time: " + (p.correct_published_at||"").replace("T", " at ").replace("Z", " GMT"):"") +
 							`\nMade by: ${p.user?p.user.nickname:p.author}\u202D (user id: ${(p.user != undefined) ? p.user.id : 'unknown'}) ` + 
-							((p.original_user != undefined && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
+							((p.original_user != undefined && p.user && p.original_user.id != p.user.id) ? `\nRemixed from: ${p.original_user.nickname}\u202D (user id: ${p.original_user.id}) ` : '') +
 							"\nProject UUID: " + p.uuid +
 							"\nFile ID: " + (p.filename||'').replace(/\.hopscotch/, '') + " (" + ((r < 1000) ? r + "KB)" : Math.round(r/10)/100 + "MB)") +
 							"\nLikes: " + p.number_of_stars + ", Play Count: " + p.play_count +
