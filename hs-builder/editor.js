@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.5.1 r1";
+editor.version = "beta 1.6.0 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -63,10 +63,15 @@ function uuidv4() {
 if (onIos) {
 	window.addEventListener("touchstart", function(){
 		bodyScroll.coordsInterval = setInterval(function(){bodyScroll.setX();bodyScroll.setY();},5);
-	})
+	});
 	window.addEventListener("scroll", function(){
 		if (bodyScroll.coordsInterval) clearInterval(bodyScroll.coordsInterval);
-	})
+	});
+	let focusMsg = document.getElementById("window-controls-resizer").querySelector('span.center');
+	focusMsg.innerHTML = "Press shift twice to focus.<br>Tap to enable shake to focus.";
+	focusMsg.addEventListener("touchend",function(){
+		if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
+	});
 }
 window.addEventListener("scroll", function(e){
 	bodyScroll.setX();
@@ -653,16 +658,29 @@ if (editor.useBlockRender) {
 		"save": function() {
 			const traitName = document.getElementById("traits-other").querySelector("select").value;
 			try {
-				if (traitName=="project") {
-					hsProject = JSON.parse(cmEditor.getValue()||'{}');
+				if (editor.jsonEditor.editInfo) {
+					switch (editor.jsonEditor.editInfo.type) {
+						case "variable": {
+							let data = JSON.parse(cmEditor.getValue()||'{}');
+							let targetVarIndex = hsProject.variables.map((v,i)=>v.objectIdString===editor.jsonEditor.editInfo.id?i:undefined).filter(x=>x||false)[0];
+							if (JSON.stringify(data)==='{}') hsProject.variables.splice(targetVarIndex,1);
+							else hsProject.variables[targetVarIndex] = data;
+							console.log(hsProject.variables, targetVarIndex, data);
+							break;
+						}
+					}
+					delete editor.jsonEditor.editInfo;
 				} else {
-					hsProject[traitName] = JSON.parse(cmEditor.getValue()||'{}');
+					if (traitName=="project") {
+						hsProject = JSON.parse(cmEditor.getValue()||'{}');
+					} else {
+						hsProject[traitName] = JSON.parse(cmEditor.getValue()||'{}');
+					}
 				}
 				formatProject(hsProject);
 				editor.traits.updateFields();
 				updateDrawers();
-				document.querySelector(".edit-box").style.display = "none";
-				bodyScroll.enable();
+				editor.jsonEditor.close();
 			} catch(e) {
 				alert("Invalid JSON");
 			}
@@ -807,7 +825,6 @@ if (editor.useBlockRender) {
 				}
 			});
 		});
-		console.log(parent);
 		parent.querySelector('.handle').addEventListener('pointerup', function() {
 			const deselctionList = [];
 			switch (parent.querySelector('bl').getAttribute('class')) {
@@ -835,6 +852,7 @@ if (editor.useBlockRender) {
 		//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 		data.forEach(function(item) {
 			var blockElm = document.createElement("div");
+			console.log(item);
 			var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.xPosition!=null||(item.objects&&data.length>1)));
 			blockElm.setAttribute("class", blockInfo.classList);
 			blockElm.setAttribute("data", blockInfo.data);
@@ -893,6 +911,7 @@ if (editor.useBlockRender) {
 				lastKeypressTime = thisKeypressTime;
 				break;
 			case 27:
+				if (popup.isOpen() && e.target.getAttribute("type") === "search") e.preventDefault();
 				popup.close();
 				if (editor.project.saveFileXHR) editor.project.saveFileXHR.abort(), document.getElementById("download-btn").innerHTML = '<i class="fa fa-download"></i> Save';
 				break;
@@ -1219,9 +1238,6 @@ if (editor.useBlockRender) {
 		draggables[i].addEventListener("mousedown",function(event){reorganizefloatingZ(event)});
 		draggables[i].addEventListener("click",function(event){reorganizefloatingZ(event)});
 		draggables[i].addEventListener("touchstart",function(event){reorganizefloatingZ(event)});
-		draggables[i].addEventListener("touchend",function(){
-			if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission
-		});
 	};
 	/* Sortable JS */
 	(function(){
@@ -1480,7 +1496,7 @@ if (editor.useFileSysCode) {
 					//Set the preview name to the option label
 					editor.jsonEditor.open();
 					document.querySelector(".block-preview.editor-jsonrender span").innerHTML = document.getElementById("traits-other").querySelector('select option[value="'+traitName+'"]').innerText
-					cmEditor.getDoc().setValue(JSON.stringify(traitName=="project"?hsProject:hsProject[traitName],null,"\t"));					
+					cmEditor.getDoc().setValue(JSON.stringify(traitName=="project"?hsProject:hsProject[traitName],null,"\t"));
 					for (var i = 1; i < cmEditor.lastLine() ; i++) {
 						cmEditor.foldCode({ line: i, ch: 0 }, null, "fold");
 					}
@@ -2427,6 +2443,14 @@ if (editor.useFileSysCode) {
 			document.querySelector("#builderInfo-popup").removeAttribute("hidden");
 			document.querySelector(".popup").removeAttribute("hidden");
 			bodyScroll.disable();
+		},
+		"search": function() {
+			if (bodyScroll.isLocked() || popup.isOpen()) return;
+			document.querySelector("#search-popup").removeAttribute("hidden");
+			document.querySelector(".popup").removeAttribute("hidden");
+			bodyScroll.disable();
+			searchProject(document.getElementById('search-popup').querySelector('input').value);
+			document.querySelector('.search-bar input').focus();
 		}
 	}
 	function updateFields() {
@@ -2529,6 +2553,9 @@ if (editor.useFileSysCode) {
 	});
 }
 if (editor.modulesScripts) {
+	var searchElements = {
+		searchPopup: document.getElementById('search-popup')
+	}
 	//JS Color Inputs
 	for (i = 1; i < 5; i++) {
 		var colorVal = 'xxxxxx'.split("").repeatEach(x=>{return"0123456789ABCDEF".substr(Math.round(Math.random()*6),1)}).join("");
@@ -2543,8 +2570,241 @@ if (editor.modulesScripts) {
 	document.getElementById("pAct-gradientBg").querySelectorAll("table input").forEach(elm=>{
 		elm.oninput = (e)=>{document.getElementById('gradient-preview').setAttribute("type",e.target.value); document.getElementById('color-preview-box').setAttribute("type",e.target.value);};
 	});
+	//Search Box
+		searchElements.searchInput = searchElements.searchPopup.querySelector('input'),
+		searchElements.searchBtn = searchElements.searchPopup.querySelector('button[action=search]'),
+		searchElements.settingsBtn = searchElements.searchPopup.querySelector('button[action="show-search-settings"]'),
+		searchElements.resultsBox = document.getElementById('search-results-container').querySelector('div > div');
+	searchElements.searchInput.addEventListener('search', function(){searchProject(searchElements.searchInput.value)});
+	searchElements.searchBtn.addEventListener('click', function(){searchProject(searchElements.searchInput.value)});
+	searchElements.settingsBtn.addEventListener('click', function(){
+		const optionsHidden = searchElements.searchPopup.querySelector('.search-bar + div').toggleAttribute('hidden');
+		document.getElementById('search-results-container').style.height = `calc(100% - ${optionsHidden?'60px':'230px'}`;
+	});
+	function searchProject(searchText, options) {
+		if (!options) searchElements.resultsBox.innerHTML = "";
+		function escapeRegExp(str) {
+			return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+		}
+		function getVar(id) {
+			var name = (projectDict.variables[id]||{}).name;
+			return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
+		}
+		function optVal(id){
+			//options = included with automated search
+			return options ? (options[id]||false) : (document.getElementById(id)||{"checked":false}).checked;
+		}
+		if (!searchText) return;
+		if (searchText.length < 3 && !optVal("opt_ev") && !optVal("opt_rg")) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';;;
+		let textItems = [], searchResults = [];
+		(hsProject.abilities||[]).forEach((a)=>{
+			if (a.name && optVal("ft_ab")) textItems.push({"type":"ability_name","value":a.name,"id":a.abilityID,"data":a});
+			if (a.name && optVal("ft_ai")) textItems.push({"type":"ability_id","value":a.abilityID,"id":a.abilityID,"data":a});
+			for (i = 0; i < (a.blocks||[]).length; i++) {
+				b = a.blocks[i];
+				if (optVal("ft_bn")) textItems.push({"type":"blockName","value":blockLabels[b.type][1],"id":b.web_id,"data":b});
+				if (optVal("ft_pv")) {
+					(JSON.stringify(b).match(/"value":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"block",${m},"id":"${b.web_id}","data":${JSON.stringify(b)}}`));});
+					//Include Variable ID and Name
+					(JSON.stringify(b).match(/"variable":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(
+						optVal("ft_vi") ? JSON.parse(`{"type":"block",${m.replace(/^"variable"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`) : undefined,
+						optVal("ft_vr") ? JSON.parse(`{"type":"block",${m.replace(/^"variable"/,'"value"').replace(/"value":"((?:|.*?[^\\\n])(?:\\{2})*)"/,function(m0,m1,m2){
+							return `"value":"${getVar(m1)}"`})},"id":"${b.web_id}","data":${JSON.stringify(b)}}`) : undefined
+					);});
+				}
+				if (optVal("ft_dd") && (b.params||b.parameters)) (JSON.stringify(b.params||b.parameters).match(/"description":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"data",${m.replace(/^"description"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`));});
+				if (optVal("ft_cs") && b.controlScript) textItems.push({"type":"controlScript","value":b.controlScript.abilityID||"","id":b.web_id,"data":b});
+				if (optVal("ft_fs") && b.controlFalseScript) textItems.push({"type":"controlScript","value":b.controlFalseScript.abilityID||"","id":b.web_id,"data":b});
+			}
+		});
+		(hsProject.customRules||[]).forEach((c)=>{
+			if (optVal("ft_cr")) textItems.push({"type":"customRule","value":c.name,"id":c.id,"data":c});
+			if (optVal("ft_ci")) textItems.push({"type":"customRule","value":c.id,"id":c.id,"data":c});
+		});
+		(hsProject.objects||[]).forEach((o)=>{
+			if (optVal("ft_ob")) textItems.push({"type":"object_name","value":o.name,"id":o.objectID,"data":o});
+			if (optVal("ft_on")) textItems.push({"type":"object_text","value":o.text,"id":o.objectID,"data":o});
+			if (optVal("ft_oi")) textItems.push({"type":"object_id","value":o.objectID,"id":o.objectID,"data":o});
+		});
+		(hsProject.rules||[]).forEach((r)=>{
+			if (optVal("ft_ri")) textItems.push({"type":"rule_id","value":r.id,"id":r.id,"data":r});
+			if (optVal("ft_rd")) textItems.push({"type":"rule_desc","value":(((r.parameters||[])[0]||{}).datum||{}).description||"","id":r.id,"data":r});
+			if (optVal("ft_rs")) textItems.push({"type":"rule_script","value":r.abilityID,"id":r.id,"data":r});
+		});
+		if (optVal("ft_sc")) (hsProject.scenes||[]).forEach((s)=>{
+			textItems.push({"type":"scene","value":s.name,"id":s.web_id,"data":s});
+		});
+		(hsProject.variables||[]).forEach((v)=>{
+			if (optVal("ft_vr")) textItems.push({"type":"var","value":v.name,"id":v.objectIdString,"data":v});
+			if (optVal("ft_vi")) textItems.push({"type":"var","value":v.objectIdString,"id":v.objectIdString,"data":v});
+		});
+		try {
+			searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ev")?"^":"")+(optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":"")+(optVal("opt_ev")?"$":"")||"$.^", (optVal("opt_cs")?"":"i"));
+			if (String(searchRegex).replace(/\w+$/,'').length < 5) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';
+			textItems.forEach((t)=>{ if (t?.value?.match(searchRegex)) searchResults.push(t); });
+			//Remove Duplicate Results
+			let existingIdList = [];
+			searchResults = searchResults.filter(item=>{
+				if (existingIdList.indexOf(item.id) === -1) return existingIdList.push(item.id);
+			});
+			console.groupCollapsed("Search Results");
+			console.log(textItems, searchRegex, searchResults);
+			console.groupEnd();
+			if (!options && searchResults.length === 0) searchElements.resultsBox.innerHTML = '<div class="flex">No Results</div>';
+			function doParameter(d) {
+				if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8008)) {
+					//Variables
+					var objectLabel = blockLabels[d.datum.type][0];
+					if (d.datum.type == 8e3) {
+						var o = projectDict.objects[d.datum.object];
+						objectLabel = o ? "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>" : "<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object \u2063</span></ps>";
+					}
+					let varName = d.datum.name.htmlEscape()||"<span style=\"color:red;\">unknown</span>";
+					return "<ps><op class=\"val\">" + objectLabel + " " + varName + " \u2063</op></ps>";
+				}
+				else if (d.datum.type == 8008) {
+					//Products
+					let varName = d.datum.name.htmlEscape()||"<span style=\"color:red;\">unknown</span>";
+					return "<ps><op class=\"prod\">\u2063 \uD83C\uDF81 " + varName + " \u2063</op></ps>";
+				}
+			}
+			searchResults.map(res=>{
+				let className = '', blockData = null;
+				function setClass(name){ className = className || name; }
+				switch (true) {
+					case !!res.type.match(/^(rule_id|rule_desc)/): //"draw"
+						setClass('rule');
+						if (res.data.objectID === "") {
+							const ruleReferences = (hsProject.customRules||[]).filter(cr=>cr.rules.indexOf(res.id)!==-1).concat((hsProject.objects||[]).filter(o=>o.rules.indexOf(res.id)!==-1));
+							if (ruleReferences.length === 1) {
+								enclosingAbilityID = ruleReferences[0].objectID || ruleReferences[0].id;
+								blockData = ruleReferences[0];
+								setClass(blockData.objectID?"obj":"crule");
+							}
+						} else {
+							blockData = projectDict.objects[res.data.objectID];
+							setClass('obj');
+						}
+					case !!res.type.match(/^customRule/): //also "draw"
+						setClass('crule');
+					case !!res.type.match(/^object_/): //also "draw"
+						setClass('obj');
+					case !!res.type.match(/^scene/): //"scene 1"
+						setClass('scn');
+					case !!res.type.match(/^ability/): //"secret blocks"
+						if (!className) {
+							//Matched a named ability -> render as block
+							res.data = {
+								"block_class": "control", "type": 123,
+								"description": res.data.name,
+								"controlScript": {"abilityID": res.id.replace(/_b\d+$/,'')}
+							};
+							setClass('abil');
+						}
+					case !!res.type.match(/^(block|data)/): //search "position"
+					case !!res.type.match(/^controlScript/): //822794E9-0725-4400-A8D5-EF4502B33677-12414-00000B9C467DB348 <- T F -> 4BD1AEF7-6C89-43D7-B150-B865DF97F38F-12414-00000B9C467DB5B2
+						if (options) break; //exit if automated because we don't want to append to the results box
+						//output
+						let htmlRes = jsonToHtml(res.data, undefined, true);
+						document.getElementById('search-results-container').querySelector('div > div').innerHTML += `<div data-id="${res.id}" class="search-result disabled ${className}" data-group="${htmlRes.sortGroup}">${htmlRes.innerHTML}<i class="fa fa-fw fa-external-link"></i></div>`;
+						setTimeout(()=>{document.querySelector(`.touch-scroll [data-id="${res.id}"]`).addEventListener('click', function(e){
+							let resultElement = document.querySelector(`.touch-scroll [data-id="${res.id}"]`);
+							if (e.target.classList.contains('disabled')) return;
+							console.groupCollapsed('Block Trace Info');
+							var abilityIdTree = [];
+							if (!className) {
+								//Applies to all blocks
+								//Keep searching until we find an enclosing ability, custom rule, or object, or if we have a duplicate reference then just show the ID that is beign referenced.
+								let enclosingAbilityID = res.id.replace(/_b\d+$/,'');
+								let safetyCounter = 0, secondarySearch = [{}];
+								while (secondarySearch.length > 0 && enclosingAbilityID !== secondarySearch[0].value && safetyCounter < 512) {
+									safetyCounter++;
+									abilityIdTree.unshift(secondarySearch[0].id || enclosingAbilityID);
+									if (safetyCounter == 512) console.error('safety net reached');
+									secondarySearch = searchProject(`^${enclosingAbilityID}$`, {
+										"ft_ai": true,
+										"ft_ri": true,
+										"ft_oi": true,
+										"ft_ci": true,
+										"ft_rs": true,
+										"ft_cs": true,
+										"ft_fs": true,
+										"opt_rg": true,
+										"opt_cs": true,
+										"opt_nl": true
+									});
+									if (secondarySearch.length > 1) {
+										console.warn('More than one ID Reference');
+										break;
+									} else {
+										enclosingAbilityID = secondarySearch[0].data.objectID || secondarySearch[0].id?.replace(/_b\d+$/,'') || enclosingAbilityID;
+									}
+								}
+								blockData = {
+									"block_class": "control", "type": 123,
+									"description": enclosingAbilityID.replace(/^(.{24}).*?$/,'$1...'),
+									"controlScript": {"abilityID": enclosingAbilityID}
+								};
+								if (secondarySearch[0].data.objectID === "") {
+									const ruleReferences = (hsProject.customRules||[]).filter(cr=>cr.rules.indexOf(secondarySearch[0].id)!==-1).concat((hsProject.objects||[]).filter(o=>o.rules.indexOf(secondarySearch[0].id)!==-1));
+									if (ruleReferences.length === 1) {
+										enclosingAbilityID = ruleReferences[0].objectID || ruleReferences[0].id;
+										blockData = ruleReferences[0];
+										setClass(blockData.objectID?"obj":"crule");
+									}
+								} else {
+									blockData = secondarySearch[0].data;
+								}
+								console.log(enclosingAbilityID, abilityIdTree);
+								console.log(safetyCounter, blockData);
+							}
+							if (!e.target.classList.contains('fa-external-link')) {
+								if (resultElement.querySelector('.center')) return resultElement.querySelector('.center').remove(), console.groupEnd();
+								if (blockData) resultElement.innerHTML += `<span class="center">Found in ${blockData.xPosition?'object':(blockData.rules?'custom rule':'ability')} &ldquo;${blockData.name ?? blockData.description}&rdquo; with web_id ${res.id}`
+								return console.log("Container Script vs Self", blockData, res), console.groupEnd();
+							}
+							popup.close();
+							activeEditBlock = resultElement;
+							activeEditBlock.setAttribute("data", JSON.stringify(blockData||res.data));
+							cmEditor.getDoc().setValue(JSON.stringify(blockData||res.data,null,"\t"));
+							//cmEditor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
+							editor.blockrender.editfocus();
+							// console.log(res.data.controlScript?.abilityID);
+							resultElement.removeAttribute("data");
+							abilityIdTree.forEach(id=>{
+								let collapsedTarget = document.querySelector(`.bl-container [data-id*="${id}"]:not(.collapsible-container)`);
+								if (collapsedTarget) collapsedTarget.querySelector('.openbtn')?.click();
+							})
+							let targetBlock = document.querySelector(`.bl-container :is([data-id*="${res.id}"], [data-id*="${res.data.controlScript?.abilityID}"]) bl`);
+							if (targetBlock) {
+								targetBlock.classList.add(onIos?'focus-ios':'focus');
+								targetBlock.scrollIntoViewIfNeeded();
+								setTimeout(function(){targetBlock.classList.remove('focus', 'focus-ios');},3000);
+							}
+							console.log(/*"Target to Open", collapsedTarget,*/ "Target Block", targetBlock);
+							console.groupEnd();
+						});},50);
+						return htmlRes;
+					case !!res.type.match(/^var/): //"velocity"
+						searchElements.resultsBox.innerHTML += `<div class="search-result" data-id="${res.id}"><bl class="disabled var-container">${doParameter({datum:res.data})}</bl><i class="fa fa-fw fa-external-link"></i></div>`;
+						document.querySelector(`.touch-scroll [data-id="${res.id}"] i.fa-external-link`).addEventListener('click', function(e){
+							popup.close();
+							editor.jsonEditor.open();
+							document.querySelector(".block-preview.editor-jsonrender span").innerHTML = res.data.name;
+							editor.jsonEditor.editInfo = {type:"variable",id:res.data.objectIdString};
+							cmEditor.getDoc().setValue(JSON.stringify(res.data,null,"\t"));
+						});
+						return doParameter({datum:res.data});
+				}
+			});
+			return searchResults;
+		} catch (e) {
+			console.error(e);
+			return searchElements.resultsBox.innerHTML = '<div class="flex">Invalid Expression</div>';
+		}
+	}
 }
 if (editor.logConsoleMesg) {
-	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;")
+	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;");
 	console.log('%cHopscotch Project Builder, '+editor.version+' %c \u2063 Made by Awesome_E ¯\\_(ツ)_/¯','display:block; padding: 4px 6px; border: 4px solid red; background-color: salmon; color: white; font-weight: bold;','');
 }

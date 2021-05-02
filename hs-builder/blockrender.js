@@ -351,8 +351,9 @@ function jsonToHtml(block, isNested, keepClosed) {
 		oldProjAlerted = true;
 	}
 	
+	let callerFn = (arguments.callee||{}).caller||{};
 	//Convert object, rule, and custom rule strings to blocks
-	if (typeof block == "string" && (!myBlockType||myBlockType == "rules"||(keepClosed&&arguments.callee.caller.name!="editsave"))) {
+	if (typeof block == "string" && (!myBlockType||myBlockType == "rules"||(keepClosed&&callerFn.name!="editsave"))) {
 		block = projectDict.rules[block]||block;
 		
 		//If it is a custom rule or an object
@@ -361,7 +362,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		}
 	}
 	//If it is an object
-	if (typeof block == "string" && (!myBlockType||myBlockType == "objects"||(keepClosed&&arguments.callee.caller.name!="editsave"))) {
+	if (typeof block == "string" && (!myBlockType||myBlockType == "objects"||(keepClosed&&callerFn.name!="editsave"))) {
 		block = projectDict.objects[block]||block;
 	}
 	//Set data of objects
@@ -396,6 +397,7 @@ function jsonToHtml(block, isNested, keepClosed) {
 		//Check if a block is nested
 		var isFalse = isFalseScript(block_parent.parentNode);
 		block_parent = (block_parent.parentNode||{parentNode:null}).parentNode||document.getElementById("blocks-container-resizer");
+		if (!block_parent.getAttribute('data')) block_parent = document.getElementById("blocks-container-resizer"), console.log('no data detected, defaulting to scenes outer parent');
 		if (block_parent && !block_parent.classList.value.match(/\b(crule|obj)\b/) && block_parent != document.getElementById("blocks-container-resizer") && myScripts.test( (JSON.parse(block_parent.getAttribute("data"))[(isFalse)?"controlFalseScript":"controlScript"]||{abilityID: JSON.parse(block_parent.getAttribute("data")).abilityID}).abilityID )) isNested = true;
 	}
 	

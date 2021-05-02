@@ -506,13 +506,63 @@
 						<span id="builderInfo-versionText"></span>
 						<div style="line-height:90%"><br/></div>
 						<span>Libraries Used</span>
-						<ul style="text-align:left;margin-top:6px;">
+						<ul style="text-align:left;margin:8px;">
 							<li><a target="_blank" rel="noopener nofollow noreferrer" href="https://interactjs.io/">Interact.js</a> &ndash; Fluid, Moveable UI</li>
 							<li><a target="_blank" rel="noopener nofollow noreferrer" href="https://sortablejs.github.io/Sortable/">SortableJS</a> &ndash; Drag&rsquo;n&rsquo;Drop Lists</li>
 							<li><a target="_blank" rel="noopener nofollow noreferrer" href="https://codemirror.net/">CodeMirror</a> &ndash; Text Editor Interface</li>
 							<li><a target="_blank" rel="noopener nofollow noreferrer" href="https://developers.google.com/chart/interactive/docs/gallery">Google Visualization</a> &ndash; Chart API</li>
 						</ul>
-						<div style="line-height:80%"><br/></div>
+					</div>
+				</div>
+				<div hidden class="container" id="search-popup">
+					<i class="fa fa-close" onclick="popup.close()"></i>
+					<div id="stats-info-container" class="center" style="position:relative;height:100%;">
+						<div class="search-bar" style="text-align:center;margin-bottom:20px;">
+							<input type="search" placeholder="Search Project..." class="noEmpty"/>
+							<button action="search"><i class="fa fa-search"></i></button>
+							<button action="show-search-settings" style="padding-left:4px"><i class="fa fa-gear" style="top:1px;position:relative;"></i></button>
+						</div>
+						<div id="search-settings-container" class="touch-scroll" style="overflow:auto;" hidden>
+							<table cellpadding="0">
+								<tr>
+									<td>
+										<input type="checkbox" id="opt_ww"/><label for="opt_ww">Whole word only</label>
+										<br/><input type="checkbox" id="opt_cs"/><label for="opt_cs">Case Sensitive</label>
+										<br/><input type="checkbox" id="opt_nl"/><label for="opt_nl">\n matches new line</label>
+										<br/><input type="checkbox" id="opt_ev"/><label for="opt_ev">Match entire value only</label>
+										<br/><input type="checkbox" id="opt_rg"/><label for="opt_rg">Regular expression</label>
+										<br/><input type="checkbox" id="opt_dc" disabled checked onclick="alert('not functional yet'),this.disabled=this.checked=true;"/><label for="opt_dc">Match deleted code</label>
+									</td>
+									<td>
+										<input type="checkbox" id="ft_ai" checked /><label for="ft_ai">Match ability IDs</label>
+										<br/><input type="checkbox" id="ft_bn" checked /><label for="ft_bn">Match block names</label>
+										<br/><input type="checkbox" id="ft_ci" checked /><label for="ft_ci">Match Custom Rule IDs</label>
+										<br/><input type="checkbox" id="ft_oi" checked /><label for="ft_oi">Match object IDs</label>
+										<br/><input type="checkbox" id="ft_ri" checked /><label for="ft_ri">Match rule IDs</label>
+										<br/><input type="checkbox" id="ft_vi" checked /><label for="ft_vi">Match variable IDs</label>
+									</td>
+									<td>
+										<input type="checkbox" id="ft_cs" checked /><label for="ft_cs">Match control scripts</label>
+										<br/><input type="checkbox" id="ft_pv" checked /><label for="ft_pv">Match parameter values</label>
+										<br/><input type="checkbox" id="ft_cr" checked /><label for="ft_cr">Match custom rule names</label>
+										<br/><input type="checkbox" id="ft_ob" checked /><label for="ft_ob">Match object names</label>
+										<br/><input type="checkbox" id="ft_rs" checked /><label for="ft_rs">Match rule scripts</label>
+										<br/><input type="checkbox" id="ft_vr" checked /><label for="ft_vr">Match variable names</label>
+									</td>
+									<td>
+										<input type="checkbox" id="ft_fs" checked /><label for="ft_fs">Match false scripts</label>
+										<br/><input type="checkbox" id="ft_dd" checked /><label for="ft_dd">Match data descriptions</label>
+										<br/><input type="checkbox" id="ft_sc" checked /><label for="ft_sc">Match scene names</label>
+										<br/><input type="checkbox" id="ft_on" checked /><label for="ft_on">Match object texts</label>
+										<br/><input type="checkbox" id="ft_rd" checked /><label for="ft_rd">Match rule descriptions</label>
+										<br/><input type="checkbox" id="ft_ab" checked /><label for="ft_ab">Match ability names</label>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="search-results-container" class="touch-scroll" style="-webkit-overflow-scrolling:touch;height:calc(100% - 60px);position:relative;overflow:auto;margin-top:8px;"><div class="touch-scroll viewonly" style="position:relative;">
+
+						</div></div>
 					</div>
 				</div>
 			</div>
@@ -545,14 +595,13 @@
 						<tr><th>Block Rendering</th><td data-for="blocks-container"></td></tr>
 						<tr><th>Blocks Drawer</th><td data-for="drawer"></td></tr>
 						<tr><th>Reference Chart</th><td data-for="reference-frame"></td></tr>
-						<tr><th>Project Search</th><td data-for="search-box"></td></tr>
 					</tbody>
 				</table>
 				<span class="center">To bring this window into focus,<br>you can press the shift key twice.</span>
-			</div>
-			<div id="search-box-resizer" class="page-controls float" style="left: 16px; top: 474px;">
-				<h2>Search Project</h2>
-				<span class="center">Not functional yet ;(</span>
+				<span class="center">
+					<button onclick="popup.search()"><i class="fa fa-search fa-flip-horizontal"></i> Search</button>
+					<button onclick="popup.builderInfo()"><i class="fa fa-info-circle"></i> Info</button>
+				</span>
 			</div>
 			<div id="basic-traits-resizer" class="page-controls float" style="left: 1364px; top: 16px;">
 				<h2>Project Traits</h2>

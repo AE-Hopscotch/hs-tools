@@ -243,7 +243,7 @@ sq {
 	display: flex;
 	justify-content: space-evenly;
 }
-.container input {
+.container input:not([type="checkbox"]) {
 	padding: 8px;
 	font-size: 20px;
 	width: 384px;
@@ -263,7 +263,7 @@ sq {
 	padding: 6px 8px;
 	font-size: 20px;
 }
-.container span {
+.container:not(#search-popup) span {
 	font-size: 22px;
 	position: relative;
 	top: 1px;
@@ -272,7 +272,7 @@ sq {
 	color: #50D8BB;
 	text-decoration: none
 }
-.container img {
+.container:not(#search-popup) img {
 	margin: 8px auto;
 }
 .container#import {
@@ -443,6 +443,107 @@ sq {
 .container#stats-popup .indent div {
 	padding-left: 8px;
 }
+.container#search-popup {
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	-webkit-user-select: none;
+}
+/* .container#search-popup .flex {
+	position: absolute;
+	width: calc(100% - 32px);
+	height: calc(100% - 32px);
+	overflow: visible;
+	padding: 16px;
+	left: 0;
+	flex-wrap: wrap;
+}
+.container#search-popup .flex > * {
+	padding: 8px;
+	margin: 8px;
+	width: 350px;
+}
+.container#search-popup .center {
+	font-size: 22px;
+	text-align: left;
+}*/
+.container#search-popup .search-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container#search-popup .search-bar input {
+	padding: 8px 12px;
+	margin: 0;
+	min-width: 50%;
+	max-width: calc(100% - 100px);
+	border-radius: 5px;
+	-webkit-appearance: none;
+}
+.container#search-popup .search-bar input::-webkit-search-cancel-button {
+	position: relative;
+	color: #ddd;
+	appearance: none;
+	-webkit-appearance: none;
+	height: 16px;
+	width: 16px;
+	/* content: test; */
+	background-image: url('../images/search-x.png');
+	background-size: cover;
+	display: block;
+}
+.container#search-popup button {
+    margin: 0;
+    padding: 4px 12px;
+    font-size: 28px;
+    background-color: transparent;
+    color: white;
+}
+.container#search-popup table {
+	border-collapse: collapse;
+	margin: 0 auto 8px;
+}
+.container#search-popup table td {
+	white-space: nowrap;
+	padding: 0 4px;
+}
+.container#search-popup .center {
+    font-size: 22px;
+	text-align: left;
+}
+.container#search-popup .search-result b.openbtn {
+	width: 20px;
+	opacity: 1;
+}
+.container#search-popup .search-result b.handle {
+	cursor: default;
+}
+.container#search-popup .search-result bl {
+	max-width: calc(100% - 72px);
+}
+.container#search-popup .search-result bl.var-container {
+	background: none;
+	padding: 0;
+}
+.container#search-popup .search-result .fa.fa-external-link {
+	cursor: pointer;
+	position: relative;
+	top: 2px;
+}
+.container#search-popup .search-result .fa.fa-external-link:hover {
+	opacity: 0.7;
+}
+.container#search-popup .search-result .fa.fa-external-link:active {
+	opacity: 0.4;
+}
+.container#search-popup .search-result .center {
+	display: block;
+	margin: 0 16px;
+	font-size: 16px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
 
 #traits-table {
 	width: 100%;
@@ -529,7 +630,8 @@ sq {
 /* Interact JS */
 
 .float {
-	scroll-margin: 32px;
+	scroll-margin: 16px;
+	scroll-padding: 16px;
 }
 .float:not([data-x]):not(:active) {
 	transition: width 1s, height 1s, top 1s, left 1s, transform 1s, background-color var(--time-trans);
@@ -765,19 +867,21 @@ html.dark-mode .resize-drag {
 .refresh-btn {
 	display: var(--display-rstate);
 }
+
 .focus-arrow {
 	position: relative;
 }
 .focus-arrow::after {
-	content: "🠐";
+	content: "←";
 	display: inline-flex;
 	align-items: center;
-	height: 42px;
+	/* height: 42px; */
 	font-family: sans-serif;
 	font-weight: 900;
 	font-size: 64px;
-	position: absolute;
-	top: 9px;
+	position: relative;
+	top: 15px;
+	height: 0;
 	color: #a3f5eb;
 	animation-iteration-count: infinite;
 	animation-name: block-focus-arrow;
@@ -794,6 +898,26 @@ html.dark-mode .resize-drag {
 	100% {
 		transform: translateX(0) rotate(360deg);
 	}
+}
+.focus {
+	animation: wiggle 0.25s cubic-bezier(0.4, 0, 0.4, 1) 0s 3, glow 3s cubic-bezier(0.4, 0, 0.4, 1) 0s 1;
+}
+.focus-ios, .focus-ios op {
+	animation: bg-glow 3s cubic-bezier(0.4, 0, 0.4, 1) 0s 1;
+}
+@keyframes bg-glow {
+	20% {background-color: #11e4c8;}
+}
+@keyframes glow {
+	0%{filter:contrast(1) brightness(1); -webkit-filter:contrast(1) brightness(1);}
+	10%{filter:contrast(2) brightness(1.15); -webkit-filter:contrast(2) brightness(1.15);}
+	100%{filter:contrast(1) brightness(1); -webkit-filter:contrast(1) brightness(1);}
+}
+
+@keyframes wiggle {
+	0%{transform:rotate(3deg);}
+	50%{transform:rotate(-3deg);}
+	100%{transform:rotate(3deg);}
 }
 
 .collapsible-container > bl {
@@ -895,6 +1019,8 @@ bl {
 	max-width: calc(100% - 40px);
 	background-color: #888;
 	--col-bg-inherited: #888;
+	scroll-margin: 32px;
+	scroll-padding: 32px;
 }
 bl b {
 	background-color:inherit;
