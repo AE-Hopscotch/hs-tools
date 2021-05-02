@@ -2595,7 +2595,7 @@ if (editor.modulesScripts) {
 			return options ? (options[id]||false) : (document.getElementById(id)||{"checked":false}).checked;
 		}
 		if (!searchText) return;
-		if (searchText.length < 3 && !optVal("opt_ev") && !optVal("opt_rg")) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';;;
+		if (!searchText.match(/\w{3,}|[^\w\s\t]/) && !optVal("opt_ev") && !optVal("opt_ww")) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';
 		let textItems = [], searchResults = [];
 		(hsProject.abilities||[]).forEach((a)=>{
 			if (a.name && optVal("ft_ab")) textItems.push({"type":"ability_name","value":a.name,"id":a.abilityID,"data":a});
@@ -2640,7 +2640,7 @@ if (editor.modulesScripts) {
 		});
 		try {
 			searchRegex = new RegExp((optVal("opt_rg")) ? searchText : (optVal("opt_ev")?"^":"")+(optVal("opt_ww")?"\\b":"")+escapeRegExp(optVal("opt_nl")?JSON.parse('"'+searchText+'"'):searchText)+(optVal("opt_ww")?"\\b":"")+(optVal("opt_ev")?"$":"")||"$.^", (optVal("opt_cs")?"":"i"));
-			if (String(searchRegex).replace(/\w+$/,'').length < 5) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';
+			//if (String(searchRegex).replace(/\w+$/,'').length < 5) return searchElements.resultsBox.innerHTML = '<div class="flex">Query is too short</div>';
 			textItems.forEach((t)=>{ if (t?.value?.match(searchRegex)) searchResults.push(t); });
 			//Remove Duplicate Results
 			let existingIdList = [];
