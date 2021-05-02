@@ -849,6 +849,7 @@ html.dark-mode .resize-drag {
 }
 #drawer-resizer bl ps {
 	min-height: 21px;
+	min-width: 36px;
 }
 #drawer-resizer bl op.cm {
 	height: 24px;

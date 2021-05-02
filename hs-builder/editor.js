@@ -791,7 +791,7 @@ if (editor.useBlockRender) {
 				group: l.parentNode.getAttribute("data-group"),
 				ghostClass: 'invis',
 				dragClass: 'dragged',
-				fallbackTolerance: 5,
+				fallbackTolerance: 5, supportPointer: true,
 				forceFallback: true,
 				delayOnTouchOnly: true,
 				animation: 150,
@@ -805,6 +805,19 @@ if (editor.useBlockRender) {
 					//Update Object ID of rules
 					if (JSON.parse(e.item.getAttribute("data")).objectID != undefined && JSON.parse(e.item.getAttribute("data")).abilityID != undefined) e.item.setAttribute("data",e.item.getAttribute("data").replace(/("objectID":")[A-Z0-9\-]*?"/i,"$1" + (JSON.parse(e.to.parentNode.getAttribute("data")).objectID||"") + "\"") );
 				}
+			});
+		});
+		console.log(parent);
+		parent.querySelector('.handle').addEventListener('pointerup', function() {
+			const deselctionList = [];
+			switch (parent.querySelector('bl').getAttribute('class')) {
+				case "rule": case "crule": deselctionList.push("obj");
+				case "obj": deselctionList.push("scn");
+				case "scn": break;
+				default: deselctionList.push("rule", "crule", "obj", "scn");
+			}
+			deselctionList.forEach(group=>{
+				document.querySelectorAll(`.${group}.selected`).forEach(elm=>{Sortable.utils.deselect(elm);});
 			});
 		});
 	}
@@ -833,7 +846,7 @@ if (editor.useBlockRender) {
 		
 		x = new Sortable(document.getElementById("blocks-container"), {
 			group: tct, fallbackOnBody: true,
-			ghostClass: 'invis', dragClass: 'dragged', fallbackTolerance: 5,
+			ghostClass: 'invis', dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			onEnd: function(e){
@@ -1216,12 +1229,13 @@ if (editor.useBlockRender) {
 			group: { name: "blocks", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
 			onEnd: function(e){
 				if (e.from == e.to) return;
+				e.item.setAttribute("data",e.item.getAttribute("data").replace(/("abilityID":")"/,"$1" + uuidv4().toUpperCase() + "\""));
 				activeEditBlock = e.item;
 				cmEditor.getDoc().setValue(JSON.stringify(JSON.parse(activeEditBlock.getAttribute("data")),null,"\t"));
 				editor.blockrender.editsave();
@@ -1232,7 +1246,7 @@ if (editor.useBlockRender) {
 			group: { name: "blocks", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
@@ -1251,7 +1265,7 @@ if (editor.useBlockRender) {
 			group: { name: "rules", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
@@ -1272,7 +1286,7 @@ if (editor.useBlockRender) {
 			group: { name: "rules", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
@@ -1290,7 +1304,7 @@ if (editor.useBlockRender) {
 			group: { name: "objects", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
@@ -1308,7 +1322,7 @@ if (editor.useBlockRender) {
 			group: { name: "scenes", pull: "clone", put: false },
 			sort: false,
 			//ghostClass: 'invis',
-			dragClass: 'dragged', fallbackTolerance: 5,
+			dragClass: 'dragged', fallbackTolerance: 5, supportPointer: true,
 			forceFallback: true, delayOnTouchOnly: true, animation: 150,
 			handle: '.handle', multiDrag: true, selectedClass: 'selected',
 			fallbackOnBody: true,
