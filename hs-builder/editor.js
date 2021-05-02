@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.5.0 r2";
+editor.version = "beta 1.5.1 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
