@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.6.0 r1";
+editor.version = "beta 1.6.1 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -852,7 +852,7 @@ if (editor.useBlockRender) {
 		//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 		data.forEach(function(item) {
 			var blockElm = document.createElement("div");
-			console.log(item);
+			// console.log(item);
 			var blockInfo = jsonToHtml(item, undefined, (item.type==123||typeof item == "string"||item.xPosition!=null||(item.objects&&data.length>1)));
 			blockElm.setAttribute("class", blockInfo.classList);
 			blockElm.setAttribute("data", blockInfo.data);
@@ -1158,6 +1158,28 @@ if (editor.useBlockRender) {
 			//console.log("Successful JSON Parse")
 			document.querySelector(".edit-box .block-preview").innerHTML = jsonToHtml(JSON.parse(cmEditor.getValue())).innerHTML.replace(/<b class="editbtn"><\/b>/g,"").replace(/ class="(handle|openbtn)/g,' style="cursor:unset;opacity:1;" class="'+"$1");
 		} catch (E) {}
+		let currentCursor = cmEditor.getCursor();
+		let currentLine = cmEditor.getLine(currentCursor.line);
+		function addShorthand(regEx, value) {
+			try {
+				cmEditor.setValue(JSON.stringify(JSON.parse(cmEditor.getValue().replace(regEx,JSON.stringify(value))),null,"\t"))
+				cmEditor.setCursor(currentCursor.line + Object.keys(value).length + 1 + !cmEditor.getLine(currentCursor.line).match(/\{$/m), 999999);
+			} catch(E) {
+				console.error("Could not add Parameter: Invalid JSON");
+			}
+		}
+		let shorthandDict = {
+			PARAM: {value:"",defaultValue:"",key:"",type:57},
+			OPERATOR: {block_class:"operator",type:4000,description:"+",params:[]},
+			VAR: {type:8003,variable:"",description:"Variable"},
+			TRAIT: {HSTraitTypeKey:3000,HSTraitIDKey:"",description:""},
+			EVENTPARAM: {value:"",defaultValue:"",key:"",type:50,variable:""},
+			IMAGE: {type:1,text:"",name:"",description:""}
+		}
+		Object.keys(shorthandDict).forEach(key=>{
+			let regEx = new RegExp(`\{${key}\}`,'g');
+			if (currentLine.match(regEx)) addShorthand(regEx, shorthandDict[key]);
+		})
 	});
 	/* Interact JS */
 	if (typeof interact != "undefined") interact('.resize-drag').resizable({
@@ -1523,6 +1545,9 @@ if (editor.useFileSysCode) {
 						case "math-operators":
 							popup.presetActions("mathOperators");
 							break;
+						case "remove-defaultValues":
+							popup.presetActions("removeDefaultVals");
+							break;
 						case "save-preset":
 							popup.presetActions("savePreset");
 							document.getElementById("pAct-savePreset0").value = "New Preset";
@@ -1632,6 +1657,7 @@ if (editor.useFileSysCode) {
 				projectDict.abilities[imgBlocksAbility.abilityID] = imgBlocksAbility;
 				editor.traits.updateFields();
 				updateDrawers();
+				replaceRender(-1);
 				popup.close();
 			} else return alert("There is already an ability with that ID");
 		},
@@ -1646,6 +1672,7 @@ if (editor.useFileSysCode) {
 				console.log("%cColor Slot Optimization Complete (" + msg.data.count + (msg.data.count==1?" slot in ":" slots in ") + Math.round((performance.now() - performanceStart)*100)/100 + "ms)", "color:teal;font-weight:600;");
 				formatProject(hsProject);
 				editor.traits.updateFields();
+				replaceRender(-1);
 				popup.close();
 			};
 			worker.onerror = function() {
@@ -1664,10 +1691,31 @@ if (editor.useFileSysCode) {
 				console.log("%cMath Evaluation Complete (" + msg.data.count + (msg.data.count==1?" math block in ":" math blocks in ") + Math.round((performance.now() - performanceStart)*100)/100 + "ms)", "color:teal;font-weight:600;");
 				formatProject(hsProject);
 				editor.traits.updateFields();
+				replaceRender(-1);
 				popup.close();
 			};
 			worker.onerror = function() {
 				document.getElementById("pAct-mathOperators").querySelector("button").innerHTML = "Optimize";
+				alert("Your project encountered an error");
+			};
+		},
+		removeDefaultVals: function() {
+			document.getElementById("pAct-removeDefaultVals").querySelector("button").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Removing';
+			// hsProject = JSON.parse(JSON.stringify(hsProject).replace(/"defaultValue":"(?:|.*?[^\\])(?:\\\\)*"/g,'"defaultValue":""'));
+			const performanceStart = performance.now();
+			var worker = new Worker(URL.createObjectURL(new Blob(["("+doMathOperators.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
+			worker.onmessage = function(msg) {
+				document.getElementById("pAct-removeDefaultVals").querySelector("button").innerHTML = "Remove";
+				console.log(msg.data);
+				hsProject = msg.data.project;
+				console.log("%cDefault Values Removed ("+ Math.round((performance.now() - performanceStart)*100)/100 + "ms)", "color:teal;font-weight:600;");
+				formatProject(hsProject);
+				editor.traits.updateFields();
+				replaceRender(-1);
+				popup.close();
+			}
+			worker.onerror = function() {
+				document.getElementById("pAct-removeDefaultVals").querySelector("button").innerHTML = "Remove";
 				alert("Your project encountered an error");
 			};
 		},
@@ -2493,6 +2541,9 @@ if (editor.useFileSysCode) {
 				break;
 		}
 	}
+	document.querySelector('.popup').addEventListener('click', function(e){
+		if (e.target.classList && e.target.classList.contains('popup')) popup.close();
+	});
 	document.querySelectorAll("table table input, table table select").forEach((e)=>{
 		e.onchange = function(){if (hsProject.uuid /*If project exists*/) updateProject(e.id)}; //Might change if exists later
 	});

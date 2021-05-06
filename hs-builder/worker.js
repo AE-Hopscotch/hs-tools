@@ -602,6 +602,11 @@ function doMathOperators(project) {
 	postMessage({project: project, count: count});
 }
 
+function workerRemoveDefaultVals(project) {
+	project = JSON.parse(JSON.stringify(hsProject).replace(/"defaultValue":"(?:|.*?[^\\])(?:\\\\)*"/g,'"defaultValue":""'));
+	postMessage({project, count});
+}
+
 function savePreset(project, namesDict, doCustomObjs) {
 	doCustomObjs = doCustomObjs || false;
 	var presetProject = {
