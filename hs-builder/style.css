@@ -1200,6 +1200,13 @@ op img, ps > img {
 	height: 30px;
 	object-fit: cover;
 	pointer-events: none;
+	--ff-obj-scale: 1;
+}
+@supports not (zoom: 1) {
+	#drawer-resizer .bl-container bl op img, ps > img {
+		height: 20px;
+		--ff-obj-scale: calc(2 / 3);
+	}
 }
 op.cm {
 	--ia: 0.2;

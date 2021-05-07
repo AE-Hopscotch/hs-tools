@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.6.1 r1";
+editor.version = "beta 1.6.2 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -2626,9 +2626,10 @@ if (editor.modulesScripts) {
 		searchElements.searchBtn = searchElements.searchPopup.querySelector('button[action=search]'),
 		searchElements.settingsBtn = searchElements.searchPopup.querySelector('button[action="show-search-settings"]'),
 		searchElements.resultsBox = document.getElementById('search-results-container').querySelector('div > div');
-	searchElements.searchInput.addEventListener('search', function(){searchProject(searchElements.searchInput.value)});
-	searchElements.searchBtn.addEventListener('click', function(){searchProject(searchElements.searchInput.value)});
-	searchElements.settingsBtn.addEventListener('click', function(){
+		if ('onsearch' in searchElements.searchInput) searchElements.searchInput.addEventListener('search', function(){searchProject(searchElements.searchInput.value)});
+		else searchElements.searchInput.addEventListener('keydown', function(e){if(e.keyCode===13)searchProject(searchElements.searchInput.value)}); ;
+		searchElements.searchBtn.addEventListener('click', function(){searchProject(searchElements.searchInput.value)});
+		searchElements.settingsBtn.addEventListener('click', function(){
 		const optionsHidden = searchElements.searchPopup.querySelector('.search-bar + div').toggleAttribute('hidden');
 		document.getElementById('search-results-container').style.height = `calc(100% - ${optionsHidden?'60px':'230px'}`;
 	});
@@ -2663,7 +2664,7 @@ if (editor.modulesScripts) {
 							return `"value":"${getVar(m1)}"`})},"id":"${b.web_id}","data":${JSON.stringify(b)}}`) : undefined
 					);});
 				}
-				if (optVal("ft_dd") && (b.params||b.parameters)) (JSON.stringify(b.params||b.parameters).match(/"description":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"data",${m.replace(/^"description"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`));});
+				if (optVal("ft_dd") && (b.params||b.parameters)) (JSON.stringify(b.params||b.parameters).match(/"(?:description|key)":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"data",${m.replace(/^"(?:description|key)"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`));});
 				if (optVal("ft_cs") && b.controlScript) textItems.push({"type":"controlScript","value":b.controlScript.abilityID||"","id":b.web_id,"data":b});
 				if (optVal("ft_fs") && b.controlFalseScript) textItems.push({"type":"controlScript","value":b.controlFalseScript.abilityID||"","id":b.web_id,"data":b});
 			}
@@ -2681,6 +2682,7 @@ if (editor.modulesScripts) {
 			if (optVal("ft_ri")) textItems.push({"type":"rule_id","value":r.id,"id":r.id,"data":r});
 			if (optVal("ft_rd")) textItems.push({"type":"rule_desc","value":(((r.parameters||[])[0]||{}).datum||{}).description||"","id":r.id,"data":r});
 			if (optVal("ft_rs")) textItems.push({"type":"rule_script","value":r.abilityID,"id":r.id,"data":r});
+			if (optVal("ft_dd") && (r.params||r.parameters)) (JSON.stringify(r.params||r.parameters).match(/"(?:description|key)":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"rule_data",${m.replace(/^"(?:description|key)"/,'"value"')},"id":"${r.id}","data":${JSON.stringify(r)}}`));});
 		});
 		if (optVal("ft_sc")) (hsProject.scenes||[]).forEach((s)=>{
 			textItems.push({"type":"scene","value":s.name,"id":s.web_id,"data":s});
@@ -2723,7 +2725,7 @@ if (editor.modulesScripts) {
 				let className = '', blockData = null;
 				function setClass(name){ className = className || name; }
 				switch (true) {
-					case !!res.type.match(/^(rule_id|rule_desc)/): //"draw"
+					case !!res.type.match(/^(rule_id|rule_desc|rule_data|rule_script)/): //"draw"
 						setClass('rule');
 						if (res.data.objectID === "") {
 							const ruleReferences = (hsProject.customRules||[]).filter(cr=>cr.rules.indexOf(res.id)!==-1).concat((hsProject.objects||[]).filter(o=>o.rules.indexOf(res.id)!==-1));
@@ -2825,11 +2827,11 @@ if (editor.modulesScripts) {
 							abilityIdTree.forEach(id=>{
 								let collapsedTarget = document.querySelector(`.bl-container [data-id*="${id}"]:not(.collapsible-container)`);
 								if (collapsedTarget) collapsedTarget.querySelector('.openbtn')?.click();
-							})
+							});
 							let targetBlock = document.querySelector(`.bl-container :is([data-id*="${res.id}"], [data-id*="${res.data.controlScript?.abilityID}"]) bl`);
 							if (targetBlock) {
 								targetBlock.classList.add(onIos?'focus-ios':'focus');
-								targetBlock.scrollIntoViewIfNeeded();
+								(typeof targetBlock.scrollIntoViewIfNeeded === "function") ? targetBlock.scrollIntoViewIfNeeded() : targetBlock.scrollIntoView();
 								setTimeout(function(){targetBlock.classList.remove('focus', 'focus-ios');},3000);
 							}
 							console.log(/*"Target to Open", collapsedTarget,*/ "Target Block", targetBlock);

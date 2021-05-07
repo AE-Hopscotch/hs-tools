@@ -89,7 +89,9 @@ const blockLabels = {
 	2013: ["Center X"],
 	2014: ["Center Y"],
 	2015: ["Text"],
-	2016: ["HS_END_OF_OBJECT_TRAITS"],
+	2016: ["Tempo"],
+	2017: ["Instrument"],
+	2018: ["HS_END_OF_OBJECT_TRAITS"],
 	2500: ["\uD83D\uDCF1 Username"],
 	2501: ["\uD83D\uDCF1 Time"],
 	2502: ["\uD83D\uDCF1 Year"],
@@ -161,7 +163,8 @@ const blockLabels = {
 	7022: ["event","\u2063 touch ends \u2063"],
 	7023: ["event"," ","\u2063 I get a message \u2063"],
 	7024: ["event"," ","\u2063 Message matches \u2063"],
-	7025: ["HS_END_OF_EVENT_OPERATORS"],
+	7025: ["event"," "," ","is not touching"],
+	7026: ["HS_END_OF_EVENT_OPERATORS"],
 	8e3: ["<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object</span></ps>"],
 	8001: ["<i class=\"fa fa-fw fa-question-circle\"></i> Anything"],
 	8002: ["<i class=\"fa fa-mobile\"></i> Edge"],
@@ -490,7 +493,8 @@ function jsonToHtml(block, isNested, keepClosed) {
 				if (d.datum.type == 1) {
 					return "<ps><op class=\"cm\">\u2063 Text <ps><span>" + d.datum["text"].replace(/\n(.|\n)*/g,"") + "</span></ps></op></ps>";
 				} else {
-					return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>") + "</op></ps>";
+					console.log('thing')
+					return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 calc(var(--ff-obj-scale) * " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px)\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>") + "</op></ps>";
 				}
 			}
 			//Random Color
