@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.6.3 r2";
+editor.version = "beta 1.6.4 r1";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -896,6 +896,13 @@ if (editor.useBlockRender) {
 			elm.style.overflow = "";
 	}
 	document.body.onkeydown = function(e) {
+		const SYS_CTRL_KEY = (onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey;
+		function hsBuilderKeyboardShortcut(callback, allowShift) {
+			if (SYS_CTRL_KEY && !e.altKey && (!e.shiftKey || allowShift)) {
+				e.preventDefault();
+				if (!popup.isOpen()) callback();
+			}
+		}
 		switch (e.keyCode) {
 			case 13:
 				if (document.activeElement && document.activeElement.parentNode && document.activeElement.parentNode.id.match(/^traits-/)) document.querySelector("button.traits-confirm").click();
@@ -925,14 +932,27 @@ if (editor.useBlockRender) {
 					});
 				}
 				break;
-			case 73:
-				if (!popup.isOpen() && !e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) popup.builderInfo();
+			case 73: //I = Info
+				hsBuilderKeyboardShortcut(e.shiftKey?popup.builderInfo:popup.projectStats, true);
+				//if (!popup.isOpen() && !e.shiftKey && !e.altKey && SYS_CTRL_KEY) popup.builderInfo();
 				break;
-			case 79:
-				if (!popup.isOpen() && !e.altKey && (onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey) e.preventDefault(), (e.shiftKey ? popup.importProject() || document.getElementById("hs-project-file-btn").click() : popup.importProject());
+			case 74: //J = JSON View
+				hsBuilderKeyboardShortcut(editor.display.renderjson, false);
 				break;
-			case 83:
-				if (!popup.isOpen() && !e.shiftKey && !e.altKey && ((onIos || navigator.userAgent.match(/Mac/)) ? e.metaKey : e.ctrlKey)) e.preventDefault(), downloadProject();
+			case 79: //O = Open
+				hsBuilderKeyboardShortcut(()=>{
+					popup.importProject();
+					if (e.shiftKey) document.getElementById("hs-project-file-btn").click();
+				}, true)
+				break;
+			case 80: //P = Play
+				hsBuilderKeyboardShortcut(()=>{editor.project.play(e.shiftKey)}, false);
+				break;
+			case 83: //S = Save
+				hsBuilderKeyboardShortcut(downloadProject, false)
+				break;
+			case 191: //slash
+				hsBuilderKeyboardShortcut(popup.search)
 				break;
 		}
 		if (activeEditBlock) {
@@ -2858,6 +2878,8 @@ if (editor.modulesScripts) {
 			return searchElements.resultsBox.innerHTML = '<div class="flex">Invalid Expression</div>';
 		}
 	}
+	//System Control Key Labels
+	document.querySelectorAll('.keyboard-system-ctrl-key').forEach(e=>e.innerHTML=(onIos||navigator.userAgent.match(/Mac/))?'&#x2318;':'ctrl');
 }
 if (editor.logConsoleMesg) {
 	console.log("\u2063%c@\u2063@\u2063@\u2063@\u2063%c@\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,%c\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063#\u2063%c,\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c%\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c(\u2063%c%\u2063%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c/\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c,\u2063,\u2063,\u2063%c@\u2063@\n\u2063@\u2063%c@\u2063%c@\u2063%c/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c(\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c%\u2063%c%\u2063%\u2063%c%\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063%c#\u2063%c/\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063,\u2063%c@\n\u2063@\u2063@\u2063%c%\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c*\u2063%c,\u2063%c%\n\u2063%c@\u2063@\u2063%c@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c/\u2063%c#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c%\u2063%\u2063%\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063%c(\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c&\n\u2063%c@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c#\u2063%c%\u2063%\u2063%\u2063%\u2063%\u2063%c%\u2063%c*\u2063*\u2063*\u2063*\u2063*\u2063*\u2063%c/\u2063/\u2063/\u2063%c,\u2063%c@\n\u2063@\u2063@\u2063@\u2063@\u2063%c*\u2063%c*\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063%c*\u2063%c,\u2063,\u2063,\u2063%c#\u2063%c/\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063%c#\u2063%c*\u2063%c,\u2063,\u2063%c/\u2063%c*\u2063%c,\u2063%c@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063%c/\u2063/\u2063/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063,\u2063%c,\u2063%c,\u2063,\u2063,\u2063,\u2063,\u2063%c/\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c/\u2063/\u2063/\u2063%c#\u2063%c#\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c#\u2063%c#\u2063#\u2063#\u2063%c/\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063%c@\u2063%c/\u2063%c/\u2063%c#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063#\u2063%c@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\u2063@\n\u2063@%c\n Welcome to the Hopscotch Project Builder ","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:;","color:rgba(125, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(91, 221, 182);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(85, 209, 171);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(89, 217, 178);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(99, 183, 156);","color:rgb(182, 54, 87);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(200, 27, 72);","color:rgb(111, 165, 146);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(127, 0, 0, 0);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(167, 80, 101);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(119, 6, 33);","color:rgb(116, 6, 32);","color:rgb(118, 6, 33);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(204, 20, 68);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(90, 219, 179);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:rgba(124, 42, 60, 0.21);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(86, 202, 166);","color:rgb(84, 206, 168);","color:rgb(96, 232, 192);","color:rgb(105, 253, 210);","color:rgba(123, 37, 70, 0.235);","color:rgba(126, 0, 0, 0);","color:rgba(125, 16, 19, 0.07);","color:rgb(84, 206, 168);","color:rgb(87, 201, 165);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(116, 6, 32);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(187, 47, 83);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(120, 23, 31, 0.114);","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(142, 169, 159);","color:rgb(122, 77, 86);","color:rgb(116, 6, 32);","color:rgb(117, 7, 33);","color:rgb(142, 169, 159);","color:rgb(84, 206, 168);","color:rgb(105, 253, 210);","color:rgba(126, 0, 0, 0);","color:;","color:rgb(85, 208, 170);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(142, 170, 160);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(162, 127, 134);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(218, 0, 57);","color:rgb(144, 165, 157);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:rgb(85, 208, 170);","color:;","color:rgba(126, 0, 0, 0);","color:;","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(105, 253, 210);","color:rgb(106, 255, 212);","color:rgb(105, 253, 210);","color:rgb(84, 206, 168);","color:;","color:rgba(126, 0, 0, 0);","color:rgb(84, 206, 168);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(220, 0, 58);","color:rgb(218, 0, 57);","color:rgb(84, 205, 168);","color:rgba(126, 0, 0, 0);","color:rgba(124, 9, 11, 0.043);","color:;","color:rgb(129, 136, 130);","color:rgb(218, 0, 57);","color:rgba(126, 0, 0, 0);","color:salmon;font-weight:900;");

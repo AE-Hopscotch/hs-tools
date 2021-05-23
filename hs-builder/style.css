@@ -268,6 +268,9 @@ sq {
 	position: relative;
 	top: 1px;
 }
+.container:not(#search-popup) span.keyboard-system-ctrl-key {
+	font-size: 19px;
+}
 .container a {
 	color: #50D8BB;
 	text-decoration: none
@@ -542,6 +545,16 @@ sq {
 	font-size: 16px;
 	white-space: nowrap;
 	overflow: auto;
+}
+.container#builderInfo-popup table td:first-child {
+	text-align: right;
+	padding-right: 10px;
+	box-sizing: border-box;
+	font-family: monospace;
+	font-size: 18px;
+	line-height: 15px;
+	position: relative;
+	top: -2px
 }
 
 
