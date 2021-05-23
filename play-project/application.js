@@ -36316,7 +36316,7 @@ $(document).keyup(function (event) {
 	  if (typeof AE_MOD.load_function == "function" && AE_MOD.initiated === true) AE_MOD.load_function(); 
 	  var url = new URL(window.location.href);
 	  if (localStorage.getItem("muted") == "true") muteButton.click(); //AE_MOD
-	  if (url.searchParams.get('play') == '1') playerContainer.click();
+	  if (url.searchParams.get('play') == '1') setTimeout(()=>{playerContainer.click();},80);
 	  if (true||/*TEST*/!/iPad|iPod|iPhone/.test(navigator.userAgent)) {
 		  //Resize the screen right away
 		  main.resizeScreen();

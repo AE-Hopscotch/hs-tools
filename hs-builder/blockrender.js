@@ -493,7 +493,6 @@ function jsonToHtml(block, isNested, keepClosed) {
 				if (d.datum.type == 1) {
 					return "<ps><op class=\"cm\">\u2063 Text <ps><span>" + d.datum["text"].replace(/\n(.|\n)*/g,"") + "</span></ps></op></ps>";
 				} else {
-					console.log('thing')
 					return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 calc(var(--ff-obj-scale) * " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px)\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>") + "</op></ps>";
 				}
 			}

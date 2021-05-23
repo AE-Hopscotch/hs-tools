@@ -1,5 +1,5 @@
 if (typeof editor == "undefined") var editor = {};
-editor.version = "beta 1.6.2 r1";
+editor.version = "beta 1.6.3 r2";
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 const letterCasing = {
@@ -499,7 +499,7 @@ if (editor.useBlockRender) {
 				var info = jsonToHtml(JSON.parse(savetext), undefined, !(forceOpen||activeEditBlock.classList.contains("collapsible-container")));
 				//Open the block if forced to open or is already open
 				activeEditBlock.innerHTML = info.innerHTML;
-				activeEditBlock.setAttribute("class", info.classList);
+				activeEditBlock.setAttribute("class", info.classList + (activeEditBlock.classList.contains('selected')?' selected':''));
 				activeEditBlock.setAttribute("data", info.data);
 				if (info.id) activeEditBlock.setAttribute("data-id", info.id);
 				//if (info.scripts) activeEditBlock.setAttribute("data-id", info.id);
@@ -825,18 +825,20 @@ if (editor.useBlockRender) {
 				}
 			});
 		});
-		parent.querySelector('.handle').addEventListener('pointerup', function() {
+		if (parent.querySelector('.handle')) parent.querySelectorAll('.handle').forEach(h=>h.addEventListener('pointerup', function() {
 			const deselctionList = [];
-			switch (parent.querySelector('bl').getAttribute('class')) {
+			console.log('handle clicked')
+			switch (h.parentNode.parentNode.querySelector('bl').getAttribute('class')) {
 				case "rule": case "crule": deselctionList.push("obj");
 				case "obj": deselctionList.push("scn");
 				case "scn": break;
 				default: deselctionList.push("rule", "crule", "obj", "scn");
 			}
 			deselctionList.forEach(group=>{
+				console.log(group)
 				document.querySelectorAll(`.${group}.selected`).forEach(elm=>{Sortable.utils.deselect(elm);});
 			});
-		});
+		}) );
 	}
 	function replaceRender(data, tct, desc) {
 		editor.blockrender.setState(0);
@@ -1703,7 +1705,7 @@ if (editor.useFileSysCode) {
 			document.getElementById("pAct-removeDefaultVals").querySelector("button").innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Removing';
 			// hsProject = JSON.parse(JSON.stringify(hsProject).replace(/"defaultValue":"(?:|.*?[^\\])(?:\\\\)*"/g,'"defaultValue":""'));
 			const performanceStart = performance.now();
-			var worker = new Worker(URL.createObjectURL(new Blob(["("+doMathOperators.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
+			var worker = new Worker(URL.createObjectURL(new Blob(["("+workerRemoveDefaultVals.toString()+")("+JSON.stringify(hsProject)+")"], {type: 'text/javascript'})));
 			worker.onmessage = function(msg) {
 				document.getElementById("pAct-removeDefaultVals").querySelector("button").innerHTML = "Remove";
 				console.log(msg.data);

@@ -603,8 +603,8 @@ function doMathOperators(project) {
 }
 
 function workerRemoveDefaultVals(project) {
-	project = JSON.parse(JSON.stringify(hsProject).replace(/"defaultValue":"(?:|.*?[^\\])(?:\\\\)*"/g,'"defaultValue":""'));
-	postMessage({project, count});
+	let outputProject = JSON.parse(JSON.stringify(project).replace(/"defaultValue":\s?"(?:|.*?[^\\])(?:\\\\)*"/g,'"defaultValue":""'));
+	postMessage({project: outputProject});
 }
 
 function savePreset(project, namesDict, doCustomObjs) {
