@@ -94,10 +94,33 @@
 				  background-color: #eee;
 				}
 			}
+			.player-style-btn-toolbar {
+				position: fixed;
+				top: 8px;
+				right: 8px;
+				display: flex;
+				width: min-content;
+			}
+			#themebtn, #builder-btn {
+				padding: 2px;
+				background-color: rgba(0,0,0,0.54);
+				font-size: 26px;
+				width: 44px;
+				height: 44px;
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				position: relative;
+			}
 		</style>
 	</head>
 	<body>
-		<button onclick="theme()" id="themebtn" style="right:0;"><i class="fa fa-fw fa-moon-o"> </i></button>
+		<div class="player-style-btn-toolbar">
+			<button onclick="theme()" id="themebtn" style="transform: scaleX(-1);"><i class="fa fa-fw fa-moon-o"> </i></button>
+			<button onclick="builder()" id="builder-btn"><i class="fa fa-fw fa-pencil"> </i></button>
+		</div>
 		<div id="blocks-container-resizer" class="resize-drag" style="min-width: 300px; left: calc(50vw - 360px); top: 10px;">
 			<div class="drag-handle">Block Rendering: Loading...</div>
 			<div id="blocks-container" class="bl-container" style="padding: 36px 8px;"></div>
@@ -257,7 +280,7 @@
 			}
 			setTimeout(function(){
 				var url = new URL(location.href);
-				if (localStorage.getItem("projectFromStorage") &&  url.searchParams.get("play") == "1") {
+				if (localStorage.getItem("projectFromStorage") && url.searchParams.get("play") == "1") {
 					var projectImport;
 					if (!localStorage.getItem("projectFromStorage").match(/^\{/)) projectImport = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(localStorage.getItem("projectFromStorage").match(/[\w\d]{2}/g).repeatEach(val=>parseInt(val,16))))); /\}/
 					hsProject = projectImport || JSON.parse(localStorage.getItem("projectFromStorage"));
@@ -794,6 +817,10 @@
 			window.addEventListener("blur",function(){
 				if ((document.activeElement.parentNode.parentNode.classList||document.body.classList).contains("resize-drag")) document.activeElement.parentNode.parentNode.click();
 			});
+			function builder() {
+				if (localStorage.getItem("projectFromStorage") && !confirm("Opening the project in the HS Project Builder will not apply any changes you have made here. Continue?")) return;
+				window.open('/hs-tools/hs-builder/?loadUrl=' + hsProject.uuid);
+			}
 		</script>
 	</body>
 </html>

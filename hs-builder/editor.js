@@ -60,14 +60,14 @@ function uuidv4() {
 		return v.toString(16);
 	});
 }
-if (onIos) {
+if (onIos && editor.useFileSysCode) {
 	window.addEventListener("touchstart", function(){
 		bodyScroll.coordsInterval = setInterval(function(){bodyScroll.setX();bodyScroll.setY();},5);
 	});
 	window.addEventListener("scroll", function(){
 		if (bodyScroll.coordsInterval) clearInterval(bodyScroll.coordsInterval);
 	});
-	let focusMsg = document.getElementById("window-controls-resizer").querySelector('span.center');
+	let focusMsg = document.getElementById("window-controls-resizer")?.querySelector('span.center');
 	focusMsg.innerHTML = "Press shift twice to focus.<br>Tap to enable shake to focus.";
 	focusMsg.addEventListener("touchend",function(){
 		if (typeof DeviceOrientationEvent.requestPermission === "function") DeviceOrientationEvent.requestPermission(); //iOS ask for permission

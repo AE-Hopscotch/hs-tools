@@ -70,7 +70,7 @@ async function compress(data){ /* Input is JSON data */
 }
 
 function workerFormatProject(p, projectDict, data) {
-	let iterationsTotal = (p.abilities?.length*6||0) + (p.eventParameters?.length||0) + (p.objects?.length*2||0) + (p.rules?.length*2||0) + (p.customRules?.length*2||0) + (p.traits?.length*2||0) + (p.variables?.length*2||0) + (p.scenes?.length||0) + 1,
+	let iterationsTotal = (p.abilities?.length*1||0) + (p.eventParameters?.length||0) + (p.objects?.length*1||0) + (p.rules?.length*1||0) + (p.customRules?.length*1||0) + (p.traits?.length*1||0) + (p.variables?.length*1||0) + (p.scenes?.length||0) + 1,
 		iterationsComplete = 0,
 		newestCreateDate = 0,
 		blockLabels = data.blockLabels,
@@ -199,7 +199,8 @@ function workerFormatProject(p, projectDict, data) {
 	iterationDone();
 	
 	(function(){
-		distributionCounts = {
+		return; // don't do stats when formatting the project.
+		/* distributionCounts = {
 			blockCatgCounts: {},
 			blockDescCounts: {},
 			blockTypeCounts: {},
@@ -219,9 +220,9 @@ function workerFormatProject(p, projectDict, data) {
 			traitsTypeCounts: {},
 			traitsTotalUsage: 0
 			//Add traits some time
-		};
+		}; */
 		//Get the Ability Usage and Block Distribution within the project
-		(p.abilities||[]).forEach(a=>{
+		/*(p.abilities||[]).forEach(a=>{
 			if (a.name && !distributionCounts.abilitiesUseCount[a.name]) distributionCounts.abilitiesUseCount[a.name] = 0;
 			(JSON.stringify(a.blocks||[]).match(/"HSTraitTypeKey":[23]\d\d\d\D/g)||[]).forEach(tr=>{
 				distributionCounts.traitsTotalUsage ++;
@@ -253,9 +254,9 @@ function workerFormatProject(p, projectDict, data) {
 					});
 			}
 			iterationDone();
-		});
+		});*/
 		//Get the Object Type Distribution
-		(p.objects||[]).forEach(o=>{
+		/*(p.objects||[]).forEach(o=>{
 			const name = charLabels[o.type]||"";
 			(distributionCounts.objectCharCounts[name]) ? distributionCounts.objectCharCounts[name]++ : distributionCounts.objectCharCounts[name] = 1;			//Name
 			(distributionCounts.objectTypeCounts[o.type]) ? distributionCounts.objectTypeCounts[o.type]++ : distributionCounts.objectTypeCounts[o.type] = 1;	//Type
@@ -285,8 +286,8 @@ function workerFormatProject(p, projectDict, data) {
 			distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]?distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]+=(JSON.stringify(hsProject).match(RegExp('"variable":"'+t.HSTraitIDKey+'"',"g"))||[]).length:distributionCounts.traitsTypeCounts[(t.type >= 3e3?"\uD83D\uDCF1 ":"")+blockLabels[t.HSTraitTypeKey]]=(JSON.stringify(hsProject).match(RegExp('"variable":"'+t.HSTraitIDKey+'"',"g"))||[]).length;
 			distributionCounts.traitsTotalUsage = Object.keys(distributionCounts.traitsTypeCounts).repeatEach(key=>{return distributionCounts.traitsTypeCounts[key]}).reduce((a,b)=>{return a+b});
 			iterationDone();
-		});
-		let filesize = Math.round(JSON.stringify(unformatProject(hsProject)).length/10)/100;
+		});*/
+		/*let filesize = Math.round(JSON.stringify(unformatProject(hsProject)).length/10)/100;
 		// if (editor.useBlockRender) {
 			let getSpecialBlockAbilityNames = (function(){
 				const hasSbAbilityName = !hsProject.abilities ? null : (hsProject.abilities.repeatEach(a=>{iterationDone();if(a.name && checkAbility.secretBlocks(a).contains) return (a.name.length > 29) ? a.name.substr(0,27)+"...": a.name})||[]).removeNull()[0];
@@ -320,10 +321,10 @@ function workerFormatProject(p, projectDict, data) {
 				"variables": (hsProject.variables||[]).length,
 				"sbAbilityName": getSpecialBlockAbilityNames.secretBlocks,
 				"ibAbilityName": getSpecialBlockAbilityNames.imageBlocks
-			}
+			}*/
 		// }
 	})(p);
-	
+
 	(p.abilities||[]).forEach(a=>{
 		projectDict.abilities[a.abilityID] = {abilityID:a.abilityID,createdAt:a.createdAt,name:a.name,blocks:{}};
 		newestCreateDate = Math.max(newestCreateDate,a.createdAt+12.34567);
