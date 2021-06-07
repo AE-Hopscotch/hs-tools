@@ -419,6 +419,25 @@ a.remixbar[onclick*="draft"] {
 .info stats span {
 	margin: 4px;
 }
+.info stats .fa-clock-o::after {
+	content: attr(data-time);
+	position: absolute;
+	width: fit-content;
+	background-color: black;
+	transform: translate(0, -25px);
+	text-align: center;
+	right: 0;
+	padding: 4px 6px;
+	color: white;
+	border-radius: 4px;
+	font-family: sans-serif;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s;
+}
+.info stats .fa-clock-o:hover::after {
+	opacity: 1;
+}
 
 .fa-link, .report-icon {
 	cursor: pointer;

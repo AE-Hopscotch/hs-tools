@@ -179,7 +179,7 @@ function showProjects(chProjects) {
 							<span style="display: var(--x-ray-elms);">No x-ray action</span>
 							<span>
 								<span><i class="fa fa-play"></i> ${p.play_count}</span>
-								<span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
+								<span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" data-time="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
 							</span>
 						 </stats>
 					</div>`;
@@ -200,7 +200,7 @@ function showProjects(chProjects) {
 						<stats>
 							<span style="display: var(--x-ray-elms);"><i class="fa fa-random"></i> ${p.project_remixes_count}</span>
 							<span><i class="fa fa-leaf"></i> ${p.plants}</span><span><i class="fa fa-heart"></i> ${p.number_of_stars}</span>
-							<span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" title="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
+							<span><i class="fa fa-play"></i> ${p.play_count}</span><span><a href="iso:${p.correct_published_at}" disabled><i class="fa fa-clock-o" data-time="${new Date(p.correct_published_at).toLocaleString()||""}"></i></a> ${timeDifference(Date.now(), new Date(d[0],d[1]-1,d[2],d[3],d[4],d[5],d[6]))}</span>
 						</stats>
 					</div>`;
 			}
