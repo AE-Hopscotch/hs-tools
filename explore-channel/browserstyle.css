@@ -468,13 +468,12 @@ a.remixbar[onclick*="draft"] {
 	margin: 8px;
 	padding: 8px;
 	border-radius: 16px;
-	border: 0px solid white;
+	box-shadow: 0 0 0 0px #50d8bb inset;
 	opacity: 1;
-	transition: opacity 0.5s, background-color var(--transition-time), color var(--transition-time), border 0.25s, padding 0.25s;
+	transition: box-shadow 0.5s, opacity 0.5s, background-color var(--transition-time), color var(--transition-time), border 0.25s, padding 0.25s;
 }
 .user-card:hover {
-	padding: 6px;
-	border: 2px solid #50D8BB;
+	border: 0 0 0 2px #50d8bb inset;
 }
 .user-card span.img-container {
 	display: inline-block;
