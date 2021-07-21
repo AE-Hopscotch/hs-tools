@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HS Song Composer</title>
+    <link rel="stylesheet" href="note-composer.css"/>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/interactjs@1.9.15/dist/interact.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script defer src="https://unpkg.com/@tonejs/midi"></script>
+
+	<script defer src="note-composer.js"></script>
+</head>
+<body>
+    <div id="instrument-selection">
+        Select an Instrument:
+        <label><input type="radio" name="instrument" value="-" checked/> Original</label>
+        <label><input type="radio" name="instrument" value="@v"/> Vibraphone</label>
+        <label><input type="radio" name="instrument" value="@o"/> Ocarina</label>
+        <label><input type="radio" name="instrument" value="@g"/> Guitar</label>
+        <label><input type="radio" name="instrument" value="@p"/> Piano</label>
+        <label><input type="radio" name="instrument" value="@c"/> Cello</label>
+        <label><input type="radio" name="instrument" value="@b"/> 8-Bit</label>
+        <label><input type="radio" name="instrument" value="@h"/> Choir</label>
+    </div>
+    <div style="text-align:center;">
+    <div id="piano-container">
+        <div class="piano selected" data-start="48">
+            <div>low-c</div>
+            <div>low-csharp</div>
+            <div>low-d</div>
+            <div>low-eflat</div>
+            <div>low-e</div>
+            <div>low-f</div>
+            <div>low-fsharp</div>
+            <div>low-g</div>
+            <div>low-aflat</div>
+            <div>low-a</div>
+            <div>low-bflat</div>
+            <div>low-b</div>
+            <div>c</div>
+        </div>
+        <div class="piano" data-start="60">
+            <div>c</div>
+            <div>csharp</div>
+            <div>d</div>
+            <div>eflat</div>
+            <div>e</div>
+            <div>f</div>
+            <div>fsharp</div>
+            <div>g</div>
+            <div>aflat</div>
+            <div>a</div>
+            <div>bflat</div>
+            <div>b</div>
+            <div>highc</div>
+        </div>
+        <div class="piano" data-start="72" hidden>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+            <div>-</div>
+        </div>
+        <div class="button-container">
+            <button data-label="P"><img src="/hs-tools/images/music-composer/gong.png" height="40">gong</button>
+            <button data-label="["><img src="/hs-tools/images/music-composer/clap.png" height="40">clap</button>
+            <button data-label="]"><img src="/hs-tools/images/music-composer/snare.png" height="40">snare</button>
+            <button data-label="\"><img src="/hs-tools/images/music-composer/bass.png" height="40">bass</button>
+        </div>
+    </div>
+    </div>
+	<div hidden id="notes-panel">
+		<button>low-c</button>
+		<button>low-csharp</button>
+		<button>low-d</button>
+		<button>low-eflat</button>
+		<button>low-e</button>
+		<button>low-f</button>
+		<button>low-fsharp</button>
+		<button>low-g</button>
+		<button>low-aflat</button>
+		<button>low-a</button>
+		<button>low-bflat</button>
+		<button>low-b</button>
+		<button>c</button>
+		<button>csharp</button>
+		<button>d</button>
+		<button>eflat</button>
+		<button>e</button>
+		<button>f</button>
+		<button>fsharp</button>
+		<button>g</button>
+		<button>aflat</button>
+		<button>a</button>
+		<button>bflat</button>
+		<button>b</button>
+		<button>highc</button>
+		<br>
+		<br>
+	</div>
+	<br>
+	<div id="insertion-panel" class="wait-btns">
+        <button data-label="1" class="nh" data-multiplier="4">w</button>
+		<button data-label="2" class="nh" data-multiplier="2">h</button>
+		<button data-label="3" class="nh" data-multiplier="1">q</button>
+		<button data-label="4" class="nh" data-multiplier="0.5">e</button>
+		<button data-label="5" class="nh" data-multiplier="0.25">s</button>
+		<button data-label="6" data-multiplier="0.125"><i class="nh" style="pointer-events:none;">s</i>/2</button>
+		<button data-label="7" class="nh" data-multiplier="3">d</button>
+		<button data-label="8" class="nh" data-multiplier="1.5">j</button>
+		<button data-label="9" class="nh" data-multiplier="0.75">i</button>
+		<button data-label="0" class="nh" data-multiplier="0.375">s.</button>
+		<button data-label="-" class="nh" data-multiplier="0.33333333333">T</button>
+		<button data-label="=" class="nh" data-multiplier="0.66666666667">t</button>
+    </div>
+    <div id="music-inputs">
+		<input id="wait-time" placeholder="q&#x3016;𝗆𝗌&#x3017;" type="number" value="400">
+		<textarea --onkeydown="if(event.keyCode==13&&event.ctrlKey)event.preventDefault(),addText('/*'+this.value+'*/');" placeholder="/*Comment, ctrl+enter to insert*/" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+	</div>
+    <div id="float-controller" class="textbox-float" style="transform:translate(10px,10px);background-color:#040404D8;" data-x="10" data-y="10">
+        <div class="resizer"></div>
+        <span class="header"><span>Window Controller</span> <i class="fa fa-file-audio-o" onclick="openFilePrompt(event)" style="font-size:16px;transform:translate(-4px,0.4px);"></i> <i class="fa fa-plus-circle" onclick="windowNew(event)"></i></span>
+        <div style="max-height:100%;overflow-y:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" oninput="windowSelectAll(this.checked)"></th>
+                        <th>Name</th>
+                        <th><i class="fa fa-compress" onclick="windowMergeTracks(event)"></i> <i class="fa fa-close" onclick="windowCloseAll()"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-float-id="0">
+                        <td><input type="checkbox" oninput="windowSelectOne('0',this.checked)"></td>
+                        <td>&nbsp;<span onclick="windowDelayedClick('0')">Title</span></td>
+                        <td>
+                            <i class="fa fa-pencil" onclick="windowFocusTitle('0')"></i>
+                            <i class="fa fa-close" onclick="windowClose('0')"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="textbox-float" style="transform:translate(280px,10px)" data-x="280" data-y="10" data-float-id="0">
+        <div class="resizer"></div>
+        <span class="header"><input type="checkbox" data-float-id="0" oninput="windowSelectOne('0',this.checked)"/>
+        <span contenteditable onkeydown="if(event.keyCode===13)this.blur();" oninput="windowUpdateTitle('0',this)" onblur="window.getSelection().removeAllRanges()">Title</span>
+        <i class="fa fa-eye-slash" tabindex="0" onclick="this.parentNode.parentNode.hidden=true"></i>
+        <i class="fa fa-play" tabindex="0" onclick="setPlayerTrack('0')"></i></span>
+        <textarea autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+    </div>
+    <div id="iframe-float" class="textbox-float" style="width:204px;height:90px;transform:translate(30px,220px)" data-x="30" data-y="220">
+        <span class="header"><span>Music Player</span> <div><small>bpm</small> <span id="tempo-input" contenteditable>120</span></div></span>
+        <div class="load-bg">Loading...</div>
+        <script>delete localStorage.projectFromStorage;</script>
+        <iframe hidden src="/hs-tools/play-project/?id=*note-striker-widget&sendLoadMsg=1&hide=.player-icon-toolbar&play=1" width="200" height="60" frameborder="0"></iframe>
+    </div>
+    <div class="drag-file-upload">
+        <h1>Drop to add MIDI tracks</h1>
+    </div>
+    <input id="midi-import-file-input" type="file" accept="audio/midi, audio/mid" onchange="loadMidi(this.files)">
+</body>
+</html>
