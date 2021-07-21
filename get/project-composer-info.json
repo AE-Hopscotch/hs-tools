@@ -3,28 +3,63 @@
 		"main_hpcx": {
 			"version_number": "0.1",
 			"build_number": 1,
-			"icloud_path": "",
+			"icloud_path": "shortcuts/a3d4cf0d2ab147e8ab40a9645da9026b",
 			"description": "Hopscotch Project Composer Version 0.1"
 		},
 		"ft_topLvlTraits": {
-			"version_number": "0.1",
+			"version_number": "1.0",
 			"build_number": 1,
-			"icloud_path": "shortcuts/e31e9c26dc374df596f78429491c80a4",
-			"title": "Modify Global Project Traits, v1.0",
-			"description": "Initial Release URL TEST"
+			"icloud_path": "shortcuts/e76916e2d4c54291a94f2066ae021599",
+			"title": "Edit Global Project Traits, v1.0",
+			"description": "Initial Release"
+		},
+    "ft_secretBlocks": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/64c3e194a480424aa209d310fbe72ef7",
+      "title": "Add Secret Blocks, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_imageBlocks": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/fc70216a145e4445942147fceee33ebd",
+      "title": "Add Image Blocks, v1.0",
+      "description": "Initial Release"
+    },
+		"ft_optColors": {
+			"version_number": "1.0",
+			"build_number": 1,
+			"icloud_path": "shortcuts/8491bab877f145adb0c6e4a87c8fffa5",
+			"title": "Optimize Color Fields, v1.0",
+			"description": "Initial Release"
+		},
+		"ft_optMath": {
+			"version_number": "1.0",
+			"build_number": 1,
+			"icloud_path": "shortcuts/269fd1b7b2894b60b5e0098099bd40ca",
+			"title": "Evaluate Math, v1.0",
+			"description": "Initial Release"
+		},
+		"ft_dictionaryAbility": {
+			"version_number": "1.0",
+			"build_number": 1,
+			"icloud_path": "shortcuts/51a5b16f154b4c32a9e91396beac634c",
+			"title": "Dictionary Ability, v1.0",
+			"description": "Initial Release"
 		},
 		"ft_lockProject": {
-			"version_number": "0.1",
+			"version_number": "1.0",
 			"build_number": 1,
-			"icloud_path": "",
+			"icloud_path": "shortcuts/e9f7787f2d384aa3ad8ca7a1927298b4",
 			"title": "Toggle Project Lock, v1.0",
 			"description": "Initial Release"
 		},
-		"ft_optColors": {
-			"version_number": "0.1",
+		"ft_checkFilter": {
+			"version_number": "1.0",
 			"build_number": 1,
-			"icloud_path": "",
-			"title": "Optimize Color Fields, v1.0",
+			"icloud_path": "shortcuts/18243917e687472ebd0f26192815f0f3",
+			"title": "Check Filter, v1.0",
 			"description": "Initial Release"
 		}
 	},
