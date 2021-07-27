@@ -79,7 +79,7 @@
 				isTrusted = !AE_PROJECT_USES_CUSTOM_DATA;
 				if (!typeof c == "object" || !/^.{1,3}$/.test(Object.getPrototypeOf(c||{}).constructor.name)) isTrusted = false, console.warn("Untrusted Event");
 				try {
-					a = JSON.parse(a.replace(/"_data"/g,b));
+					a = JSON.parse(a.replace(/"_data"/g,b).replace(/"_data_escaped"/g,JSON.stringify(b)));
 					a.args = a.args || [];
 				} catch (e) {
 					console.error("Invalid webplayer action:" + a);
