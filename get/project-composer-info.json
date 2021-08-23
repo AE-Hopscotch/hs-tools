@@ -1,12 +1,12 @@
 {
-	"dependencies": {
-		"main_hpcx": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/a3d4cf0d2ab147e8ab40a9645da9026b",
-			"title": "Hopscotch Project Composer, Version 1.0",
-			"description": "Initial Release"
-		},
+  "dependencies": {
+    "main_hpcx": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/a3d4cf0d2ab147e8ab40a9645da9026b",
+      "title": "Hopscotch Project Composer, Version 1.0",
+      "description": "Initial Release"
+    },
     "main_installer": {
       "version_number": "1.0",
       "build_number": 1,
@@ -14,20 +14,20 @@
       "title": "Dependency Installer, v1.0",
       "description": "Initial Release"
     },
-		"main_updater": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/8084dd1beb804a1daed63a904b06c4dc",
-			"title": "Project Composer Updater, v1.0",
+    "main_updater": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/8084dd1beb804a1daed63a904b06c4dc",
+      "title": "Project Composer Updater, v1.0",
       "description": "Initial Release"
-		},
-		"ft_topLvlTraits": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/e76916e2d4c54291a94f2066ae021599",
-			"title": "Edit Global Project Traits, v1.0",
-			"description": "Initial Release"
-		},
+    },
+    "ft_topLvlTraits": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/e76916e2d4c54291a94f2066ae021599",
+      "title": "Edit Global Project Traits, v1.0",
+      "description": "Initial Release"
+    },
     "ft_secretBlocks": {
       "version_number": "1.0",
       "build_number": 1,
@@ -42,54 +42,54 @@
       "title": "Add Image Blocks, v1.0",
       "description": "Initial Release"
     },
-		"ft_optColors": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/8491bab877f145adb0c6e4a87c8fffa5",
-			"title": "Optimize Color Fields, v1.0",
-			"description": "Initial Release"
-		},
-		"ft_optMath": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/269fd1b7b2894b60b5e0098099bd40ca",
-			"title": "Evaluate Math, v1.0",
-			"description": "Initial Release"
-		},
-		"ft_copyLink": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/7a299c9cb5b846ac9db07eeb09c9e714",
-			"title": "Copy Project Link, v1.0",
-			"description": "Initial Release"
-		},
-		"ft_dictionaryAbility": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/51a5b16f154b4c32a9e91396beac634c",
-			"title": "Dictionary Ability, v1.0",
-			"description": "Initial Release"
-		},
-		"ft_lockProject": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/e9f7787f2d384aa3ad8ca7a1927298b4",
-			"title": "Toggle Project Lock, v1.0",
-			"description": "Initial Release"
-		},
-		"ft_checkFilter": {
-			"version_number": "1.0",
-			"build_number": 1,
-			"icloud_path": "shortcuts/b3cfc3ae6712494fb789d37e6db2c0a7",
-			"title": "Check Filter, v1.0",
-			"description": "Initial Release"
-		}
-	},
-	"resources": {
-		"secret_blocks": {
-			"version_number": "0.6",
-			"build_number": 1,
-			"url": "https://c.gethopscotch.com/api/v1/projects/bl"
-		}
-	}
+    "ft_optColors": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/8491bab877f145adb0c6e4a87c8fffa5",
+      "title": "Optimize Color Fields, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_optMath": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/269fd1b7b2894b60b5e0098099bd40ca",
+      "title": "Evaluate Math, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_copyLink": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/7a299c9cb5b846ac9db07eeb09c9e714",
+      "title": "Copy Project Link, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_dictionaryAbility": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/51a5b16f154b4c32a9e91396beac634c",
+      "title": "Dictionary Ability, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_lockProject": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/e9f7787f2d384aa3ad8ca7a1927298b4",
+      "title": "Toggle Project Lock, v1.0",
+      "description": "Initial Release"
+    },
+    "ft_checkFilter": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/b3cfc3ae6712494fb789d37e6db2c0a7",
+      "title": "Check Filter, v1.0",
+      "description": "Initial Release"
+    }
+  },
+  "resources": {
+    "secret_blocks": {
+      "version_number": "0.6",
+      "build_number": 1,
+      "url": "https://c.gethopscotch.com/api/v1/projects/bl"
+    }
+  }
 }
