@@ -21,6 +21,13 @@
       "title": "Project Composer Updater, v1.0",
       "description": "Initial Release"
     },
+    "main_template": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/038e48543c364f33b62ecc7f94f50e0e",
+      "title": "HPCX Module Template, v1.0",
+      "description": "Initial Release"
+    },
     "ft_topLvlTraits": {
       "version_number": "1.0",
       "build_number": 1,
