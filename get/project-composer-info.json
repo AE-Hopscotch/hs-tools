@@ -1,10 +1,25 @@
 {
 	"dependencies": {
 		"main_hpcx": {
-			"version_number": "0.1",
+			"version_number": "1.0",
 			"build_number": 1,
 			"icloud_path": "shortcuts/a3d4cf0d2ab147e8ab40a9645da9026b",
-			"description": "Hopscotch Project Composer Version 0.1"
+			"title": "Hopscotch Project Composer, Version 1.0",
+			"description": "Initial Release"
+		},
+    "main_installer": {
+      "version_number": "1.0",
+      "build_number": 1,
+      "icloud_path": "shortcuts/038e48543c364f33b62ecc7f94f50e0e",
+      "title": "Dependency Installer, v1.0",
+      "description": "Initial Release"
+    },
+		"main_updater": {
+			"version_number": "1.0",
+			"build_number": 1,
+			"icloud_path": "shortcuts/8084dd1beb804a1daed63a904b06c4dc",
+			"title": "Project Composer Updater, v1.0",
+      "description": "Initial Release"
 		},
 		"ft_topLvlTraits": {
 			"version_number": "1.0",
@@ -16,7 +31,7 @@
     "ft_secretBlocks": {
       "version_number": "1.0",
       "build_number": 1,
-      "icloud_path": "shortcuts/64c3e194a480424aa209d310fbe72ef7",
+      "icloud_path": "shortcuts/56f6bfd0ad804158b544efb5b42b497f",
       "title": "Add Secret Blocks, v1.0",
       "description": "Initial Release"
     },
@@ -41,6 +56,13 @@
 			"title": "Evaluate Math, v1.0",
 			"description": "Initial Release"
 		},
+		"ft_copyLink": {
+			"version_number": "1.0",
+			"build_number": 1,
+			"icloud_path": "shortcuts/7a299c9cb5b846ac9db07eeb09c9e714",
+			"title": "Copy Project Link, v1.0",
+			"description": "Initial Release"
+		},
 		"ft_dictionaryAbility": {
 			"version_number": "1.0",
 			"build_number": 1,
@@ -58,7 +80,7 @@
 		"ft_checkFilter": {
 			"version_number": "1.0",
 			"build_number": 1,
-			"icloud_path": "shortcuts/18243917e687472ebd0f26192815f0f3",
+			"icloud_path": "shortcuts/b3cfc3ae6712494fb789d37e6db2c0a7",
 			"title": "Check Filter, v1.0",
 			"description": "Initial Release"
 		}

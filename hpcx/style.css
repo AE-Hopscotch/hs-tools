@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+:root {
+  --col-bg-main: #fafafa;
+  --col-text: black;
+  background-color: transparent;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+body {
+  background-color: var(--col-bg-main);
+  color: var(--col-text);
+  transition: background-color var(--time-trans), color var(--time-trans);
+}
+* {
+  box-sizing: border-box;
+}
+sq {
+  display: block;
+  transition: 0.5s;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.5);
+  padding: 8px;
+  border-radius: 8px;
+  bottom: 4px;
+  right: 4px;
+}
+div.main {
+  padding: 16px;
+}
+.main h1 {
+  text-align: center;
+  opacity: 0;
+  animation: fade-in 2s;
+  animation-delay: 0.25s;
+  animation-fill-mode: forwards;
+}
+.main .subtitle {
+  opacity: 0;
+  animation: fade-in 2s 0.75s forwards;
+}
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
