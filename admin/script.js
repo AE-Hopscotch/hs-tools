@@ -62,6 +62,7 @@ function refreshVideos() {
 
       card.addEventListener('click', function () {
         fillForm(videosForm, video)
+        videosForm.querySelector('video').src = video.url
       })
     })
   }, 0, null, { 'api-token': passField.value })
@@ -72,24 +73,74 @@ const editFormContainer = document.querySelector('.wrapper .form-container')
 const blocksForm = document.getElementById('blocks-form')
 const videosForm = document.getElementById('videos-form')
 let formAction = 'update'
+function tableKeys (table) {
+  return Array.from(table.querySelectorAll('thead th[value]')).map(th => th.getAttribute('value'))
+}
 function fillForm (form, dictionary) {
   Object.entries(dictionary).forEach(entry => {
     const field = form.querySelector(`[name="${entry[0]}"]`)
     if (field) {
-      switch (field.type) {
+      switch (field.getAttribute('data-format') || field.type) {
+        case 'array':
+          field.value = entry[1].join(field.getAttribute('data-separator') || undefined)
+          break;
+        case 'dictionaries-array': {
+          const tableBody = field.querySelector('tbody')
+          tableBody.innerHTML = ''
+          const keys = tableKeys(field)
+          entry[1].forEach(object => {
+            const row = document.createElement('tr')
+            row.innerHTML = keys.map(key => `<td contenteditable>${object[key].htmlEscape()}</td>`).join('')
+              + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+            row.querySelector('button[action="remove"]').addEventListener('click', e => {
+              e.preventDefault()
+              row.remove()
+            })
+            tableBody.appendChild(row)
+          })
+          break;
+        }
         case 'checkbox':
           field.checked = !!entry[1]
           break
         default:
-          field.value = entry[1]
+          // if (typeof entry[1] === 'object' && Array.isArray(entry[1])) {
+            field.value = entry[1]
       }
     }
   })
 }
 function objectFromForm (form) {
-  const dict = Object.fromEntries(new FormData(videosForm).entries())
+  let dict = Object.fromEntries(new FormData(form).entries())
+  dict = Object.fromEntries(Object.entries(dict).map(e => [e[0], e[1].replace(/\r\n/g, '\n')]))
+  form.querySelectorAll('input[type="number"]').forEach(input => {
+    dict[input.name] = parseInt(input.value) || 0
+  })
+  dict.key = dict.id.toString()
   form.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
     dict[checkbox.name] = checkbox.checked
+  })
+  form.querySelectorAll('[data-format="array"]').forEach(field => {
+    if (!field.value) {
+      dict[field.name] = []
+      return
+    }
+    dict[field.name] = field.value.replace(/\r\n/g, '\n')
+      .split(field.getAttribute('data-separator') || ',')
+  })
+  form.querySelectorAll('table[data-format="dictionaries-array"]').forEach(table => {
+    const dictArray = []
+    const keys = tableKeys(table)
+    table.querySelectorAll('tbody tr').forEach(row => {
+      const dict = {}
+      Array.from(row.children).forEach((td, index) => {
+        const key = keys[index]
+        if (!key) return
+        dict[key] = td.innerText
+      })
+      dictArray.push(dict)
+    })
+    dict[table.getAttribute('name')] = dictArray
   })
   return dict
 }
@@ -97,6 +148,23 @@ function renderResponse (response) {
   document.querySelector('.output-container').innerHTML = ''
   document.querySelector('.output-container').appendChild(renderjson(response))
 }
+// Set up buttons to add rows
+document.querySelectorAll('form table').forEach(table => {
+  const btn = table.querySelector('button[action="new-row"]')
+  btn.addEventListener('click', e => {
+    e.preventDefault()
+    const keys = tableKeys(table)
+    const row = document.createElement('tr')
+    row.innerHTML = keys.map(key => `<td contenteditable></td>`).join('')
+      + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+    row.querySelector('button[action="remove"]').addEventListener('click', e => {
+      e.preventDefault()
+      row.remove()
+    })
+    table.querySelector('tbody').appendChild(row)
+  })
+})
+
 document.querySelectorAll('input[type="submit"]').forEach(btn => {
   btn.addEventListener('click', e => {
     formAction = e.target.value.toLowerCase()
@@ -144,6 +212,9 @@ videosForm.addEventListener('submit', e => {
       }
     }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
   }
+})
+videosForm.querySelector('input[name="url"]').addEventListener('change', function (e) {
+  videosForm.querySelector('video').src = e.target.value
 })
 
 function updateViews () {

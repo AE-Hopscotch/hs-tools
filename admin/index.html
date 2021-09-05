@@ -42,17 +42,55 @@
         <span class="label">Block Name</span>
         <input name="name" type="text" placeholder="Repeat Forever">
         <span class="label">Type</span>
-        <input name="type" type="text" placeholder="Awesome_E, Jeffery Jr.">
+        <select name="type">
+          <option value="ctrl">Control (ctrl)</option>
+          <option value="move">Movement (move)</option>
+          <option value="draw">Drawing (draw)</option>
+          <option value="looks">Looks (looks)</option>
+          <option value="var">Variable (var)</option>
+          <option value="old">Non-editor (old)</option>
+          <option value="">Other, i.e. ability ()</option>
+        </select>
+        <span class="label">Availability</span>
+        <select name="availability">
+          <option value="all">Available for Everyone (all)</option>
+          <option value="json">JSON Editing only (json)</option>
+          <option value="beta">Advanced mode only (beta)</option>
+          <option value="jsonbeta">JSON only &rarr; advanced only (jsonbeta)</option>
+          <option value="old">Non-editor, not in use (old)</option>
+          <option value="gone">Removed from newer players (gone)</option>
+        </select>
+        <span class="label">Parameters</span>
+        <table data-format="dictionaries-array" name="parameters">
+          <thead>
+            <tr>
+              <th value="description">Description</th>
+              <th value="type">Type</th>
+              <th>
+                <button class="unstyled" action="new-row"><i class="fa fa-plus-circle"></i></button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
         <span class="label">Community Description</span>
         <textarea name="about" placeholder="Goes on and on and on..."></textarea>
         <span class="label">App Description</span>
         <textarea name="description" placeholder="Makes the character move horizontally"></textarea>
         <span class="label">Authors (CSV)</span>
-        <input name="authors" type="text" placeholder="Awesome_E, Jeffery Jr.">
+        <input name="authors" type="text" placeholder="Awesome_E,Jeffery Jr." data-format="array">
         <span class="label">Block HTML</span>
         <textarea name="blockHTML" placeholder="Check Once If &lt;i class=&quot;ps fa fa-question-circle&quot;&gt;&lt;/i&gt;"></textarea>
         <span class="label">Collapsible</span>
         <input name="collapsible" type="checkbox"><br>
+
+        <span class="label">Community Links</span>
+        <textarea name="community_links" data-format="array" data-separator="&NewLine;&NewLine;&NewLine;"></textarea>
+        <span class="label">Useful for</span>
+        <textarea name="useful_for" data-format="array" data-separator="&NewLine;&NewLine;"></textarea>
+        <span class="label">Additional Information</span>
+        <textarea name="other_info" data-format="array" data-separator="&NewLine;&NewLine;&NewLine;"></textarea>
 
         <br>
         <input type="submit" value="Update">
@@ -77,6 +115,8 @@
         <br>
         <input type="submit" value="Update" class="update-btn">
         <input type="submit" value="Delete" class="delete-btn danger">
+        <br>
+        <video controls></video>
       </form>
     </div>
     <div class="output-container">
