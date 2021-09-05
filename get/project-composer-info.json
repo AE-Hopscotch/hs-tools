@@ -36,18 +36,18 @@
       "description": "Initial Release"
     },
     "ft_secretBlocks": {
-      "version_number": "1.0",
-      "build_number": 1,
-      "icloud_path": "shortcuts/56f6bfd0ad804158b544efb5b42b497f",
-      "title": "Add Secret Blocks, v1.0",
-      "description": "Initial Release"
+      "version_number": "1.0.1",
+      "build_number": 2,
+      "icloud_path": "shortcuts/c8cecb5bd82f472ea648c8de09364af8",
+      "title": "Add Secret Blocks, v1.0.1",
+      "description": "Bug Fix – set variable fixed"
     },
     "ft_imageBlocks": {
-      "version_number": "1.0",
-      "build_number": 1,
-      "icloud_path": "shortcuts/fc70216a145e4445942147fceee33ebd",
-      "title": "Add Image Blocks, v1.0",
-      "description": "Initial Release"
+      "version_number": "1.0.1",
+      "build_number": 2,
+      "icloud_path": "shortcuts/a5ba391e0d4c4b5b9ccdca511a8e0c9c",
+      "title": "Add Image Blocks, v1.0.1",
+      "description": "Bug Fix – set variable fixed"
     },
     "ft_optColors": {
       "version_number": "1.0",
