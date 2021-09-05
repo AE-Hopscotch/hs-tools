@@ -1,4 +1,4 @@
-const endpoint = 'http://localhost:7700'
+const endpoint = 'http://hs-tools-api.deta.dev'
 const authMenuItem = document.querySelector('li[role="authkey"]')
 const authForm = document.getElementById('authform')
 const passField = authForm.querySelector('input[type="password"]')
