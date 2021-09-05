@@ -247,7 +247,7 @@
 				var pass = document.getElementById("pin1");
 				keyPresses += 1;
 				
-				XHR.requestExt("POST","https://hs-tools-api.deta.dev/videos/c/" + new URL(location.href).searchParams.get("video-set")||"",function(r,s){
+				XHR.requestExt("POST","https://hs-tools-api.deta.dev/videos/c/" + (new URL(location.href).searchParams.get("video-set")||""),function(r,s){
 					//console.log(r,s);
 					switch (s) {
 						case 401:

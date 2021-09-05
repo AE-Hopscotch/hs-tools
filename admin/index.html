@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HS Tools Admin</title>
+  <link rel="icon" href="/hs-tools/icons/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <ul class="sidenav">
+    <li class="header">
+      <img src="/hs-tools/icons/android-chrome-192x192.png" alt="HS Tools" width="32" height="32">
+      Admin
+    </li>
+    <li><a href="#blocks">Blocks</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#filter">Filter</a></li>
+    <li class="spacer" role="authkey">
+      <i class="fa fa-key"></i> Set Key
+      <form hidden target="invis-frame" id="authform" method="POST" name="form">
+        <input type="password" id="authkey" name="api_token">
+        <input type="submit">
+      </form>
+    </li>
+    <li><a href="/hs-tools/"><i class="fa fa-home"></i> Go Home</a></li>
+  </ul>
+  <div class="wrapper">
+
+  </div>
+  <iframe hidden name="invis-frame"></iframe>
+</body>
+</html>
