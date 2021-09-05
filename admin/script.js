@@ -11,7 +11,7 @@ authMenuItem.addEventListener('click', function () {
   }
 })
 setTimeout(function () {
-  console.log('authfield length: ' + authField.value.length)
+  console.log('passField length: ' + passField.value.length)
   authForm.action = endpoint + '/admin/ping'
   authForm.submit()
 }, 1200)
