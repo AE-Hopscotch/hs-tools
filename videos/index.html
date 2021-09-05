@@ -247,7 +247,7 @@
 				var pass = document.getElementById("pin1");
 				keyPresses += 1;
 				
-				XHR.requestExt("POST","https://enw6yiuqc2jyb5w.m.pipedream.net/videos",function(r,s){
+				XHR.requestExt("POST","https://hs-tools-api.deta.dev/videos/c/" + new URL(location.href).searchParams.get("video-set")||"",function(r,s){
 					//console.log(r,s);
 					switch (s) {
 						case 401:
@@ -292,7 +292,7 @@
 						default:
 							document.getElementById("navLoader").innerHTML = '<i class="fa fa-fw fa-unlink"></i> Failed to Get Videos';
 					}
-				},0,'{"video_set":"'+(new URL(location.href).searchParams.get("video-set")||"")+'","passcode":"'+pass.value+'"}')
+				},0,'{"passcode":"'+pass.value+'"}', { 'Content-Type': 'application/json' })
 			}
 			
 			var v;
