@@ -8,6 +8,7 @@
   <link rel="icon" href="/hs-tools/icons/favicon.ico">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="/hs-tools/main.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -20,16 +21,39 @@
     <li><a href="#videos">Videos</a></li>
     <li><a href="#filter">Filter</a></li>
     <li class="spacer" role="authkey">
-      <i class="fa fa-key"></i> Set Key
-      <form hidden target="invis-frame" id="authform" method="POST" name="form">
-        <input type="password" id="authkey" name="api_token">
-        <input type="submit">
-      </form>
+      <i class="fa fa-key"></i> <span>Set Key</span>
+      <input hidden type="password" id="authkey" name="api_token">
     </li>
     <li><a href="/hs-tools/"><i class="fa fa-home"></i> Go Home</a></li>
   </ul>
   <div class="wrapper">
+    <div class="content-container">
+      <button class="fixed-btn" onclick="refreshBlocks()"><i class="fa fa-refresh"></i></button>
+      <div id="api-blocks-container" class="flex"></div>
+    </div>
+    <div class="form-container">
+      <form>
+        <span class="label">Block ID</span>
+        <input name="id" type="number" step="1" placeholder="121">
+        <span class="label">Block Name</span>
+        <input name="name" type="text" placeholder="Repeat Forever">
+        <span class="label">Type</span>
+        <input name="type" type="text" placeholder="Awesome_E, Jeffery Jr.">
+        <span class="label">Community Description</span>
+        <textarea name="about" placeholder="Goes on and on and on..."></textarea>
+        <span class="label">App Description</span>
+        <textarea name="description" placeholder="Makes the character move horizontally"></textarea>
+        <span class="label">Authors (CSV)</span>
+        <input name="authors" type="text" placeholder="Awesome_E, Jeffery Jr.">
+        <span class="label">Block HTML</span>
+        <textarea name="blockHTML" placeholder="Check Once If &lt;i class=&quot;ps fa fa-question-circle&quot;&gt;&lt;/i&gt;"></textarea>
+        <span class="label">Collapsible</span>
+        <input name="collapsible" type="checkbox"><br>
 
+        <br>
+        <input type="submit" value="Update">
+      </form>
+    </div>
   </div>
   <iframe hidden name="invis-frame"></iframe>
 </body>
