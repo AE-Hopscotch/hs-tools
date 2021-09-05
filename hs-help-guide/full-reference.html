@@ -310,9 +310,8 @@
 					c.parentNode.style.display = c.title.toLowerCase().includes(document.querySelector("input").value.toLowerCase()) ? "block" : c.parentNode.style.display;
 				});
 			}
-			XHR.get("https://awesome-e.github.io/hs-tools/get/hopscotch-blocks-dictionary.json",function(r) {
-				Object.keys(JSON.parse(r)).sort((a,b)=>a-b).forEach(key=>{
-					var item = JSON.parse(r)[key];
+			XHR.get("https://hs-tools-api.deta.dev/hopscotch-data/blocks",function(r) {
+				JSON.parse(r).sort((a, b) => a.id - b.id).forEach(item => {
 					var div = document.createElement("div");
 					div.setAttribute("class", item.type || "abl");
 					div.innerHTML = '<span class="num">'+item.id+'</span><i title="block" class="fa type-icon fa-cubes"></i><span class="name">'+item.name.replace(/of this object| \/ ability/i,"")+'</span>';

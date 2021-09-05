@@ -81,9 +81,25 @@ function fillForm (form, dictionary) {
     const field = form.querySelector(`[name="${entry[0]}"]`)
     if (field) {
       switch (field.getAttribute('data-format') || field.type) {
-        case 'array':
-          field.value = entry[1].join(field.getAttribute('data-separator') || undefined)
+        case 'array': {
+          if (field.nodeName !== 'TABLE') {
+            field.value = entry[1].join(field.getAttribute('data-separator') || undefined)
+            return
+          }
+          const tableBody = field.querySelector('tbody')
+          tableBody.innerHTML = ''
+          entry[1].forEach(item => {
+            const row = document.createElement('tr')
+            row.innerHTML = `<td contenteditable>${item.htmlEscape()}</td>`
+              + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+            row.querySelector('button[action="remove"]').addEventListener('click', e => {
+              e.preventDefault()
+              row.remove()
+            })
+            tableBody.appendChild(row)
+          })
           break;
+        }
         case 'dictionaries-array': {
           const tableBody = field.querySelector('tbody')
           tableBody.innerHTML = ''
@@ -116,17 +132,20 @@ function objectFromForm (form) {
   form.querySelectorAll('input[type="number"]').forEach(input => {
     dict[input.name] = parseInt(input.value) || 0
   })
-  dict.key = dict.id.toString()
   form.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
     dict[checkbox.name] = checkbox.checked
   })
-  form.querySelectorAll('[data-format="array"]').forEach(field => {
+  form.querySelectorAll('[data-format="array"]:not(table)').forEach(field => {
     if (!field.value) {
       dict[field.name] = []
       return
     }
     dict[field.name] = field.value.replace(/\r\n/g, '\n')
       .split(field.getAttribute('data-separator') || ',')
+  })
+  form.querySelectorAll('table[data-format="array"]').forEach(table => {
+    const rows = Array.from(table.querySelectorAll('tbody tr'))
+    dict[table.getAttribute('name')] = rows.map(tr => tr.querySelector('td:first-child').innerText)
   })
   form.querySelectorAll('table[data-format="dictionaries-array"]').forEach(table => {
     const dictArray = []
@@ -169,6 +188,49 @@ document.querySelectorAll('input[type="submit"]').forEach(btn => {
   btn.addEventListener('click', e => {
     formAction = e.target.value.toLowerCase()
   })
+})
+blocksForm.addEventListener('submit', e => {
+  e.preventDefault()
+  if (formAction === 'update') {
+    const updateBtn = blocksForm.querySelector('.update-btn')
+    updateBtn.disabled = true
+    const body = {
+      api_token: passField.value,
+      block: objectFromForm(blocksForm)
+    }
+    XHR.requestExt('POST', endpoint + '/hopscotch-data/blocks', (r, s) => {
+      let response = []
+      updateBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshBlocks()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  } else if (formAction === 'delete') {
+    const block = objectFromForm(blocksForm)
+    if (!confirm(`Are you sure you want to delete "${block.name}" (id ${block.id})?`)) return
+    const deleteBtn = blocksForm.querySelector('.delete-btn')
+    deleteBtn.disabled = true
+    const body = { api_token: passField.value }
+    XHR.requestExt('DELETE', `${endpoint}/hopscotch-data/blocks/${block.id}`, (r, s) => {
+      let response = []
+      deleteBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshBlocks()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  }
 })
 videosForm.addEventListener('submit', e => {
   e.preventDefault()

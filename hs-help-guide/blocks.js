@@ -39,7 +39,7 @@ function insertBlocks(blocks){
 							</ul>
 							<p><b style="font-size: 120%;">Other Info</b></p>
 							<ul style="font-size: 100%;">
-								<li>Hopscotch Description: ${block.app_description}</li>
+								<li>Hopscotch Description: ${block.description}</li>
 								<li blockID></li>
 								<li bstat="${block.availability}"></li>
 								${moreinfo.join(joiner)}

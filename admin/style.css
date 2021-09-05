@@ -176,6 +176,9 @@ form table :is(td, th) {
   border: 1px solid lightgray;
   padding: 6px 8px;
 }
+form table td {
+  word-break: break-word;
+}
 form table th:first-child {
   width: 100%;
 }
@@ -229,6 +232,9 @@ form table th:first-child {
 }
 
 /* Renderjson */
+.renderjson a {
+  color: inherit;
+}
 .renderjson span {
 	top: 0;
 	font-size: 14px;

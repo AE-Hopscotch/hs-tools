@@ -86,15 +86,35 @@
         <input name="collapsible" type="checkbox"><br>
 
         <span class="label">Community Links</span>
-        <textarea name="community_links" data-format="array" data-separator="&NewLine;&NewLine;&NewLine;"></textarea>
+        <table data-format="array" name="community_links">
+          <thead>
+            <tr>
+              <th value>Link</th>
+              <th>
+                <button class="unstyled" action="new-row"><i class="fa fa-plus-circle"></i></button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
         <span class="label">Useful for</span>
-        <textarea name="useful_for" data-format="array" data-separator="&NewLine;&NewLine;"></textarea>
+        <table data-format="array" name="useful_for">
+          <thead>
+            <tr>
+              <th value>Usage Example</th>
+              <th>
+                <button class="unstyled" action="new-row"><i class="fa fa-plus-circle"></i></button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
         <span class="label">Additional Information</span>
         <textarea name="other_info" data-format="array" data-separator="&NewLine;&NewLine;&NewLine;"></textarea>
 
         <br>
-        <input type="submit" value="Update">
-        <input type="submit" value="Delete" class="danger">
+        <input type="submit" value="Update" class="update-btn">
+        <input type="submit" value="Delete" class="delete-btn danger">
       </form>
       <form id="videos-form" data-show="videos">
         <span class="label">Video ID</span>
