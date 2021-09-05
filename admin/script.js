@@ -54,9 +54,10 @@ function refreshVideos() {
     }).forEach(video => {
       const card = document.createElement('div')
       card.classList.add('card', 'video-card')
+      card.setAttribute('data-group', video.group)
       card.innerHTML = `<span class="id-badge">${new Date(video.date)
         .toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' })}</span>
-      <h2>${video.name.htmlEscape()}</h2>`
+      <h2><i class="fa ${video.icon}"></i> ${video.name.htmlEscape()}</h2>`
       videoContainer.appendChild(card)
 
       card.addEventListener('click', function () {
