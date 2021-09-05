@@ -6,6 +6,7 @@ html, body {
   margin: 0;
   width: 100%;
   height: 100%;
+  font-family: sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -31,7 +32,6 @@ html, body {
   z-index: 100;
 }
 .sidenav li {
-  padding: 6px 16px;
   color: white;
   transition: background-color var(--time-trans);
 }
@@ -57,6 +57,8 @@ html, body {
   margin-bottom: 8px;
 }
 .sidenav li a {
+  padding: 6px 16px;
+  display: block;
   color: white;
   text-decoration: none;
 }
@@ -81,6 +83,7 @@ html, body {
   right: 0;
   padding: 6px 10px;
   font-size: 16px;
+  z-index: 10;
 }
 .form-container {
   position: relative;
@@ -90,12 +93,43 @@ html, body {
   overflow: auto;
   background-color: #eee;
 }
+.output-container {
+  width: 30%;
+  background-color: #444;
+  overflow: auto;
+}
+.output-container pre {
+  margin: 0;
+  padding: 16px;
+  width: fit-content;
+}
 .flex {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
   overflow: auto;
   padding: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+[data-show]:not(.show) {
+  display: none;
+}
+
+/* Forms */
+button, input:not([type="checkbox"]), textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid lightgray;
+  background-color: rgba(255, 255, 255, var(--bg-opacity, 1));
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+:is(button, input[type="submit"]):hover {
+  --bg-opacity: 0.8;
+}
+:is(button, input[type="submit"]):active {
+  --bg-opacity: 0.5;
 }
 form :is(input:not([type="checkbox"]), textarea) {
   display: block;
@@ -113,6 +147,15 @@ form .label {
   display: inline-block;
   margin: 12px 0 8px;
 }
+form .danger {
+  margin-top: 8px;
+  background-color: rgba(139, 0, 0, var(--bg-opacity, 1));
+  color: white;
+}
+form :invalid {
+  color: red;
+  caret-color: black;
+}
 
 /* Blocks */
 .blockColor.move  { --col-block: #d73e1e; }
@@ -122,7 +165,8 @@ form .label {
 .blockColor.ctrl  { --col-block: #3e83be; }
 .blockColor.old   { --col-block: #647f96; }
 
-.block-card {
+/* Cards */
+.card {
   position: relative;
   font-family: sans-serif;
   background-color: var(--col-block, #888);
@@ -130,13 +174,99 @@ form .label {
   padding: 12px;
   width: 200px;
   margin: 8px;
+  transition: transform 0.2s;
 }
-.block-card .id-badge {
+.card:hover {
+  transform: scale(1.06);
+}
+.card:active {
+  transform: scale(0.96);
+}
+.card .id-badge {
   position: absolute;
   top: 4px;
   right: 4px;
 }
+
 .block-card h2 {
   margin: 0;
   font-size: 18px;
+}
+
+.video-card {
+  background-color: teal;
+}
+.video-card .id-badge {
+  top: 3px;
+  font-size: 12px;
+}
+.video-card h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+/* Renderjson */
+.renderjson span {
+	top: 0;
+	font-size: 14px;
+}
+.renderjson .text {
+	text-decoration: none;
+	color: white;
+}
+.renderjson .disclosure { 
+	color: lime;
+	position: relative;
+	top: 1px;
+	margin: 0 2px;
+	border: 1px solid lime;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 12px; height: 12px;
+	font-family: Arial;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.renderjson .disclosure span {
+  font-size: 16px;
+  top: 0.5px;
+  position: relative;
+}
+.renderjson .syntax {
+	color: grey;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .string {
+	color: pink;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .number  {
+	color: cyan;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .boolean {
+	color: plum;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .key {
+	color: lightblue;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .keyword {
+	color: lightgoldenrodyellow;
+	user-select: text;
+	-webkit-user-select: text;
+}
+.renderjson .object.syntax {
+	color: lightseagreen;
+}
+.renderjson .array.syntax {
+	color: lightsalmon;
 }

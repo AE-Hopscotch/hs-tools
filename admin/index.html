@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script defer src="/hs-tools/main.js"></script>
+  <script defer src="/hs-tools/lib/renderjson.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -21,18 +22,21 @@
     <li><a href="#videos">Videos</a></li>
     <li><a href="#filter">Filter</a></li>
     <li class="spacer" role="authkey">
-      <i class="fa fa-key"></i> <span>Set Key</span>
+      <a><i class="fa fa-key"></i> <span>Set Key</span></a>
       <input hidden type="password" id="authkey" name="api_token">
     </li>
     <li><a href="/hs-tools/"><i class="fa fa-home"></i> Go Home</a></li>
   </ul>
   <div class="wrapper">
     <div class="content-container">
-      <button class="fixed-btn" onclick="refreshBlocks()"><i class="fa fa-refresh"></i></button>
-      <div id="api-blocks-container" class="flex"></div>
+      <button class="fixed-btn" onclick="refreshBlocks()" data-show="blocks"><i class="fa fa-refresh"></i></button>
+      <button class="fixed-btn" onclick="refreshVideos()" data-show="videos"><i class="fa fa-refresh"></i></button>
+      <button class="fixed-btn" onclick="refreshFilter()" data-show="filter"><i class="fa fa-refresh"></i></button>
+      <div id="api-blocks-container" class="flex" data-show="blocks"></div>
+      <div id="api-videos-container" class="flex" data-show="videos"></div>
     </div>
     <div class="form-container">
-      <form>
+      <form id="blocks-form" data-show="blocks">
         <span class="label">Block ID</span>
         <input name="id" type="number" step="1" placeholder="121">
         <span class="label">Block Name</span>
@@ -52,7 +56,31 @@
 
         <br>
         <input type="submit" value="Update">
+        <input type="submit" value="Delete" class="danger">
       </form>
+      <form id="videos-form" data-show="videos">
+        <span class="label">Video ID</span>
+        <input required name="key" type="text" placeholder="2lflar">
+        <span class="label">Name</span>
+        <input required name="name" type="text" placeholder="Superspeed Update">
+        <span class="label">URL</span>
+        <input required name="url" type="url" placeholder="https://files.catbox.moe/2lflar.mp4">
+        <span class="label">Date</span>
+        <input required name="date" type="text" placeholder="September 5, 2021">
+        <span class="label">Group</span>
+        <input required name="group" type="text" placeholder="aeMD">
+        <span class="label">Icon</span>
+        <input required name="icon" type="text" placeholder="fa-film">
+        <span class="label">Public</span>
+        <input name="public" type="checkbox" placeholder="fa-film">
+
+        <br>
+        <input type="submit" value="Update" class="update-btn">
+        <input type="submit" value="Delete" class="delete-btn danger">
+      </form>
+    </div>
+    <div class="output-container">
+      <pre></pre>
     </div>
   </div>
   <iframe hidden name="invis-frame"></iframe>
