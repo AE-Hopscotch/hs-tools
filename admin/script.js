@@ -18,7 +18,7 @@ function refreshBlocks() {
     try {
       response = JSON.parse(r)
     } catch (e) {
-      console.error(new Error('Received invalid response, status: ' + s))
+      return console.error(new Error('Received invalid response, status: ' + s))
     }
     response.sort((a, b) => a.id - b.id).forEach(block => {
       const card = document.createElement('div');
@@ -47,7 +47,7 @@ function refreshVideos() {
       return console.error(new Error('Received invalid response, status: ' + s))
     }
     if (s !== 200) {
-      videoContainer.innerText = response.error || 'Invalid or bad request'
+      return videoContainer.innerText = response.error || 'Invalid or bad request'
     }
     response.items.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -63,7 +63,7 @@ function refreshVideos() {
         fillForm(videosForm, video)
       })
     })
-  }, 0, null, { api_token: passField.value })
+  }, 0, null, { 'api-token': passField.value })
 }
 
 // Edit Content Form
