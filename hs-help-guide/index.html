@@ -398,8 +398,10 @@
 
       document.querySelectorAll('.info.header .flex a').forEach(homelink => {
         homelink.addEventListener('click', e => {
+          const blockID = parseInt(homelink.getAttribute('href').replace(/^\/?\?id=/,''))
+          if (isNaN(blockID)) return
           e.preventDefault()
-          display(parseInt(homelink.getAttribute('href').replace(/^\/?\?id=/,'')))
+          display(blockID)
           show()
         })
       })
