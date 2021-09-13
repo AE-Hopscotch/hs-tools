@@ -89,6 +89,7 @@ function refreshFilter() {
       entry.rules.forEach(rule => {
         card.classList.add('entry-' + ['csv', 'phrase', 'noalt', 'contained'][rule - 1])
       })
+      card.setAttribute('data-severity', entry.severity)
       card.innerHTML = `<span class="id-badge">
       ${entry.start_letter || entry.label[0].toUpperCase()}
       </span><h2>${entry.label.htmlEscape()}</h2>`

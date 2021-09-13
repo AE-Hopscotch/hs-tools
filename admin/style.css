@@ -232,6 +232,21 @@ form table th:first-child {
   font-size: 15px;
 }
 
+.entry-card {
+  outline-offset: -4px;
+}
+.entry-card[data-severity="0"] {
+  outline: 4px solid green;
+}
+.entry-card[data-severity="1"],
+.entry-card[data-severity="2"] {
+  outline: 4px solid darkgoldenrod;
+  opacity: 0.5;
+}
+.entry-card[data-severity="3"] {
+  outline: 4px solid darkred;
+  opacity: 0.5;
+}
 .entry-card.entry-contained {
   background-color: #df2000;
 }
