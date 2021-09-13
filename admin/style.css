@@ -213,9 +213,11 @@ form table th:first-child {
   top: 4px;
   right: 4px;
 }
+.card h2 {
+  margin: 0;
+}
 
 .block-card h2 {
-  margin: 0;
   font-size: 18px;
 }
 
@@ -227,8 +229,23 @@ form table th:first-child {
   font-size: 12px;
 }
 .video-card h2 {
-  margin: 0;
   font-size: 15px;
+}
+
+.entry-card.entry-contained {
+  background-color: #df2000;
+}
+.entry-card.entry-noalt h2 {
+  color: gold;
+}
+.entry-card.entry-phrase h2 {
+  text-decoration: underline;
+}
+.entry-card.entry-csv .id-badge {
+  color: skyblue;
+}
+.entry-card h2 {
+  font-size: 16px;
 }
 
 /* Renderjson */

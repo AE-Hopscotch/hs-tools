@@ -34,6 +34,7 @@
       <button class="fixed-btn" onclick="refreshFilter()" data-show="filter"><i class="fa fa-refresh"></i></button>
       <div id="api-blocks-container" class="flex" data-show="blocks"></div>
       <div id="api-videos-container" class="flex" data-show="videos"></div>
+      <div id="api-filter-container" class="flex" data-show="filter"></div>
     </div>
     <div class="form-container">
       <form id="blocks-form" data-show="blocks">
@@ -130,13 +131,34 @@
         <span class="label">Icon</span>
         <input required name="icon" type="text" placeholder="fa-film">
         <span class="label">Public</span>
-        <input name="public" type="checkbox" placeholder="fa-film">
+        <input name="public" type="checkbox">
 
         <br>
         <input type="submit" value="Update" class="update-btn">
         <input type="submit" value="Delete" class="delete-btn danger">
         <br>
         <video controls></video>
+      </form>
+      <form id="filter-form" data-show="filter">
+        <span class="label">Keyword</span>
+        <input required name="key" type="text" placeholder="whiteboard">
+        <span class="label">Label (Display Words)</span>
+        <input required name="label" type="text" placeholder="Whiteboard">
+        <span class="label">Matches Expression</span>
+        <input required name="expression" type="text" placeholder="\w+whiteboard\w+">
+        <span class="label">Severity</span>
+        <input required name="severity" type="number" placeholder="0">
+        <span class="label">Filter Rules</span>
+        <input name="rules" type="text" placeholder="1,2,3,4" data-format="array" pattern="^([1-4],){0,3}[0-4]$" title="Please provide filter rules in CSV format ">
+        <span class="label">Starting Letter (optional)</span>
+        <input name="start_letter" type="text" placeholder="W" pattern="^(OTHER|[A-Z])$">
+        <span class="label">Comment (optional)</span>
+        <input name="sub" type="text" placeholder="(can be used to describe a Hopscotch drawing pad)">
+
+        <br>
+        <input type="submit" value="Update" class="update-btn">
+        <input type="submit" value="Delete" class="delete-btn danger">
+        <br>
       </form>
     </div>
     <div class="output-container">

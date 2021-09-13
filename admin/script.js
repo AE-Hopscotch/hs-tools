@@ -68,15 +68,50 @@ function refreshVideos() {
   }, 0, null, { 'api-token': passField.value })
 }
 
+// Handle Filter Entries
+const filterContainer = document.getElementById('api-filter-container')
+function refreshFilter() {
+  filterContainer.innerHTML = ''
+  XHR.requestExt('GET', endpoint + '/admin/filter/entries', function (r, s) {
+    let response = []
+    try {
+      response = JSON.parse(r)
+    } catch (e) {
+      filterContainer.innerText = 'Invalid Response'
+      return console.error(new Error('Received invalid response, status: ' + s))
+    }
+    if (s !== 200) {
+      return filterContainer.innerText = response.error || 'Invalid or bad request'
+    }
+    response.items.forEach(entry => {
+      const card = document.createElement('div')
+      card.classList.add('card', 'entry-card')
+      entry.rules.forEach(rule => {
+        card.classList.add('entry-' + ['csv', 'phrase', 'noalt', 'contained'][rule - 1])
+      })
+      card.innerHTML = `<span class="id-badge">
+      ${entry.start_letter || entry.label[0].toUpperCase()}
+      </span><h2>${entry.label.htmlEscape()}</h2>`
+      filterContainer.appendChild(card)
+
+      card.addEventListener('click', function () {
+        fillForm(filterForm, entry)
+      })
+    })
+  }, 0, null, { 'api-token': passField.value })
+}
+
 // Edit Content Form
 const editFormContainer = document.querySelector('.wrapper .form-container')
 const blocksForm = document.getElementById('blocks-form')
 const videosForm = document.getElementById('videos-form')
+const filterForm = document.getElementById('filter-form')
 let formAction = 'update'
 function tableKeys (table) {
   return Array.from(table.querySelectorAll('thead th[value]')).map(th => th.getAttribute('value'))
 }
 function fillForm (form, dictionary) {
+  form.querySelectorAll('input:not([type="submit"])').forEach(input => input.value = '')
   Object.entries(dictionary).forEach(entry => {
     const field = form.querySelector(`[name="${entry[0]}"]`)
     if (field) {
@@ -277,6 +312,53 @@ videosForm.addEventListener('submit', e => {
 })
 videosForm.querySelector('input[name="url"]').addEventListener('change', function (e) {
   videosForm.querySelector('video').src = e.target.value
+})
+filterForm.addEventListener('submit', e => {
+  e.preventDefault()
+  console.log(objectFromForm(filterForm))
+  if (formAction === 'update') {
+    const updateBtn = filterForm.querySelector('.update-btn')
+    updateBtn.disabled = true
+    const body = {
+      api_token: passField.value,
+      data: objectFromForm(filterForm)
+    }
+    body.data.rules = body.data.rules.map(r => parseInt(r))
+    if (!body.data.start_letter) delete body.data.start_letter
+    if (!body.data.sub) delete body.data.sub
+    XHR.requestExt('PUT', endpoint + '/admin/filter/entry', (r, s) => {
+      let response = []
+      updateBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshFilter()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  } else if (formAction === 'delete') {
+    const entry = objectFromForm(filterForm)
+    if (!confirm(`Are you sure you want to delete "${entry.key}"?`)) return
+    const deleteBtn = filterForm.querySelector('.delete-btn')
+    deleteBtn.disabled = true
+    const body = { api_token: passField.value }
+    XHR.requestExt('DELETE', `${endpoint}/admin/filter/entries/${entry.key}`, (r, s) => {
+      let response = []
+      deleteBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshFilter()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  }
 })
 
 function updateViews () {
