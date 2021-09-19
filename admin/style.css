@@ -118,6 +118,10 @@ html, body {
 }
 
 /* Forms */
+form[target="hidden-frame"] {
+  width: 90%;
+  margin: 4px auto;
+}
 button, input:not([type="checkbox"]), textarea {
   appearance: none;
   -webkit-appearance: none;

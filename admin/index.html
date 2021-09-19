@@ -22,9 +22,16 @@
     <li><a href="#videos">Videos</a></li>
     <li><a href="#filter">Filter</a></li>
     <li><a href="#channels">Channels</a></li>
-    <li class="spacer" role="authkey">
+    <li hidden role="authkey">
       <a><i class="fa fa-key"></i> <span>Set Key</span></a>
-      <input hidden type="password" id="authkey" name="api_token">
+    </li>
+    <li class="spacer">
+      <form method="POST" action="https://hs-tools-api.deta.dev/admin/ping" target="hidden-frame">
+        <input type="text" id="username" name="username" value="API TOKEN" style="display: none;">
+        <input type="password" id="authkey" name="api_token" placeholder="API Token">
+        <input type="submit" value="Submit" style="display: none;">
+      </form>
+      <iframe hidden name="hidden-frame"></iframe>
     </li>
     <li><a href="/hs-tools/"><i class="fa fa-home"></i> Go Home</a></li>
   </ul>

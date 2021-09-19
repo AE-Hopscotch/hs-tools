@@ -1,6 +1,6 @@
 const endpoint = 'https://hs-tools-api.deta.dev'
 const authMenuItem = document.querySelector('li[role="authkey"]')
-const passField = authMenuItem.querySelector('input[type="password"]')
+const passField = document.getElementById('authkey')
 authMenuItem.addEventListener('click', function () {
   const userInput = prompt('New value for API key')
   if (userInput != null) {
