@@ -111,6 +111,7 @@ html, body {
   padding: 16px;
   user-select: none;
   -webkit-user-select: none;
+  align-content: flex-start;
 }
 [data-show]:not(.show) {
   display: none;
@@ -260,6 +261,10 @@ form table th:first-child {
   color: skyblue;
 }
 .entry-card h2 {
+  font-size: 16px;
+}
+
+.channel-card h2 {
   font-size: 16px;
 }
 

@@ -21,6 +21,7 @@
     <li><a href="#blocks">Blocks</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#filter">Filter</a></li>
+    <li><a href="#channels">Channels</a></li>
     <li class="spacer" role="authkey">
       <a><i class="fa fa-key"></i> <span>Set Key</span></a>
       <input hidden type="password" id="authkey" name="api_token">
@@ -32,9 +33,11 @@
       <button class="fixed-btn" onclick="refreshBlocks()" data-show="blocks"><i class="fa fa-refresh"></i></button>
       <button class="fixed-btn" onclick="refreshVideos()" data-show="videos"><i class="fa fa-refresh"></i></button>
       <button class="fixed-btn" onclick="refreshFilter()" data-show="filter"><i class="fa fa-refresh"></i></button>
+      <button class="fixed-btn" onclick="refreshChannels()" data-show="channels"><i class="fa fa-refresh"></i></button>
       <div id="api-blocks-container" class="flex" data-show="blocks"></div>
       <div id="api-videos-container" class="flex" data-show="videos"></div>
       <div id="api-filter-container" class="flex" data-show="filter"></div>
+      <div id="api-channels-container" class="flex" data-show="channels"></div>
     </div>
     <div class="form-container">
       <form id="blocks-form" data-show="blocks">
@@ -154,6 +157,21 @@
         <input name="start_letter" type="text" placeholder="W" pattern="^(OTHER|[A-Z])$">
         <span class="label">Comment (optional)</span>
         <input name="sub" type="text" placeholder="(can be used to describe a Hopscotch drawing pad)">
+
+        <br>
+        <input type="submit" value="Update" class="update-btn">
+        <input type="submit" value="Delete" class="delete-btn danger">
+        <br>
+      </form>
+      <form id="channels-form" data-show="channels">
+        <span class="label">Key</span>
+        <input required name="key" type="text" placeholder="aeMD">
+        <span class="label">Title</span>
+        <input required name="title" type="text" placeholder="Modding Updates">
+        <span class="label">Requires Authorization</span>
+        <input name="requires_auth" type="checkbox"><br>
+        <span class="label">Authorization Code</span>
+        <input name="auth_code" type="text" placeholder="0k_p$ssword">
 
         <br>
         <input type="submit" value="Update" class="update-btn">

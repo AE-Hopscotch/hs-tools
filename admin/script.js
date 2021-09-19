@@ -102,11 +102,42 @@ function refreshFilter() {
   }, 0, null, { 'api-token': passField.value })
 }
 
+// Handle Channels
+const channelsContainer = document.getElementById('api-channels-container')
+function refreshChannels() {
+  channelsContainer.innerHTML = ''
+  XHR.requestExt('GET', endpoint + '/admin/video-channels/', function (r, s) {
+    let response = []
+    try {
+      response = JSON.parse(r)
+    } catch (e) {
+      channelsContainer.innerText = 'Invalid Response'
+      return console.error(new Error('Received invalid response, status: ' + s))
+    }
+    if (s !== 200) {
+      return channelsContainer.innerText = response.error || 'Invalid or bad request'
+    }
+    response.items.forEach(channel => {
+      const card = document.createElement('div')
+      card.classList.add('card', 'channel-card')
+      card.innerHTML = `<span class="id-badge">
+      ${channel.requires_auth ? '<i class="fa fa-lock"></i>' : ''}
+      </span><h2>${channel.title.htmlEscape()}</h2>`
+      channelsContainer.appendChild(card)
+
+      card.addEventListener('click', function () {
+        fillForm(channelsForm, channel)
+      })
+    })
+  }, 0, null, { 'api-token': passField.value })
+}
+
 // Edit Content Form
 const editFormContainer = document.querySelector('.wrapper .form-container')
 const blocksForm = document.getElementById('blocks-form')
 const videosForm = document.getElementById('videos-form')
 const filterForm = document.getElementById('filter-form')
+const channelsForm = document.getElementById('channels-form')
 let formAction = 'update'
 function tableKeys (table) {
   return Array.from(table.querySelectorAll('thead th[value]')).map(th => th.getAttribute('value'))
@@ -357,6 +388,51 @@ filterForm.addEventListener('submit', e => {
       renderResponse(response)
       if (s === 200) {
         refreshFilter()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  }
+})
+channelsForm.addEventListener('submit', e => {
+  e.preventDefault()
+  console.log(objectFromForm(channelsForm))
+  if (formAction === 'update') {
+    const updateBtn = channelsForm.querySelector('.update-btn')
+    updateBtn.disabled = true
+    const body = {
+      api_token: passField.value,
+      data: objectFromForm(channelsForm)
+    }
+    if (!body.data.auth_code) delete body.data.auth_code
+    XHR.requestExt('PUT', endpoint + '/admin/video-channels', (r, s) => {
+      let response = []
+      updateBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshChannels()
+      }
+    }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
+  } else if (formAction === 'delete') {
+    const entry = objectFromForm(channelsForm)
+    if (!confirm(`Are you sure you want to delete "${entry.key}"?`)) return
+    const deleteBtn = channelsForm.querySelector('.delete-btn')
+    deleteBtn.disabled = true
+    const body = { api_token: passField.value }
+    XHR.requestExt('DELETE', `${endpoint}/admin/video-channels/${entry.key}`, (r, s) => {
+      let response = []
+      deleteBtn.disabled = false
+      try {
+        response = JSON.parse(r)
+      } catch (e) {
+        return console.error(new Error('Received invalid response, status: ' + s))
+      }
+      renderResponse(response)
+      if (s === 200) {
+        refreshChannels()
       }
     }, 0, JSON.stringify(body), { 'Content-Type': 'application/json' })
   }
