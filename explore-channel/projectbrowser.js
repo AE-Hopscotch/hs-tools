@@ -107,7 +107,7 @@ function generateUserLink(u) {
 		 + ((u.remote_avatar_url)? "-"
 		 + u.remote_avatar_url.replace(/.*\//g,'').replace('-','').replace('-','').replace('-','').replace('-','').split('-').repeatEach((r)=>{return hexaUID.uuidToAid(r)}).join('!'):'');
 }
-function showProjects(chProjects) {
+function showProjects(chProjects) {   let startPerf = performance.now()
 	try {
 		chProjects = JSON.parse(chProjects);
 		if (JSON.stringify(chProjects.users||chProjects.projects) == '[]') {
@@ -126,7 +126,7 @@ function showProjects(chProjects) {
 		busy = false;
 		return 'Error';
 	}
-	if (typeof(channelName) != 'undefined' && channelName == "Search_Users") {
+	if (chProjects.users) {
 		chProjects.users.forEach(function(u){
 			var hiddenElm = document.getElementById("ins-before");
 			var uCard = document.createElement("a");
@@ -138,7 +138,7 @@ function showProjects(chProjects) {
 			hiddenElm.parentNode.insertBefore(uCard, hiddenElm);
 		});
 	} else {
-		chProjects.projects.forEach(function(p){
+		chProjects.projects.forEach(function(p, i){
 			if(document.getElementById(p.uuid)) return; //Return if the project card already exists
 			//Publish date and insert before elm
 			var d = (p.correct_published_at||"").replace("Z",":00").replace(/[T:]/gi,"-").split('-');
@@ -245,8 +245,15 @@ function showProjects(chProjects) {
 			//Insert the cards
 			if(!document.getElementById(p.uuid)) hiddenElm.parentNode.insertBefore(pCard, hiddenElm); //Insert if the card does not exist already
 			pCard.onload = function(e){console.log(e.target)}
-			if (pCard.querySelector("name").scrollHeight > 50) pCard.querySelector("name").classList.add("truncate"); else if (pCard.querySelector("name").scrollHeight < 46) pCard.querySelector("name").classList.add("short");
-			
+      setTimeout(() => {
+        const nameElm = pCard.querySelector("name")
+        const nameScrollHeight = nameElm.scrollHeight
+        if (nameElm.scrollHeight > 50) {
+          nameElm.classList.add("truncate"); 
+        } else if (nameElm.scrollHeight < 46){
+          nameElm.classList.add("short");
+        }
+      }, 0)
 			pCard.querySelectorAll("a[disabled]").forEach(a=>{
 				a.tabindex = "-1";
 				a.onmousedown = a.ondragstart = function(event){event.preventDefault()};

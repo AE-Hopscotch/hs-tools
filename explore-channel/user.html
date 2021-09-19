@@ -36,11 +36,13 @@
 				top: 0px;
 				left: 0px;
 				overflow-x: auto;
-				padding-top: 6px;
+				padding-top: 56px;
 				z-index: 10;
 				border-bottom: var(--col-low-border);
 				color: var(--col-label-text);
 				transition: color var(--transition-time), background-color var(--transition-time), border-bottom var(--transition-time);
+        background-color: var(--col-bg-toolbar);
+        text-align: center;
 			}
 			.topnav img {
 				display: block;
@@ -60,6 +62,34 @@
 				width: calc(50% - 0px);
 				margin: 0;
 			}
+      .topnav .flex {
+        flex-wrap: nowrap;
+      }
+      .topnav .flex > * {
+        width: 100%;
+        flex-basis: 33.3%;
+      }
+      .topnav .flex .badge-container {
+        min-width: none;
+        z-index: 2;
+        position: relative;
+        padding: 16px;
+        text-align: left;
+      }
+      @media only screen and (max-width: 700px) {
+        .topnav .flex {
+          flex-wrap: wrap;
+        }
+        .topnav .flex > * {
+          flex-basis: 100%;
+        }
+        .topnav .flex > *:first-child {
+          display: none;
+        }
+        .topnav .flex .badge-container {
+          text-align: center;
+        }
+      }
 			
 			#loadingBear {
 				top: calc(50% + 80px);
@@ -82,40 +112,22 @@
 		<div class="topSticky">
 			<a class="back" onclick="back()"><i class="fa fa-angle-left"></i></a>
 			<h1>&ic;</h1>
-		</div><br><br><br>
+		</div>
 		<div class="topnav">
 			<div class="flex" style="justify-content: center;">
+        <div><i>&nbsp;</i></div>
 				<div style="min-width:none;padding:16px">
-					<img src="../icons/android-chrome-512x512.png">
+					<img src="../images/loading_apple.gif" alt="Profile Picture"
+            style="padding: 30px;"
+            onload="if(!this.src.match(/loading_apple/))this.style.padding=0">
 					<span>Hopscotchin&rsquo; since</span>
 				</div>
+        <div class="badge-container"></div>
 			</div><br>
 			<button onclick="showChannel('Published')">Published</button><button onclick="showChannel('Favorites')">Favorites</button>
 		</div><br>
 		<div class="flex">
 			<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 100px;"></textarea>
-			<div hidden="example" class="project-card" id="zbuqrt4ui">
-				<a tabindex="7" class="thumbnail" href="https://c.gethopscotch.com/p/zbuqrt4ui" id="img-zbuqrt4ui" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/zbuqrt4ui.png');"><img hidden="" src="https://s3.amazonaws.com/hopscotch-cover-images/production/zbuqrt4ui.png" onerror="document.getElementById('img-zbuqrt4ui').style='background-image: url(\'../images/no-thumbnail.png\');';"></a>
-				<div class="sharelinkbtn">
-					<i AE-STSE class="fa fa-link" title="Copy link" onclick="copy('https://c.gethopscotch.com/p/zbuqrt4ui')"></i>
-				</div>
-				<div class="info">
-					<a tabindex="7" class="user" href="user.html?id=452673&cd=December%202014&a=13" title="Visit Awesome_E’s Profile">Awesome_E</a>
-					<name title="Getting started">Minigames 2️⃣</name>
-					<stats><span><i class="fa fa-heart"></i> 3112</span><span><i class="fa fa-play"></i> 73448</span><span><i class="fa fa-clock-o"></i> 91w</span></stats>
-				</div>
-			</div>
-			<div hidden class="project-card" id="10iu14ay37" data-show="true">
-				<a tabindex="7" class="thumbnail" onclick="if(xRay){event.preventDefault(); getColorPallet('https://s3.amazonaws.com/hopscotch-cover-images/production/10iu14ay37.png', false, {'uuid':'10iu14ay37','author':'me','deleted_at':null,'edited_at':'2019-10-27T19:41:29Z','filename':'C746174F-6966-46EB-841F-C97306AF5587-11654-0000147EB5E2BF9D.hopscotch','number_of_stars':2052,'play_count':66818,'project_remixes_count':510,'published_remixes_count':120,'text_object_label':'','title':'Escape HSHQ #HHC19','screenshot_url':'https://s3.amazonaws.com/hopscotch-cover-images/production/10iu14ay37.png','has_been_removed':false,'in_moderation':false,'published_at':'2019-10-27T00:00:00Z','correct_published_at':'2019-10-27T19:41:32Z','user':{'id':452673,'avatar_type':13,'created_at':'December 2014','iphone_user':false,'nickname':'Awesome_E'},'user_id':452673,'original_user':{'id':'452673','avatar_type':13,'created_at':'December 2014','iphone_user':false,'nickname':'Awesome_E'},'starred':false});}" href="https://c.gethopscotch.com/p/10iu14ay37" id="img-10iu14ay37" style="background-image: url('https://s3.amazonaws.com/hopscotch-cover-images/production/10iu14ay37.png');"><img id="img1-10iu14ay37" hidden="" src="https://s3.amazonaws.com/hopscotch-cover-images/production/10iu14ay37.png" onload="try{document.getElementById('10iu14ay37').setAttribute('data-show', ((document.getElementById('img1-10iu14ay37').width != 160 || document.getElementById('img1-10iu14ay37').height != 188)&amp;&amp;(document.getElementById('10iu14ay37').getAttribute('data-show') != 'false')));} catch (TypeError) {console.log('image no longer exists')}" onerror="document.getElementById('10iu14ay37').setAttribute('data-show','false'); document.getElementById('img-10iu14ay37').style='background-image: url(\'../images/no-thumbnail.png\');';"></a>
-				<div class="sharelinkbtn">
-					<i AE-STSE tabindex="7" class="fa fa-link" title="Copy link" onkeyup="if(event.keyCode == 13 || event.keyCode == 32) this.click();" onclick="copy('https://c.gethopscotch.com/p/10iu14ay37')"></i>
-				</div>
-				<div class="info">
-					<a tabindex="7" class="user" href="user.html?id=452673&cd=December%202014&a=13" title="Visit Awesome_E’s Profile">Awesome_E</a>
-					<name title="Escape HSHQ #HHC19">Escape HSHQ #HHC19</name>
-						<stats><span><i class="fa fa-heart"></i> 2052</span><span><i class="fa fa-play"></i> 66818</span><span><i class="fa fa-clock-o"></i> 9w</span></stats>
-				</div>
-			</div>
 			<span style="display:none;" id="ins-before"></span>
 		</div>
 
@@ -244,7 +256,7 @@
 				}
 			}
 			
-			if (user.id == 452673) document.querySelector('.topSticky h1').style = "font-family: Lilita One; font-size: 36px; font-weight: 400; color: #f30;";
+			if (user.id == 452673) document.querySelector('.topSticky h1').style = "font-family: Lilita One; font-size: 22px; font-weight: 400; color: #f30;";
 			if (user.id == 5757897) document.querySelector(`button[onclick="showChannel('Published')"]`).innerHTML = "You found";
 			if (user.id == 5757897) document.querySelector(`button[onclick="showChannel('Favorites')"]`).innerHTML = "E’s Picks";
 			
@@ -263,16 +275,16 @@
 						document.title = "Invalid User";
 					}
 					document.querySelector(".topSticky h1").innerHTML = userReal.nickname.htmlEscape();
-					document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + user.created_at.replace(/\w+ 0000/,"unknown");
-					if (user.remote_avatar_url == undefined) document.querySelector(".topnav .flex div img").src = "../images/webavatars/" + avPath + ((userReal.avatar_type == null) ? 0 : userReal.avatar_type) + ".png";
+					document.querySelector(".topnav span").innerHTML = "Hopscotchin&rsquo; since " + new Date(userReal.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+          document.querySelector(".topnav .flex div img").src = (userReal.remote_avatar_url == undefined) ? ("../images/webavatars/" + avPath + userReal.avatar_type + ".png") : userReal.remote_avatar_url;
 					
 					var badgeHTML = (badges.users[user.id]||[]).repeatEach((b)=>{
 						return `'<ae badge="${b}" title="${badges.titles[b-1]}"></ae>'`.replace(/^'|'$/g,'');
 					}).join('');
 					
 					//if (badgeHTML != "") {
-						var badgeDiv = document.createElement('div');
-						badgeDiv.style = "min-width: none; text-align: center; z-index: 2; position: relative; padding: 16px";
+						// var badgeDiv = document.createElement('div');
+            let badgeDiv = document.querySelector('.badge-container')
 						badgeDiv.innerHTML = '<span style="display: inline-flex;line-height: 48px;font-size:24px;font-family: sans-serif;"><img src="../images/profile-mushrooms.png" style="top:-2px;position:relative;margin:0;display:inline-block;width:48px;height:48px;"/> &ic; ' + userReal.plants + "</span><br/>" + badgeHTML;
 						document.querySelector("#loadingBear").style.top = "calc(50% + 120px)";
 						document.querySelector('.topnav .flex').appendChild(badgeDiv);//, document.querySelector('.topnav .flex div'));
@@ -291,7 +303,80 @@
 					userString = hexaUID.uuidToAid(String(num_stats.id))+"-"+hexaUID.uuidToAid(num_stats.joined)+((num_stats.imgUrl=="")?'':"-" + hexaUID.uuidToAid(num_stats.imgUrl));
 					
 					//console.log(user.created_at + " " + user.id + " " + user.remote_avatar_url.replace(/^.*\/|\.png/g,''));
-					
+
+          // Provide a List of Avatar IDs for each profile color
+          const HSAvatar = {
+            Bear: 0,
+            Cupcake: 1,
+            Gorilla: 2,
+            Monkey: 3,
+            SpacePod: 4,
+            Dino: 5,
+            Octopus: 6,
+            Frog: 7,
+            Banyan: 8,
+            Parrot: 9,
+            Astro: 10,
+            Raccoon: 11,
+            Stargirl: 12,
+            Robo: 13,
+            Bird: 14,
+            Chillanna: 15,
+            HopscotchTeam: 16,
+            Avatar1: 17,
+            Avatar2: 18,
+            Avatar3: 19,
+            Avatar4: 20,
+            Avatar5: 21,
+            Avatar6: 22,
+            Avatar7: 23,
+            Avatar8: 24,
+            Avatar9: 25,
+            Avatar10: 26,
+            Avatar11: 27,
+            Avatar12: 28,
+            Avatar13: 29,
+            Avatar14: 30,
+            Avatar15: 31,
+            Avatar16: 32,
+            Custom: 33,
+            NUMBER_OF_AVATAR_TYPES: 34
+          }
+          const colorMap = {
+            // Blue
+            '#2F35DF': [
+              'Bear', 'SpacePod', 'Dino', 'Astro',
+              'Robo', 'Avatar1', 'Avatar10', 'Avatar12',
+              'Avatar14', 'Avatar16', 'Custom'
+            ],
+            // Turquoise
+            '#59B1C2': [
+              'Cupcake', 'Banyan', 'Raccoon', 'Bird',
+              'Avatar2', 'Avatar8', 'Avatar11', 'Avatar13'
+            ],
+            // Green
+            '#79B139': [
+              'Gorilla', 'Frog'
+            ],
+            // Orange
+            '#E9A944': [
+              'Monkey', 'Octopus', 'Parrot', 'HopscotchTeam',
+              'Avatar6', 'Avatar7', 'Avatar15'
+            ],
+            // Magenta
+            '#EA4191': [
+              'Stargirl', 'Chillanna', 'Avatar3', 'Avatar4',
+              'Avatar5', 'Avatar9'
+            ]
+          }
+          // Get the name of the user's avatar
+          const avatarName = Object.keys(HSAvatar).find(name => HSAvatar[name] === userReal.avatar_type)
+          // Find the color that contains the avatar name
+          const buttonColor = Object.keys(colorMap).find(color => {
+            return colorMap[color].indexOf(avatarName) !== -1
+          })
+
+          if (buttonColor) document.documentElement.style.setProperty('--col-btn-focused', buttonColor)
 				}
 			);
 			

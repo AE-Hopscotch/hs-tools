@@ -43,24 +43,28 @@
 				left: 46px;
 				overflow-x: auto;
 				overflow-y: visible;
-				padding-top: 6px;
 				z-index: 10;
 				border-bottom: var(--col-low-border);
 				transition: border-bottom var(--transition-time), background-color var(--transition-time);
 			}
 			.topnav button {
 				z-index: 15;
-				padding-left: 24px;
-				padding-right: 24px;
+				padding-left: 36px;
+				padding-right: 36px;
 				min-width: auto;
 				white-space: nowrap;
 			}
+      .topnav > *:nth-child(6n+1) button.selected {--col-btn-focused:rgb(228, 36, 132);}
+      .topnav > *:nth-child(6n+2) button.selected {--col-btn-focused:rgb(237, 88, 53);}
+      .topnav > *:nth-child(6n+3) button.selected {--col-btn-focused:rgb(241, 165, 47);}
+      .topnav > *:nth-child(6n+4) button.selected {--col-btn-focused:rgb(0, 192, 220);}
+      .topnav > *:nth-child(6n+5) button.selected {--col-btn-focused:rgb(222, 223, 56);}
+      .topnav > *:nth-child(6n+6) button.selected {--col-btn-focused:rgb(126, 201, 93);}
 			#menu-btn {
 				transition: top var(--transition-time), background-color var(--transition-time);
 			}
 			@media only screen and (max-width: 480px) {
 				.proj-search-div {
-					
 					padding-right: calc(100% - 46px);
 					width: 100%;
 					z-index: 11;
@@ -96,21 +100,21 @@
 					top: 51px;
 					right: 0;
 					width: 190px;
-					height: 0;
+					max-height: 0;
 					min-width: max-content;
-					max-height: fit-content;
+					height: fit-content;
 					display: block;
 					padding: 0 8px 0 12px;
 					text-align: right;
 					background-color: var(--col-bg-toolbar);
 					overflow: auto;
-					transition: background-color var(--transition-time), border var(--transition-time), top 0.5s, width 0.5s, height 0.5s, padding 0.5s;
+					transition: background-color var(--transition-time), border var(--transition-time), top 0.5s, width 0.5s, max-height 0.5s, padding 0.5s;
 					border-radius: 0 0 0 16px;
 					border: var(--col-low-border);
 					border-width: 0 0 0 2px;
 				}
 				.topnav.open {				
-					height: 240px;
+					max-height: 380px;
 					padding: 4px 8px 8px 12px;
 					border-bottom-width: 2px;
 				}
@@ -125,26 +129,11 @@
 					border-top: 4px solid transparent;
 					border-bottom: none;
 					scroll-margin: 150px;
+          text-transform: initial;
 				}
 				.topnav button.selected, .retro .topnav button.selected {
 					border-bottom: none;
 				}
-			}
-			div.banner {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				padding: 12px 16px 10px;
-				font-size: 16px;
-				z-index: 200;
-				display: flex;
-				background-color: #00d8be;
-				font-family: 'Avenir', Arial, Helvetica, sans-serif;
-				color: white;
-				animation: slide-away 0.5s;
-				animation-fill-mode: forwards;
-				animation-delay: 8s;
 			}
 			@keyframes slide-away {
 				from {top: 0;}
@@ -163,7 +152,6 @@
 		</style>
 	</head>
 	<body>
-		<div class="banner"><b>Announcement: Check out the <i>official</i> <a href="https://explore.gethopscotch.com/">Hopscotch Web Explorer</a>!</b> <i class="fa fa-close" style="margin-left:auto;" onclick="this.parentNode.remove()"></i></div>
 		<button tabindex="2" class="uiBtn" style="position: fixed; left: 0px; bottom: 0px; z-index: 5;" onclick="theme_()" id="themebtn"><i class="fa fa-fw fa-moon-o"> </i></button>
 		<button id="xray-toggle-btn" class="uiBtn" style="bottom: 30px; left: 0; z-index: 2;" onclick="xray('toggle-status')"><i class="fa fa-fw fa-crosshairs"> </i></button>
 		<button id="xray-show-btn" class="uiBtn xray-contents" style="bottom: 194px; margin: 0" onclick="xray('toggle-show')"><i class="fa fa-fw fa-eye"> </i></button>
@@ -191,7 +179,7 @@
 			<!-- <span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Curated')">Curated</button></span> -->
 			<span AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('E’s Picks')">E&rsquo;s Picks</button></span>
 			<span id="newest-btn" AE-STCE tabindex="6"><button tabindex="-1" onclick="showChannel('Newest')">Newest</button></span>
-		</div><br><br><br>
+		</div><div class="category-description"></div>
 		<div class="flex">
 			<textarea readonly id="copytext" style="position: fixed; left: -1000px; width: 100px;"></textarea>
 			<div hidden="example" class="project-card" id="zbuqrt4ui">
@@ -229,10 +217,19 @@
 		<script src="color-thief.js"></script>
 		<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
 		<script>
-			if (getCookie('seenWebExLastHour') === "true") document.querySelector('.banner').remove();
-			else setCookie('seenWebExLastHour', 'true', 0.04);
 
-			var channelList = JSON.parse(localStorage.getItem("WebExpChannels"))||([
+			let channelList = JSON.parse(localStorage.getItem('WebExpChannels')) || ({
+        "seeddev": { "title": "Top Games", "description": "Don't miss these games made by top kid coders. Find things to unlock!", "path": "categories/seeddev/featured" },
+        "best_of": { "title": "Masterpieces", "description": "The most fun, interesting, and beautiful projects of all time.", "path": "categories/best_of/featured" },
+        "newest_featured": { "title": "Excellent", "description": "The best new projects curated by The Hopscotch Team.", "path": "categories/newest_featured/newest" },
+        "rising": { "title": "Rising", "description": "The best projects from new Hopscotchers curated by The Hopscotch Team.", "path": "categories/rising/newest" },
+        "newest": { "title": "Newest", "description": "Every project published will appear here.", "path": "projects/newest" },
+        "challenges_from_the_hopscotch_team": { "title": "Learn Hopscotch", "description": "Play these projects to learn key Hopscotch skills.", "path": "categories/challenges_from_the_hopscotch_team/featured" },
+        "announcements": { "title": "Announcements", "description": "Announcements from the Hopscotch Team about contests and more.", "path": "categories/announcements/newest" }
+      })
+
+      
+      /* JSON.parse(localStorage.getItem("WebExpChannels"))||([
 				//{"Temporary Category":"categories/temporary/featured"},
 				//{"Following":"users/stream"},
 				{"Masterpieces":"categories/best_of/featured"},
@@ -241,22 +238,32 @@
 				{"Newest":"projects/newest"},
 				{"Learn Hopscotch":"categories/challenges_from_the_hopscotch_team/featured"},
 				{"Announcements":"categories/announcements/newest"}
-			]);
+			]); */
 			
 			//Request Channels if 30 minute token not present
 			if (getCookie("channelUpdateTime") != String(Date.now()/1800000)) {
 				XHR.fetch("https://c.gethopscotch.com/api/v2/channels/",function(r,s){
 					if (s != 200) return document.querySelector('#loadingBear').innerHTML = dinoSvg;
 					try {
-						var channels = JSON.parse(r).channels;
-						var newChannelList = [];
-						channels.forEach((c)=>{
-							if (!/^(Following|Latest Feed)$/.test(c.title)) newChannelList.push(JSON.parse(`{"${c.title}":"${c.path}"}`));
-						});
-						updateChannels(newChannelList);
-						replaceChannelPaths();
-						showDefaultChannel();
-						localStorage.setItem("WebExpChannels",JSON.stringify(newChannelList));
+            const channels = JSON.parse(r).channels
+            const newChannelList = {}
+            channels.forEach((c) => {
+              if (!/^users\//.test(c.path)) {
+                // Encode URI Component in case there is a channel name with a URL-unsafe character
+                const urlSlug = encodeURIComponent(c.title.toLowerCase()
+                  .replace(/\s/g, '_').replace(/[#,.!?]/g, ''))
+                newChannelList[urlSlug] = {
+                  title: c.title,
+                  description: c.description,
+                  path: c.path,
+                  url_slug: urlSlug
+                }
+              }
+            })
+            channelList = newChannelList
+            updateChannels(newChannelList)
+            showDefaultChannel()
+            localStorage.setItem('WebExpChannels', JSON.stringify(newChannelList))
 					} catch (SyntaxError) {
 						console.error(SyntaxError);
 						document.querySelector('#loadingBear').innerHTML = dinoSvg;
@@ -286,6 +293,7 @@
 			
 			//Update Channel Buttons and Dictionary
 			function updateChannels(channels){
+
 				names = {
 					"Masterpieces":"categories/best_of/featured",
 					"Excellent":"categories/newest_featured/newest",
@@ -296,25 +304,19 @@
 					"Search": "projects/search",
 					"Search_Users": "users/search"
 				};
-				channels.forEach((c)=>{
-					names[Object.keys(c)[0]] = c[Object.keys(c)];
-				});
 				
-				document.querySelector(".topnav").innerHTML = '<span id="newest-btn" tabindex="6"><button tabindex="-1" onclick="showChannel(\'Masterpieces\')">Masterpieces</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Excellent\')">Excellent</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'E’s Picks\')">E&rsquo;s Picks</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Rising\')">Rising</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Announcements\')">Announcements</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Learn Hopscotch\')">Learn Hopscotch</button></span>'
-					+ '<span tabindex="6"><button tabindex="-1" onclick="showChannel(\'Newest\')">Newest</button></span>';
-				Object.keys(names).forEach((c)=>{
-					if (/^(Masterpieces|Excellent|Rising|Learn Hopscotch|Announcements|Newest|E’s Picks|Search(_Users)?)$/.test(c)) return;
-					var span = document.createElement("span");
-					//span.setAttribute("AE-STCE","");
-					span.setAttribute("tabindex","6");
-					span.innerHTML = '<button tabindex="-1" onclick="showChannel(\''+c+'\')">'+c+'</button>';
-					document.querySelector(".topnav").insertBefore(span,document.getElementById("newest-btn"));
-				});
+				document.querySelector(".topnav").innerHTML = ''
+        Object.keys(channels).forEach((c) => {
+          if (/^(search(_users)?)$/.test(c)) return
+          const a = document.createElement('a')
+          a.href = '?channel=' + c
+          a.setAttribute('tabindex', '6')
+          a.innerHTML = `<button tabindex="-1"
+            onclick="showChannel('${c}')">${channels[c].title}</button>`
+          a.addEventListener('click', e => e.preventDefault())
+          document.querySelector('.topnav').appendChild(a)
+        })
+
 				document.querySelectorAll(".topnav > span").forEach(span=>{
 					add_keyboardClickChild(span);
 				});
@@ -322,11 +324,12 @@
 			updateChannels(channelList); //From Local or Defaults
 			
 			var path = "categories/best_of/featured";
-			function showChannel(channel, addHistoryEntry, customPath) {
-				path = customPath || names[channel];
+			function showChannel(name, addHistoryEntry, customPath) {
+        const channel = channelList[name] || {}
+				path = customPath || channel.path;
 				//Format the buttons
 				document.querySelectorAll(".topnav button").forEach(function(btn){
-					if (btn.innerHTML == channel) {
+					if (btn.innerHTML == channel.title) {
 						btn.setAttribute("class", "selected");
 						if ((window.innerWidth||window.outerWidth) > 480 || !document.querySelector(".topnav").classList.contains("open")){
 						//	btn.style.marginTop = "-8px"; setTimeout(()=>{btn.style.paddingTop = "1px";},1000);
@@ -347,19 +350,18 @@
 				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 				request(`https://community.gethopscotch.com/api/v2/${path}${(customPath != undefined) ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 				
-				if (addHistoryEntry != false) {
-					(!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) /* If on iOS */ ) ? location.href = "?channel=" + encodeURIComponent(channel) : setLocation("?channel=" + encodeURIComponent(channel));
-				} else {
-					replaceLocation("?channel=" + encodeURIComponent(channel));
-				}			
-				channelName = channel;
+        if (!/^search(_users)?$/.test(name)) {
+          addHistoryEntry ? setLocation("?channel=" + encodeURIComponent(name)) : replaceLocation("?channel=" + encodeURIComponent(name));
+        }
+				channelName = channel.url_slug || name;
+        document.querySelector('.category-description').innerText = channel.description || ''
 			}
-			var channelName = "Masterpieces";
+			var channelName = "masterpieces";
 			
 			//Request Functions
 			$(window).scroll(function() {
 			   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy) {
-				   request(`https://community.gethopscotch.com/api/v2/${path}${(channelName == 'Search' || channelName == 'Search_Users') ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
+				   request(`https://community.gethopscotch.com/api/v2/${path}${(channelName == 'search' || channelName == 'search_users') ? '&' : '?'}page=${page}&api_token=4f7769439adf7ef8e482d2daef77375cd6d0158b65fcdca543b74b5c0c92&user%5Bauth_token%5D=qKok4lCx8YB9Wgp%2Bo862AA%3D%3D&user%5Bid%5D=4753230`);
 			   }
 			});
 			
@@ -369,8 +371,8 @@
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
-					//console.log(options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||channel.includes("Search")));
-					if (options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes(names[url.searchParams.get("channel")])&&(!search_open||page==1||channel.includes("Search"))) printResult(
+          console.log(options.url.replace(/.*?\/api\/v2\/|\?.*/gi,'').includes((channelList[channel]||{path: channel}).path))
+					if (!search_open||page==1||channel.includes("search")) printResult(
 						//options.method + ' ' + options.url + '\n' +
 						//x.status + ' ' + x.statusText + '\n\n' +
 						options.url.split("/api/v2/")[1] + "," + (x.responseText || '')
@@ -449,12 +451,17 @@
 				}
 			}, 100);
 			function showDefaultChannel() {
-				if (names[channel] && !/^Search(_Users)?$/.test(channel)) {
-					showChannel(channel, false);
-				} else {
-					if (!search_open) previousChannel = channel;
-					(/Search(_Users)?/.test(channel) && document.querySelector('.search-bar input').value != "") ? searchGroup(Number(/_Users/.test(channel))) : showChannel(document.querySelector(".topnav button").innerHTML||"Masterpieces", false);
-				}
+        if (channel !== null && !/^search(_users)?$/.test(channel)) {
+          showChannel(channelList[channel] ? channel : Object.keys(channelList)[0], false, null, true)
+        } else {
+          if (!search_open) previousChannel = channel
+          if (/search(_users)?/.test(channel) &&
+          document.querySelector('.search-bar input').value !== '') {
+            searchGroup(Number(/_users/.test(channel)))
+          } else {
+            showChannel(channel || 'masterpieces', false)
+          }
+        }
 			}
 			
 			//Search Functions
@@ -473,6 +480,7 @@
 					previousChannel = channelName;
 					$(".project-card").remove();
 					$(".user-card").remove();
+          document.querySelector('.category-description').innerText = ''
 					if (loadItems) searchForItems();
 				} else {
 					searchDiv.style.top = '-51px';
@@ -498,10 +506,10 @@
 					if (!search_open) toggleSearch(false);
 					if (searchGroupType == 0) {
 						//console.log('projects/search?title=' + encodeURIComponent(searchText));
-						showChannel('Search', false, 'projects/search?title=' + encodeURIComponent(searchText));
+						showChannel('search', false, 'projects/search?title=' + encodeURIComponent(searchText));
 					} else {
 						//console.log('users/search?nickname=' + encodeURIComponent(searchText));
-						showChannel('Search_Users', false, 'users/search?nickname=' + encodeURIComponent(searchText));
+						showChannel('search_users', false, 'users/search?nickname=' + encodeURIComponent(searchText));
 					}
 				}
 			}
