@@ -58,6 +58,8 @@ MATCH:
    ADD:
         return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
 
+USE FOR 1.5.x+: (this.extension||".mp3")
+
 MATCH:
    FIND:
    HSBlockType.SetWidthAndHeight
@@ -227,6 +229,17 @@ MATCH:
     //AE_MOD Screenshot HSMain declared
     document.getElementById('screenshot-button').src = "assets/screenshot-icon.png";
 
+***** PROJECT LINKING *****
+MATCH:
+   FIND (REGEX):
+   if \(4 === \w\.readyState && 200 === \w\.status\) \{
+   REPLACE LINE BELOW WITH:
+   var t = JSON.parse(n.responseText).uuid, i = "?play=1&id=" + t;
+   REMOVE: e("/api/v2/links")
+   ADD: e(`https://api.allorigins.win/raw?url=https://c.gethopscotch.com/api/v2/projects/${this.projectIdentifier}/metadata`) /*AE_MOD Project Linking Patch*/
+   REPLACE "PUT" WITH "GET" and REMOVE REQUEST BODY
+   REMOVE PARAMETER INSIDE n.send(>>THIS STUFF<<)
+
 
 ***** DEBUGGER LOG *****
 
@@ -259,4 +272,4 @@ MATCH:
    ADD: (!/^\w{0,8}(?::\/)?\//.test(t)?this.getImageUrlFromBaseUrl(t):Promise.resolve(t)) /* AE_MOD custom custom */
 
 
-RESULT: 18 matches?
+RESULT: 19 matches?
