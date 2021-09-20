@@ -113,6 +113,10 @@
 					border: var(--col-low-border);
 					border-width: 0 0 0 2px;
 				}
+        .topnav > a {
+          display: block;
+          width: calc(100% + 6px);
+        }
 				.topnav.open {				
 					max-height: 380px;
 					padding: 4px 8px 8px 12px;
@@ -307,6 +311,9 @@
 				
 				document.querySelector(".topnav").innerHTML = ''
         Object.keys(channels).forEach((c) => {
+          const sort = prefVal("channel_sort")
+          if (sort) channelList[c].path = channelList[c].path.replace(/featured$|newest$/,sort)
+
           if (/^(search(_users)?)$/.test(c)) return
           const a = document.createElement('a')
           a.href = '?channel=' + c
