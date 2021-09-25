@@ -34,6 +34,15 @@ html, body {
   src: local('Avenir LT Pro 45 Book'), local('AvenirLTPro-Book'), url(https://fonts.gstatic.com/l/font?kit=ijwUs5PnXdA4ZZUA55d-&skey=8887f17a62203d44&v=v3) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+@font-face {
+  font-family: 'Avenir Heavy';
+  src: url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.eot"); /* IE9*/
+  src: url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.woff2") format("woff2"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.woff") format("woff"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+  url("https://db.onlinewebfonts.com/t/901497541657a2f24e42848bcf7fad52.svg#Avenir Heavy") format("svg"); /* iOS 4.1- */
+}
 
 /* UI Elements */
 
@@ -143,8 +152,8 @@ input[type=range]::-moz-range-track {
   color: var(--col-label-text);
   opacity: 0.54;
   padding: 70px 12px 15px;
-  font-family: Avenir, Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-family: 'Avenir', Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 .category-description:empty {
     padding-top: 40px;
