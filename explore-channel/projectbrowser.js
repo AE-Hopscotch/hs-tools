@@ -98,6 +98,12 @@ function customReq(input_url, fn) {
 //Render the Projects
 var page = 1;
 var busy = false;
+function updateHideCount() {
+  const hidden = document.querySelectorAll('[data-show=false]').length
+  const total = document.querySelectorAll('[data-show]').length
+  const string = `${hidden}/${total} (${Math.round(hidden / total * 10000) / 100}%)`
+  document.getElementById('xray-show-btn').setAttribute('data-hide-count', string)
+}
 function generateUserLink(u) {
 	return hexaUID.uuidToAid(String(u.id)) + "-"
 		 + hexaUID.uuidToAid((function(str){
@@ -239,6 +245,7 @@ function showProjects(chProjects) {   let startPerf = performance.now()
 				if (p.play_count > 15) pCard.setAttribute('data-show', 'true');
 				if (p.play_count < 3 && p.number_of_stars > 4) pCard.setAttribute('data-show', 'false');
 				getColorPallet(p.screenshot_url, true, p); //Checks the color pallet of the thumbnail & maybe hide it
+        updateHideCount()
 			} else {
 				pCard.innerHTML = pCard.innerHTML.replace(/<i class="fa fa-fw fa-leaf".*?<\/i>.*?<\/i>/,'<i class="fa fa-fw fa-play"></i>');
 			}
@@ -677,6 +684,7 @@ function getColorPallet(url, nomsg, p) {
 		if (!nomsg) console.log(`%cpink %c97% %c${previousColors.length}` , ((showProject[0]) ? 'color: green': 'color: red'), ((showProject[1]) ? 'color: green': 'color: red'), ((previousColors.length > 2) ? 'color: green': 'color: red'));
 		if (previousColors.length == 1 || (previousColors.length == 2 && colors[0][3] > 0.9 && Math.max(colors[0][0],colors[0][1],colors[0][2]) - Math.min(colors[0][0],colors[0][1],colors[0][2]) < 30 /*If the most common > 90% and Saturation is extremely low*/) || !showProject[0]) document.getElementById(p.uuid).setAttribute('data-show', 'false');
 		if (p.number_of_stars > 50 && p.play_count > 20) try { document.getElementById(p.uuid).setAttribute('data-show', 'true') } catch (TypeError) { console.log('image no longer exists'); };
+    updateHideCount()
 	});
 	img.addEventListener('error',function(){console.error("Could not load image")});//throw new Error("Could not load image")})
 

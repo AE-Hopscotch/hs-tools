@@ -667,6 +667,18 @@ body .flex div.project-card.id-result, body .flex a.user-card.id-result {
 	opacity: var(--x-ray-opacity);
 }
 
+button#xray-show-btn:hover::after {
+  content: attr(data-hide-count);
+  position: absolute;
+  background-color: #000;
+  left: 100%;
+  padding: 4px 6px;
+  top: 50%;
+  transform: translate(6px, -50%);
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
 div.xray-contents {
 	height: 150px;
 	user-select: none;
