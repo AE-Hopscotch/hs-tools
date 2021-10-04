@@ -48,7 +48,7 @@ const blockLabels = {
 	65: ["looks","Play Note"," ","rhythm"],
 	66: ["looks","Set Tempo"," "],
 	67: ["looks","Set Instrument"," "],
-	67: ["ctrl","Open Project"," "],
+	68: ["ctrl","Open Project"," "],
 	120: ["ctrl","Repeat","times"],
 	121: ["ctrl","Repeat Forever"],
 	122: ["ctrl","Check Once If"," "],
