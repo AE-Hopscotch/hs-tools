@@ -1142,7 +1142,7 @@ if (editor.useBlockRender) {
 				newdata = scData;
 				if (!isBlock) newdata.rules = container.children.repeatEach(c=>{
 					return JSON.parse(c.getAttribute("data")||'{}').id;
-				});
+				}).removeNull();
 				scId = scData.id||scData.objectID;
 				break;
 			case "scene": //Change the objects in the scene

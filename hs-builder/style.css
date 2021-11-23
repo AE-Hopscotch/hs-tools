@@ -877,6 +877,16 @@ html.dark-mode .resize-drag {
 .collapsible-container.obj {
 	--col-frame: #6bdaed;
 }
+.pseudo-frame {
+  --col-frame: #0000;
+}
+.pseudo-frame > bl {
+  display: none;
+}
+.pseudo-frame > .collapsible {
+  padding: 0;
+  min-height: 16px;
+}
 .refresh-btn {
 	display: var(--display-rstate);
 }

@@ -174,7 +174,9 @@ const blockLabels = {
 	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
 	8006: ["\u2063 \uD83D\uDCF1"], //Local
 	8007: ["\u2063 \uD83D\uDCF1"], //User
-	8008: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"],
+	8008: ["\u2063 \uD83C\uDF81"], //Product
+	8009: ["\u2063 Local"], //Scoped
+	8010: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"],
 	9000: ["looks", "\u2063 character", "in", "at"],
 	9001: ["looks", "\u2063 characters", "in", "between", "and"],
 	9002: ["looks", "\u2063 length"],
@@ -381,15 +383,15 @@ function jsonToHtml(block, isNested, keepClosed) {
 	}
 	//Change the container type for rules, custom rules, objects, and scenes
 	if (block.ruleBlockType && !block.type) block.type = block.ruleBlockType;
-	if (block.abilityID && !block.controlScript) {
-		block.controlScript = {abilityID:block.abilityID};
-		block.block_class = "control";
-	} else if (block.rules) {
+	if (block.rules) {
 		block.block_class = "control";
 		sortGroup = "rules";
 	} else if (block.objects) {
 		block.block_class = "control";
 		sortGroup = "objects";
+	} else if (block.abilityID && !block.controlScript) {
+		block.controlScript = {abilityID:block.abilityID};
+		block.block_class = "control";
 	}
 	
 	var parentUids = [];
@@ -477,12 +479,14 @@ function jsonToHtml(block, isNested, keepClosed) {
 				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
 			}
 			//Variables
-			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8008)) {
+			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8010)) {
 				var objectLabel = blockLabels[d.datum.type][0];
 				if (d.datum.type == 8e3) {
 					var o = projectDict.objects[d.datum.object];
 					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
-				}
+				} else if (d.datum.type === 8009) {
+          return "<ps><op class=\"val\">\u2063 " + d.datum.name + " \u2063</op></ps>";
+        }
 				return "<ps><op class=\"val\">" + objectLabel + " " + getVar(d.datum.variable) + " \u2063</op></ps>";
 			}
 			//Products
@@ -518,6 +522,13 @@ function jsonToHtml(block, isNested, keepClosed) {
 			//Handle Objects and Custom Rules
 			addedToHtml = true;
 			if (!keepClosed) {
+        if (block.abilityID) {
+          a = projectDict.abilities[block.abilityID]
+          if (a) {
+            var blockInfo = jsonToHtml(a, true, false)
+            nestedHTML += '<div class="pseudo-frame ' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + "</div>";
+          }
+        }
 				(Object.keys(block.rules||{})||[]).repeatEach(rule=>{
 					r = block.rules[rule];
 					nestedUuidList.push(r);
