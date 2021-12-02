@@ -397,7 +397,6 @@
           }).flat().filter(x => !!x)
         },
         match: function (block, expression) {
-          // console.log(block)
           const params = block.parameters || block.params
           if (!params) return false
           const cmdVal = params[0].value
@@ -432,7 +431,6 @@
               document.querySelector(".play-button").classList.add("has-keyboard")
             }
             // Check for URL actions
-            console.log(actionBlock)
             if (AE_MOD.customCommands.match(actionBlock, /^url-(iframe|goto)$/)) AE_MOD.moddedActions.hasUrl = true;
           })
 					//Custom Custom
