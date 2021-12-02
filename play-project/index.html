@@ -378,6 +378,35 @@
 			},
 			"globalvars": {},
 			"globalvarsConnected": false,
+      "customCommands": {
+        data: [],
+        getFromParams: function (block) {
+          if (!block.parameters) return []
+          function getData (datum) {
+            if (!datum.block_class?.match(/operator$/i) || !datum.params) return
+            if (datum.type === 22) return datum
+            const paramData = datum.params.map(param => {
+              if (!param.datum) return
+              return getData(param.datum)
+            }).flat().filter(x => !!x)
+            return paramData
+          }
+          return block.parameters.map(param => {
+            if (!param.datum) return
+            return getData(param.datum)
+          }).flat().filter(x => !!x)
+        },
+        match: function (block, expression) {
+          // console.log(block)
+          const params = block.parameters || block.params
+          if (!params) return false
+          const cmdVal = params[0].value
+          let cmdJSON = {}
+          try { cmdJSON = JSON.parse(cmdVal.replace(/^_ae_webplayer_action:/, '')) } catch {}
+          console.log(cmdJSON)
+          return !!cmdJSON.name?.match(expression)
+        },
+      },
 			"hs_user_data": {},
 			"initiated": false
 		};
@@ -394,10 +423,18 @@
 			(AE_MOD.projectData.abilities||[]).forEach(a=>{
 				for (i = 0; i < (a.blocks||[]).length; i++) {
 					b = a.blocks[i];
-					//Lazy Check Each block
-					if (JSON.stringify(b).match(/"type":22[^\{\}]*?"param(s|eters)?":\[\{[^\{\}]*?"value":"_ae_webplayer_action:\{.*?\\"name\\":\\"checkKey(All|Data)?\\".*?\}.*?\]\}/)) AE_MOD.moddedActions.keyboardSupport = true, document.querySelector(".play-button").classList.add("has-keyboard");
-					//Lazy Check for URLs to check the filter
-					if (JSON.stringify(b).match(/"type":22[^\{\}]*?"param(s|eters)?":\[\{[^\{\}]*?"value":"_ae_webplayer_action:\{.*?\\"name\\":\\"url-(iframe|goto)\\".*?\}.*?\]\}/)) AE_MOD.moddedActions.hasUrl = true;
+          const customActions = AE_MOD.customCommands.getFromParams(b)
+          // Check all custom actions
+          customActions.concat(b.type === 22 ? [b] : []).forEach(actionBlock => {
+            // Check if keyboard actions are present
+            if (AE_MOD.customCommands.match(actionBlock, /^checkKey(All|Data)?$/)) {
+              AE_MOD.moddedActions.keyboardSupport = true
+              document.querySelector(".play-button").classList.add("has-keyboard")
+            }
+            // Check for URL actions
+            console.log(actionBlock)
+            if (AE_MOD.customCommands.match(actionBlock, /^url-(iframe|goto)$/)) AE_MOD.moddedActions.hasUrl = true;
+          })
 					//Custom Custom
 					let matchedValues = (JSON.stringify(b).match(/("value":"((?:|[^\{\}\[\]]*?[^\\])(?:\\\\)*)"[^\{\}\[\]]*?"datum":\{[^\{\}\[\]]*?"type":2000)/g)||[""])
 						.join("\n").replace(/^.*?"value":"((?:|.*?[^\\])(?:\\\\)*)".*$|^.*$/,"$1\n")
@@ -460,35 +497,6 @@
 			}
 			x.send(options.data);
 		}
-/*
-		function request(input_url) {
-			doCORSRequest({
-				method: 'GET',
-				url: input_url,
-				//data: dataField.value
-			}, function printResult(result) {
-				try {
-					var p = JSON.parse(result);
-					AE_MOD.projectData = p;
-					AE_PROJECT_UUID = p.uuid;
-					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
-					AE_MOD.isCustom = false;
-					//Authorize if Project contains session blocks.
-					if (/_ae_webplayer_action:{\\"name\\":\\"session-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
-						//Handle Errors here
-						var errorCode = error.code;
-						var errorMessage = error.message;
-					});
-					init();
-				} catch (SyntaxError) {
-					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";
-					console.log('Unable to load');
-					console.error(SyntaxError);
-					return;
-				}
-				//OUTPUT
-			});
-		}*/
 		
 		const createConstUUID = function() {
 			if (typeof AE_PROJECT_UUID !== "undefined" || typeof AE_USER_ID !== "undefined" || typeof AE_PROJECT_USES_CUSTOM_DATA !=="undefined") location.reload();
@@ -508,14 +516,18 @@
 					AE_MOD.projectData = p;
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.isCustom = false;
+          AE_MOD.customActions = p.abilities.map(a => a.blocks ? a.blocks.filter(b => b.type === 22) : []).reduce((a,b) => a.concat(b), [])
 					createConstUUID();
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					//Authorize if Project contains session or global variable blocks.
-					if (/_ae_webplayer_action:{\\"name\\":\\"(?:globalvar|session)-/.test(result)) firebase.auth().signInAnonymously().catch(function(error) { /\}/;
-						//Handle Errors here
-						var errorCode = error.code;
-						var errorMessage = error.message;
-					});
+          if (AE_MOD.customActions.some(x => { return AE_MOD.customCommands.match(x, /^(globalvar|session)-/) })) {
+            firebase.auth().signInAnonymously().catch(function(error) {
+              //Handle Errors here
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
+          }
+
 					init();
 				} catch (SyntaxError) {
 					document.body.innerHTML = "<h2 style='display: block; width: 100%; text-align: center; position: fixed; top: calc(50% - 12px); font-size: 24px;'>Unable to load the project...</h2>";

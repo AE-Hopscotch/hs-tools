@@ -4157,6 +4157,7 @@ console.log("Webplayer v1.5.17 - 2021/09/08 (production)");
                     padding: "10px",
                     color: "#000000de"
                 }), n.autofocus = !0, this.input = n, this.div.appendChild(n);
+                if (tu == "_ae_webplayer_hide_prompt_input") n.value = "", n.style.display = "none";
                 var o = document.createElement("a");
                 c(o.style, {
                     fontFamily: "Avenir, sans-serif",
