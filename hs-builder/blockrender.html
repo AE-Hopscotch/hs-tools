@@ -101,7 +101,7 @@
 				display: flex;
 				width: min-content;
 			}
-			#themebtn, #builder-btn {
+			#themebtn, #builder-btn, #printbtn {
 				padding: 2px;
 				background-color: rgba(0,0,0,0.54);
 				font-size: 26px;
@@ -114,10 +114,14 @@
 				color: white;
 				position: relative;
 			}
+      #printbtn {
+        right: 16px;
+      }
 		</style>
 	</head>
 	<body>
 		<div class="player-style-btn-toolbar">
+			<button onclick="printCode()" id="printbtn"><i class="fa fa-fw fa-print"> </i></button>
 			<button onclick="theme()" id="themebtn" style="transform: scaleX(-1);"><i class="fa fa-fw fa-moon-o"> </i></button>
 			<button onclick="builder()" id="builder-btn"><i class="fa fa-fw fa-pencil"> </i></button>
 		</div>

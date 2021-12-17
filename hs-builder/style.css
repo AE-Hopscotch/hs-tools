@@ -1203,9 +1203,11 @@ op {
 }
 op.val {
 	background-color: #f9cc1e;
+	--col-bg-inherited: #f9cc1e;
 }
 op.otr {
 	background-color: #f9ad1e;
+	--col-bg-inherited: #f9ad1e;
 }
 op.rcol {
 	width: 48px;
@@ -1259,6 +1261,98 @@ op.looks {
 op.prod {
 	background-color: #3e83be;
 	--col-bg-inherited: #3e83be;
+}
+
+.print-block-decor-img {
+  display: none;
+}
+@media print {
+  html[style], html:not([style]), html body {
+    width: 100%;
+    height: 100%;
+  }
+  b.editbtn {
+    display: none;
+  }
+  .collapsible-container > bl {
+    padding-right: 48px;
+    width: calc(100% - 76px);
+  }
+  .resize-drag {
+    top: 0!important;
+    left: 0!important;
+    border: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+  }
+  #blocks-container-resizer {
+    transform: none!important;
+  }
+  .resize-drag:not(#blocks-container-resizer),
+  html body .player-style-btn-toolbar,
+  .page-controls, sq {
+    display: none;
+    transform: none;
+  }
+  #blocks-container {
+    transform: none;
+    padding: 0!important;
+    overflow-y: auto;
+    height: auto;
+  }
+  .resize-drag > :not(#blocks-container) {
+    display: none;
+  }
+  bl, bl[class] {
+    background-color: transparent;
+    color: var(--col-bg-inherited);
+    border: 2px solid var(--col-bg-inherited);
+    height: 40px;
+  }
+  bl.abl, bl.crule, bl.scn,
+  .collapsible-container:is(.abl, .crule, .scn) {
+    color: black;
+    --col-bg-inherited: #222;
+    --col-frame: #222;
+    border-color: #222;
+  }
+  .collapsible-container > bl {
+    width: calc(100% - 80px);
+  }
+  .collapsible-container:not(.invis)::before {
+    border-width: 2px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border-radius: 10px;
+  }
+  /* Else statements */
+  .collapsible-container:not(.invis) .collapsible:nth-child(3)::before {
+    padding: 0 16px;
+    content: "Else";
+    left: 8px;
+    background-color: transparent;
+    color: var(--col-frame);
+    width: calc(100% - 52px);
+    border: 2px solid;
+  }
+  op, op[class] {
+    background-color: transparent;
+    color: var(--col-bg-inherited);
+    background-image: none;
+    outline: 2px solid var(--col-bg-inherited);
+    z-index: 1;
+  }
+  ps {
+    border-color: var(--col-bg-inherited);
+  }
+  .print-block-decor-img {
+    display: inline-block;
+    height: 48px;
+    position: absolute;
+    left: 0;
+    margin: 0;
+  }
 }
 
 /*op.math op.math {

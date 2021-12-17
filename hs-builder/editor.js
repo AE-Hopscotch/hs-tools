@@ -355,6 +355,37 @@ function getRange(a, b) {
 	for (i = a; i < b+1; i++) { rangeList.push(i); }
 	return rangeList; //Includes b
 }
+function printCode() {
+  let buttons = document.querySelectorAll('.collapsible > div:not(.collapsible-container, .disabled) > bl .openbtn')
+  const clickedList = []
+  while (buttons.length > 0) {
+    buttons.forEach(b => {
+      const parent = b.parentNode.parentNode
+      const parentID = parent ? parent.getAttribute('data-id') : null
+      if (clickedList.indexOf(parentID) !== -1) return b.classList.add('print-keep-closed')
+      b.click()
+      if (parentID) clickedList.push(parentID)
+    })
+    buttons = document.querySelectorAll('.collapsible > div:not(.collapsible-container, .disabled) > bl .openbtn:not(.print-keep-closed)')
+  }
+  const decoratedBlocks = document.querySelectorAll('bl:is(.abl, .scn, .crule)')
+  decorImagesLoaded = 0
+  decoratedBlocks.forEach(bl => {
+    if (bl.querySelector('img.print-block-decor-img')) {
+      decorImagesLoaded++
+      return
+    }
+    const url = getComputedStyle(bl).backgroundImage.replace(/^url\("?|"?\)/g,'')
+    const image = document.createElement('img')
+    image.classList.add('print-block-decor-img')
+    image.src = url
+    bl.insertBefore(image, bl.childNodes[0])
+    image.addEventListener('load', () => {
+      if (++decorImagesLoaded === decoratedBlocks.length) print()
+    })
+  })
+  if (decorImagesLoaded === decoratedBlocks.length) print()
+}
 
 //Initialize Interactables
 if (typeof interact != "undefined") {
@@ -850,7 +881,45 @@ if (editor.useBlockRender) {
 				data = hsProject.objects||[], tct = "objects";
 			}
 		}
-		document.getElementById("blocks-container-resizer").innerHTML = '<div class="drag-handle"><span label="blockrender">Block Rendering: ' + desc + (desc!="Entire Project"&&tct?' <a title="See Entire Project" href="javascript:replaceRender(-1)" ondragstart="event.preventDefault()">&ic; <i class="fa fa-list-alt"></i></a>':'')+' <a class="refresh-btn" title="Refresh Project" href="javascript:editor.blockrender.refresh()" ondragstart="event.preventDefault()">&ic; <i class="fa fa-refresh"></i></a></span><span hidden label="renderjson">JSON Project Render</span></a><a title="Toggle Code Viewing" style="position:absolute;top:3px;right:30px;" href="javascript:editor.display.renderjson()" ondragstart="event.preventDefault()"><i class="fa fa-code"></i></a><a title="Run the Project" style="position:absolute;top:3.5px;right:6px;" oncontextmenu="event.preventDefault();editor.project.play(true)" href="javascript:editor.project.play()" ondragstart="event.preventDefault()"><i class="fa fa-play"></i></a></div><div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="'+tct+'"></div><div hidden id="renderjson-container"></div><div class="resizer"></div>';
+		document.getElementById("blocks-container-resizer").innerHTML = `<div class="drag-handle">
+      <span label="blockrender">
+        Block Rendering: ${ desc + (desc != "Entire Project" && tct
+            ? '<a title="See Entire Project" href="javascript:replaceRender(-1)" ondragstart="event.preventDefault()">&ic; <i class="fa fa-list-alt"></i></a>'
+            : ''
+          )
+        }
+        <a class="refresh-btn" title="Refresh Project"
+          href="javascript:editor.blockrender.refresh()"
+          ondragstart="event.preventDefault()">&ic;
+            <i class="fa fa-refresh"></i>
+        </a>
+      </span>
+      <span hidden label="renderjson">JSON Project Render</span>
+      <a title="Print Code"
+        style="position:absolute;top:3px;right:56px;"
+        href="javascript:printCode()"
+        ondragstart="event.preventDefault()"
+      >
+        <i class="fa fa-print"></i>
+      </a>
+      <a title="Toggle Code Viewing"
+        style="position:absolute;top:3px;right:30px;"
+        href="javascript:editor.display.renderjson()"
+        ondragstart="event.preventDefault()"
+      >
+        <i class="fa fa-code"></i>
+      </a>
+      <a title="Run the Project"
+        style="position:absolute;top:3.5px;right:6px;"
+        oncontextmenu="event.preventDefault();editor.project.play(true)"
+        href="javascript:editor.project.play()"
+        ondragstart="event.preventDefault()"
+      >
+        <i class="fa fa-play"></i>
+      </a>
+    </div>
+    <div id="blocks-container" class="bl-container" style="padding: 36px 8px;" data-group="${tct}"></div>
+    <div hidden id="renderjson-container"></div><div class="resizer"></div>`;
 		//Data = Data Array, Top Container Type (e.g. Rules, Objects)
 		data.forEach(function(item) {
 			var blockElm = document.createElement("div");
