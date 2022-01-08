@@ -107,7 +107,27 @@
 						return Number(!a.args.repeatEach(function(k){
 							return AE_MOD.keyboardKeys.includes(k);
 						}).includes(false));
-					case "scrollData":
+					case "getGamepadCount":
+            return [...navigator.getGamepads()].filter(x => !!x).length;
+          case "checkControllerButton": { //Args: [0] Controller ID, [1] Mode (0=one, 1=any, 2=all)
+            const gamepad = navigator.getGamepads()[a.args[0]]
+            if (!gamepad) return 0
+
+            // Return Value of Single Button
+            if (!Number(a.args[1])) return gamepad.buttons[a.args[2]]?.value || 0;
+
+            const buttons = (Array.isArray(a.args[2])) ? a.args[2] : [a.args[2]]
+            const resolver = a.args[1] == 1 ? 'some' : 'every'
+            return Number(buttons[resolver](id => {
+              return gamepad.buttons[id]?.pressed || 0
+            }))
+          }
+          case "checkControllerAxis": { //Args: [0] Controller ID, [1] Mode (0=one, 1=any, 2=all)
+            const gamepad = navigator.getGamepads()[a.args[0]]
+            if (!gamepad) return 0
+            return gamepad.axes[a.args[1]] || 0
+          }
+          case "scrollData":
 						return AE_MOD.mouseWheelData[a.args[0]];
 					case "isWebExp":
 						return 1;
