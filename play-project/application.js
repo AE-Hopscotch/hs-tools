@@ -36295,8 +36295,7 @@ $(document).keyup(function (event) {
       var playerScript = document.createElement("script");
       document.body.appendChild(playerScript);
       playerScript.onload = initWebplayer.bind(window, version);
-      //playerScript.src = HS_INDEX_PATH + data.path; AE_MOD
-      playerScript.src = (location.protocol == "https" ? 'https://awesome-e.github.io/hs-tools/play-project/':'') + 'players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
+      playerScript.src = (location.protocol === "https" ? 'https://hs-tools-api.deta.dev/webplayer/' : 'http://localhost:7700/webplayer/') + AE_MOD.playerVersion + '/modded'
 	  console.log('%cPlayer Source: ' + playerScript.src, 'color:#05f;background-color:white;border:2px solid blue;padding:4px 6px');
     }
 
