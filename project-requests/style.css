@@ -1,0 +1,85 @@
+html {
+  background-image: url("../images/hs-shapes-bg.png");
+  background-size: 375px;
+}
+h1 {
+  font-family: 'Francois One'; font-size: 300%;
+}
+
+.flex {
+  justify-content: space-around;
+  height: 100%;
+  padding-bottom: 40px;
+}
+
+.flex form {
+  border: 4px solid #0d6f62;
+  background-color: #eee;
+  padding: 8px 24px 24px 24px;
+  width: 360px;
+  height: 280px;
+  margin:8px;
+}
+.flex span {
+  pointer-events: all;
+}
+.flex form input[type=url], .flex form input[type=text], .flex form select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 6px;
+  margin: 4px 0;
+  width: 300px;
+  display: block;
+}
+.flex form input:is([type="url"], [type="text"]):invalid:not(:placeholder-shown) {
+  background-color: #fdd;
+}
+.flex form input::placeholder {
+  opacity: 0.6;
+}
+.flex form [type=submit], .flex form button {
+  background-color: #42981f;
+  padding: 6px 8px;
+  color: white;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+}
+.flex form input[type=submit]:hover:enabled, .flex form button:hover:enabled {
+  opacity: 0.8;
+}
+.flex form input[type=submit][disabled], .flex form button[disabled] {
+  background-color: #9a5347;
+  background-color: #656e7b;
+  cursor: not-allowed;
+}
+.flex form input[type=submit][disabled][waiting=true], .flex form button[disabled][waiting=true] {
+  background-color: #656e7b;
+  cursor: progress;
+}
+
+sq {
+  display: block;
+  transition: 0.5s;
+  position: fixed;
+  bottom: 0px; right: 0px;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.5);
+  padding:8px;
+  border-radius: 8px;
+}
+
+.attr {
+  color:white;
+  position:fixed;
+  bottom: 2px;
+  left: 2px;
+  font-size: 10px;
+}
+@media only screen and (min-width: 500px) {
+  sq {
+    background-color: rgba(0,0,0,0);
+  }
+}
