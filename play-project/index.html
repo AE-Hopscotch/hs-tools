@@ -64,6 +64,7 @@
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
 	<script>
+    // Basic Config
 		let onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 		var projectImport = projectImport || {};
 		var AE_MOD = {
@@ -422,7 +423,7 @@
           const cmdVal = params[0].value
           let cmdJSON = {}
           try { cmdJSON = JSON.parse(cmdVal.replace(/^_ae_webplayer_action:/, '')) } catch {}
-          console.log(cmdJSON)
+          // console.log(cmdJSON)
           return !!cmdJSON.name?.match(expression)
         },
       },
@@ -432,6 +433,7 @@
 		
 		/* */
 		
+    // Load HS Project
 		var BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/';
 		var HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 		var HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
@@ -500,22 +502,8 @@
 		}
 		
 		/* */
-		
-		function doCORSRequest(options, printResult) {
-			var x = new XMLHttpRequest();
-			x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?url=' + encodeURIComponent(options.url));
-			x.onload = x.onerror = function() { printResult(
-					//options.method + ' ' + options.url + '\n' +
-					//x.status + ' ' + x.statusText + '\n\n' +
-					(x.responseText || '')
-				);
-			};
-			if (/^POST/i.test(options.method)) {
-			x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			}
-			x.send(options.data);
-		}
-		
+	
+    // Project UUID
 		const createConstUUID = function() {
 			if (typeof AE_PROJECT_UUID !== "undefined" || typeof AE_USER_ID !== "undefined" || typeof AE_PROJECT_USES_CUSTOM_DATA !=="undefined") location.reload();
 			let constUUIDScript = document.createElement('script');
@@ -523,6 +511,7 @@
 			document.body.appendChild(constUUIDScript);
 		}
 
+    // Retrieve Project
 		function request(url) {
 			XHR.requestExt("GET", url, function (result, status){
 				console.warn(url);
@@ -556,10 +545,8 @@
 				//OUTPUT
 			}, (url.match(/gethopscotch\.com/)?1:0))
 		}
-		
 		var url = new URL(window.location.href);
 		var customUUID = url.searchParams.get("id");
-		
 		if (JSON.stringify(projectImport) != '{}' || (LS_ACCESS && localStorage.getItem("projectFromStorage") && url.searchParams.get("play") == 1)) {
 			try {
 				setTimeout(function(){
@@ -589,6 +576,7 @@
 			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : "") + (url.searchParams.get("hide") ? "&hide="+encodeURIComponent(url.searchParams.get("hide")) : "") + (url.searchParams.get("sendLoadMsg") ? "&sendLoadMsg=" + url.searchParams.get("sendLoadMsg") : ""));
 		}
 		
+    // Achievement Banner
 		function banner(open){
 			var b = document.querySelector(".achievement-banner");
 			if (!b.innerHTML) return;
