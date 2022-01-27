@@ -1,4 +1,4 @@
-const endpoint = 'https://hs-tools-api.deta.dev'
+const endpoint = location.protocol === 'https:' ? 'https://hs-tools-api.deta.dev' : 'http://localhost:7700'
 const authMenuItem = document.querySelector('li[role="authkey"]')
 const passField = document.getElementById('authkey')
 authMenuItem.addEventListener('click', function () {
