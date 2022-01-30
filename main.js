@@ -104,14 +104,14 @@ function addSiteVisit(branch) {
 			console.log('Visit Added');
 		}
 	};
-	xhttp.open("GET", 'https://counter.websiteout.net/compte.php?S='+encodeURI('https://awesome-e.github.io/hs-tools/visits/'+branch)+'&C=6&D=0&N=0&M=0', true);
+	xhttp.open("GET", 'https://counter.websiteout.net/compte.php?S='+encodeURI('https://ae-hopscotch.github.io/hs-tools/visits/'+branch)+'&C=6&D=0&N=0&M=0', true);
 	xhttp.send();
 }
 
-var lastPageExceptions = /https:\/\/awesome-e\.github\.io\/hs-tools\/?($|play-project|explore-channel\/about)/;
+var lastPageExceptions = /https:\/\/ae-hopscotch\.github\.io\/hs-tools\/?($|play-project|explore-channel\/about)/;
 if (!lastPageExceptions.test(window.location.href) && self === top) setCookie('lastPage', window.location.href, 30);
-if (getCookie('visitedWithinHour') != 'true' && /https:\/\/awesome-e.github.io\/hs-tools\//gi.test(location.href)) {
-	if (window.location.href != "https://awesome-e.github.io/hs-tools/") addSiteVisit(location.href.replace(/.*?hs-tools\//,''));
+if (getCookie('visitedWithinHour') != 'true' && /https:\/\/ae-hopscotch.github.io\/hs-tools\//gi.test(location.href)) {
+	if (window.location.href != "https://ae-hopscotch.github.io/hs-tools/") addSiteVisit(location.href.replace(/.*?hs-tools\//,''));
 	addSiteVisit();
 }
 setCookie('visitedWithinHour', 'true', 0.04);

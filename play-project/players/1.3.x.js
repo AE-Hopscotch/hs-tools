@@ -4501,7 +4501,7 @@ console.log("Webplayer v1.3.11 - 2020/07/22 (production)");
                 return t.stop();
             }), this.sources.clear();
         }, t.prototype.url = function() {
-            return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+            return "https://ae-hopscotch.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
         }, t.soundCache = new Map(), t;
     }();
     e.HSSound = n, window.HSSound = n;

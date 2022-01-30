@@ -58,7 +58,7 @@
 <body class="project webplayer embedded">
 	<div class="wrapper"><div class="content" id="body_content">
 
-	<script id="svgInsert" src="https://awesome-e.github.io/hs-tools/play-project/html_svg.js"></script>
+	<script id="svgInsert" src="https://ae-hopscotch.github.io/hs-tools/play-project/html_svg.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
@@ -143,7 +143,7 @@
 							localStorage.setItem("pData_"+AE_PROJECT_UUID, a.args.join(""));
 							return 1;
 						} else {
-							alert("Unable to save data. Make sure third-party cookies are allowed for awesome-e.github.io so that the project has access to local storage");
+							alert("Unable to save data. Make sure third-party cookies are allowed for ae-hopscotch.github.io so that the project has access to local storage");
 							return 0;
 						}
 					case "savedata-read":
@@ -485,7 +485,7 @@
 			BASE_IMAGE_URL = "https://hopscotch-images.s3.amazonaws.com/production/images/project-images/";
 			HS_INDEX_PATH = "https://d3nbkco6xo1vz0.cloudfront.net/production/";
 			HS_WEBPLAYER_VERSION = AE_MOD.playerVersion;
-			document.getElementById("appJs").src = "application.js"; // /*(location.protocol == "file:") ? "local_application.js" :*/ "https://awesome-e.github.io/hs-tools/play-project/application.js";
+			document.getElementById("appJs").src = "application.js"; // /*(location.protocol == "file:") ? "local_application.js" :*/ "https://ae-hopscotch.github.io/hs-tools/play-project/application.js";
 			var pTitle = AE_MOD.projectData.title||'Untitled';
 			var pAuthor = (AE_MOD.projectData.user||{'nickname': AE_MOD.projectData.author}).nickname;
 			var pTitleFull = pTitle + ((pAuthor == undefined) ? '' : ' by ' + pAuthor);

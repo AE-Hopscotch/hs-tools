@@ -36023,7 +36023,7 @@ var fullscreenButton = document.getElementById("fullscreen-button");
 function fullscreenExitHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  fullscreenButton.src = (!!document.fullscreenElement || !!document.webkitFullscreenElement || !!document.mozFullScreenElement || !!document.msFullScreenElement || main.isMaximized) ? "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
+  fullscreenButton.src = (!!document.fullscreenElement || !!document.webkitFullscreenElement || !!document.mozFullScreenElement || !!document.msFullScreenElement || main.isMaximized) ? "https://ae-hopscotch.github.io/hs-tools/play-project/assets/fullscreen_exit.svg" : "https://ae-hopscotch.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD
   return false;
 };
 
@@ -36037,11 +36037,11 @@ function muteHandler(event) {
   if (!main || !muteButton) return false;
   if (main.isMuted()) {
     main.unmute();
-    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
+    muteButton.src = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
     localStorage.setItem("muted","false") //AE_MOD
   } else {
     main.mute();
-    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
+    muteButton.src = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
     localStorage.setItem("muted","true") //AE_MOD
   }
   return false;
@@ -36212,7 +36212,7 @@ $('#google-plus-share-button').click(function (event) {
       document.body.appendChild(playerScript);
       playerScript.onload = initWebplayer.bind(window, version);
       //playerScript.src = HS_INDEX_PATH + data.path; AE_MOD
-      playerScript.src = /*'https://awesome-e.github.io/hs-tools/play-project/*/'../players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
+      playerScript.src = /*'https://ae-hopscotch.github.io/hs-tools/play-project/*/'../players/' + AE_MOD.playerVersion.replace(/\.[0-9]*$/,'') + '.x.js';
     }
 
     //Legacy, this should go with the webplayer but we can't change old webplayers

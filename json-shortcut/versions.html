@@ -8,7 +8,7 @@
 	if ((!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) && (!(/Safari/.test(navigator.userAgent))) && (url.searchParams.get("a") == "wkfw")) {
 		output.innerHTML = "inc2";
 		let request = new XMLHttpRequest();
-		request.open("GET", "https://awesome-e.github.io/hs-tools/json-shortcut/versions.json", false);
+		request.open("GET", "https://ae-hopscotch.github.io/hs-tools/json-shortcut/versions.json", false);
 		request.onload = () => {output.innerHTML = request.responseText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");}
 		request.send();
 	} else {

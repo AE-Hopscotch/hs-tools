@@ -56,7 +56,7 @@ MATCH:
    REMOVE:
    return "https://d2jeqdlsh5ay24.cloudfront.net/" + this.name + ".mp3";
    ADD:
-        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        return "https://ae-hopscotch.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
 
 USE FOR 1.5.x+: (this.extension||".mp3")
 

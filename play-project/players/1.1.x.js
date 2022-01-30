@@ -9670,7 +9670,7 @@ var HSSound = function() {
             return a.stop();
         }), this.sources.clear();
     }, a.prototype.url = function() {
-        return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
+        return "https://ae-hopscotch.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + ".mp3";
     }, a;
 }();
 

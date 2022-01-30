@@ -1,6 +1,6 @@
 # Hopscotch Tools
 
-Find the site [here](https://awesome-e.github.io/hs-tools/). This is where I upload several tools regarding Hopscotch Projects and their JSON structure.
+Find the site [here](https://ae-hopscotch.github.io/hs-tools/). This is where I upload several tools regarding Hopscotch Projects and their JSON structure.
 
 ### Hopscotch Help Guide
 
@@ -32,4 +32,4 @@ Here is the place where you can request modding of any project for many reasons.
 
 ## Add to Home Screen
 
-On iOS, this can be made into a web app. To do this, navigate to [the main page](https://awesome-e.github.io/hs-tools/). Then, click on share, and scoll over. Tap "add to home screen" and tap add. It functions pretty much just like an app once added. Takes up zero storage but requires internet.
+On iOS, this can be made into a web app. To do this, navigate to [the main page](https://ae-hopscotch.github.io/hs-tools/). Then, click on share, and scoll over. Tap "add to home screen" and tap add. It functions pretty much just like an app once added. Takes up zero storage but requires internet.

@@ -348,7 +348,7 @@
 			
 			function display(index, e){
         if (e) e.preventDefault()
-				setCookie('lastPage', "https://awesome-e.github.io/hs-tools/hs-help-guide/?id=" + index, 30);
+				setCookie('lastPage', "https://ae-hopscotch.github.io/hs-tools/hs-help-guide/?id=" + index, 30);
 				document.getElementById("blockSearchBox").value = "";
 				setLocation('?id=' + index);
 				window.scrollTo(0, 0);
@@ -496,11 +496,11 @@
 				document.querySelectorAll("li[bstat]").forEach(function(bl){
 					//Block Availability
 					if (bl.getAttribute('bstat') == 'all')		bl.innerHTML = 'This block is available for everyone to use.';
-					if (bl.getAttribute('bstat') == 'json')		bl.innerHTML = 'This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
+					if (bl.getAttribute('bstat') == 'json')		bl.innerHTML = 'This block is only accessible through JSON editing. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://ae-hopscotch.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
 					if (bl.getAttribute('bstat') == 'beta')		bl.innerHTML = 'This block is exclusively available in the beta editor for subscribers to test.';
 					if (bl.getAttribute('bstat') == 'jsonbeta')	bl.innerHTML = 'This block was previously only obtainable by JSON editing or copied code. It is now available in the beta editor for subscribers to test.';
-					if (bl.getAttribute('bstat') == 'old')		bl.innerHTML = 'This block is no longer in use. Functionality is not guaranteed for future versions, and the only way to obtain this block is from JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
-					if (bl.getAttribute('bstat') == 'gone')		bl.innerHTML = 'This block is no longer in use and only functions in the old editor (editor version 24). The only way to obtain this block is by JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://awesome-e.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
+					if (bl.getAttribute('bstat') == 'old')		bl.innerHTML = 'This block is no longer in use. Functionality is not guaranteed for future versions, and the only way to obtain this block is from JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://ae-hopscotch.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
+					if (bl.getAttribute('bstat') == 'gone')		bl.innerHTML = 'This block is no longer in use and only functions in the old editor (editor version 24). The only way to obtain this block is by JSON editing or remixing projects with the block. Currently, the easiest way to do this is to download <a href="https://c.gethopscotch.com/p/10kqiyz15e">Secret Blocks</a> or insert them with my <a href="https://ae-hopscotch.github.io/hs-tools/json-shortcut/help-guide#download">Siri Shortcut</a>.';
 				});
 				document.querySelectorAll("li[blockID]").forEach(function(bl){
 					//Insert Block IDs automatically

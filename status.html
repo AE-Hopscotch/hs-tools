@@ -101,7 +101,7 @@
 		<script src="main.js"></script>
 		<script>
 			function checkstatus() {
-				XHR.requestExt("GET","https://awesome-e.github.io/hs-tools/get/site-status.json", function(r,s) {
+				XHR.requestExt("GET","https://ae-hopscotch.github.io/hs-tools/get/site-status.json", function(r,s) {
 					console.log("HS Help Guide + Reference: " + s);
 					let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");
 					document.querySelectorAll(".src-ghpages").forEach(elm=>{

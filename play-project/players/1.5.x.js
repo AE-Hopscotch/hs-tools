@@ -5379,7 +5379,7 @@ console.log("Webplayer v1.5.17 - 2021/09/08 (production)");
                 return e.stop();
             }), this.sources.clear();
         }, e.prototype.url = function() {
-            return "https://awesome-e.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + "." + (this.extension||"mp3");
+            return "https://ae-hopscotch.github.io/hs-tools/play-project/hopscotch-sounds/" /*AE_MOD Self-host sounds  "https://d2jeqdlsh5ay24.cloudfront.net/"*/ + this.name + "." + (this.extension||"mp3");
         }, e.soundCache = new Map(), e;
     }();
     t.HSSound = n, window.HSSound = n;

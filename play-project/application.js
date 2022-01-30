@@ -36063,8 +36063,8 @@ var fullscreenButton = document.getElementById("fullscreen-button");
 function fullscreenHandler(event) {
   if (!main || !fullscreenButton) return false;
   if (event.type === 'touchend' || event.type === 'click') main.toggleFullscreen();
-  let fullscreenSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD document.getElementById("fullscreen-enter").src
-  let fullscreenExitSrc = "https://awesome-e.github.io/hs-tools/play-project/assets/fullscreen_exit.svg"; //AE_MOD document.getElementById("fullscreen-exit").src
+  let fullscreenSrc = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/fullscreen_button.svg"; //AE_MOD document.getElementById("fullscreen-enter").src
+  let fullscreenExitSrc = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/fullscreen_exit.svg"; //AE_MOD document.getElementById("fullscreen-exit").src
   let fullScreen = document.fullscreenElement || document.webkitFullscreenElement
   fullscreenButton.src = fullScreen ? fullscreenExitSrc : fullscreenSrc
   return false;
@@ -36080,13 +36080,13 @@ function muteHandler(event) {
   if (!main || !muteButton) return false;
   if (main.isMuted()) {
     main.unmute();
-    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
+    muteButton.src = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/speaker.svg"; //AE_MOD
     localStorage.setItem("muted","false") //AE_MOD
     //let speaker = document.getElementById("speaker").src;
     //muteButton.src = speaker;
   } else {
     main.mute();
-    muteButton.src = "https://awesome-e.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
+    muteButton.src = "https://ae-hopscotch.github.io/hs-tools/play-project/assets/speaker_mute.svg"; //AE_MOD
     localStorage.setItem("muted","true") //AE_MOD
     //let unmuteSrc = document.getElementById("unmute-button").src;
     //muteButton.src = unmuteSrc;
