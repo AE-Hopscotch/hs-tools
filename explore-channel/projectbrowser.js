@@ -28,7 +28,22 @@ const badges = {
 		"1452218":	[5],	//tankt2016
 		"1957086":	[5],	//tehgreatdoge
 		"2320602":	[6],	//ThinBuffaloSr
-		"913724":	[4,5]	//William04GamerA
+		"913724":	[4,5],	//William04GamerA
+
+    "1906767": [5], // Crosbyman64
+    "282985": [5], // DarthPumpkin
+    "6505719": [5], // TabithaSakura
+    "5047648": [5], // Lunalovegood2019
+    "6076406": [5], // Daughter of Hecate
+    "1320367": [5], // Swim Girl Studios
+    "6094741": [5], // BG Studios
+    "1590089": [5], // DylanBarrett
+    "6104137": [5], // Tri-Angle
+    "3944888": [5], // Mr. Incognito
+    "5055355": [5], // Infinite Oboe Studios
+    "6337195": [5], // Henry?
+    "6120560": [5], // Tb23
+    "2112483": [5] // Dog Icing
 	},
 	"titles": [
 		"The Official Hopscotch Team",
