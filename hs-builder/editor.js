@@ -2754,6 +2754,12 @@ if (editor.modulesScripts) {
 						optVal("ft_vr") ? JSON.parse(`{"type":"block",${m.replace(/^"variable"/,'"value"').replace(/"value":"((?:|.*?[^\\\n])(?:\\{2})*)"/,function(m0,m1,m2){
 							return `"value":"${getVar(m1)}"`})},"id":"${b.web_id}","data":${JSON.stringify(b)}}`) : undefined
 					);});
+          if (optVal("ft_vr")) {
+            //Include Local Variable Names
+            (JSON.stringify(b).match(/"name":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(
+              JSON.parse(`{"type":"block",${m.replace(/^"name"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`)
+            )})
+          }
 				}
 				if (optVal("ft_dd") && (b.params||b.parameters)) (JSON.stringify(b.params||b.parameters).match(/"(?:description|key)":"(?:|.*?[^\\\n])(?:\\{2})*"/gi)||[]).forEach((m)=>{textItems.push(JSON.parse(`{"type":"data",${m.replace(/^"(?:description|key)"/,'"value"')},"id":"${b.web_id}","data":${JSON.stringify(b)}}`));});
 				if (optVal("ft_cs") && b.controlScript) textItems.push({"type":"controlScript","value":b.controlScript.abilityID||"","id":b.web_id,"data":b});
