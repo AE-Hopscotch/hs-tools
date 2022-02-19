@@ -1577,7 +1577,8 @@ if (editor.useBlockRender) {
   window.addEventListener('blur', function () {
     if ((document.activeElement.parentNode.parentNode.classList || document.body.classList).contains('resize-drag')) document.activeElement.parentNode.parentNode.click()
   })
-  const floatWindow = {
+  // eslint-disable-next-line no-var
+  var floatWindow = {
     invis: function (name, elm) {
       const block = document.getElementById(name + '-resizer')
       elm.setAttribute('class', (block.style.display === 'none' ? 'fa fa-eye' : 'fa fa-eye-slash'))
