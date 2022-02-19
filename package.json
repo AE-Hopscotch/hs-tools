@@ -1,0 +1,30 @@
+{
+  "name": "hs-tools",
+  "version": "1.0.0",
+  "description": "Find the site [here](https://ae-hopscotch.github.io/hs-tools/). This is where I upload several tools regarding Hopscotch Projects and their JSON structure.",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AE-Hopscotch/hs-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AE-Hopscotch/hs-tools/issues"
+  },
+  "homepage": "https://github.com/AE-Hopscotch/hs-tools#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  }
+}
