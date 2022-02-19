@@ -1406,7 +1406,8 @@ if (editor.useBlockRender) {
     })
   }
   // Z Index of draggable elements
-  const draggables = document.querySelectorAll('.float')
+  // eslint-disable-next-line no-var
+  var draggables = document.querySelectorAll('.float')
   for (i = 0; i < draggables.length; i++) {
     draggables[i].style.zIndex = i
     function reorganizefloatingZ (event) {
@@ -2864,7 +2865,8 @@ if (editor.useFileSysCode) {
   }
 }
 if (editor.modulesScripts) {
-  const searchElements = {
+  // eslint-disable-next-line no-var
+  var searchElements = {
     searchPopup: document.getElementById('search-popup')
   }
   // JS Color Inputs
