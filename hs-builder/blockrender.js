@@ -501,13 +501,15 @@ function jsonToHtml (block, isNested, keepClosed) {
       // Variables
       if (d.datum.type === 8000 || (d.datum.type > 8002 && d.datum.type < 8010)) {
         let objectLabel = blockLabels[d.datum.type][0]
+        if (!objectLabel.match(/^<ps><span/)) objectLabel = '<span>' + objectLabel
         if (d.datum.type === 8000) {
           const o = projectDict.objects[d.datum.object]
-          objectLabel = `<ps>${(o.type === 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({ datum: { type: o.type } }).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name}</ps>`
+          objectLabel = `<ps>${(o.type === 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({ datum: { type: o.type } }).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0])}<span>${o.name}</span></ps>` +
+            '<span>'
         } else if (d.datum.type === 8009) {
           return `<ps><op class="val"><span>${d.datum.name}</span></op></ps>`
         }
-        return `<ps><op class="val">${objectLabel}<span>${getVar(d.datum.variable)}</span></op></ps>`
+        return `<ps><op class="val">${objectLabel} ${getVar(d.datum.variable)}</span></op></ps>`
       }
       // Products
       if (d.datum.type === 8008) {
