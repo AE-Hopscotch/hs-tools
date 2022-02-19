@@ -1008,7 +1008,7 @@ html.dark-mode .resize-drag {
 	zoom: 0.6;
 }
 #drawer-resizer bl ps span {
-	min-width: 24px;
+	min-width: 20px;
 }
 #drawer-resizer bl .editbtn, #drawer-resizer bl .openbtn {
 	display: none;
@@ -1173,14 +1173,18 @@ ps {
 ps.fw {
 	min-width: 56px;
 }
-ps span {
-	min-width: 44px;
-	padding: 0 2px;
-	text-align: center;
-	max-width: 192px;
-	overflow-x: hidden;
-	text-overflow: ellipsis;
-	display: inline-block;
+ps > span {
+  min-width: 36px;
+  padding: 0px 6px;
+  text-align: center;
+  max-width: 192px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+ps > span:not(:first-child) {
+  padding-left: 0;
+  margin-left: 0;
 }
 ps::before, op::before {
 	content: "-";
@@ -1198,7 +1202,7 @@ op {
 	border-radius: 20px;
 	align-items: center;
 	margin: 0px 0px;
-	padding: 0 4px;
+	padding: 0 6px;
 }
 op.val {
 	background-color: #f9cc1e;
@@ -1217,6 +1221,15 @@ op.fw {
 	width: 48px;
 	overflow-y: hidden;
 	justify-content: center;
+}
+op > span:first-child + ps {
+  margin-left: 1px;
+}
+op > span:not(:first-child) {
+  margin: 0 1px;
+}
+op > span:last-child {
+  margin-right: 4px;
 }
 op img, ps > img {
 	position: relative;

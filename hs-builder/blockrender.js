@@ -2,9 +2,9 @@ var hsBlocksHTML = "";
 
 const blockLabels = {
 	19: ["old","Wait til Timestamp","milliseconds"],
-	20: ["old","\u2063"], //Wait til Input Done
-	22: ["old","\u2063"],
-	23: ["move","Move Forward"," "],
+	20: ["old",""], //Wait til Input Done
+	22: ["old",""],
+	23: ["move","Move Forward",""],
 	24: ["move","Turn", "degrees"],
 	26: ["draw","Draw a Trail","color","width"],
 	27: ["move","Change X", "by"],
@@ -19,45 +19,45 @@ const blockLabels = {
 	36: ["old","Set Opacity", "to"],
 	37: ["old","Pen Down"],
 	38: ["old","Pen Up"],
-	39: ["move","Set Angle"," "],
+	39: ["move","Set Angle",""],
 	40: ["looks","Set Text","to","color"],
 	41: ["move","Set Position","to x","y"],
 	42: ["looks","Send To Back"],
 	43: ["looks","Bring To Front"],
-	44: ["var","Increase"," ","by"],
-	45: ["var","Set"," ","to"],
+	44: ["var","Increase","","by"],
+	45: ["var","Set","","to"],
 	46: ["old","Move With Trail","distance"],
 	47: ["looks","Set Invisibility","percent"],
 	48: ["looks","Grow","by percent"],
 	49: ["looks","Shrink","by percent"],
 	50: ["move","Flip"],
 	51: ["looks","Set Size","percent"],
-	52: ["looks","Start Sound"," ","wait"],
+	52: ["looks","Start Sound","","wait"],
 	53: ["ctrl","Create a Clone of This Object","times"],
-	54: ["looks","Set Color"," "],
+	54: ["looks","Set Color",""],
 	55: ["ctrl","Destroy"],
-	56: ["looks","Set Image"," "],
+	56: ["looks","Set Image",""],
 	57: ["looks","Set","width","height"],
-	58: ["looks","Set Z Index"," "],
+	58: ["looks","Set Z Index",""],
 	59: ["move","Set Origin","to x","y"],
 	60: ["move","Set Center","to x","y"],
 	61: ["ctrl","Wait","seconds"],
-	62: ["looks","Start Sound"," ","wait"], //Start Sound Seconds
-	63: ["var","Save Input"," ","prompt"],
+	62: ["looks","Start Sound","","wait"], //Start Sound Seconds
+	63: ["var","Save Input","","prompt"],
 	64: ["looks","Set Text to Input","color"],
-	65: ["looks","Play Note"," ","rhythm"],
-	66: ["looks","Set Tempo"," "],
-	67: ["looks","Set Instrument"," "],
-	68: ["ctrl","Open Project"," "],
-	69: ["ctrl","Comment"," "],
+	65: ["looks","Play Note","","rhythm"],
+	66: ["looks","Set Tempo",""],
+	67: ["looks","Set Instrument",""],
+	68: ["ctrl","Open Project",""],
+	69: ["ctrl","Comment",""],
 	120: ["ctrl","Repeat","times"],
 	121: ["ctrl","Repeat Forever"],
-	122: ["ctrl","Check Once If"," "],
+	122: ["ctrl","Check Once If",""],
 	123: ["abl","Ability"],
-	124: ["ctrl","Check If Else"," "],
+	124: ["ctrl","Check If Else",""],
 	125: ["ctrl","Change Scene","to"],
 	126: ["ctrl","Broadcast Message","named"],
-	127: ["ctrl","Request Seeds"," ","for"],
+	127: ["ctrl","Request Seeds","","for"],
 	233: ["Random"],
 	234: ["XPos"],
 	235: ["YPos"],
@@ -65,16 +65,16 @@ const blockLabels = {
 	237: ["Random1100"],
 	238: ["Random11000"],
 	239: ["Variable"],
-	1e3: ["conditional"," "," ","="],
-	1001: ["conditional"," "," ","\u2260"],
-	1002: ["conditional"," "," ","<"],
-	1003: ["conditional"," "," ",">"],
-	1004: ["conditional"," "," ","and"],
-	1005: ["conditional"," "," ","or"],
-	1006: ["conditional"," "," ","\u2265"],
-	1007: ["conditional"," "," ","\u2264"],
-	1008: ["conditional"," "," ","matches"],
-	1009: ["conditional"," "," ","not"],
+	1e3: ["conditional","","","="],
+	1001: ["conditional","","","\u2260"],
+	1002: ["conditional","","","<"],
+	1003: ["conditional","","",">"],
+	1004: ["conditional","","","and"],
+	1005: ["conditional","","","or"],
+	1006: ["conditional","","","\u2265"],
+	1007: ["conditional","","","\u2264"],
+	1008: ["conditional","","","matches"],
+	1009: ["conditional","","","not"],
 	1010: ["HS_END_OF_CONDITIONAL_OPERATORS"],
 	2e3: ["Rotation"],
 	2001: ["X Position"],
@@ -114,74 +114,74 @@ const blockLabels = {
 	3007: ["\u25B6\uFE0F Last Touch Y"],
 	3008: ["\u25B6\uFE0F Total Objects"],
 	3009: ["HS_END_OF_STAGE_TRAITS"],
-	4e3: ["math"," "," ","+"],
-	4001: ["math"," "," ","\u2212"],
-	4002: ["math"," "," ","\u00D7"],
-	4003: ["math"," "," ","\u00F7"],
-	4004: ["math","\u2063 random"," ","to"],
-	4005: ["math"," "," ","^"],
-	4006: ["math","\u2063 \u221A"," "],
-	4007: ["math","\u2063 sin"," "],
-	4008: ["math","\u2063 cos"," "],
-	4009: ["math","\u2063 round"," "],
-	4010: ["math","\u2063 absolute value"," "],
-	4011: ["math"," "," ","%"],
-	4012: ["math","\u2063 tan"," "],
-	4013: ["math","\u2063 arcsin"," "],
-	4014: ["math","\u2063 arccos"," "],
-	4015: ["math","\u2063 arctan"," "],
-	4016: ["math","\u2063 max"," "," "],
-	4017: ["math","\u2063 min"," "," "],
-	4018: ["math","\u2063 floor"," "," "],
-	4019: ["math","\u2063 ceil"," "," "],
+	4e3: ["math","","","+"],
+	4001: ["math","","","\u2212"],
+	4002: ["math","","","\u00D7"],
+	4003: ["math","","","\u00F7"],
+	4004: ["math","random","","to"],
+	4005: ["math","","","^"],
+	4006: ["math","\u221A",""],
+	4007: ["math","sin",""],
+	4008: ["math","cos",""],
+	4009: ["math","round",""],
+	4010: ["math","absolute value",""],
+	4011: ["math","","","%"],
+	4012: ["math","tan",""],
+	4013: ["math","arcsin",""],
+	4014: ["math","arccos",""],
+	4015: ["math","arctan",""],
+	4016: ["math","max","",""],
+	4017: ["math","min","",""],
+	4018: ["math","floor","",""],
+	4019: ["math","ceil","",""],
 	4020: ["HS_END_OF_MATH_OPERATORS"],
 	5e3: ["ColorOperatorRandom"],
-	5001: ["color","\u2063 ","R","G","B"],
-	5002: ["color","\u2063 ","H","S","B"],
+	5001: ["color","","R","G","B"],
+	5002: ["color","","H","S","B"],
 	5003: ["HS_END_OF_COLOR_OPERATORS"],
 	6e3: ["rule","When"], //Rule
 	6001: ["RulePreview"], //Rule Preview
-	7e3: ["event","\u2063 game starts \u2063"], //Event operator start
-	7001: ["event","is tapped \u2063"," "],
-	7002: ["event"," "," ","is touching"],
-	7003: ["event","is pressed \u2063"," "],
+	7e3: ["event","game starts"], //Event operator start
+	7001: ["event","is tapped",""],
+	7002: ["event","","","is touching"],
+	7003: ["event","is pressed",""],
 	7004: ["event","Tilted Right"], //EventOperatorTiltRight
 	7005: ["event","Tilted Left"], //EventOperatorTiltLeft
 	7006: ["event","Tilted Up"], //EventOperatorTiltUp
 	7007: ["event","Tilted Down"], //EventOperatorTiltDown
-	7008: ["event","\u2063 \uD83D\uDCF1 hears a loud noise \u2063"],
-	7009: ["event","\u2063 \uD83D\uDCF1 is shaken \u2063"],
-	7010: ["event"," "," ","bumps"],
-	7011: ["event","is swiped right \u2063"," "],
-	7012: ["event","is swiped left \u2063"," "],
-	7013: ["event","is swiped up \u2063"," "],
-	7014: ["event","is swiped down \u2063"," "],
-	7015: ["event","\u2063 object is cloned \u2063"], //Enter the World
-	7016: ["event","Editor Tilt Right \u2063"], //EventOperatorTiltRightEditor
-	7017: ["event","Editor Tilt Left \u2063"], //EventOperatorTiltLeftEditor
-	7018: ["event","Editor Tilt Up \u2063"], //EventOperatorTiltUpEditor
-	7019: ["event","Editor Tilt Down \u2063"], //EventOperatorTiltDownEditor
-	7020: ["event","is not pressed \u2063"," "],
-	7021: ["event","\u2063 game is playing \u2063"],
-	7022: ["event","\u2063 touch ends \u2063"],
-	7023: ["event"," ","\u2063 I get a message \u2063"],
-	7024: ["event"," ","\u2063 Message matches \u2063"],
-	7025: ["event"," "," ","is not touching"],
+	7008: ["event","\uD83D\uDCF1 hears a loud noise"],
+	7009: ["event","\uD83D\uDCF1 is shaken"],
+	7010: ["event","","","bumps"],
+	7011: ["event","is swiped right",""],
+	7012: ["event","is swiped left",""],
+	7013: ["event","is swiped up",""],
+	7014: ["event","is swiped down",""],
+	7015: ["event","object is cloned"], //Enter the World
+	7016: ["event","Editor Tilt Right"], //EventOperatorTiltRightEditor
+	7017: ["event","Editor Tilt Left"], //EventOperatorTiltLeftEditor
+	7018: ["event","Editor Tilt Up"], //EventOperatorTiltUpEditor
+	7019: ["event","Editor Tilt Down"], //EventOperatorTiltDownEditor
+	7020: ["event","is not pressed",""],
+	7021: ["event","game is playing"],
+	7022: ["event","touch ends"],
+	7023: ["event","","I get a message"],
+	7024: ["event","","Message matches"],
+	7025: ["event","","","is not touching"],
 	7026: ["HS_END_OF_EVENT_OPERATORS"],
 	8e3: ["<ps><span><i class=\"fa fa-fw fa-cubes\"></i> Object</span></ps>"],
 	8001: ["<i class=\"fa fa-fw fa-question-circle\"></i> Anything"],
 	8002: ["<i class=\"fa fa-mobile\"></i> Edge"],
-	8003: ["\u2063 \u25B6\uFE0F"], //Game
+	8003: ["\u25B6\uFE0F"], //Game
 	8004: ["<ps><span>Self</span></ps>"],
-	8005: ["<ps><span>\u2063 Original Object \u2063</span></ps>"],
-	8006: ["\u2063 \uD83D\uDCF1"], //Local
-	8007: ["\u2063 \uD83D\uDCF1"], //User
-	8008: ["\u2063 \uD83C\uDF81"], //Product
-	8009: ["\u2063 Local"], //Scoped
+	8005: ["<ps><span>Original Object</span></ps>"],
+	8006: ["\uD83D\uDCF1"], //Local
+	8007: ["\uD83D\uDCF1"], //User
+	8008: ["\uD83C\uDF81"], //Product
+	8009: ["Local"], //Scoped
 	8010: ["HS_END_OF_EVENT_PARAMETER_BLOCKS"],
-	9000: ["looks", "\u2063 character", "in", "at"],
-	9001: ["looks", "\u2063 characters", "in", "between", "and"],
-	9002: ["looks", "\u2063 length"],
+	9000: ["looks", "character", "in", "at"],
+	9001: ["looks", "characters", "in", "between", "and"],
+	9002: ["looks", "length"],
 	9003: ["HS_END_OF_TEXT_OPERATOR_BLOCKS"]
 }
 const charLabels = {
@@ -438,10 +438,13 @@ function jsonToHtml(block, isNested, keepClosed) {
 				var name = (blockLabels[(projectDict.traits[id]||{}).HSTraitTypeKey]||[])[0];
 				return (name||"").htmlEscape()||"<span style=\"color:red;\">unknown</span>";
 			}
+      function wrapIfNotEmpty (text) {
+        return text ? `<span>${text}</span>` : ''
+      }
 			if (!d.datum) {
 				if (d.type != 50 && d.value !== String(d.value)) return console.warn("Values must be strings")||"<ps><span></span></ps>";
 				if (d.type == 44 && /HSB\(\s?(\-?[0-9]*?\.?[0-9]*?,?\s?){3}\)$/.test(d.value) && !d.variable) {
-					return '<ps class="fw" style="background-color:rgb('+hsvToRgb(d.value)+')"></ps>'
+					return `<ps class="fw" style="background-color:rgb(${hsvToRgb(d.value)})"></ps>`
 				} else {
 					switch (d.type) {
 						case 50:
@@ -450,12 +453,12 @@ function jsonToHtml(block, isNested, keepClosed) {
 							if (ep.type == 8e3){
 								var o = projectDict.objects[ep.objectID];
 								if (o && o.type) {
-									var innerText = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+									var innerText = `<ps>${(o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0])}<span>${o.name}</span></ps>`;
 								} else {
-									console.log("no type", o);//var innerText = "<ps><op class=\"val\">\u2063 THIS ONE" + (getVar(d.variable)||"TEST") + " \u2063</op></ps>";
+									console.log("no type", o);
 								}
 							} else {
-								var innerText = "<ps><span>" + (ep.description||blockLabels[(projectDict.eventParameters[ep.id]||{}).type]) + "</span></ps>";
+								var innerText = `<ps><span>${ep.description||blockLabels[(projectDict.eventParameters[ep.id]||{}).type]}</span></ps>`;
 							}
 							return innerText;
 						default:
@@ -463,11 +466,12 @@ function jsonToHtml(block, isNested, keepClosed) {
 								var vClass = "val";
 								var o = projectDict.objects[(projectDict.variables[d.variable]||{}).objectIdString]||projectDict.objects[(projectDict.variables[d.variable]||{}).HSObjectIDString], objectLabel = "";
 								if (!o) o = projectDict.objects[(projectDict.traits[d.variable]||{}).HSTraitObjectIDKey];
-								vClass = (getTrait(d.variable)!='<span style="color:red;">unknown</span>') ? "otr" : "val";
-								if (typeof o == "object") objectLabel = "\u2063 " + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063";
-								return "<ps><op class=\"" + vClass + "\">\u2063" + objectLabel + " " + (getTrait(d.variable)!='<span style="color:red;">unknown</span>'?getTrait(d.variable):getVar(d.variable)) + " \u2063</op></ps>";
+                const isUnknown = getTrait(d.variable) === '<span style="color:red;">unknown</span>'
+								vClass = (!isUnknown) ? "otr" : "val";
+								if (typeof o == "object") objectLabel = `${(o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0])} ${wrapIfNotEmpty(o.name)}`;
+								return `<ps><op class="${vClass}"><span>${objectLabel} ${(!isUnknown ? getTrait(d.variable) : getVar(d.variable))}</span></op></ps>`;
 							}
-							return "<ps><span" + ((d.type==51)?" title=\"This is a sound\" style=\"color:gray;\"":"") + ">\u2063 " + d.value.replace(/\n(.|\n)*/g,"").htmlEscape() + " \u2063</span></ps>";
+							return `<ps><span${(d.type==51)?" title=\"This is a sound\" style=\"color:gray;\"":""}>${d.value.replace(/\n(.|\n)*/g,"").htmlEscape()}</span></ps>`;
 					}
 				}
 			}
@@ -476,41 +480,55 @@ function jsonToHtml(block, isNested, keepClosed) {
 				var objectLabel = objectLabel = (blockLabels[d.datum.HSTraitObjectParameterTypeKey]||"");
 				if (d.datum.HSTraitObjectParameterTypeKey==8e3) {
 					var o = projectDict.objects[d.datum.HSTraitObjectIDKey]||{"name":"Object"};
-					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+					objectLabel = `<ps>${(o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0])}<span>${o.name}</span></ps>`;
 				}
-				return "<ps><op class=\"otr\">" + objectLabel + "\u2063 " + blockLabels[d.datum.HSTraitTypeKey] + " \u2063</op></ps>";
+				return `<ps><op class="otr">${objectLabel}<span>${blockLabels[d.datum.HSTraitTypeKey]}</span></op></ps>`;
 			}
 			//Variables
 			if (d.datum.type == 8e3 || (d.datum.type > 8002 && d.datum.type < 8010)) {
 				var objectLabel = blockLabels[d.datum.type][0];
 				if (d.datum.type == 8e3) {
 					var o = projectDict.objects[d.datum.object];
-					objectLabel = "<ps>" + (o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name + " \u2063 \u2063</ps>";
+					objectLabel = `<ps>${(o.type == 1 ? '<img width="36" src="../images/character_sprite_strip.png" style="object-position:0 -30px"/>' : doParameter({"datum":{"type":o.type}}).match(/<i class="fa fa-photo".*?<\/i>|<img style="object-position.*?\/>/)[0]) + o.name}</ps>`;
 				} else if (d.datum.type === 8009) {
-          return "<ps><op class=\"val\">\u2063 " + d.datum.name + " \u2063</op></ps>";
+          return `<ps><op class=\"val\"><span>${d.datum.name}</span></op></ps>`;
         }
-				return "<ps><op class=\"val\">" + objectLabel + " " + getVar(d.datum.variable) + " \u2063</op></ps>";
+				return `<ps><op class=\"val\">${objectLabel}<span>${getVar(d.datum.variable)}</span></op></ps>`;
 			}
 			//Products
 			if (d.datum.type == 8008) {
-				return "<ps><op class=\"prod\">\u2063 \uD83C\uDF81 " + getVar(d.datum.variable) + " \u2063</op></ps>";
+				return `<ps><op class=\"prod\"><span>\uD83C\uDF81 ${getVar(d.datum.variable)}</span></op></ps>`;
 			}
 			//Images (no block class)
 			if (!/operator/i.test(d.datum.block_class)) {
 				if (d.datum.type == 1) {
-					return "<ps><op class=\"cm\">\u2063 Text <ps><span>" + d.datum["text"].replace(/\n(.|\n)*/g,"") + "</span></ps></op></ps>";
+					return `<ps><op class=\"cm\"><span>Text</span><ps><span>${d.datum["text"].replace(/\n(.|\n)*/g,"")}</span></ps></op></ps>`;
 				} else {
-					return "<ps><op class=\"fw cm\">" + ((d.datum.type == 2e3)?"<i class=\"fa fa-photo\"></i>":"<img style=\"object-position:0 calc(var(--ff-obj-scale) * " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px)\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>") + "</op></ps>";
+					let customObjectId = d.datum && d.datum.customObject || block && block.customObjectID
+					let cObj; //Declare custom object variable
+					// Then if parameter's data type is 2000 (custom image), search through the custom objects array & set the custom object to the first result
+					if (d.datum.type === 2e3) cObj = hsProject.customObjects.find(a => a.id === customObjectId);
+          const image = `<img src="https://hopscotch-images.s3.amazonaws.com/production/images/project-images/${cObj ? cObj.fileName : ''}" style="object-fit:contain;" width="30" />`
+					return `<ps><op class="fw cm">${(d.datum.type == 2e3)?image:"<img style=\"object-position:0 calc(var(--ff-obj-scale) * " + (d.datum.type<166||d.datum.type>3e3?d.datum.type-2835*(d.datum.type>=3e3):-1)*-30 + "px)\" src=\"../images/character_sprite_strip.png\" width=\"36\"/>"}</op></ps>`;
 				}
 			}
 			//Random Color
-			if (d.datum.type == 5000) return "<ps><op class=\"rcol\"></op></ps>";
+			if (d.datum.type == 5000) return '<ps><op class="rcol"></op></ps>';
 			//None Block, Math, Conditionals, Game Rules, Text Operators
 			if (d.datum.type < 2e3||(d.datum.type >= 4e3 && d.datum.type < 6e3)||(d.datum.type >= 7e3 && d.datum.type < 8e3)||(d.datum.type >=9e3 && d.datum.type < 10e3)) {
 				var isRule = (d.datum.type >= 7e3 && d.datum.type < 8e3), isTextOp = (d.datum.type >= 9e3 && d.datum.type < 10e3);
-				var i = 0; return "<ps><op class=\"" + ((d.datum.type < 2e3)?"cnd":(isRule?"":(isTextOp?"looks":"math"))) + (isTextOp?"":" cm") + "\">" + (isRule?"":(blockLabels[d.datum.type]||[])[1]||d.datum.description||"").htmlEscape() + " " + (d.datum.params||[]).repeatEach((x)=>{i++;return (blockLabels[d.datum.type][i+1]||x.key||"").htmlEscape() + doParameter(x);}).join("") + (isRule?blockLabels[d.datum.type][1]:"") + "</op></ps>";
+        const className = d.datum.type < 2e3 ? "cnd" : (isRule ? "" : (isTextOp ? "looks" : "math"))
+        const nonRuleDesc = (isRule ? "" : (blockLabels[d.datum.type]||[])[1] ?? (d.datum.description||"")).htmlEscape()
+        const ruleDesc = isRule ? blockLabels[d.datum.type][1] : ""
+        const params = (d.datum.params||[]).map((x, i)=>{
+          const description = (blockLabels[d.datum.type][i + 2] || x.key || "").htmlEscape()
+          return `${wrapIfNotEmpty(description)}${doParameter(x)}`;
+        }).join("")
+				var i = 0; return `<ps><op class="${className} ${isTextOp ? "" : "cm"}">
+          ${wrapIfNotEmpty(nonRuleDesc)}
+          ${params}${wrapIfNotEmpty(ruleDesc)}</op></ps>`;
 			}
-			return "<span style=\"color:#0CF\">unrecognized format</span>";
+			return '<span style="color:#0CF">unrecognized format</span>';
 		}
 		paramString += " " + (labels[i+2]||p.key||"").htmlEscape() + " " + doParameter(p);
 	};
