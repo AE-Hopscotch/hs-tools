@@ -310,7 +310,7 @@
 					c.parentNode.style.display = c.title.toLowerCase().includes(document.querySelector("input").value.toLowerCase()) ? "block" : c.parentNode.style.display;
 				});
 			}
-			XHR.get("https://hs-tools-api.deta.dev/hopscotch-data/blocks",function(r) {
+			XHR.get("https://hs-tools-api.up.railway.app/hopscotch-data/blocks",function(r) {
 				JSON.parse(r).sort((a, b) => a.id - b.id).forEach(item => {
 					var div = document.createElement("div");
 					div.setAttribute("class", item.type || "abl");

@@ -20,7 +20,7 @@ const submitBtn = document.getElementById('submit-btn')
 const retrieveBtn = document.getElementById('retrieve-btn')
 const reqForm = document.getElementById('request-form')
 const retrieveForm = document.getElementById('get-project')
-const endpoint = location.protocol === 'https:' ? 'https://hs-tools-api.deta.dev' : 'http://ethan-mbp14.local:7700'
+const endpoint = location.protocol === 'https:' ? 'https://hs-tools-api.up.railway.app' : 'http://ethan-mbp14.local:7700'
 
 function submitRequest() {
   setFormState(submitBtn, 1);

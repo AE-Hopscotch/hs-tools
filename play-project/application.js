@@ -36295,7 +36295,7 @@ $(document).keyup(function (event) {
       var playerScript = document.createElement("script");
       document.body.appendChild(playerScript);
       playerScript.onload = initWebplayer.bind(window, version);
-      playerScript.src = (location.protocol === "https:" ? 'https://hs-tools-api.deta.dev/webplayer/' : 'http://localhost:7700/webplayer/') + AE_MOD.playerVersion + '/modded'
+      playerScript.src = (location.protocol === "https:" ? 'https://hs-tools-api.up.railway.app/webplayer/' : 'http://localhost:7700/webplayer/') + AE_MOD.playerVersion + '/modded'
 	  console.log('%cPlayer Source: ' + playerScript.src, 'color:#05f;background-color:white;border:2px solid blue;padding:4px 6px');
     }
 
