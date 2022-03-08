@@ -30,13 +30,16 @@
 		<meta content="Awesome_E's Hopscotch Tools" property="og:site_name" />
 		<meta content="Play a Hopscotch Project" property="og:title" />
 		<meta content="This tool allows you to play any Hopscotch project, regardless of whether or not it is published, filtered, or custom data." property="og:description" />
-		<meta content="/hs-tools/images/hs-logo-h.png"" property="og:image" /> <!--AE_MOD -->
+		<meta content="/hs-tools/images/hs-logo-h.png" property="og:image" /> <!--AE_MOD -->
 		<meta content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" name="viewport" />
 		<link rel="stylesheet" media="screen" href="application.css" />
 		<meta name="csrf-param" content="authenticity_token" />
 		<meta name="csrf-token" content="Xonf2Bn4pgVRZobpf3Nfuzvd7P3rCyCySJSHi4S9XQRNoKQiOrWClrrw8ll6ZBVi/p6ryAbAAhOvDCMEw9VlOw==" />
 		<noscript><link href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css" rel="stylesheet" type="text/css" /></noscript>
 		<link id="fontcss"></link>
+		<script>
+      { const bgColor = new URL(location.href).searchParams.get('bgColor'); if (bgColor) document.head.appendChild(document.createElement('style')).innerText = `body{background-color:${bgColor}}` }
+    </script>
 		<script>/*LazyLoad CSS*/setTimeout(function(){document.getElementById("fontcss").href="https://fast.fonts.net/cssapi/8241d903-e7fe-4a18-8a4d-2d6414db23d8.css"},100)</script>
 		<!-- AE MOD -->
 		<script src="../main.js"></script>
@@ -492,13 +495,13 @@
 			document.title = pTitleFull;
 			if (!AE_MOD.isCustom) {
 				document.querySelector('#project-image').src = 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid + '.png';
-				document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid);
+				document.querySelector('meta[property="og:image"]')?.setAttribute('content', 'https://s3.amazonaws.com/hopscotch-cover-images/production/' + AE_MOD.uuid);
 			}
-			document.querySelector('meta[property="og:title"]').setAttribute('content', pTitle);
-			document.querySelector('meta[property="og:description"]').setAttribute('content', pTitleFull);
-			document.querySelector('meta[name="twitter:title"]').setAttribute('content', pTitle);
-			document.querySelector('meta[name="twitter:description"]').setAttribute('content', pTitleFull);
-			document.querySelector('meta[name="description"]').setAttribute('content', pTitleFull);
+			document.querySelector('meta[property="og:title"]')?.setAttribute('content', pTitle);
+			document.querySelector('meta[property="og:description"]')?.setAttribute('content', pTitleFull);
+			document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', pTitle);
+			document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', pTitleFull);
+			document.querySelector('meta[name="description"]')?.setAttribute('content', pTitleFull);
 		}
 		
 		/* */
