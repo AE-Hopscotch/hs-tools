@@ -576,7 +576,9 @@
 			} else {
 				request('https://c.gethopscotch.com/api/v1/projects/' + req_uuid);
 			}
-			replaceLocation("?" + ((req_uuid) ? "id=" + req_uuid : "") + ((url.searchParams.get("play")=="1") ? "&play=1" : "") + (url.searchParams.get("hide") ? "&hide="+encodeURIComponent(url.searchParams.get("hide")) : "") + (url.searchParams.get("sendLoadMsg") ? "&sendLoadMsg=" + url.searchParams.get("sendLoadMsg") : ""));
+      const params = Object.fromEntries(url.searchParams)
+      params.id = req_uuid
+			replaceLocation("?" + new URLSearchParams(params).toString())
 		}
 		
     // Achievement Banner
