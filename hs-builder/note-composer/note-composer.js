@@ -23,6 +23,7 @@ document.querySelectorAll('.piano').forEach(elm => {
   })
 })
 document.body.addEventListener('keydown', function (e) {
+  // Add note durations
   if (document.activeElement.matches('input:not([type=radio]):not([type=checkbox]),textarea,[contenteditable]') || e.ctrlKey || e.altKey || e.metaKey) return
   const eventKey = e.key.toLowerCase().replace(/[!@#$%^&*()_+]/g, m0 => { return '1234567890-='['!@#$%^&*()_+'.indexOf(m0)] })
   const currentPianoElm = document.querySelector('.piano.selected')
@@ -71,6 +72,28 @@ document.body.addEventListener('keyup', function (e) {
     targetElm.dispatchEvent(ev)
   }
   if (noteHotkey < 17 && lastRhythmBtn && (e.shiftKey !== e.getModifierState('CapsLock'))) lastRhythmBtn.click()
+})
+
+// Shift notes up or down octave
+document.body.addEventListener('keydown', function (e) {
+  if (!e.ctrlKey && !e.metaKey) return
+  const activeElement = document.activeElement
+  if (activeElement.tagName !== 'TEXTAREA' || !e.key.match(/^[jk]$/)) return
+  const start = activeElement.selectionStart
+  const end = activeElement.selectionEnd
+  const selectedText = activeElement.value.substring(start, end)
+  const replacement = selectedText.replace(/>(\d{2})/g, (m0, m1) => {
+    const noteValue = Number(m1)
+    let newValue = noteValue + (e.key === 'j' ? -12 : 12)
+    if (newValue > 84) newValue -= 12
+    if (newValue < 48) newValue += 12
+    return '>' + newValue
+  })
+  activeElement.value = activeElement.value.substring(0, start) +
+    replacement +
+    activeElement.value.substring(end, activeElement.value.length)
+  activeElement.selectionStart = start
+  activeElement.selectionEnd = end
 })
 
 // Add Notes from buttons
