@@ -17,13 +17,11 @@
         target: playerElement
       })
       touches.push([touch, elm])
-      // console.log(touch, touches)
     } else {
       const toRemove = touches.find(t => t[1] === elm)
       if (!toRemove) return
       touches.splice(touches.indexOf(toRemove), 1)
       touch = toRemove[0]
-      console.log('up fired', touches)
     }
     event.touches = event.changedTouches = touch ? [touch] : []
 
