@@ -1,0 +1,87 @@
+div.ae-touch-target {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 10;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  box-shadow: 0 0 4px 1px #3335;
+}
+div.ae-touch-target > svg {
+  width: 100%;
+  height: 100%;
+}
+div.ae-touch-target p.label {
+  position: fixed;
+  margin: 0;
+  bottom: 0px;
+  right: 0;
+  width: min-content;
+  background-color: #000a;
+  color: white;
+  padding: 1px 4px;
+}
+.ae-keyinput {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 120px;
+  transform: translate(-50%, -50%);
+  background-color: #0b5b51aa;
+  box-shadow: 0 0 4px 1px #062f2a66;
+  border-radius: 12px;
+  color: white;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 11;
+  padding: 12px 24px;
+  user-select: none;
+  -webkit-user-select: none;
+  text-align: center;
+  font-size: 1.2em;
+}
+.ae-keyinput h3 {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+.ae-keyinput p {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+}
+.ae-keyinput .activekey {
+  display: none;
+}
+.ae-keyinput .activekey span {
+  font-size: 28px;
+  font-weight: 600;
+}
+.sidebar-control {
+  text-align: center;
+  margin: 1em 0;
+}
+.sidebar-control button {
+  margin: 0 auto 0.5em;
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #333a;
+  background-color: #eee;
+  color: black;
+  border-radius: 2px;
+  padding: 4px 12px;
+  font-size: 13px;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+.sidebar-control button:hover {
+  background-color: #eeed;
+}
+.sidebar-control button:active {
+  opacity: 0.7;
+}
