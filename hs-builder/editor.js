@@ -2807,8 +2807,7 @@ if (editor.useFileSysCode) {
     e.onchange = function () { if (hsProject.uuid /* If project exists */) updateProject(e.id) } // Might change if exists later
   })
   // Reload Import
-  const url = new URL(location.href)
-  if (url.searchParams.get('r') === '1' || localStorage.getItem('hsProject')) {
+  if (localStorage.getItem('hsProject')) {
     hsProject = JSON.parse(localStorage.getItem('hsProject'))
     formatProject(hsProject)
     // updateFields();
