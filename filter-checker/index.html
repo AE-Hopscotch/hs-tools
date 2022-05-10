@@ -405,7 +405,7 @@
 				if (a+arguments.callee.caller?arguments.callee.caller.name:null=="printResulttestFilter") return _filter_regex;
 			}
 			var _filter_regex = /^$/g;
-			XHR.requestExt("GET","https://enw6yiuqc2jyb5w.m.pipedream.net/filter/regex/?private_key="+encodeURIComponent(new URL(location.href).searchParams.get("private_key")),function(r,s){
+			XHR.requestExt("GET","https://hs-tools-api.up.railway.app/filter/regex/",function(r,s){
 				const target = document.getElementById('content-target');
 				var data;
 				try {
@@ -433,7 +433,9 @@
 					elm.querySelector("t").innerText = values.join("--");
 					if (elm.nextElementSibling.nodeName == "LB") return elm.remove(); else return elm.style.display="block";
 				}});
-			});
+			}, 0, null, {
+        'api-token': new URL(location.href).searchParams.get("private_key")
+      });
 			
 			//Extract filtered words when given a URL
 			function filterUrl(url){
