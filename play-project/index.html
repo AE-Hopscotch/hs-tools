@@ -450,7 +450,7 @@
 					b = a.blocks[i];
           const customActions = AE_MOD.customCommands.getFromParams(b)
           // Check all custom actions
-          customActions.concat(b.type === 22 ? [b] : []).forEach(actionBlock => {
+          customActions.concat(b.type === 22 || b.type === 69 ? [b] : []).forEach(actionBlock => {
             // Check if keyboard actions are present
             if (AE_MOD.customCommands.match(actionBlock, /^checkKey(All|Data)?$/)) {
               AE_MOD.moddedActions.keyboardSupport = true
@@ -527,7 +527,7 @@
 					AE_MOD.projectData = p;
 					AE_MOD.uuid = p.uuid;
 					AE_MOD.isCustom = false;
-          AE_MOD.customActions = p.abilities.map(a => a.blocks ? a.blocks.filter(b => b.type === 22) : []).reduce((a,b) => a.concat(b), [])
+          AE_MOD.customActions = p.abilities.map(a => a.blocks ? a.blocks.filter(b => b.type === 22 || b.type === 69) : []).reduce((a,b) => a.concat(b), [])
 					createConstUUID();
 					AE_MOD.playerVersion = p.playerVersion||"1.0.0";
 					//Authorize if Project contains session or global variable blocks.
