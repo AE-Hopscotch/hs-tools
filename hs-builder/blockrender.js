@@ -369,7 +369,9 @@ function jsonToHtml (block, isNested, keepClosed) {
 
     // If it is a custom rule or an object
     if (typeof block === 'string') {
-      block = projectDict.customRules[block] || block
+      const customRuleInstances = hsProject.customRuleInstances
+      if (customRuleInstances) block = hsProject.customRuleInstances.find(instance => instance.id === block) || block
+      if (typeof block !== 'object') block = projectDict.customRules[block] || block
     }
   }
   // If it is an object
@@ -387,6 +389,7 @@ function jsonToHtml (block, isNested, keepClosed) {
     }]
   }
   // Change the container type for rules, custom rules, objects, and scenes
+  if (block.customRuleID) block.block_class = 'control'
   if (block.ruleBlockType && !block.type) block.type = block.ruleBlockType
   if (block.rules) {
     block.block_class = 'control'
@@ -423,9 +426,9 @@ function jsonToHtml (block, isNested, keepClosed) {
   if (!isNested) nestedUuidList = []
   let elmClass
   if (/control/i.test(block.block_class)) {
-    elmClass = 'collapsible-container' + ((([26, 30, 31, 32]).indexOf(block.type) !== -1 && block.xPosition == null) ? ' draw' : ((block.type === 123 && block.xPosition == null) ? ' abl' : ((block.type === 6000 && block.xPosition == null) ? ' rule' : (block.xPosition != null ? ' obj' : block.rules ? ' crule' : (block.objects ? ' scn' : '')))))
+    elmClass = 'collapsible-container' + ((([26, 30, 31, 32]).indexOf(block.type) !== -1 && block.xPosition == null) ? ' draw' : ((block.type === 123 && block.xPosition == null) ? ' abl' : ((block.type === 6000 && block.xPosition == null) ? ' rule' : (block.xPosition != null ? ' obj' : block.rules || block.customRuleID ? ' crule' : (block.objects ? ' scn' : '')))))
   }
-  const labels = (block.xPosition != null ? ['obj'] : blockLabels[block.type] || (block.rules ? ['crule'] : (block.objects ? ['scn'] : [])))
+  const labels = (block.xPosition != null ? ['obj'] : blockLabels[block.type] || (block.rules || block.customRuleID ? ['crule'] : (block.objects ? ['scn'] : [])))
   let paramString = ''
   for (let i = 0; i < (block.parameters || []).length; i++) {
     const p = block.parameters[i]
@@ -549,13 +552,49 @@ function jsonToHtml (block, isNested, keepClosed) {
     }
     paramString += ' ' + (labels[i + 2] || p.key || '').htmlEscape() + ' ' + doParameter(p)
   };
-  let innerHTML = `<bl class="${labels[0]}"><c>${((block.type === 123 && !block.rules) ? /* (projectDict.abilities[block.controlScript.abilityID]||{"name":null}).name|| */((block.description != null ? block.description : (block.controlScript && block.controlScript.abilityID ? (projectDict.abilities[block.controlScript.abilityID] || { name: null }).name : '')) || '').htmlEscape() : ((block.rules || block.xPosition != null || block.objects) ? block.name : labels[1])) || (block.description || '').htmlEscape()}${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`
+  let innerHTML = `<bl class="${labels[0]}"><c>`
+  switch (true) {
+    case block.type === 123 && !block.rules:
+      // Custom Ability
+      innerHTML += ((block.description != null ? block.description : (block.controlScript && block.controlScript.abilityID ? (projectDict.abilities[block.controlScript.abilityID] || { name: null }).name : '')) || '').htmlEscape()
+      break
+    case !!block.customRuleID: {
+      // New Custom Rules
+      const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID)
+      innerHTML += customRule.name
+      break
+    }
+    case (!!block.rules || block.xPosition != null || !!block.objects):
+      // Old Custom Rules, Objects, Scenes
+      innerHTML += block.name
+      break
+    case !!labels && !!labels[1]:
+      // Block name
+      innerHTML += labels[1]
+      break
+    default:
+      // Provided Description
+      innerHTML += (block.description || '').htmlEscape()
+  }
+  innerHTML += `${paramString}</c><b class="editbtn"></b><b class="handle"></b></bl>`
   if (/control/i.test(block.block_class)) {
     let nestedHTML = '<div class="collapsible">'
     const trueScript = (block.controlScript || {}).abilityID || ''
     const falseScript = (block.controlFalseScript || {}).abilityID || ''
     let addedToHtml = false
-    if (!trueScript && block.rules) {
+    if (block.customRuleID) {
+      if (!keepClosed) {
+        const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID)
+        customRule.rules.repeatEach(ruleID => {
+          const rule = hsProject.rules.find(rule => rule.id === ruleID)
+          nestedUuidList.push(rule)
+          const blockInfo = jsonToHtml(rule, true, true)
+          nestedHTML += '<div class="' + blockInfo.classList + '" data="' + blockInfo.data.htmlEscape() + '" data-id="' + blockInfo.id + '" data-group="' + blockInfo.sortGroup + '">' + blockInfo.innerHTML + '</div>'
+        })
+      } else {
+        elmClass = elmClass.replace('collapsible-container', (nestedUuidList.indexOf(block.customRuleID) !== -1) ? 'disabled' : '')
+      }
+    } else if (!trueScript && block.rules) {
       // Handle Objects and Custom Rules
       addedToHtml = true
       if (!keepClosed) {
