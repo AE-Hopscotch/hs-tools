@@ -1,7 +1,7 @@
 /* eslint-disable no-new, camelcase, no-fallthrough, no-unmodified-loop-condition, no-extend-native, no-func-assign, no-new-func */
 // eslint-disable-next-line
 if (typeof editor === 'undefined') var editor = {}
-editor.version = 'beta 1.6.4 r1'
+editor.version = 'beta 1.7.0 r1'
 const onIos = (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 
 const letterCasing = {
@@ -890,7 +890,6 @@ if (editor.useBlockRender) {
     if (parent.querySelector('.handle')) {
       parent.querySelectorAll('.handle').forEach(h => h.addEventListener('pointerup', function () {
         const deselctionList = []
-        console.log('handle clicked')
         switch (h.parentNode.parentNode.querySelector('bl').getAttribute('class')) {
           case 'rule': case 'crule': deselctionList.push('obj')
           case 'obj': deselctionList.push('scn')
@@ -898,7 +897,6 @@ if (editor.useBlockRender) {
           default: deselctionList.push('rule', 'crule', 'obj', 'scn')
         }
         deselctionList.forEach(group => {
-          console.log(group)
           document.querySelectorAll(`.${group}.selected`).forEach(elm => { Sortable.utils.deselect(elm) })
         })
       }))
@@ -1150,15 +1148,27 @@ if (editor.useBlockRender) {
         break
       }
       case 'crule': {
-        projectDict.customRules[web_id] = newdata
-        let added = false
-        for (i = 0; i < (hsProject.customRules || []).length; i++) {
-          if (hsProject.customRules[i].id === web_id) {
-            hsProject.customRules[i] = newdata
-            added = true
+        const instances = hsProject.customRuleInstances
+        if (instances) {
+          // New Custom Rules
+          const crInstance = instances.find(i => i.id === newdata.id)
+          if (!crInstance) {
+            hsProject.customRuleInstances.push({ id: newdata.id, rules: [], customRuleID: newdata.customRuleID || '', parameters: [] })
+            break
           }
-        };
-        if (!added && !isParent && newdata) hsProject.customRules.push(newdata)
+          hsProject.customRuleInstances.splice(instances.indexOf(crInstance), 1, newdata)
+        } else {
+          // Older Custom Rules
+          projectDict.customRules[web_id] = newdata
+          let added = false
+          for (i = 0; i < (hsProject.customRules || []).length; i++) {
+            if (hsProject.customRules[i].id === web_id) {
+              hsProject.customRules[i] = newdata
+              added = true
+            }
+          };
+          if (!added && !isParent && newdata) hsProject.customRules.push(newdata)
+        }
         break
       }
       case 'rule': {
@@ -1234,11 +1244,12 @@ if (editor.useBlockRender) {
     isBlock = isBlock || false
     const cp = (!isBlock) ? container.parentNode : container
     const scData = JSON.parse(cp.getAttribute('data'))
-    scType = !scData ? 'project' : (scData.objects ? 'scene' : (scData.xPosition != null ? 'object' : (scData.rules ? 'crule' : (scData.abilityID ? 'rule' : 'ability'))))
+    scType = !scData ? 'project' : (scData.objects ? 'scene' : (scData.xPosition != null ? 'object' : (scData.rules || scData.customRuleID ? 'crule' : (scData.abilityID ? 'rule' : 'ability'))))
     scId = (!scData ? 'none' : scData.web_id || scData.id || scData.abilityID || scData.objectID || cp.getAttribute('data-id'))
     if (scData && (scData.controlScript || scData.controlFalseScript)) scId = (container.previousElementSibling && container.previousElementSibling.classList.contains('collapsible')) ? scData.controlFalseScript.abilityID : scData.controlScript.abilityID
     let newdata = {}
     if (isBlock && scType === 'ability') return
+    console.log(scType)
     switch (scType) {
       case 'ability': // Change the parent ability
         newdata = {
@@ -1272,15 +1283,30 @@ if (editor.useBlockRender) {
         }
         break
       case 'crule': // Change the rules within the custom rule
-      case 'object': // Change the rules within the object
+      case 'object': { // Change the rules within the object
         newdata = scData
         if (!isBlock) {
-          newdata.rules = container.children.repeatEach(c => {
+          let target = newdata
+          console.log(newdata)
+          if (newdata.customRuleID) {
+            let cRule = hsProject.customRules.find(cr => cr.id === newdata.customRuleID)
+            if (!cRule) {
+              // Add Ability and Custom Rule
+              const newestAbility = hsProject.abilities.sort((b, a) => a.createdAt - b.createdAt)[0]
+              const abilityID = uuidv4()
+              hsProject.abilities.push({ abilityID, blocks: [], createdAt: newestAbility ? newestAbility.createdAt + 12.34567 : 0 })
+              cRule = { id: newdata.customRuleID, rules: [], name: '', abilityID }
+              hsProject.customRules.push(cRule)
+            }
+            target = cRule
+          }
+          target.rules = container.children.repeatEach(c => {
             return JSON.parse(c.getAttribute('data') || '{}').id
           }).removeNull()
         }
         scId = scData.id || scData.objectID
         break
+      }
       case 'scene': // Change the objects in the scene
         newdata = scData
         if (!isBlock) {

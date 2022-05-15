@@ -389,7 +389,10 @@ function jsonToHtml (block, isNested, keepClosed) {
     }]
   }
   // Change the container type for rules, custom rules, objects, and scenes
-  if (block.customRuleID) block.block_class = 'control'
+  if (block.customRuleID) {
+    block.block_class = 'control'
+    sortGroup = 'rules'
+  }
   if (block.ruleBlockType && !block.type) block.type = block.ruleBlockType
   if (block.rules) {
     block.block_class = 'control'
@@ -560,7 +563,7 @@ function jsonToHtml (block, isNested, keepClosed) {
       break
     case !!block.customRuleID: {
       // New Custom Rules
-      const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID)
+      const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID) || { rules: [], id: block.customRuleID, name: '' }
       innerHTML += customRule.name
       break
     }
@@ -584,8 +587,8 @@ function jsonToHtml (block, isNested, keepClosed) {
     let addedToHtml = false
     if (block.customRuleID) {
       if (!keepClosed) {
-        const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID)
-        customRule.rules.repeatEach(ruleID => {
+        const customRule = hsProject.customRules.find(cr => cr.id === block.customRuleID) || { rules: [], id: block.customRuleID, name: '' }
+        customRule.rules.forEach(ruleID => {
           const rule = hsProject.rules.find(rule => rule.id === ruleID)
           nestedUuidList.push(rule)
           const blockInfo = jsonToHtml(rule, true, true)
