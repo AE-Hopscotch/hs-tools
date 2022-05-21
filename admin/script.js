@@ -11,7 +11,7 @@ authMenuItem.addEventListener('click', function () {
 
 // Handle Blocks
 const blockContainer = document.getElementById('api-blocks-container')
-function refreshBlocks() {
+function refreshBlocks () {
   blockContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/hopscotch-data/blocks', function (r, s) {
     let response = []
@@ -28,7 +28,7 @@ function refreshBlocks() {
       `
       blockContainer.appendChild(card)
       card.addEventListener('click', function () {
-        fillForm (blocksForm, block)
+        fillForm(blocksForm, block)
       })
     })
   }, 0)
@@ -36,7 +36,7 @@ function refreshBlocks() {
 
 // Handle Videos
 const videoContainer = document.getElementById('api-videos-container')
-function refreshVideos() {
+function refreshVideos () {
   videoContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/videos', function (r, s) {
     let response = []
@@ -47,7 +47,8 @@ function refreshVideos() {
       return console.error(new Error('Received invalid response, status: ' + s))
     }
     if (s !== 200) {
-      return videoContainer.innerText = response.error || 'Invalid or bad request'
+      videoContainer.innerText = response.error || 'Invalid or bad request'
+      return
     }
     response.items.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -70,7 +71,7 @@ function refreshVideos() {
 
 // Handle Filter Entries
 const filterContainer = document.getElementById('api-filter-container')
-function refreshFilter() {
+function refreshFilter () {
   filterContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/filter/entries', function (r, s) {
     let response = []
@@ -81,7 +82,8 @@ function refreshFilter() {
       return console.error(new Error('Received invalid response, status: ' + s))
     }
     if (s !== 200) {
-      return filterContainer.innerText = response.error || 'Invalid or bad request'
+      filterContainer.innerText = response.error || 'Invalid or bad request'
+      return
     }
     response.items.forEach(entry => {
       const card = document.createElement('div')
@@ -104,7 +106,7 @@ function refreshFilter() {
 
 // Handle Channels
 const channelsContainer = document.getElementById('api-channels-container')
-function refreshChannels() {
+function refreshChannels () {
   channelsContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/video-channels/', function (r, s) {
     let response = []
@@ -115,7 +117,8 @@ function refreshChannels() {
       return console.error(new Error('Received invalid response, status: ' + s))
     }
     if (s !== 200) {
-      return channelsContainer.innerText = response.error || 'Invalid or bad request'
+      channelsContainer.innerText = response.error || 'Invalid or bad request'
+      return
     }
     response.items.forEach(channel => {
       const card = document.createElement('div')
@@ -143,7 +146,7 @@ function tableKeys (table) {
   return Array.from(table.querySelectorAll('thead th[value]')).map(th => th.getAttribute('value'))
 }
 function fillForm (form, dictionary) {
-  form.querySelectorAll('input:not([type="submit"])').forEach(input => input.value = '')
+  form.querySelectorAll('input:not([type="submit"])').forEach(input => { input.value = '' })
   Object.entries(dictionary).forEach(entry => {
     const field = form.querySelector(`[name="${entry[0]}"]`)
     if (field) {
@@ -157,15 +160,15 @@ function fillForm (form, dictionary) {
           tableBody.innerHTML = ''
           entry[1].forEach(item => {
             const row = document.createElement('tr')
-            row.innerHTML = `<td contenteditable>${item.htmlEscape()}</td>`
-              + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+            row.innerHTML = `<td contenteditable>${item.htmlEscape()}</td>` +
+              '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
             row.querySelector('button[action="remove"]').addEventListener('click', e => {
               e.preventDefault()
               row.remove()
             })
             tableBody.appendChild(row)
           })
-          break;
+          break
         }
         case 'dictionaries-array': {
           const tableBody = field.querySelector('tbody')
@@ -173,22 +176,23 @@ function fillForm (form, dictionary) {
           const keys = tableKeys(field)
           entry[1].forEach(object => {
             const row = document.createElement('tr')
-            row.innerHTML = keys.map(key => `<td contenteditable>${object[key].htmlEscape()}</td>`).join('')
-              + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+            row.innerHTML = keys.map(key => `<td contenteditable>${(object[key] || '').htmlEscape()}</td>`).join('') +
+              '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+            console.log(row)
             row.querySelector('button[action="remove"]').addEventListener('click', e => {
               e.preventDefault()
               row.remove()
             })
             tableBody.appendChild(row)
           })
-          break;
+          break
         }
         case 'checkbox':
           field.checked = !!entry[1]
           break
         default:
           // if (typeof entry[1] === 'object' && Array.isArray(entry[1])) {
-            field.value = entry[1]
+          field.value = entry[1]
       }
     }
   })
@@ -241,8 +245,8 @@ document.querySelectorAll('form table').forEach(table => {
     e.preventDefault()
     const keys = tableKeys(table)
     const row = document.createElement('tr')
-    row.innerHTML = keys.map(key => `<td contenteditable></td>`).join('')
-      + '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
+    row.innerHTML = keys.map(key => '<td contenteditable></td>').join('') +
+      '<td><button class="unstyled" action="remove"><i class="fa fa-minus-circle"></i></button></td>'
     row.querySelector('button[action="remove"]').addEventListener('click', e => {
       e.preventDefault()
       row.remove()

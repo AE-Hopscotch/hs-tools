@@ -1287,7 +1287,6 @@ if (editor.useBlockRender) {
         newdata = scData
         if (!isBlock) {
           let target = newdata
-          console.log(newdata)
           if (newdata.customRuleID) {
             let cRule = hsProject.customRules.find(cr => cr.id === newdata.customRuleID)
             if (!cRule) {
