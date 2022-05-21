@@ -1,5 +1,9 @@
+:root {
+  --touch-target-visibility:visible;
+}
 div.ae-touch-target {
   display: inline-block;
+  position: fixed;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -7,6 +11,7 @@ div.ae-touch-target {
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
   box-shadow: 0 0 4px 1px #3335;
+  visibility: var(--touch-target-visibility);
 }
 div.ae-touch-target > svg {
   width: 100%;

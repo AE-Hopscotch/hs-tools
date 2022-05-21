@@ -34,7 +34,8 @@
   }
 
   class KeyTouch {
-    constructor () {
+    constructor (x = 0, y = 0, code = null, key = '') {
+      if (typeof x !== 'number') x = 0
       const target = this.target = document.createElement('div')
       target.classList.add('ae-touch-target')
       // Add SVG to Target
@@ -44,11 +45,16 @@
         '<path d="M251 250V262H263V250H251Z" fill="black" fill-opacity="0.5"/></svg>' +
         '<p class="label"></p>'
       playerContainer.appendChild(target)
+      target.style.transform = `translate(calc(50vw - 50% + ${x}px), calc(50vh - 50% + ${y}px))`
+      target.dataset.x = x
+      target.dataset.y = y
 
       KeyTouch.instances.push(this)
 
-      this.eventCode = null
-      this.eventKey = ''
+      this.eventCode = code
+      this.eventKey = key
+      this.updateLabel()
+
       const keypressHandler = (e) => {
         if (e.code !== this.eventCode) return
         if (e.type === 'keydown' && this.pressed) return
@@ -60,6 +66,8 @@
       document.body.addEventListener('keydown', keypressHandler)
       document.body.addEventListener('keyup', keypressHandler)
       this.keypressHandler = keypressHandler
+
+      updateSavedData()
     }
 
     static get instances () { return this.constructor.instances }
@@ -89,20 +97,22 @@
 
     destroy () {
       const instances = KeyTouch.instances
-      instances.splice(instances.indexOf(this))
+      instances.splice(instances.indexOf(this), 1)
       this.target.remove()
       document.body.removeEventListener('keydown', this.keypressHandler)
       document.body.removeEventListener('keyup', this.keypressHandler)
+      updateSavedData()
     }
   }
   KeyTouch.constructor.instances = []
 
-  function createTarget () {
-    const touchTarget = new KeyTouch()
+  function createTarget (x, y, code, key) {
+    const touchTarget = new KeyTouch(x, y, code, key)
     touchTarget.target.addEventListener('contextmenu', e => {
       e.preventDefault()
       touchTarget.destroy()
     })
+    return touchTarget
   }
 
   // Make it so you can drag touch targets
@@ -116,11 +126,8 @@
         })
       ],
       listeners: {
-        move: dragMoveListener
-        // call this function on every dragend event
-        // end (event) {
-        //   const textEl = event.target.querySelector('p')
-        // }
+        move: dragMoveListener,
+        end: updateSavedData
       }
     })
     .on('hold', e => {
@@ -132,13 +139,22 @@
     // keep the dragged position in the data-x/data-y attributes
     const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
     const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
     // translate the element
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    target.style.transform = `translate(calc(50vw - 50% + ${x}px), calc(50vh - 50% + ${y}px))`
 
     // update the posiion attributes
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
+  }
+  function updateSavedData () {
+    const data = KeyTouch.instances.map(instance => {
+      const x = Math.round(parseFloat(instance.target.getAttribute('data-x')) * 100 || 0) / 100
+      const y = Math.round(parseFloat(instance.target.getAttribute('data-y')) * 100 || 0) / 100
+      const { eventCode, eventKey } = instance
+      return { x, y, eventCode, eventKey }
+    })
+    const storageString = Base64.encode(JSON.stringify(data))
+    localStorage.playerTouchTargets = storageString
   }
 
   // Create Keyboard Input Element
@@ -154,6 +170,7 @@
     activeInstance.eventKey = e.type === 'click' ? '' : e.key
     activeInstance.updateLabel()
     activeInstance = null
+    updateSavedData()
   }
   document.body.addEventListener('keydown', e => {
     document.querySelector('.ae-keyinput .activekey span').innerText = e.code
@@ -170,6 +187,13 @@
     keyInputPopup.focus()
   }
 
+  // Escape key toggles visibility of all touch targets
+  document.body.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return
+    const currentVisibility = getComputedStyle(document.documentElement).getPropertyValue('--touch-target-visibility')
+    document.documentElement.style.setProperty('--touch-target-visibility', currentVisibility === 'visible' ? 'hidden' : 'visible')
+  })
+
   // Insert add button under Project reviews
   const sidebar = document.getElementById('projectInfoContent')
   const btnContainer = document.createElement('div')
@@ -179,6 +203,20 @@
     '<p>This allows you to use keyboard keys to simulate pressing a certain part of the screen. Drag a target to reposition it, and click and hold to change its keybind</p>'
   sidebar.appendChild(btnContainer)
   btnContainer.querySelector('button').addEventListener('click', createTarget)
+
+  // Add saved targets
+  const savedTargets = localStorage.playerTouchTargets
+  if (savedTargets) {
+    let targetData = {}
+    try {
+      targetData = JSON.parse(Base64.decode(savedTargets))
+      targetData.forEach(data => {
+        createTarget(data.x, data.y, data.eventCode, data.eventKey)
+      })
+    } catch (e) {
+      console.error('Invalid Saved Data', e)
+    }
+  }
 
   window.createTarget = createTarget
 })()
