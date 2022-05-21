@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../style.css">
+		<link rel="stylesheet" href="/hs-tools/hs-builder/style.css">
 		<link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" href="https://aws1.discourse-cdn.com/gethopscotch/original/3X/3/8/3836ff26c18740a553e96462dc1ece3d8e7f4869.png">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -128,6 +129,23 @@
 			.header a bl:hover {
 				opacity: 0.7;
 			}
+      .info bl {
+        margin-top: 40px;
+        box-sizing: content-box;
+      }
+      .info bl * {
+        box-sizing: content-box;
+      }
+      .info bl b {
+        margin-left: 0;
+      }
+      bl > b.handle:is(b, :hover, :active) {
+        cursor: default;
+      }
+      *:not(.disabled) > bl > b.openbtn:is(:hover, :active) {
+        cursor: default;
+        opacity: 1;
+      }
 		</style>
 	</head>
 	<body>
@@ -461,7 +479,7 @@
 				//Page Setup
 				document.querySelectorAll(".info > bl").forEach(function(bl){
 					//Block Handlebars
-					bl.innerHTML += " &ic; <i class='fa fa-bars' style='color: black; opacity: 0.4;'></i>";
+					// bl.innerHTML += " &ic; <i class='fa fa-bars' style='color: black; opacity: 0.4;'></i>";
 				});
 				document.querySelectorAll(".info.header bl.fa:not([type=dotted])").forEach(function(bl){
 					//Block Handlebars
