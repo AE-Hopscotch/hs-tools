@@ -112,6 +112,7 @@
       e.preventDefault()
       touchTarget.destroy()
     })
+    document.documentElement.style.setProperty('--touch-target-visibility', 'visible')
     return touchTarget
   }
 
