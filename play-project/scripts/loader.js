@@ -312,6 +312,18 @@ const AE_MOD = {
         // Args: none
         session.leave()
         break
+      // New Multiplayer Actions
+      case 'socket-create':
+      case 'socket-join':
+      case 'socket-read':
+      case 'socket-write':
+      case 'socket-playerdata':
+      case 'socket-leave':
+        if (!isTrusted) {
+          alert('Cannot join session: untrusted code execution')
+          return 0
+        }
+        return multiplayerActionHandler(a, b, c)
       default:
         console.error('Unknown webplayer action:', a)
     }
