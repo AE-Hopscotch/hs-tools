@@ -125,21 +125,6 @@ const AE_MOD = {
           if (AE_MOD.globalvarsConnected) AE_MOD.globalvars = s.val() || {}
         })
         break
-
-        /* PD OLD GLOBALVARS
-            if (!isTrusted && (!session.data || !session.data.users[session.getUser(-1)])) return alert("Cannot simulate read: untrusted non-host code execution");
-            try {return eval(a.args.join(""));}catch(e){return 0;}
-
-            break;
-            if (!a.args[0] && a.args[0] !== 0) break; //No Empty Keys
-            //AE_MOD.globalvars[a.args[0]] = NaN;
-            XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
-              try {
-                JSON.parse(r);
-                AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-              } catch (e) {/* Bad JSON * / AE_MOD.globalvars[a.args[0]] = "__ERR_CANNOT_GET"}
-            })
-            break; */
       case 'globalvar-read':
         // Args: [0] Variable Name
         return AE_MOD.globalvars[a.args[0]]
@@ -150,13 +135,6 @@ const AE_MOD = {
           a.args[1]
         )
         break
-        /* XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+encodeURIComponent(a.args[1])+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+encodeURIComponent(a.args[0]||""),function(r,s){
-              try {
-                JSON.parse(r);
-                AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-              } catch (e) {/* Bad JSON * /}
-            })
-            break; */
       case 'url-iframe': {
         // Args: [0] URL
         function onList (hostname) {
