@@ -73,7 +73,7 @@ div.ae-touch-target p.label {
 }
 .sidebar-control button {
   margin: 0 auto 0.5em;
-  display: block;
+  display: inline-block;
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid #333a;

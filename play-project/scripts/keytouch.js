@@ -188,22 +188,19 @@
     keyInputPopup.focus()
   }
 
-  // Escape key toggles visibility of all touch targets
-  document.body.addEventListener('keydown', e => {
-    if (e.key !== 'Escape') return
+  function toggleVisibility (event) {
+    if (event.type === 'keydown' && event.key !== 'Escape') return
     const currentVisibility = getComputedStyle(document.documentElement).getPropertyValue('--touch-target-visibility')
     document.documentElement.style.setProperty('--touch-target-visibility', currentVisibility === 'visible' ? 'hidden' : 'visible')
-  })
+  }
+  // Escape key toggles visibility of all touch targets
+  document.body.addEventListener('keydown', toggleVisibility)
 
   // Insert add button under Project reviews
   const sidebar = document.getElementById('projectInfoContent')
-  const btnContainer = document.createElement('div')
-  btnContainer.classList.add('sidebar-control')
-  btnContainer.innerHTML = '<h4>Touch Emulation</h4>' +
-    '<br><button>Add Keyboard Touch Target</button>' +
-    '<p>This allows you to use keyboard keys to simulate pressing a certain part of the screen. Drag a target to reposition it, and click and hold to change its keybind</p>'
-  sidebar.appendChild(btnContainer)
-  btnContainer.querySelector('button').addEventListener('click', createTarget)
+  const btnContainer = sidebar.querySelector('.sidebar-control')
+  btnContainer.querySelector('button[name="add"]').addEventListener('click', createTarget)
+  btnContainer.querySelector('button[name="visibility"]').addEventListener('click', toggleVisibility)
 
   // Add saved targets
   const savedTargets = localStorage.playerTouchTargets
