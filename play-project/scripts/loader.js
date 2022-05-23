@@ -23,7 +23,7 @@ const AE_MOD = {
       a = JSON.parse(a.replace(/"_data"/g, b).replace(/"_data_escaped"/g, JSON.stringify(b)))
       a.args = a.args || []
     } catch (e) {
-      console.error('Invalid webplayer action:' + a)
+      console.error('Invalid webplayer action:' + a, b)
       return
     }
     switch (a.name) {
@@ -315,15 +315,16 @@ const AE_MOD = {
       // New Multiplayer Actions
       case 'socket-create':
       case 'socket-join':
+      case 'socket-leave':
       case 'socket-read':
       case 'socket-write':
+      case 'socket-room':
       case 'socket-playerdata':
-      case 'socket-leave':
         if (!isTrusted) {
           alert('Cannot join session: untrusted code execution')
           return 0
         }
-        return multiplayerActionHandler(a, b, c)
+        try { return AE_MOD.multiplayerActionHandler(a, b, c) || 0 } catch (e) { return 0 }
       default:
         console.error('Unknown webplayer action:', a)
     }
