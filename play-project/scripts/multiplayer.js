@@ -147,7 +147,7 @@
       if (this.socket) this.socket.disconnect()
       this.connect('create-room')
       this.socket.on('create-response', msg => {
-        if (!msg.success) return
+        if (!msg.success) return alert(msg.message)
         if (msg.room_id) this.joinedRoomId = msg.room_id
         this.room = msg.data
         const code = msg.room_id.replace(/^[\w-]+_/, '')
@@ -159,7 +159,7 @@
       if (this.socket) this.socket.disconnect()
       this.connect('join-room', roomId)
       this.socket.on('join-response', msg => {
-        if (!msg.success) return
+        if (!msg.success) return alert(msg.message)
         if (msg.room_id) this.joinedRoomId = msg.room_id
         this.room = msg.data
         console.log(msg)
