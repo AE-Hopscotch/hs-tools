@@ -375,9 +375,9 @@ const AE_MOD = {
 }
 
 // Load HS Project
-let BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/'
-let HS_INDEX_PATH = 'https://d3nbkco6xo1vz0.cloudfront.net/production/'
-let HS_WEBPLAYER_VERSION = AE_MOD.playerVersion
+window.BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/'
+window.HS_INDEX_PATH = 'https://d3nbkco6xo1vz0.cloudfront.net/production/'
+window.HS_WEBPLAYER_VERSION = AE_MOD.playerVersion
 function init () {
   AE_MOD.initiated = true
   AE_MOD.customCustomObjects = []
