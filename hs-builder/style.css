@@ -777,7 +777,7 @@ html.dark-mode .resize-drag {
 }
 .drag-handle {
 	width: 100%;
-	position: fixed;
+	position: absolute;
 	display: block;
 	top: 0; left: 0;
 	background-color: rgba(80,80,80,0.8);
