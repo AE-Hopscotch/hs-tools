@@ -195,6 +195,9 @@ form table th:first-child {
 .blockColor.var   { --col-block: #e7b601; }
 .blockColor.ctrl  { --col-block: #3e83be; }
 .blockColor.old   { --col-block: #647f96; }
+.blockColor.math  { --col-block: #733977; }
+.blockColor.cnd   { --col-block: #be2961; }
+.blockColor.rule  { --col-block: #be2961; }
 
 /* Cards */
 .card {

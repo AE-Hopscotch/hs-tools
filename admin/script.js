@@ -12,6 +12,7 @@ authMenuItem.addEventListener('click', function () {
 // Handle Blocks
 const blockContainer = document.getElementById('api-blocks-container')
 function refreshBlocks () {
+  const previousScroll = blockContainer.scrollTop
   blockContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/hopscotch-data/blocks', function (r, s) {
     let response = []
@@ -31,12 +32,14 @@ function refreshBlocks () {
         fillForm(blocksForm, block)
       })
     })
+    blockContainer.scrollTop = previousScroll
   }, 0)
 }
 
 // Handle Videos
 const videoContainer = document.getElementById('api-videos-container')
 function refreshVideos () {
+  const previousScroll = videoContainer.scrollTop
   videoContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/videos', function (r, s) {
     let response = []
@@ -66,12 +69,14 @@ function refreshVideos () {
         videosForm.querySelector('video').src = video.url
       })
     })
+    videoContainer.scrollTop = previousScroll
   }, 0, null, { 'api-token': passField.value })
 }
 
 // Handle Filter Entries
 const filterContainer = document.getElementById('api-filter-container')
 function refreshFilter () {
+  const previousScroll = filterContainer.scrollTop
   filterContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/filter/entries', function (r, s) {
     let response = []
@@ -101,12 +106,14 @@ function refreshFilter () {
         fillForm(filterForm, entry)
       })
     })
+    filterContainer.scrollTop = previousScroll
   }, 0, null, { 'api-token': passField.value })
 }
 
 // Handle Channels
 const channelsContainer = document.getElementById('api-channels-container')
 function refreshChannels () {
+  const previousScroll = channelsContainer.scrollTop
   channelsContainer.innerHTML = ''
   XHR.requestExt('GET', endpoint + '/admin/video-channels/', function (r, s) {
     let response = []
@@ -132,6 +139,7 @@ function refreshChannels () {
         fillForm(channelsForm, channel)
       })
     })
+    channelsContainer.scrollTop = previousScroll
   }, 0, null, { 'api-token': passField.value })
 }
 
