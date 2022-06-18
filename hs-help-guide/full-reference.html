@@ -310,12 +310,15 @@
 					c.parentNode.style.display = c.title.toLowerCase().includes(document.querySelector("input").value.toLowerCase()) ? "block" : c.parentNode.style.display;
 				});
 			}
-      function iconDetails (type) {
-        switch (type) {
+      function iconDetails (item) {
+        if (item.id >= 2500 && item.id < 3000) return { icon: 'info-circle', title: 'user trait', prefix: '\uD83D\uDCF1 ' }
+        if (item.id >= 3000 && item.id < 4000) return { icon: 'info-circle', title: 'stage trait', prefix: '\u25B6\uFE0F ' }
+        switch (item.type) {
           case 'cnd': return { icon: 'question-circle', title: 'conditional', class: 'rule' }
           case 'unknown': return { icon: 'square', title: 'unknown'}
           case 'math': return { icon: 'terminal', title: 'math operator' }
           case 'abl': return { icon: 'cubes', title: 'method block', class: 'abl' }
+          case 'otr': return { icon: 'info-circle', title: 'object trait' }
           default: return { icon: 'cubes', title: 'method block' }
         }
 
@@ -323,15 +326,15 @@
 			XHR.get("https://hs-tools-api.up.railway.app/hopscotch-data/blocks",function(r) {
 				JSON.parse(r).sort((a, b) => a.id - b.id).forEach(item => {
           var div = document.createElement("div");
-          const details = iconDetails(item.type)
+          const details = iconDetails(item)
 					div.setAttribute("class", details.class || item.type);
 					div.innerHTML = `<span class="num">${item.id}</span>
             <i title="${details.title}" class="fa type-icon fa-${details.icon}"></i>
-            <span class="name">${item.name.replace(/of this object| \/ ability/i, '')}</span>`;
+            <span class="name">${item.prefix || ''}${item.name.replace(/of this object| \/ ability/i, '')}</span>`;
 					document.querySelector(".flex").appendChild(div);
 				});
-				var type = 2;
-				for (i = 2e3; i < 10e3; i++) {
+				var type = 5;
+				for (i = 5000; i < 10e3; i++) {
 					var item = blockLabels[i];
 					type = type||0;
 					var name = 
@@ -350,7 +353,7 @@
 					switch (i) {
 						// case 239: i = 1e3-1; type = 1; break;
 						// case 1008: i = 2e3-1; type = 2; break;
-						case 2017: i = 2499; type = 3; break;
+						// case 2017: i = 2499; type = 3; break;
 						case 2507: i = 3e3-1; type = 3; break;
 						case 3008: i = 5e3-1; type = 5; break;
 						// case 4019: i = 5e3-1; type = 5; break;

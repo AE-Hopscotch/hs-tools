@@ -56,16 +56,26 @@
         <input name="label" type="text" placeholder="Repeat Forever">
         <span class="label">Type</span>
         <select name="type">
-          <option value="ctrl">Control (ctrl)</option>
-          <option value="move">Movement (move)</option>
-          <option value="draw">Drawing (draw)</option>
-          <option value="looks">Looks (looks)</option>
-          <option value="var">Variable (var)</option>
-          <option value="old">Non-editor (old)</option>
-          <option value="cnd">Conditional (cnd)</option>
-          <option value="math">Math (math)</option>
-          <option value="rule">Rule (rule)</option>
-          <option value="">Other, i.e. ability ()</option>
+          <optgroup label="Method Blocks">
+            <option value="ctrl">Control (ctrl)</option>
+            <option value="move">Movement (move)</option>
+            <option value="draw">Drawing (draw)</option>
+            <option value="looks">Looks (looks)</option>
+            <option value="var">Variable (var)</option>
+            <option value="old">Non-editor (old)</option>
+            <option value="">Other, i.e. ability ()</option>
+          </optgroup>
+          <optgroup label="Operator Blocks">
+            <option value="cnd">Conditional (cnd)</option>
+            <option value="math">Math (math)</option>
+            <option value="rule">Rule (rule)</option>
+            <option value="rcol">Color Operator (rcol)</option>
+            <option value="txt">Text Operator (txt)</option>
+          </optgroup>
+          <optgroup label="Data Blocks">
+            <option value="otr">Object Trait (otr)</option>
+            <option value="ptr">Event / Variable Parameter (ptr)</option>
+          </optgroup>
           <option value="unknown">Unknown</option>
         </select>
         <span class="label">Availability</span>

@@ -198,6 +198,7 @@ form table th:first-child {
 .blockColor.math  { --col-block: #733977; }
 .blockColor.cnd   { --col-block: #be2961; }
 .blockColor.rule  { --col-block: #be2961; }
+.blockColor.otr   { --col-block: #f9ad1e; }
 
 /* Cards */
 .card {
