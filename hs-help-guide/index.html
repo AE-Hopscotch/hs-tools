@@ -96,7 +96,10 @@
 				display: block;
 				max-width: 580px;
 			}
-			
+
+      .flex-container {
+        flex-basis: 250px;
+      }
 			.flex-container h2 {
 				margin: auto;
 				text-align: center;
@@ -120,16 +123,21 @@
 				font-size: 18px;
 				transition: opacity 0.5s;
 				height: 42px;
+        padding: 12px;
+        max-width: none;
 			}
 			
 			.header bl:not(.fa):not([type=dotted]) {
 				padding: 10px;
 			}
+			.header bl:not(.fa)[type=dotted] {
+				padding: 8px;
+			}
 			
 			.header a bl:hover {
 				opacity: 0.7;
 			}
-      .info bl {
+      .info > bl {
         margin-top: 40px;
         box-sizing: content-box;
       }
