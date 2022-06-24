@@ -51,7 +51,7 @@
           // dict is the current item
           switch (command[1]) {
             case 'sort': {
-              // <sort:direction:criteria:index>
+              // <sort:direction:criteria?:index>
               if (typeof dict !== 'object') return dict
               const entries = Object.entries(dict)
                 .sort((a, b) => compare(a[1], b[1]) * (command[2] === 'desc' ? -1 : 1))
@@ -206,6 +206,7 @@
         SessionHandler.createRoom()
         break
       case 'socket-join': {
+        // [0] Join Code
         let code = String(args[0] || '')
         if (!code) code = (prompt('Enter Session ID:') || '').toLowerCase().replace(/[\s\-.#$[\]]/g, '')
         SessionHandler.joinRoom(code)
@@ -226,7 +227,6 @@
         if (!SessionHandler.socket) return
         const rootPath = NestedPath.room(args[0], args[1])
         NestedPath.write(SessionHandler.room, rootPath, args[2])
-        console.log(rootPath)
         SessionHandler.socket.emit('data-update', {
           type: args[2] === undefined ? 'delete' : 'set',
           path: rootPath,
