@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Judging</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <dialog id="open-dialog">
+    <form method="dialog">
+      <label for="od-accessCode">Access Code</label>
+      <p class="field-description">(If required by judging host)</p>
+      <input id="od-accessCode" name="access_code" type="password">
+
+      <label for="od-editCode">Edit Code</label>
+      <p class="field-description">(If editing a previous submission)</p>
+      <input id="od-editCode" name="edit_code" type="text">
+
+      <label for="">
+        <button>Start Judging</button>
+      </label>
+    </form>
+  </dialog>
+  <div class="iframe-container">
+    <iframe src="about:blank" frameborder="0"></iframe>
+  </div>
+  <template id="thumbnail-template">
+    <div class="item">
+      <img src="">
+      <div class="criteria-overview"></div>
+    </div>
+  </template>
+  <div class="side-panel-top">
+  </div>
+  <div class="side-panel-bottom">
+    <div class="wrapper" hidden>
+      <h2>Project</h2>
+      <a class="hs-toggle" href="javascript:void(0)">View Code</a> |
+      <a class="hs-app-link" href="hssampleproject://">Open in Hopscotch</a>
+      <br>
+      <template id="criteria-template">
+        <tr data-criteria-id>
+          <td data-criteria-name>
+            <span class="cr-symbol"></span>
+            <span class="cr-name"></span>
+          </td>
+          <td data-criteria-max>10</td>
+          <td>
+            <input class="fs-input" type="number" inputmode="numeric" max="10" required placeholder=" ">
+          </td>
+        </tr>
+      </template>
+      <table id="criteria-table">
+        <thead>
+          <tr>
+            <th>Criteria</th>
+            <th>Max</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <button id="skip-btn">Skip <i class="fa fa-fast-forward"></i></button>
+      <button id="dq-btn">Disqualify <i class="fa fa-ban"></i></button>
+    </div>
+    <div class="controls">
+      <button class="wrapper-btn" id="prev-btn">
+        <i class="fa fa-fw fa-chevron-left button"></i>
+      </button>
+      <span>
+        <span class="project-index"></span> /
+        <span class="project-count"></span>
+      </span>
+      <button class="wrapper-btn" id="next-btn">
+        <i class="fa fa-fw fa-chevron-right button"></i>
+      </button>
+    </div>
+  </div>
+  <dialog id="submit-dialog">
+    <form method="dialog">
+      <label for="sd-username">Username</label>
+      <input id="sd-username" name="username" type="text" required>
+
+      <label class="inline">
+        Save a copy?
+        <input id="sd-savecopy" name="save-copy" type="checkbox">
+      </label>
+
+      <label for="">
+        <button id="sd-cancel" value="cancel" type="button">Cancel</button>
+        <button value="confirm">Submit</button>
+      </label>
+    </form>
+  </dialog>
+</body>
+</html>
