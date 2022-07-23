@@ -222,6 +222,12 @@ button[disabled] {
   text-align: center;
 }
 
+#fd-code {
+  text-decoration: 1.2px underline dotted;
+  user-select: all;
+  cursor: text;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     background-color: black;

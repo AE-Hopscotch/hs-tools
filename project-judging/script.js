@@ -94,7 +94,8 @@ function loadJudging (data) {
 
   // Set global variables
   projectCriteria = criteria
-  projectList = data.projects.map(p => {
+  projectList = projects.map(p => {
+    if (p.scores) return p
     p.skipped = p.disqualified = false
     p.scores = Object.fromEntries(criteria.map(c => [c.slug, '-']))
     return p
@@ -217,6 +218,8 @@ submitDialog.querySelector('form').addEventListener('submit', e => {
   }).then(x => x.json())
     .then(data => {
       editCode = data.submission.id
+      document.getElementById('fd-code').innerText = editCode
+      document.getElementById('finish-dialog').showModal()
     })
 })
 document.getElementById('sd-cancel').addEventListener('click', () => {
