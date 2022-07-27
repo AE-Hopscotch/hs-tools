@@ -72,10 +72,10 @@ button {
   transition: opacity 0.2s;
   cursor: pointer;
 }
-button:hover {
+button:not(.selected):hover {
   opacity: 0.8;
 }
-button:active {
+button:not(.selected):active {
   opacity: 0.5;
 }
 button[disabled] {

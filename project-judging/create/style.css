@@ -1,0 +1,132 @@
+div.criterium {
+  width: calc(100% - 16px);
+  margin-block: 20px;
+  outline: 2px solid #8884;
+  outline-offset: 0;
+  padding: 8px;
+}
+div.criterium input {
+  margin-top: 4px;
+}
+div.criterium > .input-wrapper:not(:nth-child(4)) {
+  display: inline-block;
+}
+div.criterium > .input-wrapper:nth-child(4n + 1) {
+  --input-wrapper-child-width: 100%;
+  width: 60%;
+}
+div.criterium > .input-wrapper:is(:nth-child(4n + 2), :nth-child(4n + 3)) {
+  --input-wrapper-child-width: 100%;
+  width: calc(20% - 5px);
+}
+div.criterium > .input-wrapper:nth-child(4n + 4) {
+  --input-wrapper-child-width: 100%;
+  width: 100%;
+}
+@media (max-width: 560px) {
+  div.criterium {
+    flex-direction: column;
+  }
+  div.criterium > div.input-wrapper:nth-child(n) {
+    width: 100%;
+    --input-wrapper-child-width: 100%;
+  }
+}
+
+button {
+  color-scheme: dark light;
+  padding: 8px 12px;
+  background-color: #eee;
+  color: inherit;
+  border: none;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+button:hover {
+  opacity: 0.8;
+}
+button:active {
+  opacity: 0.5;
+}
+
+
+dialog {
+  border-color: #666;
+  text-align: center;
+  max-width: calc(100% - 64px);
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+dialog h2 {
+  margin-block: 4px 0.5em;
+}
+dialog p {
+  margin-block: 0.4em;
+}
+dialog progress {
+  width: 100%;
+}
+
+progress {
+  margin-bottom: 8px;
+  width: 80%;
+  height: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  /* Firefox reads these traits */
+  -moz-appearance: none;
+  border-radius: 100px;
+  background-color: #fafafa;
+  border: none;
+  overflow: hidden;
+}
+progress::-webkit-progress-bar {
+  border-radius: 100px;
+  background-color: #fafafa;
+  overflow: hidden;
+}
+progress::-webkit-progress-value {
+  background-color: #333;
+  border-radius: 0px;
+  transition: 0.75s;
+}
+::-moz-progress-bar {
+  appearance: none;
+  -moz-appearance: none;
+  background-color: #333;
+  border-radius: 0px;
+  transition: 0.75s;
+}
+
+#completion-dialog > p:nth-child(3) > span {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.copyable-link {
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: 6px auto;
+}
+.copyable-link::after {
+  content: '\f0c1';
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: 4px;
+}
+#copytext {
+  position: fixed;
+  top: -1000px;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  button {
+    background-color: #444;
+  }  
+}

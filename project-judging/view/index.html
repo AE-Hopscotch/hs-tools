@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Judging Results</title>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+  <link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+  <link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="../md5.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <dialog id="open-dialog">
+    <form method="dialog">
+      <label for="od-accessCode">Access Code</label>
+      <p class="field-description">(If required by judging host)</p>
+      <input id="od-accessCode" name="access_code" type="password">
+
+      <label for="">
+        <button>Show Results</button>
+      </label>
+    </form>
+  </dialog>
+
+  <div class="top-fixed">
+    <div>
+      <span class="large-screen">Viewing Results for</span>
+      <b id="event-name"></b>
+    </div>
+    <div>
+      Sort by:
+      <select id="sort-selection">
+        <option value="projects">Projects</option>
+        <option value="categories">Categories</option>
+      </select>
+    </div>
+    <div>
+      <a id="spreadsheet-download-link">
+        <i class="fa fa-fw fa-download"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="data-container"></div>
+  
+  <div class="bottom-fixed"></div>
+
+</body>
+</html>

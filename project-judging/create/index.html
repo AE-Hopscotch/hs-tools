@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Event Judging</title>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/hs-tools/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hs-tools/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hs-tools/icons/favicon-16x16.png">
+  <link rel="manifest" href="/hs-tools/icons/site.webmanifest">
+  <link rel="mask-icon" href="/hs-tools/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/hs-tools/icons/favicon.ico">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="../md5.js" defer></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    /* SAME AS HS TOOLS API FORM */
+    :root {
+      --input-wrapper-child-width: 65%;
+      background-color: #faf3cd;
+    }
+    body, input {
+      font-size: 16px;
+    }
+    * {
+      font-family: 'Arial', sans-serif;
+    }
+    h1 {
+      font-size: 1.67em;
+    }
+
+    form {
+      width: 640px;
+      max-width: calc(100% - 16px);
+      margin: auto;
+    }
+    div.label {
+      margin: 0 0 10px;
+    }
+
+    div.item-container {
+      max-width: 80vw;
+      margin: 16px 0;
+      display: block;
+      padding: 30px 40px;
+      box-shadow: 0 0 1px 0px #e6c10b;
+      border-radius: 8px;
+      background-color: white;
+    }
+    .item-container.header {
+      border-top: 10px solid #e6c10b;
+    }
+    .input-wrapper {
+      position: relative;
+    }
+    .input-wrapper::before {
+      content: ' ';
+      width: 0;
+      height: calc(100% - 18px);
+      display: block;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      left: calc(var(--input-wrapper-child-width) / 2);
+      transform: translateX(-50%);
+      border-bottom: 2.5px solid #e6c10b;
+      margin: 8px 0;
+      transition: width 0.3s;
+      pointer-events: none;
+    }
+    .input-wrapper:focus-within::before {
+      width: var(--input-wrapper-child-width);
+    }
+    .input-wrapper input, .input-wrapper textarea {
+      width: var(--input-wrapper-child-width);
+      margin: 8px 0;
+      padding: 8px 0;
+      border: none;
+      border-radius: 0;
+      border-bottom: 2px solid #aaa8;
+      position: relative;
+      outline: none;
+      -webkit-appearance: none;
+      color: inherit;
+      background-color: inherit;
+    }
+    input[type="submit"] {
+      /* --saturation: 78%;
+      --brightness: 20%;
+      background-color: hsl(173, var(--saturation), var(--brightness)); */
+      --saturation: 91%;
+      --brightness: 47%;
+      background-color: hsl(50, var(--saturation), var(--brightness));
+      padding: 12px 16px;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 0 1px 0px #888;
+      -webkit-appearance: none;
+      cursor: pointer;
+      transition: background-color 0.25s;
+    }
+    input[type="submit"]:hover {
+       --saturation: 70%;
+       --brightness: 50%;
+    }
+    input[type="submit"]:active {
+       --saturation: 70%;
+       --brightness: 70%;
+    }
+    @media only screen and (max-width: 560px) {
+      :root {
+        --input-wrapper-child-width: 100%;
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        background-color: #131516;
+        color: #ddd;
+      }
+      div.item-container, input[type="text"] {
+        background-color: #111a1a;
+      }
+      input[type="submit"]:hover {
+        --saturation: 60%;
+        --brightness: 18%;
+      }
+      input[type="submit"]:active {
+        --saturation: 40%;
+        --brightness: 15%;
+      }
+    }
+    /* END COPIED CSS */
+    .item-container i {
+      opacity: 0.6;
+    }
+    .input-wrapper textarea {
+      font-size: 16px;
+      height: 24px;
+      line-height: 24px;
+      resize: none;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <noscript>This page requires JavaScript</noscript>
+  <form>
+    <div class="item-container header">
+      <h1>Create Event Judging</h1>
+    </div>
+    <div class="item-container">
+      <div class="label">Event Name</div>
+      <div class="input-wrapper">
+        <input type="text" name="title" placeholder="Hopscotch Gaming Competition" required><br>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="label">Access Code (optional)</div>
+      <i>The code required to add a judging submission</i>
+      <div class="input-wrapper">
+        <input type="text" name="accessCode" value="" placeholder="Password"><br>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="label">Viewing Code (optional)</div>
+      <i>The code required to view judging the results</i>
+      <div class="input-wrapper">
+        <input type="text" name="viewingCode" value="" placeholder="Password"><br>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="label">Judging Criteria</div>
+      <template id="criteria-template">
+        <div class="criterium">
+          <div class="input-wrapper">
+            <input type="text" placeholder="Name" data-role="name" required>
+          </div>
+          <div class="input-wrapper">
+            <input type="text" placeholder="Symbol ✨" data-role="symbol" required maxlength="6">
+          </div>
+          <div class="input-wrapper">
+            <input type="number" placeholder="Max" data-role="max" required min="1">
+          </div>
+          <div class="input-wrapper">
+            <input type="text" placeholder="Description" data-role="description" required><br>
+          </div>
+        </div>
+      </template>
+      <button type="button" id="add-criteria-button">Add Criteria</button>
+    </div>
+    <div class="item-container">
+      <div class="label">Project Links</div>
+      <div class="input-wrapper">
+        <textarea inputmode="url" name="projects" placeholder="Paste 1 project link per line" required></textarea><br>
+      </div>
+    </div>
+    <input type="submit" value="Create Event Judging">
+  </form>
+  <br>
+
+  <dialog id="submission-progress">
+    <h2>Submission Progress</h2>
+    <p>Retrieving project titles... (<span name="completed">0</span>/<span name="total">0</span>)</p>
+    <progress value="0"></progress>
+  </dialog>
+
+  <dialog id="completion-dialog">
+    <h2>Event Judging Created</h2>
+
+    <br>
+    <p>
+      <button class="copyable-link" id="cd-judgingLink">Copy Score Submission Link</button>
+      <span>Access Code: <span id="cd-accessCode"></span></span>
+    </p>
+    
+    <p>
+      <button class="copyable-link" id="cd-resultsLink">Copy Results Viewing Link</button>
+      <span>Viewing Code: <span id="cd-viewingCode"></span></span>
+    </p>
+
+    <br>
+
+    <h2>Spreadsheet Downloads</h2>
+    <p style="max-width:350px">Note: ANYONE with acccess to these links can download the spreadsheet, <i>even if they do not have the viewing code</i>.</p>
+    
+    <br>
+
+    <p>
+      <button class="copyable-link" id="cd-projectScoresheetLink">Copy Project Scores Link</button>
+    </p>
+    <p>
+      <button class="copyable-link" id="cd-categoryScoresheetLink">Copy Category Scores Link</button>
+    </p>
+    <br>
+    <textarea id="copytext" tabindex="-1"></textarea>
+  </dialog>
+</body>
+</html>
