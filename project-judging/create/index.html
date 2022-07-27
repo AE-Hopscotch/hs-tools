@@ -120,19 +120,22 @@
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        background-color: #131516;
+        background-color: #090808;
         color: #ddd;
       }
       div.item-container, input[type="text"] {
-        background-color: #111a1a;
+        background-color: #100f0a;
+      }
+      input[type="submit"] {
+        --brightness: 32%;
       }
       input[type="submit"]:hover {
-        --saturation: 60%;
-        --brightness: 18%;
+        --saturation: 70%;
+        --brightness: 30%;
       }
       input[type="submit"]:active {
-        --saturation: 40%;
-        --brightness: 15%;
+        --saturation: 60%;
+        --brightness: 20%;
       }
     }
     /* END COPIED CSS */
