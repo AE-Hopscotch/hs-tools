@@ -72,7 +72,8 @@ function downloadProjectScreenshot () {
   const img2 = new Image(); img2.src = document.querySelector('img[name="foreground"]').src
   // Original Opacity so that the user can still play
   AE_MOD.context.screenshot.style.opacity = 0
-  AE_MOD.context.canvas.style.opacity = 1
+  const foreground = AE_MOD.context.foreground || AE_MOD.context.canvas
+  foreground.style.opacity = 1
   img2.onload = function () {
     // Adjust canvas size
     canvasElm.style.width = scContainer.style.width = getComputedStyle(bgImg).width
