@@ -50,6 +50,7 @@ const blockLabels = {
   67: ['looks', 'Set Instrument', ''],
   68: ['ctrl', 'Open Project', ''],
   69: ['ctrl', 'Comment', ''],
+  70: ['looks', 'Set Background', 'color'],
   120: ['ctrl', 'Repeat', 'times'],
   121: ['ctrl', 'Repeat Forever'],
   122: ['ctrl', 'Check Once If', ''],
