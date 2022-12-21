@@ -360,7 +360,7 @@ var XHR = {
 			.then(data => fn(data.contents, data.status.http_code))
 			.catch(() => fn(null, 521));
 	},
-	requestExt: function(method, url, callback, proxy, data, headers) {
+	requestExtOLD: function(method, url, callback, proxy, data, headers) {
 		proxy = proxy || 0;
 		let proxyUrls = ["", "all", location.protocol+"//api.allorigins.win/get?t="+Date.now()+"&url=", /*location.protocol+"//cors-anywhere.herokuapp.com/",*/ location.protocol+"//api.codetabs.com/v1/proxy?quest=", location.protocol+"//enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
 		if (proxy === 2 && method == "GET") method = "fetch";
@@ -391,7 +391,43 @@ var XHR = {
 		} else {
 			sendRequest(url, callback);
 		}
-	}
+	},
+  requestExt: async function (method, url, callback, proxy, data, headers) {
+    proxy = proxy || 0
+    const proxyList = [
+      '',
+      'all',
+      'https://corsproxy.io/?',
+      'https://api.codetabs.com/v1/proxy?quest=',
+      'https://enw6yiuqc2jyb5w.m.pipedream.net/cors/'
+    ]
+    if (proxy !== 1) {
+      const encoded = proxy === 2 ? encodeURIComponent(url) : url
+      fetch(proxyList[proxy] + encoded, {
+        method,
+        body: method === 'GET' ? undefined : data,
+        headers
+      }).then(async x => [await x.text(), x.status])
+        .then(([text, status]) => callback(text, status))
+        .catch(() => callback(null, 521))
+      return
+    }
+
+    for (base of proxyList.slice(2)) {
+      let error
+      const query = base === proxyList[2] ? encodeURIComponent(url) : url
+      const response = await fetch(base + query, {
+        method,
+        body: method === 'GET' ? undefined : data,
+        headers
+      }).then(async x => [await x.text(), x.status])
+        .catch(e => error = e)
+      if (!response || error) continue
+      return callback(response[0], response[1])
+    }
+    // All options failed
+    callback(null, 521)
+  }
 }
 
 function storageAccess() {
