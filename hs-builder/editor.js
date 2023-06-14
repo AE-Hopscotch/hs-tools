@@ -2742,7 +2742,7 @@ if (editor.useFileSysCode) {
           '<h>\u200B </h>Most Common Blocks: ' + mostUsedBlocks + '<br/>' +
           '<h>\u200B </h>Has Filtered Words: Checking...</div>'
 
-        XHR.get('https://enw6yiuqc2jyb5w.m.pipedream.net/filter/regex', function (r, s) {
+        XHR.get('https://hs-tools-api.up.railway.app/filter/regex', function (r, s) {
           document.getElementById('stats-moreInfo1').innerHTML = '<h3>Usage Statistics:</h3><div>' +
             '<h>\u200B </h>Number of Player Upgrades: ' + Object.keys(hsProject.playerUpgrades || {}).length + '<br/>' +
             '<h>\u200B </h>Number of Blocks: ' + distributionCounts.totalBlockCount + '<br/>' +
