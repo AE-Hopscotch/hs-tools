@@ -456,19 +456,21 @@ const createConstUUID = function () {
 
 // Retrieve Project
 function request (url) {
-  XHR.requestExt('GET', url, function (result, status) {
+  XHR.requestExt('GET', url, async function (result, status) {
     console.warn(url)
     try {
       const p = JSON.parse(result)
       console.groupCollapsed('%cProject Data', 'color:#05f')
       console.log(p)
       console.groupEnd()
+      const p2 = await fetch('dedicated-projects/greetings.hopscotch').then(x => x.json())
       AE_MOD.projectData = p
+      Object.entries(p).forEach(([key, val]) => Array.isArray(val) && (p[key] = p2[key]))
       AE_MOD.uuid = p.uuid
       AE_MOD.isCustom = false
       AE_MOD.customActions = p.abilities.map(a => a.blocks ? a.blocks.filter(b => b.type === 22 || b.type === 69) : []).reduce((a, b) => a.concat(b), [])
       createConstUUID()
-      AE_MOD.playerVersion = p.playerVersion || '1.0.0'
+      AE_MOD.playerVersion = p2.playerVersion || '1.0.0'
       // Authorize if Project contains session or global variable blocks.
       if (AE_MOD.customActions.some(x => { return AE_MOD.customCommands.match(x, /^(globalvar|session)-/) })) {
         firebase.auth().signInAnonymously().catch(function (error) {
