@@ -134,68 +134,6 @@
 						}
 						try {return maskedEval(a.args.join(""));}catch(e){return 0;}
 						break;
-					case "globalvar-load":
-						if (!a.args[0] && a.args[0] !== 0) break; //No Empty Keys
-						//AE_MOD.globalvars[a.args[0]] = NaN;
-						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/get?access_token=aehstools&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
-							try {
-								JSON.parse(r);
-								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-							} catch (e) {/* Bad JSON */ AE_MOD.globalvars[a.args[0]] = "__ERR_CANNOT_GET"}
-						})
-						break;
-					case "globalvar-read":
-						return AE_MOD.globalvars[a.args[0]];
-						break;
-					case "globalvar-write":
-						XHR.requestExt("GET","https://enbvba4agagutp9.m.pipedream.net/aehstools/set?access_token=aehstools&value="+a.args[1]+"&key="+(AE_MOD?.projectData?.user?.id||-1)+"-"+(a.args[0]||""),function(r,s){
-							try {
-								JSON.parse(r);
-								AE_MOD.globalvars[a.args[0]] = JSON.parse(r).value;
-							} catch (e) {/* Bad JSON */}
-						})
-						break;
-					case "url-iframe":
-						function onList(hostname){
-							return !!hostname.match(new RegExp("^("+AE_MOD.approvedHostList.join("|").replace(/\*/g,".*?")+")$"));
-						}
-						if (a.args[0]) {
-							try {
-								host = new URL(a.args[0]).host;
-								origin = new URL(a.args[0]).origin;
-								if (host && !onList(host)) {
-									if (AE_MOD.pendingHostList.indexOf(origin) == -1) AE_MOD.pendingHostList.push(origin);
-									return alert("This URL has not been approved");
-								}
-							} catch (e) {return alert("Invalid URL")}
-							let parentDiv = document.getElementById("projectIframeDiv");
-							let iframe = parentDiv.querySelector("iframe") || document.createElement("iframe");
-							iframe.src = (a.args[0].match(/^https?:\/\/.*?\.github\.io|data:/))?a.args[0]:"https://api.allorigins.win/raw?url="+encodeURIComponent(a.args[0]);
-							parentDiv.appendChild(iframe);
-							parentDiv.style.bottom = 0;
-							if (!parentDiv.querySelector("button").onclick) parentDiv.querySelector("button").onclick = function(){
-								parentDiv = document.getElementById("projectIframeDiv");
-								parentDiv.style.bottom = "-100vh";
-								setTimeout(()=>{parentDiv.querySelector("iframe").remove();},1000);
-							}
-						}
-						break;
-					case "url-goto":
-						function onList(hostname){
-							return !!hostname.match(new RegExp("^("+AE_MOD.approvedHostList.join("|").replace(/\*/g,".*?")+")$"));
-						}
-						if (a.args[0]) {
-							try {
-								host = new URL(a.args[0]).host;
-								origin = new URL(a.args[0]).origin;
-								if (host && !onList(host)) {
-									if (AE_MOD.pendingHostList.indexOf(origin) == -1) AE_MOD.pendingHostList.push(origin);
-									return alert("This URL has not been approved");
-								}
-							} catch (e) {return alert("Invalid URL")}
-							location.href = a.args[0];
-						}
-						break;
 					case "achievement":
 						var target = document.getElementById("achievement-banner");
 						target.innerHTML = "";
@@ -248,9 +186,7 @@
 				};
 			});
 			delete AE_MOD.customCustomObjects;
-			if (AE_MOD.moddedActions.hasUrl) XHR.requestExt("GET","https://enw6yiuqc2jyb5w.m.pipedream.net/play-project/approved-urls",function(r){
-				try{AE_MOD.approvedHostList=JSON.parse(r)}catch(e){}
-			});
+
 			document.getElementById('hopscotch-link').href = "javascript:showInfo();"//;"javascript:if(confirm('Are you sure you want to submit this screenshot?'))submitScreenshot();";//"https://c.gethopscotch.com/p/" + AE_MOD.uuid;
 			document.getElementById('hopscotch-link').addEventListener('touchend',function(){showInfo()});
 			//document.getElementById('hopscotch-link').style.display = "none"; //Hide until the run starts
