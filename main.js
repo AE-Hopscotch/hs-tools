@@ -360,38 +360,6 @@ var XHR = {
 			.then(data => fn(data.contents, data.status.http_code))
 			.catch(() => fn(null, 521));
 	},
-	requestExtOLD: function(method, url, callback, proxy, data, headers) {
-		proxy = proxy || 0;
-		let proxyUrls = ["", "all", location.protocol+"//api.allorigins.win/get?t="+Date.now()+"&url=", /*location.protocol+"//cors-anywhere.herokuapp.com/",*/ location.protocol+"//api.codetabs.com/v1/proxy?quest=", location.protocol+"//enw6yiuqc2jyb5w.m.pipedream.net/cors/"]
-		if (proxy === 2 && method == "GET") method = "fetch";
-		function sendRequest(url, cb){
-			if (method == "fetch" || url.match(/^https?:\/\/api.allorigins/)) {
-				fetch(proxy > 1 ? proxyUrls[proxy] + url : url, {
-					method: method == "fetch" ? "GET" : method,
-					body: data,
-					headers: headers
-				}).then(response => {
-						if (response.ok) return response.json();
-						throw new Error('Network response was not ok.')
-					})
-					.then(data => cb(data.contents, data.status.http_code))
-					.catch(() => cb(null, 521));
-			} else {
-				let xhr = new XMLHttpRequest();
-				xhr.open(method, proxy > 2 ? proxyUrls[proxy] + url : url);
-				xhr.onload = xhr.onerror = xhr.onabort = function(){cb(xhr.responseText, xhr.status)};
-				if (headers) Object.entries(headers).forEach((item) => {
-					xhr.setRequestHeader(item[0], item[1])
-				})
-				xhr.send(data);
-			}
-		}
-		if (proxy === 1) {
-			sendRequest(proxyUrls[2]+url,(r,s)=>{s&&s!=521?callback(r,s,2):sendRequest(proxyUrls[3]+url,(r,s)=>{s&&s!=521?callback(r,s,3):sendRequest(proxyUrls[4]+url,(r,s)=>{s&&s!=521?callback(r,s,4):callback(null, 521)})})});
-		} else {
-			sendRequest(url, callback);
-		}
-	},
   requestExt: async function (method, url, callback, proxy, data, headers) {
     proxy = proxy || 0
     const proxyList = [
@@ -399,7 +367,8 @@ var XHR = {
       'all',
       'https://corsproxy.io/?',
       'https://api.codetabs.com/v1/proxy?quest=',
-      'https://enw6yiuqc2jyb5w.m.pipedream.net/cors/'
+      'https://enw6yiuqc2jyb5w.m.pipedream.net/cors/',
+      'https://api.allorigins.win/raw?url='
     ]
     if (proxy !== 1) {
       const encoded = proxy === 2 ? encodeURIComponent(url) : url
