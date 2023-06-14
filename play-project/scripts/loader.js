@@ -422,9 +422,7 @@ function init () {
   })
   delete AE_MOD.customCustomObjects
   if (AE_MOD.moddedActions.hasUrl) {
-    XHR.requestExt('GET', 'https://enw6yiuqc2jyb5w.m.pipedream.net/play-project/approved-urls', function (r) {
-      try { AE_MOD.approvedHostList = JSON.parse(r) } catch (e) {}
-    })
+    AE_MOD.approvedHostList = ['*.gethopscotch.com', '*.github.io'] // Not being used often; PR to request more
   }
   document.getElementById('hopscotch-link').href = 'https://c.gethopscotch.com/p/' + AE_MOD.uuid
   BASE_IMAGE_URL = 'https://hopscotch-images.s3.amazonaws.com/production/images/project-images/'
@@ -593,7 +591,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 })
 document.body.onunload = function () {
   session.leave()
-  if (AE_MOD.pendingHostList.length > 0) navigator.sendBeacon('https://enw6yiuqc2jyb5w.m.pipedream.net/play-project/approved-urls', JSON.stringify({ urls: AE_MOD.pendingHostList }))
+  // if (AE_MOD.pendingHostList.length > 0) navigator.sendBeacon('https://<PD_HS_TOOLS_URL>/play-project/approved-urls', JSON.stringify({ urls: AE_MOD.pendingHostList }))
 }
 document.body.onblur = function () {
   if (!session.data || !session.gameId || !session.data.users) return
