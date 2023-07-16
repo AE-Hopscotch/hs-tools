@@ -59,10 +59,6 @@
 				font-size: 250%;
 				margin-top: 0;
 			}
-			
-			::-moz-selection {
-			
-			}
 			::selection {
 				background: #11887a;
 				color: #ccc;
@@ -112,7 +108,7 @@
 				background-color: var(--col-card-tab);
 				position: relative;
 				cursor: pointer;
-				transition: height 0.5, background-color var(--time-trans);*/
+				transition: height 0.5, background-color var(--time-trans);
 			}
 						
 			.accordControls::after {
@@ -399,13 +395,5 @@
 			var url = new URL(window.location.href);
 			if (url.searchParams.get("h") != undefined) document.querySelector(".container").style.maxHeight = url.searchParams.get("h") + "px";
 		</script>
-		<div>
-			<script>
-				if (location.protocol == "https:") {
-					document.getElementById("visitCounter").src = "https://api.countapi.xyz/hit/aehstools/webExpAboutVisits/?img";
-				}
-				setTimeout(()=>{document.getElementById("visitCounter").remove()},800);
-			</script>
-		</div>
 	</body>
 </html>

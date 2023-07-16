@@ -404,7 +404,7 @@
 						if (addedResult) {
 							switch (addedResult) {
 								case "web_info":
-									result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+plays+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
+									result = result.replace('"projects":[','"projects":[{"uuid":"ae_web_info","title":"Web Explorer Info","play_count":'+JSON.stringify(plays)+',"correct_published_at":"2020-03-17T20:30:00Z","user":{"id":452673,"nickname":"Awesome_E","created_at":"December 2014","avatar_type":13}},');
 									break;
 								case "user_by_id":
 									result = result.replace('"users":[','"users":['+data.replace(/^\{"nickname/,'{"created_at":"unknown","id":'+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2]+',"nickname')+','); /\}/;
@@ -418,10 +418,8 @@
 						if (showProjects(result) != 'Error') document.getElementById("loadingBear").style.display = "none";
 					}
 					if (/best_of\/.*?page=1/.test(input_url)) {
-						XHR.get("https://api.countapi.xyz/get/aehstools/webExpAboutVisits/",function(r){
-							plays = JSON.parse(r).value;
-							showReq("web_info");
-						}, false)
+            plays = 'N/A';
+            showReq("web_info");
 					} else if (/.*?nickname=[0-9]+&page=1/.test(input_url)) {
 						XHR.fetch("https://c.gethopscotch.com/api/v2/users/"+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2], function(r,s){
 							if (s != 200 || r == "{}") return showReq(false);
