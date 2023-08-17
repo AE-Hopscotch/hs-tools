@@ -302,3 +302,9 @@ h2 {
 #projectScreenshotContainer img {
 	position: absolute;
 }
+@font-face {
+  font-family: 'Avenir-Book';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://corsproxy.io/?https://explore.gethopscotch.com/fonts/Avenir_Roman.woff2') format('woff2');
+}

@@ -216,6 +216,12 @@ const AE_MOD = {
         return dataPiece == null ? 'undefined' : dataPiece
         // return AE_MOD.hs_user_data[a.args[0]] ? (a.args[1]?AE_MOD.hs_user_data[a.args[0]][a.args[1]]||"undefined":AE_MOD.hs_user_data[a.args[0]]) : "";
       }
+      case 'set-project-font': {
+        const fontFamilies = HSTextTextureFactory.FONT_FAMILIES
+        if (fontFamilies[0] === 'Avenir-Book') fontFamilies.unshift('unknown')
+        fontFamilies[0] = a.args[0]
+        return 1
+      }
       case 'session-new': {
         // Args: [0] Max Size
         if (!isTrusted) return alert('Cannot start session: untrusted code execution')
