@@ -88,7 +88,7 @@ function copy(text){
 //Custom Requests
 function sendCustomReq(options, printResult) {
 	var x = new XMLHttpRequest();
-	x.open(options.method, /*'https://cors-anywhere.herokuapp.com/'*/ 'https://api.allorigins.win/raw?url=' + encodeURIComponent(options.url));
+	x.open(options.method, 'https://corsproxy.io/?' + encodeURIComponent(options.url));
 	x.onload = x.onerror = function() {
 		printResult(
 			//options.method + ' ' + options.url + '\n' +
