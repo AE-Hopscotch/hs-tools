@@ -17,14 +17,12 @@ const badges = {
 		"114466":	[4],	//Mathgirl
 		"1919603":	[5],	//MISSION_IMPOSSIBLE
 		"2150931":	[6],	//My_Pizza
-		"3944888":	[4],	//Nobody
 		"670723":	[4,5],	//Petrichor
 		"52351":	[6],	//Pi Studios
 		"282985":	[5],	//PumpkinPi
 		"3203804":	[5],	//Reffy
 		"3707953":	[5],	//Sage
 		"1208670":	[5],	//Silver dolphin
-		"3944888":	[5],	//SportyGeographer
 		"1452218":	[5],	//tankt2016
 		"1957086":	[5],	//tehgreatdoge
 		"2320602":	[6],	//ThinBuffaloSr
@@ -38,12 +36,20 @@ const badges = {
     "1320367": [5], // Swim Girl Studios
     "6094741": [5], // BG Studios
     "1590089": [5], // DylanBarrett
-    "6104137": [5], // Tri-Angle
-    "3944888": [5], // Mr. Incognito
+    "3944888": [4,5], // Mr. Incognito
     "5055355": [5], // Infinite Oboe Studios
     "6337195": [5], // Henry?
     "6120560": [5], // Tb23
-    "2112483": [5] // Dog Icing
+
+    "6539583": [7], // Dragonsarereal
+    "4909654": [6,7], // StarlightStudios
+    "6974631": [7], // _Alboy_
+    "4409849": [6,7], // Spy Guy 96
+    "7000264": [7], // Cobalt_Phoenix
+    "6041788": [7], // Cute little kitty cat 🐈
+    "2112483": [5,7], // Dog Icing
+    "6104137": [5,6], // Tri-Angle
+    "2622605": [6], // Fundardo
 	},
 	"titles": [
 		"The Official Hopscotch Team",
@@ -51,7 +57,8 @@ const badges = {
 		"Earned with ePoints from my challenges",
 		"Contributor to the Hopscotch Tools",
 		"Remembered to wish me a Happy Birthday!",
-		"A top creator in the community"
+		"A top creator in the community",
+    "Padawan, Entered the great maze of -1"
 	]
 }
 

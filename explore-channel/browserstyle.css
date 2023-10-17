@@ -761,6 +761,9 @@ ae[badge='5'] {
 ae[badge='6'] {
 	background-image: url('../images/web-badges/creator.png');
 }
+ae[badge='7'] {
+	background-image: url('../images/web-badges/padawan.png');
+}
 
 /* Reporting Projects */
 .report-project-div {
