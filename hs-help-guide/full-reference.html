@@ -313,10 +313,13 @@
       function iconDetails (item) {
         if (item.id >= 2500 && item.id < 3000) return { icon: 'info-circle', title: 'user trait', prefix: '\uD83D\uDCF1 ' }
         if (item.id >= 3000 && item.id < 4000) return { icon: 'info-circle', title: 'stage trait', prefix: '\u25B6\uFE0F ' }
+        if (item.id >= 7000 && item.id < 8000) return { icon: 'exclamation', title: 'event operator' }
         switch (item.type) {
           case 'cnd': return { icon: 'question-circle', title: 'conditional', class: 'rule' }
           case 'unknown': return { icon: 'square', title: 'unknown'}
           case 'math': return { icon: 'terminal', title: 'math operator' }
+          case 'rcol': return { icon: 'terminal', title: 'color operator' }
+          case 'rule': return { icon: 'list', title: 'rule' }
           case 'abl': return { icon: 'cubes', title: 'method block', class: 'abl' }
           case 'otr': return { icon: 'info-circle', title: 'object trait' }
           default: return { icon: 'cubes', title: 'method block' }
@@ -333,8 +336,8 @@
             <span class="name">${item.prefix || ''}${item.name.replace(/of this object| \/ ability/i, '')}</span>`;
 					document.querySelector(".flex").appendChild(div);
 				});
-				var type = 5;
-				for (i = 5000; i < 10e3; i++) {
+				var type = 7;
+				for (i = 7000; i < 10e3; i++) {
 					var item = blockLabels[i];
 					type = type||0;
 					var name = 

@@ -376,7 +376,6 @@ var XHR = {
       'all',
       'https://corsproxy.io/?',
       'https://api.codetabs.com/v1/proxy?quest=',
-      'https://enw6yiuqc2jyb5w.m.pipedream.net/cors/',
       'https://api.allorigins.win/raw?url='
     ]
     if (proxy !== 1) {
