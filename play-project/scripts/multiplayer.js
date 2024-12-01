@@ -139,11 +139,11 @@
             break
           }
           case 'write': {
-            console.log('self:', message.userId === this.socket.id, message)
+            // console.log('self:', message.userId === this.socket.id, message)
             if (message.userId === this.socket.id) return
             // Write or delete data
             NestedPath[message.data === undefined ? 'delete' : 'write'](SessionHandler.room, message.path, message.data)
-            console.log('data:', SessionHandler.room)
+            // console.log('data:', SessionHandler.room)
             break
           }
         }
@@ -225,12 +225,16 @@
       case 'socket-write': {
         // <0> Player ID, <1> Path, <2> New Value
         if (!SessionHandler.socket) return
-        const rootPath = NestedPath.room(args[0], args[1])
-        NestedPath.write(SessionHandler.room, rootPath, args[2])
+        const [playerID, path, newValue] = args
+        const rootPath = NestedPath.room(playerID, path)
+
+        if (NestedPath.read(SessionHandler.room, rootPath) === newValue) return // no change
+
+        NestedPath.write(SessionHandler.room, rootPath, newValue)
         SessionHandler.socket.emit('data-update', {
-          type: args[2] === undefined ? 'delete' : 'set',
+          type: newValue === undefined ? 'delete' : 'set',
           path: rootPath,
-          content: args[2],
+          content: newValue,
           roomId: SessionHandler.joinedRoomId
         })
         break

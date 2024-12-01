@@ -261,7 +261,7 @@ const AE_MOD = {
           if (!confirm('You are currently in a session (' + session.gameId + ')! Are you sure you want to leave?')) break
           session.leave()
         }
-        session.gameId = (prompt('Enter Session ID:') || '').toLowerCase().replace(/[\s\-.#$[\]]/g, '')
+        session.gameId = (a.args || [])[0] || (prompt('Enter Session ID:') || '').toLowerCase().replace(/[\s\-.#$[\]]/g, '')
         if (session.gameId) {
           const now = Math.round(Date.now() / 1000).toString(36)
           session.userJoined = now + session.userId
