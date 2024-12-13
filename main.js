@@ -374,7 +374,7 @@ var XHR = {
     const proxyList = [
       '',
       'all',
-      'https://corsproxy.io/?',
+      'https://corsproxy.io/?url=',
       'https://api.codetabs.com/v1/proxy?quest=',
       'https://api.allorigins.win/raw?url='
     ]

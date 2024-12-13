@@ -306,5 +306,5 @@ h2 {
   font-family: 'Avenir-Book';
   font-style: normal;
   font-weight: 400;
-  src: url('https://corsproxy.io/?https://explore.gethopscotch.com/fonts/Avenir_Roman.woff2') format('woff2');
+  src: url('https://corsproxy.io/?url=https://explore.gethopscotch.com/fonts/Avenir_Roman.woff2') format('woff2');
 }
