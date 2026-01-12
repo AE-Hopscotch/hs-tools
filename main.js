@@ -370,11 +370,13 @@ var XHR = {
       .catch(() => fn(null, 521))
   },
   requestExt: async function (method, url, callback, proxy, data, headers) {
-    proxy = proxy || 0
+    proxy = proxy || 0 // default false to 0
+    const process = (res, raw = true) => raw ? res.text() : res.json().then(x => x.body)
+
     const proxyList = [
       '',
       'all',
-      'https://corsproxy.io/?url=',
+      'https://cors.io/?url=',
       'https://api.codetabs.com/v1/proxy?quest=',
       'https://api.allorigins.win/raw?url='
     ]
@@ -384,7 +386,7 @@ var XHR = {
         method,
         body: method === 'GET' ? undefined : data,
         headers
-      }).then(async x => [await x.text(), x.status])
+      }).then(async res => [await process(res, proxy !== 2), res.status])
         .then(([text, status]) => callback(text, status))
         .catch(() => callback(null, 521))
       return
@@ -397,7 +399,7 @@ var XHR = {
         method,
         body: method === 'GET' ? undefined : data,
         headers
-      }).then(async x => [await x.text(), x.status])
+      }).then(async res => [await process(res, base !== proxyList[2]), res.status])
         .catch(e => { error = e })
       if (!response || error) continue
       return callback(response[0], response[1])
