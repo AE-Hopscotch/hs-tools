@@ -246,7 +246,7 @@
 			
 			//Request Channels if 30 minute token not present
 			if (getCookie("channelUpdateTime") != String(Date.now()/1800000)) {
-				XHR.fetch("https://c.gethopscotch.com/api/v2/channels/",function(r,s){
+				XHR.requestExt('GET', "https://c.gethopscotch.com/api/v2/channels/",function(r,s){
 					if (s != 200) return document.querySelector('#loadingBear').innerHTML = dinoSvg;
 					try {
             const channels = JSON.parse(r).channels
@@ -272,7 +272,7 @@
 						console.error(SyntaxError);
 						document.querySelector('#loadingBear').innerHTML = dinoSvg;
 					}
-				}, true);
+				}, 1);
 				setCookie("channelUpdateTime", String(Date.now()/1800000));
 			}
 			
@@ -421,20 +421,20 @@
             plays = 'N/A';
             showReq("web_info");
 					} else if (/.*?nickname=[0-9]+&page=1/.test(input_url)) {
-						XHR.fetch("https://c.gethopscotch.com/api/v2/users/"+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2], function(r,s){
+						XHR.requestExt('GET', "https://c.gethopscotch.com/api/v2/users/"+result.match(/(.*?nickname=)([0-9]+)(&page=1)/)[2], function(r,s){
 							if (s != 200 || r == "{}") return showReq(false);
 							data = r;
 							showReq("user_by_id");
-						},true);
+						}, 1);
 					} else if (page == 1 && /.*?title=/.test(input_url)) {
-						XHR.fetch("https://c.gethopscotch.com/api/v1/projects/"+result.match(/(.*?title=)(.*?)(&page=1)/)[2], function(r,s) {
+						XHR.requestExt('GET', "https://c.gethopscotch.com/api/v1/projects/"+result.match(/(.*?title=)(.*?)(&page=1)/)[2], function(r,s) {
 							if (s != 200) return showReq(false);
 							let project = JSON.parse(r);
 							(["abilities","customRules","eventParameters","traits","variables","rules","scenes","remote_asset_urls","customObjects"]).forEach(attr=>delete project[attr]);
 							project.objects = [];
 							data = JSON.stringify(project);
 							showReq("project_by_id");
-						},true);
+						}, 1);
 					} else {
 						showReq(false);
 					}
