@@ -41,9 +41,11 @@ function addProgress () {
   submitDialog.querySelector('progress').value = projectsCompleted / totalProjects
 }
 async function fetchAll (list) {
-  const buildURL = url => 'https://corsproxy.io/?url=' + encodeURIComponent('https://c.gethopscotch.com/api' + url)
+  const buildURL = url => 'https://cors.io/?url=' + encodeURIComponent('https://c.gethopscotch.com/api' + url)
   const promiseList = list.map(async uuid => {
-    return fetch(buildURL(`/v2/projects/${uuid}/metadata`)).then(x => x.json())
+    return fetch(buildURL(`/v2/projects/${uuid}/metadata`))
+      .then(x => x.json())
+      .then(x => JSON.parse(x.body))
       // Catch when metadata not found
       .catch(() => new Promise(resolve => {
         // Fallback: /api/v1/projects route

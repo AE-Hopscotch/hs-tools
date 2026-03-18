@@ -175,7 +175,7 @@
 			
 			function doCORSRequest(options, printResult) {
 				var x = new XMLHttpRequest();
-				x.open(options.method, 'https://corsproxy.io/?url=' + encodeURIComponent(options.url));
+				x.open(options.method, 'https://cors.io/?url=' + encodeURIComponent(options.url));
 				x.onload = x.onerror = function() {
 					var url = new URL(window.location.href);
 					var channel = url.searchParams.get("channel");
@@ -184,7 +184,7 @@
 						printResult(
 							//options.method + ' ' + options.url + '\n' +
 							//x.status + ' ' + x.statusText + '\n\n' +
-							(x.responseText || '')
+							JSON.parse(x.responseText || '{}').body
 						);
 					}
 				};
