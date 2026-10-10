@@ -88,7 +88,7 @@
       <tr><td>Video Clip Links</td>               <td><i class="fa fa-fw fa-pulse fa-spinner src-railway"></i></tr>
       <tr><td>Filter Checker</td>                 <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
       <tr><td>Text Extractor</td>                 <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
-      <tr><td>Web Explorer</td>                   <td><i class="fa fa-fw fa-pulse fa-spinner src-allor"></i></tr>
+      <tr><td>Web Explorer</td>                   <td><i class="fa fa-fw fa-pulse fa-spinner src-corsio"></i></tr>
       <tr><td>Project Requests</td>               <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
       <tr><td>Speedrun: Pi Run</td>               <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
       <tr><td>Speedrun: Peak Platformers</td>     <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
@@ -96,16 +96,16 @@
       <tr><td>Speedrun: Shapes</td>               <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
       <tr><td>Speedrun: Spooktober Dash</td>      <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
       <tr><td>Project Builder Imports</td>        <td><i class="fa fa-fw fa-pulse fa-spinner src-aproxy"></i></tr>
-      <tr><td>Project Builder Exports</td>        <td><i class="fa fa-fw fa-pulse fa-spinner src-pdream"></i></tr>
+      <tr><td>Project Builder Exports</td>        <td><i class="fa fa-fw fa-pulse fa-spinner src-corsfix"></i></tr>
       <tr><td>Project Builder Filter Checker</td> <td><i class="fa fa-fw fa-pulse fa-spinner src-railway"></i></tr>
     </table>
     <script src="main.js"></script>
     <script>
       function checkstatus() {
-        XHR.requestExt("GET","https://enw6yiuqc2jyb5w.m.pipedream.net/status", function(r,s) {
+        XHR.requestExt("GET","https://proxy.corsfix.com/?https://example.com", function(r,s) {
           console.log("Filedrop: " + s);
           let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");
-          document.querySelectorAll(".src-pdream").forEach(elm=>{
+          document.querySelectorAll(".src-corsfix").forEach(elm=>{
             elm.setAttribute("class", classNames);
           });
         }, 0);
@@ -117,19 +117,19 @@
           });
         }, 0);
         XHR.requestExt("GET","https://www.example.com", function(r,s) {
-          console.log("CORS Proxy: " + s);
-          let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");
-          document.querySelectorAll(".src-corsprx").forEach(elm=>{
-            elm.setAttribute("class", classNames);
-          });
-        }, 2);
-        XHR.requestExt("GET","https://www.example.com", function(r,s) {
           console.log("AllOrigins: " + s);
           let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");
           document.querySelectorAll(".src-allor").forEach(elm=>{
             elm.setAttribute("class", classNames);
           });
-        }, 5);
+        }, 3);
+        XHR.requestExt("GET","https://www.example.com", function(r,s) {
+          console.log("cors.io: " + s);
+          let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");
+          document.querySelectorAll(".src-corsio").forEach(elm=>{
+            elm.setAttribute("class", classNames);
+          });
+        }, 2);
         XHR.requestExt("GET","https://www.example.com", function(r,s) {
           console.log("Any one CORS Proxy: " + s);
           let classNames = (s == 200 ? "fa fa-fw fa-check-circle" : "fa fa-fw fa-times-circle");

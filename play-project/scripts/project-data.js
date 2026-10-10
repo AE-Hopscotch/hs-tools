@@ -89,16 +89,17 @@ function downloadProjectScreenshot () {
       const xhr = new XMLHttpRequest()
       const formData = new FormData()
       formData.append('file', blob, `Screenshot ${new Date().toISOString()} ${AE_MOD.projectData.title}.png`.replace(/\s|:/g, '_'))
-      xhr.open('POST', 'https://enw6yiuqc2jyb5w.m.pipedream.net/filedrop')
+      const dlLink = (res) => JSON.parse(res).downloadLink
+      xhr.open('POST', 'https://proxy.corsfix.com/?https://tmpfile.link/api/upload')
       xhr.onload = function () {
-        console.log('Image URL: ' + xhr.responseText)
-        location.href = xhr.responseText
+        console.log('Image URL: ' + dlLink(xhr.responseText))
+        location.href = dlLink(xhr.responseText)
         setTimeout(function () {
           document.getElementById('screenshot-button').src = 'assets/screenshot-icon.png'
         }, 400)
       }
       xhr.onerror = function () {
-        console.error(xhr.responseText)
+        console.error(dlLink(xhr.responseText))
         document.getElementById('screenshot-button').src = 'assets/screenshot-icon.png'
       }
       console.log('Saving image...')

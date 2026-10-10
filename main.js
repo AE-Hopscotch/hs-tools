@@ -381,7 +381,6 @@ var XHR = {
       '',
       'all',
       'https://cors.io/?url=',
-      'https://api.codetabs.com/v1/proxy?quest=',
       'https://api.allorigins.win/raw?url='
     ]
     if (proxy !== 1) {

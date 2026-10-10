@@ -2853,7 +2853,7 @@ if (editor.useFileSysCode) {
     const xhr = new XMLHttpRequest()
     const formData = new FormData()
     formData.append('file', blob, filename)
-    xhr.open('POST', 'https://enw6yiuqc2jyb5w.m.pipedream.net/filedrop')
+    xhr.open('POST', 'https://proxy.corsfix.com/?https://tmpfile.link/api/upload')
     xhr.onload = function () { loadFn(xhr); editor.project.saveFileXHR = null }
     xhr.onerror = function () { errFn(xhr); editor.project.saveFileXHR = null }
     xhr.send(formData)
@@ -2866,14 +2866,15 @@ if (editor.useFileSysCode) {
     const jsonse = JSON.stringify(hsProject)
     const blob = new Blob([jsonse], { type: 'application/json' }); const filename = (hsProject.filename || (hsProject.uuid || uuidv4().toUpperCase()) + '.hopscotch')
     const responseFn = function (xhr) {
+      const url = JSON.parse(xhr.responseText).downloadLink
       if (onIos) {
         localStorage.setItem('hsProject', JSON.stringify(hsProject))
-        const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"' + (hsProject.filename || (hsProject.uuid || uuidv4().toUpperCase()) + '.hopscotch') + '","url":"' + encodeURIComponent(xhr.responseText) + '"}'
+        const downloadLink = 'workflow://run-workflow?name=Save%20HS%20Project&input={"name":"' + (hsProject.filename || (hsProject.uuid || uuidv4().toUpperCase()) + '.hopscotch') + '","url":"' + encodeURIComponent(url) + '"}'
         localStorage.setItem('hsProjectDownloadLink', downloadLink)
         setTimeout(function () { location.href = downloadLink }, 50)
         setTimeout(function () { location.href = '?r=1' }, 150)
       } else {
-        location.href = xhr.responseText
+        location.href = url
       }
       document.getElementById('download-btn').innerHTML = '<i class="fa fa-download"></i> Save'
     }
